@@ -4,14 +4,21 @@ import os
 from collections.abc import Iterable
 from typing import Any
 
-from edgar import Company, find_company, get_by_accession_number, set_identity
-
 from pipeline.config import PRIMARY_FILING_TYPES, RAW_DIR, SUPPLEMENTARY_FILING_TYPES
 from pipeline.models.raw import RawDocumentRegistry
 from pipeline.models.source import SeedDeal
 from pipeline.raw.discover import build_raw_discovery_manifest
 from pipeline.raw.fetch import atomic_write_json, fetch_filing_contents, freeze_raw_filing
 from pipeline.source.ranking import extract_cik_from_url, search_terms_for_form
+
+try:  # pragma: no cover - optional dependency in tests.
+    from edgar import Company, find_company, get_by_accession_number, set_identity
+except ModuleNotFoundError:  # pragma: no cover
+    Company = None
+    find_company = None
+    get_by_accession_number = None
+    set_identity = None
+
 
 DEFAULT_IDENTITY = "Austin Li austin@example.com"
 
@@ -24,18 +31,16 @@ def fetch_raw_deal(
     primary_filing_types: Iterable[str] = PRIMARY_FILING_TYPES,
     supplementary_filing_types: Iterable[str] = SUPPLEMENTARY_FILING_TYPES,
     search_fn: Any | None = None,
-    fallback_lookup_fn: Any | None = get_by_accession_number,
+    fallback_lookup_fn: Any | None = None,
     fetch_contents_fn: Any = fetch_filing_contents,
     identity: str | None = None,
     search_limit: int = 25,
 ) -> dict[str, Any]:
     raw_dir = RAW_DIR if raw_dir is None else raw_dir
+    if fallback_lookup_fn is None:
+        fallback_lookup_fn = get_by_accession_number
     if search_fn is None:
-        search_fn = build_edgar_search_fn(
-            seed,
-            identity=identity,
-            search_limit=search_limit,
-        )
+        search_fn = build_edgar_search_fn(seed, identity=identity, search_limit=search_limit)
 
     discovery = build_raw_discovery_manifest(
         seed,
@@ -48,10 +53,7 @@ def fetch_raw_deal(
     )
     raw_deal_dir = raw_dir / seed.deal_slug
     raw_deal_dir.mkdir(parents=True, exist_ok=True)
-    atomic_write_json(
-        raw_deal_dir / "discovery.json",
-        discovery.model_dump(mode="json"),
-    )
+    atomic_write_json(raw_deal_dir / "discovery.json", discovery.model_dump(mode="json"))
 
     documents = []
     seen_keys: set[str] = set()
@@ -72,15 +74,8 @@ def fetch_raw_deal(
             )
         )
 
-    registry = RawDocumentRegistry(
-        run_id=run_id,
-        deal_slug=seed.deal_slug,
-        documents=documents,
-    )
-    atomic_write_json(
-        raw_deal_dir / "document_registry.json",
-        registry.model_dump(mode="json"),
-    )
+    registry = RawDocumentRegistry(run_id=run_id, deal_slug=seed.deal_slug, documents=documents)
+    atomic_write_json(raw_deal_dir / "document_registry.json", registry.model_dump(mode="json"))
     return {
         "deal_slug": seed.deal_slug,
         "cik": discovery.cik,
@@ -88,9 +83,7 @@ def fetch_raw_deal(
         "supplementary_candidate_count": len(discovery.supplementary_candidates),
         "frozen_count": len(documents),
         "discovery_path": str((raw_deal_dir / "discovery.json").relative_to(raw_dir.parent)),
-        "document_registry_path": str(
-            (raw_deal_dir / "document_registry.json").relative_to(raw_dir.parent)
-        ),
+        "document_registry_path": str((raw_deal_dir / "document_registry.json").relative_to(raw_dir.parent)),
     }
 
 
@@ -124,7 +117,11 @@ def build_edgar_search_fn(
     return search_fn
 
 
-def _resolve_company(seed: SeedDeal, *, identity: str | None = None) -> Company:
+def _resolve_company(seed: SeedDeal, *, identity: str | None = None):
+    if Company is None or find_company is None:
+        raise ModuleNotFoundError(
+            "edgar is required for live company resolution; pass search_fn in tests or install edgartools."
+        )
     _set_identity(identity)
     cik = extract_cik_from_url(seed.primary_url_seed)
     if cik:
@@ -137,6 +134,10 @@ def _resolve_company(seed: SeedDeal, *, identity: str | None = None) -> Company:
 
 
 def _set_identity(identity: str | None = None) -> None:
+    if set_identity is None:
+        raise ModuleNotFoundError(
+            "edgar is required for live SEC access; pass search_fn in tests or install edgartools."
+        )
     selected = identity
     if selected is None:
         for env_name in ("PIPELINE_SEC_IDENTITY", "SEC_IDENTITY", "EDGAR_IDENTITY"):

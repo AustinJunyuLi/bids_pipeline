@@ -8,9 +8,20 @@ from pathlib import Path
 from typing import Any, Callable
 from urllib.request import urlopen
 
-from edgar import get_by_accession_number
-
 from pipeline.models.source import FilingCandidate, FrozenDocument
+
+try:  # pragma: no cover - optional dependency in tests.
+    from edgar import get_by_accession_number as _edgar_get_by_accession_number
+except ModuleNotFoundError:  # pragma: no cover
+    _edgar_get_by_accession_number = None
+
+
+def _default_get_filing(accession_number: str) -> Any:
+    if _edgar_get_by_accession_number is None:
+        raise ModuleNotFoundError(
+            "edgar is required for live SEC fetches; pass get_filing_fn in tests or install edgartools."
+        )
+    return _edgar_get_by_accession_number(accession_number)
 
 
 def write_immutable_text(path: Path, content: str) -> None:
@@ -21,12 +32,7 @@ def write_immutable_text(path: Path, content: str) -> None:
         return
 
     path.parent.mkdir(parents=True, exist_ok=True)
-    with tempfile.NamedTemporaryFile(
-        mode="w",
-        encoding="utf-8",
-        dir=path.parent,
-        delete=False,
-    ) as handle:
+    with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", dir=path.parent, delete=False) as handle:
         handle.write(content)
         temp_path = Path(handle.name)
     temp_path.replace(path)
@@ -34,12 +40,7 @@ def write_immutable_text(path: Path, content: str) -> None:
 
 def atomic_write_text(path: Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    with tempfile.NamedTemporaryFile(
-        mode="w",
-        encoding="utf-8",
-        dir=path.parent,
-        delete=False,
-    ) as handle:
+    with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", dir=path.parent, delete=False) as handle:
         handle.write(content)
         temp_path = Path(handle.name)
     temp_path.replace(path)
@@ -57,10 +58,10 @@ def fetch_filing_contents(
     accession_number: str,
     *,
     sec_url: str | None = None,
-    get_filing_fn: Callable[[str], Any] = get_by_accession_number,
+    get_filing_fn: Callable[[str], Any] | None = None,
     http_get_fn: Callable[[str], str] | None = None,
 ) -> tuple[str | None, str]:
-    filing = get_filing_fn(accession_number)
+    filing = (get_filing_fn or _default_get_filing)(accession_number)
     html_text = None
     txt_text = None
     if filing is not None:

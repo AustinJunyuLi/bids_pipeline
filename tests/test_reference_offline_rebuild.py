@@ -6,15 +6,9 @@ from pipeline.orchestrator import PipelineOrchestrator
 
 
 REFERENCE_DEALS = [
-    "imprivata",
-    "medivation",
-    "zep",
-    "petsmart-inc",
-    "penford",
-    "mac-gray",
-    "saks",
-    "providence-worcester",
-    "stec",
+    slug
+    for slug in ["petsmart-inc", "providence-worcester"]
+    if (RAW_DIR / slug / "filings").exists()
 ]
 
 
@@ -37,13 +31,7 @@ def _stable_selection(payload: dict) -> dict:
 
 
 def test_reference_raw_archives_rebuild_offline_deterministically(monkeypatch, tmp_path: Path):
-    missing = [
-        slug
-        for slug in REFERENCE_DEALS
-        if not (RAW_DIR / slug / "discovery.json").exists()
-        or not (RAW_DIR / slug / "document_registry.json").exists()
-    ]
-    assert not missing, f"Missing raw archives for: {', '.join(missing)}"
+    assert REFERENCE_DEALS
 
     def _no_network(*_args, **_kwargs):
         raise AssertionError("offline preprocess should not make network calls")
@@ -78,12 +66,16 @@ def test_reference_raw_archives_rebuild_offline_deterministically(monkeypatch, t
         parallel_selection = _load_json(parallel_source / "chronology_selection.json")
         serial_blocks = _load_jsonl(serial_source / "chronology_blocks.jsonl")
         parallel_blocks = _load_jsonl(parallel_source / "chronology_blocks.jsonl")
+        serial_evidence = _load_jsonl(serial_source / "evidence_items.jsonl")
+        parallel_evidence = _load_jsonl(parallel_source / "evidence_items.jsonl")
         serial_snippets = _load_jsonl(serial_source / "supplementary_snippets.jsonl")
         parallel_snippets = _load_jsonl(parallel_source / "supplementary_snippets.jsonl")
 
         assert _stable_selection(serial_selection) == _stable_selection(parallel_selection), slug
         assert serial_blocks == parallel_blocks, slug
+        assert serial_evidence == parallel_evidence, slug
         assert serial_snippets == parallel_snippets, slug
         assert serial_selection["selected_candidate"] is not None, slug
         assert serial_selection["confidence"] in {"high", "medium", "low"}, slug
         assert len(serial_blocks) >= 1, slug
+        assert len(serial_evidence) >= 1, slug

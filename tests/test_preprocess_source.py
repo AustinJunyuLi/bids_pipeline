@@ -137,10 +137,15 @@ def test_preprocess_source_consumes_raw_archive_and_writes_derived_outputs(tmp_p
         json.loads(line)
         for line in (source_dir / "supplementary_snippets.jsonl").read_text(encoding="utf-8").splitlines()
     ]
+    evidence_items = [
+        json.loads(line)
+        for line in (source_dir / "evidence_items.jsonl").read_text(encoding="utf-8").splitlines()
+    ]
 
     assert result["selected_document_id"] == "0000000000-16-000001"
     assert selection["document_id"] == "0000000000-16-000001"
     assert blocks[0]["is_heading"] is True
     assert snippets[0]["document_id"] == "0000000000-16-000002"
+    assert len(evidence_items) >= 2
     assert (source_dir / "filings" / "0000000000-16-000001.txt").exists()
     assert (source_dir / "filings" / "0000000000-16-000002.txt").exists()

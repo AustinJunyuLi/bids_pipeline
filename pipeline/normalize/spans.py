@@ -2,12 +2,8 @@ from __future__ import annotations
 
 from pipeline.models.common import QuoteMatchType
 from pipeline.models.extraction import SourceSpan
-from pipeline.models.source import ChronologyBlock
-from pipeline.normalize.quotes import (
-    find_anchor_in_segment,
-    normalize_for_matching,
-    reconstruct_quote_text,
-)
+from pipeline.models.source import ChronologyBlock, EvidenceItem
+from pipeline.normalize.quotes import find_anchor_in_segment, normalize_for_matching, reconstruct_quote_text
 
 
 def resolve_anchor_span(
@@ -22,7 +18,52 @@ def resolve_anchor_span(
     span_id: str,
 ) -> SourceSpan:
     block = next(block for block in blocks if block.block_id == block_id)
-    block_lines = raw_lines[block.start_line - 1 : block.end_line]
+    return resolve_text_span(
+        raw_lines,
+        start_line=block.start_line,
+        end_line=block.end_line,
+        block_ids=[block_id],
+        anchor_text=anchor_text,
+        document_id=document_id,
+        accession_number=accession_number,
+        filing_type=filing_type,
+        span_id=span_id,
+    )
+
+
+def resolve_evidence_item_span(
+    evidence_item: EvidenceItem,
+    raw_lines: list[str],
+    *,
+    anchor_text: str,
+    span_id: str,
+) -> SourceSpan:
+    return resolve_text_span(
+        raw_lines,
+        start_line=evidence_item.start_line,
+        end_line=evidence_item.end_line,
+        block_ids=[],
+        anchor_text=anchor_text,
+        document_id=evidence_item.document_id,
+        accession_number=evidence_item.accession_number,
+        filing_type=evidence_item.filing_type,
+        span_id=span_id,
+    )
+
+
+def resolve_text_span(
+    raw_lines: list[str],
+    *,
+    start_line: int,
+    end_line: int,
+    block_ids: list[str],
+    anchor_text: str,
+    document_id: str,
+    accession_number: str | None,
+    filing_type: str,
+    span_id: str,
+) -> SourceSpan:
+    block_lines = raw_lines[start_line - 1 : end_line]
     raw_segment = "\n".join(block_lines)
     match_type, start_idx, end_idx = find_anchor_in_segment(raw_segment, anchor_text)
 
@@ -33,36 +74,36 @@ def resolve_anchor_span(
             document_id=document_id,
             accession_number=accession_number,
             filing_type=filing_type,
-            start_line=block.start_line,
-            end_line=block.end_line,
+            start_line=start_line,
+            end_line=end_line,
             start_char=None,
             end_char=None,
-            block_ids=[block_id],
+            block_ids=block_ids,
             anchor_text=anchor_text,
             quote_text=quote_text,
             quote_text_normalized=normalize_for_matching(quote_text),
             match_type=QuoteMatchType.UNRESOLVED,
-            resolution_note=f"Anchor text was not found in block {block_id}.",
+            resolution_note=f"Anchor text was not found between lines {start_line}-{end_line}.",
         )
 
-    start_line, start_char = _segment_offset_to_line_position(block_lines, block.start_line, start_idx)
-    end_line, end_char_inclusive = _segment_offset_to_line_position(
+    resolved_start_line, start_char = _segment_offset_to_line_position(block_lines, start_line, start_idx)
+    resolved_end_line, end_char_inclusive = _segment_offset_to_line_position(
         block_lines,
-        block.start_line,
+        start_line,
         end_idx - 1,
     )
-    selected_lines = raw_lines[start_line - 1 : end_line]
+    selected_lines = raw_lines[resolved_start_line - 1 : resolved_end_line]
     quote_text = reconstruct_quote_text(selected_lines)
     return SourceSpan(
         span_id=span_id,
         document_id=document_id,
         accession_number=accession_number,
         filing_type=filing_type,
-        start_line=start_line,
-        end_line=end_line,
+        start_line=resolved_start_line,
+        end_line=resolved_end_line,
         start_char=start_char,
         end_char=end_char_inclusive + 1,
-        block_ids=[block_id],
+        block_ids=block_ids,
         anchor_text=anchor_text,
         quote_text=quote_text,
         quote_text_normalized=normalize_for_matching(quote_text),
@@ -86,4 +127,4 @@ def _segment_offset_to_line_position(
             if char_offset == running:
                 return base_line_number + offset, line_length
             running += 1
-    return base_line_number + len(block_lines) - 1, len(block_lines[-1])
+    return base_line_number + len(block_lines) - 1, len(block_lines[-1]) if block_lines else 0

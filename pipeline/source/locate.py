@@ -111,11 +111,12 @@ def select_chronology(
     )
     winner = ordered[0]
     runner_up = ordered[1] if len(ordered) > 1 else None
-    confidence = classify_chronology_confidence(winner, runner_up)
+    confidence, confidence_factors = classify_chronology_confidence(winner, runner_up)
     basis = (
         f"Selected heading on line {winner.start_line} using normalized heading matching "
         f"and narrative scoring; considered {len(ordered)} viable background-like candidate(s)."
     )
+    review_required = confidence in {"low", "none"} or confidence_factors["ambiguity_risk"] in {"medium", "high"}
     return ChronologySelection(
         schema_version=SCHEMA_VERSION,
         artifact_type="chronology_selection",
@@ -128,7 +129,8 @@ def select_chronology(
         confidence=confidence,
         adjudication_basis=basis,
         alternative_candidates=ordered[1:],
-        review_required=confidence in {"medium", "low", "none"},
+        review_required=review_required,
+        confidence_factors=confidence_factors,
     )
 
 
@@ -186,15 +188,54 @@ def collect_chronology_candidates(
 def classify_chronology_confidence(
     winner: ChronologyCandidate,
     runner_up: ChronologyCandidate | None,
-) -> str:
-    section_length = winner.end_line - winner.start_line
+) -> tuple[str, dict[str, Any]]:
+    section_length = winner.end_line - winner.start_line + 1
     score_gap = winner.score - runner_up.score if runner_up is not None else winner.score
-    if not winner.is_standalone_background and section_length >= 200 and winner.score >= 700 and score_gap >= 75:
+    ambiguity_risk = _ambiguity_risk(winner, runner_up, score_gap)
+    coverage_assessment = _coverage_assessment(section_length, winner.score, score_gap)
+
+    if ambiguity_risk == "high":
+        confidence = "low"
+    elif winner.score >= 700 and score_gap >= 100 and coverage_assessment in {"full", "adequate"}:
+        confidence = "high"
+    elif winner.score >= 450 and score_gap >= 80:
+        confidence = "medium"
+    else:
+        confidence = "low"
+
+    return confidence, {
+        "section_length": section_length,
+        "score_gap": score_gap,
+        "ambiguity_risk": ambiguity_risk,
+        "coverage_assessment": coverage_assessment,
+    }
+
+
+
+
+def _ambiguity_risk(
+    winner: ChronologyCandidate,
+    runner_up: ChronologyCandidate | None,
+    score_gap: int,
+) -> str:
+    if runner_up is None:
+        return "low"
+    same_neighborhood = abs(winner.start_line - runner_up.start_line) <= 8
+    if runner_up.score >= winner.score - 40 or (same_neighborhood and runner_up.score >= winner.score - 75):
         return "high"
-    if section_length >= 120 and winner.score >= 250:
+    if runner_up.score >= winner.score - 120:
         return "medium"
     return "low"
 
+
+def _coverage_assessment(section_length: int, winner_score: int, score_gap: int) -> str:
+    if section_length >= 180:
+        return "full"
+    if section_length >= 100:
+        return "adequate"
+    if winner_score >= 600 and score_gap >= 150:
+        return "short_but_probably_complete"
+    return "short_uncertain"
 
 def normalize_heading_candidate(line: str) -> str:
     stripped = line.strip().strip('"“”').strip()

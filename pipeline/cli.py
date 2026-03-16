@@ -1,10 +1,15 @@
+from __future__ import annotations
+
 import argparse
+import json
+import os
 from collections.abc import Sequence
 from hashlib import sha256
 from pathlib import Path
 from uuid import uuid4
 
 from pipeline.config import DEALS_DIR, RAW_DIR, STATE_DB_PATH
+from pipeline.llm import AnthropicBackend
 from pipeline.models.common import SCHEMA_VERSION
 from pipeline.orchestrator import PipelineOrchestrator
 from pipeline.seeds import entry_to_seed_artifact, load_seed_registry
@@ -137,6 +142,18 @@ def _resolve_preprocess_deals(deal_slugs: list[str]) -> list[str]:
     return sorted(path.name for path in RAW_DIR.iterdir() if path.is_dir())
 
 
+def _resolve_stage_deals(deal_slugs: list[str], *, required_relative_path: str) -> list[str]:
+    if deal_slugs:
+        return list(dict.fromkeys(deal_slugs))
+    resolved: list[str] = []
+    for path in DEALS_DIR.iterdir():
+        if not path.is_dir():
+            continue
+        if (path / required_relative_path).exists():
+            resolved.append(path.name)
+    return sorted(resolved)
+
+
 def _record_artifact(
     orchestrator: PipelineOrchestrator,
     *,
@@ -160,6 +177,44 @@ def _record_artifact(
 
 def _file_sha256(path: Path) -> str:
     return sha256(path.read_bytes()).hexdigest()
+
+
+def _record_usage_calls(
+    orchestrator: PipelineOrchestrator,
+    *,
+    run_id: str,
+    deal_slug: str,
+    usage_path: Path,
+    unit_name: str,
+) -> None:
+    if not usage_path.exists():
+        return
+    payload = json.loads(usage_path.read_text(encoding="utf-8"))
+    call_rows = payload.get("calls") or [payload]
+    for index, row in enumerate(call_rows, start=1):
+        request_id = row.get("request_id") or f"{deal_slug}-{unit_name}-{index}"
+        orchestrator.state_store.record_llm_call(
+            call_id=f"{run_id}:{deal_slug}:{unit_name}:{index}:{request_id}",
+            run_id=run_id,
+            deal_slug=deal_slug,
+            unit_name=unit_name,
+            provider="anthropic",
+            model=row.get("model") or "",
+            prompt_version=row.get("prompt_version") or "",
+            request_id=request_id,
+            input_tokens=row.get("input_tokens"),
+            cache_creation_input_tokens=row.get("cache_creation_input_tokens"),
+            cache_read_input_tokens=row.get("cache_read_input_tokens"),
+            output_tokens=row.get("output_tokens"),
+            cost_usd=row.get("cost_usd"),
+            latency_ms=row.get("latency_ms"),
+            status="success",
+        )
+
+
+def _build_backend() -> AnthropicBackend:
+    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    return AnthropicBackend(api_key=api_key)
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -232,7 +287,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             resume=args.resume,
         )
         deal_slugs = _resolve_preprocess_deals(args.deal)
-        results = orchestrator.run_preprocess_source_batch(
+        orchestrator.run_preprocess_source_batch(
             run_id=run_id,
             deal_slugs=deal_slugs,
             workers=args.workers,
@@ -249,6 +304,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             for artifact_type, relative_path in (
                 ("chronology_selection", f"data/deals/{slug}/source/chronology_selection.json"),
                 ("chronology_blocks", f"data/deals/{slug}/source/chronology_blocks.jsonl"),
+                ("evidence_items", f"data/deals/{slug}/source/evidence_items.jsonl"),
                 ("supplementary_snippets", f"data/deals/{slug}/source/supplementary_snippets.jsonl"),
             ):
                 _record_artifact(
@@ -258,10 +314,10 @@ def main(argv: Sequence[str] | None = None) -> int:
                     artifact_type=artifact_type,
                     relative_path=relative_path,
                 )
-            _ = results[slug]
         return 0
 
     if args.command == "source":
+        # The raw/preprocess subcommands perform the actual work; keep source/* as plan aliases.
         orchestrator.plan_stage_invocation(
             command_name=f"source_{args.source_command}",
             deal_slugs=args.deal,
@@ -270,43 +326,96 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 0
 
     if args.command == "extract":
-        orchestrator.plan_stage_invocation(
-            command_name=f"extract_{args.extract_command}",
-            deal_slugs=args.deal,
+        run_id = _ensure_run(
+            orchestrator,
+            run_id=args.run_id,
             mode=args.mode,
+            resume=args.resume,
         )
-        return 0
+        deal_slugs = _resolve_stage_deals(args.deal, required_relative_path="source/chronology_selection.json")
+        backend = _build_backend()
+        if args.extract_command == "actors":
+            orchestrator.run_actor_extraction_batch(run_id=run_id, deal_slugs=deal_slugs, backend=backend)
+            for slug in deal_slugs:
+                orchestrator.state_store.record_stage_attempt(run_id=run_id, deal_slug=slug, stage_name="extract_actors", status="success")
+                for artifact_type, relative_path in (
+                    ("actors_raw", f"data/deals/{slug}/extract/actors_raw.json"),
+                    ("actor_usage", f"data/deals/{slug}/extract/actor_usage.json"),
+                ):
+                    _record_artifact(orchestrator, run_id=run_id, deal_slug=slug, artifact_type=artifact_type, relative_path=relative_path)
+                _record_usage_calls(
+                    orchestrator,
+                    run_id=run_id,
+                    deal_slug=slug,
+                    usage_path=DEALS_DIR / slug / "extract" / "actor_usage.json",
+                    unit_name="actor_extraction",
+                )
+            return 0
+        if args.extract_command == "events":
+            orchestrator.run_event_extraction_batch(run_id=run_id, deal_slugs=deal_slugs, backend=backend)
+            for slug in deal_slugs:
+                orchestrator.state_store.record_stage_attempt(run_id=run_id, deal_slug=slug, stage_name="extract_events", status="success")
+                for artifact_type, relative_path in (
+                    ("events_raw", f"data/deals/{slug}/extract/events_raw.json"),
+                    ("event_chunks", f"data/deals/{slug}/extract/event_chunks.jsonl"),
+                    ("event_usage", f"data/deals/{slug}/extract/event_usage.json"),
+                    ("recovery_raw", f"data/deals/{slug}/extract/recovery_raw.json"),
+                    ("recovery_usage", f"data/deals/{slug}/extract/recovery_usage.json"),
+                ):
+                    _record_artifact(orchestrator, run_id=run_id, deal_slug=slug, artifact_type=artifact_type, relative_path=relative_path)
+                _record_usage_calls(
+                    orchestrator,
+                    run_id=run_id,
+                    deal_slug=slug,
+                    usage_path=DEALS_DIR / slug / "extract" / "event_usage.json",
+                    unit_name="event_extraction",
+                )
+            return 0
 
     if args.command == "qa":
-        orchestrator.plan_stage_invocation(
-            command_name="qa",
-            deal_slugs=args.deal,
-            mode=args.mode,
-        )
+        run_id = _ensure_run(orchestrator, run_id=args.run_id, mode=args.mode, resume=args.resume)
+        deal_slugs = _resolve_stage_deals(args.deal, required_relative_path="extract/events_raw.json")
+        orchestrator.run_qa_batch(run_id=run_id, deal_slugs=deal_slugs)
+        for slug in deal_slugs:
+            orchestrator.state_store.record_stage_attempt(run_id=run_id, deal_slug=slug, stage_name="qa", status="success")
+            for artifact_type, relative_path in (
+                ("canonical_extraction", f"data/deals/{slug}/qa/extraction_canonical.json"),
+                ("qa_report", f"data/deals/{slug}/qa/report.json"),
+                ("span_registry", f"data/deals/{slug}/qa/span_registry.jsonl"),
+            ):
+                _record_artifact(orchestrator, run_id=run_id, deal_slug=slug, artifact_type=artifact_type, relative_path=relative_path)
         return 0
 
     if args.command == "enrich":
-        orchestrator.plan_stage_invocation(
-            command_name="enrich",
-            deal_slugs=args.deal,
-            mode=args.mode,
-        )
+        run_id = _ensure_run(orchestrator, run_id=args.run_id, mode=args.mode, resume=args.resume)
+        deal_slugs = _resolve_stage_deals(args.deal, required_relative_path="qa/extraction_canonical.json")
+        orchestrator.run_enrichment_batch(run_id=run_id, deal_slugs=deal_slugs)
+        for slug in deal_slugs:
+            orchestrator.state_store.record_stage_attempt(run_id=run_id, deal_slug=slug, stage_name="enrich", status="success")
+            _record_artifact(orchestrator, run_id=run_id, deal_slug=slug, artifact_type="deal_enrichment", relative_path=f"data/deals/{slug}/enrich/deal_enrichment.json")
         return 0
 
     if args.command == "export":
-        orchestrator.plan_stage_invocation(
-            command_name="export",
-            deal_slugs=args.deal,
-            mode=args.mode,
-        )
+        run_id = _ensure_run(orchestrator, run_id=args.run_id, mode=args.mode, resume=args.resume)
+        deal_slugs = _resolve_stage_deals(args.deal, required_relative_path="enrich/deal_enrichment.json")
+        orchestrator.run_export_batch(run_id=run_id, deal_slugs=deal_slugs)
+        for slug in deal_slugs:
+            orchestrator.state_store.record_stage_attempt(run_id=run_id, deal_slug=slug, stage_name="export", status="success")
+            for artifact_type, relative_path in (
+                ("events_long_csv", f"data/deals/{slug}/export/events_long.csv"),
+                ("alex_compat_csv", f"data/deals/{slug}/export/alex_compat.csv"),
+                ("canonical_export", f"data/deals/{slug}/export/canonical_export.json"),
+                ("reference_metrics", f"data/deals/{slug}/export/reference_metrics.json"),
+            ):
+                _record_artifact(orchestrator, run_id=run_id, deal_slug=slug, artifact_type=artifact_type, relative_path=relative_path)
         return 0
 
     if args.command == "validate":
-        orchestrator.plan_stage_invocation(
-            command_name="validate_references",
-            deal_slugs=args.deal,
-            mode=args.mode,
-        )
+        run_id = _ensure_run(orchestrator, run_id=args.run_id, mode=args.mode, resume=args.resume)
+        deal_slugs = _resolve_stage_deals(args.deal, required_relative_path="export/reference_metrics.json")
+        orchestrator.run_reference_validation(run_id=run_id, deal_slugs=deal_slugs)
+        orchestrator.state_store.record_stage_attempt(run_id=run_id, deal_slug="__reference_summary__", stage_name="validate_references", status="success")
+        _record_artifact(orchestrator, run_id=run_id, deal_slug="__reference_summary__", artifact_type="reference_summary", relative_path="data/validate/reference_summary.json")
         return 0
 
     return 0

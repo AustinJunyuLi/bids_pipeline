@@ -8,6 +8,10 @@ from pipeline.source.blocks import build_chronology_blocks
 from pipeline.source.locate import select_chronology
 
 
+RAW_DIR = Path(__file__).resolve().parent.parent / "raw"
+DATA_DEALS = Path(__file__).resolve().parent.parent / "data" / "deals"
+
+
 def test_exact_quote_match_resolves_single_line_span():
     lines = [
         "BACKGROUND OF THE MERGER",
@@ -122,17 +126,10 @@ def test_unresolved_quote_path_returns_unresolved_span():
     assert span.end_line == 3
 
 
-def test_real_filing_block_generates_canonical_quote_span():
-    deals_dir = Path(__file__).resolve().parent.parent / "data" / "deals"
-    bookmark = json.loads(
-        (deals_dir / "imprivata" / "source" / "chronology.json").read_text(
-            encoding="utf-8"
-        )
-    )
+def test_real_focus_filing_block_generates_canonical_quote_span():
+    bookmark = json.loads((DATA_DEALS / "petsmart-inc" / "source" / "chronology.json").read_text(encoding="utf-8"))
     accession = bookmark["accession_number"]
-    lines = (
-        deals_dir / "imprivata" / "source" / "filings" / f"{accession}.txt"
-    ).read_text(encoding="utf-8").splitlines()
+    lines = (RAW_DIR / "petsmart-inc" / "filings" / f"{accession}.txt").read_text(encoding="utf-8").splitlines()
     selection = select_chronology(
         lines,
         document_id=accession,
@@ -143,14 +140,14 @@ def test_real_filing_block_generates_canonical_quote_span():
     target_block = next(
         block
         for block in blocks
-        if "Thoma Bravo sent an unsolicited" in block.clean_text
+        if "JANA Partners filed a Schedule 13D" in block.clean_text
     )
 
     span = resolve_anchor_span(
         blocks,
         lines,
         block_id=target_block.block_id,
-        anchor_text="Thoma Bravo sent an unsolicited",
+        anchor_text="JANA Partners filed a Schedule 13D",
         document_id=accession,
         accession_number=accession,
         filing_type="DEFM14A",
@@ -158,6 +155,6 @@ def test_real_filing_block_generates_canonical_quote_span():
     )
 
     assert span.match_type == QuoteMatchType.EXACT
-    assert span.start_line == 1187
-    assert span.end_line == 1187
-    assert "Thoma Bravo sent an unsolicited" in span.quote_text
+    assert span.start_line == 1119
+    assert span.end_line == 1119
+    assert "JANA Partners filed a Schedule 13D" in span.quote_text

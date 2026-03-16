@@ -1,9 +1,20 @@
+from __future__ import annotations
+
 from datetime import date, datetime
+from enum import StrEnum
 from typing import Any, Literal
 
 from pydantic import Field
 
 from pipeline.models.common import ArtifactEnvelope, PipelineModel
+
+
+class EvidenceType(StrEnum):
+    DATED_ACTION = "dated_action"
+    FINANCIAL_TERM = "financial_term"
+    ACTOR_IDENTIFICATION = "actor_identification"
+    PROCESS_SIGNAL = "process_signal"
+    OUTCOME_FACT = "outcome_fact"
 
 
 class SeedDeal(ArtifactEnvelope):
@@ -77,6 +88,7 @@ class ChronologySelection(ArtifactEnvelope):
     adjudication_basis: str
     alternative_candidates: list[ChronologyCandidate] = Field(default_factory=list)
     review_required: bool
+    confidence_factors: dict[str, Any] = Field(default_factory=dict)
 
 
 class ChronologyBlock(PipelineModel):
@@ -92,6 +104,23 @@ class ChronologyBlock(PipelineModel):
     page_break_after: bool = False
 
 
+class EvidenceItem(PipelineModel):
+    evidence_id: str
+    document_id: str
+    accession_number: str | None = None
+    filing_type: str
+    start_line: int
+    end_line: int
+    raw_text: str
+    evidence_type: EvidenceType
+    confidence: Literal["high", "medium", "low"]
+    matched_terms: list[str] = Field(default_factory=list)
+    date_text: str | None = None
+    actor_hint: str | None = None
+    value_hint: str | None = None
+    note: str | None = None
+
+
 class SupplementarySnippet(PipelineModel):
     snippet_id: str
     document_id: str
@@ -102,3 +131,4 @@ class SupplementarySnippet(PipelineModel):
     raw_text: str
     keyword_hits: list[str] = Field(default_factory=list)
     confidence: Literal["high", "medium", "low"]
+    evidence_id: str | None = None

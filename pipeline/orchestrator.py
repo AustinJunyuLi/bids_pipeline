@@ -10,6 +10,12 @@ from pipeline.models.common import PIPELINE_VERSION
 from pipeline.preprocess.source import preprocess_source_deal
 from pipeline.raw.stage import fetch_raw_deal
 from pipeline.state import PipelineStateStore
+from pipeline.extract.actors import run_actor_extraction
+from pipeline.extract.events import run_event_extraction
+from pipeline.qa.rules import run_qa
+from pipeline.enrich import run_enrichment
+from pipeline.export import run_export
+from pipeline.validate import run_reference_validation
 
 
 STAGE_SEQUENCE = [
@@ -150,3 +156,81 @@ class PipelineOrchestrator:
             for future in as_completed(future_map):
                 results[future_map[future]] = future.result()
         return results
+
+
+    def run_actor_extraction_batch(
+        self,
+        *,
+        run_id: str,
+        deal_slugs: list[str],
+        backend,
+        deals_dir: Path = DEALS_DIR,
+        extract_fn: Any = run_actor_extraction,
+    ) -> dict[str, Any]:
+        return {
+            slug: extract_fn(slug, run_id=run_id, backend=backend, deals_dir=deals_dir)
+            for slug in list(dict.fromkeys(deal_slugs))
+        }
+
+    def run_event_extraction_batch(
+        self,
+        *,
+        run_id: str,
+        deal_slugs: list[str],
+        backend,
+        deals_dir: Path = DEALS_DIR,
+        extract_fn: Any = run_event_extraction,
+    ) -> dict[str, Any]:
+        return {
+            slug: extract_fn(slug, run_id=run_id, backend=backend, deals_dir=deals_dir)
+            for slug in list(dict.fromkeys(deal_slugs))
+        }
+
+    def run_qa_batch(
+        self,
+        *,
+        run_id: str,
+        deal_slugs: list[str],
+        deals_dir: Path = DEALS_DIR,
+        qa_fn: Any = run_qa,
+    ) -> dict[str, Any]:
+        return {
+            slug: qa_fn(slug, run_id=run_id, deals_dir=deals_dir)
+            for slug in list(dict.fromkeys(deal_slugs))
+        }
+
+    def run_enrichment_batch(
+        self,
+        *,
+        run_id: str,
+        deal_slugs: list[str],
+        deals_dir: Path = DEALS_DIR,
+        enrich_fn: Any = run_enrichment,
+    ) -> dict[str, Any]:
+        return {
+            slug: enrich_fn(slug, run_id=run_id, deals_dir=deals_dir)
+            for slug in list(dict.fromkeys(deal_slugs))
+        }
+
+    def run_export_batch(
+        self,
+        *,
+        run_id: str,
+        deal_slugs: list[str],
+        deals_dir: Path = DEALS_DIR,
+        export_fn: Any = run_export,
+    ) -> dict[str, Any]:
+        return {
+            slug: export_fn(slug, run_id=run_id, deals_dir=deals_dir)
+            for slug in list(dict.fromkeys(deal_slugs))
+        }
+
+    def run_reference_validation(
+        self,
+        *,
+        run_id: str,
+        deal_slugs: list[str],
+        deals_dir: Path = DEALS_DIR,
+        validate_fn: Any = run_reference_validation,
+    ) -> dict[str, Any]:
+        return validate_fn(deal_slugs, run_id=run_id, deals_dir=deals_dir)

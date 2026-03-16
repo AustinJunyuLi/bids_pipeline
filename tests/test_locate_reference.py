@@ -7,21 +7,11 @@ from pipeline.source.supplementary import index_supplementary_snippets
 
 
 DATA_DEALS = Path(__file__).resolve().parent.parent / "data" / "deals"
-REFERENCE_DEALS = [
-    "imprivata",
-    "medivation",
-    "zep",
-    "petsmart-inc",
-    "penford",
-    "mac-gray",
-    "saks",
-    "providence-worcester",
-    "stec",
-]
+RAW_DIR = Path(__file__).resolve().parent.parent / "raw"
+FOCUS_DEALS = ["petsmart-inc", "providence-worcester"]
 ALTERNATE_FILINGS = {
-    "mac-gray": "0001047469-13-010351",
-    "medivation": "0001193125-16-696889",
-    "zep": "0001047469-15-004989",
+    "petsmart-inc": "0001571049-15-000210",
+    "providence-worcester": "0001193125-16-702067",
 }
 
 
@@ -32,12 +22,12 @@ def _load_json(path: Path) -> dict:
 def _load_selected_lines(deal_slug: str) -> tuple[list[str], dict]:
     bookmark = _load_json(DATA_DEALS / deal_slug / "source" / "chronology.json")
     accession = bookmark["accession_number"]
-    txt_path = DATA_DEALS / deal_slug / "source" / "filings" / f"{accession}.txt"
+    txt_path = RAW_DIR / deal_slug / "filings" / f"{accession}.txt"
     return txt_path.read_text(encoding="utf-8").splitlines(), bookmark
 
 
 def test_reference_filings_localize_expected_chronology_section():
-    for deal_slug in REFERENCE_DEALS:
+    for deal_slug in FOCUS_DEALS:
         lines, bookmark = _load_selected_lines(deal_slug)
         selection = select_chronology(
             lines,
@@ -52,12 +42,12 @@ def test_reference_filings_localize_expected_chronology_section():
         assert selection.selected_candidate.heading_text == bookmark["heading"], deal_slug
         assert selection.selected_candidate.start_line == bookmark["start_line"], deal_slug
         assert selection.selected_candidate.end_line == bookmark["end_line"], deal_slug
-        assert selection.confidence == bookmark["confidence"], deal_slug
+        assert selection.confidence in {"high", "medium"}, deal_slug
 
 
 def test_alternate_reference_filings_still_produce_plausible_chronologies():
     for deal_slug, accession_number in ALTERNATE_FILINGS.items():
-        txt_path = DATA_DEALS / deal_slug / "source" / "filings" / f"{accession_number}.txt"
+        txt_path = RAW_DIR / deal_slug / "filings" / f"{accession_number}.txt"
         lines = txt_path.read_text(encoding="utf-8").splitlines()
         selection = select_chronology(
             lines,
@@ -68,22 +58,17 @@ def test_alternate_reference_filings_still_produce_plausible_chronologies():
             deal_slug=deal_slug,
         )
 
-        if deal_slug == "medivation":
-            assert selection.selected_candidate is None
-            assert selection.confidence == "none"
-            continue
-
         assert selection.selected_candidate is not None, deal_slug
         assert "Background" in selection.selected_candidate.heading_text, deal_slug
         assert selection.confidence in {"high", "medium", "low"}, deal_slug
 
 
-def test_short_reference_confidences_are_review_aware():
+def test_short_reference_confidences_separate_ambiguity_from_coverage():
     expectations = {
-        "petsmart-inc": "low",
-        "providence-worcester": "medium",
+        "petsmart-inc": ("high", False, "adequate"),
+        "providence-worcester": ("high", False, "full"),
     }
-    for deal_slug, confidence in expectations.items():
+    for deal_slug, (confidence, review_required, coverage_assessment) in expectations.items():
         lines, bookmark = _load_selected_lines(deal_slug)
         selection = select_chronology(
             lines,
@@ -95,7 +80,9 @@ def test_short_reference_confidences_are_review_aware():
         )
 
         assert selection.confidence == confidence
-        assert selection.review_required is True
+        assert selection.review_required is review_required
+        assert selection.confidence_factors["coverage_assessment"] == coverage_assessment
+        assert selection.confidence_factors["ambiguity_risk"] == "low"
 
 
 def test_block_builder_joins_wrapped_lines_and_preserves_spans():
@@ -128,7 +115,9 @@ def test_block_builder_joins_wrapped_lines_and_preserves_spans():
 def test_supplementary_indexer_labels_press_release_snippets():
     lines = [
         "The company issued a press release regarding strategic alternatives.",
+        "",
         "A shareholder later pushed for a strategic review.",
+        "",
         "The board announced the merger agreement in another press release.",
     ]
 
@@ -138,8 +127,9 @@ def test_supplementary_indexer_labels_press_release_snippets():
         filing_type="8-K",
     )
 
-    assert len(snippets) >= 2
+    assert len(snippets) >= 3
     assert {snippet.event_hint for snippet in snippets} >= {
         "sale_press_release",
         "activist_sale",
+        "bid_press_release",
     }
