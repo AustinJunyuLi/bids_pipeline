@@ -1,0 +1,49 @@
+{
+  "deal_slug": "imprivata",
+  "target_name": "Imprivata, Inc.",
+  "cik": "0001328015",
+  "primary_accession_number": "0001193125-16-677939",
+  "filing_type": "DEFM14A",
+  "filing_url": "https://www.sec.gov/Archives/edgar/data/1328015/000119312516677939/d226798ddefm14a.htm",
+  "filing_date": "2016-08-10",
+  "winning_acquirer": "imprivata/thoma-bravo",
+  "deal_outcome": "completed",
+  "date_announced": "2016-07-13",
+  "date_effective": null,
+  "consideration_type": "all_cash",
+  "deal_notes": null,
+  "provenance": {
+    "date_announced": {
+      "mode": "direct_quote",
+      "source_refs": [
+        {
+          "source_accession_number": "0001193125-16-677939",
+          "source_line_start": 1957,
+          "source_line_end": 1959,
+          "source_text": "Later on July 13, 2016, before the stock market opened, the Company and Thoma Bravo issued a joint press release announcing the execution of the merger agreement."
+        }
+      ]
+    },
+    "winning_acquirer": {
+      "mode": "derived_from_rows",
+      "basis": "winner is the bidder linked to the executed event",
+      "supporting_event_ids": ["imp_e30"]
+    },
+    "deal_outcome": {
+      "mode": "derived_from_rows",
+      "basis": "executed event exists, no termination event after it",
+      "supporting_event_ids": ["imp_e30"]
+    },
+    "consideration_type": {
+      "mode": "direct_quote",
+      "source_refs": [
+        {
+          "source_accession_number": "0001193125-16-677939",
+          "source_line_start": 1851,
+          "source_line_end": 1854,
+          "source_text": "Thoma Bravo's bid was at a price of $19.00 per share in cash"
+        }
+      ]
+    }
+  }
+}

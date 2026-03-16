@@ -1,0 +1,144 @@
+{
+  "deal_slug": "providence-worcester",
+  "cik": "0000831968",
+  "target_name": "Providence & Worcester Railroad Co/RI/",
+  "primary_searches": [
+    {
+      "filing_type": "DEFM14A",
+      "results_count": 1,
+      "disposition": "selected",
+      "selected_accession_number": "0001193125-16-713780",
+      "reason": null
+    },
+    {
+      "filing_type": "PREM14A",
+      "results_count": 1,
+      "disposition": "searched_not_used",
+      "selected_accession_number": null,
+      "reason": "DEFM14A selected as the later definitive target-side proxy with the same merger-background section and slightly fuller final disclosure."
+    },
+    {
+      "filing_type": "SC 14D-9",
+      "results_count": 0,
+      "disposition": "not_found",
+      "selected_accession_number": null,
+      "reason": "no results for this filing type"
+    },
+    {
+      "filing_type": "SC 13E-3",
+      "results_count": 0,
+      "disposition": "not_found",
+      "selected_accession_number": null,
+      "reason": "no results for this filing type"
+    },
+    {
+      "filing_type": "S-4",
+      "results_count": 0,
+      "disposition": "not_found",
+      "selected_accession_number": null,
+      "reason": "no results for this filing type"
+    },
+    {
+      "filing_type": "SC TO-T",
+      "results_count": 0,
+      "disposition": "not_found",
+      "selected_accession_number": null,
+      "reason": "no results for this filing type"
+    }
+  ],
+  "supplementary_searches": [
+    {
+      "filing_type": "SC 13D",
+      "results_count": 19,
+      "disposition": "selected",
+      "selected_accession_number": "0000807249-16-000289",
+      "reason": "GAMCO Investors Schedule 13D/A filed before the merger announcement may provide pre-deal shareholder context."
+    },
+    {
+      "filing_type": "DEFA14A",
+      "results_count": 2,
+      "disposition": "searched_not_used",
+      "selected_accession_number": null,
+      "reason": "available DEFA14A materials largely duplicate the merger-announcement materials already captured in the selected 8-K and later proxy filings."
+    },
+    {
+      "filing_type": "8-K",
+      "results_count": 49,
+      "disposition": "selected",
+      "selected_accession_number": "0000914260-16-000124",
+      "reason": "merger announcement 8-K includes the agreement execution timing and attached merger agreement."
+    }
+  ],
+  "document_selection": {
+    "index_url": "https://www.sec.gov/Archives/edgar/data/831968/000119312516713780/",
+    "documents_listed": [
+      {
+        "filename": "d224035ddefm14a.htm",
+        "description": "DEFM14A",
+        "size": "1218389"
+      },
+      {
+        "filename": "g224035g20i44.jpg",
+        "description": "GRAPHIC",
+        "size": "23640"
+      },
+      {
+        "filename": "g224035g51m72.jpg",
+        "description": "GRAPHIC",
+        "size": "27860"
+      },
+      {
+        "filename": "g224035g70x94.jpg",
+        "description": "GRAPHIC",
+        "size": "25704"
+      },
+      {
+        "filename": "g224035g91p53.jpg",
+        "description": "GRAPHIC",
+        "size": "31993"
+      },
+      {
+        "filename": "g224035page49.jpg",
+        "description": "GRAPHIC",
+        "size": "31751"
+      },
+      {
+        "filename": "g224035page49b.jpg",
+        "description": "GRAPHIC",
+        "size": "15671"
+      },
+      {
+        "filename": "g224035page49d.jpg",
+        "description": "GRAPHIC",
+        "size": "757"
+      },
+      {
+        "filename": "g224035page50.jpg",
+        "description": "GRAPHIC",
+        "size": "850"
+      },
+      {
+        "filename": "g224035page51.jpg",
+        "description": "GRAPHIC",
+        "size": "848"
+      },
+      {
+        "filename": "g224035page53.jpg",
+        "description": "GRAPHIC",
+        "size": "31646"
+      },
+      {
+        "filename": "g224035page53a.jpg",
+        "description": "GRAPHIC",
+        "size": "14839"
+      },
+      {
+        "filename": "0001193125-16-713780.txt",
+        "description": "Complete submission text file",
+        "size": "1503744"
+      }
+    ],
+    "selected_document": "d224035ddefm14a.htm",
+    "selection_rationale": "Selected the largest HTML document matching the DEFM14A filing description. Rejected the graphic files as exhibits/images and rejected the complete submission text file because the main filing HTML is the preferred source document."
+  }
+}

@@ -1,0 +1,59 @@
+[
+  {
+    "assertion_id": "med_additional_party_contacted_1",
+    "expected": 1,
+    "explained": 1,
+    "explanations": [
+      {
+        "count_adjustment": 1,
+        "related_actor_ids": [],
+        "related_event_ids": [],
+        "type": "unnamed_aggregate"
+      }
+    ],
+    "extracted": 0,
+    "residual": 0,
+    "status": "pass"
+  },
+  {
+    "assertion_id": "med_industry_participants_contacted_1",
+    "expected": 11,
+    "explained": 6,
+    "explanations": [
+      {
+        "count_adjustment": 6,
+        "related_actor_ids": [],
+        "related_event_ids": [],
+        "type": "unnamed_aggregate"
+      }
+    ],
+    "extracted": 5,
+    "residual": 0,
+    "status": "pass"
+  },
+  {
+    "assertion_id": "med_parties_contacted_1",
+    "expected": 15,
+    "explained": 9,
+    "explanations": [
+      {
+        "count_adjustment": 9,
+        "related_actor_ids": [],
+        "related_event_ids": [],
+        "type": "unnamed_aggregate"
+      }
+    ],
+    "extracted": 6,
+    "residual": 0,
+    "status": "pass"
+  },
+  {
+    "assertion_id": "med_potential_bidders_1",
+    "expected": 5,
+    "explained": 0,
+    "explanations": [],
+    "extracted": 5,
+    "residual": 0,
+    "status": "pass"
+  }
+]

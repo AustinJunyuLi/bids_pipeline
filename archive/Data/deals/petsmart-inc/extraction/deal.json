@@ -1,0 +1,68 @@
+{
+  "deal_slug": "petsmart-inc",
+  "target_name": "PetSmart, Inc.",
+  "cik": "0000863157",
+  "primary_accession_number": "0001571049-15-000695",
+  "filing_type": "DEFM14A",
+  "filing_url": "https://www.sec.gov/Archives/edgar/data/863157/000157104915000695/t1500073-defm14a.htm",
+  "filing_date": "2015-02-02",
+  "winning_acquirer": "petsmart-inc/buyer_group",
+  "deal_outcome": "completed",
+  "date_announced": "2014-12-14",
+  "date_effective": "2015-03-11",
+  "consideration_type": "all_cash",
+  "deal_notes": "The primary chronology supports the sale-process record through execution; the supplementary 8-K supplies the March 11, 2015 completion date. The filing reports six October 30 indications of interest and five bidder groups, but only some first-round bidders are individually attributable from the allowed inputs because later chronology collapses two bidders into the grouped label Bidder 3 and leaves other bidders unnamed.",
+  "provenance": {
+    "date_announced": {
+      "mode": "direct_quote",
+      "source_refs": [
+        {
+          "source_accession_number": "0001571049-15-000695",
+          "source_line_start": 1384,
+          "source_line_end": 1384,
+          "source_text": "On December 14, 2014, the parties executed the merger agreement, the voting agreement and related transaction agreements and issued a press release announcing the transaction."
+        }
+      ]
+    },
+    "date_effective": {
+      "mode": "direct_quote",
+      "source_refs": [
+        {
+          "source_accession_number": "0001193125-15-087589",
+          "source_line_start": 70,
+          "source_line_end": 72,
+          "source_text": "On March 11, 2015, PetSmart, Inc., a Delaware corporation (the “Company”), completed its previously announced merger (the\n“Merger”) with Argos Merger Sub Inc. ( “Merger Sub”), a wholly owned subsidiary of Argos Holdings Inc. (“Parent”), pursuant to the terms of the Agreement and Plan of Merger, dated as of\nDecember 14, 2014 (the “Merger Agreement”), by and among Parent, Merger Sub and the Company."
+        }
+      ]
+    },
+    "winning_acquirer": {
+      "mode": "derived_from_rows",
+      "basis": "winner is the bidder linked to the executed event",
+      "supporting_event_ids": [
+        "pet_e41"
+      ]
+    },
+    "deal_outcome": {
+      "mode": "direct_quote",
+      "source_refs": [
+        {
+          "source_accession_number": "0001193125-15-087589",
+          "source_line_start": 70,
+          "source_line_end": 72,
+          "source_text": "On March 11, 2015, PetSmart, Inc., a Delaware corporation (the “Company”), completed its previously announced merger (the\n“Merger”) with Argos Merger Sub Inc. ( “Merger Sub”), a wholly owned subsidiary of Argos Holdings Inc. (“Parent”), pursuant to the terms of the Agreement and Plan of Merger, dated as of\nDecember 14, 2014 (the “Merger Agreement”), by and among Parent, Merger Sub and the Company."
+        }
+      ]
+    },
+    "consideration_type": {
+      "mode": "direct_quote",
+      "source_refs": [
+        {
+          "source_accession_number": "0001571049-15-000695",
+          "source_line_start": 1380,
+          "source_line_end": 1380,
+          "source_text": "Later in the evening, the Buyer Group submitted a best and final offer of  $83.00 per share, in cash."
+        }
+      ]
+    }
+  }
+}

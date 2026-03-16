@@ -1,0 +1,139 @@
+{
+  "deal_slug": "imprivata",
+  "cik": "0001328015",
+  "target_name": "Imprivata, Inc.",
+  "primary_searches": [
+    {
+      "filing_type": "DEFM14A",
+      "results_count": 1,
+      "disposition": "selected",
+      "selected_accession_number": "0001193125-16-677939",
+      "reason": null
+    },
+    {
+      "filing_type": "PREM14A",
+      "results_count": 1,
+      "disposition": "searched_not_used",
+      "selected_accession_number": null,
+      "reason": "DEFM14A selected as primary; fuller background section"
+    },
+    {
+      "filing_type": "SC 14D-9",
+      "results_count": 0,
+      "disposition": "not_found",
+      "selected_accession_number": null,
+      "reason": "no results for this filing type"
+    },
+    {
+      "filing_type": "SC 13E-3",
+      "results_count": 0,
+      "disposition": "not_found",
+      "selected_accession_number": null,
+      "reason": "no results for this filing type"
+    },
+    {
+      "filing_type": "S-4",
+      "results_count": 0,
+      "disposition": "not_found",
+      "selected_accession_number": null,
+      "reason": "no results for this filing type"
+    },
+    {
+      "filing_type": "SC TO-T",
+      "results_count": 0,
+      "disposition": "not_found",
+      "selected_accession_number": null,
+      "reason": "no results for this filing type"
+    }
+  ],
+  "supplementary_searches": [
+    {
+      "filing_type": "SC 13D",
+      "results_count": 3,
+      "disposition": "selected",
+      "selected_accession_number": "0001193125-16-655205",
+      "reason": "activist filing with pre-deal context"
+    },
+    {
+      "filing_type": "DEFA14A",
+      "results_count": 3,
+      "disposition": "searched_not_used",
+      "selected_accession_number": null,
+      "reason": "additional soliciting materials; no new chronology content"
+    },
+    {
+      "filing_type": "8-K",
+      "results_count": 10,
+      "disposition": "selected",
+      "selected_accession_number": "0001193125-16-646873",
+      "reason": "merger announcement 8-K with execution date (items 1.01, 8.01, 9.01)"
+    }
+  ],
+  "document_selection": {
+    "index_url": "https://www.sec.gov/Archives/edgar/data/1328015/000119312516677939/",
+    "documents_listed": [
+      {
+        "filename": "d226798ddefm14a.htm",
+        "description": "DEFM14A",
+        "size": "1.2MB"
+      },
+      {
+        "filename": "g226798g05w81.jpg",
+        "description": "GRAPHIC",
+        "size": "35KB"
+      },
+      {
+        "filename": "g226798g08f35.jpg",
+        "description": "GRAPHIC",
+        "size": "27KB"
+      },
+      {
+        "filename": "g226798g11y77.jpg",
+        "description": "GRAPHIC",
+        "size": "26KB"
+      },
+      {
+        "filename": "g226798g14k85.jpg",
+        "description": "GRAPHIC",
+        "size": "19KB"
+      },
+      {
+        "filename": "g226798g21j11.jpg",
+        "description": "GRAPHIC",
+        "size": "25KB"
+      },
+      {
+        "filename": "g226798g33t13.jpg",
+        "description": "GRAPHIC",
+        "size": "55KB"
+      },
+      {
+        "filename": "g226798g41e72.jpg",
+        "description": "GRAPHIC",
+        "size": "40KB"
+      },
+      {
+        "filename": "g226798g56z83.jpg",
+        "description": "GRAPHIC",
+        "size": "17KB"
+      },
+      {
+        "filename": "g226798g57f70.jpg",
+        "description": "GRAPHIC",
+        "size": "22KB"
+      },
+      {
+        "filename": "g226798g78d14.jpg",
+        "description": "GRAPHIC",
+        "size": "29KB"
+      },
+      {
+        "filename": "0001193125-16-677939.txt",
+        "description": "Complete submission text file",
+        "size": null
+      }
+    ],
+    "selected_document": "d226798ddefm14a.htm",
+    "selection_rationale": "largest .htm document matching filing type description; only substantive DEFM14A document; graphics and complete text file rejected"
+  }
+}

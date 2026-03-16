@@ -1,0 +1,119 @@
+{
+  "deal_slug": "petsmart-inc",
+  "cik": "0000863157",
+  "target_name": "PetSmart, Inc.",
+  "primary_searches": [
+    {
+      "filing_type": "DEFM14A",
+      "results_count": 1,
+      "disposition": "selected",
+      "selected_accession_number": "0001571049-15-000695",
+      "reason": null
+    },
+    {
+      "filing_type": "PREM14A",
+      "results_count": 1,
+      "disposition": "searched_not_used",
+      "selected_accession_number": null,
+      "reason": "DEFM14A selected as primary; later definitive proxy with the fuller merger narrative."
+    },
+    {
+      "filing_type": "SC 14D-9",
+      "results_count": 0,
+      "disposition": "not_found",
+      "selected_accession_number": null,
+      "reason": "no results for this filing type"
+    },
+    {
+      "filing_type": "SC 13E-3",
+      "results_count": 0,
+      "disposition": "not_found",
+      "selected_accession_number": null,
+      "reason": "no results for this filing type"
+    },
+    {
+      "filing_type": "S-4",
+      "results_count": 0,
+      "disposition": "not_found",
+      "selected_accession_number": null,
+      "reason": "no results for this filing type"
+    },
+    {
+      "filing_type": "SC TO-T",
+      "results_count": 0,
+      "disposition": "not_found",
+      "selected_accession_number": null,
+      "reason": "no results for this filing type"
+    }
+  ],
+  "supplementary_searches": [
+    {
+      "filing_type": "SC 13D",
+      "results_count": 31,
+      "disposition": "selected",
+      "selected_accession_number": "0000902664-14-003018",
+      "reason": "initial JANA Partners Schedule 13D referenced in the merger background; useful pre-deal context"
+    },
+    {
+      "filing_type": "DEFA14A",
+      "results_count": 17,
+      "disposition": "searched_not_used",
+      "selected_accession_number": null,
+      "reason": "supplemental proxy materials; the selected DEFM14A already carries the full background narrative"
+    },
+    {
+      "filing_type": "8-K",
+      "results_count": 123,
+      "disposition": "selected",
+      "selected_accession_number": "0001571049-14-007262",
+      "reason": "Item 1.01 merger-agreement 8-K dated December 14, 2014; useful for execution-date context"
+    }
+  ],
+  "document_selection": {
+    "index_url": "https://www.sec.gov/Archives/edgar/data/863157/000157104915000695/0001571049-15-000695-index.htm",
+    "documents_listed": [
+      {
+        "filename": "t1500073-defm14a.htm",
+        "description": "DEFINITIVE PROXY STATEMENT",
+        "size": "1641964"
+      },
+      {
+        "filename": "lg_jpmorgan.jpg",
+        "description": "GRAPHIC",
+        "size": "32119"
+      },
+      {
+        "filename": "lg_petsmart-hires.jpg",
+        "description": "GRAPHIC",
+        "size": "119378"
+      },
+      {
+        "filename": "sg_david-lenhardt.jpg",
+        "description": "GRAPHIC",
+        "size": "40832"
+      },
+      {
+        "filename": "sg_paulette-dodson.jpg",
+        "description": "GRAPHIC",
+        "size": "29177"
+      },
+      {
+        "filename": "t1500073_proxypg1.jpg",
+        "description": "GRAPHIC",
+        "size": "1493238"
+      },
+      {
+        "filename": "t1500073_proxypg2.jpg",
+        "description": "GRAPHIC",
+        "size": "838599"
+      },
+      {
+        "filename": "0001571049-15-000695.txt",
+        "description": "Complete submission text file",
+        "size": "5161787"
+      }
+    ],
+    "selected_document": "t1500073-defm14a.htm",
+    "selection_rationale": "Selected the substantive .htm document matching the DEFM14A filing type; graphics and the complete submission text file were rejected."
+  }
+}

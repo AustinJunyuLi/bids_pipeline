@@ -1,0 +1,50 @@
+[
+  {
+    "assertion_id": "med_industry_participants_contacted_1",
+    "assertion_text": "From late June 2016 through early July 2016, J.P. Morgan and Evercore contacted eleven industry participants, which included Pfizer and the four companies that had initially indicated interest in late March 2016. Medivation also contacted a twelfth industry participant to explore preliminary interest in a potential strategic",
+    "cycle_scope": "cycle_1",
+    "expected_count": 11,
+    "metric": "parties_contacted",
+    "source_accession_number": "0001193125-16-696911",
+    "source_line_end": 1776,
+    "source_line_start": 1775,
+    "source_text": "From late June 2016 through early July 2016, J.P. Morgan and Evercore contacted eleven industry participants, which included Pfizer and the four companies that had initially indicated interest in late March 2016. Medivation also contacted a twelfth industry participant to explore preliminary interest in a potential strategic",
+    "time_scope": "late_june_through_early_july_2016"
+  },
+  {
+    "assertion_id": "med_additional_party_contacted_1",
+    "assertion_text": "industry participants, which included Pfizer and the four companies that had initially indicated interest in late March 2016. Medivation also contacted a twelfth industry participant to explore preliminary interest in a potential strategic transaction.",
+    "cycle_scope": "cycle_1",
+    "expected_count": 1,
+    "metric": "parties_contacted_additional",
+    "source_accession_number": "0001193125-16-696911",
+    "source_line_end": 1777,
+    "source_line_start": 1776,
+    "source_text": "industry participants, which included Pfizer and the four companies that had initially indicated interest in late March 2016. Medivation also contacted a twelfth industry participant to explore preliminary interest in a potential strategic transaction.",
+    "time_scope": "late_june_through_early_july_2016"
+  },
+  {
+    "assertion_id": "med_parties_contacted_1",
+    "assertion_text": "Our Board of Directors considered that Medivation had conducted a lengthy and thorough process, directed by our Board of Directors, during which representatives of Medivation contacted 15 parties regarding interest in a potential transaction, entered into confidentiality agreements and engaged in due diligence with or provided management presentations to five potential bidders, received first round indications of interest from all of these five bidders, and ultimately negotiated with Parent as well as all of the other four bidders over several rounds of bidding.",
+    "cycle_scope": "cycle_1",
+    "expected_count": 15,
+    "metric": "parties_contacted",
+    "source_accession_number": "0001193125-16-696911",
+    "source_line_end": 1956,
+    "source_line_start": 1954,
+    "source_text": "Our Board of Directors considered that Medivation had conducted a lengthy and thorough process, directed by our Board of Directors, during which representatives of Medivation contacted 15 parties regarding interest in a potential transaction, entered into confidentiality agreements and engaged in due diligence with or provided management presentations to five potential bidders, received first round indications of interest from all of these five bidders, and ultimately negotiated with Parent as well as all of the other four bidders over several rounds of bidding.",
+    "time_scope": "through_august_20_2016"
+  },
+  {
+    "assertion_id": "med_potential_bidders_1",
+    "assertion_text": "Our Board of Directors considered that Medivation had conducted a lengthy and thorough process, directed by our Board of Directors, during which representatives of Medivation contacted 15 parties regarding interest in a potential transaction, entered into confidentiality agreements and engaged in due diligence with or provided management presentations to five potential bidders, received first round indications of interest from all of these five bidders, and",
+    "cycle_scope": "cycle_1",
+    "expected_count": 5,
+    "metric": "potential_bidders",
+    "source_accession_number": "0001193125-16-696911",
+    "source_line_end": 1955,
+    "source_line_start": 1954,
+    "source_text": "Our Board of Directors considered that Medivation had conducted a lengthy and thorough process, directed by our Board of Directors, during which representatives of Medivation contacted 15 parties regarding interest in a potential transaction, entered into confidentiality agreements and engaged in due diligence with or provided management presentations to five potential bidders, received first round indications of interest from all of these five bidders, and",
+    "time_scope": "through_august_20_2016"
+  }
+]

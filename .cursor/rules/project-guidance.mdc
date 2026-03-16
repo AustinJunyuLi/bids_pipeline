@@ -1,0 +1,26 @@
+---
+description: Core guidance for the bids pipeline project
+alwaysApply: true
+---
+
+# Bids Pipeline Guidance
+
+- Treat `deal-extraction-skills/` as the reference workflow and artifact
+  contract.
+- Project-local Cursor skill wrappers live in `.cursor/skills/`; read the
+  canonical vendored skill under `deal-extraction-skills/skills/` when using
+  one of those wrappers.
+- Treat `pipeline/` as the Python implementation attempt, not a proven
+  end-to-end system.
+- Use filing text as the only factual source of truth.
+- Keep every extracted fact traceable to `source_accession_number` and verbatim
+  `source_text`.
+- Keep facts separate from judgments: proposals are raw events first, then
+  classification and boundary logic later.
+- Never rewrite frozen filing `.txt` snapshots downstream.
+- Prefer deterministic Python logic for policy rules and audits.
+- Preserve range-bid information and typed provenance fields.
+- Do not use Alex's notes or spreadsheets as factual evidence for a deal.
+- Remember the main current gaps: no concrete `Provider`, incomplete
+  supplementary filing support, and incomplete `actors_extended.jsonl`
+  integration.

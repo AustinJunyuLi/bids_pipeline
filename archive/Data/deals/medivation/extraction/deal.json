@@ -1,0 +1,53 @@
+{
+  "cik": "1011835",
+  "consideration_type": "all_cash",
+  "date_announced": "2016-08-22",
+  "date_effective": null,
+  "deal_notes": null,
+  "deal_outcome": "completed",
+  "deal_slug": "medivation",
+  "filing_date": "2016-08-30",
+  "filing_type": "SC 14D-9",
+  "filing_url": "https://www.sec.gov/Archives/edgar/data/1011835/000119312516696911/d234696dsc14d9.htm",
+  "primary_accession_number": "0001193125-16-696911",
+  "provenance": {
+    "consideration_type": {
+      "mode": "direct_quote",
+      "source_refs": [
+        {
+          "source_accession_number": "0001193125-16-696911",
+          "source_line_end": 1904,
+          "source_line_start": 1903,
+          "source_text": "and subject to various assumptions made, procedures followed, matters considered and limitations and qualifications on the review undertaken described in each financial advisor’s written opinion, the consideration to be paid to the holders of Medivation common stock in the proposed Offer and the Merger, consisting of $81.50 per share in cash, was fair, from a financial point of view, to such holders. Representatives of Wachtell Lipton then reviewed the principal terms of the merger"
+        }
+      ]
+    },
+    "date_announced": {
+      "mode": "direct_quote",
+      "source_refs": [
+        {
+          "source_accession_number": "0001193125-16-696911",
+          "source_line_end": 1914,
+          "source_line_start": 1914,
+          "source_text": "executed the merger agreement and Medivation executed the Rights Amendment. On August 22, 2016, the parties issued a joint press release announcing the transaction."
+        }
+      ]
+    },
+    "deal_outcome": {
+      "basis": "executed event exists, no termination event after it",
+      "mode": "derived_from_rows",
+      "supporting_event_ids": [
+        "med_e44"
+      ]
+    },
+    "winning_acquirer": {
+      "basis": "winner is the bidder linked to the executed event",
+      "mode": "derived_from_rows",
+      "supporting_event_ids": [
+        "med_e44"
+      ]
+    }
+  },
+  "target_name": "Medivation, Inc.",
+  "winning_acquirer": "medivation/pfizer"
+}

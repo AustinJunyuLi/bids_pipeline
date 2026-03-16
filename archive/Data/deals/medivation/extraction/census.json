@@ -1,0 +1,272 @@
+{
+  "count_assertions": [
+    {
+      "assertion_id": "med_industry_participants_contacted_1",
+      "assertion_text": "From late June 2016 through early July 2016, J.P. Morgan and Evercore contacted eleven industry participants, which included Pfizer and the four companies that had initially indicated interest in late March 2016. Medivation also contacted a twelfth industry participant to explore preliminary interest in a potential strategic",
+      "cycle_scope": "cycle_1",
+      "expected_count": 11,
+      "metric": "parties_contacted",
+      "source_accession_number": "0001193125-16-696911",
+      "source_line_end": 1776,
+      "source_line_start": 1775,
+      "source_text": "From late June 2016 through early July 2016, J.P. Morgan and Evercore contacted eleven industry participants, which included Pfizer and the four companies that had initially indicated interest in late March 2016. Medivation also contacted a twelfth industry participant to explore preliminary interest in a potential strategic",
+      "time_scope": "late_june_through_early_july_2016"
+    },
+    {
+      "assertion_id": "med_additional_party_contacted_1",
+      "assertion_text": "industry participants, which included Pfizer and the four companies that had initially indicated interest in late March 2016. Medivation also contacted a twelfth industry participant to explore preliminary interest in a potential strategic transaction.",
+      "cycle_scope": "cycle_1",
+      "expected_count": 1,
+      "metric": "parties_contacted_additional",
+      "source_accession_number": "0001193125-16-696911",
+      "source_line_end": 1777,
+      "source_line_start": 1776,
+      "source_text": "industry participants, which included Pfizer and the four companies that had initially indicated interest in late March 2016. Medivation also contacted a twelfth industry participant to explore preliminary interest in a potential strategic transaction.",
+      "time_scope": "late_june_through_early_july_2016"
+    },
+    {
+      "assertion_id": "med_parties_contacted_1",
+      "assertion_text": "Our Board of Directors considered that Medivation had conducted a lengthy and thorough process, directed by our Board of Directors, during which representatives of Medivation contacted 15 parties regarding interest in a potential transaction, entered into confidentiality agreements and engaged in due diligence with or provided management presentations to five potential bidders, received first round indications of interest from all of these five bidders, and ultimately negotiated with Parent as well as all of the other four bidders over several rounds of bidding.",
+      "cycle_scope": "cycle_1",
+      "expected_count": 15,
+      "metric": "parties_contacted",
+      "source_accession_number": "0001193125-16-696911",
+      "source_line_end": 1956,
+      "source_line_start": 1954,
+      "source_text": "Our Board of Directors considered that Medivation had conducted a lengthy and thorough process, directed by our Board of Directors, during which representatives of Medivation contacted 15 parties regarding interest in a potential transaction, entered into confidentiality agreements and engaged in due diligence with or provided management presentations to five potential bidders, received first round indications of interest from all of these five bidders, and ultimately negotiated with Parent as well as all of the other four bidders over several rounds of bidding.",
+      "time_scope": "through_august_20_2016"
+    },
+    {
+      "assertion_id": "med_potential_bidders_1",
+      "assertion_text": "Our Board of Directors considered that Medivation had conducted a lengthy and thorough process, directed by our Board of Directors, during which representatives of Medivation contacted 15 parties regarding interest in a potential transaction, entered into confidentiality agreements and engaged in due diligence with or provided management presentations to five potential bidders, received first round indications of interest from all of these five bidders, and",
+      "cycle_scope": "cycle_1",
+      "expected_count": 5,
+      "metric": "potential_bidders",
+      "source_accession_number": "0001193125-16-696911",
+      "source_line_end": 1955,
+      "source_line_start": 1954,
+      "source_text": "Our Board of Directors considered that Medivation had conducted a lengthy and thorough process, directed by our Board of Directors, during which representatives of Medivation contacted 15 parties regarding interest in a potential transaction, entered into confidentiality agreements and engaged in due diligence with or provided management presentations to five potential bidders, received first round indications of interest from all of these five bidders, and",
+      "time_scope": "through_august_20_2016"
+    }
+  ],
+  "party_roster": [
+    {
+      "actor_alias": "Company 1",
+      "actor_id": "medivation/company_1",
+      "actor_type": "bidder",
+      "bidder_subtype": "strategic",
+      "first_evidence_accession_number": "0001193125-16-696911",
+      "first_evidence_line_end": 1812,
+      "first_evidence_line_start": 1810,
+      "first_evidence_text": "For reference, other than Pfizer, the industry participants with which Medivation entered into confidentiality agreements as described above are hereinafter referred to as “Company 1,” “Company 2,” “Company 3,” and “Company 4.” Together, Pfizer, Company 1, Company 2, Company 3 and Company 4 are referred to as the “Interested Parties.”",
+      "lifecycle_status": "bid",
+      "source": "actors.jsonl"
+    },
+    {
+      "actor_alias": "Company 2",
+      "actor_id": "medivation/company_2",
+      "actor_type": "bidder",
+      "bidder_subtype": "strategic",
+      "first_evidence_accession_number": "0001193125-16-696911",
+      "first_evidence_line_end": 1812,
+      "first_evidence_line_start": 1810,
+      "first_evidence_text": "For reference, other than Pfizer, the industry participants with which Medivation entered into confidentiality agreements as described above are hereinafter referred to as “Company 1,” “Company 2,” “Company 3,” and “Company 4.” Together, Pfizer, Company 1, Company 2, Company 3 and Company 4 are referred to as the “Interested Parties.”",
+      "lifecycle_status": "bid",
+      "source": "actors.jsonl"
+    },
+    {
+      "actor_alias": "Company 3",
+      "actor_id": "medivation/company_3",
+      "actor_type": "bidder",
+      "bidder_subtype": "strategic",
+      "first_evidence_accession_number": "0001193125-16-696911",
+      "first_evidence_line_end": 1812,
+      "first_evidence_line_start": 1810,
+      "first_evidence_text": "For reference, other than Pfizer, the industry participants with which Medivation entered into confidentiality agreements as described above are hereinafter referred to as “Company 1,” “Company 2,” “Company 3,” and “Company 4.” Together, Pfizer, Company 1, Company 2, Company 3 and Company 4 are referred to as the “Interested Parties.”",
+      "lifecycle_status": "dropped",
+      "source": "actors.jsonl"
+    },
+    {
+      "actor_alias": "Company 4",
+      "actor_id": "medivation/company_4",
+      "actor_type": "bidder",
+      "bidder_subtype": "strategic",
+      "first_evidence_accession_number": "0001193125-16-696911",
+      "first_evidence_line_end": 1812,
+      "first_evidence_line_start": 1810,
+      "first_evidence_text": "For reference, other than Pfizer, the industry participants with which Medivation entered into confidentiality agreements as described above are hereinafter referred to as “Company 1,” “Company 2,” “Company 3,” and “Company 4.” Together, Pfizer, Company 1, Company 2, Company 3 and Company 4 are referred to as the “Interested Parties.”",
+      "lifecycle_status": "dropped",
+      "source": "actors.jsonl"
+    },
+    {
+      "actor_alias": "Cooley LLP",
+      "actor_id": "medivation/cooley",
+      "actor_type": "advisor",
+      "bidder_subtype": null,
+      "first_evidence_accession_number": "0001193125-16-696911",
+      "first_evidence_line_end": 1645,
+      "first_evidence_line_start": 1644,
+      "first_evidence_text": "On March 24, 2016, the Medivation board of directors held a special meeting attended by management of Medivation and representatives of Cooley LLP (“Cooley”), Medivation’s legal advisor, and J.P. Morgan Securities LLC (“J.P. Morgan”), retained as independent financial advisor to Medivation in connection with routine advanced preparedness for defense and",
+      "lifecycle_status": "advisor",
+      "source": "actors.jsonl"
+    },
+    {
+      "actor_alias": "Evercore Group L.L.C.",
+      "actor_id": "medivation/evercore",
+      "actor_type": "advisor",
+      "bidder_subtype": null,
+      "first_evidence_accession_number": "0001193125-16-696911",
+      "first_evidence_line_end": 1680,
+      "first_evidence_line_start": 1678,
+      "first_evidence_text": "board of directors held a regular meeting at which, among other topics, the Medivation board of directors continued to discuss and evaluate Sanofi’s $52.50 proposal with its legal advisors and determined to engage Evercore Group L.L.C. (“Evercore”) as an additional independent financial advisor to Medivation, based on Evercore’s historical work with key constituents in Medivation’s industry and Evercore’s reputation as a financial advisor to companies in unsolicited strategic transaction scenarios. At this meeting, the Medivation board of directors also scheduled special meetings of the Medivation board of directors to be held on April 27, 2016 and April 28, 2016 to further review and",
+      "lifecycle_status": "advisor",
+      "source": "actors.jsonl"
+    },
+    {
+      "actor_alias": "J.P. Morgan Securities LLC",
+      "actor_id": "medivation/jp-morgan",
+      "actor_type": "advisor",
+      "bidder_subtype": null,
+      "first_evidence_accession_number": "0001193125-16-696911",
+      "first_evidence_line_end": 1646,
+      "first_evidence_line_start": 1645,
+      "first_evidence_text": "Cooley LLP (“Cooley”), Medivation’s legal advisor, and J.P. Morgan Securities LLC (“J.P. Morgan”), retained as independent financial advisor to Medivation in connection with routine advanced preparedness for defense and general strategic advice and based on J.P. Morgan’s long history with the Company and expertise in Medivation’s general industry (see Item 5. “Person/Assets Retained, Employed Compensated or Used” below). At this meeting,",
+      "lifecycle_status": "advisor",
+      "source": "actors.jsonl"
+    },
+    {
+      "actor_alias": "Medivation board of directors",
+      "actor_id": "medivation/board",
+      "actor_type": "target_board",
+      "bidder_subtype": null,
+      "first_evidence_accession_number": "0001193125-16-696911",
+      "first_evidence_line_end": 1647,
+      "first_evidence_line_start": 1644,
+      "first_evidence_text": "On March 24, 2016, the Medivation board of directors held a special meeting attended by management of Medivation and representatives of Cooley LLP (“Cooley”), Medivation’s legal advisor, and J.P. Morgan Securities LLC (“J.P. Morgan”), retained as independent financial advisor to Medivation in connection with routine advanced preparedness for defense and general strategic advice and based on J.P. Morgan’s long history with the Company and expertise in Medivation’s general industry (see Item 5. “Person/Assets Retained, Employed Compensated or Used” below). At this meeting, the Medivation board of directors discussed Dr. Brandicourt’s request for a call and meeting. At the conclusion of the meeting, the Medivation board of directors directed Dr. Hung to proceed with an initial call and report any",
+      "lifecycle_status": "advisor",
+      "source": "actors.jsonl"
+    },
+    {
+      "actor_alias": "Pfizer",
+      "actor_id": "medivation/pfizer",
+      "actor_type": "bidder",
+      "bidder_subtype": "strategic",
+      "first_evidence_accession_number": "0001193125-16-696911",
+      "first_evidence_line_end": 1676,
+      "first_evidence_line_start": 1675,
+      "first_evidence_text": "On April 20, 2016, Douglas Giordano, Senior Vice President, Worldwide Business Development at Pfizer contacted Dr. Hung to indicate an interest in participating in any strategic discussions Medivation might initiate.",
+      "lifecycle_status": "winner",
+      "source": "actors.jsonl"
+    },
+    {
+      "actor_alias": "Richards, Layton & Finger, P.A.",
+      "actor_id": "medivation/richards-layton-finger",
+      "actor_type": "advisor",
+      "bidder_subtype": null,
+      "first_evidence_accession_number": "0001193125-16-696911",
+      "first_evidence_line_end": 1693,
+      "first_evidence_line_start": 1692,
+      "first_evidence_text": "directors’ determination. Later that same day, the Medivation board of directors held a special meeting attended by management of Medivation and representatives of Cooley, Wachtell Lipton and Richards, Layton & Finger, P.A., Medivation’s Delaware counsel, at which it approved amendments to the Medivation Bylaws in order to (i) put in place certain procedural requirements in connection with any stockholder action by written consent (including the appointment by",
+      "lifecycle_status": "advisor",
+      "source": "actors.jsonl"
+    },
+    {
+      "actor_alias": "Sanofi",
+      "actor_id": "medivation/sanofi",
+      "actor_type": "bidder",
+      "bidder_subtype": "strategic",
+      "first_evidence_accession_number": "0001193125-16-696911",
+      "first_evidence_line_end": 1642,
+      "first_evidence_line_start": 1641,
+      "first_evidence_text": "On March 22, 2016, Olivier Brandicourt, Chief Executive Officer of Sanofi, contacted David Hung, M.D., President and Chief Executive Officer of Medivation, on an unsolicited basis, and requested a telephone discussion.",
+      "lifecycle_status": "dropped",
+      "source": "actors.jsonl"
+    },
+    {
+      "actor_alias": "Wachtell, Lipton, Rosen & Katz",
+      "actor_id": "medivation/wachtell-lipton",
+      "actor_type": "advisor",
+      "bidder_subtype": null,
+      "first_evidence_accession_number": "0001193125-16-696911",
+      "first_evidence_line_end": 1689,
+      "first_evidence_line_start": 1688,
+      "first_evidence_text": "Sanofi’s $52.50 proposal with input from management of Medivation and representatives of Evercore, J.P. Morgan, Cooley and Wachtell, Lipton, Rosen & Katz (“Wachtell Lipton”), which Medivation had retained as an additional legal advisor. Following those discussions, the Medivation board of directors unanimously rejected Sanofi’s $52.50 proposal, concluding that Sanofi’s $52.50 proposal substantially undervalued Medivation, and was not in the best interests",
+      "lifecycle_status": "advisor",
+      "source": "actors.jsonl"
+    }
+  ],
+  "self_check": {
+    "lifecycle_audit": {
+      "closed_actors": 7,
+      "total_actors": 7,
+      "unresolved_actors": []
+    },
+    "reconciliations": [
+      {
+        "assertion_id": "med_additional_party_contacted_1",
+        "expected": 1,
+        "explained": 1,
+        "explanations": [
+          {
+            "count_adjustment": 1,
+            "related_actor_ids": [],
+            "related_event_ids": [],
+            "type": "unnamed_aggregate"
+          }
+        ],
+        "extracted": 0,
+        "residual": 0,
+        "status": "pass"
+      },
+      {
+        "assertion_id": "med_industry_participants_contacted_1",
+        "expected": 11,
+        "explained": 6,
+        "explanations": [
+          {
+            "count_adjustment": 6,
+            "related_actor_ids": [],
+            "related_event_ids": [],
+            "type": "unnamed_aggregate"
+          }
+        ],
+        "extracted": 5,
+        "residual": 0,
+        "status": "pass"
+      },
+      {
+        "assertion_id": "med_parties_contacted_1",
+        "expected": 15,
+        "explained": 9,
+        "explanations": [
+          {
+            "count_adjustment": 9,
+            "related_actor_ids": [],
+            "related_event_ids": [],
+            "type": "unnamed_aggregate"
+          }
+        ],
+        "extracted": 6,
+        "residual": 0,
+        "status": "pass"
+      },
+      {
+        "assertion_id": "med_potential_bidders_1",
+        "expected": 5,
+        "explained": 0,
+        "explanations": [],
+        "extracted": 5,
+        "residual": 0,
+        "status": "pass"
+      }
+    ],
+    "structural_audit": {
+      "failures": [],
+      "lifecycle_consistency": "pass",
+      "nda_coverage": "pass",
+      "process_initiation": "pass",
+      "proposal_completeness": "pass",
+      "round_pairs": "pass"
+    }
+  }
+}
