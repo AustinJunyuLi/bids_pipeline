@@ -3,6 +3,7 @@ import os
 import re
 import tempfile
 from collections.abc import Iterable
+from dataclasses import dataclass
 from datetime import date, datetime
 from pathlib import Path
 from typing import Any
@@ -14,12 +15,17 @@ from pipeline.config import PRIMARY_FILING_TYPES, PRIMARY_PREFERENCE, SUPPLEMENT
 from pipeline.schemas import ChronologyBookmark, FilingManifest, FilingRecord
 
 
-CHRONOLOGY_HEADING_RE = re.compile(
-    r"\bbackground\s+of\s+(?:the\s+)?"
-    r"(?:merger|offer|transaction|proposed\s+merger|proposed\s+transaction|acquisition|tender\s+offer)\b"
-    r"|\bbackground\s+and\s+reasons\s+for\s+(?:the\s+)?merger\b",
+BACKGROUND_HEADING_RE = re.compile(
+    r"^(?:background\s+of\s+(?:the\s+)?"
+    r"(?:offer(?:\s+and\s+(?:the\s+)?)?merger|"
+    r"merger(?:\s+and\s+(?:the\s+)?)?offer|"
+    r"merger|offer|transaction|proposed\s+merger|"
+    r"proposed\s+transaction|acquisition|tender\s+offer)"
+    r"(?:\s*;\s*[^.]{1,120})?|"
+    r"background\s+and\s+reasons\s+for\s+(?:the\s+)?merger)\.?\s*$",
     re.IGNORECASE,
 )
+STANDALONE_BACKGROUND_RE = re.compile(r"^background\.?\s*$", re.IGNORECASE)
 DATE_RE = re.compile(
     r"(?i)\b(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|"
     r"jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|"
@@ -37,13 +43,39 @@ END_HEADING_RE = re.compile(
     r"conditions\s+to)"
 )
 DOT_LEADER_RE = re.compile(r"\.{2,}\s*\d+\s*$")
+CROSS_REFERENCE_RE = re.compile(
+    r"(?i)\b(?:see|as\s+disclosed\s+under|as\s+described\s+in|incorporated\s+herein\s+by\s+reference)\b"
+)
+ROMAN_HEADING_PREFIX_RE = re.compile(r"^\(?[ivxlcdm]+\)?\s+", re.IGNORECASE)
+HEADING_STYLE_RE = re.compile(r"^[A-Z0-9 ,.'()\-/&]+$")
 SEC_IDENTITY = os.environ.get(
     "EDGAR_IDENTITY", "austinli@research.edu deal-extraction-tool/1.0"
 )
+FORM_SEARCH_ALIASES: dict[str, tuple[str, ...]] = {
+    "SC 14D-9": ("SC 14D-9", "SC 14D9"),
+    "SC 13E-3": ("SC 13E-3", "SC 13E3"),
+}
+FORM_CANONICAL_NAMES: dict[str, str] = {
+    "SC 14D9": "SC 14D-9",
+    "SC14D9": "SC 14D-9",
+    "SC 13E3": "SC 13E-3",
+    "SC13E3": "SC 13E-3",
+}
 
 
 class SourceError(RuntimeError):
     """Raised when Stage 1 cannot locate a usable primary filing."""
+
+
+@dataclass
+class _ChronologyEvaluation:
+    heading: str
+    start_idx: int
+    end_idx: int
+    confidence: str
+    selection_basis: str
+    score: int
+    is_standalone_background: bool
 
 
 def run(seed: dict, deal_dir: Path) -> ChronologyBookmark:
@@ -75,16 +107,17 @@ def run(seed: dict, deal_dir: Path) -> ChronologyBookmark:
     selected_record.txt_path = str(txt_path.relative_to(deal_dir))
 
     lines = txt_path.read_text(encoding="utf-8").splitlines()
-    chronology = locate_chronology(lines)
+    chronology = _evaluate_chronology_lines(lines)
     if chronology is None:
         raise SourceError("no chronology section found in primary filing")
 
-    start_idx, end_idx, heading = chronology
     bookmark = ChronologyBookmark(
         accession_number=selected_filing.accession_number,
-        heading=heading,
-        start_line=start_idx + 1,
-        end_line=end_idx + 1,
+        heading=chronology.heading,
+        start_line=chronology.start_idx + 1,
+        end_line=chronology.end_idx + 1,
+        confidence=chronology.confidence,
+        selection_basis=chronology.selection_basis,
     )
     write_manifest(
         deal_dir,
@@ -120,7 +153,7 @@ def search_filings(
             continue
         records.append(
             FilingRecord(
-                filing_type=filing.form,
+                filing_type=_canonical_form_name(str(filing.form)),
                 accession_number=filing.accession_number,
                 filing_date=filing.filing_date.isoformat() if filing.filing_date else None,
                 url=_primary_document_url(filing),
@@ -181,23 +214,68 @@ def download_and_freeze(filing_record: FilingRecord, deal_dir: Path) -> tuple[Pa
 def locate_chronology(lines: list[str]) -> tuple[int, int, str] | None:
     """Find Background of the Merger section. Returns (start_line, end_line, heading)."""
 
-    candidates: list[tuple[int, int, int, str]] = []
+    chronology = _evaluate_chronology_lines(lines)
+    if chronology is None:
+        return None
+    return chronology.start_idx, chronology.end_idx, chronology.heading
+
+
+def _evaluate_chronology_lines(lines: list[str]) -> _ChronologyEvaluation | None:
+    candidates: list[tuple[int, int, int, str, bool]] = []
     for idx, line in enumerate(lines):
         heading = line.strip()
-        if not heading or not CHRONOLOGY_HEADING_RE.search(heading):
+        normalized_heading = _normalize_heading_candidate(heading)
+        if not heading:
             continue
-        score = _score_heading_context(lines, idx)
+        is_background_heading = bool(BACKGROUND_HEADING_RE.match(normalized_heading))
+        is_standalone_background = bool(STANDALONE_BACKGROUND_RE.match(normalized_heading))
+        if not is_background_heading and not is_standalone_background:
+            continue
+        if not _looks_like_heading(heading):
+            continue
+        score = _score_heading_context(
+            lines,
+            idx,
+            normalized_heading=normalized_heading,
+            is_standalone_background=is_standalone_background,
+        )
         if score <= 0:
             continue
         end_idx = _find_section_end(lines, idx + 1)
         score += _score_chronology_candidate(lines, idx, end_idx)
-        candidates.append((score, idx, end_idx, heading))
+        candidates.append((score, idx, end_idx, heading, is_standalone_background))
 
     if not candidates:
         return None
 
-    _score, start_idx, end_idx, heading = max(candidates, key=lambda item: (item[0], -item[1]))
-    return start_idx, end_idx, heading
+    score, start_idx, end_idx, heading, is_standalone_background = max(
+        candidates,
+        key=lambda item: (
+            item[0],
+            1 if not item[4] else 0,
+            item[2] - item[1],
+            -item[1],
+        ),
+    )
+    confidence = _classify_chronology_confidence(
+        score=score,
+        start_idx=start_idx,
+        end_idx=end_idx,
+        is_standalone_background=is_standalone_background,
+    )
+    selection_basis = (
+        f"Selected heading on line {start_idx + 1} using normalized standalone heading matching "
+        f"and narrative scoring; considered {len(candidates)} viable background-like candidate(s)."
+    )
+    return _ChronologyEvaluation(
+        heading=heading,
+        start_idx=start_idx,
+        end_idx=end_idx,
+        confidence=confidence,
+        selection_basis=selection_basis,
+        score=score,
+        is_standalone_background=is_standalone_background,
+    )
 
 
 def write_manifest(deal_dir: Path, manifest: FilingManifest) -> None:
@@ -240,13 +318,20 @@ def _resolve_cik(seed: dict) -> str | None:
 
 
 def _lookup_filings(target_name: str, filing_type: str, cik: str | int | None) -> list[Any]:
-    if cik is not None:
-        company = Company(int(cik))
-        entity_filings = company.get_filings(form=filing_type, amendments=False)
-        return [entity_filings[i] for i in range(len(entity_filings))]
-
-    results = edgar_search_filings(query=target_name, forms=[filing_type], limit=20)
-    return [get_by_accession_number(results[i].accession_number) for i in range(len(results))]
+    filings_by_accession: dict[str, Any] = {}
+    for search_term in _search_terms_for_form(filing_type):
+        if cik is not None:
+            company = Company(int(cik))
+            entity_filings = company.get_filings(form=search_term, amendments=False)
+            filings = [entity_filings[i] for i in range(len(entity_filings))]
+        else:
+            results = edgar_search_filings(query=target_name, forms=[search_term], limit=20)
+            filings = [get_by_accession_number(results[i].accession_number) for i in range(len(results))]
+        for filing in filings:
+            accession_number = getattr(filing, "accession_number", None)
+            if accession_number and accession_number not in filings_by_accession:
+                filings_by_accession[accession_number] = filing
+    return list(filings_by_accession.values())
 
 
 def _choose_best_filing(filings: Iterable[Any], date_announced: str | None) -> Any | None:
@@ -299,6 +384,29 @@ def _atomic_write_text(path: Path, content: str) -> None:
     temp_path.replace(path)
 
 
+def _search_terms_for_form(filing_type: str) -> tuple[str, ...]:
+    return FORM_SEARCH_ALIASES.get(filing_type, (filing_type,))
+
+
+def _canonical_form_name(filing_type: str) -> str:
+    normalized = re.sub(r"\s+", " ", filing_type.strip().upper())
+    return FORM_CANONICAL_NAMES.get(normalized, normalized)
+
+
+def _classify_chronology_confidence(
+    score: int,
+    start_idx: int,
+    end_idx: int,
+    is_standalone_background: bool,
+) -> str:
+    section_length = end_idx - start_idx
+    if not is_standalone_background and section_length >= 200 and score >= 700:
+        return "high"
+    if section_length >= 120 and score >= 250:
+        return "medium"
+    return "low"
+
+
 def _parse_iso_date(value: str | None) -> date | None:
     if not value:
         return None
@@ -308,26 +416,65 @@ def _parse_iso_date(value: str | None) -> date | None:
         return None
 
 
-def _score_heading_context(lines: list[str], start_idx: int) -> int:
+def _normalize_heading_candidate(line: str) -> str:
+    stripped = line.strip().strip('"“”').strip()
+    stripped = ROMAN_HEADING_PREFIX_RE.sub("", stripped)
+    stripped = re.sub(r"\s+", " ", stripped)
+    return stripped.strip()
+
+
+def _score_heading_context(
+    lines: list[str],
+    start_idx: int,
+    normalized_heading: str,
+    is_standalone_background: bool,
+) -> int:
     heading = lines[start_idx].strip()
     if DOT_LEADER_RE.search(heading):
         return -1
 
-    lookahead = lines[start_idx + 1 : start_idx + 41]
+    total_lines = len(lines)
+    lookahead = lines[start_idx + 1 : start_idx + 121]
     non_blank = [line.strip() for line in lookahead if line.strip()]
-    if len(non_blank) < 4:
+    min_non_blank = min(10, max(4, total_lines // 20))
+    if len(non_blank) < min_non_blank:
         return -1
 
-    date_hits = sum(1 for line in non_blank[:20] if DATE_RE.search(line))
-    party_hits = sum(1 for line in non_blank[:20] if PARTY_RE.search(line))
-    paragraph_breaks = sum(1 for line in lookahead[:20] if not line.strip())
+    date_hits = sum(1 for line in lookahead if DATE_RE.search(line))
+    party_hits = sum(1 for line in lookahead if PARTY_RE.search(line))
+    paragraph_breaks = sum(1 for line in lookahead if not line.strip())
+    toc_like_followers = sum(
+        1 for line in lookahead[:12] if DOT_LEADER_RE.search(line.strip()) or _looks_like_heading(line)
+    )
+    section_end_idx = _find_section_end(lines, start_idx + 1)
+    section_length = max(0, section_end_idx - start_idx)
+    min_section_length = min(60, max(6, total_lines // 15))
 
-    if date_hits == 0 or party_hits == 0:
+    if section_length < min_section_length:
         return -1
-    if paragraph_breaks == 0 and len(non_blank) < 8:
+    if is_standalone_background and (date_hits < 2 or party_hits < 2):
+        return -1
+    if not is_standalone_background and date_hits == 0 and party_hits < 2:
+        return -1
+    if start_idx <= int(total_lines * 0.05) and toc_like_followers >= 4 and date_hits == 0:
         return -1
 
-    return date_hits * 20 + party_hits * 10 + len(non_blank)
+    score = min(section_length, 1600)
+    score += date_hits * 40
+    score += party_hits * 20
+    score += paragraph_breaks * 5
+    if not is_standalone_background:
+        score += 100
+    if start_idx <= int(total_lines * 0.10):
+        score -= 150
+    if CROSS_REFERENCE_RE.search(heading):
+        score -= 300
+    previous_line = lines[start_idx - 1] if start_idx > 0 else ""
+    if CROSS_REFERENCE_RE.search(previous_line):
+        score -= 250
+    if normalized_heading.endswith(";"):
+        score -= 200
+    return score
 
 
 def _find_section_end(lines: list[str], start_idx: int) -> int:
@@ -341,10 +488,32 @@ def _find_section_end(lines: list[str], start_idx: int) -> int:
 
 
 def _looks_like_heading(line: str) -> bool:
-    if len(line) > 120 or line.endswith("."):
+    stripped = line.strip()
+    if not stripped:
         return False
-    alpha_only = re.sub(r"[^A-Za-z]+", "", line)
-    return bool(alpha_only) and (line == line.upper() or line.istitle())
+    normalized = _normalize_heading_candidate(stripped)
+    if len(normalized) > 140 or stripped.endswith((",", ";")):
+        return False
+    if DATE_RE.search(normalized):
+        return False
+    words = normalized.split()
+    if len(words) > 16:
+        return False
+    if HEADING_STYLE_RE.match(normalized):
+        return True
+
+    alpha_words = [re.sub(r"[^A-Za-z]+", "", word) for word in words]
+    alpha_words = [word for word in alpha_words if word]
+    if not alpha_words:
+        return False
+
+    title_like = 0
+    for word in alpha_words:
+        if word.lower() in {"of", "the", "and", "or", "for", "to"}:
+            title_like += 1
+        elif word[0].isupper():
+            title_like += 1
+    return title_like / len(alpha_words) >= 0.75
 
 
 def _score_chronology_candidate(lines: list[str], start_idx: int, end_idx: int) -> int:

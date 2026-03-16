@@ -3,6 +3,7 @@ import pytest
 from pipeline.schemas import (
     Actor,
     ActorExtraction,
+    ChronologyBookmark,
     Event,
     EventEvidence,
     EventExtraction,
@@ -111,3 +112,15 @@ def test_extraction_containers_validate():
     )
     assert len(actor_extraction.actors) == 1
     assert len(event_extraction.events) == 1
+
+
+def test_chronology_bookmark_supports_audit_metadata():
+    bookmark = ChronologyBookmark(
+        accession_number="0001193125-16-677939",
+        heading="Background of the Merger",
+        start_line=1148,
+        end_line=2376,
+        confidence="high",
+        selection_basis="Selected the standalone heading over TOC and cross-reference matches.",
+    )
+    assert bookmark.confidence == "high"

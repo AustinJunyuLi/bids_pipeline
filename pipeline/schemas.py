@@ -115,6 +115,8 @@ class ChronologyBookmark(BaseModel):
     heading: str
     start_line: int
     end_line: int
+    confidence: str | None = None
+    selection_basis: str | None = None
 
 
 class FilingRecord(BaseModel):
