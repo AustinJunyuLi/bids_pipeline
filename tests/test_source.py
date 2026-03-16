@@ -1,4 +1,9 @@
-from pipeline.source import _atomic_write_text, _search_terms_for_form, locate_chronology
+from pipeline.source import (
+    _atomic_write_text,
+    _canonical_form_name,
+    _search_terms_for_form,
+    locate_chronology,
+)
 
 
 FAKE_FILING = """
@@ -109,3 +114,12 @@ def test_locate_chronology_rejects_sentence_level_reference():
 
 def test_search_terms_include_sc_14d9_alias():
     assert _search_terms_for_form("SC 14D-9") == ("SC 14D-9", "SC 14D9")
+
+
+def test_search_terms_include_sc_13e3_alias():
+    assert _search_terms_for_form("SC 13E-3") == ("SC 13E-3", "SC 13E3")
+
+
+def test_canonical_form_name_normalizes_aliases():
+    assert _canonical_form_name("SC 14D9") == "SC 14D-9"
+    assert _canonical_form_name("sc 13e3") == "SC 13E-3"

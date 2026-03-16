@@ -264,7 +264,7 @@ def _evaluate_chronology_lines(lines: list[str]) -> _ChronologyEvaluation | None
         is_standalone_background=is_standalone_background,
     )
     selection_basis = (
-        f"Selected heading on line {start_idx + 1} using normalized standalone heading matching "
+        f"Selected heading on line {start_idx + 1} using normalized heading matching "
         f"and narrative scoring; considered {len(candidates)} viable background-like candidate(s)."
     )
     return _ChronologyEvaluation(
@@ -399,6 +399,8 @@ def _classify_chronology_confidence(
     end_idx: int,
     is_standalone_background: bool,
 ) -> str:
+    """Map section strength into an audit label for chronology review."""
+
     section_length = end_idx - start_idx
     if not is_standalone_background and section_length >= 200 and score >= 700:
         return "high"

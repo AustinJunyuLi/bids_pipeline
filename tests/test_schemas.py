@@ -124,3 +124,7 @@ def test_chronology_bookmark_supports_audit_metadata():
         selection_basis="Selected the standalone heading over TOC and cross-reference matches.",
     )
     assert bookmark.confidence == "high"
+    assert (
+        bookmark.selection_basis
+        == "Selected the standalone heading over TOC and cross-reference matches."
+    )
