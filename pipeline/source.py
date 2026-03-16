@@ -1,6 +1,7 @@
 import json
 import os
 import re
+import tempfile
 from collections.abc import Iterable
 from datetime import date, datetime
 from pathlib import Path
@@ -123,7 +124,7 @@ def search_filings(
                 accession_number=filing.accession_number,
                 filing_date=filing.filing_date.isoformat() if filing.filing_date else None,
                 url=_primary_document_url(filing),
-                disposition="searched_not_used",
+                disposition="found",
             )
         )
     return records
@@ -172,8 +173,8 @@ def download_and_freeze(filing_record: FilingRecord, deal_dir: Path) -> tuple[Pa
     filings_dir = deal_dir / "source" / "filings"
     html_path = filings_dir / f"{filing_record.accession_number}.html"
     txt_path = filings_dir / f"{filing_record.accession_number}.txt"
-    html_path.write_text(html_text, encoding="utf-8")
-    txt_path.write_text(txt_text, encoding="utf-8")
+    _atomic_write_text(html_path, html_text)
+    _atomic_write_text(txt_path, txt_text)
     return html_path, txt_path
 
 
@@ -224,6 +225,13 @@ def _resolve_cik(seed: dict) -> str | None:
     cik = _extract_cik_from_url(primary_url)
     if cik:
         return cik
+
+    # Older/delisted issuers do not consistently resolve by name in edgartools,
+    # so try the Company path first and then fall back to filing search.
+    try:
+        return str(Company(seed["target_name"]).cik)
+    except Exception:
+        pass
 
     results = edgar_search_filings(query=seed["target_name"], limit=5)
     if len(results):
@@ -277,6 +285,18 @@ def _extract_cik_from_url(url: str) -> str | None:
 def _extract_accession_from_url(url: str) -> str | None:
     match = re.search(r"(\d{10}-\d{2}-\d{6})", url)
     return match.group(1) if match else None
+
+
+def _atomic_write_text(path: Path, content: str) -> None:
+    with tempfile.NamedTemporaryFile(
+        mode="w",
+        encoding="utf-8",
+        dir=path.parent,
+        delete=False,
+    ) as handle:
+        handle.write(content)
+        temp_path = Path(handle.name)
+    temp_path.replace(path)
 
 
 def _parse_iso_date(value: str | None) -> date | None:

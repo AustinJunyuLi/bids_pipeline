@@ -1,4 +1,4 @@
-from pipeline.source import locate_chronology
+from pipeline.source import _atomic_write_text, locate_chronology
 
 
 FAKE_FILING = """
@@ -37,3 +37,12 @@ def test_locate_chronology_rejects_toc():
     start, end, _heading = locate_chronology(lines)
     section = "\n".join(lines[start : end + 1])
     assert "January 15, 2015" in section
+
+
+def test_atomic_write_text_replaces_existing_contents(tmp_path):
+    output_path = tmp_path / "snapshot.txt"
+    output_path.write_text("old", encoding="utf-8")
+
+    _atomic_write_text(output_path, "new")
+
+    assert output_path.read_text(encoding="utf-8") == "new"
