@@ -1,0 +1,16 @@
+# Office and LibreOffice lockfiles
+.~lock.*#
+~$*
+
+# Python caches and bytecode
+__pycache__/
+*.py[cod]
+
+# Common local temp/editor files
+*.swp
+*.swo
+*.tmp
+.DS_Store
+
+# Local git worktrees
+.worktrees/
