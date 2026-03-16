@@ -4,9 +4,13 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = PROJECT_ROOT / "data"
 DEALS_DIR = DATA_DIR / "deals"
+RAW_DIR = PROJECT_ROOT / "raw"
+EXAMPLE_DIR = PROJECT_ROOT / "example"
 SEEDS_PATH = DATA_DIR / "seeds.csv"
 STATUS_PATH = DATA_DIR / "status.json"
 OUTPUT_DIR = DATA_DIR / "output"
+RUNS_DIR = DATA_DIR / "runs"
+STATE_DB_PATH = RUNS_DIR / "pipeline_state.sqlite"
 
 ANTHROPIC_MODEL = "claude-sonnet-4-20250514"
 

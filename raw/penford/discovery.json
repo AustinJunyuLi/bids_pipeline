@@ -1,0 +1,218 @@
+{
+  "schema_version": "2.0.0",
+  "artifact_type": "raw_discovery_manifest",
+  "created_at": "2026-03-16T20:06:54.599252Z",
+  "pipeline_version": "0.1.0",
+  "run_id": "run-20260316-200629-raw9",
+  "deal_slug": "penford",
+  "seed": {
+    "schema_version": "2.0.0",
+    "artifact_type": "seed_deal",
+    "created_at": "2026-03-16T20:06:29.960895Z",
+    "pipeline_version": "0.1.0",
+    "run_id": "run-20260316-200629-raw9",
+    "deal_slug": "penford",
+    "target_name": "PENFORD CORP",
+    "acquirer_seed": "INGREDION INC",
+    "date_announced_seed": "2014-10-15",
+    "primary_url_seed": "https://www.sec.gov/Archives/edgar/data/739608/0001193125-14-455030-index.htm",
+    "is_reference": true,
+    "seed_row_refs": [
+      "csv:299"
+    ],
+    "notes": []
+  },
+  "cik": "739608",
+  "primary_candidates": [
+    {
+      "document_id": "0001193125-14-455030",
+      "accession_number": "0001193125-14-455030",
+      "filing_type": "DEFM14A",
+      "filing_date": "2014-12-29",
+      "sec_url": "https://www.sec.gov/Archives/edgar/data/739608/0001193125-14-455030-index.html",
+      "source_origin": "edgartools_search",
+      "ranking_features": {
+        "seed_accession_match": true,
+        "days_from_announcement": 75,
+        "within_window": true,
+        "form_preference": 0,
+        "filing_family": "primary"
+      },
+      "selected_for_localization": false,
+      "rejected_reason": null
+    },
+    {
+      "document_id": "0001193125-14-441374",
+      "accession_number": "0001193125-14-441374",
+      "filing_type": "PREM14A",
+      "filing_date": "2014-12-12",
+      "sec_url": "https://www.sec.gov/Archives/edgar/data/739608/0001193125-14-441374-index.html",
+      "source_origin": "edgartools_search",
+      "ranking_features": {
+        "seed_accession_match": false,
+        "days_from_announcement": 58,
+        "within_window": true,
+        "form_preference": 1,
+        "filing_family": "primary"
+      },
+      "selected_for_localization": false,
+      "rejected_reason": null
+    }
+  ],
+  "supplementary_candidates": [
+    {
+      "document_id": "0001193125-14-372732",
+      "accession_number": "0001193125-14-372732",
+      "filing_type": "DEFA14A",
+      "filing_date": "2014-10-15",
+      "sec_url": "https://www.sec.gov/Archives/edgar/data/739608/0001193125-14-372732-index.html",
+      "source_origin": "edgartools_search",
+      "ranking_features": {
+        "seed_accession_match": false,
+        "days_from_announcement": 0,
+        "within_window": true,
+        "form_preference": 0,
+        "filing_family": "supplementary"
+      },
+      "selected_for_localization": false,
+      "rejected_reason": null
+    },
+    {
+      "document_id": "0001193125-14-372752",
+      "accession_number": "0001193125-14-372752",
+      "filing_type": "DEFA14A",
+      "filing_date": "2014-10-15",
+      "sec_url": "https://www.sec.gov/Archives/edgar/data/739608/0001193125-14-372752-index.html",
+      "source_origin": "edgartools_search",
+      "ranking_features": {
+        "seed_accession_match": false,
+        "days_from_announcement": 0,
+        "within_window": true,
+        "form_preference": 0,
+        "filing_family": "supplementary"
+      },
+      "selected_for_localization": false,
+      "rejected_reason": null
+    },
+    {
+      "document_id": "0001193125-14-372754",
+      "accession_number": "0001193125-14-372754",
+      "filing_type": "DEFA14A",
+      "filing_date": "2014-10-15",
+      "sec_url": "https://www.sec.gov/Archives/edgar/data/739608/0001193125-14-372754-index.html",
+      "source_origin": "edgartools_search",
+      "ranking_features": {
+        "seed_accession_match": false,
+        "days_from_announcement": 0,
+        "within_window": true,
+        "form_preference": 0,
+        "filing_family": "supplementary"
+      },
+      "selected_for_localization": false,
+      "rejected_reason": null
+    },
+    {
+      "document_id": "0001193125-14-372730",
+      "accession_number": "0001193125-14-372730",
+      "filing_type": "8-K",
+      "filing_date": "2014-10-15",
+      "sec_url": "https://www.sec.gov/Archives/edgar/data/739608/0001193125-14-372730-index.html",
+      "source_origin": "edgartools_search",
+      "ranking_features": {
+        "seed_accession_match": false,
+        "days_from_announcement": 0,
+        "within_window": true,
+        "form_preference": 1,
+        "filing_family": "supplementary"
+      },
+      "selected_for_localization": false,
+      "rejected_reason": null
+    },
+    {
+      "document_id": "0001193125-14-412410",
+      "accession_number": "0001193125-14-412410",
+      "filing_type": "8-K",
+      "filing_date": "2014-11-14",
+      "sec_url": "https://www.sec.gov/Archives/edgar/data/739608/0001193125-14-412410-index.html",
+      "source_origin": "edgartools_search",
+      "ranking_features": {
+        "seed_accession_match": false,
+        "days_from_announcement": 30,
+        "within_window": true,
+        "form_preference": 1,
+        "filing_family": "supplementary"
+      },
+      "selected_for_localization": false,
+      "rejected_reason": null
+    },
+    {
+      "document_id": "0001193125-14-293775",
+      "accession_number": "0001193125-14-293775",
+      "filing_type": "8-K",
+      "filing_date": "2014-08-04",
+      "sec_url": "https://www.sec.gov/Archives/edgar/data/739608/0001193125-14-293775-index.html",
+      "source_origin": "edgartools_search",
+      "ranking_features": {
+        "seed_accession_match": false,
+        "days_from_announcement": 72,
+        "within_window": true,
+        "form_preference": 1,
+        "filing_family": "supplementary"
+      },
+      "selected_for_localization": false,
+      "rejected_reason": null
+    },
+    {
+      "document_id": "0000807249-15-000008",
+      "accession_number": "0000807249-15-000008",
+      "filing_type": "SC 13D",
+      "filing_date": "2015-01-22",
+      "sec_url": "https://www.sec.gov/Archives/edgar/data/739608/0000807249-15-000008-index.html",
+      "source_origin": "edgartools_search",
+      "ranking_features": {
+        "seed_accession_match": false,
+        "days_from_announcement": 99,
+        "within_window": true,
+        "form_preference": 2,
+        "filing_family": "supplementary"
+      },
+      "selected_for_localization": false,
+      "rejected_reason": null
+    },
+    {
+      "document_id": "0000859598-14-000148",
+      "accession_number": "0000859598-14-000148",
+      "filing_type": "SC 13D/A",
+      "filing_date": "2014-10-16",
+      "sec_url": "https://www.sec.gov/Archives/edgar/data/739608/0000859598-14-000148-index.html",
+      "source_origin": "edgartools_search",
+      "ranking_features": {
+        "seed_accession_match": false,
+        "days_from_announcement": 1,
+        "within_window": true,
+        "form_preference": 3,
+        "filing_family": "supplementary"
+      },
+      "selected_for_localization": false,
+      "rejected_reason": null
+    },
+    {
+      "document_id": "0001567619-14-000415",
+      "accession_number": "0001567619-14-000415",
+      "filing_type": "SC 13D/A",
+      "filing_date": "2014-08-20",
+      "sec_url": "https://www.sec.gov/Archives/edgar/data/739608/0001567619-14-000415-index.html",
+      "source_origin": "edgartools_search",
+      "ranking_features": {
+        "seed_accession_match": false,
+        "days_from_announcement": 56,
+        "within_window": true,
+        "form_preference": 3,
+        "filing_family": "supplementary"
+      },
+      "selected_for_localization": false,
+      "rejected_reason": null
+    }
+  ],
+  "fetch_scope": "all_candidates"
+}
