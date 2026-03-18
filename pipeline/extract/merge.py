@@ -56,8 +56,8 @@ def _event_key(event: RawEventRecord) -> tuple[Any, ...]:
     evidence_key = tuple(
         sorted(
             (
-                ref.block_id,
-                ref.evidence_id,
+                ref.block_id or "",
+                ref.evidence_id or "",
                 " ".join(ref.anchor_text.lower().split()),
             )
             for ref in event.evidence_refs

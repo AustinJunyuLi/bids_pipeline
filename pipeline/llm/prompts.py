@@ -9,6 +9,7 @@ from typing import Any
 from pydantic import BaseModel
 
 from pipeline.config import PROJECT_ROOT
+from pipeline.llm.json_utils import schema_outline
 from pipeline.models.source import ChronologyBlock, EvidenceItem
 
 
@@ -171,14 +172,41 @@ class PromptPack:
         )
 
     @staticmethod
-    def render_repair_user_message(original_json: str, validation_errors: list[str]) -> str:
+    def render_structured_system_prompt(
+        system_prompt: str,
+        output_schema: type[BaseModel],
+    ) -> str:
         return (
-            "<original_json>\n"
-            f"{original_json}\n"
-            "</original_json>\n\n"
+            f"{system_prompt}\n\n"
+            "<json_output_contract>\n"
+            "Return exactly one JSON object that matches the schema outline below.\n"
+            "Do not wrap the JSON in markdown fences.\n"
+            "Do not add prose before or after the JSON.\n"
+            "If a fact is not supported by the provided filing text or evidence appendix, omit it rather than guessing.\n"
+            "Use null only where the schema allows it.\n"
+            "Schema outline:\n"
+            f"{schema_outline(output_schema)}\n"
+            "</json_output_contract>"
+        )
+
+    @staticmethod
+    def render_repair_user_message(
+        *,
+        original_text: str,
+        extracted_json: str,
+        validation_errors: list[str],
+    ) -> str:
+        return (
+            "<original_response>\n"
+            f"{original_text}\n"
+            "</original_response>\n\n"
+            "<extracted_json_candidate>\n"
+            f"{extracted_json}\n"
+            "</extracted_json_candidate>\n\n"
             "<validation_errors>\n"
             f"{_serialize_for_prompt(validation_errors)}\n"
-            "</validation_errors>"
+            "</validation_errors>\n\n"
+            "Return corrected JSON only."
         )
 
     @staticmethod

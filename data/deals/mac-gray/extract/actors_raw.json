@@ -1,0 +1,623 @@
+{
+  "actors": [
+    {
+      "actor_id": "actor_1",
+      "display_name": "Mac-Gray Board of Directors",
+      "canonical_name": "MAC GRAY CORP Board of Directors",
+      "aliases": [],
+      "role": "target_board",
+      "advisor_kind": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B003",
+          "evidence_id": null,
+          "anchor_text": "The Mac-Gray Board of Directors"
+        },
+        {
+          "block_id": "B040",
+          "evidence_id": null,
+          "anchor_text": "submitted an unsolicited proposal to the Mac-Gray Board of Directors"
+        }
+      ],
+      "notes": [
+        "Target board overseeing strategic alternatives process."
+      ]
+    },
+    {
+      "actor_id": "actor_2",
+      "display_name": "Transaction Committee",
+      "canonical_name": "MAC GRAY CORP Transaction Committee",
+      "aliases": [],
+      "role": "target_board",
+      "advisor_kind": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B017",
+          "evidence_id": null,
+          "anchor_text": "formed a transaction committee"
+        },
+        {
+          "block_id": "B017",
+          "evidence_id": null,
+          "anchor_text": "we refer to as the Transaction Committee"
+        }
+      ],
+      "notes": [
+        "Sub-committee formed to administer strategic alternatives review."
+      ]
+    },
+    {
+      "actor_id": "actor_3",
+      "display_name": "Special Committee",
+      "canonical_name": "MAC GRAY CORP Special Committee",
+      "aliases": [],
+      "role": "target_board",
+      "advisor_kind": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B042",
+          "evidence_id": null,
+          "anchor_text": "established the Special Committee"
+        },
+        {
+          "block_id": "B042",
+          "evidence_id": null,
+          "anchor_text": "comprised of the six independent"
+        }
+      ],
+      "notes": [
+        "Independent and disinterested committee delegated authority over sale process."
+      ]
+    },
+    {
+      "actor_id": "actor_4",
+      "display_name": "BofA Merrill Lynch",
+      "canonical_name": "Merrill Lynch, Pierce, Fenner & Smith Incorporated",
+      "aliases": [
+        "BofA Merrill Lynch"
+      ],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B005",
+          "evidence_id": null,
+          "anchor_text": "Mac-Gray engaged BofA Merrill Lynch"
+        },
+        {
+          "block_id": "B036",
+          "evidence_id": null,
+          "anchor_text": "entered into an engagement letter with BofA Merrill Lynch"
+        },
+        {
+          "block_id": null,
+          "evidence_id": "0001047469-13-010973:E0102",
+          "anchor_text": "Merrill Lynch, Pierce, Fenner & Smith Incorporated"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "actor_5",
+      "display_name": "Goodwin Procter LLP",
+      "canonical_name": "Goodwin Procter LLP",
+      "aliases": [],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B011",
+          "evidence_id": null,
+          "anchor_text": "Goodwin Procter LLP, outside legal counsel to Mac-Gray"
+        },
+        {
+          "block_id": "B140",
+          "evidence_id": null,
+          "anchor_text": "Goodwin Procter delivered to Kirkland & Ellis LLP"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "actor_6",
+      "display_name": "Kirkland & Ellis LLP",
+      "canonical_name": "Kirkland & Ellis LLP",
+      "aliases": [
+        "Kirkland"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B140",
+          "evidence_id": null,
+          "anchor_text": "Kirkland & Ellis LLP, outside legal counsel to CSC/Pamplona"
+        },
+        {
+          "block_id": "B140",
+          "evidence_id": null,
+          "anchor_text": "whom we refer to as Kirkland"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "actor_7",
+      "display_name": "Moab Partners, L.P. and certain affiliates",
+      "canonical_name": "Moab Partners, L.P. and certain affiliates",
+      "aliases": [
+        "Moab"
+      ],
+      "role": "activist",
+      "advisor_kind": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B034",
+          "evidence_id": null,
+          "anchor_text": "Moab Partners, L. P. and certain of its affiliates"
+        },
+        {
+          "block_id": "B034",
+          "evidence_id": null,
+          "anchor_text": "which we refer collectively to as Moab"
+        },
+        {
+          "block_id": "B034",
+          "evidence_id": null,
+          "anchor_text": "engaged in a proxy contest"
+        }
+      ],
+      "notes": [
+        "Stockholder activist whose nominees joined the board; potential equity rollover participant discussed during the sale process."
+      ]
+    },
+    {
+      "actor_id": "actor_8",
+      "display_name": "Party A",
+      "canonical_name": "Party A",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "bidder_kind": "strategic",
+      "listing_status": "unknown",
+      "geography": "unknown",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B007",
+          "evidence_id": null,
+          "anchor_text": "whom we refer to as Party A"
+        },
+        {
+          "block_id": "B051",
+          "evidence_id": null,
+          "anchor_text": "15 of which were potential strategic buyers"
+        },
+        {
+          "block_id": "B083",
+          "evidence_id": null,
+          "anchor_text": "Party A entered into a confidentiality and standstill agreement"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "actor_9",
+      "display_name": "CSC/Pamplona",
+      "canonical_name": "CSC ServiceWorks, Inc. / Pamplona",
+      "aliases": [
+        "CSC/Pamplona"
+      ],
+      "role": "bidder",
+      "advisor_kind": null,
+      "bidder_kind": "strategic",
+      "listing_status": "unknown",
+      "geography": "unknown",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B051",
+          "evidence_id": null,
+          "anchor_text": "including CSC and Pamplona, who together we refer to as CSC/Pamplona"
+        },
+        {
+          "block_id": "B053",
+          "evidence_id": null,
+          "anchor_text": "including two strategic bidders (Party A and CSC/Pamplona)"
+        },
+        {
+          "block_id": "B067",
+          "evidence_id": null,
+          "anchor_text": "CSC/Pamplona entered into a confidentiality and standstill agreement"
+        }
+      ],
+      "notes": [
+        "Bid submitted jointly by CSC and Pamplona through the process."
+      ]
+    },
+    {
+      "actor_id": "actor_10",
+      "display_name": "CSC",
+      "canonical_name": "CSC ServiceWorks, Inc.",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "bidder_kind": "strategic",
+      "listing_status": "unknown",
+      "geography": "unknown",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B005",
+          "evidence_id": null,
+          "anchor_text": "between Mac-Gray and CSC"
+        },
+        {
+          "block_id": "B055",
+          "evidence_id": null,
+          "anchor_text": "an acquisition of Mac-Gray by its portfolio company, CSC"
+        },
+        {
+          "block_id": "B138",
+          "evidence_id": null,
+          "anchor_text": "CSC, Pamplona and Mac-Gray executed the exclusivity agreement"
+        }
+      ],
+      "notes": [
+        "Participated with Pamplona in joint bid referred to as CSC/Pamplona."
+      ]
+    },
+    {
+      "actor_id": "actor_11",
+      "display_name": "Pamplona",
+      "canonical_name": "Pamplona",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "bidder_kind": "financial",
+      "listing_status": "unknown",
+      "geography": "unknown",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B005",
+          "evidence_id": null,
+          "anchor_text": "CSC was purchased by Pamplona"
+        },
+        {
+          "block_id": "B055",
+          "evidence_id": null,
+          "anchor_text": "spoken with representatives of Pamplona"
+        },
+        {
+          "block_id": "B055",
+          "evidence_id": null,
+          "anchor_text": "expressed interest in a transaction"
+        }
+      ],
+      "notes": [
+        "Participated with CSC in joint bid referred to as CSC/Pamplona."
+      ]
+    },
+    {
+      "actor_id": "actor_12",
+      "display_name": "Party B",
+      "canonical_name": "Party B",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "bidder_kind": "financial",
+      "listing_status": "unknown",
+      "geography": "unknown",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B053",
+          "evidence_id": null,
+          "anchor_text": "18 financial bidders (including Party B and Party C)"
+        },
+        {
+          "block_id": "B057",
+          "evidence_id": null,
+          "anchor_text": "Party B, entered into a confidentiality and standstill agreement"
+        },
+        {
+          "block_id": "B106",
+          "evidence_id": null,
+          "anchor_text": "proposed to finance the transaction with a combination of equity from affiliated funds and third party debt"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "actor_13",
+      "display_name": "Party C",
+      "canonical_name": "Party C",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "bidder_kind": "financial",
+      "listing_status": "unknown",
+      "geography": "unknown",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B053",
+          "evidence_id": null,
+          "anchor_text": "18 financial bidders (including Party B and Party C)"
+        },
+        {
+          "block_id": "B059",
+          "evidence_id": null,
+          "anchor_text": "Party C entered into a confidentiality and standstill agreement"
+        },
+        {
+          "block_id": "B095",
+          "evidence_id": null,
+          "anchor_text": "Party B and Party C, in light of the fact that they were financial bidders"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "actor_14",
+      "display_name": "Unnamed strategic buyers group 1",
+      "canonical_name": "unnamed_strategic_buyers_group_1",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "bidder_kind": "strategic",
+      "listing_status": "unknown",
+      "geography": "unknown",
+      "is_grouped": true,
+      "group_size": 13,
+      "group_label": "remaining strategic buyers contacted",
+      "evidence_refs": [
+        {
+          "block_id": "B051",
+          "evidence_id": null,
+          "anchor_text": "15 of which were potential strategic buyers"
+        },
+        {
+          "block_id": "B053",
+          "evidence_id": null,
+          "anchor_text": "including two strategic bidders (Party A and CSC/Pamplona)"
+        }
+      ],
+      "notes": [
+        "Represents strategic buyers contacted other than Party A and CSC/Pamplona."
+      ]
+    },
+    {
+      "actor_id": "actor_15",
+      "display_name": "Unnamed financial buyers group 1",
+      "canonical_name": "unnamed_financial_buyers_group_1",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "bidder_kind": "financial",
+      "listing_status": "unknown",
+      "geography": "unknown",
+      "is_grouped": true,
+      "group_size": 33,
+      "group_label": "remaining financial buyers contacted",
+      "evidence_refs": [
+        {
+          "block_id": "B051",
+          "evidence_id": null,
+          "anchor_text": "35 of which were potential financial buyers"
+        },
+        {
+          "block_id": "B053",
+          "evidence_id": null,
+          "anchor_text": "18 financial bidders (including Party B and Party C)"
+        }
+      ],
+      "notes": [
+        "Represents financial buyers contacted other than Party B and Party C."
+      ]
+    },
+    {
+      "actor_id": "actor_16",
+      "display_name": "Unnamed NDA-signing financial bidders group 1",
+      "canonical_name": "unnamed_nda_signing_financial_bidders_group_1",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "bidder_kind": "financial",
+      "listing_status": "unknown",
+      "geography": "unknown",
+      "is_grouped": true,
+      "group_size": 16,
+      "group_label": "financial bidders that entered confidentiality agreements other than Party B and Party C",
+      "evidence_refs": [
+        {
+          "block_id": "B053",
+          "evidence_id": null,
+          "anchor_text": "18 financial bidders (including Party B and Party C), entered into confidentiality agreements with Mac-Gray"
+        }
+      ],
+      "notes": [
+        "Distinct grouped actor for unidentified financial bidders that signed confidentiality agreements."
+      ]
+    }
+  ],
+  "count_assertions": [
+    {
+      "count": 3,
+      "subject": "other",
+      "qualifier_text": "nationally recognized investment banks invited to submit financial advisor proposals",
+      "evidence_refs": [
+        {
+          "block_id": "B019",
+          "evidence_id": null,
+          "anchor_text": "invite three nationally recognized investment banks"
+        }
+      ]
+    },
+    {
+      "count": 50,
+      "subject": "interested_parties",
+      "qualifier_text": "total parties to be approached as potential acquirors",
+      "evidence_refs": [
+        {
+          "block_id": "B049",
+          "evidence_id": null,
+          "anchor_text": "determined to approach a total of"
+        },
+        {
+          "block_id": "B051",
+          "evidence_id": null,
+          "anchor_text": "50 parties"
+        }
+      ]
+    },
+    {
+      "count": 15,
+      "subject": "other",
+      "qualifier_text": "potential strategic buyers among contacted parties",
+      "evidence_refs": [
+        {
+          "block_id": "B051",
+          "evidence_id": null,
+          "anchor_text": "15 of which were potential strategic buyers"
+        }
+      ]
+    },
+    {
+      "count": 35,
+      "subject": "other",
+      "qualifier_text": "potential financial buyers among contacted parties",
+      "evidence_refs": [
+        {
+          "block_id": "B051",
+          "evidence_id": null,
+          "anchor_text": "35 of which were potential financial buyers"
+        }
+      ]
+    },
+    {
+      "count": 20,
+      "subject": "nda_signed_bidders",
+      "qualifier_text": "potential bidders that entered confidentiality agreements",
+      "evidence_refs": [
+        {
+          "block_id": "B053",
+          "evidence_id": null,
+          "anchor_text": "a total of 20 potential bidders"
+        },
+        {
+          "block_id": "B053",
+          "evidence_id": null,
+          "anchor_text": "entered into confidentiality agreements with Mac-Gray"
+        }
+      ]
+    },
+    {
+      "count": 2,
+      "subject": "nda_signed_strategic_buyers",
+      "qualifier_text": "strategic bidders that entered confidentiality agreements",
+      "evidence_refs": [
+        {
+          "block_id": "B053",
+          "evidence_id": null,
+          "anchor_text": "including two strategic bidders"
+        }
+      ]
+    },
+    {
+      "count": 18,
+      "subject": "nda_signed_financial_buyers",
+      "qualifier_text": "financial bidders that entered confidentiality agreements",
+      "evidence_refs": [
+        {
+          "block_id": "B053",
+          "evidence_id": null,
+          "anchor_text": "18 financial bidders"
+        }
+      ]
+    },
+    {
+      "count": 4,
+      "subject": "final_round_invitees",
+      "qualifier_text": "Party A, Party B, Party C and CSC/Pamplona asked on August 27 to submit revised written proposals",
+      "evidence_refs": [
+        {
+          "block_id": "B098",
+          "evidence_id": null,
+          "anchor_text": "sent a letter to each of Party A, Party B, Party C and CSC/Pamplona"
+        }
+      ]
+    },
+    {
+      "count": 4,
+      "subject": "final_round_invitees",
+      "qualifier_text": "Party A, Party B, Party C and CSC/Pamplona asked on September 11 to submit final indications of interest",
+      "evidence_refs": [
+        {
+          "block_id": "B114",
+          "evidence_id": null,
+          "anchor_text": "request final indications of interest by September 18, 2013"
+        }
+      ]
+    }
+  ],
+  "unresolved_mentions": [
+    "The filing states three nationally recognized investment banks were invited to submit proposals, but only BofA Merrill Lynch is named; the other two financial advisor candidates are unidentified.",
+    "CSC and Pamplona are referred to together as CSC/Pamplona for bidding purposes, but the chronology also mentions each separately; kept both the joint bidder and the separate named entities due to potential ambiguity in actor granularity."
+  ]
+}

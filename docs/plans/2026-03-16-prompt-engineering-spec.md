@@ -116,9 +116,10 @@ For every actor, provide evidence_refs using:
 - block_id
 - anchor_text
 
-anchor_text must be a short verbatim phrase from the block, ideally 3 to 12 words.
+anchor_text must be a contiguous verbatim substring from the block, ideally 3 to 12 words.
 Do not generate long quotes.
 Do not paraphrase the anchor_text.
+If the supporting sentence contains parenthetical aliases, numbering like "(1)", or multiple actors in a shared clause, copy the shared clause exactly as written rather than rewriting it for one actor.
 </evidence>
 
 <important_exclusions>
@@ -276,6 +277,9 @@ Do not record:
 - bids for a project or asset subset
 
 For every whole-company proposal:
+- Proposal events require explicit economics.
+- Only emit proposal when the cited text states a per-share price, price range, or enterprise value.
+- If the cited text only says a bidder submitted draft agreement comments, mark-ups, financing commitments, or other bid package materials without explicit economics, do not emit a proposal event for that block.
 - preserve range bids using lower_per_share and upper_per_share
 - never average a range
 - capture consideration_type when clear
@@ -309,9 +313,10 @@ For every event, provide evidence_refs using:
 - block_id
 - anchor_text
 
-anchor_text must be a short verbatim phrase from the block, ideally 3 to 12 words.
+anchor_text must be a contiguous verbatim substring from the block, ideally 3 to 12 words.
 Do not generate long quotes.
 Do not paraphrase the anchor_text.
+If the supporting sentence contains parenthetical aliases, numbering like "(1)", or multiple actors in a shared clause, copy the shared clause exactly as written rather than rewriting it for one actor.
 </evidence>
 
 <ordering>
@@ -417,6 +422,8 @@ You are repairing a previously generated structured output so that it satisfies 
 - Preserve existing facts whenever possible.
 - Remove or correct only the fields necessary to satisfy the schema.
 - If a value is unsupported or invalid, set it to null or remove it according to the schema.
+- If an event is labeled as a proposal but the object does not contain explicit economics, remove that event instead of inventing terms.
+- Numeric money fields must be plain numbers only, without currency symbols or words such as million or billion.
 - Do not output explanatory prose.
 </rules>
 ```

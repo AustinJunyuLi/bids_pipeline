@@ -1,9 +1,9 @@
 {
   "schema_version": "2.0.0",
   "artifact_type": "chronology_selection",
-  "created_at": "2026-03-16T20:07:39.275844Z",
+  "created_at": "2026-03-17T20:22:10.895008Z",
   "pipeline_version": "0.1.0",
-  "run_id": "run-20260316-200738-preprocess9",
+  "run_id": "run-4706f9ef",
   "deal_slug": "mac-gray",
   "document_id": "0001047469-13-010973",
   "accession_number": "0001047469-13-010973",
@@ -30,5 +30,11 @@
   "confidence": "high",
   "adjudication_basis": "Selected heading on line 1624 using normalized heading matching and narrative scoring; considered 1 viable background-like candidate(s).",
   "alternative_candidates": [],
-  "review_required": false
+  "review_required": false,
+  "confidence_factors": {
+    "section_length": 593,
+    "score_gap": 5231,
+    "ambiguity_risk": "low",
+    "coverage_assessment": "full"
+  }
 }

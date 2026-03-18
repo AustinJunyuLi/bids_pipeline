@@ -5,6 +5,8 @@ from pipeline.models.extraction import SourceSpan
 from pipeline.models.source import ChronologyBlock, EvidenceItem
 from pipeline.normalize.quotes import find_anchor_in_segment, normalize_for_matching, reconstruct_quote_text
 
+SPAN_EXPANSION_LINES = 3
+
 
 def resolve_anchor_span(
     blocks: list[ChronologyBlock],
@@ -67,6 +69,25 @@ def resolve_text_span(
     raw_segment = "\n".join(block_lines)
     match_type, start_idx, end_idx = find_anchor_in_segment(raw_segment, anchor_text)
 
+    window_start_line = start_line
+    resolved_lines = block_lines
+    if match_type == QuoteMatchType.UNRESOLVED:
+        expanded_start_line = max(1, start_line - SPAN_EXPANSION_LINES)
+        expanded_end_line = min(len(raw_lines), end_line + SPAN_EXPANSION_LINES)
+        if expanded_start_line != start_line or expanded_end_line != end_line:
+            expanded_lines = raw_lines[expanded_start_line - 1 : expanded_end_line]
+            expanded_segment = "\n".join(expanded_lines)
+            expanded_match_type, expanded_start_idx, expanded_end_idx = find_anchor_in_segment(
+                expanded_segment,
+                anchor_text,
+            )
+            if expanded_match_type != QuoteMatchType.UNRESOLVED:
+                match_type = expanded_match_type
+                start_idx = expanded_start_idx
+                end_idx = expanded_end_idx
+                window_start_line = expanded_start_line
+                resolved_lines = expanded_lines
+
     if match_type == QuoteMatchType.UNRESOLVED or start_idx is None or end_idx is None:
         quote_text = reconstruct_quote_text(block_lines)
         return SourceSpan(
@@ -86,10 +107,14 @@ def resolve_text_span(
             resolution_note=f"Anchor text was not found between lines {start_line}-{end_line}.",
         )
 
-    resolved_start_line, start_char = _segment_offset_to_line_position(block_lines, start_line, start_idx)
+    resolved_start_line, start_char = _segment_offset_to_line_position(
+        resolved_lines,
+        window_start_line,
+        start_idx,
+    )
     resolved_end_line, end_char_inclusive = _segment_offset_to_line_position(
-        block_lines,
-        start_line,
+        resolved_lines,
+        window_start_line,
         end_idx - 1,
     )
     selected_lines = raw_lines[resolved_start_line - 1 : resolved_end_line]

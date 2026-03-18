@@ -1,18 +1,13 @@
-# Project Skills
+# Skills
 
-These skills are a self-contained repo-local bundle under `.codex/skills`.
-Each skill includes its full instructions and reference files. There is no
-indirection to any other skill tree.
+5 active skills for the deal extraction quick workflow:
 
-This install is repo-local only. Nothing is copied into `~/.codex/skills`.
+| Skill | Purpose |
+|---|---|
+| `deal-agent` | Orchestrator — runs all 4 skills in sequence |
+| `extract-deal` | Actor + event extraction from SEC filing text |
+| `verify-extraction` | Fact-check extraction, 2-round fix loop |
+| `enrich-deal` | Classify bids, segment cycles, judge initiation |
+| `export-csv` | Format to Alex-compatible 14-column CSV |
 
-To use them in Codex:
-1. Start Codex from this repo with `CODEX_HOME` pointed at `.codex`, for example:
-   `export CODEX_HOME="$PWD/.codex"`
-2. Restart Codex so it reloads repo-local skills.
-
-Each skill directory contains:
-- `SKILL.md` -- full instructions with YAML frontmatter (name, description)
-- `references/` -- local reference files (e.g., schemas, rules) used by the skill
-
-All required reading paths use local relative paths like `references/foo.md`.
+Usage: `/deal-agent <slug>` for end-to-end, or invoke individual skills.

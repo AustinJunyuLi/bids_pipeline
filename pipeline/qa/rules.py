@@ -208,6 +208,7 @@ def _reconcile_actors(
     span_registry: SpanRegistry,
 ) -> tuple[list[ActorRecord], dict[str, str], list[QAFinding]]:
     actor_records: dict[tuple[str, str, str | None, int | None], ActorRecord] = {}
+    advisor_targets_by_key: dict[tuple[str, str, str | None, int | None], list[str]] = {}
     actor_id_map: dict[str, str] = {}
     findings: list[QAFinding] = []
     ordinal = 1
@@ -223,6 +224,7 @@ def _reconcile_actors(
                 canonical_name=raw_actor.canonical_name,
                 aliases=list(dict.fromkeys(raw_actor.aliases)),
                 role=raw_actor.role,
+                advised_actor_id=None,
                 advisor_kind=raw_actor.advisor_kind,
                 bidder_kind=raw_actor.bidder_kind,
                 listing_status=raw_actor.listing_status,
@@ -243,6 +245,39 @@ def _reconcile_actors(
                 }
             )
         actor_id_map[raw_actor.actor_id] = actor_records[key].actor_id
+        if raw_actor.advised_actor_id is not None:
+            advisor_targets_by_key.setdefault(key, []).append(raw_actor.advised_actor_id)
+
+    for key, raw_target_ids in advisor_targets_by_key.items():
+        missing_targets = sorted({raw_id for raw_id in raw_target_ids if raw_id not in actor_id_map})
+        if missing_targets:
+            findings.append(
+                QAFinding(
+                    finding_id=f"qa-advised-actor-{actor_records[key].actor_id}",
+                    severity=ReviewSeverity.BLOCKER,
+                    code="unknown_advised_actor_reference",
+                    message=(
+                        "Advisor actor references a client actor that is absent from the actor roster: "
+                        + ", ".join(missing_targets)
+                    ),
+                    review_required=True,
+                )
+            )
+            continue
+        canonical_targets = sorted({actor_id_map[raw_id] for raw_id in raw_target_ids})
+        if len(canonical_targets) > 1:
+            findings.append(
+                QAFinding(
+                    finding_id=f"qa-advised-actor-ambiguous-{actor_records[key].actor_id}",
+                    severity=ReviewSeverity.WARNING,
+                    code="ambiguous_advised_actor_reference",
+                    message="Advisor actor was linked to multiple client actors in raw extraction.",
+                    review_required=True,
+                )
+            )
+        actor_records[key] = actor_records[key].model_copy(
+            update={"advised_actor_id": canonical_targets[0]}
+        )
 
     for span in span_registry.spans:
         if span.match_type == QuoteMatchType.UNRESOLVED:
@@ -307,6 +342,25 @@ def _reconcile_events(
                 )
                 continue
             resolved_actor_ids.append(canonical_actor_id)
+        resolved_invited_actor_ids: list[str] = []
+        for actor_id in raw_event.invited_actor_ids:
+            canonical_actor_id = actor_id_map.get(actor_id)
+            if canonical_actor_id is None:
+                findings.append(
+                    QAFinding(
+                        finding_id=f"qa-event-invitee-{index:04d}-{actor_id}",
+                        severity=ReviewSeverity.BLOCKER,
+                        code="unknown_invited_actor_reference",
+                        message=(
+                            f"Round event references invited actor {actor_id!r} "
+                            "which is absent from the actor roster."
+                        ),
+                        related_span_ids=primary_span_ids,
+                        review_required=True,
+                    )
+                )
+                continue
+            resolved_invited_actor_ids.append(canonical_actor_id)
 
         date_value = parse_date_value(
             raw_event.date.raw_text,
@@ -343,6 +397,7 @@ def _reconcile_events(
             event_id=event_id,
             date_value=date_value,
             actor_ids=resolved_actor_ids,
+            invited_actor_ids=list(dict.fromkeys(resolved_invited_actor_ids)),
             primary_span_ids=primary_span_ids,
         )
         findings.extend(event_findings)
@@ -358,6 +413,7 @@ def _build_event_model(
     event_id: str,
     date_value: DateValue,
     actor_ids: list[str],
+    invited_actor_ids: list[str],
     primary_span_ids: list[str],
 ):
     findings: list[QAFinding] = []
@@ -428,6 +484,7 @@ def _build_event_model(
             requested_binding_offer_via_process_letter=raw_event.formality_signals.requested_binding_offer_via_process_letter,
             after_final_round_announcement=raw_event.formality_signals.after_final_round_announcement,
             after_final_round_deadline=raw_event.formality_signals.after_final_round_deadline,
+            is_subject_to_financing=raw_event.formality_signals.is_subject_to_financing,
             signal_span_ids=primary_span_ids,
         )
         return ProposalEvent(
@@ -460,6 +517,7 @@ def _build_event_model(
         return RoundEvent(
             **kwargs,
             round_scope=raw_event.round_scope or _default_round_scope(raw_event.event_type),
+            invited_actor_ids=invited_actor_ids,
             deadline_date=deadline_date,
         ), findings
     if raw_event.event_type == EventType.EXECUTED:

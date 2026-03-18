@@ -1,0 +1,1792 @@
+{
+  "events": [
+    {
+      "event_type": "bidder_interest",
+      "date": {
+        "raw_text": "In early 2015, and again in June 2015",
+        "normalized_hint": "2015-early; 2015-06",
+        "relative_to": null
+      },
+      "actor_ids": [
+        "bidder_thoma_bravo"
+      ],
+      "summary": "Thoma Bravo informally approached the Company and expressed potential interest in exploring a possible business transaction, but made no specific proposal.",
+      "evidence_refs": [
+        {
+          "block_id": "B006",
+          "evidence_id": null,
+          "anchor_text": "representatives of Thoma Bravo informally approached"
+        },
+        {
+          "block_id": "B006",
+          "evidence_id": null,
+          "anchor_text": "expressed Thoma Bravo\u2019s potential interest"
+        },
+        {
+          "block_id": "B006",
+          "evidence_id": null,
+          "anchor_text": "No specific proposals were made"
+        }
+      ],
+      "terms": null,
+      "consideration_type": null,
+      "whole_company_scope": true,
+      "whole_company_scope_note": "Reference is to a possible business transaction with the Company; no specific proposal was made.",
+      "formality_signals": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": [
+        "Treated as bidder_interest rather than proposal because the text states no specific proposals were made."
+      ]
+    },
+    {
+      "event_type": "bidder_interest",
+      "date": {
+        "raw_text": "In January 2016",
+        "normalized_hint": "2016-01",
+        "relative_to": null
+      },
+      "actor_ids": [
+        "bidder_thoma_bravo"
+      ],
+      "summary": "Thoma Bravo reiterated to Company management its interest in a potential transaction with the Company during an industry conference, without making a specific proposal.",
+      "evidence_refs": [
+        {
+          "block_id": "B011",
+          "evidence_id": null,
+          "anchor_text": "reiterated Thoma Bravo\u2019s interest"
+        },
+        {
+          "block_id": "B011",
+          "evidence_id": null,
+          "anchor_text": "No specific proposal was made"
+        }
+      ],
+      "terms": null,
+      "consideration_type": null,
+      "whole_company_scope": true,
+      "whole_company_scope_note": "Interest concerned a potential transaction with the Company, but no specific proposal was made.",
+      "formality_signals": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": [
+        "Treated as bidder_interest because the filing expressly says no specific proposal was made."
+      ]
+    },
+    {
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "On March 9, 2016",
+        "normalized_hint": "2016-03-09",
+        "relative_to": null
+      },
+      "actor_ids": [
+        "bidder_thoma_bravo",
+        "target_board_board"
+      ],
+      "summary": "Thoma Bravo sent the Board an unsolicited non-binding indication of interest to acquire the Company for $15.00 per share in cash.",
+      "evidence_refs": [
+        {
+          "block_id": "B015",
+          "evidence_id": null,
+          "anchor_text": "sent an unsolicited, non-binding indication of interest letter"
+        },
+        {
+          "block_id": "B015",
+          "evidence_id": null,
+          "anchor_text": "acquiring the Company for cash"
+        },
+        {
+          "block_id": "B015",
+          "evidence_id": null,
+          "anchor_text": "purchase price of $15.00 per share"
+        }
+      ],
+      "terms": {
+        "raw_text": "for cash at a purchase price of $15.00 per share",
+        "currency": "USD",
+        "value_per_share": "15",
+        "lower_per_share": null,
+        "upper_per_share": null,
+        "total_enterprise_value": null,
+        "is_range": false
+      },
+      "consideration_type": "cash",
+      "whole_company_scope": true,
+      "whole_company_scope_note": null,
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": true,
+        "mentions_preliminary": false,
+        "mentions_non_binding": true,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": false,
+        "after_final_round_deadline": false
+      },
+      "drop_reason_text": null,
+      "round_scope": null,
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": []
+    },
+    {
+      "event_type": "ib_retention",
+      "date": {
+        "raw_text": "On April 15, 2016",
+        "normalized_hint": "2016-04-15",
+        "relative_to": null
+      },
+      "actor_ids": [
+        "target_board_board",
+        "advisor_barclays"
+      ],
+      "summary": "The Board engaged Barclays as the Company's financial advisor to assist in evaluating Thoma Bravo's indication of interest and other strategic alternatives, subject to execution of a mutually satisfactory engagement letter.",
+      "evidence_refs": [
+        {
+          "block_id": "B022",
+          "evidence_id": null,
+          "anchor_text": "recommended the engagement of Barclays"
+        },
+        {
+          "block_id": "B022",
+          "evidence_id": null,
+          "anchor_text": "The Board engaged Barclays as the Company\u2019s financial advisor"
+        }
+      ],
+      "terms": null,
+      "consideration_type": null,
+      "whole_company_scope": null,
+      "whole_company_scope_note": null,
+      "formality_signals": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": [
+        "Engagement was subject to execution of a mutually satisfactory engagement letter."
+      ]
+    },
+    {
+      "event_type": "ib_retention",
+      "date": {
+        "raw_text": "April 19, 2016",
+        "normalized_hint": "2016-04-19",
+        "relative_to": null
+      },
+      "actor_ids": [
+        "advisor_barclays"
+      ],
+      "summary": "The Company countersigned Barclays' engagement letter, formalizing Barclays' retention as financial advisor.",
+      "evidence_refs": [
+        {
+          "block_id": "B026",
+          "evidence_id": null,
+          "anchor_text": "the Company countersigned an engagement letter with Barclays"
+        }
+      ],
+      "terms": null,
+      "consideration_type": null,
+      "whole_company_scope": null,
+      "whole_company_scope_note": null,
+      "formality_signals": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": [
+        "This follows the Board's April 15, 2016 decision to engage Barclays."
+      ]
+    },
+    {
+      "event_type": "target_sale",
+      "date": {
+        "raw_text": "On May 5, 2016",
+        "normalized_hint": "2016-05-05",
+        "relative_to": null
+      },
+      "actor_ids": [
+        "target_board_board",
+        "advisor_barclays"
+      ],
+      "summary": "The Board determined it was in the best interests of the Company and its stockholders to further explore a potential business combination transaction and approved confidential outreach to potential parties as part of a strategic process.",
+      "evidence_refs": [
+        {
+          "block_id": "B029",
+          "evidence_id": null,
+          "anchor_text": "take steps to further explore"
+        },
+        {
+          "block_id": "B029",
+          "evidence_id": null,
+          "anchor_text": "approved the indicative list of parties"
+        },
+        {
+          "block_id": "B029",
+          "evidence_id": null,
+          "anchor_text": "which we refer to as the \u201cstrategic process\u201d"
+        }
+      ],
+      "terms": null,
+      "consideration_type": null,
+      "whole_company_scope": null,
+      "whole_company_scope_note": null,
+      "formality_signals": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": [
+        "The April 28, 2016 discussion is preparatory; the May 5, 2016 meeting is the clearer target-side decision to explore a sale process."
+      ]
+    },
+    {
+      "event_type": "nda",
+      "date": {
+        "raw_text": "During the period from May 6 through June 9, 2016",
+        "normalized_hint": "2016-05-06/2016-06-09",
+        "relative_to": null
+      },
+      "actor_ids": [
+        "bidder_sponsor_a"
+      ],
+      "summary": "Sponsor A executed a confidentiality agreement with the Company during the outreach period.",
+      "evidence_refs": [
+        {
+          "block_id": "B030",
+          "evidence_id": null,
+          "anchor_text": "three strategic parties and four financial sponsors executed confidentiality agreements"
+        },
+        {
+          "block_id": "B030",
+          "evidence_id": null,
+          "anchor_text": "These parties included"
+        },
+        {
+          "block_id": "B030",
+          "evidence_id": null,
+          "anchor_text": "\u201cSponsor A,\u201d \u201cSponsor B\u201d and Thoma Bravo"
+        }
+      ],
+      "terms": null,
+      "consideration_type": null,
+      "whole_company_scope": null,
+      "whole_company_scope_note": null,
+      "formality_signals": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "deadline_date": null,
+      "executed_with_actor_id": "bidder_sponsor_a",
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": []
+    },
+    {
+      "event_type": "nda",
+      "date": {
+        "raw_text": "During the period from May 6 through June 9, 2016",
+        "normalized_hint": "2016-05-06/2016-06-09",
+        "relative_to": null
+      },
+      "actor_ids": [
+        "bidder_sponsor_b"
+      ],
+      "summary": "Sponsor B executed a confidentiality agreement with the Company during the outreach period.",
+      "evidence_refs": [
+        {
+          "block_id": "B030",
+          "evidence_id": null,
+          "anchor_text": "three strategic parties and four financial sponsors executed confidentiality agreements"
+        },
+        {
+          "block_id": "B030",
+          "evidence_id": null,
+          "anchor_text": "\u201cSponsor A,\u201d \u201cSponsor B\u201d and Thoma Bravo"
+        }
+      ],
+      "terms": null,
+      "consideration_type": null,
+      "whole_company_scope": null,
+      "whole_company_scope_note": null,
+      "formality_signals": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "deadline_date": null,
+      "executed_with_actor_id": "bidder_sponsor_b",
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": []
+    },
+    {
+      "event_type": "nda",
+      "date": {
+        "raw_text": "During the period from May 6 through June 9, 2016",
+        "normalized_hint": "2016-05-06/2016-06-09",
+        "relative_to": null
+      },
+      "actor_ids": [
+        "bidder_strategic_1"
+      ],
+      "summary": "Strategic 1 executed a confidentiality agreement with the Company during the outreach period.",
+      "evidence_refs": [
+        {
+          "block_id": "B030",
+          "evidence_id": null,
+          "anchor_text": "three strategic parties and four financial sponsors executed confidentiality agreements"
+        },
+        {
+          "block_id": "B030",
+          "evidence_id": null,
+          "anchor_text": "These parties included a telecommunications enterprise company (\u201cStrategic 1\u201d)"
+        }
+      ],
+      "terms": null,
+      "consideration_type": null,
+      "whole_company_scope": null,
+      "whole_company_scope_note": null,
+      "formality_signals": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "deadline_date": null,
+      "executed_with_actor_id": "bidder_strategic_1",
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": []
+    },
+    {
+      "event_type": "nda",
+      "date": {
+        "raw_text": "During the period from May 6 through June 9, 2016",
+        "normalized_hint": "2016-05-06/2016-06-09",
+        "relative_to": null
+      },
+      "actor_ids": [
+        "bidder_strategic_2"
+      ],
+      "summary": "Strategic 2 executed a confidentiality agreement with the Company during the outreach period.",
+      "evidence_refs": [
+        {
+          "block_id": "B030",
+          "evidence_id": null,
+          "anchor_text": "three strategic parties and four financial sponsors executed confidentiality agreements"
+        },
+        {
+          "block_id": "B030",
+          "evidence_id": null,
+          "anchor_text": "two large software companies (\u201cStrategic 2\u201d and \u201cStrategic 3\u201d)"
+        }
+      ],
+      "terms": null,
+      "consideration_type": null,
+      "whole_company_scope": null,
+      "whole_company_scope_note": null,
+      "formality_signals": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "deadline_date": null,
+      "executed_with_actor_id": "bidder_strategic_2",
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": []
+    },
+    {
+      "event_type": "nda",
+      "date": {
+        "raw_text": "During the period from May 6 through June 9, 2016",
+        "normalized_hint": "2016-05-06/2016-06-09",
+        "relative_to": null
+      },
+      "actor_ids": [
+        "bidder_strategic_3"
+      ],
+      "summary": "Strategic 3 executed a confidentiality agreement with the Company during the outreach period.",
+      "evidence_refs": [
+        {
+          "block_id": "B030",
+          "evidence_id": null,
+          "anchor_text": "three strategic parties and four financial sponsors executed confidentiality agreements"
+        },
+        {
+          "block_id": "B030",
+          "evidence_id": null,
+          "anchor_text": "two large software companies (\u201cStrategic 2\u201d and \u201cStrategic 3\u201d)"
+        }
+      ],
+      "terms": null,
+      "consideration_type": null,
+      "whole_company_scope": null,
+      "whole_company_scope_note": null,
+      "formality_signals": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "deadline_date": null,
+      "executed_with_actor_id": "bidder_strategic_3",
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": []
+    },
+    {
+      "event_type": "nda",
+      "date": {
+        "raw_text": "During the period from May 6 through June 9, 2016",
+        "normalized_hint": "2016-05-06/2016-06-09",
+        "relative_to": null
+      },
+      "actor_ids": [
+        "bidder_thoma_bravo"
+      ],
+      "summary": "Thoma Bravo executed a confidentiality agreement with the Company on May 10, 2016.",
+      "evidence_refs": [
+        {
+          "block_id": "B030",
+          "evidence_id": null,
+          "anchor_text": "executed confidentiality agreements with the Company"
+        },
+        {
+          "block_id": "B030",
+          "evidence_id": null,
+          "anchor_text": "including Thoma Bravo on May 10, 2016"
+        }
+      ],
+      "terms": null,
+      "consideration_type": null,
+      "whole_company_scope": null,
+      "whole_company_scope_note": null,
+      "formality_signals": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "deadline_date": null,
+      "executed_with_actor_id": "bidder_thoma_bravo",
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": []
+    },
+    {
+      "event_type": "final_round_inf_ann",
+      "date": {
+        "raw_text": "On May 26, 2016",
+        "normalized_hint": "2016-05-26",
+        "relative_to": null
+      },
+      "actor_ids": [
+        "target_board_board"
+      ],
+      "summary": "The Board approved requesting initial non-binding indications of interest from bidders by June 9, 2016.",
+      "evidence_refs": [
+        {
+          "block_id": "B034",
+          "evidence_id": null,
+          "anchor_text": "approved requesting initial non-binding indications of interest"
+        },
+        {
+          "block_id": "B034",
+          "evidence_id": null,
+          "anchor_text": "by June 9, 2016"
+        }
+      ],
+      "terms": null,
+      "consideration_type": null,
+      "whole_company_scope": null,
+      "whole_company_scope_note": null,
+      "formality_signals": null,
+      "drop_reason_text": null,
+      "round_scope": "informal",
+      "deadline_date": {
+        "raw_text": "June 9, 2016",
+        "normalized_hint": "2016-06-09",
+        "relative_to": null
+      },
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": []
+    },
+    {
+      "event_type": "drop",
+      "date": {
+        "raw_text": "On June 3, 2016",
+        "normalized_hint": "2016-06-03",
+        "relative_to": null
+      },
+      "actor_ids": [],
+      "summary": "A strategic party that had not executed a confidentiality agreement or received a bid process letter informed Barclays that it was not interested in participating in the strategic process.",
+      "evidence_refs": [
+        {
+          "block_id": "B037",
+          "evidence_id": null,
+          "anchor_text": "was not interested in participating in the strategic process"
+        }
+      ],
+      "terms": null,
+      "consideration_type": null,
+      "whole_company_scope": null,
+      "whole_company_scope_note": null,
+      "formality_signals": null,
+      "drop_reason_text": "it was not interested in participating in the strategic process",
+      "round_scope": null,
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": [
+        "Actor not linked to rostered bidder."
+      ]
+    },
+    {
+      "event_type": "final_round_inf_ann",
+      "date": {
+        "raw_text": "On June 3, 2016",
+        "normalized_hint": "2016-06-03",
+        "relative_to": null
+      },
+      "actor_ids": [
+        "advisor_barclays"
+      ],
+      "summary": "Barclays distributed a bid instruction letter to six confidentiality-agreement parties, announcing a deadline for indications of interest by June 9, 2016 for the next informal bidding phase.",
+      "evidence_refs": [
+        {
+          "block_id": "B036",
+          "evidence_id": null,
+          "anchor_text": "distributed a bid instruction letter"
+        },
+        {
+          "block_id": "B036",
+          "evidence_id": null,
+          "anchor_text": "deadline for submitting indications of interest by June 9, 2016"
+        }
+      ],
+      "terms": null,
+      "consideration_type": null,
+      "whole_company_scope": null,
+      "whole_company_scope_note": null,
+      "formality_signals": null,
+      "drop_reason_text": null,
+      "round_scope": "informal",
+      "deadline_date": {
+        "raw_text": "by June 9, 2016",
+        "normalized_hint": "2016-06-09",
+        "relative_to": null
+      },
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": [
+        "The letter requested per share offer price, financing sources, future plans, diligence needs and transaction structure.",
+        "This follows prior-round context indicating a final-round informal announcement on June 3, 2016."
+      ]
+    },
+    {
+      "event_type": "final_round_inf_ann",
+      "date": {
+        "raw_text": "On June 3, 2016",
+        "normalized_hint": "2016-06-03",
+        "relative_to": null
+      },
+      "actor_ids": [
+        "advisor_barclays"
+      ],
+      "summary": "Barclays distributed a bid instruction letter to six parties setting a June 9, 2016 deadline for submitting indications of interest and outlining requirements for those bids.",
+      "evidence_refs": [
+        {
+          "block_id": "B036",
+          "evidence_id": null,
+          "anchor_text": "Barclays distributed a bid instruction letter"
+        },
+        {
+          "block_id": "B036",
+          "evidence_id": null,
+          "anchor_text": "deadline for submitting indications of interest by June 9, 2016"
+        }
+      ],
+      "terms": null,
+      "consideration_type": null,
+      "whole_company_scope": null,
+      "whole_company_scope_note": null,
+      "formality_signals": null,
+      "drop_reason_text": null,
+      "round_scope": "informal",
+      "deadline_date": {
+        "raw_text": "June 9, 2016",
+        "normalized_hint": "2016-06-09",
+        "relative_to": null
+      },
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": [
+        "The bid instruction letter also stated that bidders invited to a second phase would receive further access to management and more extensive diligence access."
+      ]
+    },
+    {
+      "event_type": "drop",
+      "date": {
+        "raw_text": "On June 8, 2016",
+        "normalized_hint": "2016-06-08",
+        "relative_to": null
+      },
+      "actor_ids": [
+        "bidder_strategic_1",
+        "advisor_barclays"
+      ],
+      "summary": "Strategic 1 told Barclays that acquiring the Company would not be a strategic fit and that it would not submit an indication of interest.",
+      "evidence_refs": [
+        {
+          "block_id": "B038",
+          "evidence_id": null,
+          "anchor_text": "would not be a strategic fit"
+        },
+        {
+          "block_id": "B038",
+          "evidence_id": null,
+          "anchor_text": "would not be submitting an indication of interest"
+        }
+      ],
+      "terms": null,
+      "consideration_type": null,
+      "whole_company_scope": null,
+      "whole_company_scope_note": null,
+      "formality_signals": null,
+      "drop_reason_text": "after further internal consideration, an acquisition of the Company would not be a strategic fit for it",
+      "round_scope": null,
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": []
+    },
+    {
+      "event_type": "final_round_inf",
+      "date": {
+        "raw_text": "On June 9, 2016",
+        "normalized_hint": "2016-06-09",
+        "relative_to": null
+      },
+      "actor_ids": [
+        "advisor_barclays"
+      ],
+      "summary": "The deadline for submitting indications of interest in the informal bid round occurred on June 9, 2016.",
+      "evidence_refs": [
+        {
+          "block_id": "B036",
+          "evidence_id": null,
+          "anchor_text": "deadline for submitting indications of interest by June 9, 2016"
+        },
+        {
+          "block_id": "B039",
+          "evidence_id": null,
+          "anchor_text": "On June 9, 2016, three parties"
+        }
+      ],
+      "terms": null,
+      "consideration_type": null,
+      "whole_company_scope": null,
+      "whole_company_scope_note": null,
+      "formality_signals": null,
+      "drop_reason_text": null,
+      "round_scope": "informal",
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": [
+        "This is the completion point for the June 3 bid instruction letter process."
+      ]
+    },
+    {
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "On June 9, 2016",
+        "normalized_hint": "2016-06-09",
+        "relative_to": null
+      },
+      "actor_ids": [
+        "bidder_sponsor_a"
+      ],
+      "summary": "Sponsor A submitted a written preliminary non-binding indication of interest to acquire the Company at $16.50 per share.",
+      "evidence_refs": [
+        {
+          "block_id": "B039",
+          "evidence_id": null,
+          "anchor_text": "presented written preliminary non-binding indications of interest"
+        },
+        {
+          "block_id": "B039",
+          "evidence_id": null,
+          "anchor_text": "Sponsor A indicated a price of $16.50 per share"
+        }
+      ],
+      "terms": {
+        "raw_text": "$16.50 per share",
+        "currency": "USD",
+        "value_per_share": "16.5",
+        "lower_per_share": null,
+        "upper_per_share": null,
+        "total_enterprise_value": null,
+        "is_range": false
+      },
+      "consideration_type": "unknown",
+      "whole_company_scope": true,
+      "whole_company_scope_note": "The bid instruction letter requested a per share offer price for the Company, and this indication was one of the bids submitted in response.",
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": true,
+        "mentions_preliminary": true,
+        "mentions_non_binding": true,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": true,
+        "after_final_round_deadline": false
+      },
+      "drop_reason_text": null,
+      "round_scope": null,
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": []
+    },
+    {
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "On June 9, 2016",
+        "normalized_hint": "2016-06-09",
+        "relative_to": null
+      },
+      "actor_ids": [
+        "bidder_sponsor_b"
+      ],
+      "summary": "Sponsor B submitted a written preliminary non-binding indication of interest to acquire the Company at $17.00 to $18.00 per share.",
+      "evidence_refs": [
+        {
+          "block_id": "B039",
+          "evidence_id": null,
+          "anchor_text": "presented written preliminary non-binding indications of interest"
+        },
+        {
+          "block_id": "B039",
+          "evidence_id": null,
+          "anchor_text": "Sponsor B indicated a range of $17.00 - $18.00 per share"
+        }
+      ],
+      "terms": {
+        "raw_text": "$17.00 - $18.00 per share",
+        "currency": "USD",
+        "value_per_share": null,
+        "lower_per_share": "17",
+        "upper_per_share": "18",
+        "total_enterprise_value": null,
+        "is_range": true
+      },
+      "consideration_type": "unknown",
+      "whole_company_scope": true,
+      "whole_company_scope_note": "The bid instruction letter requested a per share offer price for the Company, and this indication was one of the bids submitted in response.",
+      "formality_signals": {
+        "contains_range": true,
+        "mentions_indication_of_interest": true,
+        "mentions_preliminary": true,
+        "mentions_non_binding": true,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": true,
+        "after_final_round_deadline": false
+      },
+      "drop_reason_text": null,
+      "round_scope": null,
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": []
+    },
+    {
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "On June 9, 2016",
+        "normalized_hint": "2016-06-09",
+        "relative_to": null
+      },
+      "actor_ids": [
+        "bidder_thoma_bravo"
+      ],
+      "summary": "Thoma Bravo submitted a written preliminary non-binding indication of interest to acquire the Company at $17.25 per share and included a form of equity commitment letter and draft merger agreement.",
+      "evidence_refs": [
+        {
+          "block_id": "B039",
+          "evidence_id": null,
+          "anchor_text": "Thoma Bravo indicated a price of $17.25 per share"
+        },
+        {
+          "block_id": "B039",
+          "evidence_id": null,
+          "anchor_text": "provided a form of equity commitment letter and draft merger agreement"
+        }
+      ],
+      "terms": {
+        "raw_text": "$17.25 per share",
+        "currency": "USD",
+        "value_per_share": "17.25",
+        "lower_per_share": null,
+        "upper_per_share": null,
+        "total_enterprise_value": null,
+        "is_range": false
+      },
+      "consideration_type": "unknown",
+      "whole_company_scope": true,
+      "whole_company_scope_note": "The bid instruction letter requested a per share offer price for the Company, and this indication was one of the bids submitted in response.",
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": true,
+        "mentions_preliminary": true,
+        "mentions_non_binding": true,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": true,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": true,
+        "after_final_round_deadline": false
+      },
+      "drop_reason_text": null,
+      "round_scope": null,
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": []
+    },
+    {
+      "event_type": "drop",
+      "date": {
+        "raw_text": "On June 11, 2016",
+        "normalized_hint": "2016-06-11",
+        "relative_to": null
+      },
+      "actor_ids": [],
+      "summary": "A strategic party that had not executed a confidentiality agreement or received a bid process letter informed Barclays that it had no strategic interest in acquiring the Company.",
+      "evidence_refs": [
+        {
+          "block_id": "B040",
+          "evidence_id": null,
+          "anchor_text": "did not have a strategic interest in an acquisition of the Company"
+        }
+      ],
+      "terms": null,
+      "consideration_type": null,
+      "whole_company_scope": null,
+      "whole_company_scope_note": null,
+      "formality_signals": null,
+      "drop_reason_text": "it did not have a strategic interest in an acquisition of the Company",
+      "round_scope": null,
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": [
+        "Actor not linked to rostered bidder."
+      ]
+    },
+    {
+      "event_type": "drop",
+      "date": {
+        "raw_text": "On June 12, 2016",
+        "normalized_hint": "2016-06-12",
+        "relative_to": null
+      },
+      "actor_ids": [
+        "bidder_strategic_2",
+        "advisor_barclays"
+      ],
+      "summary": "Strategic 2 informed Barclays that it was no longer interested in exploring a potential transaction with the Company.",
+      "evidence_refs": [
+        {
+          "block_id": "B042",
+          "evidence_id": null,
+          "anchor_text": "it was no longer interested in exploring a potential transaction"
+        }
+      ],
+      "terms": null,
+      "consideration_type": null,
+      "whole_company_scope": null,
+      "whole_company_scope_note": null,
+      "formality_signals": null,
+      "drop_reason_text": "because of other internal corporate priorities, it was no longer interested in exploring a potential transaction with the Company",
+      "round_scope": null,
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": []
+    },
+    {
+      "event_type": "drop",
+      "date": {
+        "raw_text": "On June 14, 2016",
+        "normalized_hint": "2016-06-14",
+        "relative_to": null
+      },
+      "actor_ids": [
+        "bidder_strategic_3",
+        "advisor_barclays"
+      ],
+      "summary": "Strategic 3 informed Barclays that it was no longer interested in exploring a potential transaction with the Company.",
+      "evidence_refs": [
+        {
+          "block_id": "B048",
+          "evidence_id": null,
+          "anchor_text": "it was no longer interested in exploring a potential transaction"
+        }
+      ],
+      "terms": null,
+      "consideration_type": null,
+      "whole_company_scope": null,
+      "whole_company_scope_note": null,
+      "formality_signals": null,
+      "drop_reason_text": "because of its internal focus on other corporate transactions and a perceived overlap in technologies",
+      "round_scope": null,
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": []
+    },
+    {
+      "event_type": "drop_below_m",
+      "date": {
+        "raw_text": "On June 15, 2016",
+        "normalized_hint": "2016-06-15",
+        "relative_to": null
+      },
+      "actor_ids": [
+        "bidder_sponsor_a",
+        "advisor_barclays"
+      ],
+      "summary": "Sponsor A indicated that any second-round bid would not be meaningfully higher than its June 9 indication, and after Barclays said the Board would not likely be interested at essentially the same valuation, Sponsor A ceased participating.",
+      "evidence_refs": [
+        {
+          "block_id": "B049",
+          "evidence_id": null,
+          "anchor_text": "would not be meaningfully higher"
+        },
+        {
+          "block_id": "B049",
+          "evidence_id": null,
+          "anchor_text": "did not believe that the Board would be interested"
+        },
+        {
+          "block_id": "B049",
+          "evidence_id": null,
+          "anchor_text": "there were no further discussions"
+        }
+      ],
+      "terms": null,
+      "consideration_type": null,
+      "whole_company_scope": null,
+      "whole_company_scope_note": null,
+      "formality_signals": null,
+      "drop_reason_text": "Sponsor A said any second round bid would not be meaningfully higher than its June 9 indication, and Barclays said the Board would not be interested at essentially the same valuation.",
+      "round_scope": null,
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": [
+        "The Board had previously told Sponsor A it would need to materially increase its offer price to continue in the process."
+      ]
+    },
+    {
+      "event_type": "drop_at_inf",
+      "date": {
+        "raw_text": "On June 17, 2016",
+        "normalized_hint": "2016-06-17",
+        "relative_to": null
+      },
+      "actor_ids": [
+        "bidder_sponsor_a",
+        "target_board_special_committee",
+        "advisor_barclays"
+      ],
+      "summary": "The Special Committee confirmed it was not interested in pursuing Sponsor A's initial-bid price after Barclays reported Sponsor A was going to cease participating unless later contacted.",
+      "evidence_refs": [
+        {
+          "block_id": "B054",
+          "evidence_id": null,
+          "anchor_text": "Sponsor A was going to cease participating"
+        },
+        {
+          "block_id": "B054",
+          "evidence_id": null,
+          "anchor_text": "The Special Committee confirmed that it was not interested"
+        }
+      ],
+      "terms": null,
+      "consideration_type": null,
+      "whole_company_scope": null,
+      "whole_company_scope_note": null,
+      "formality_signals": null,
+      "drop_reason_text": "Sponsor A would not meaningfully improve its bid and the Special Committee was not interested in Sponsor A's initial-bid price.",
+      "round_scope": null,
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": [
+        "This is the committee-level confirmation of Sponsor A's exit from the informal process."
+      ]
+    },
+    {
+      "event_type": "final_round_ann",
+      "date": {
+        "raw_text": "Later on June 24, 2016",
+        "normalized_hint": "2016-06-24",
+        "relative_to": "On June 24, 2016"
+      },
+      "actor_ids": [
+        "advisor_barclays",
+        "bidder_sponsor_b",
+        "bidder_thoma_bravo"
+      ],
+      "summary": "Barclays sent final bid process letters to Sponsor B and Thoma Bravo, requesting marked drafts of the proposed merger agreement by July 7, 2016 and setting a final bid deadline of July 8, 2016.",
+      "evidence_refs": [
+        {
+          "block_id": "B061",
+          "evidence_id": null,
+          "anchor_text": "sent final bid process letters"
+        },
+        {
+          "block_id": "B061",
+          "evidence_id": null,
+          "anchor_text": "requesting marked drafts"
+        },
+        {
+          "block_id": "B061",
+          "evidence_id": null,
+          "anchor_text": "setting a final bid deadline of July 8, 2016"
+        }
+      ],
+      "terms": null,
+      "consideration_type": null,
+      "whole_company_scope": null,
+      "whole_company_scope_note": null,
+      "formality_signals": null,
+      "drop_reason_text": null,
+      "round_scope": "formal",
+      "deadline_date": {
+        "raw_text": "July 8, 2016",
+        "normalized_hint": "2016-07-08",
+        "relative_to": null
+      },
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": [
+        "Relative date 'Later on June 24, 2016' is linked to the same-date context in B058-B060."
+      ]
+    },
+    {
+      "event_type": "final_round_ann",
+      "date": {
+        "raw_text": "On June 24, 2016",
+        "normalized_hint": "2016-06-24",
+        "relative_to": null
+      },
+      "actor_ids": [
+        "target_board_special_committee",
+        "advisor_barclays"
+      ],
+      "summary": "The Chairperson of the Special Committee approved Barclays to set a final bid deadline of July 8, 2016.",
+      "evidence_refs": [
+        {
+          "block_id": "B060",
+          "evidence_id": null,
+          "anchor_text": "approved Barclays to set a final bid deadline of July 8, 2016"
+        }
+      ],
+      "terms": null,
+      "consideration_type": null,
+      "whole_company_scope": null,
+      "whole_company_scope_note": null,
+      "formality_signals": null,
+      "drop_reason_text": null,
+      "round_scope": "formal",
+      "deadline_date": {
+        "raw_text": "July 8, 2016",
+        "normalized_hint": "2016-07-08",
+        "relative_to": null
+      },
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": []
+    },
+    {
+      "event_type": "drop_below_m",
+      "date": {
+        "raw_text": "On June 29, 2016",
+        "normalized_hint": "2016-06-29",
+        "relative_to": null
+      },
+      "actor_ids": [
+        "bidder_sponsor_b",
+        "advisor_barclays"
+      ],
+      "summary": "Sponsor B indicated that any final bid would be significantly below its June 9 preliminary indication, and after Barclays said the Special Committee would not be interested at a significantly lower valuation, Sponsor B ceased further discussions.",
+      "evidence_refs": [
+        {
+          "block_id": "B066",
+          "evidence_id": null,
+          "anchor_text": "would be significantly below the price indicated"
+        },
+        {
+          "block_id": "B066",
+          "evidence_id": null,
+          "anchor_text": "did not believe that the Special Committee would be interested"
+        },
+        {
+          "block_id": "B066",
+          "evidence_id": null,
+          "anchor_text": "there were no further discussions"
+        }
+      ],
+      "terms": null,
+      "consideration_type": null,
+      "whole_company_scope": null,
+      "whole_company_scope_note": null,
+      "formality_signals": null,
+      "drop_reason_text": "Sponsor B said any final bid would be significantly below its June 9 indication, and Barclays said the Special Committee would not be interested at a significantly lower valuation.",
+      "round_scope": null,
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": []
+    },
+    {
+      "event_type": "drop_target",
+      "date": {
+        "raw_text": "On June 30, 2016",
+        "normalized_hint": "2016-06-30",
+        "relative_to": null
+      },
+      "actor_ids": [
+        "target_board_special_committee",
+        "bidder_sponsor_b",
+        "advisor_barclays"
+      ],
+      "summary": "The Special Committee determined it would not be in stockholders' best interests to pursue Sponsor B at a price significantly below Sponsor B's original indication.",
+      "evidence_refs": [
+        {
+          "block_id": "B067",
+          "evidence_id": null,
+          "anchor_text": "would not be in the best interest"
+        },
+        {
+          "block_id": "B067",
+          "evidence_id": null,
+          "anchor_text": "price significantly below the price that Sponsor B originally indicated"
+        }
+      ],
+      "terms": null,
+      "consideration_type": null,
+      "whole_company_scope": null,
+      "whole_company_scope_note": null,
+      "formality_signals": null,
+      "drop_reason_text": "The Special Committee decided not to pursue a proposal at a price significantly below Sponsor B's original indicated price.",
+      "round_scope": null,
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": [
+        "This reflects target-side elimination of Sponsor B from the process after Sponsor B indicated its final bid would be significantly lower."
+      ]
+    },
+    {
+      "event_type": "final_round",
+      "date": {
+        "raw_text": "On July 8, 2016",
+        "normalized_hint": "2016-07-08",
+        "relative_to": null
+      },
+      "actor_ids": [
+        "bidder_sponsor_b",
+        "bidder_thoma_bravo"
+      ],
+      "summary": "The final bid deadline occurred on July 8, 2016, the date by which Sponsor B and Thoma Bravo had been invited to submit final bids.",
+      "evidence_refs": [
+        {
+          "block_id": "B078",
+          "evidence_id": null,
+          "anchor_text": "the date by which Sponsor B and Thoma Bravo had been invited to submit their final bids"
+        }
+      ],
+      "terms": null,
+      "consideration_type": null,
+      "whole_company_scope": null,
+      "whole_company_scope_note": null,
+      "formality_signals": null,
+      "drop_reason_text": null,
+      "round_scope": "formal",
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": [
+        "This is the completion point for the June 24 final bid process letters."
+      ]
+    },
+    {
+      "event_type": "final_round",
+      "date": {
+        "raw_text": "On July 8, 2016",
+        "normalized_hint": "2016-07-08",
+        "relative_to": null
+      },
+      "actor_ids": [
+        "target_board_special_committee",
+        "bidder_thoma_bravo"
+      ],
+      "summary": "The Special Committee met to discuss Thoma Bravo's $19.00 per share offer at the formal final-round deadline.",
+      "evidence_refs": [
+        {
+          "block_id": "B079",
+          "evidence_id": null,
+          "anchor_text": "On July 8, 2016"
+        },
+        {
+          "block_id": "B079",
+          "evidence_id": null,
+          "anchor_text": "to discuss Thoma Bravo\u2019s $19.00 per share offer"
+        }
+      ],
+      "terms": null,
+      "consideration_type": null,
+      "whole_company_scope": null,
+      "whole_company_scope_note": null,
+      "formality_signals": null,
+      "drop_reason_text": null,
+      "round_scope": "formal",
+      "deadline_date": {
+        "raw_text": "On July 8, 2016",
+        "normalized_hint": "2016-07-08",
+        "relative_to": null
+      },
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": [
+        "Included because prior context states a formal final round deadline on July 8, 2016."
+      ]
+    },
+    {
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "On July 8, 2016",
+        "normalized_hint": "2016-07-08",
+        "relative_to": null
+      },
+      "actor_ids": [
+        "bidder_thoma_bravo"
+      ],
+      "summary": "Thoma Bravo had a $19.00 per share offer under discussion with the Special Committee.",
+      "evidence_refs": [
+        {
+          "block_id": "B079",
+          "evidence_id": null,
+          "anchor_text": "Thoma Bravo\u2019s $19.00 per share offer"
+        },
+        {
+          "block_id": "B083",
+          "evidence_id": null,
+          "anchor_text": "the $19.00 per share offer"
+        }
+      ],
+      "terms": {
+        "raw_text": "$19.00 per share offer",
+        "currency": "USD",
+        "value_per_share": "19",
+        "lower_per_share": null,
+        "upper_per_share": null,
+        "total_enterprise_value": null,
+        "is_range": false
+      },
+      "consideration_type": "unknown",
+      "whole_company_scope": true,
+      "whole_company_scope_note": "Discussion references acquisition of the Company and financing for the entire acquisition of the Company.",
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": false,
+        "mentions_preliminary": false,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": false,
+        "after_final_round_deadline": true
+      },
+      "drop_reason_text": null,
+      "round_scope": null,
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": []
+    },
+    {
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "On July 8, 2016",
+        "normalized_hint": "2016-07-08",
+        "relative_to": null
+      },
+      "actor_ids": [
+        "bidder_thoma_bravo"
+      ],
+      "summary": "Thoma Bravo submitted a final bid to acquire the Company for $19.00 per share in cash.",
+      "evidence_refs": [
+        {
+          "block_id": "B078",
+          "evidence_id": null,
+          "anchor_text": "only Thoma Bravo submitted a bid for the Company"
+        },
+        {
+          "block_id": "B078",
+          "evidence_id": null,
+          "anchor_text": "bid was at a price of $19.00 per share in cash"
+        }
+      ],
+      "terms": {
+        "raw_text": "$19.00 per share in cash",
+        "currency": "USD",
+        "value_per_share": "19",
+        "lower_per_share": null,
+        "upper_per_share": null,
+        "total_enterprise_value": null,
+        "is_range": false
+      },
+      "consideration_type": "cash",
+      "whole_company_scope": true,
+      "whole_company_scope_note": "The filing states Thoma Bravo submitted a bid for the Company.",
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": false,
+        "mentions_preliminary": false,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": true,
+        "after_final_round_deadline": true
+      },
+      "drop_reason_text": null,
+      "round_scope": null,
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": [
+        "The bid also stated Thoma Bravo had completed all due diligence and was prepared to execute its revised draft merger agreement and announce the transaction before market open on July 11, 2016."
+      ]
+    },
+    {
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "Later on July 9, 2016",
+        "normalized_hint": "2016-07-09",
+        "relative_to": "On July 9, 2016"
+      },
+      "actor_ids": [
+        "bidder_thoma_bravo"
+      ],
+      "summary": "Thoma Bravo submitted a revised written best-and-final non-binding proposal to acquire the Company for $19.25 per share.",
+      "evidence_refs": [
+        {
+          "block_id": "B086",
+          "evidence_id": null,
+          "anchor_text": "Later on July 9, 2016"
+        },
+        {
+          "block_id": "B086",
+          "evidence_id": null,
+          "anchor_text": "revised written, non-binding proposal"
+        },
+        {
+          "block_id": "B086",
+          "evidence_id": null,
+          "anchor_text": "best and final offer of $19.25 per share"
+        }
+      ],
+      "terms": {
+        "raw_text": "best and final offer of $19.25 per share",
+        "currency": "USD",
+        "value_per_share": "19.25",
+        "lower_per_share": null,
+        "upper_per_share": null,
+        "total_enterprise_value": null,
+        "is_range": false
+      },
+      "consideration_type": "unknown",
+      "whole_company_scope": true,
+      "whole_company_scope_note": "Proposal accompanied by revised draft of the equity commitment letter for the entire purchase price for the Company.",
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": false,
+        "mentions_preliminary": false,
+        "mentions_non_binding": true,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": false,
+        "after_final_round_deadline": true
+      },
+      "drop_reason_text": null,
+      "round_scope": null,
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": [
+        "Proposal was described as revised and written.",
+        "Thoma Bravo stated $19.25 per share was its best and final offer."
+      ]
+    },
+    {
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "On July 10, 2016",
+        "normalized_hint": "2016-07-10",
+        "relative_to": null
+      },
+      "actor_ids": [
+        "bidder_thoma_bravo"
+      ],
+      "summary": "The Special Committee reviewed Thoma Bravo's increased $19.25 per share offer, which Barclays reported was Thoma Bravo's best and final offer.",
+      "evidence_refs": [
+        {
+          "block_id": "B088",
+          "evidence_id": null,
+          "anchor_text": "Thoma Bravo\u2019s increased $19.25 per share offer"
+        },
+        {
+          "block_id": "B088",
+          "evidence_id": null,
+          "anchor_text": "this was its best and final offer"
+        }
+      ],
+      "terms": {
+        "raw_text": "$19.25 per share offer",
+        "currency": "USD",
+        "value_per_share": "19.25",
+        "lower_per_share": null,
+        "upper_per_share": null,
+        "total_enterprise_value": null,
+        "is_range": false
+      },
+      "consideration_type": "unknown",
+      "whole_company_scope": true,
+      "whole_company_scope_note": "Offer discussed in connection with proceeding toward execution of a definitive agreement with Thoma Bravo.",
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": false,
+        "mentions_preliminary": false,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": false,
+        "after_final_round_deadline": true
+      },
+      "drop_reason_text": null,
+      "round_scope": null,
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": [
+        "Recorded as a distinct revision review of the July 9 revised proposal."
+      ]
+    },
+    {
+      "event_type": "bid_press_release",
+      "date": {
+        "raw_text": "Later on July 13, 2016, before the stock market opened",
+        "normalized_hint": "2016-07-13",
+        "relative_to": "On July 13, 2016, before the stock market opened"
+      },
+      "actor_ids": [
+        "bidder_thoma_bravo"
+      ],
+      "summary": "The Company and Thoma Bravo issued a joint press release announcing execution of the merger agreement.",
+      "evidence_refs": [
+        {
+          "block_id": "B101",
+          "evidence_id": null,
+          "anchor_text": "issued a joint press release"
+        },
+        {
+          "block_id": "B101",
+          "evidence_id": null,
+          "anchor_text": "announcing the execution of the merger agreement"
+        }
+      ],
+      "terms": null,
+      "consideration_type": null,
+      "whole_company_scope": null,
+      "whole_company_scope_note": null,
+      "formality_signals": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": [
+        "Classified as bid_press_release because the announcement concerned the transaction with Thoma Bravo."
+      ]
+    },
+    {
+      "event_type": "executed",
+      "date": {
+        "raw_text": "On July 13, 2016, before the stock market opened",
+        "normalized_hint": "2016-07-13",
+        "relative_to": null
+      },
+      "actor_ids": [
+        "bidder_thoma_bravo"
+      ],
+      "summary": "The parties finalized and executed the merger agreement.",
+      "evidence_refs": [
+        {
+          "block_id": "B101",
+          "evidence_id": null,
+          "anchor_text": "finalized and executed the merger agreement"
+        }
+      ],
+      "terms": null,
+      "consideration_type": null,
+      "whole_company_scope": null,
+      "whole_company_scope_note": null,
+      "formality_signals": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "deadline_date": null,
+      "executed_with_actor_id": "bidder_thoma_bravo",
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": [
+        "The filing states the parties executed the merger agreement; the target company itself is not in the locked actor roster."
+      ]
+    }
+  ],
+  "exclusions": [
+    {
+      "category": "stale_process_reference",
+      "block_ids": [
+        "B003"
+      ],
+      "explanation": "General recurring Board review of strategic alternatives is background context and not a discrete dated sale-process event."
+    },
+    {
+      "category": "non_event_context",
+      "block_ids": [
+        "B016"
+      ],
+      "explanation": "Board discussion of Thoma Bravo's indication of interest and authorization for management to respond is evaluative context, not a separate taxonomy event."
+    },
+    {
+      "category": "non_event_context",
+      "block_ids": [
+        "B017"
+      ],
+      "explanation": "CEO informing Thoma Bravo that the Board was evaluating the indication of interest is a response update, not a distinct taxonomy event."
+    },
+    {
+      "category": "non_event_context",
+      "block_ids": [
+        "B018"
+      ],
+      "explanation": "Advisory committee discussions about possible engagement of Barclays are preparatory steps; the actual retention is captured on April 15 and April 19, 2016."
+    },
+    {
+      "category": "non_event_context",
+      "block_ids": [
+        "B024",
+        "B028",
+        "B031",
+        "B033"
+      ],
+      "explanation": "These blocks provide process discussions and updates without a distinct event type requiring separate extraction."
+    },
+    {
+      "category": "other",
+      "block_ids": [
+        "B030"
+      ],
+      "explanation": "One financial sponsor declined interest shortly after executing its confidentiality agreement, but no actor_id is available in the locked roster, so no event is emitted for that party."
+    },
+    {
+      "category": "non_event_context",
+      "block_ids": [
+        "B035"
+      ],
+      "explanation": "Management departure announcement is not an M&A process event under the permitted taxonomy."
+    },
+    {
+      "category": "non_event_context",
+      "block_ids": [
+        "B041"
+      ],
+      "explanation": "Strategic 3 said it was still evaluating interest and would follow up; this is status context, not a clear interest expression or proposal event under the taxonomy."
+    },
+    {
+      "category": "non_event_context",
+      "block_ids": [
+        "B043",
+        "B045",
+        "B046",
+        "B050",
+        "B052",
+        "B053",
+        "B058",
+        "B062",
+        "B063",
+        "B064",
+        "B065",
+        "B068",
+        "B073",
+        "B075",
+        "B077",
+        "B079"
+      ],
+      "explanation": "These blocks describe board or committee meetings, diligence, management presentations, process oversight, or discussion context rather than standalone taxonomy events."
+    },
+    {
+      "category": "duplicate_mention",
+      "block_ids": [
+        "B054"
+      ],
+      "explanation": "Barclays' report in B054 that Sponsor A would cease participating overlaps with the more specific dated exit discussion already captured from B049 and committee confirmation event from B054."
+    },
+    {
+      "category": "non_event_context",
+      "block_ids": [
+        "B056"
+      ],
+      "explanation": "Providing Sponsor B and Thoma Bravo access to an online data room is diligence access, not a taxonomy event."
+    },
+    {
+      "category": "non_event_context",
+      "block_ids": [
+        "B069"
+      ],
+      "explanation": "Making the proposed form of merger agreement and voting agreement available to Thoma Bravo is process/diligence context, not a standalone taxonomy event."
+    },
+    {
+      "category": "non_event_context",
+      "block_ids": [
+        "B070",
+        "B072"
+      ],
+      "explanation": "Permitting potential debt financing sources to join under the existing confidentiality agreement concerns financing sources, not a bidder NDA event to extract here."
+    },
+    {
+      "category": "non_event_context",
+      "block_ids": [
+        "B074"
+      ],
+      "explanation": "Counsel sending a revised draft merger agreement is negotiation context, not a standalone event type in this schema."
+    },
+    {
+      "category": "non_event_context",
+      "block_ids": [
+        "B080",
+        "B082",
+        "B083",
+        "B087",
+        "B088",
+        "B090",
+        "B091",
+        "B092",
+        "B095",
+        "B097",
+        "B099",
+        "B100"
+      ],
+      "explanation": "These blocks primarily describe deliberations, negotiations over agreement terms, fairness opinion, management diligence call, and board/special committee recommendations rather than separate taxonomy events."
+    },
+    {
+      "category": "other",
+      "block_ids": [
+        "B093"
+      ],
+      "explanation": "Draft exclusivity agreement was proposed but not executed; exclusivity is not an allowed event type."
+    },
+    {
+      "category": "unsigned_nda",
+      "block_ids": [
+        "B094"
+      ],
+      "explanation": "Requested confidentiality agreement with a large stockholder was only requested and not signed."
+    },
+    {
+      "category": "non_event_context",
+      "block_ids": [
+        "B081",
+        "B084",
+        "B089",
+        "B096",
+        "B098"
+      ],
+      "explanation": "Page-number or fragment blocks do not contain standalone event facts."
+    }
+  ],
+  "unresolved_mentions": [
+    "one financial sponsor that declined interest shortly after executing its confidentiality agreement",
+    "the Company",
+    "Company management",
+    "the Company\u2019s chief executive officer",
+    "one of the strategic parties contacted by Barclays, but that did not execute a confidentiality agreement or receive a bid process letter (B037)",
+    "one of the strategic parties contacted by Barclays, but that did not execute a confidentiality agreement or receive a bid process letter (B040)",
+    "Kirkland",
+    "a large stockholder of the Company who was not aware of the potential transaction",
+    "the parties"
+  ],
+  "coverage_notes": [
+    "Coverage limited to chronology blocks B001-B036 supplied in this call.",
+    "No executed merger agreement event appears in this chunk.",
+    "No bidder proposals after the March 9, 2016 Thoma Bravo indication of interest appear in this chunk.",
+    "NDA events are recorded only for named parties confidently linkable to the provided actor roster.",
+    "Extraction limited to supplied chronology blocks B036-B079 and supplied cross-filing appendix.",
+    "Prior-round context was used only to align June 3, 2016 as a final_round_inf_ann context; no additional facts were imported beyond the provided blocks.",
+    "No executed event is included because the supplied chunk ends before agreement execution is stated in the chronology blocks.",
+    "No NDA events were extracted in this chunk because no signed execution of a confidentiality agreement by a rostered actor is newly stated in these blocks.",
+    "Extraction limited to supplied chronology blocks B079-B101 and locked actor roster.",
+    "No NDA event was recorded because the only confidentiality agreement mentioned in these blocks was requested, not executed.",
+    "No separate proposal event was created for the July 12 or July 13 meetings because those blocks discuss final terms and execution rather than a new dated revised bid.",
+    "Consideration type for the July 8 and July 9/July 10 proposals was left unknown because these specific blocks do not explicitly say the per-share offers were cash, even though later fairness discussion refers to cash consideration."
+  ]
+}

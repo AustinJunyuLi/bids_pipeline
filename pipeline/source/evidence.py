@@ -160,7 +160,11 @@ def scan_document_evidence(
             seen.add(key)
             evidence.append(
                 EvidenceItem(
-                    evidence_id=f"E{ordinal:04d}",
+                    evidence_id=(
+                        f"{accession_number}:E{ordinal:04d}"
+                        if accession_number
+                        else f"{document_id}:E{ordinal:04d}"
+                    ),
                     document_id=document_id,
                     accession_number=accession_number,
                     filing_type=filing_type,

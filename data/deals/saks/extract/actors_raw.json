@@ -1,0 +1,459 @@
+{
+  "actors": [
+    {
+      "actor_id": "bidder_hudsons_bay_company",
+      "display_name": "Hudson's Bay",
+      "canonical_name": "HUDSON'S BAY COMPANY",
+      "aliases": [
+        "Hudson's Bay Company"
+      ],
+      "role": "bidder",
+      "advisor_kind": null,
+      "bidder_kind": "strategic",
+      "listing_status": "unknown",
+      "geography": "non_us",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B005",
+          "evidence_id": null,
+          "anchor_text": "potential acquisition of Saks by Hudson\u2019s Bay"
+        },
+        {
+          "block_id": "B015",
+          "evidence_id": null,
+          "anchor_text": "Saks and Hudson\u2019s Bay entered into a confidentiality agreement"
+        },
+        {
+          "block_id": null,
+          "evidence_id": "0001193125-13-390275:E0004",
+          "anchor_text": "Hudson\u2019s Bay Company, a corporation incorporated under the federal laws of Canada"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_sponsor_a",
+      "display_name": "Sponsor A",
+      "canonical_name": "SPONSOR A",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "bidder_kind": "financial",
+      "listing_status": "unknown",
+      "geography": "unknown",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B003",
+          "evidence_id": null,
+          "anchor_text": "private equity firm, which we refer to as Sponsor A"
+        },
+        {
+          "block_id": "B014",
+          "evidence_id": null,
+          "anchor_text": "Saks entered into a confidentiality agreement with each of Sponsor A and Sponsor E"
+        },
+        {
+          "block_id": "B035",
+          "evidence_id": null,
+          "anchor_text": "Sponsor A as a primary participant"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_sponsor_e",
+      "display_name": "Sponsor E",
+      "canonical_name": "SPONSOR E",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "bidder_kind": "financial",
+      "listing_status": "unknown",
+      "geography": "unknown",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B011",
+          "evidence_id": null,
+          "anchor_text": "A private equity firm that we refer to as Sponsor E"
+        },
+        {
+          "block_id": "B014",
+          "evidence_id": null,
+          "anchor_text": "Saks entered into a confidentiality agreement with each of Sponsor A and Sponsor E"
+        },
+        {
+          "block_id": "B035",
+          "evidence_id": null,
+          "anchor_text": "Sponsor E, together with Sponsor G"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_f",
+      "display_name": "Company F",
+      "canonical_name": "COMPANY F",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "bidder_kind": "strategic",
+      "listing_status": "private",
+      "geography": "unknown",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B027",
+          "evidence_id": null,
+          "anchor_text": "a privately held retail company, which we refer to as Company F"
+        },
+        {
+          "block_id": "B027",
+          "evidence_id": null,
+          "anchor_text": "indicated interest in participating with Sponsor A and Sponsor E in a potential acquisition of Saks"
+        }
+      ],
+      "notes": [
+        "Participated only as a potential consortium participant and did not join the ultimate offer."
+      ]
+    },
+    {
+      "actor_id": "bidder_sponsor_g",
+      "display_name": "Sponsor G",
+      "canonical_name": "SPONSOR G",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "bidder_kind": "financial",
+      "listing_status": "unknown",
+      "geography": "unknown",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B033",
+          "evidence_id": null,
+          "anchor_text": "Sponsor G, a private equity firm"
+        },
+        {
+          "block_id": "B033",
+          "evidence_id": null,
+          "anchor_text": "Saks entered into a confidentiality agreement with Sponsor G"
+        },
+        {
+          "block_id": "B035",
+          "evidence_id": null,
+          "anchor_text": "Sponsor E, together with Sponsor G"
+        }
+      ],
+      "notes": [
+        "Later withdrew from the process."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_h",
+      "display_name": "Company H",
+      "canonical_name": "COMPANY H",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "bidder_kind": "unknown",
+      "listing_status": "private",
+      "geography": "domestic",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B045",
+          "evidence_id": null,
+          "anchor_text": "Company H, a privately held company based in the U. S."
+        },
+        {
+          "block_id": "B045",
+          "evidence_id": null,
+          "anchor_text": "purporting to propose to acquire Saks"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_i",
+      "display_name": "Company I",
+      "canonical_name": "COMPANY I",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "bidder_kind": "unknown",
+      "listing_status": "unknown",
+      "geography": "unknown",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B062",
+          "evidence_id": null,
+          "anchor_text": "only one of the six (which we refer to as Company I) executed a confidentiality agreement"
+        },
+        {
+          "block_id": "B062",
+          "evidence_id": null,
+          "anchor_text": "including Company I, has submitted an acquisition proposal for Saks"
+        }
+      ],
+      "notes": [
+        "Go-shop participant."
+      ]
+    },
+    {
+      "actor_id": "advisor_goldman_sachs",
+      "display_name": "Goldman Sachs",
+      "canonical_name": "GOLDMAN SACHS",
+      "aliases": [],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B002",
+          "evidence_id": null,
+          "anchor_text": "Goldman Sachs, one of Saks\u2019 longstanding financial advisors"
+        },
+        {
+          "block_id": "B058",
+          "evidence_id": null,
+          "anchor_text": "representatives of Goldman Sachs"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_wachtell_lipton",
+      "display_name": "Wachtell, Lipton, Rosen & Katz",
+      "canonical_name": "WACHTELL, LIPTON, ROSEN & KATZ",
+      "aliases": [
+        "Wachtell Lipton"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B008",
+          "evidence_id": null,
+          "anchor_text": "Wachtell, Lipton, Rosen & Katz, referred to as Wachtell Lipton, Saks\u2019 external counsel"
+        },
+        {
+          "block_id": "B058",
+          "evidence_id": null,
+          "anchor_text": "and Wachtell Lipton"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_morgan_stanley",
+      "display_name": "Morgan Stanley & Co. LLC",
+      "canonical_name": "MORGAN STANLEY & CO. LLC",
+      "aliases": [
+        "Morgan Stanley"
+      ],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B058",
+          "evidence_id": null,
+          "anchor_text": "Morgan Stanley & Co. LLC (a long-time advisor to Saks, referred to as \u201c Morgan Stanley\u201d)"
+        },
+        {
+          "block_id": null,
+          "evidence_id": "0001193125-13-390275:E0497",
+          "anchor_text": "our financial advisors Goldman Sachs and Morgan Stanley"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_guggenheim_securities_llc",
+      "display_name": "Guggenheim Securities LLC",
+      "canonical_name": "GUGGENHEIM SECURITIES LLC",
+      "aliases": [],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": null,
+          "evidence_id": "0001193125-13-390275:E0497",
+          "anchor_text": "the Company\u2019s other financial advisors, Morgan Stanley and Guggenheim Securities LLC"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "target_board_saks_board",
+      "display_name": "Saks board of directors",
+      "canonical_name": "SAKS BOARD OF DIRECTORS",
+      "aliases": [
+        "the board"
+      ],
+      "role": "target_board",
+      "advisor_kind": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B002",
+          "evidence_id": null,
+          "anchor_text": "the board and Saks\u2019 senior management"
+        },
+        {
+          "block_id": "B004",
+          "evidence_id": null,
+          "anchor_text": "the board held a regularly scheduled telephonic meeting"
+        },
+        {
+          "block_id": null,
+          "evidence_id": "0001193125-13-390275:E0007",
+          "anchor_text": "The board of directors of the Company (the \u201cboard\u201d)"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "target_board_finance_committee",
+      "display_name": "Finance committee of the board",
+      "canonical_name": "SAKS FINANCE COMMITTEE OF THE BOARD",
+      "aliases": [],
+      "role": "target_board",
+      "advisor_kind": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B004",
+          "evidence_id": null,
+          "anchor_text": "the Finance committee of the board"
+        },
+        {
+          "block_id": "B018",
+          "evidence_id": null,
+          "anchor_text": "the Finance committee of the board held a special telephonic meeting"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "target_board_executive_committee",
+      "display_name": "Executive committee of the board",
+      "canonical_name": "SAKS EXECUTIVE COMMITTEE OF THE BOARD",
+      "aliases": [],
+      "role": "target_board",
+      "advisor_kind": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B008",
+          "evidence_id": null,
+          "anchor_text": "the Executive committee of the board held a special joint telephonic meeting"
+        }
+      ],
+      "notes": []
+    }
+  ],
+  "count_assertions": [
+    {
+      "count": 58,
+      "subject": "interested_parties",
+      "qualifier_text": "potentially interested third parties contacted during the go shop process",
+      "evidence_refs": [
+        {
+          "block_id": "B062",
+          "evidence_id": null,
+          "anchor_text": "contacted 58 potentially interested third parties"
+        }
+      ]
+    },
+    {
+      "count": 6,
+      "subject": "other",
+      "qualifier_text": "parties contacted during the go shop process that expressed interest",
+      "evidence_refs": [
+        {
+          "block_id": "B062",
+          "evidence_id": null,
+          "anchor_text": "only six parties expressed interest"
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "subject": "other",
+      "qualifier_text": "of the six interested go-shop parties, parties that executed a confidentiality agreement and conducted due diligence",
+      "evidence_refs": [
+        {
+          "block_id": "B062",
+          "evidence_id": null,
+          "anchor_text": "only one of the six"
+        },
+        {
+          "block_id": "B062",
+          "evidence_id": null,
+          "anchor_text": "executed a confidentiality agreement with, and conducted a due diligence investigation of, Saks"
+        }
+      ]
+    }
+  ],
+  "unresolved_mentions": [
+    "Sponsor A and Sponsor E are described at times as joint participants and at other times Sponsor A appears replaced by Sponsor G before returning; consortium composition changes over time.",
+    "The filing references Hudson\u2019s Bay\u2019s financial advisor in B048, but the advisor is not named.",
+    "Other third parties with whom Saks had held discussions during the go-shop process are referenced in B064 but not identified."
+  ]
+}

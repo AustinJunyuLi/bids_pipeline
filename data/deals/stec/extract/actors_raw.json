@@ -1,0 +1,780 @@
+{
+  "actors": [
+    {
+      "actor_id": "bidder_wdc",
+      "display_name": "WDC",
+      "canonical_name": "WDC",
+      "aliases": [
+        "Western Digital Corp",
+        "Western Digital Corporation"
+      ],
+      "role": "bidder",
+      "advisor_kind": null,
+      "bidder_kind": "strategic",
+      "listing_status": "public",
+      "geography": "domestic",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B005",
+          "evidence_id": null,
+          "anchor_text": "Mr. Coyne noted that WDC was interested"
+        },
+        {
+          "block_id": "B032",
+          "evidence_id": null,
+          "anchor_text": "three prospective acquirers (WDC, Company H, a participant in the storage industry, and Company D)"
+        },
+        {
+          "block_id": "B101",
+          "evidence_id": null,
+          "anchor_text": "sTec, WDC, and Merger Sub executed the merger agreement"
+        },
+        {
+          "block_id": "B187",
+          "evidence_id": null,
+          "anchor_text": "Western Digital Corporation"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_a",
+      "display_name": "Company A",
+      "canonical_name": "Company A",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "bidder_kind": "strategic",
+      "listing_status": "unknown",
+      "geography": "unknown",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B008",
+          "evidence_id": null,
+          "anchor_text": "Company A, a participant in the storage industry"
+        },
+        {
+          "block_id": "B032",
+          "evidence_id": null,
+          "anchor_text": "including the financial sponsor and Company A"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_b",
+      "display_name": "Company B",
+      "canonical_name": "Company B",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "bidder_kind": "strategic",
+      "listing_status": "unknown",
+      "geography": "unknown",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B014",
+          "evidence_id": null,
+          "anchor_text": "Company B, a participant in the electronics industry"
+        },
+        {
+          "block_id": "B019",
+          "evidence_id": null,
+          "anchor_text": "Company B's management had determined that it was not interested in acquiring sTec"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_c",
+      "display_name": "Company C",
+      "canonical_name": "Company C",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "bidder_kind": "strategic",
+      "listing_status": "unknown",
+      "geography": "unknown",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B024",
+          "evidence_id": null,
+          "anchor_text": "Company C, a participant in the semiconductor industry"
+        },
+        {
+          "block_id": "B037",
+          "evidence_id": null,
+          "anchor_text": "Company C indicated that it was only interested in purchasing limited, select assets"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_d",
+      "display_name": "Company D",
+      "canonical_name": "Company D",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "bidder_kind": "strategic",
+      "listing_status": "unknown",
+      "geography": "unknown",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B028",
+          "evidence_id": null,
+          "anchor_text": "Company D, a participant in the storage industry"
+        },
+        {
+          "block_id": "B032",
+          "evidence_id": null,
+          "anchor_text": "three prospective acquirers (WDC, Company H, a participant in the storage industry, and Company D)"
+        },
+        {
+          "block_id": "B056",
+          "evidence_id": null,
+          "anchor_text": "Company D submitted a written non-binding indication of interest"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_e",
+      "display_name": "Company E",
+      "canonical_name": "Company E",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "bidder_kind": "strategic",
+      "listing_status": "unknown",
+      "geography": "unknown",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B034",
+          "evidence_id": null,
+          "anchor_text": "entered into a non-disclosure agreement with Company E"
+        },
+        {
+          "block_id": "B036",
+          "evidence_id": null,
+          "anchor_text": "Each of the non-disclosure agreements with Company E, Company F and Company H"
+        },
+        {
+          "block_id": "B037",
+          "evidence_id": null,
+          "anchor_text": "Company E indicated it was also only interested in purchasing limited, select assets"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_f",
+      "display_name": "Company F",
+      "canonical_name": "Company F",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "bidder_kind": "strategic",
+      "listing_status": "unknown",
+      "geography": "unknown",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B034",
+          "evidence_id": null,
+          "anchor_text": "entered into a non-disclosure agreement with Company F"
+        },
+        {
+          "block_id": "B036",
+          "evidence_id": null,
+          "anchor_text": "Each of the non-disclosure agreements with Company E, Company F and Company H"
+        },
+        {
+          "block_id": "B037",
+          "evidence_id": null,
+          "anchor_text": "Company F declined the invitation to schedule a management presentation"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_g",
+      "display_name": "Company G",
+      "canonical_name": "Company G",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "bidder_kind": "strategic",
+      "listing_status": "unknown",
+      "geography": "unknown",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B036",
+          "evidence_id": null,
+          "anchor_text": "entered into a non-disclosure agreement with Company G"
+        },
+        {
+          "block_id": "B039",
+          "evidence_id": null,
+          "anchor_text": "WDC, Company D, and Company G"
+        },
+        {
+          "block_id": "B048",
+          "evidence_id": null,
+          "anchor_text": "Company G indicated it would not continue in the process"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_h",
+      "display_name": "Company H",
+      "canonical_name": "Company H",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "bidder_kind": "strategic",
+      "listing_status": "unknown",
+      "geography": "unknown",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B032",
+          "evidence_id": null,
+          "anchor_text": "three prospective acquirers (WDC, Company H, a participant in the storage industry, and Company D)"
+        },
+        {
+          "block_id": "B036",
+          "evidence_id": null,
+          "anchor_text": "Each of the non-disclosure agreements with Company E, Company F and Company H"
+        },
+        {
+          "block_id": "B058",
+          "evidence_id": null,
+          "anchor_text": "Company H submitted a written non-binding indication of interest"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_financial_sponsor_1",
+      "display_name": "Unnamed financial sponsor",
+      "canonical_name": "Unnamed financial sponsor",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "bidder_kind": "financial",
+      "listing_status": "unknown",
+      "geography": "unknown",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B032",
+          "evidence_id": null,
+          "anchor_text": "17 of which were technology companies and one of which was a financial sponsor"
+        },
+        {
+          "block_id": "B032",
+          "evidence_id": null,
+          "anchor_text": "including the financial sponsor and Company A"
+        }
+      ],
+      "notes": [
+        "Unnamed single financial buyer referenced in the process."
+      ]
+    },
+    {
+      "actor_id": "advisor_bofa_merrill_lynch",
+      "display_name": "BofA Merrill Lynch",
+      "canonical_name": "BofA Merrill Lynch",
+      "aliases": [
+        "Bank of America Merrill Lynch"
+      ],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B017",
+          "evidence_id": null,
+          "anchor_text": "including the two firms previously contacted and BofA Merrill Lynch"
+        },
+        {
+          "block_id": "B029",
+          "evidence_id": null,
+          "anchor_text": "board approved retaining BofA Merrill Lynch to act as sTec's financial advisor"
+        },
+        {
+          "block_id": "B030",
+          "evidence_id": null,
+          "anchor_text": "entered into an engagement letter with BofA Merrill Lynch"
+        },
+        {
+          "block_id": "B157",
+          "evidence_id": null,
+          "anchor_text": "sTec has retained BofA Merrill Lynch to act as sTec's financial advisor"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_gibson_dunn",
+      "display_name": "Gibson, Dunn & Crutcher LLP",
+      "canonical_name": "Gibson, Dunn & Crutcher LLP",
+      "aliases": [
+        "Gibson Dunn"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B010",
+          "evidence_id": null,
+          "anchor_text": "Gibson, Dunn & Crutcher LLP (\" Gibson Dunn\")"
+        },
+        {
+          "block_id": "B010",
+          "evidence_id": null,
+          "anchor_text": "engaged in October 2012 as the company's outside corporate counsel"
+        },
+        {
+          "block_id": "B022",
+          "evidence_id": null,
+          "anchor_text": "representatives from Gibson Dunn also attended the meeting"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_latham_watkins",
+      "display_name": "Latham & Watkins LLP",
+      "canonical_name": "Latham & Watkins LLP",
+      "aliases": [
+        "Latham & Watkins"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B060",
+          "evidence_id": null,
+          "anchor_text": "representatives of Latham & Watkins LLP (\" Latham & Watkins\"), litigation counsel to sTec"
+        },
+        {
+          "block_id": "B073",
+          "evidence_id": null,
+          "anchor_text": "representatives from BofA Merrill Lynch, Latham & Watkins and Gibson Dunn"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_mackenzie_partners",
+      "display_name": "MacKenzie Partners",
+      "canonical_name": "MacKenzie Partners",
+      "aliases": [],
+      "role": "advisor",
+      "advisor_kind": "other",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B025",
+          "evidence_id": null,
+          "anchor_text": "representatives from MacKenzie Partners, sTec's proxy solicitor"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_shearman_sterling",
+      "display_name": "Shearman & Sterling LLP",
+      "canonical_name": "Shearman & Sterling LLP",
+      "aliases": [
+        "Shearman"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B093",
+          "evidence_id": null,
+          "anchor_text": "Shearman & Sterling LLP (\" Shearman\"), counsel to WDC"
+        },
+        {
+          "block_id": "B094",
+          "evidence_id": null,
+          "anchor_text": "Gibson Dunn submitted to Shearman proposed revisions"
+        }
+      ],
+      "notes": [
+        "Counsel to WDC."
+      ]
+    },
+    {
+      "actor_id": "advisor_paul_hastings",
+      "display_name": "Paul Hastings LLP",
+      "canonical_name": "Paul Hastings LLP",
+      "aliases": [
+        "Paul Hastings"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B093",
+          "evidence_id": null,
+          "anchor_text": "Paul Hastings LLP (\" Paul Hastings\"), counsel to Messrs. Moshayedi"
+        }
+      ],
+      "notes": [
+        "Counsel to Messrs. Moshayedi in ancillary agreement negotiations."
+      ]
+    },
+    {
+      "actor_id": "activist_balch_hill",
+      "display_name": "Balch Hill Partners, L. P.",
+      "canonical_name": "Balch Hill Partners, L. P.",
+      "aliases": [
+        "Balch Hill"
+      ],
+      "role": "activist",
+      "advisor_kind": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B011",
+          "evidence_id": null,
+          "anchor_text": "Balch Hill Partners, L. P. (\" Balch Hill\"), an activist investor"
+        },
+        {
+          "block_id": "B011",
+          "evidence_id": null,
+          "anchor_text": "Balch Hill filed an amendment to its Schedule 13D"
+        },
+        {
+          "block_id": "B011",
+          "evidence_id": null,
+          "anchor_text": "Balch Hill and Potomac continued this activist campaign"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "activist_potomac",
+      "display_name": "Potomac Capital Partners II, L. P.",
+      "canonical_name": "Potomac Capital Partners II, L. P.",
+      "aliases": [
+        "Potomac"
+      ],
+      "role": "activist",
+      "advisor_kind": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B011",
+          "evidence_id": null,
+          "anchor_text": "Potomac Capital Partners II, L. P. (\" Potomac\")"
+        },
+        {
+          "block_id": "B011",
+          "evidence_id": null,
+          "anchor_text": "Balch Hill and Potomac subsequently jointly increased their beneficial holdings"
+        },
+        {
+          "block_id": "B011",
+          "evidence_id": null,
+          "anchor_text": "Balch Hill and Potomac continued this activist campaign"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "target_board_stec_board",
+      "display_name": "sTec board of directors",
+      "canonical_name": "sTec board of directors",
+      "aliases": [],
+      "role": "target_board",
+      "advisor_kind": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B002",
+          "evidence_id": null,
+          "anchor_text": "management and our board of directors regularly reviewed"
+        },
+        {
+          "block_id": "B007",
+          "evidence_id": null,
+          "anchor_text": "our board of directors determined that it would be beneficial to undertake a formal review"
+        },
+        {
+          "block_id": "B098",
+          "evidence_id": null,
+          "anchor_text": "our board of directors unanimously determined"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "target_board_special_committee",
+      "display_name": "sTec special committee",
+      "canonical_name": "sTec special committee",
+      "aliases": [],
+      "role": "target_board",
+      "advisor_kind": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B013",
+          "evidence_id": null,
+          "anchor_text": "our board of directors established a special committee of the board"
+        },
+        {
+          "block_id": "B013",
+          "evidence_id": null,
+          "anchor_text": "The mandate of the special committee was to conduct a review"
+        },
+        {
+          "block_id": "B097",
+          "evidence_id": null,
+          "anchor_text": "the special committee unanimously determined"
+        }
+      ],
+      "notes": []
+    }
+  ],
+  "count_assertions": [
+    {
+      "count": 2,
+      "subject": "other",
+      "qualifier_text": "financial advisors contacted in mid-November 2012",
+      "evidence_refs": [
+        {
+          "block_id": null,
+          "evidence_id": "0001193125-13-325730:E0267",
+          "anchor_text": "management contacted two financial advisors"
+        }
+      ]
+    },
+    {
+      "count": 9,
+      "subject": "other",
+      "qualifier_text": "investment banking firms identified for preliminary inquiries",
+      "evidence_refs": [
+        {
+          "block_id": "B017",
+          "evidence_id": null,
+          "anchor_text": "make preliminary inquiries of nine investment banking firms"
+        }
+      ]
+    },
+    {
+      "count": 3,
+      "subject": "other",
+      "qualifier_text": "investment banking firms identified to interview",
+      "evidence_refs": [
+        {
+          "block_id": "B021",
+          "evidence_id": null,
+          "anchor_text": "identified three investment banking firms to interview"
+        }
+      ]
+    },
+    {
+      "count": 18,
+      "subject": "interested_parties",
+      "qualifier_text": "prospective acquirers discussed with by BofA Merrill Lynch",
+      "evidence_refs": [
+        {
+          "block_id": "B032",
+          "evidence_id": null,
+          "anchor_text": "BofA Merrill Lynch had discussions with 18 prospective acquirers"
+        }
+      ]
+    },
+    {
+      "count": 17,
+      "subject": "other",
+      "qualifier_text": "technology companies among prospective acquirers",
+      "evidence_refs": [
+        {
+          "block_id": "B032",
+          "evidence_id": null,
+          "anchor_text": "17 of which were technology companies"
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "subject": "other",
+      "qualifier_text": "financial sponsor among prospective acquirers",
+      "evidence_refs": [
+        {
+          "block_id": "B032",
+          "evidence_id": null,
+          "anchor_text": "one of which was a financial sponsor"
+        }
+      ]
+    },
+    {
+      "count": 3,
+      "subject": "other",
+      "qualifier_text": "prospective acquirers that submitted written indications of interest for a complete purchase",
+      "evidence_refs": [
+        {
+          "block_id": "B032",
+          "evidence_id": null,
+          "anchor_text": "three prospective acquirers (WDC, Company H, a participant in the storage industry, and Company D) submitted written indications of interest"
+        }
+      ]
+    },
+    {
+      "count": 6,
+      "subject": "other",
+      "qualifier_text": "potential strategic acquirers interested only in limited, select assets",
+      "evidence_refs": [
+        {
+          "block_id": "B032",
+          "evidence_id": null,
+          "anchor_text": "six potential strategic acquirers expressed an interest in purchasing limited, select assets"
+        }
+      ]
+    },
+    {
+      "count": 9,
+      "subject": "other",
+      "qualifier_text": "prospective acquirers indicating no interest in a potential transaction",
+      "evidence_refs": [
+        {
+          "block_id": "B032",
+          "evidence_id": null,
+          "anchor_text": "nine prospective acquirers, including the financial sponsor and Company A, indicated they were not interested"
+        }
+      ]
+    },
+    {
+      "count": 6,
+      "subject": "nda_signed_bidders",
+      "qualifier_text": "non-disclosure agreements related to exploration of a potential sale",
+      "evidence_refs": [
+        {
+          "block_id": "B036",
+          "evidence_id": null,
+          "anchor_text": "In total sTec executed six non-disclosure agreements"
+        }
+      ]
+    },
+    {
+      "count": 2,
+      "subject": "final_round_invitees",
+      "qualifier_text": "parties sent final round process letters and draft merger agreement on May 16, 2013",
+      "evidence_refs": [
+        {
+          "block_id": "B064",
+          "evidence_id": null,
+          "anchor_text": "sent final round process letters and a draft merger agreement to WDC and Company D"
+        }
+      ]
+    },
+    {
+      "count": 17,
+      "subject": "other",
+      "qualifier_text": "other potential buyers contacted over the course of the strategic review process",
+      "evidence_refs": [
+        {
+          "block_id": "B115",
+          "evidence_id": null,
+          "anchor_text": "the contact, either directly or through the company's management or advisors, with 17 other potential buyers"
+        }
+      ]
+    }
+  ],
+  "unresolved_mentions": [
+    "Two financial advisors contacted in mid-November 2012 were not named.",
+    "Nine investment banking firms identified by the board for preliminary inquiries were not fully named; only BofA Merrill Lynch is specifically identified.",
+    "Six potential strategic acquirers expressed interest in purchasing limited, select assets, but only Company C, Company E and Company F are specifically identified in the supplied text.",
+    "The six executed non-disclosure agreements are not all fully enumerated in one place; the text names Company E, Company D, Company F, Company G, WDC addendum, and Company H, but whether the WDC addendum is counted as one of the six NDAs is not expressly clarified.",
+    "Merger Sub is referenced but excluded because it is not one of the requested actor roles."
+  ]
+}

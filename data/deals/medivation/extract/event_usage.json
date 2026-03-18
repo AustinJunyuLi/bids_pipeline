@@ -1,0 +1,57 @@
+{
+  "deal_slug": "medivation",
+  "run_id": "run-873b03c4",
+  "token_count": 34641,
+  "line_count": 387,
+  "complexity": "complex",
+  "chunk_mode": "chunked",
+  "chunk_count": 3,
+  "calls": [
+    {
+      "chunk_id": "chunk-1",
+      "provider": "openai",
+      "input_tokens": 28374,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 5340,
+      "cost_usd": null,
+      "latency_ms": 61295,
+      "request_id": "chatcmpl-DKVwHZwePGQZO6NKlU3XVlZaaC4NT",
+      "model": "gpt-5.4-2026-03-05",
+      "prompt_version": "3b3d4e9195750b423c57d3cb29421b1b6d9b5e235efa014778e65e9936a08c86",
+      "structured_mode": "prompted_json",
+      "repair_count": 1
+    },
+    {
+      "chunk_id": "chunk-2",
+      "provider": "openai",
+      "input_tokens": 21945,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 4591,
+      "cost_usd": null,
+      "latency_ms": 48649,
+      "request_id": "chatcmpl-DKVwij5Fc8Efjzd1TN86LpkJnYn9z",
+      "model": "gpt-5.4-2026-03-05",
+      "prompt_version": "3b3d4e9195750b423c57d3cb29421b1b6d9b5e235efa014778e65e9936a08c86",
+      "structured_mode": "prompted_json",
+      "repair_count": 0
+    },
+    {
+      "chunk_id": "chunk-3",
+      "provider": "openai",
+      "input_tokens": 22192,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 414,
+      "cost_usd": null,
+      "latency_ms": 7447,
+      "request_id": "chatcmpl-DKVxV27PRbKB0CjTfzOip4Mg8JTci",
+      "model": "gpt-5.4-2026-03-05",
+      "prompt_version": "3b3d4e9195750b423c57d3cb29421b1b6d9b5e235efa014778e65e9936a08c86",
+      "structured_mode": "prompted_json",
+      "repair_count": 0
+    }
+  ],
+  "recovery": null
+}

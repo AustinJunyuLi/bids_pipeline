@@ -1,9 +1,9 @@
 {
   "schema_version": "2.0.0",
   "artifact_type": "raw_document_registry",
-  "created_at": "2026-03-16T20:06:38.660527Z",
+  "created_at": "2026-03-16T23:46:57.244133Z",
   "pipeline_version": "0.1.0",
-  "run_id": "run-20260316-200629-raw9",
+  "run_id": "alex9-prellm-20260316-234644",
   "deal_slug": "medivation",
   "documents": [
     {
@@ -17,7 +17,7 @@
       "sha256_txt": "ee3134daae2a090234fe52a25db1c75a92d078a7d0fad49ec55a6c6d0b236e6d",
       "sha256_html": "bb9605e6969a0c74d646834d8a6195fc2ff6e7c63776dddebd8edb5723878467",
       "byte_count_txt": 25072,
-      "fetched_at": "2026-03-16T20:06:35.663187Z"
+      "fetched_at": "2026-03-16T23:46:51.981382Z"
     },
     {
       "document_id": "0001193125-16-696911",
@@ -30,7 +30,7 @@
       "sha256_txt": "004eefe2db4e8aa23622d5ca702ef10e3e2e7673325e108c4b284d0852b0ca2b",
       "sha256_html": "e826c3eb099c3325d3fdc3853c20e4ebaac9c24da95ba80dd31386b39af63439",
       "byte_count_txt": 277805,
-      "fetched_at": "2026-03-16T20:06:36.449040Z"
+      "fetched_at": "2026-03-16T23:46:52.602279Z"
     },
     {
       "document_id": "0001193125-16-705602",
@@ -43,7 +43,7 @@
       "sha256_txt": "b49cfd3714e03449b1ea129a4efc02828e41ef18f9fa41199affc36e4b26a777",
       "sha256_html": "c6124cfcecd14e812c8ea6a2775577f23f85ee95cb1bc64d7ea02d1cc6a15c3b",
       "byte_count_txt": 13636,
-      "fetched_at": "2026-03-16T20:06:36.545475Z"
+      "fetched_at": "2026-03-16T23:46:52.846620Z"
     },
     {
       "document_id": "0001193125-16-705609",
@@ -56,7 +56,7 @@
       "sha256_txt": "3693c3981fe8387b6813d5f9bb006e7c47c66a833b359a9a3a7ed2037658440d",
       "sha256_html": "136b510519871e992f0f0ecb998b86c9fbd7db5e4c35694bed00b4a690b2dec4",
       "byte_count_txt": 5272,
-      "fetched_at": "2026-03-16T20:06:36.616191Z"
+      "fetched_at": "2026-03-16T23:46:53.684966Z"
     },
     {
       "document_id": "0001193125-16-708614",
@@ -69,7 +69,7 @@
       "sha256_txt": "4ac0a9d9d9187aa1540aea67995be4bf6b1137fbec7b7abf9d158fd18d6570a5",
       "sha256_html": "66c12cddc6f5e43488a9e707bba97c74becd84557c1cfc448207967649ac5aa4",
       "byte_count_txt": 4187,
-      "fetched_at": "2026-03-16T20:06:37.465766Z"
+      "fetched_at": "2026-03-16T23:46:55.005157Z"
     },
     {
       "document_id": "0001193125-16-709813",
@@ -82,7 +82,7 @@
       "sha256_txt": "5c7651049e9de61468ddbae0e59c08350bda5a014348562d1fd10ae7b0e209fe",
       "sha256_html": "1c4a99d49103e96cc825d0a1eaec61c45486114b66ebf3408a52f9d3ba943927",
       "byte_count_txt": 13663,
-      "fetched_at": "2026-03-16T20:06:37.568514Z"
+      "fetched_at": "2026-03-16T23:46:55.216718Z"
     },
     {
       "document_id": "0001193125-16-630505",
@@ -95,7 +95,7 @@
       "sha256_txt": "04042c140113141314472e1842dd0187e6fb0bdcb0939a4b6a559a94c744f4e5",
       "sha256_html": "a10e6f776e6974ad9f8d76e8ea5a2c686ae0844af01672abeb4248780090be7d",
       "byte_count_txt": 3128,
-      "fetched_at": "2026-03-16T20:06:37.629443Z"
+      "fetched_at": "2026-03-16T23:46:55.360933Z"
     },
     {
       "document_id": "0001193125-16-631546",
@@ -108,7 +108,7 @@
       "sha256_txt": "45aead2fd588494698d99e51f673950abde11edd7041765e68b7c48e407641b1",
       "sha256_html": "0c07944d0738950d1155af628638b6315feed121fbf34bd8b2c72533510313f9",
       "byte_count_txt": 3126,
-      "fetched_at": "2026-03-16T20:06:37.685346Z"
+      "fetched_at": "2026-03-16T23:46:55.716413Z"
     },
     {
       "document_id": "0001193125-16-620313",
@@ -121,7 +121,7 @@
       "sha256_txt": "9b9bfc2033f6421a07fa29225ca95552f0a22780acb5f6b59ac43d78cbca9575",
       "sha256_html": "db26369ccd6537d3c6a358270f6803e99a52e49e93adc31396478ddd4cff7b20",
       "byte_count_txt": 3248,
-      "fetched_at": "2026-03-16T20:06:37.816276Z"
+      "fetched_at": "2026-03-16T23:46:56.145617Z"
     },
     {
       "document_id": "0001193125-16-686961",
@@ -134,7 +134,7 @@
       "sha256_txt": "2de1987584229b31e7ff70d196106b6327111912033b4c88573c51bbee0283ff",
       "sha256_html": "e62074ca678634b24c9a1545091536ff056637ccf14e3e30eac1b05381c71162",
       "byte_count_txt": 20840,
-      "fetched_at": "2026-03-16T20:06:38.538302Z"
+      "fetched_at": "2026-03-16T23:46:56.331223Z"
     },
     {
       "document_id": "0001193125-16-700899",
@@ -147,7 +147,7 @@
       "sha256_txt": "a4c93bbfbd9cad7ae3bb90f76ca243e01aa2dc229de337f4279d3f7336acdba6",
       "sha256_html": "8abc6eb7154a3eef008888bf651c6185182316213ed04046b9adbcea7b5607f3",
       "byte_count_txt": 4819,
-      "fetched_at": "2026-03-16T20:06:38.602020Z"
+      "fetched_at": "2026-03-16T23:46:56.632574Z"
     },
     {
       "document_id": "0001193125-16-676774",
@@ -160,7 +160,7 @@
       "sha256_txt": "cb3877712c070e295d69f8667198ffc9d41cef02a2cbda7ab45df335ad5485ca",
       "sha256_html": "63b2a52588fb1ce8904889462c2b6c6f9dc69130bb554fe5100750ec39cc0bbb",
       "byte_count_txt": 3057,
-      "fetched_at": "2026-03-16T20:06:38.660500Z"
+      "fetched_at": "2026-03-16T23:46:57.244096Z"
     }
   ]
 }

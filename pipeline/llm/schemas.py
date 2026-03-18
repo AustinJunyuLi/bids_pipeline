@@ -39,6 +39,7 @@ class RawActorRecord(LLMOutputModel):
     canonical_name: str
     aliases: list[str] = Field(default_factory=list)
     role: ActorRole
+    advised_actor_id: str | None = None
     advisor_kind: AdvisorKind | None = None
     bidder_kind: BidderKind | None = None
     listing_status: ListingStatus | None = None
@@ -119,6 +120,7 @@ class RawFormalitySignals(LLMOutputModel):
     requested_binding_offer_via_process_letter: bool = False
     after_final_round_announcement: bool = False
     after_final_round_deadline: bool = False
+    is_subject_to_financing: bool | None = None
 
 
 class RawEventRecord(LLMOutputModel):
@@ -134,6 +136,7 @@ class RawEventRecord(LLMOutputModel):
     formality_signals: RawFormalitySignals | None = None
     drop_reason_text: str | None = None
     round_scope: Literal["informal", "formal", "extension"] | None = None
+    invited_actor_ids: list[str] = Field(default_factory=list)
     deadline_date: RawDateHint | None = None
     executed_with_actor_id: str | None = None
     boundary_note: str | None = None

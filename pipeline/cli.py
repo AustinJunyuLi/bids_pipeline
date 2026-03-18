@@ -2,14 +2,19 @@ from __future__ import annotations
 
 import argparse
 import json
-import os
 from collections.abc import Sequence
 from hashlib import sha256
 from pathlib import Path
 from uuid import uuid4
 
-from pipeline.config import DEALS_DIR, RAW_DIR, STATE_DB_PATH
-from pipeline.llm import AnthropicBackend
+from pipeline.config import (
+    DEALS_DIR,
+    RAW_DIR,
+    STATE_DB_PATH,
+    VALID_LLM_PROVIDERS,
+    VALID_STRUCTURED_OUTPUT_MODES,
+)
+from pipeline.llm import build_backend
 from pipeline.models.common import SCHEMA_VERSION
 from pipeline.orchestrator import PipelineOrchestrator
 from pipeline.seeds import entry_to_seed_artifact, load_seed_registry
@@ -64,6 +69,7 @@ def build_parser() -> argparse.ArgumentParser:
     for subcommand in ("actors", "events"):
         subparser = extract_subparsers.add_parser(subcommand)
         _add_stage_execution_args(subparser)
+        _add_llm_args(subparser)
 
     qa_parser = subparsers.add_parser("qa", help="Run QA stage.")
     _add_stage_execution_args(qa_parser)
@@ -99,6 +105,34 @@ def _add_stage_execution_args(
     parser.add_argument("--resume", action="store_true")
     if include_workers:
         parser.add_argument("--workers", type=int, default=1)
+
+
+def _add_llm_args(parser: argparse.ArgumentParser) -> None:
+    parser.add_argument(
+        "--provider",
+        choices=VALID_LLM_PROVIDERS,
+        default=None,
+        help="LLM provider override (anthropic/openai).",
+    )
+    parser.add_argument("--model", dest="model_override", default=None, help="Override the LLM model id.")
+    parser.add_argument(
+        "--reasoning-effort",
+        dest="reasoning_effort",
+        default=None,
+        help="Provider-specific reasoning/effort override (for example: minimal, low, medium, high, max).",
+    )
+    parser.add_argument(
+        "--effort",
+        dest="reasoning_effort",
+        default=None,
+        help=argparse.SUPPRESS,
+    )
+    parser.add_argument(
+        "--structured-mode",
+        choices=VALID_STRUCTURED_OUTPUT_MODES,
+        default=None,
+        help="Structured output mode override (prompted_json/provider_native/auto).",
+    )
 
 
 def _ensure_run(
@@ -198,7 +232,7 @@ def _record_usage_calls(
             run_id=run_id,
             deal_slug=deal_slug,
             unit_name=unit_name,
-            provider="anthropic",
+            provider=row.get("provider") or "unknown",
             model=row.get("model") or "",
             prompt_version=row.get("prompt_version") or "",
             request_id=request_id,
@@ -210,11 +244,42 @@ def _record_usage_calls(
             latency_ms=row.get("latency_ms"),
             status="success",
         )
+    recovery = payload.get("recovery")
+    if recovery is not None:
+        recovery_unit = f"{unit_name}_recovery_audit"
+        request_id = recovery.get("request_id") or f"{deal_slug}-{recovery_unit}-1"
+        orchestrator.state_store.record_llm_call(
+            call_id=f"{run_id}:{deal_slug}:{recovery_unit}:1:{request_id}",
+            run_id=run_id,
+            deal_slug=deal_slug,
+            unit_name=recovery_unit,
+            provider=recovery.get("provider") or "unknown",
+            model=recovery.get("model") or "",
+            prompt_version=recovery.get("prompt_version") or "",
+            request_id=request_id,
+            input_tokens=recovery.get("input_tokens"),
+            cache_creation_input_tokens=recovery.get("cache_creation_input_tokens"),
+            cache_read_input_tokens=recovery.get("cache_read_input_tokens"),
+            output_tokens=recovery.get("output_tokens"),
+            cost_usd=recovery.get("cost_usd"),
+            latency_ms=recovery.get("latency_ms"),
+            status="success",
+        )
 
 
-def _build_backend() -> AnthropicBackend:
-    api_key = os.environ.get("ANTHROPIC_API_KEY")
-    return AnthropicBackend(api_key=api_key)
+def _build_backend(
+    *,
+    provider: str | None = None,
+    model: str | None = None,
+    reasoning_effort: str | None = None,
+    structured_mode: str | None = None,
+):
+    return build_backend(
+        provider=provider,
+        model=model,
+        reasoning_effort=reasoning_effort,
+        structured_mode=structured_mode,
+    )
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -333,7 +398,12 @@ def main(argv: Sequence[str] | None = None) -> int:
             resume=args.resume,
         )
         deal_slugs = _resolve_stage_deals(args.deal, required_relative_path="source/chronology_selection.json")
-        backend = _build_backend()
+        backend = _build_backend(
+            provider=args.provider,
+            model=args.model_override,
+            reasoning_effort=args.reasoning_effort,
+            structured_mode=args.structured_mode,
+        )
         if args.extract_command == "actors":
             orchestrator.run_actor_extraction_batch(run_id=run_id, deal_slugs=deal_slugs, backend=backend)
             for slug in deal_slugs:

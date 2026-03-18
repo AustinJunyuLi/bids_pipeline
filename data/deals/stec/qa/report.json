@@ -1,0 +1,50 @@
+{
+  "schema_version": "2.0.0",
+  "artifact_type": "qa_report",
+  "created_at": "2026-03-17T21:31:37.321255Z",
+  "pipeline_version": "0.1.0",
+  "run_id": "run-ae1b3d19",
+  "deal_slug": "stec",
+  "blocker_count": 2,
+  "warning_count": 0,
+  "findings": [
+    {
+      "finding_id": "qa-span-0043",
+      "severity": "blocker",
+      "code": "unresolved_span",
+      "message": "Evidence reference could not be resolved exactly in source text.",
+      "related_actor_ids": [],
+      "related_event_ids": [],
+      "related_span_ids": [
+        "span-0043"
+      ],
+      "auto_fix_applied": false,
+      "review_required": true
+    },
+    {
+      "finding_id": "qa-unresolved-spans",
+      "severity": "blocker",
+      "code": "unresolved_spans_present",
+      "message": "One or more evidence spans could not be resolved exactly.",
+      "related_actor_ids": [],
+      "related_event_ids": [],
+      "related_span_ids": [
+        "span-0043"
+      ],
+      "auto_fix_applied": false,
+      "review_required": true
+    }
+  ],
+  "completeness_metrics": {
+    "actor_count": 20,
+    "event_count": 43,
+    "proposal_count": 8,
+    "nda_count": 7,
+    "outcome_count": 2,
+    "financial_evidence_item_count": 161,
+    "process_evidence_item_count": 183,
+    "unresolved_span_count": 1,
+    "passes_basic_completeness": true
+  },
+  "passes_export_gate": false
+}

@@ -1,9 +1,9 @@
 {
   "schema_version": "2.0.0",
   "artifact_type": "raw_document_registry",
-  "created_at": "2026-03-16T20:07:07.852586Z",
+  "created_at": "2026-03-16T23:47:33.895805Z",
   "pipeline_version": "0.1.0",
-  "run_id": "run-20260316-200629-raw9",
+  "run_id": "alex9-prellm-20260316-234644",
   "deal_slug": "saks",
   "documents": [
     {
@@ -17,7 +17,7 @@
       "sha256_txt": "4165dc7968c179ce8d430c829f11e6c6e99dc0b9ad0dfb56c83814184c6db495",
       "sha256_html": "59f8ac9c93804cd8c3eae23dd02f53ca310fa44f847330d7e0e3f739ad33b3c7",
       "byte_count_txt": 439838,
-      "fetched_at": "2026-03-16T20:07:05.256373Z"
+      "fetched_at": "2026-03-16T23:47:31.058218Z"
     },
     {
       "document_id": "0001193125-13-339966",
@@ -30,7 +30,7 @@
       "sha256_txt": "11f0714ddbced492944f0500f1da4ac5e5bc64ef591209578467d28549d26e22",
       "sha256_html": "f1c0b8e0ad683dcd40757504d8275165ef9ddf6b45b627707e14b5e5eb0b990a",
       "byte_count_txt": 425233,
-      "fetched_at": "2026-03-16T20:07:06.994372Z"
+      "fetched_at": "2026-03-16T23:47:32.242719Z"
     },
     {
       "document_id": "0000898822-13-000314",
@@ -43,7 +43,7 @@
       "sha256_txt": "a0ff340ef6e7527c6258843a3b0f0ff29f8091a5a1701aa40cfc76a4f3b250c8",
       "sha256_html": "4b0599c6b1c173b57d7113ae7b954a80f8dc86063d9b3e26bce78c71164d467f",
       "byte_count_txt": 5541,
-      "fetched_at": "2026-03-16T20:07:07.139739Z"
+      "fetched_at": "2026-03-16T23:47:32.415955Z"
     },
     {
       "document_id": "0001193125-13-307594",
@@ -56,7 +56,7 @@
       "sha256_txt": "b914de095a428bb2c2433717e1044f74b44f7716f820c8787b4ce7f964a904cd",
       "sha256_html": "bdaadb78d55d87eb50d8a20523ad000e19d395e58ad226cdd48a58b1d12d9e4e",
       "byte_count_txt": 13816,
-      "fetched_at": "2026-03-16T20:07:07.197449Z"
+      "fetched_at": "2026-03-16T23:47:32.645579Z"
     },
     {
       "document_id": "0001193125-13-307666",
@@ -69,7 +69,7 @@
       "sha256_txt": "8da9c5116326f94ef8b7ac93dc27d88ffa8e018acd0aa3449ff73118375633d9",
       "sha256_html": "ab7b67542d1446dabd3553b3dd810ed3e02743913d039b812e74caac18b48b01",
       "byte_count_txt": 18134,
-      "fetched_at": "2026-03-16T20:07:07.278767Z"
+      "fetched_at": "2026-03-16T23:47:32.971675Z"
     },
     {
       "document_id": "0000898822-13-000313",
@@ -82,7 +82,7 @@
       "sha256_txt": "a0ff340ef6e7527c6258843a3b0f0ff29f8091a5a1701aa40cfc76a4f3b250c8",
       "sha256_html": "4b0599c6b1c173b57d7113ae7b954a80f8dc86063d9b3e26bce78c71164d467f",
       "byte_count_txt": 5541,
-      "fetched_at": "2026-03-16T20:07:07.341246Z"
+      "fetched_at": "2026-03-16T23:47:33.213534Z"
     },
     {
       "document_id": "0001193125-13-307664",
@@ -95,7 +95,7 @@
       "sha256_txt": "8da9c5116326f94ef8b7ac93dc27d88ffa8e018acd0aa3449ff73118375633d9",
       "sha256_html": "ab7b67542d1446dabd3553b3dd810ed3e02743913d039b812e74caac18b48b01",
       "byte_count_txt": 18134,
-      "fetched_at": "2026-03-16T20:07:07.404788Z"
+      "fetched_at": "2026-03-16T23:47:33.540453Z"
     },
     {
       "document_id": "0001193125-13-339086",
@@ -108,7 +108,7 @@
       "sha256_txt": "a029af29243104a06865723d357f60b257f87ebc0bd2ad66860c0938b91c6c0d",
       "sha256_html": "107db4de6eb3b8e21f142c82f682b2657f3f202cc5d4cb3937d0b8a4b2c8db49",
       "byte_count_txt": 3689,
-      "fetched_at": "2026-03-16T20:07:07.852545Z"
+      "fetched_at": "2026-03-16T23:47:33.895777Z"
     }
   ]
 }

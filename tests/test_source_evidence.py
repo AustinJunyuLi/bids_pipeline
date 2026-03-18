@@ -44,3 +44,28 @@ def test_evidence_items_to_snippets_derives_press_release_and_activist_hints():
         "activist_sale",
         "bid_press_release",
     }
+
+
+def test_evidence_ids_are_globally_unique_across_filings():
+    lines_a = ["", "On March 9, 2016, Thoma Bravo sent an indication of interest at $18.00 per share.", ""]
+    lines_b = ["", "On July 12, 2016, Barclays Capital Inc. delivered its fairness opinion.", ""]
+
+    items_a = scan_document_evidence(
+        lines_a,
+        document_id="filing-a",
+        filing_type="DEFM14A",
+        accession_number="0001-a",
+    )
+    items_b = scan_document_evidence(
+        lines_b,
+        document_id="filing-b",
+        filing_type="PREM14A",
+        accession_number="0001-b",
+    )
+
+    all_ids = [item.evidence_id for item in items_a + items_b]
+    assert len(all_ids) == len(set(all_ids)), f"Duplicate evidence IDs: {all_ids}"
+    for item in items_a:
+        assert "0001-a" in item.evidence_id
+    for item in items_b:
+        assert "0001-b" in item.evidence_id

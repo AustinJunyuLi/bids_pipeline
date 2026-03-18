@@ -1,0 +1,72 @@
+{
+  "deal_slug": "mac-gray",
+  "run_id": "run-ab10d8b5",
+  "token_count": 32392,
+  "line_count": 474,
+  "complexity": "complex",
+  "chunk_mode": "chunked",
+  "chunk_count": 4,
+  "calls": [
+    {
+      "chunk_id": "chunk-1",
+      "provider": "openai",
+      "input_tokens": 23890,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 3756,
+      "cost_usd": null,
+      "latency_ms": 43158,
+      "request_id": "chatcmpl-DKVY62TrU0T5JgMBXMVsMH5uWlS7z",
+      "model": "gpt-5.4-2026-03-05",
+      "prompt_version": "10b0c98c0bbba22f9098cb6f0cab11e5f5a215b6b4d27651eff20f21e479ed2d",
+      "structured_mode": "prompted_json",
+      "repair_count": 1
+    },
+    {
+      "chunk_id": "chunk-2",
+      "provider": "openai",
+      "input_tokens": 19789,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 3588,
+      "cost_usd": null,
+      "latency_ms": 44893,
+      "request_id": "chatcmpl-DKVYPFEsWuSXbybOGkImM032mu8oE",
+      "model": "gpt-5.4-2026-03-05",
+      "prompt_version": "10b0c98c0bbba22f9098cb6f0cab11e5f5a215b6b4d27651eff20f21e479ed2d",
+      "structured_mode": "prompted_json",
+      "repair_count": 0
+    },
+    {
+      "chunk_id": "chunk-3",
+      "provider": "openai",
+      "input_tokens": 19532,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 1663,
+      "cost_usd": null,
+      "latency_ms": 21909,
+      "request_id": "chatcmpl-DKVZ9wPivKuXt7bU5SBqZKe2Zt9Od",
+      "model": "gpt-5.4-2026-03-05",
+      "prompt_version": "10b0c98c0bbba22f9098cb6f0cab11e5f5a215b6b4d27651eff20f21e479ed2d",
+      "structured_mode": "prompted_json",
+      "repair_count": 0
+    },
+    {
+      "chunk_id": "chunk-4",
+      "provider": "openai",
+      "input_tokens": 15803,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 534,
+      "cost_usd": null,
+      "latency_ms": 7574,
+      "request_id": "chatcmpl-DKVZUjWVY4oQ2h6EFr4VvnAHqMvo4",
+      "model": "gpt-5.4-2026-03-05",
+      "prompt_version": "10b0c98c0bbba22f9098cb6f0cab11e5f5a215b6b4d27651eff20f21e479ed2d",
+      "structured_mode": "prompted_json",
+      "repair_count": 0
+    }
+  ],
+  "recovery": null
+}

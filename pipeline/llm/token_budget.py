@@ -27,7 +27,7 @@ def classify_complexity(
 ) -> ComplexityClass:
     if actor_count > 15 or token_count > 15_000 or line_count > 400:
         return ComplexityClass.COMPLEX
-    if token_count <= 8_000 or line_count <= 150:
+    if token_count <= 8_000 and line_count <= 150:
         return ComplexityClass.SIMPLE
     return ComplexityClass.MODERATE
 
@@ -93,4 +93,4 @@ def estimate_max_output_tokens(complexity: ComplexityClass, call_type: str) -> i
 
 def _estimate_block_tokens(block: ChronologyBlock) -> int:
     text = (block.clean_text or block.raw_text).strip()
-    return max(1, len(text.split()))
+    return max(1, len(text) // 4)

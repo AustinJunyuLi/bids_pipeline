@@ -1,0 +1,588 @@
+{
+  "actors": [
+    {
+      "actor_id": "bidder_genesee_wyoming_inc",
+      "display_name": "G& W",
+      "canonical_name": "GENESEE & WYOMING INC",
+      "aliases": [
+        "G& W"
+      ],
+      "role": "bidder",
+      "advisor_kind": null,
+      "bidder_kind": "strategic",
+      "listing_status": "public",
+      "geography": "domestic",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B008",
+          "evidence_id": null,
+          "anchor_text": "including G& W"
+        },
+        {
+          "block_id": "B017",
+          "evidence_id": null,
+          "anchor_text": "Party B, G& W and another bidder"
+        },
+        {
+          "block_id": "B019",
+          "evidence_id": null,
+          "anchor_text": "G& W submitted an LOI"
+        },
+        {
+          "block_id": "B039",
+          "evidence_id": null,
+          "anchor_text": "the Company and G& W executed the merger agreement"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_party_a",
+      "display_name": "Party A",
+      "canonical_name": "PARTY A",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "bidder_kind": "strategic",
+      "listing_status": "unknown",
+      "geography": "unknown",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B002",
+          "evidence_id": null,
+          "anchor_text": "one of the Company\u2019s Class I rail partners (\u201c Party A\u201d)"
+        },
+        {
+          "block_id": "B007",
+          "evidence_id": null,
+          "anchor_text": "11 potential strategic buyers (including Party A)"
+        },
+        {
+          "block_id": "B010",
+          "evidence_id": null,
+          "anchor_text": "including Party A, Party B and G& W"
+        }
+      ],
+      "notes": [
+        "Described as one of the Company's Class I rail partners."
+      ]
+    },
+    {
+      "actor_id": "bidder_party_b",
+      "display_name": "Party B",
+      "canonical_name": "PARTY B",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "bidder_kind": "strategic",
+      "listing_status": "unknown",
+      "geography": "unknown",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B009",
+          "evidence_id": null,
+          "anchor_text": "another potential strategic buyer (\u201c Party B\u201d)"
+        },
+        {
+          "block_id": "B017",
+          "evidence_id": null,
+          "anchor_text": "Party B, G& W and another bidder"
+        },
+        {
+          "block_id": "B018",
+          "evidence_id": null,
+          "anchor_text": "Party B submitted an LOI"
+        },
+        {
+          "block_id": "B030",
+          "evidence_id": null,
+          "anchor_text": "Party B and G& W conducted on-site"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_party_c",
+      "display_name": "Party C",
+      "canonical_name": "PARTY C",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "bidder_kind": "strategic",
+      "listing_status": "unknown",
+      "geography": "unknown",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B016",
+          "evidence_id": null,
+          "anchor_text": "a potential strategic buyer that had not previously been part of the process (\u201c Party C\u201d)"
+        },
+        {
+          "block_id": "B023",
+          "evidence_id": null,
+          "anchor_text": "Party C submitted an LOI"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_party_d",
+      "display_name": "Party D",
+      "canonical_name": "PARTY D",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "bidder_kind": "financial",
+      "listing_status": "unknown",
+      "geography": "unknown",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B017",
+          "evidence_id": null,
+          "anchor_text": "another bidder (\u201c Party D\u201d)"
+        },
+        {
+          "block_id": "B022",
+          "evidence_id": null,
+          "anchor_text": "Party D (a financial buyer) submitted an LOI"
+        },
+        {
+          "block_id": "B027",
+          "evidence_id": null,
+          "anchor_text": "representatives of GHF had calls with Party D"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_party_e",
+      "display_name": "Party E",
+      "canonical_name": "PARTY E",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "bidder_kind": "strategic",
+      "listing_status": "unknown",
+      "geography": "unknown",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B017",
+          "evidence_id": null,
+          "anchor_text": "One bidder (\u201c Party E\u201d)"
+        },
+        {
+          "block_id": "B021",
+          "evidence_id": null,
+          "anchor_text": "Party E (a strategic buyer) submitted an LOI"
+        },
+        {
+          "block_id": "B027",
+          "evidence_id": null,
+          "anchor_text": "Party D and Party E both expressed interest"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_party_f",
+      "display_name": "Party F",
+      "canonical_name": "PARTY F",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "bidder_kind": "strategic",
+      "listing_status": "unknown",
+      "geography": "unknown",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B024",
+          "evidence_id": null,
+          "anchor_text": "Party F (a strategic buyer) submitted an LOI"
+        },
+        {
+          "block_id": "B027",
+          "evidence_id": null,
+          "anchor_text": "financing support, from Party F"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_unnamed_strategic_buyers_group_1",
+      "display_name": "Unnamed strategic buyers group 1",
+      "canonical_name": "UNNAMED STRATEGIC BUYERS GROUP 1",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "bidder_kind": "strategic",
+      "listing_status": "unknown",
+      "geography": "unknown",
+      "is_grouped": true,
+      "group_size": 11,
+      "group_label": "potential strategic buyers contacted",
+      "evidence_refs": [
+        {
+          "block_id": "B007",
+          "evidence_id": null,
+          "anchor_text": "contacted 11 potential strategic buyers"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_unnamed_financial_buyers_group_1",
+      "display_name": "Unnamed financial buyers group 1",
+      "canonical_name": "UNNAMED FINANCIAL BUYERS GROUP 1",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "bidder_kind": "financial",
+      "listing_status": "unknown",
+      "geography": "unknown",
+      "is_grouped": true,
+      "group_size": 18,
+      "group_label": "potential financial buyers contacted",
+      "evidence_refs": [
+        {
+          "block_id": "B007",
+          "evidence_id": null,
+          "anchor_text": "and 18 potential financial buyers"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "target_board_board",
+      "display_name": "Board of Directors",
+      "canonical_name": "BOARD OF DIRECTORS OF PROVIDENCE & WORCESTER RR CO",
+      "aliases": [],
+      "role": "target_board",
+      "advisor_kind": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B002",
+          "evidence_id": null,
+          "anchor_text": "the Board appointed a subcommittee"
+        },
+        {
+          "block_id": "B038",
+          "evidence_id": null,
+          "anchor_text": "The Board determined that the G& W offer represented the superior proposal"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "target_board_transaction_committee",
+      "display_name": "Transaction Committee",
+      "canonical_name": "TRANSACTION COMMITTEE OF PROVIDENCE & WORCESTER RR CO",
+      "aliases": [],
+      "role": "target_board",
+      "advisor_kind": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B005",
+          "evidence_id": null,
+          "anchor_text": "the \u201c Transaction Committee\u201d"
+        },
+        {
+          "block_id": "B007",
+          "evidence_id": null,
+          "anchor_text": "the Transaction Committee met by telephone conference"
+        }
+      ],
+      "notes": [
+        "Special committee of independent directors of the Board."
+      ]
+    },
+    {
+      "actor_id": "advisor_greene_holcomb_fisher_llc",
+      "display_name": "Greene Holcomb & Fisher LLC",
+      "canonical_name": "GREENE HOLCOMB & FISHER LLC",
+      "aliases": [
+        "GHF"
+      ],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B002",
+          "evidence_id": null,
+          "anchor_text": "Greene Holcomb & Fisher LLC"
+        },
+        {
+          "block_id": "B002",
+          "evidence_id": null,
+          "anchor_text": "the Company engage GHF"
+        },
+        {
+          "block_id": "B007",
+          "evidence_id": null,
+          "anchor_text": "representatives of GHF contacted 11 potential strategic buyers"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_bmo_capital_markets_corp",
+      "display_name": "BMO Capital Markets Corp.",
+      "canonical_name": "BMO CAPITAL MARKETS CORP.",
+      "aliases": [
+        "BMO"
+      ],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B002",
+          "evidence_id": null,
+          "anchor_text": "BMO Capital Markets Corp."
+        },
+        {
+          "block_id": "B027",
+          "evidence_id": null,
+          "anchor_text": "representatives of BMO"
+        },
+        {
+          "block_id": "B038",
+          "evidence_id": null,
+          "anchor_text": "BMO then rendered an oral opinion"
+        }
+      ],
+      "notes": [
+        "Filing states GHF business was subsequently acquired by BMO Capital Markets Corp. and refers to GHF prior to such acquisition and BMO thereafter."
+      ]
+    },
+    {
+      "actor_id": "advisor_hinckley_allen_snyder_llp",
+      "display_name": "Hinckley, Allen & Snyder LLP",
+      "canonical_name": "HINCKLEY, ALLEN & SNYDER LLP",
+      "aliases": [
+        "Hinckley Allen"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B007",
+          "evidence_id": null,
+          "anchor_text": "Hinckley, Allen & Snyder LLP"
+        },
+        {
+          "block_id": "B028",
+          "evidence_id": null,
+          "anchor_text": "Hinckley Allen provided Party B"
+        },
+        {
+          "block_id": "B033",
+          "evidence_id": null,
+          "anchor_text": "Hinckley Allen reviewed the material terms"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_simpson_thacher_bartlett_llp",
+      "display_name": "Simpson Thacher & Bartlett LLP",
+      "canonical_name": "SIMPSON THACHER & BARTLETT LLP",
+      "aliases": [
+        "Simpson Thacher"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B031",
+          "evidence_id": null,
+          "anchor_text": "Simpson Thacher & Bartlett LLP"
+        },
+        {
+          "block_id": "B032",
+          "evidence_id": null,
+          "anchor_text": "Simpson Thacher submitted a mark-up"
+        },
+        {
+          "block_id": "B039",
+          "evidence_id": null,
+          "anchor_text": "Hinckley Allen and Simpson Thacher finalized the transaction documents"
+        }
+      ],
+      "notes": [
+        "Legal counsel to G& W."
+      ]
+    }
+  ],
+  "count_assertions": [
+    {
+      "count": 11,
+      "subject": "interested_parties",
+      "qualifier_text": "potential strategic buyers contacted by GHF, including Party A",
+      "evidence_refs": [
+        {
+          "block_id": "B007",
+          "evidence_id": null,
+          "anchor_text": "contacted 11 potential strategic buyers"
+        }
+      ]
+    },
+    {
+      "count": 18,
+      "subject": "interested_parties",
+      "qualifier_text": "potential financial buyers contacted by GHF",
+      "evidence_refs": [
+        {
+          "block_id": "B007",
+          "evidence_id": null,
+          "anchor_text": "and 18 potential financial buyers"
+        }
+      ]
+    },
+    {
+      "count": 11,
+      "subject": "nda_signed_strategic_buyers",
+      "qualifier_text": "each of the potential strategic buyers executed confidentiality agreements",
+      "evidence_refs": [
+        {
+          "block_id": "B007",
+          "evidence_id": null,
+          "anchor_text": "Each of the potential strategic buyers"
+        }
+      ]
+    },
+    {
+      "count": 14,
+      "subject": "nda_signed_financial_buyers",
+      "qualifier_text": "potential financial buyers subsequently executed confidentiality agreements",
+      "evidence_refs": [
+        {
+          "block_id": "B007",
+          "evidence_id": null,
+          "anchor_text": "14 potential financial buyers subsequently executed confidentiality agreements"
+        }
+      ]
+    },
+    {
+      "count": 9,
+      "subject": "other",
+      "qualifier_text": "written indications of interest received",
+      "evidence_refs": [
+        {
+          "block_id": "B013",
+          "evidence_id": null,
+          "anchor_text": "received nine written indications of interest"
+        }
+      ]
+    },
+    {
+      "count": 7,
+      "subject": "final_round_invitees",
+      "qualifier_text": "remaining potential buyers invited to management presentations and additional due diligence after excluding two low bidders",
+      "evidence_refs": [
+        {
+          "block_id": "B013",
+          "evidence_id": null,
+          "anchor_text": "the remaining seven potential buyers"
+        }
+      ]
+    },
+    {
+      "count": 6,
+      "subject": "other",
+      "qualifier_text": "LOIs received in late July 2016",
+      "evidence_refs": [
+        {
+          "block_id": "B017",
+          "evidence_id": null,
+          "anchor_text": "the Company received six LOIs"
+        }
+      ]
+    },
+    {
+      "count": 5,
+      "subject": "interested_parties",
+      "qualifier_text": "potential strategic buyers met at 2016 Connections Convention",
+      "evidence_refs": [
+        {
+          "block_id": "B008",
+          "evidence_id": null,
+          "anchor_text": "with five potential strategic buyers"
+        }
+      ]
+    },
+    {
+      "count": 2,
+      "subject": "other",
+      "qualifier_text": "additional Class I railroads approached by the Company to determine interest",
+      "evidence_refs": [
+        {
+          "block_id": "B009",
+          "evidence_id": null,
+          "anchor_text": "approached two additional Class I railroads"
+        }
+      ]
+    }
+  ],
+  "unresolved_mentions": [
+    "One strategic buyer and one financial buyer elected not to submit an LOI; identities not specified.",
+    "The chronology notes the possibility that GATX might be a potential buyer, but no actual participation as a bidder is described.",
+    "Two additional Class I railroads were approached to determine interest, but they are not identified.",
+    "Nine IOIs were received, but not all submitting bidders are identified by name or alias."
+  ]
+}

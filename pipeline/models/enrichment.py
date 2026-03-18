@@ -39,6 +39,13 @@ class DerivedMetrics(PipelineModel):
     cycle_count: int
 
 
+class InitiationJudgment(PipelineModel):
+    type: Literal["target_driven", "bidder_driven", "activist_driven", "mixed"]
+    basis: str
+    source_text: str
+    confidence: Literal["high", "medium", "low"]
+
+
 class DealEnrichment(ArtifactEnvelope):
     artifact_type: str = "deal_enrichment"
     classifications: dict[str, ProposalClassification] = Field(default_factory=dict)
@@ -47,3 +54,4 @@ class DealEnrichment(ArtifactEnvelope):
     event_cycle_map: dict[str, str] = Field(default_factory=dict)
     formal_boundary_event_ids: dict[str, str | None] = Field(default_factory=dict)
     derived_metrics: DerivedMetrics
+    initiation_judgment: InitiationJudgment | None = None

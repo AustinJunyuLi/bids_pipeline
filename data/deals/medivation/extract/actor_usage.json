@@ -1,0 +1,21 @@
+{
+  "provider": "openai",
+  "input_tokens": 26244,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "output_tokens": 2708,
+  "cost_usd": null,
+  "latency_ms": 33490,
+  "request_id": "chatcmpl-DKVvAqC96EinPKoyDinDCkllc6WeF",
+  "model": "gpt-5.4-2026-03-05",
+  "prompt_version": "2ae68717960c715f0d1341073de22d9206e63560a13fce0f4a109c0520d283b3",
+  "structured_mode": "prompted_json",
+  "repair_count": 0,
+  "deal_slug": "medivation",
+  "run_id": "run-8653a8df",
+  "token_count": 30713,
+  "line_count": 387,
+  "complexity": "complex",
+  "evidence_item_count": 40,
+  "block_count": 165
+}

@@ -1,84 +1,86 @@
----
-name: deal-agent
-description: Use when orchestrating end-to-end M&A deal extraction across the repo's nine source-backed deal-extraction skills for a deal slug.
----
-
 # deal-agent
 
 ## Design Principles
 
-1. The filing is the single source of truth. Every fact traces to
-   `source_accession_number` + verbatim `source_text`.
-2. Fail closed on source ambiguity. Fail open on extraction incompleteness.
-3. Facts before judgments. Proposals are raw events. Classification is
-   Skill 8, not Skill 5.
-4. Alex's collection instructions are the extraction spec. Used for
-   methodology and taxonomy. Never as a factual source.
-5. master.csv is the review artifact, not the estimation artifact.
+1. The orchestrator stays thin. It checks gates and reports summaries.
+2. It does not re-encode extraction, verification, enrichment, or export logic.
+3. Each sub-skill is independently invocable.
 
 ## Overview
 
-Thin orchestrator that spawns 9 extraction skills as isolated subagents.
-Each skill runs with a fresh context window, reads inputs from disk, writes
-outputs to disk, and returns a short summary. The file system is the message
-bus. The orchestrator checks gates by file existence -- it never parses
-artifact content or loads extraction knowledge.
+Thin orchestrator that runs exactly four sub-skills against preprocessed source:
+extract-deal, verify-extraction, enrich-deal, export-csv.
+
+## Prerequisite
+
+`pipeline raw fetch --deal <slug>` and `pipeline preprocess source --deal <slug>`
+already ran.
 
 ## When To Use
 
-- Extracting one or more M&A deals from SEC filings end-to-end.
-- Invoke as `/deal-agent <slug>`.
-- Each sub-skill is also independently invocable for re-runs
-  (e.g., `/classify-bids-and-boundary <slug>` after reviewing extraction).
+Invoke as `/deal-agent <slug>` for end-to-end extraction through CSV export. Use
+individual skills when re-running a specific stage.
 
 ## Skills
 
-| # | Skill | Artifact | Failure Mode |
-|---|-------|----------|--------------|
-| 1 | select-anchor-filing | source/source_selection.json | Fail closed |
-| 2 | freeze-filing-text | source/filings/*.html, *.txt | Fail closed |
-| 3 | locate-chronology | source/chronology_bookmark.json | Fail closed |
-| 4 | build-party-register | extraction/actors.jsonl | Fail open |
-| 5 | extract-events | extraction/events.jsonl | Fail open |
-| 6 | audit-and-reconcile | extraction/census.json | Fail open |
-| 7 | segment-processes | enrichment/process_cycles.jsonl | Fail open |
-| 8 | classify-bids-and-boundary | enrichment/judgments.jsonl | Fail open |
-| 9 | render-review-rows | master_rows.csv | Always succeeds |
+| # | Skill | Artifacts | Failure Mode |
+|---|---|---|---|
+| 1 | `extract-deal` | `extract/actors_raw.json`, `extract/events_raw.json` | Fail closed |
+| 2 | `verify-extraction` | `verify/verification_log.json` (+ updated extraction files) | Fail closed (stop on round-2 errors) |
+| 3 | `enrich-deal` | `enrich/enrichment.json` | Fail closed |
+| 4 | `export-csv` | `export/deal_events.csv` | Fail closed |
 
 ## Procedure
 
+```text
+1. Read the seed entry for <slug>.
+
+2. Verify prerequisites:
+   - data/deals/<slug>/source/chronology_blocks.jsonl
+   - data/deals/<slug>/source/evidence_items.jsonl
+   - raw/<slug>/document_registry.json
+   If missing: stop, tell user to run raw fetch + preprocess first.
+
+3. Ensure output directories exist:
+   - data/skill/<slug>/extract/
+   - data/skill/<slug>/verify/
+   - data/skill/<slug>/enrich/
+   - data/skill/<slug>/export/
+
+4. Run /extract-deal <slug>
+   Gate: actors_raw.json and events_raw.json both exist and are non-empty.
+   If gate fails: stop.
+
+5. Run /verify-extraction <slug>
+   Gate: verification_log.json exists AND summary.status != "fail"
+   (i.e., no unresolved round-2 errors).
+   If fail: stop and show log.
+
+6. Run /enrich-deal <slug>
+   Gate: enrichment.json exists.
+
+7. Run /export-csv <slug>
+   Gate: deal_events.csv exists.
+
+8. Report summary:
+   - Actor count, event count, proposal count
+   - Verification: round 1 errors found, fixes applied, round 2 status
+   - Enrichment: cycle count, formal/informal split, initiation judgment type
+   - Review flags count
+   - Output path: data/skill/<slug>/export/deal_events.csv
 ```
-1. Read seed entry for <slug> from Data/reference/deal_url_seeds.csv.
-2. Create Data/deals/<slug>/ directory structure:
-   source/, source/filings/, extraction/, enrichment/, review/
-3. For each skill 1-9:
-   a. Spawn a subagent with:
-      - Skill name as prompt context
-      - deal_slug as the sole argument
-      - The subagent loads its own SKILL.md + references (fresh context)
-   b. Subagent reads inputs from disk, does its work, writes outputs to disk.
-   c. Subagent returns a 3-5 line summary to orchestrator.
-   d. Orchestrator checks gate condition BY READING FILES ON DISK
-      (see references/gate-conditions.md).
-   e. If gate fails:
-      - Skills 1-3: STOP. Write failure_bundle.json. Report failure to user.
-      - Skills 4-8: Log warning, continue to next skill.
-      - Skill 9: Should not fail (pure denormalization).
-4. Report summary to user:
-   - Events extracted, actors found
-   - Review flags and needs_review status
-   - Any skills that failed open
-```
 
-**The orchestrator NEVER loads extraction knowledge.** It checks gates by
-file existence and line counts, not by parsing artifact content. Its context
-stays at ~85 lines total after all 9 skills (~5 lines per skill summary).
+## Individual Invocation
 
-**Two-channel communication:** Artifacts flow skill-to-skill via disk (full
-fidelity). Summaries flow skill-to-orchestrator only (lossy, used for gate
-checks). The orchestrator never forwards Skill N's summary to Skill N+1 --
-it passes ONLY deal_slug.
+Each skill is independently callable:
 
-## Required Reading
+- `/extract-deal <slug>` -- run extraction only
+- `/verify-extraction <slug>` -- run verification only
+- `/enrich-deal <slug>` -- run enrichment only
+- `/export-csv <slug>` -- run export only
 
-1. `references/gate-conditions.md` -- gate checks for each skill and failure policy
+## Supersedes
+
+This replaces the old 2-skill chain (extract-deal + audit-and-enrich). The old
+audit-and-enrich skill is deprecated. Its responsibilities are now split between
+verify-extraction (Skill 2) and enrich-deal (Skill 3).

@@ -1,24 +1,21 @@
 # M&A Deal Extraction Pipeline — Design Index
 
-## Current (v2)
+## Current
 
-Adopted 2026-03-16 based on GPT Pro Round 1 architectural review.
+The active pipeline architecture is the v3 evidence-first rewrite.
 
-- **Design:** [`docs/plans/2026-03-16-pipeline-design-v2.md`](plans/2026-03-16-pipeline-design-v2.md)
-- **Implementation plan:** [`docs/plans/2026-03-16-pipeline-implementation-v2.md`](plans/2026-03-16-pipeline-implementation-v2.md)
+- **Design:** [`docs/plans/2026-03-16-pipeline-design-v3.md`](plans/2026-03-16-pipeline-design-v3.md)
 - **Prompt engineering spec:** [`docs/plans/2026-03-16-prompt-engineering-spec.md`](plans/2026-03-16-prompt-engineering-spec.md)
+- **LLM rewrite adoption design:** [`docs/plans/2026-03-17-llm-rewrite-adoption-design.md`](plans/2026-03-17-llm-rewrite-adoption-design.md)
+- **LLM rewrite adoption implementation:** [`docs/plans/2026-03-17-llm-rewrite-adoption-implementation.md`](plans/2026-03-17-llm-rewrite-adoption-implementation.md)
 
-Architecture: 6-stage evidence-first DAG (Source Discovery, Chronology Localization,
-Extraction, Reconciliation/QA, Enrichment, Export/Validation).
+Architecture: 7-stage evidence-first pipeline (Raw Discovery & Freeze, Enhanced
+Preprocess / Source Build, LLM Extraction, Reconciliation & QA, Enrichment,
+Export, Reference Validation).
 
-## Superseded (v1)
+## Notes
 
-Original 4-stage linear pipeline, replaced by v2.
+Superseded v1 and v2 design/implementation plans were removed from the active
+tree during cleanup so review bundles only carry the current planning surface.
 
-- **Design:** [`docs/plans/2026-03-16-pipeline-design.md`](plans/2026-03-16-pipeline-design.md)
-- **Implementation plan:** [`docs/plans/2026-03-16-pipeline-implementation.md`](plans/2026-03-16-pipeline-implementation.md)
-
-## Review Artifacts
-
-- GPT Pro Round 1 reply: `diagnosis/gptpro/2026-03-16/round_1_reply.md`
-- Meeting notes: `diagnosis/gptpro/2026-03-16/round_1_meeting_notes.md`
+Active external review rounds are retained under `diagnosis/deepthink/`.

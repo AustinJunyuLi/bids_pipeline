@@ -1,9 +1,9 @@
 {
   "schema_version": "2.0.0",
   "artifact_type": "chronology_selection",
-  "created_at": "2026-03-16T20:07:39.151286Z",
+  "created_at": "2026-03-17T20:22:11.334691Z",
   "pipeline_version": "0.1.0",
-  "run_id": "run-20260316-200738-preprocess9",
+  "run_id": "run-4706f9ef",
   "deal_slug": "medivation",
   "document_id": "0001193125-16-696911",
   "accession_number": "0001193125-16-696911",
@@ -29,5 +29,11 @@
   "confidence": "high",
   "adjudication_basis": "Selected heading on line 640 using normalized heading matching and narrative scoring; considered 1 viable background-like candidate(s).",
   "alternative_candidates": [],
-  "review_required": false
+  "review_required": false,
+  "confidence_factors": {
+    "section_length": 562,
+    "score_gap": 4743,
+    "ambiguity_risk": "low",
+    "coverage_assessment": "full"
+  }
 }

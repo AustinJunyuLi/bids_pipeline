@@ -1,0 +1,42 @@
+{
+  "deal_slug": "zep",
+  "run_id": "run-922d21ab",
+  "token_count": 25397,
+  "line_count": 287,
+  "complexity": "complex",
+  "chunk_mode": "chunked",
+  "chunk_count": 2,
+  "calls": [
+    {
+      "chunk_id": "chunk-1",
+      "provider": "openai",
+      "input_tokens": 17948,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 2686,
+      "cost_usd": null,
+      "latency_ms": 28793,
+      "request_id": "chatcmpl-DKW6PFNldRdcUCpEBqthGACYGC1ft",
+      "model": "gpt-5.4-2026-03-05",
+      "prompt_version": "3b3d4e9195750b423c57d3cb29421b1b6d9b5e235efa014778e65e9936a08c86",
+      "structured_mode": "prompted_json",
+      "repair_count": 0
+    },
+    {
+      "chunk_id": "chunk-2",
+      "provider": "openai",
+      "input_tokens": 17545,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 2697,
+      "cost_usd": null,
+      "latency_ms": 32930,
+      "request_id": "chatcmpl-DKW6sCqJJqUkr5AkES86kpHsQ8BAy",
+      "model": "gpt-5.4-2026-03-05",
+      "prompt_version": "3b3d4e9195750b423c57d3cb29421b1b6d9b5e235efa014778e65e9936a08c86",
+      "structured_mode": "prompted_json",
+      "repair_count": 0
+    }
+  ],
+  "recovery": null
+}

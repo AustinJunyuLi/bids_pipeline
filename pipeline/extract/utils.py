@@ -10,6 +10,17 @@ from pipeline.models.source import ChronologyBlock, ChronologySelection, Evidenc
 from pipeline.seeds import entry_to_seed_artifact, load_seed_registry
 
 
+def _assert_evidence_ids_unique(evidence_items: list[EvidenceItem]) -> None:
+    seen: set[str] = set()
+    for item in evidence_items:
+        if item.evidence_id in seen:
+            raise ValueError(
+                f"Duplicate evidence_id {item.evidence_id!r} across filings. "
+                "Re-run preprocessing to generate globally unique IDs."
+            )
+        seen.add(item.evidence_id)
+
+
 def load_source_inputs(
     deal_slug: str,
     *,
@@ -24,6 +35,8 @@ def load_source_inputs(
     blocks = load_jsonl(source_dir / "chronology_blocks.jsonl", ChronologyBlock)
     evidence_path = source_dir / "evidence_items.jsonl"
     evidence_items = load_jsonl(evidence_path, EvidenceItem) if evidence_path.exists() else []
+    if evidence_items:
+        _assert_evidence_ids_unique(evidence_items)
     return seed, selection, blocks, evidence_items
 
 
@@ -62,6 +75,7 @@ def summarize_usage(result) -> dict[str, Any]:
     if usage is None:
         return {}
     return {
+        "provider": getattr(usage, "provider", None),
         "input_tokens": usage.input_tokens,
         "cache_creation_input_tokens": usage.cache_creation_input_tokens,
         "cache_read_input_tokens": usage.cache_read_input_tokens,
@@ -71,6 +85,8 @@ def summarize_usage(result) -> dict[str, Any]:
         "request_id": usage.request_id,
         "model": usage.model,
         "prompt_version": result.prompt_version,
+        "structured_mode": getattr(result, "structured_mode", None),
+        "repair_count": getattr(result, "repair_count", 0),
     }
 
 

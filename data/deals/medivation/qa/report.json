@@ -1,0 +1,92 @@
+{
+  "schema_version": "2.0.0",
+  "artifact_type": "qa_report",
+  "created_at": "2026-03-17T21:09:49.252314Z",
+  "pipeline_version": "0.1.0",
+  "run_id": "run-68b371ed",
+  "deal_slug": "medivation",
+  "blocker_count": 5,
+  "warning_count": 0,
+  "findings": [
+    {
+      "finding_id": "qa-span-0012",
+      "severity": "blocker",
+      "code": "unresolved_span",
+      "message": "Evidence reference could not be resolved exactly in source text.",
+      "related_actor_ids": [],
+      "related_event_ids": [],
+      "related_span_ids": [
+        "span-0012"
+      ],
+      "auto_fix_applied": false,
+      "review_required": true
+    },
+    {
+      "finding_id": "qa-span-0015",
+      "severity": "blocker",
+      "code": "unresolved_span",
+      "message": "Evidence reference could not be resolved exactly in source text.",
+      "related_actor_ids": [],
+      "related_event_ids": [],
+      "related_span_ids": [
+        "span-0015"
+      ],
+      "auto_fix_applied": false,
+      "review_required": true
+    },
+    {
+      "finding_id": "qa-span-0018",
+      "severity": "blocker",
+      "code": "unresolved_span",
+      "message": "Evidence reference could not be resolved exactly in source text.",
+      "related_actor_ids": [],
+      "related_event_ids": [],
+      "related_span_ids": [
+        "span-0018"
+      ],
+      "auto_fix_applied": false,
+      "review_required": true
+    },
+    {
+      "finding_id": "qa-span-0020",
+      "severity": "blocker",
+      "code": "unresolved_span",
+      "message": "Evidence reference could not be resolved exactly in source text.",
+      "related_actor_ids": [],
+      "related_event_ids": [],
+      "related_span_ids": [
+        "span-0020"
+      ],
+      "auto_fix_applied": false,
+      "review_required": true
+    },
+    {
+      "finding_id": "qa-unresolved-spans",
+      "severity": "blocker",
+      "code": "unresolved_spans_present",
+      "message": "One or more evidence spans could not be resolved exactly.",
+      "related_actor_ids": [],
+      "related_event_ids": [],
+      "related_span_ids": [
+        "span-0012",
+        "span-0015",
+        "span-0018",
+        "span-0020"
+      ],
+      "auto_fix_applied": false,
+      "review_required": true
+    }
+  ],
+  "completeness_metrics": {
+    "actor_count": 17,
+    "event_count": 44,
+    "proposal_count": 17,
+    "nda_count": 2,
+    "outcome_count": 3,
+    "financial_evidence_item_count": 67,
+    "process_evidence_item_count": 67,
+    "unresolved_span_count": 4,
+    "passes_basic_completeness": true
+  },
+  "passes_export_gate": false
+}

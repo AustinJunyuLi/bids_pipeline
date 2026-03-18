@@ -1,0 +1,341 @@
+from __future__ import annotations
+
+from decimal import Decimal
+from enum import StrEnum
+from pathlib import Path
+from typing import Any, Literal
+
+from pydantic import BaseModel, ConfigDict, Field, model_validator
+
+
+class SkillModel(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+
+class StageStatus(StrEnum):
+    MISSING = "missing"
+    PASS = "pass"
+    FAIL = "fail"
+
+
+class SkillPathSet(SkillModel):
+    project_root: Path
+    data_dir: Path
+    deals_root: Path
+    skill_data_root: Path
+    raw_root: Path
+    seeds_path: Path
+    deal_slug: str
+    source_dir: Path
+    chronology_blocks_path: Path
+    evidence_items_path: Path
+    document_registry_path: Path
+    skill_root: Path
+    extract_dir: Path
+    verify_dir: Path
+    enrich_dir: Path
+    export_dir: Path
+    actors_raw_path: Path
+    events_raw_path: Path
+    verification_log_path: Path
+    enrichment_path: Path
+    deal_events_path: Path
+
+
+class SeedEntry(SkillModel):
+    deal_slug: str
+    target_name: str
+    acquirer: str | None = None
+    date_announced: str | None = None
+    primary_url: str | None = None
+    is_reference: bool
+
+
+class EvidenceRef(SkillModel):
+    block_id: str | None = None
+    evidence_id: str | None = None
+    anchor_text: str
+
+    @model_validator(mode="after")
+    def validate_reference_target(self) -> "EvidenceRef":
+        if self.block_id is None and self.evidence_id is None:
+            raise ValueError("At least one of block_id or evidence_id must be present.")
+        return self
+
+
+class CountAssertion(SkillModel):
+    subject: str
+    count: int
+    evidence_refs: list[EvidenceRef] = Field(default_factory=list)
+
+
+class SkillActorRecord(SkillModel):
+    actor_id: str
+    display_name: str
+    canonical_name: str
+    aliases: list[str] = Field(default_factory=list)
+    role: Literal["bidder", "advisor", "activist", "target_board"]
+    advisor_kind: Literal["financial", "legal", "other"] | None = None
+    advised_actor_id: str | None = None
+    bidder_kind: Literal["strategic", "financial"] | None = None
+    listing_status: Literal["public", "private"] | None = None
+    geography: Literal["domestic", "non_us"] | None = None
+    is_grouped: bool
+    group_size: int | None = None
+    group_label: str | None = None
+    evidence_refs: list[EvidenceRef]
+    notes: list[str] = Field(default_factory=list)
+
+
+class SkillActorsArtifact(SkillModel):
+    actors: list[SkillActorRecord]
+    count_assertions: list[CountAssertion] = Field(default_factory=list)
+    unresolved_mentions: list[str] = Field(default_factory=list)
+
+
+class DateHint(SkillModel):
+    raw_text: str | None = None
+    normalized_hint: str | None = None
+
+
+class MoneyTerms(SkillModel):
+    per_share: Decimal | None = None
+    range_low: Decimal | None = None
+    range_high: Decimal | None = None
+    enterprise_value: Decimal | None = None
+    consideration_type: Literal["cash", "stock", "mixed", "other"] | None = None
+
+
+class FormalitySignals(SkillModel):
+    contains_range: bool
+    mentions_indication_of_interest: bool
+    mentions_preliminary: bool
+    mentions_non_binding: bool
+    mentions_binding_offer: bool
+    includes_draft_merger_agreement: bool
+    includes_marked_up_agreement: bool
+    requested_binding_offer_via_process_letter: bool
+    after_final_round_announcement: bool
+    after_final_round_deadline: bool
+    is_subject_to_financing: bool | None = None
+
+
+class SkillEventRecord(SkillModel):
+    event_id: str
+    event_type: Literal[
+        "target_sale",
+        "target_sale_public",
+        "bidder_sale",
+        "bidder_interest",
+        "activist_sale",
+        "sale_press_release",
+        "bid_press_release",
+        "ib_retention",
+        "nda",
+        "proposal",
+        "drop",
+        "final_round_inf_ann",
+        "final_round_inf",
+        "final_round_ann",
+        "final_round",
+        "final_round_ext_ann",
+        "final_round_ext",
+        "executed",
+        "terminated",
+        "restarted",
+    ]
+    date: DateHint
+    actor_ids: list[str] = Field(default_factory=list)
+    summary: str
+    evidence_refs: list[EvidenceRef]
+    terms: MoneyTerms | None = None
+    formality_signals: FormalitySignals | None = None
+    whole_company_scope: bool | None = None
+    drop_reason_text: str | None = None
+    round_scope: Literal["formal", "informal"] | None = None
+    invited_actor_ids: list[str] = Field(default_factory=list)
+    deadline_date: DateHint | None = None
+    executed_with_actor_id: str | None = None
+    boundary_note: str | None = None
+    nda_signed: bool | None = None
+    notes: list[str] = Field(default_factory=list)
+
+
+class SkillExclusionRecord(SkillModel):
+    category: Literal[
+        "partial_company_bid",
+        "unsigned_nda",
+        "stale_process_reference",
+        "duplicate_mention",
+        "non_event_context",
+        "other",
+    ]
+    block_ids: list[str] = Field(default_factory=list)
+    explanation: str
+
+
+class SkillEventsArtifact(SkillModel):
+    events: list[SkillEventRecord]
+    exclusions: list[SkillExclusionRecord] = Field(default_factory=list)
+    coverage_notes: list[str] = Field(default_factory=list)
+
+
+class VerificationFinding(SkillModel):
+    check_type: str
+    severity: Literal["error", "warning"]
+    description: str
+    actor_ids: list[str] = Field(default_factory=list)
+    event_ids: list[str] = Field(default_factory=list)
+    actor_id: str | None = None
+    event_id: str | None = None
+    anchor_text: str | None = None
+
+
+class VerificationFix(SkillModel):
+    finding_index: int
+    action: str
+    old_value: Any | None = None
+    new_value: Any | None = None
+
+
+class VerificationRound(SkillModel):
+    findings: list[VerificationFinding] = Field(default_factory=list)
+    fixes_applied: list[VerificationFix] = Field(default_factory=list)
+
+
+class VerificationRoundTwo(SkillModel):
+    findings: list[VerificationFinding] = Field(default_factory=list)
+    status: Literal["pass", "fail"]
+
+
+class VerificationLogSummary(SkillModel):
+    total_checks: int
+    round_1_errors: int
+    round_1_warnings: int
+    fixes_applied: int
+    round_2_errors: int
+    round_2_warnings: int
+    status: Literal["pass", "fail"]
+
+
+class SkillVerificationLog(SkillModel):
+    round_1: VerificationRound
+    round_2: VerificationRoundTwo
+    summary: VerificationLogSummary
+
+    @model_validator(mode="after")
+    def validate_round_two_status(self) -> "SkillVerificationLog":
+        if self.round_2.status != self.summary.status:
+            raise ValueError("round_2.status must match summary.status")
+        return self
+
+
+class DropoutClassification(SkillModel):
+    label: Literal["Drop", "DropBelowM", "DropBelowInf", "DropAtInf", "DropTarget"]
+    basis: str
+    source_text: str
+
+
+class BidClassification(SkillModel):
+    label: Literal["Formal", "Informal"]
+    rule_applied: int
+    basis: str
+
+
+class RoundRecord(SkillModel):
+    announcement_event_id: str
+    deadline_event_id: str | None = None
+    round_scope: Literal["formal", "informal"]
+    invited_actor_ids: list[str] = Field(default_factory=list)
+    active_bidders_at_time: int
+    is_selective: bool
+
+
+class CycleRecord(SkillModel):
+    cycle_id: str
+    start_event_id: str
+    end_event_id: str
+    boundary_basis: str
+
+
+class FormalBoundaryRecord(SkillModel):
+    event_id: str | None = None
+    basis: str
+
+
+class InitiationJudgment(SkillModel):
+    type: Literal["target_driven", "bidder_driven", "activist_driven", "mixed"]
+    basis: str
+    source_text: str
+    confidence: Literal["high", "medium", "low"]
+
+
+class AdvisoryVerificationRecord(SkillModel):
+    advised_actor_id: str | None = None
+    verified: bool
+    source_text: str
+
+
+class CountReconciliationRecord(SkillModel):
+    assertion: str
+    extracted_count: int
+    classification: Literal[
+        "advisor_exclusion",
+        "stale_process",
+        "unnamed_aggregate",
+        "filing_approximation",
+        "consortium_counted_once",
+        "partial_bidder_excluded",
+        "unresolved",
+    ] | None = None
+    note: str
+
+
+class SkillEnrichmentArtifact(SkillModel):
+    dropout_classifications: dict[str, DropoutClassification]
+    bid_classifications: dict[str, BidClassification]
+    rounds: list[RoundRecord]
+    cycles: list[CycleRecord]
+    formal_boundary: dict[str, FormalBoundaryRecord]
+    initiation_judgment: InitiationJudgment
+    advisory_verification: dict[str, AdvisoryVerificationRecord]
+    count_reconciliation: list[CountReconciliationRecord]
+    review_flags: list[str]
+
+
+class ExtractStageSummary(SkillModel):
+    status: StageStatus
+    actor_count: int = 0
+    event_count: int = 0
+    proposal_count: int = 0
+
+
+class VerifyStageSummary(SkillModel):
+    status: StageStatus
+    round_1_errors: int = 0
+    fixes_applied: int = 0
+    round_2_status: Literal["pass", "fail"] | None = None
+
+
+class EnrichStageSummary(SkillModel):
+    status: StageStatus
+    cycle_count: int = 0
+    formal_bid_count: int = 0
+    informal_bid_count: int = 0
+    initiation_judgment_type: str | None = None
+    review_flags_count: int = 0
+
+
+class ExportStageSummary(SkillModel):
+    status: StageStatus
+    output_path: Path
+
+
+class DealAgentSummary(SkillModel):
+    deal_slug: str
+    seed: SeedEntry
+    paths: SkillPathSet
+    extract: ExtractStageSummary
+    verify: VerifyStageSummary
+    enrich: EnrichStageSummary
+    export: ExportStageSummary

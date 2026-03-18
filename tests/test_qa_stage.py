@@ -19,6 +19,7 @@ from pipeline.models.extraction import DealExtraction
 from pipeline.models.qa import QAReport
 from pipeline.models.source import ChronologyBlock, ChronologyCandidate, ChronologySelection, EvidenceItem, EvidenceType
 from pipeline.qa.rules import run_qa
+from pipeline.extract.utils import _assert_evidence_ids_unique
 
 
 
@@ -198,3 +199,37 @@ def test_run_qa_flags_unknown_actor_references_as_blockers(tmp_path: Path):
         (deals_dir / "petsmart-inc" / "qa" / "report.json").read_text(encoding="utf-8")
     )
     assert any(finding.code == "unknown_actor_reference" for finding in report.findings)
+
+
+def test_assert_evidence_ids_unique_raises_on_duplicates():
+    items = [
+        EvidenceItem(
+            evidence_id="E0001",
+            document_id="a",
+            accession_number="a",
+            filing_type="DEFM14A",
+            start_line=1,
+            end_line=1,
+            raw_text="x",
+            evidence_type=EvidenceType.FINANCIAL_TERM,
+            confidence="high",
+            matched_terms=["x"],
+        ),
+        EvidenceItem(
+            evidence_id="E0001",
+            document_id="b",
+            accession_number="b",
+            filing_type="PREM14A",
+            start_line=1,
+            end_line=1,
+            raw_text="y",
+            evidence_type=EvidenceType.FINANCIAL_TERM,
+            confidence="high",
+            matched_terms=["y"],
+        ),
+    ]
+
+    import pytest
+
+    with pytest.raises(ValueError, match="Duplicate evidence_id"):
+        _assert_evidence_ids_unique(items)

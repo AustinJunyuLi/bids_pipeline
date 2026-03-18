@@ -6,6 +6,7 @@ from typing import Any
 from pipeline.config import DEALS_DIR
 from pipeline.llm.prompts import PromptPack
 from pipeline.llm.schemas import ActorExtractionOutput
+from pipeline.llm.token_budget import classify_complexity, estimate_max_output_tokens
 from pipeline.extract.utils import (
     atomic_write_json,
     load_source_inputs,
@@ -49,7 +50,23 @@ def run_actor_extraction(
             ),
         }
     ]
-    max_tokens = 1800 if len(blocks) < 120 else 2400
+    token_count = backend.count_tokens(
+        messages=messages,
+        system=PromptPack.ACTOR_SYSTEM_PROMPT,
+        model=model,
+    )
+    line_count = sum((block.end_line - block.start_line + 1) for block in blocks)
+    complexity = classify_complexity(token_count, line_count, actor_count=0)
+    max_tokens = estimate_max_output_tokens(complexity, "actor")
+    effective_model = (model or getattr(backend, "model", "") or "").strip().lower()
+    provider = (getattr(backend, "provider", "") or "").strip().lower()
+    if provider == "openai" and effective_model.startswith("gpt-5"):
+        gpt5_actor_floors = {
+            "simple": 3_000,
+            "moderate": 4_500,
+            "complex": 6_500,
+        }
+        max_tokens = max(max_tokens, gpt5_actor_floors[complexity.value])
     result = backend.invoke_structured(
         messages=messages,
         system=PromptPack.ACTOR_SYSTEM_PROMPT,
@@ -57,6 +74,11 @@ def run_actor_extraction(
         max_tokens=max_tokens,
         model=model,
     )
+    if not result.output.actors and not result.output.count_assertions and not result.output.unresolved_mentions:
+        raise ValueError(
+            "Actor extraction returned an empty structured payload; "
+            "this usually indicates a truncated or under-budget LLM response."
+        )
 
     atomic_write_json(extract_dir / ACTOR_OUTPUT_FILENAME, result.output.model_dump(mode="json"))
     atomic_write_json(
@@ -65,6 +87,9 @@ def run_actor_extraction(
             **summarize_usage(result),
             "deal_slug": deal_slug,
             "run_id": run_id,
+            "token_count": token_count,
+            "line_count": line_count,
+            "complexity": complexity.value,
             "evidence_item_count": len(prompt_evidence),
             "block_count": len(blocks),
         },
@@ -74,5 +99,6 @@ def run_actor_extraction(
         "actor_count": len(result.output.actors),
         "count_assertion_count": len(result.output.count_assertions),
         "unresolved_mention_count": len(result.output.unresolved_mentions),
+        "complexity": complexity.value,
         **summarize_usage(result),
     }
