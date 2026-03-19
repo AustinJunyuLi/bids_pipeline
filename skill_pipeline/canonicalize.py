@@ -120,6 +120,128 @@ def _gate_drops_by_nda(events: list[dict]) -> tuple[list[dict], list[dict]]:
     return kept, gate_log
 
 
+_KIND_SUBJECTS = {
+    "financial": "nda_signed_financial_buyers",
+    "strategic": "nda_signed_strategic_buyers",
+}
+
+
+def _recover_unnamed_parties(
+    actors_dict: dict,
+    events: list[dict],
+) -> tuple[dict, list[dict], list[dict]]:
+    """Synthesize placeholder actors and events from count_assertion gaps.
+
+    Returns (updated_actors_dict, new_events, recovery_log).
+    Fail-closed: only creates placeholders when count_assertions and
+    unresolved_mentions agree.
+    """
+    recovery_log: list[dict] = []
+    new_events: list[dict] = []
+
+    nda_actor_ids: set[str] = set()
+    for evt in events:
+        if evt["event_type"] == "nda":
+            nda_actor_ids.update(evt.get("actor_ids", []))
+
+    for kind, subject in _KIND_SUBJECTS.items():
+        assertions = [ca for ca in actors_dict.get("count_assertions", []) if ca["subject"] == subject]
+        if not assertions:
+            continue
+        asserted_count = assertions[0]["count"]
+        actual_count = sum(
+            1 for a in actors_dict["actors"]
+            if a.get("bidder_kind") == kind and a["role"] == "bidder" and a["actor_id"] in nda_actor_ids
+        )
+        gap = asserted_count - actual_count
+        if gap <= 0:
+            continue
+
+        # Search unresolved_mentions for matching description
+        matching_mentions = [
+            m for m in actors_dict.get("unresolved_mentions", [])
+            if kind in m.lower() and ("sponsor" in m.lower() or "buyer" in m.lower() or "bidder" in m.lower())
+        ]
+        if not matching_mentions:
+            continue
+
+        for i in range(min(gap, len(matching_mentions))):
+            placeholder_id = f"placeholder_{kind}_{i + 1}"
+            mention = matching_mentions[i]
+            has_drop = "declined" in mention.lower() or "dropped" in mention.lower()
+
+            placeholder_actor = {
+                "actor_id": placeholder_id,
+                "display_name": f"Another {kind} sponsor",
+                "canonical_name": f"ANOTHER {kind.upper()} SPONSOR",
+                "aliases": [],
+                "role": "bidder",
+                "advisor_kind": None,
+                "advised_actor_id": None,
+                "bidder_kind": kind,
+                "listing_status": "private",
+                "geography": "domestic",
+                "is_grouped": False,
+                "group_size": None,
+                "group_label": None,
+                "evidence_refs": [],
+                "notes": [f"Synthesized from unresolved_mention: {mention}"],
+            }
+            actors_dict["actors"].append(placeholder_actor)
+
+            nda_event = {
+                "event_id": f"{placeholder_id}_nda",
+                "event_type": "nda",
+                "date": {"raw_text": "unknown", "normalized_hint": None},
+                "actor_ids": [placeholder_id],
+                "summary": f"Placeholder NDA for {placeholder_id}.",
+                "evidence_refs": [],
+                "terms": None,
+                "formality_signals": None,
+                "whole_company_scope": None,
+                "drop_reason_text": None,
+                "round_scope": None,
+                "invited_actor_ids": [],
+                "deadline_date": None,
+                "executed_with_actor_id": None,
+                "boundary_note": None,
+                "nda_signed": True,
+                "notes": ["Synthesized from count_assertion gap."],
+            }
+            new_events.append(nda_event)
+
+            if has_drop:
+                drop_event = {
+                    "event_id": f"{placeholder_id}_drop",
+                    "event_type": "drop",
+                    "date": {"raw_text": "unknown", "normalized_hint": None},
+                    "actor_ids": [placeholder_id],
+                    "summary": f"Placeholder drop: {mention}",
+                    "evidence_refs": [],
+                    "terms": None,
+                    "formality_signals": None,
+                    "whole_company_scope": None,
+                    "drop_reason_text": mention,
+                    "round_scope": None,
+                    "invited_actor_ids": [],
+                    "deadline_date": None,
+                    "executed_with_actor_id": None,
+                    "boundary_note": None,
+                    "nda_signed": None,
+                    "notes": ["Synthesized from count_assertion gap."],
+                }
+                new_events.append(drop_event)
+
+            recovery_log.append({
+                "placeholder_id": placeholder_id,
+                "kind": kind,
+                "source_mention": mention,
+                "events_created": [e["event_id"] for e in new_events if placeholder_id in str(e.get("actor_ids"))],
+            })
+
+    return actors_dict, new_events, recovery_log
+
+
 def run_canonicalize(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> int:
     """Run canonicalization on extracted skill artifacts.
 
@@ -148,6 +270,17 @@ def run_canonicalize(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> in
 
     events, nda_gate_log = _gate_drops_by_nda(events)
     log["nda_gate_log"] = nda_gate_log
+
+    # Unnamed-party recovery from count_assertion gaps
+    actors_dict = actors.model_dump(mode="json")
+    actors_dict, new_events, recovery_log = _recover_unnamed_parties(actors_dict, events)
+    events.extend(new_events)
+    log["recovery_log"] = recovery_log
+
+    # Write back actors (before events)
+    paths.actors_raw_path.write_text(
+        json.dumps(actors_dict, indent=2), encoding="utf-8"
+    )
 
     # Write back events
     paths.events_raw_path.write_text(

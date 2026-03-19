@@ -129,6 +129,110 @@ def test_nda_gate_preserves_drop_with_prior_nda(tmp_path: Path) -> None:
     assert len(result["events"]) == 3
 
 
+def test_recover_unnamed_party_from_count_gap(tmp_path: Path) -> None:
+    actors_payload = {
+        "actors": [
+            {
+                "actor_id": "bidder_a",
+                "display_name": "Sponsor A",
+                "canonical_name": "SPONSOR A",
+                "aliases": [],
+                "role": "bidder",
+                "advisor_kind": None,
+                "advised_actor_id": None,
+                "bidder_kind": "financial",
+                "listing_status": "private",
+                "geography": "domestic",
+                "is_grouped": False,
+                "group_size": None,
+                "group_label": None,
+                "evidence_refs": [{"block_id": "B001", "evidence_id": None, "anchor_text": "x"}],
+                "notes": [],
+            },
+        ],
+        "count_assertions": [
+            {
+                "subject": "nda_signed_financial_buyers",
+                "count": 2,
+                "evidence_refs": [{"block_id": "B030", "evidence_id": None, "anchor_text": "two financial sponsors"}],
+            },
+        ],
+        "unresolved_mentions": [
+            "One financial sponsor executed a confidentiality agreement but declined interest shortly thereafter."
+        ],
+    }
+    events = [
+        _evt("evt_001", "nda", actor_ids=["bidder_a"]),
+        _evt("evt_002", "executed", actor_ids=["bidder_a"], date="2016-07-13"),
+    ]
+    _write_canon_fixture(tmp_path, actors_payload=actors_payload, events=events)
+    run_canonicalize("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+
+    actors_result = json.loads(paths.actors_raw_path.read_text(encoding="utf-8"))
+    events_result = json.loads(paths.events_raw_path.read_text(encoding="utf-8"))
+    log = json.loads(paths.canonicalize_log_path.read_text(encoding="utf-8"))
+
+    # Placeholder actor created
+    assert len(actors_result["actors"]) == 2
+    placeholder = [a for a in actors_result["actors"] if a["actor_id"].startswith("placeholder_")]
+    assert len(placeholder) == 1
+    assert placeholder[0]["bidder_kind"] == "financial"
+
+    # Synthetic NDA and Drop events created
+    assert any(
+        e["event_type"] == "nda" and placeholder[0]["actor_id"] in e["actor_ids"]
+        for e in events_result["events"]
+    )
+    assert any(
+        e["event_type"] == "drop" and placeholder[0]["actor_id"] in e["actor_ids"]
+        for e in events_result["events"]
+    )
+    assert len(log["recovery_log"]) == 1
+
+
+def test_recover_unnamed_party_fail_closed_no_unresolved_mention(tmp_path: Path) -> None:
+    actors_payload = {
+        "actors": [
+            {
+                "actor_id": "bidder_a",
+                "display_name": "Sponsor A",
+                "canonical_name": "SPONSOR A",
+                "aliases": [],
+                "role": "bidder",
+                "advisor_kind": None,
+                "advised_actor_id": None,
+                "bidder_kind": "financial",
+                "listing_status": "private",
+                "geography": "domestic",
+                "is_grouped": False,
+                "group_size": None,
+                "group_label": None,
+                "evidence_refs": [{"block_id": "B001", "evidence_id": None, "anchor_text": "x"}],
+                "notes": [],
+            },
+        ],
+        "count_assertions": [
+            {
+                "subject": "nda_signed_financial_buyers",
+                "count": 2,
+                "evidence_refs": [{"block_id": "B030", "evidence_id": None, "anchor_text": "two financial sponsors"}],
+            },
+        ],
+        "unresolved_mentions": [],  # No matching mention -> fail closed
+    }
+    events = [
+        _evt("evt_001", "nda", actor_ids=["bidder_a"]),
+        _evt("evt_002", "executed", actor_ids=["bidder_a"], date="2016-07-13"),
+    ]
+    _write_canon_fixture(tmp_path, actors_payload=actors_payload, events=events)
+    run_canonicalize("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+
+    actors_result = json.loads(paths.actors_raw_path.read_text(encoding="utf-8"))
+    assert len(actors_result["actors"]) == 1  # No placeholder
+
+
 def test_nda_gate_removes_drop_with_empty_actor_ids(tmp_path: Path) -> None:
     """Drops with empty actor_ids are unnamed parties without NDAs — remove them."""
     events = [
