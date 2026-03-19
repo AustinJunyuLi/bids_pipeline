@@ -12,7 +12,7 @@ Canonical deterministic pipeline code lives in [`pipeline/`](./pipeline): extrac
 
 ## Build, Test, and Development Commands
 
-```bash
+``` bash
 # Install package and both CLI entrypoints in editable mode
 pip install -e .
 
@@ -51,6 +51,11 @@ pipeline export --deal imprivata
 
 # Isolated skill workflow preflight / summary
 skill-pipeline deal-agent --deal imprivata
+
+# Deterministic skill-runtime stages used by the hybrid workflow
+skill-pipeline check --deal imprivata
+skill-pipeline verify --deal imprivata
+skill-pipeline enrich-core --deal imprivata
 ```
 
 ## Architecture
@@ -59,7 +64,7 @@ skill-pipeline deal-agent --deal imprivata
 
 7-stage pipeline. Each stage reads from the previous stage's output directory:
 
-```
+```         
 raw/<slug>/filings/*.txt          (Stage 1: frozen SEC filing text — NEVER modified)
     ↓
 data/deals/<slug>/source/         (Stage 2: chronology_blocks.jsonl, evidence_items.jsonl)
@@ -79,63 +84,155 @@ State is tracked in `data/runs/pipeline_state.sqlite`.
 
 Use the canonical pipeline for deterministic runs, reproducible artifacts, and any work that should align with the repository's Python pipeline code.
 
-### Skill-Driven Quick Workflow
+### Skill-Driven Hybrid Workflow
 
-A separate 4-skill chain exists for agent-guided quick runs after `pipeline raw fetch --deal <slug>` and `pipeline preprocess source --deal <slug>` have already run:
+The quick workflow is now a hybrid agent + deterministic flow after
+`pipeline raw fetch --deal <slug>` and `pipeline preprocess source --deal <slug>`
+have already run.
 
-```text
-/deal-agent <slug>              # runs all 4 in sequence
-  |-- /extract-deal <slug>      # filing -> actors + events JSON
-  |-- /verify-extraction <slug> # fact-check, fix, re-check, log
-  |-- /enrich-deal <slug>       # classify bids, segment cycles, judge initiation
-  |-- /export-csv <slug>        # format -> review CSV with review_flags
+#### Critical distinction for agents
+
+-   `/deal-agent <slug>` is the agent-facing end-to-end orchestrator.
+-   `skill-pipeline deal-agent --deal <slug>` is **not** the end-to-end runner. It is
+    only a preflight / directory-creation / artifact-summary CLI.
+-   Do **not** tell the user that `skill-pipeline deal-agent` executes extraction,
+    repair, enrichment, or export. It does not.
+
+#### End-to-end hybrid sequence
+
+``` text
+/deal-agent <slug>
+  |-- /extract-deal <slug>
+  |-- skill-pipeline canonicalize --deal <slug>
+  |-- skill-pipeline check --deal <slug>
+  |-- skill-pipeline verify --deal <slug>
+  |-- /verify-extraction <slug>
+  |-- skill-pipeline enrich-core --deal <slug>
+  |-- /enrich-deal <slug>
+  |-- /export-csv <slug>
 ```
+
+#### What each layer owns
+
+-   Agent skills own:
+    -   `/extract-deal <slug>`: LLM extraction into
+        `data/skill/<slug>/extract/actors_raw.json` and
+        `data/skill/<slug>/extract/events_raw.json`
+    -   `/verify-extraction <slug>`: repair loop and final verification gate
+    -   `/enrich-deal <slug>`: interpretive enrichment remainder
+    -   `/export-csv <slug>`: CSV formatting / export
+-   `skill-pipeline` CLI owns:
+    -   `skill-pipeline deal-agent --deal <slug>`: preflight and summary only
+    -   `skill-pipeline canonicalize --deal <slug>`: event dedup, NDA-gate, unnamed-party recovery
+    -   `skill-pipeline check --deal <slug>`: deterministic structural gate
+    -   `skill-pipeline verify --deal <slug>`: strict deterministic verification
+    -   `skill-pipeline enrich-core --deal <slug>`: deterministic rounds, bid
+        classifications, cycles, and formal boundary
+
+#### Agent-facing manual
+
+If you are a fresh agent and need to run the skill workflow correctly, follow
+this exact procedure:
+
+1.  Confirm prerequisites exist:
+    -   `data/deals/<slug>/source/chronology_blocks.jsonl`
+    -   `data/deals/<slug>/source/evidence_items.jsonl`
+    -   `raw/<slug>/document_registry.json`
+2.  If `data/skill/<slug>/extract/actors_raw.json` and
+    `data/skill/<slug>/extract/events_raw.json` do not exist, run
+    `/extract-deal <slug>` first. Do **not** run `skill-pipeline canonicalize`,
+    `skill-pipeline check`, `skill-pipeline verify`, or
+    `skill-pipeline enrich-core` before extract artifacts exist.
+3.  Run `skill-pipeline canonicalize --deal <slug>`.
+    -   Output: `data/skill/<slug>/canonicalize/canonicalize_log.json`
+    -   Overwrites `actors_raw.json` and `events_raw.json` in place
+    -   Deduplicates events, removes drops without NDAs, recovers unnamed parties
+4.  Run `skill-pipeline check --deal <slug>`.
+    -   Output: `data/skill/<slug>/check/check_report.json`
+    -   Gate: stop on blocker findings
+5.  Run `skill-pipeline verify --deal <slug>`.
+    -   Outputs:
+        -   `data/skill/<slug>/verify/verification_findings.json`
+        -   `data/skill/<slug>/verify/verification_log.json`
+    -   Strict quote policy: EXACT and NORMALIZED resolve; FUZZY does not
+6.  Run `/verify-extraction <slug>`.
+    -   Use `verification_findings.json` as the deterministic input
+    -   Run the LLM repair loop only if **all** error-level findings are `repairable`
+    -   If any error-level finding is `non_repairable`, fail closed and do not
+        run repair
+7.  Run `skill-pipeline enrich-core --deal <slug>`.
+    -   Output: `data/skill/<slug>/enrich/deterministic_enrichment.json`
+8.  Run `/enrich-deal <slug>`.
+    -   This adds the interpretive remainder and writes
+        `data/skill/<slug>/enrich/enrichment.json`
+9.  Run `/export-csv <slug>`.
+    -   Output: `data/skill/<slug>/export/deal_events.csv`
+
+#### Common failure mode
+
+If `skill-pipeline canonicalize`, `skill-pipeline check`, `skill-pipeline verify`,
+or `skill-pipeline enrich-core` fails with:
+
+`FileNotFoundError: Missing required input: data/skill/<slug>/extract/actors_raw.json`
+
+that usually means the agent skipped `/extract-deal <slug>` or is running the
+deterministic stage before skill extract artifacts exist. This is expected
+fail-fast behavior, not a reason to add fallback logic.
 
 Repository support for this workflow is split across two layers:
 
-- The skill files define the stage semantics and gate conditions for `/extract-deal`, `/verify-extraction`, `/enrich-deal`, and `/export-csv`.
-- The isolated [`skill_pipeline/`](./skill_pipeline) package provides executable runtime support for the skill workflow. It has its own models, path logic, seed loading, and the `skill-pipeline deal-agent --deal <slug>` CLI.
-- Skill artifacts live under `data/skill/<slug>/` (`extract/`, `verify/`, `enrich/`, `export/`), and the final review CSV is `data/skill/<slug>/export/deal_events.csv`.
-- Shared read-only inputs for the skill workflow are `data/deals/<slug>/source/`, `raw/<slug>/document_registry.json`, and `data/seeds.csv`.
-- Canonical pipeline artifacts under `data/deals/<slug>/...` remain separate and must not be used as skill outputs.
+-   The skill files define the stage semantics and gate conditions for
+    `/extract-deal`, `/verify-extraction`, `/enrich-deal`, and `/export-csv`.
+-   The isolated [`skill_pipeline/`](./skill_pipeline) package provides
+    deterministic runtime support plus preflight / summary CLI commands.
+-   Skill artifacts live under `data/skill/<slug>/`
+    (`extract/`, `check/`, `verify/`, `enrich/`, `export/`), and the final review
+    CSV is `data/skill/<slug>/export/deal_events.csv`.
+-   Shared read-only inputs for the skill workflow are
+    `data/deals/<slug>/source/`, `raw/<slug>/document_registry.json`, and
+    `data/seeds.csv`.
+-   Canonical pipeline artifacts under `data/deals/<slug>/...` remain separate
+    and must not be used as skill outputs.
 
-At present, the executable `skill_pipeline` support covers isolated runtime boundaries plus `deal-agent` preflight/summary orchestration. The stage-specific extraction, verification, enrichment, and export behavior still lives in the skill documents. Historical notes may still say the skill workflow is docs-only or may still show `data/deals/<slug>/...` skill outputs; follow this file and the current skill files instead.
+Historical notes may still describe the skill workflow as purely agent-driven or
+may imply that `skill-pipeline deal-agent` is the end-to-end runner. Those notes
+are stale. Follow this file and the current skill docs instead.
 
 ### LLM Call Path
 
 The critical extraction path flows through these files in order:
 
-1. `pipeline/extract/actors.py` / `events.py` — orchestrate extraction, set token budgets
-2. `pipeline/llm/prompts.py` — render the user message from chronology blocks + evidence items
-3. `pipeline/llm/backend.py` — `ainvoke_structured()` sends the prompt, parses JSON, runs repair loop on validation failure
-4. `pipeline/llm/anthropic_backend.py` / `openai_backend.py` — provider-specific request construction
-5. `pipeline/llm/token_budget.py` — complexity classification and output budget estimation
+1.  `pipeline/extract/actors.py` / `events.py` — orchestrate extraction, set token budgets
+2.  `pipeline/llm/prompts.py` — render the user message from chronology blocks + evidence items
+3.  `pipeline/llm/backend.py` — `ainvoke_structured()` sends the prompt, parses JSON, runs repair loop on validation failure
+4.  `pipeline/llm/anthropic_backend.py` / `openai_backend.py` — provider-specific request construction
+5.  `pipeline/llm/token_budget.py` — complexity classification and output budget estimation
 
 ### QA Span Resolution
 
 After extraction, QA verifies every evidence citation:
 
-1. `pipeline/qa/rules.py` — `SpanRegistry` resolves each `block_id`/`evidence_id` + `anchor_text` to a `SourceSpan`
-2. `pipeline/normalize/spans.py` — maps anchor text to line/char positions in the source filing
-3. `pipeline/normalize/quotes.py` — matching cascade: exact substring → normalized (smart quotes/whitespace) → unresolved
-4. Any unresolved span is a **blocker** — the deal cannot be exported
+1.  `pipeline/qa/rules.py` — `SpanRegistry` resolves each `block_id`/`evidence_id` + `anchor_text` to a `SourceSpan`
+2.  `pipeline/normalize/spans.py` — maps anchor text to line/char positions in the source filing
+3.  `pipeline/normalize/quotes.py` — matching cascade: exact substring → normalized (smart quotes/whitespace) → unresolved
+4.  Any unresolved span is a **blocker** — the deal cannot be exported
 
 ### Key Models
 
-- `pipeline/models/source.py` — ChronologyBlock, EvidenceItem, ChronologySelection
-- `pipeline/models/extraction.py` — ActorRecord, SourceSpan, DealExtraction, event types
-- `pipeline/models/common.py` — enums (EventType, ActorRole, QuoteMatchType, etc.)
-- `pipeline/llm/schemas.py` — Pydantic schemas for LLM output (ActorExtractionOutput, EventExtractionOutput)
-- `skill_pipeline/models.py` — skill-workflow artifact models and summary models; keep these separate from `pipeline/models/*`
+-   `pipeline/models/source.py` — ChronologyBlock, EvidenceItem, ChronologySelection
+-   `pipeline/models/extraction.py` — ActorRecord, SourceSpan, DealExtraction, event types
+-   `pipeline/models/common.py` — enums (EventType, ActorRole, QuoteMatchType, etc.)
+-   `pipeline/llm/schemas.py` — Pydantic schemas for LLM output (ActorExtractionOutput, EventExtractionOutput)
+-   `skill_pipeline/models.py` — skill-workflow artifact models and summary models; keep these separate from `pipeline/models/*`
 
 ## Key Invariants
 
-- Filing `.txt` files under `raw/` are immutable truth sources. Never rewrite them.
-- Filing text is the only factual source. Do not use spreadsheets or notes as evidence.
-- Evidence items use per-filing sequential IDs (E0001, E0002...) that collide across filings. QA must handle duplicates.
-- The LLM's `anchor_text` is free-form output that must survive deterministic substring matching in QA. The model is told "do not paraphrase" but compliance varies by provider.
-- `prompted_json` is the default structured output mode. The system prompt includes a JSON schema outline and tells the model to return exactly one JSON object.
-- GPT-5.4 shares `max_completion_tokens` between hidden reasoning and visible output. Use `reasoning_effort=none` for extraction.
+-   Filing `.txt` files under `raw/` are immutable truth sources. Never rewrite them.
+-   Filing text is the only factual source. Do not use spreadsheets or notes as evidence.
+-   Evidence items use per-filing sequential IDs (E0001, E0002...) that collide across filings. QA must handle duplicates.
+-   The LLM's `anchor_text` is free-form output that must survive deterministic substring matching in QA. The model is told "do not paraphrase" but compliance varies by provider.
+-   `prompted_json` is the default structured output mode. The system prompt includes a JSON schema outline and tells the model to return exactly one JSON object.
+-   GPT-5.4 shares `max_completion_tokens` between hidden reasoning and visible output. Use `reasoning_effort=none` for extraction.
 
 ## Coding Style & Naming Conventions
 
@@ -151,7 +248,7 @@ Recent history uses conventional prefixes such as `feat:`, `fix:`, and `test:`. 
 
 ## Environment Variables
 
-```
+```         
 ANTHROPIC_API_KEY      — required for Anthropic provider
 OPENAI_API_KEY         — required for OpenAI provider
 BIDS_LLM_PROVIDER      — default: anthropic (anthropic|openai)
@@ -172,49 +269,20 @@ You are my local Python agent.
 
 ## Core operating rules:
 
-1. Think from first principles.
-   Do not assume I have perfectly specified the true objective.
-   Start from the underlying need and the actual problem.
-   If the objective, constraints, interfaces, or success criteria are materially unclear, stop and ask focused clarification questions.
+1.  Think from first principles. Do not assume I have perfectly specified the true objective. Start from the underlying need and the actual problem. If the objective, constraints, interfaces, or success criteria are materially unclear, stop and ask focused clarification questions.
 
-2. Solve the real problem, not the symptom.
-   Do not give patch-style, workaround-style, or compatibility-first solutions when the correct fix is structural.
+2.  Solve the real problem, not the symptom. Do not give patch-style, workaround-style, or compatibility-first solutions when the correct fix is structural.
 
-3. Do not overengineer.
-   Use the shortest correct path.
-   Do not add speculative abstractions, future-proofing, fallback systems, downgrade paths, optional modes, or extra branches unless I explicitly ask for them.
+3.  Do not overengineer. Use the shortest correct path. Do not add speculative abstractions, future-proofing, fallback systems, downgrade paths, optional modes, or extra branches unless I explicitly ask for them.
 
-4. Do not expand scope.
-   Only solve the requirement I gave you.
-   Do not invent adjacent features or “helpful” extras.
+4.  Do not expand scope. Only solve the requirement I gave you. Do not invent adjacent features or “helpful” extras.
 
-5. Fail fast.
-   Fail fast on violated assumptions, invalid states, unexpected inputs, schema mismatches, missing required data, and logic inconsistencies.
-   Do not silence errors.
-   Do not swallow exceptions.
-   Do not use broad try/except blocks that hide failures.
-   Do not substitute defaults, empty outputs, partial success, fallback behavior, retries, or log-and-continue behavior unless I explicitly request them.
-   Prefer loud failure over silent corruption.
-   A precise crash is better than an untrustworthy result.
+5.  Fail fast. Fail fast on violated assumptions, invalid states, unexpected inputs, schema mismatches, missing required data, and logic inconsistencies. Do not silence errors. Do not swallow exceptions. Do not use broad try/except blocks that hide failures. Do not substitute defaults, empty outputs, partial success, fallback behavior, retries, or log-and-continue behavior unless I explicitly request them. Prefer loud failure over silent corruption. A precise crash is better than an untrustworthy result.
 
-6. Protect logical correctness.
-   Before proposing or writing code, validate the full end-to-end logic:
-   inputs -> transformations -> outputs -> edge cases -> failure paths -> side effects.
+6.  Protect logical correctness. Before proposing or writing code, validate the full end-to-end logic: inputs -\> transformations -\> outputs -\> edge cases -\> failure paths -\> side effects.
 
-7. Python coding rules.
-   Write complete Python code.
-   No pseudocode.
-   No TODOs.
-   No omitted core sections.
-   Prefer explicitness, clear naming, input validation, deterministic behavior, and strong error handling.
-   Use specific exceptions.
-   Preserve original tracebacks when possible.
-   Avoid hidden state and silent failures.
+7.  Python coding rules. Write complete Python code. No pseudocode. No TODOs. No omitted core sections. Prefer explicitness, clear naming, input validation, deterministic behavior, and strong error handling. Use specific exceptions. Preserve original tracebacks when possible. Avoid hidden state and silent failures.
 
-8. Research and pipeline safety.
-   Do not silently alter semantics, schemas, event definitions, sample construction, or output meaning.
-   Do not silently drop malformed data.
-   Do not add fallback logic that can contaminate inference.
-   If a step could change results, surface it explicitly.
-   Default policy: abort on the first materially relevant error.
+8.  Research and pipeline safety. Do not silently alter semantics, schemas, event definitions, sample construction, or output meaning. Do not silently drop malformed data. Do not add fallback logic that can contaminate inference. If a step could change results, surface it explicitly. Default policy: abort on the first materially relevant error.
 
+9.  Design Approch (Very Important) Think step by step about whether there exists a less over-engineered and yet simpler, more elegant, and more robust solution to the problem that accords with KISS and DRY principles. Present it to me with your degree of confidence from 1 to 10 and its rationale, but do not modify code yet. Target minimum viable functionality in all designs of yours.

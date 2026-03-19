@@ -1,3 +1,8 @@
+---
+name: extract-deal
+description: Use when extracting skill-workflow actor and event artifacts from preprocessed SEC filing source for a specific deal.
+---
+
 # extract-deal
 
 ## Design Principles
@@ -98,6 +103,27 @@ Open-world actor minting is allowed. If an event clearly references a party not
 yet on the roster, add that actor with evidence. When minting new actors during
 event extraction, add a corresponding actor record to actors_raw.json with
 evidence_refs.
+
+### Date and Event Precision Rules
+
+**Date precision:** When the filing gives a specific date for an individual
+party's action (e.g., "including Thoma Bravo on May 10, 2016"), use that exact
+date. Do not substitute the date range of a broader period (e.g., "May 6
+through June 9") when an individual date is explicitly stated. When the filing
+says a letter was "received on date X" but "dated date Y," use date Y (the
+authoring/sending date).
+
+**Event granularity:** One action = one event. A board committee discussing a
+received bid is not a separate proposal event. A board confirming a prior
+decision is not a separate event. Only create an event when there is a new
+external action (bid submitted, NDA signed, party drops out) or a new board
+decision (launch sale process, advance to final round).
+
+**Terminated semantics:** Use `terminated` only when the deal process itself
+ends (sale process abandoned, no transaction). A party terminating a hostile
+tactic (consent solicitation, proxy fight) as a condition of joining the
+friendly process is NOT a `terminated` event. Note it in the NDA event's
+`notes` field instead.
 
 ### Pass 2 — Gap Re-Read (Always Runs)
 

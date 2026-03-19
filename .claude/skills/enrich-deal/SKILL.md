@@ -1,3 +1,8 @@
+---
+name: enrich-deal
+description: Use when enriching verified skill extraction artifacts with bid classification, cycle structure, initiation judgment, and advisory or count review.
+---
+
 # enrich-deal
 
 ## Design Principles
@@ -20,6 +25,12 @@ most.
   `/enrich-deal <slug>`.
 - Prerequisite: verified `actors_raw.json` and `events_raw.json` exist in
   `data/skill/<slug>/extract/`.
+
+**Deterministic core:** Run `skill-pipeline enrich-core --deal <slug>` first.
+This writes `enrich/deterministic_enrichment.json` with `rounds`,
+`bid_classifications`, `cycles`, and `formal_boundary`. Residual bid
+classification is `Uncertain`, not forced `Informal`. The interpretive remainder
+(initiation, advisory verification, count reconciliation) stays in this skill.
 
 ## Reads
 
@@ -55,6 +66,13 @@ event history for that actor. Classify into exactly one of 5 labels:
 | `DropAtInf` | Filing says the valuation was at the bidder's earlier informal bid (no improvement). Verify by comparing against the actor's extracted proposal values from earlier events. If no prior proposal is extracted for this actor, classify as `Drop` and flag. |
 | `DropTarget` | Target excluded the bidder from continuing (did not invite to next round). The filing must indicate target-initiated exclusion, not bidder-initiated withdrawal. |
 
+**DropTarget directionality:** DropTarget requires the TARGET to initiate
+exclusion without the bidder first signaling withdrawal. If the sequence is:
+(1) bidder says it cannot improve its bid, then (2) target confirms
+disinterest — classify based on the bidder's stated position (DropAtInf or
+DropBelowInf), not as DropTarget. DropTarget applies only when the target
+proactively excludes a bidder who has not signaled withdrawal.
+
 **DropBelowM rule:** Use filing language only. Do not infer market-price
 comparisons from external data. If the filing says something like "below the
 current trading price" or "less than the market value," that qualifies. If the
@@ -85,7 +103,7 @@ if an earlier rule matches.
 | 1 | Range bid (`contains_range=true`) OR explicit informal language: `mentions_indication_of_interest=true`, `mentions_preliminary=true`, or `mentions_non_binding=true` | `Informal` | Observable text signal from formality_signals |
 | 2 | Draft/marked-up agreement (`includes_draft_merger_agreement=true` or `includes_marked_up_agreement=true`) OR explicit binding offer (`mentions_binding_offer=true`) | `Formal` | Observable text signal from formality_signals |
 | 3 | Proposal follows a selective final round: `invited_actor_ids` is a strict subset of active bidders at that point in time | `Formal` | Round context + selectivity test |
-| 4 | Residual case: none of the above rules matched | `Informal` | Default per Alex's instructions |
+| 4 | Residual case: none of the above rules matched | `Uncertain` | Conflicting signals; do not force Informal |
 
 **Rule 3 selectivity test:**
 1. From the `rounds` output (Task 3), find the most recent round announcement
@@ -124,8 +142,8 @@ For each paired round, record:
 - `announcement_event_id`: the event_id of the announcement event
 - `deadline_event_id`: the event_id of the deadline event (null if no
   corresponding deadline was extracted)
-- `round_scope`: `formal` or `informal`, taken from the announcement event's
-  `round_scope` field
+- `round_scope`: `formal`, `informal`, or `extension`, taken from the announcement
+  event's `round_scope` field (extension rounds use `final_round_ext_ann`/`final_round_ext`)
 - `invited_actor_ids`: from the announcement event (empty list if not
   identifiable)
 - `active_bidders_at_time`: count of actors who have an NDA event and no prior
@@ -246,7 +264,10 @@ confirming the match.
 
 ## Writes
 
-- `data/skill/<slug>/enrich/enrichment.json`
+- `data/skill/<slug>/enrich/deterministic_enrichment.json` — from
+  `skill-pipeline enrich-core` (rounds, bid_classifications, cycles, formal_boundary)
+- `data/skill/<slug>/enrich/enrichment.json` — full enrichment including
+  initiation_judgment, advisory_verification, count_reconciliation, review_flags
 
 ## JSON Format
 
@@ -289,9 +310,9 @@ The output must contain all 8 sections. Use `event_id` keys (e.g., `evt_016`,
       "basis": "Proposal submitted after selective final round (3 of 7 active bidders invited)"
     },
     "evt_022": {
-      "label": "Informal",
-      "rule_applied": 4,
-      "basis": "No formality signals matched; default to Informal"
+      "label": "Uncertain",
+      "rule_applied": null,
+      "basis": "Residual case; conflicting signals"
     }
   },
   "rounds": [

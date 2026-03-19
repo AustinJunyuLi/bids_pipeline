@@ -1,3 +1,8 @@
+---
+name: export-csv
+description: Use when flattening skill extraction and enrichment artifacts into the repo's Alex-compatible review CSV for a deal.
+---
+
 # export-csv
 
 ## Design Principles
@@ -47,6 +52,10 @@ findings that need human attention are already captured in enrichment.json's
 | `c2` | Deal terms / conditions | Free text or empty |
 | `c3` | Always empty (matching Alex's practice) | Always empty |
 | `review_flags` | Machine-readable uncertainty markers | Pipe-separated tags or empty |
+
+**Uncertain handling:** When `bid_classifications` labels a proposal as
+`Uncertain`, use `bid_type=NA` and add `bid_classification_uncertain:evt_XXX` to
+`review_flags`. Do not force a guess to Formal or Informal.
 
 Flags are per-event: each row gets only the flags whose tag contains that
 event's `event_id`. A row for `evt_016` gets `dropout_needs_market_data:evt_016`
@@ -143,6 +152,16 @@ Three rules:
 - Go-shop / covenants
 
 **c3:** always empty.
+
+## Alex-Compatible Formatting Rules
+
+**Bidder type:** The `type` column is populated only on the first row for each
+actor (typically the NDA row). Subsequent rows for that actor (proposals,
+drops, executed) use `NA` for the type column.
+
+**Range for point bids:** When a proposal has `per_share` but no
+`range_low`/`range_high` (or they equal `per_share`), output `range` as
+`val-val` (e.g., `15-15`). This matches Alex's convention.
 
 ## BidderID Assignment
 

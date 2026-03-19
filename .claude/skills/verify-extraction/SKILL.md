@@ -1,3 +1,8 @@
+---
+name: verify-extraction
+description: Use when checking and repairing skill-workflow extraction artifacts against filing text before enrichment.
+---
+
 # verify-extraction
 
 ## Design Principles
@@ -18,6 +23,12 @@ Log every finding, every fix, and the final disposition.
   `/verify-extraction <slug>`.
 - Prerequisite: `extract-deal` has already produced `actors_raw.json` and
   `events_raw.json`.
+
+**Deterministic pre-step:** Run `skill-pipeline verify --deal <slug>` first.
+This writes `verification_findings.json` (with repairability tags) and
+`verification_log.json`. Verification is strict: EXACT and NORMALIZED resolve;
+FUZZY does not. The LLM repair loop should run only when **all** error-level
+findings are `repairable`; any `non_repairable` error fails closed.
 
 ## Reads
 
@@ -78,25 +89,45 @@ Three sub-checks:
 
 ### 3. Structural Integrity
 
+`skill-pipeline verify` currently enforces this deterministic subset:
+
 | # | Check | Severity |
 |---|---|---|
-| 1 | At least one process initiation event exists (`target_sale`, `bidder_sale`, `activist_sale`, or `bidder_interest`) | error |
+| 1 | At least one process initiation event exists (`target_sale`, `target_sale_public`, `bidder_sale`, `activist_sale`, or `bidder_interest`) | error |
 | 2 | At least one outcome event exists (`executed`, `terminated`, or `restarted`) | error |
-| 3 | Every round announcement has a corresponding deadline of the same type | warning |
-| 4 | Every drop event references an actor with a prior NDA or proposal | error |
-| 5 | Every executed event has a non-null counterparty (`executed_with_actor_id` or `actor_ids` non-empty) | error |
-| 6 | Dates are non-decreasing globally across all events (when dates are exact). This is a global monotonicity check; cycle boundaries are not yet computed. | warning |
-| 7 | Every proposal has non-empty `actor_ids` | error |
+| 3 | Every executed event has a non-null counterparty (`executed_with_actor_id` or `actor_ids` non-empty) | error |
+| 4 | Every proposal has non-empty `actor_ids` | error |
+
+Additional structural review that still happens inside this skill after the
+deterministic pass:
+
+| Check | Severity |
+|---|---|
+| Every round announcement has a corresponding deadline of the same type | warning |
+| Every drop event references an actor with a prior NDA or proposal | error |
+| Dates are non-decreasing globally across all events (when dates are exact). This is a global monotonicity check; cycle boundaries are not yet computed. | warning |
 
 ## Procedure
 
 ### Round 1
 
-1. **Check all.** Run every check in sections 1-3 above. Log every finding with:
-   `check_type`, `severity` (error or warning), `description`, affected
-   `actor_ids` or `event_ids`, `anchor_text` if relevant.
+1. **Start from the deterministic pass.** Run `skill-pipeline verify --deal <slug>`
+   and treat `verification_findings.json` as authoritative for quote
+   verification, actor-event referential integrity, and the deterministic
+   structural subset above.
 
-2. **Fix errors in place.** For each error-severity finding:
+2. **Review the remaining structural items.** Check the round/deadline pairing,
+   drop-history consistency, and exact-date monotonicity items that are not yet
+   implemented in `skill-pipeline verify`. Append those findings to the same
+   Round 1 log using `check_type`, `severity` (error or warning), `description`,
+   affected `actor_ids` or `event_ids`, `anchor_text` if relevant, and
+   `repairability`.
+
+3. **Repairability gate.** Before invoking the LLM repair loop: if any
+   error-level finding is `non_repairable`, fail closed. Do not attempt repair.
+   Only when all error-level findings are `repairable` may the LLM fix loop run.
+
+4. **Fix errors in place.** For each error-severity finding (when repair is allowed):
 
    | Finding type | Fix action |
    |---|---|
@@ -104,7 +135,7 @@ Three sub-checks:
    | Missing actor reference | Add the missing actor to `actors_raw.json` with evidence from the filing. |
    | Broken structural check | Re-read the filing. Add the missing event or fix the attribution. |
 
-3. **Write updated files.** Rewrite `actors_raw.json` and `events_raw.json`
+5. **Write updated files.** Rewrite `actors_raw.json` and `events_raw.json`
    with fixes applied.
 
 ### Round 2
@@ -123,7 +154,8 @@ Three sub-checks:
 |---|---|
 | `data/skill/<slug>/extract/actors_raw.json` | Updated in place if fixes were applied |
 | `data/skill/<slug>/extract/events_raw.json` | Updated in place if fixes were applied |
-| `data/skill/<slug>/verify/verification_log.json` | Full log of both rounds |
+| `data/skill/<slug>/verify/verification_findings.json` | Deterministic findings with repairability tags (from `skill-pipeline verify`) |
+| `data/skill/<slug>/verify/verification_log.json` | Full log of both rounds; gate artifact |
 
 ## Log Format
 
@@ -134,6 +166,7 @@ Three sub-checks:
       {
         "check_type": "quote_verification",
         "severity": "error",
+        "repairability": "repairable",
         "description": "anchor_text not found within +/-3 lines of block B042",
         "event_id": "evt_007",
         "anchor_text": "representatives of Thoma Bravo informally approached"
