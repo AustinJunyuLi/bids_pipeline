@@ -17,8 +17,7 @@ dependencies = [
 ]
 
 [project.scripts]
-pipeline = "pipeline.cli:main"
 skill-pipeline = "skill_pipeline.cli:main"
 
 [tool.setuptools.packages.find]
-include = ["pipeline*", "skill_pipeline*"]
+include = ["skill_pipeline*"]

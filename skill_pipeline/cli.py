@@ -1,15 +1,41 @@
 from __future__ import annotations
 
 import argparse
+import json
+from datetime import date
 from pathlib import Path
 from typing import Sequence
+from uuid import uuid4
 
 from skill_pipeline.canonicalize import run_canonicalize
 from skill_pipeline.check import run_check
-from skill_pipeline.config import PROJECT_ROOT, SKILL_PIPELINE_VERSION
+from skill_pipeline.config import PROJECT_ROOT, RAW_DIR, SKILL_PIPELINE_VERSION
 from skill_pipeline.deal_agent import run_deal_agent
 from skill_pipeline.enrich_core import run_enrich_core
+from skill_pipeline.pipeline_models.common import PIPELINE_VERSION
+from skill_pipeline.pipeline_models.source import SeedDeal
+from skill_pipeline.seeds import load_seed_entry
 from skill_pipeline.verify import run_verify
+
+
+def _seed_entry_to_seed_deal(entry, *, run_id: str) -> SeedDeal:
+    """Bridge a SeedEntry to a SeedDeal for use by raw/preprocess stages."""
+    date_announced = None
+    if entry.date_announced:
+        try:
+            date_announced = date.fromisoformat(entry.date_announced)
+        except ValueError:
+            pass
+    return SeedDeal(
+        run_id=run_id,
+        pipeline_version=PIPELINE_VERSION,
+        deal_slug=entry.deal_slug,
+        target_name=entry.target_name,
+        acquirer_seed=entry.acquirer,
+        date_announced_seed=date_announced,
+        primary_url_seed=entry.primary_url,
+        is_reference=entry.is_reference,
+    )
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -30,6 +56,42 @@ def build_parser() -> argparse.ArgumentParser:
     )
     deal_agent_parser.add_argument("--deal", required=True)
     deal_agent_parser.add_argument(
+        "--project-root",
+        type=Path,
+        default=PROJECT_ROOT,
+        help=argparse.SUPPRESS,
+    )
+
+    raw_fetch_parser = subparsers.add_parser(
+        "raw-fetch",
+        help="Discover and fetch raw SEC filings for a deal.",
+    )
+    raw_fetch_parser.add_argument("--deal", required=True)
+    raw_fetch_parser.add_argument(
+        "--project-root",
+        type=Path,
+        default=PROJECT_ROOT,
+        help=argparse.SUPPRESS,
+    )
+
+    preprocess_source_parser = subparsers.add_parser(
+        "preprocess-source",
+        help="Preprocess raw filings into chronology blocks and evidence items.",
+    )
+    preprocess_source_parser.add_argument("--deal", required=True)
+    preprocess_source_parser.add_argument(
+        "--project-root",
+        type=Path,
+        default=PROJECT_ROOT,
+        help=argparse.SUPPRESS,
+    )
+
+    source_discover_parser = subparsers.add_parser(
+        "source-discover",
+        help="Discover source filing candidates for a deal (no fetch).",
+    )
+    source_discover_parser.add_argument("--deal", required=True)
+    source_discover_parser.add_argument(
         "--project-root",
         type=Path,
         default=PROJECT_ROOT,
@@ -93,6 +155,46 @@ def main(argv: Sequence[str] | None = None) -> int:
     if args.command == "deal-agent":
         summary = run_deal_agent(args.deal, project_root=args.project_root)
         print(summary.model_dump_json(indent=2))
+        return 0
+    if args.command == "raw-fetch":
+        from skill_pipeline.raw.stage import fetch_raw_deal
+
+        run_id = f"skill-{uuid4().hex[:8]}"
+        seeds_path = args.project_root / "data" / "seeds.csv"
+        entry = load_seed_entry(args.deal, seeds_path=seeds_path)
+        seed = _seed_entry_to_seed_deal(entry, run_id=run_id)
+        raw_dir = args.project_root / "raw"
+        result = fetch_raw_deal(seed, run_id=run_id, raw_dir=raw_dir)
+        print(json.dumps(result, indent=2))
+        return 0
+    if args.command == "preprocess-source":
+        from skill_pipeline.preprocess.source import preprocess_source_deal
+
+        run_id = f"skill-{uuid4().hex[:8]}"
+        raw_dir = args.project_root / "raw"
+        deals_dir = args.project_root / "data" / "deals"
+        result = preprocess_source_deal(
+            args.deal, run_id=run_id, raw_dir=raw_dir, deals_dir=deals_dir
+        )
+        print(json.dumps(result, indent=2))
+        return 0
+    if args.command == "source-discover":
+        from skill_pipeline.raw.stage import build_edgar_search_fn, fetch_raw_deal
+        from skill_pipeline.raw.discover import build_raw_discovery_manifest
+        from skill_pipeline.source.ranking import extract_cik_from_url
+
+        run_id = f"skill-{uuid4().hex[:8]}"
+        seeds_path = args.project_root / "data" / "seeds.csv"
+        entry = load_seed_entry(args.deal, seeds_path=seeds_path)
+        seed = _seed_entry_to_seed_deal(entry, run_id=run_id)
+        search_fn = build_edgar_search_fn(seed)
+        discovery = build_raw_discovery_manifest(
+            seed,
+            run_id=run_id,
+            cik=extract_cik_from_url(seed.primary_url_seed),
+            search_fn=search_fn,
+        )
+        print(discovery.model_dump_json(indent=2))
         return 0
     if args.command == "check":
         return run_check(args.deal, project_root=args.project_root)
