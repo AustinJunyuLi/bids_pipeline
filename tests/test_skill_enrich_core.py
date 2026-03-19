@@ -435,3 +435,193 @@ def test_formal_boundary_when_formal_proposal_in_cycle(tmp_path: Path) -> None:
 
     assert artifact["formal_boundary"]["cycle_1"]["event_id"] == "evt_003"
     assert "evt_003" in artifact["formal_boundary"]["cycle_1"]["basis"]
+
+
+def test_invited_actor_ids_populated_from_count_assertions(tmp_path: Path) -> None:
+    """count_assertion with final_round_invitees populates invited_actor_ids on round ann."""
+    slug = "imprivata"
+    data_dir = tmp_path / "data"
+    deals_source_dir = data_dir / "deals" / slug / "source"
+    extract_dir = data_dir / "skill" / slug / "extract"
+    deals_source_dir.mkdir(parents=True, exist_ok=True)
+    extract_dir.mkdir(parents=True, exist_ok=True)
+
+    (data_dir / "seeds.csv").write_text(
+        "deal_slug,target_name,acquirer,date_announced,primary_url,is_reference\n"
+        f"{slug},IMPRIVATA INC,THOMA BRAVO LLC,2016-07-13,https://example.com,false\n",
+        encoding="utf-8",
+    )
+    (deals_source_dir / "chronology_blocks.jsonl").write_text("{}\n", encoding="utf-8")
+    (deals_source_dir / "evidence_items.jsonl").write_text("{}\n", encoding="utf-8")
+    (tmp_path / "raw" / slug).mkdir(parents=True, exist_ok=True)
+    (tmp_path / "raw" / slug / "document_registry.json").write_text("{}", encoding="utf-8")
+
+    actors_payload = {
+        "actors": [
+            {
+                "actor_id": "bidder_a",
+                "display_name": "Sponsor A",
+                "canonical_name": "SPONSOR A",
+                "aliases": [],
+                "role": "bidder",
+                "advisor_kind": None,
+                "advised_actor_id": None,
+                "bidder_kind": "financial",
+                "listing_status": "private",
+                "geography": "domestic",
+                "is_grouped": False,
+                "group_size": None,
+                "group_label": None,
+                "evidence_refs": [{"block_id": "B001", "evidence_id": None, "anchor_text": "x"}],
+                "notes": [],
+            },
+            {
+                "actor_id": "bidder_b",
+                "display_name": "Sponsor B",
+                "canonical_name": "SPONSOR B",
+                "aliases": [],
+                "role": "bidder",
+                "advisor_kind": None,
+                "advised_actor_id": None,
+                "bidder_kind": "financial",
+                "listing_status": "private",
+                "geography": "domestic",
+                "is_grouped": False,
+                "group_size": None,
+                "group_label": None,
+                "evidence_refs": [{"block_id": "B001", "evidence_id": None, "anchor_text": "x"}],
+                "notes": [],
+            },
+            {
+                "actor_id": "bidder_c",
+                "display_name": "Thoma Bravo",
+                "canonical_name": "THOMA BRAVO",
+                "aliases": ["TB"],
+                "role": "bidder",
+                "advisor_kind": None,
+                "advised_actor_id": None,
+                "bidder_kind": "financial",
+                "listing_status": "private",
+                "geography": "domestic",
+                "is_grouped": False,
+                "group_size": None,
+                "group_label": None,
+                "evidence_refs": [{"block_id": "B001", "evidence_id": None, "anchor_text": "x"}],
+                "notes": [],
+            },
+        ],
+        "count_assertions": [
+            {
+                "subject": "final_round_invitees",
+                "count": 2,
+                "evidence_refs": [
+                    {
+                        "block_id": "B078",
+                        "evidence_id": None,
+                        "anchor_text": "Sponsor B and Thoma Bravo had been invited to submit their final bids",
+                    }
+                ],
+            }
+        ],
+        "unresolved_mentions": [],
+    }
+
+    events = [
+        _base_event("evt_001", "target_sale"),
+        _base_event("evt_002", "nda", actor_ids=["bidder_a"]),
+        _base_event("evt_003", "nda", actor_ids=["bidder_b"]),
+        _base_event("evt_004", "nda", actor_ids=["bidder_c"]),
+        _base_event("evt_005", "final_round_ann", invited_actor_ids=[]),
+        _base_event("evt_006", "final_round"),
+        _base_event("evt_007", "executed", executed_with_actor_id="bidder_c"),
+    ]
+    events_payload = {"events": events, "exclusions": [], "coverage_notes": []}
+
+    (extract_dir / "actors_raw.json").write_text(json.dumps(actors_payload), encoding="utf-8")
+    (extract_dir / "events_raw.json").write_text(json.dumps(events_payload), encoding="utf-8")
+
+    run_enrich_core(slug, project_root=tmp_path)
+    paths = build_skill_paths(slug, project_root=tmp_path)
+    artifact = json.loads(paths.deterministic_enrichment_path.read_text(encoding="utf-8"))
+
+    assert len(artifact["rounds"]) >= 1
+    formal_round = artifact["rounds"][0]
+    assert set(formal_round["invited_actor_ids"]) == {"bidder_b", "bidder_c"}
+    assert formal_round["is_selective"] is True
+
+
+def test_invited_population_graceful_on_unmatched_names(tmp_path: Path) -> None:
+    """Unmatched actor names in anchor text leave invited_actor_ids empty; no crash."""
+    slug = "imprivata"
+    data_dir = tmp_path / "data"
+    deals_source_dir = data_dir / "deals" / slug / "source"
+    extract_dir = data_dir / "skill" / slug / "extract"
+    deals_source_dir.mkdir(parents=True, exist_ok=True)
+    extract_dir.mkdir(parents=True, exist_ok=True)
+
+    (data_dir / "seeds.csv").write_text(
+        "deal_slug,target_name,acquirer,date_announced,primary_url,is_reference\n"
+        f"{slug},IMPRIVATA INC,THOMA BRAVO LLC,2016-07-13,https://example.com,false\n",
+        encoding="utf-8",
+    )
+    (deals_source_dir / "chronology_blocks.jsonl").write_text("{}\n", encoding="utf-8")
+    (deals_source_dir / "evidence_items.jsonl").write_text("{}\n", encoding="utf-8")
+    (tmp_path / "raw" / slug).mkdir(parents=True, exist_ok=True)
+    (tmp_path / "raw" / slug / "document_registry.json").write_text("{}", encoding="utf-8")
+
+    actors_payload = {
+        "actors": [
+            {
+                "actor_id": "bidder_a",
+                "display_name": "Sponsor A",
+                "canonical_name": "SPONSOR A",
+                "aliases": [],
+                "role": "bidder",
+                "advisor_kind": None,
+                "advised_actor_id": None,
+                "bidder_kind": "financial",
+                "listing_status": "private",
+                "geography": "domestic",
+                "is_grouped": False,
+                "group_size": None,
+                "group_label": None,
+                "evidence_refs": [{"block_id": "B001", "evidence_id": None, "anchor_text": "x"}],
+                "notes": [],
+            },
+        ],
+        "count_assertions": [
+            {
+                "subject": "final_round_invitees",
+                "count": 2,
+                "evidence_refs": [
+                    {
+                        "block_id": "B078",
+                        "evidence_id": None,
+                        "anchor_text": "Unknown Corp and Mystery LLC were invited",
+                    }
+                ],
+            }
+        ],
+        "unresolved_mentions": [],
+    }
+
+    events = [
+        _base_event("evt_001", "target_sale"),
+        _base_event("evt_002", "nda", actor_ids=["bidder_a"]),
+        _base_event("evt_003", "final_round_ann", invited_actor_ids=[]),
+        _base_event("evt_004", "final_round"),
+        _base_event("evt_005", "executed", executed_with_actor_id="bidder_a"),
+    ]
+    events_payload = {"events": events, "exclusions": [], "coverage_notes": []}
+
+    (extract_dir / "actors_raw.json").write_text(json.dumps(actors_payload), encoding="utf-8")
+    (extract_dir / "events_raw.json").write_text(json.dumps(events_payload), encoding="utf-8")
+
+    run_enrich_core(slug, project_root=tmp_path)
+    paths = build_skill_paths(slug, project_root=tmp_path)
+    artifact = json.loads(paths.deterministic_enrichment_path.read_text(encoding="utf-8"))
+
+    assert len(artifact["rounds"]) >= 1
+    formal_round = artifact["rounds"][0]
+    assert formal_round["invited_actor_ids"] == []
+    assert formal_round["is_selective"] is False

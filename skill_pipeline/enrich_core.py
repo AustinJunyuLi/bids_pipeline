@@ -243,6 +243,53 @@ def _compute_formal_boundary(
     return result
 
 
+def _populate_invited_from_count_assertions(
+    events: list[SkillEventRecord],
+    actors: SkillActorsArtifact,
+) -> None:
+    """Populate invited_actor_ids on round announcement events from count_assertions.
+
+    Mutates events in place. Only acts on assertions with subject 'final_round_invitees'
+    whose anchor text can be matched to actors in the roster.
+    """
+    invitee_assertions = [
+        ca for ca in actors.count_assertions if ca.subject == "final_round_invitees"
+    ]
+    if not invitee_assertions:
+        return
+
+    # Build name -> actor_id lookup (display_name, canonical_name, aliases)
+    name_to_id: dict[str, str] = {}
+    for actor in actors.actors:
+        if actor.role != "bidder":
+            continue
+        name_to_id[actor.display_name.lower()] = actor.actor_id
+        name_to_id[actor.canonical_name.lower()] = actor.actor_id
+        for alias in actor.aliases:
+            name_to_id[alias.lower()] = actor.actor_id
+
+    # Round announcement event types
+    ann_types = {"final_round_ann", "final_round_inf_ann", "final_round_ext_ann"}
+
+    for ca in invitee_assertions:
+        # Try to match actor names from anchor text
+        matched_ids: list[str] = []
+        for ref in ca.evidence_refs:
+            anchor = ref.anchor_text.lower()
+            for name, aid in name_to_id.items():
+                if name in anchor and aid not in matched_ids:
+                    matched_ids.append(aid)
+
+        if not matched_ids:
+            continue
+
+        # Find the best matching round announcement event (with empty invited_actor_ids)
+        for evt in events:
+            if evt.event_type in ann_types and not evt.invited_actor_ids:
+                evt.invited_actor_ids = matched_ids
+                break  # Only populate the first matching empty announcement
+
+
 def run_enrich_core(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> int:
     """Run deterministic enrich-core. Writes enrich/deterministic_enrichment.json.
 
@@ -258,6 +305,8 @@ def run_enrich_core(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> int
     actors = SkillActorsArtifact.model_validate(_read_json(paths.actors_raw_path))
     events_artifact = SkillEventsArtifact.model_validate(_read_json(paths.events_raw_path))
     events = events_artifact.events
+
+    _populate_invited_from_count_assertions(events, actors)
 
     rounds = _pair_rounds(events, actors)
     bid_classifications = _classify_proposals(events, rounds)
