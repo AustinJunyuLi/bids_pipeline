@@ -8,6 +8,7 @@ from pipeline.llm.prompts import PromptPack
 from pipeline.llm.schemas import ActorExtractionOutput
 from pipeline.llm.token_budget import classify_complexity, estimate_max_output_tokens
 from pipeline.extract.utils import (
+    appendix_evidence_items,
     atomic_write_json,
     load_source_inputs,
     select_prompt_evidence_items,
@@ -31,7 +32,9 @@ def run_actor_extraction(
     extract_dir = deals_dir / deal_slug / "extract"
     extract_dir.mkdir(parents=True, exist_ok=True)
 
-    prompt_evidence = select_prompt_evidence_items(evidence_items)
+    prompt_evidence = select_prompt_evidence_items(
+        appendix_evidence_items(evidence_items, chronology_blocks=blocks)
+    )
     deal_context = {
         "deal_slug": deal_slug,
         "target_name": seed.target_name,

@@ -7,7 +7,12 @@ from pipeline.config import DEALS_DIR
 from pipeline.llm.prompts import PromptPack
 from pipeline.llm.schemas import EventExtractionOutput, RecoveryAuditOutput
 from pipeline.extract.merge import merge_event_outputs
-from pipeline.extract.utils import atomic_write_json, select_prompt_evidence_items, summarize_usage
+from pipeline.extract.utils import (
+    appendix_evidence_items,
+    atomic_write_json,
+    select_prompt_evidence_items,
+    summarize_usage,
+)
 from pipeline.models.common import EventType
 from pipeline.models.source import ChronologyBlock, EvidenceItem
 
@@ -52,13 +57,18 @@ def run_recovery_audit(
     backend,
     extracted_events_summary: Any,
     evidence_items: list[EvidenceItem],
+    chronology_blocks: list[ChronologyBlock],
     deals_dir: Path = DEALS_DIR,
     model: str | None = None,
 ) -> dict[str, Any]:
     extract_dir = deals_dir / deal_slug / "extract"
     extract_dir.mkdir(parents=True, exist_ok=True)
 
-    prompt_evidence = select_prompt_evidence_items(evidence_items, max_total=30, max_per_type=8)
+    prompt_evidence = select_prompt_evidence_items(
+        appendix_evidence_items(evidence_items, chronology_blocks=chronology_blocks),
+        max_total=30,
+        max_per_type=8,
+    )
     messages = [
         {
             "role": "user",

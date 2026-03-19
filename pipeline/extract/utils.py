@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Any
 
 from pipeline.config import DEALS_DIR
-from pipeline.models.source import ChronologyBlock, ChronologySelection, EvidenceItem, SeedDeal
+from pipeline.models.source import ChronologyBlock, ChronologySelection, EvidenceItem, EvidenceType, SeedDeal
 from pipeline.seeds import entry_to_seed_artifact, load_seed_registry
 
 
@@ -90,24 +90,75 @@ def summarize_usage(result) -> dict[str, Any]:
     }
 
 
+def appendix_evidence_items(
+    evidence_items: list[EvidenceItem],
+    *,
+    chronology_blocks: list[ChronologyBlock],
+) -> list[EvidenceItem]:
+    if not chronology_blocks:
+        return list(evidence_items)
+
+    chronology_span_by_document: dict[str, tuple[int, int]] = {}
+    for block in chronology_blocks:
+        existing_span = chronology_span_by_document.get(block.document_id)
+        if existing_span is None:
+            chronology_span_by_document[block.document_id] = (block.start_line, block.end_line)
+            continue
+        chronology_span_by_document[block.document_id] = (
+            min(existing_span[0], block.start_line),
+            max(existing_span[1], block.end_line),
+        )
+
+    appendix_items: list[EvidenceItem] = []
+    for item in evidence_items:
+        chronology_span = chronology_span_by_document.get(item.document_id)
+        if chronology_span is None:
+            appendix_items.append(item)
+            continue
+        chronology_start_line, chronology_end_line = chronology_span
+        if chronology_start_line <= item.start_line and item.end_line <= chronology_end_line:
+            continue
+        appendix_items.append(item)
+    return appendix_items
+
+
+def _prompt_evidence_sort_key(item: EvidenceItem) -> tuple[int, str, int, str]:
+    priority = {"high": 0, "medium": 1, "low": 2}
+    return (
+        priority[item.confidence],
+        item.evidence_type.value,
+        item.start_line,
+        item.evidence_id,
+    )
+
+
 def select_prompt_evidence_items(
     evidence_items: list[EvidenceItem],
     *,
     max_total: int = 40,
     max_per_type: int = 10,
+    min_per_type: int = 3,
 ) -> list[EvidenceItem]:
-    priority = {"high": 0, "medium": 1, "low": 2}
+    sorted_items = sorted(evidence_items, key=_prompt_evidence_sort_key)
     per_type_counts: dict[str, int] = {}
     selected: list[EvidenceItem] = []
-    for item in sorted(
-        evidence_items,
-        key=lambda value: (
-            priority[value.confidence],
-            value.evidence_type.value,
-            value.start_line,
-            value.evidence_id,
-        ),
-    ):
+    selected_ids: set[str] = set()
+
+    for evidence_type in EvidenceType:
+        if len(selected) >= max_total:
+            return sorted(selected, key=_prompt_evidence_sort_key)
+        type_items = [item for item in sorted_items if item.evidence_type == evidence_type]
+        floor_count = min(len(type_items), min_per_type, max_per_type)
+        for item in type_items[:floor_count]:
+            selected.append(item)
+            selected_ids.add(item.evidence_id)
+            per_type_counts[item.evidence_type.value] = per_type_counts.get(item.evidence_type.value, 0) + 1
+            if len(selected) >= max_total:
+                return sorted(selected, key=_prompt_evidence_sort_key)
+
+    for item in sorted_items:
+        if item.evidence_id in selected_ids:
+            continue
         type_key = item.evidence_type.value
         if per_type_counts.get(type_key, 0) >= max_per_type:
             continue
@@ -115,4 +166,4 @@ def select_prompt_evidence_items(
         per_type_counts[type_key] = per_type_counts.get(type_key, 0) + 1
         if len(selected) >= max_total:
             break
-    return selected
+    return sorted(selected, key=_prompt_evidence_sort_key)

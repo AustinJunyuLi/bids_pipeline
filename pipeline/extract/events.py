@@ -15,6 +15,7 @@ from pipeline.extract.recovery import (
     run_recovery_audit,
 )
 from pipeline.extract.utils import (
+    appendix_evidence_items,
     atomic_write_json,
     atomic_write_jsonl,
     load_source_inputs,
@@ -45,7 +46,9 @@ def run_event_extraction(
         (extract_dir / "actors_raw.json").read_text(encoding="utf-8")
     )
     actor_roster = actor_output.actors
-    prompt_evidence = select_prompt_evidence_items(evidence_items)
+    prompt_evidence = select_prompt_evidence_items(
+        appendix_evidence_items(evidence_items, chronology_blocks=blocks)
+    )
     rendered_prompt = PromptPack.render_event_user_message(
         {
             "deal_slug": deal_slug,
@@ -114,6 +117,7 @@ def run_event_extraction(
             backend=backend,
             extracted_events_summary=_event_summary_for_recovery(merged_output),
             evidence_items=evidence_items,
+            chronology_blocks=blocks,
             deals_dir=deals_dir,
             model=model,
         )

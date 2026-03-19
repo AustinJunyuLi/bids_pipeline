@@ -73,11 +73,25 @@ PROCESS_TERMS = {
     "markup of the agreement",
     "go-shop",
     "non-disclosure",
-    "nda",
     "confidentiality and standstill",
+    "bid deadline",
+    "final bid",
+    "instruction letter",
+    "written instruction",
+    "best and final",
+    "exclusivity",
+    "topping bid",
+    "superior proposal",
+}
+HIGH_VALUE_PROCESS_TERMS = {
+    "confidentiality agreement",
+    "standstill",
+    "due diligence",
+    "process letter",
+    "draft merger agreement",
+    "go-shop",
 }
 OUTCOME_TERMS = {
-    "closed",
     "closing",
     "effective time",
     "executed",
@@ -228,6 +242,10 @@ def _score_confidence(
     if evidence_type == EvidenceType.DATED_ACTION and DATE_FRAGMENT_RE.search(raw_text):
         score += 2
     if evidence_type == EvidenceType.FINANCIAL_TERM and "per share" in raw_text.lower():
+        score += 2
+    if evidence_type == EvidenceType.PROCESS_SIGNAL and any(
+        term in HIGH_VALUE_PROCESS_TERMS for term in matched_terms
+    ):
         score += 2
     if evidence_type == EvidenceType.OUTCOME_FACT and any(term in raw_text.lower() for term in {"closing", "executed", "termination fee"}):
         score += 2
