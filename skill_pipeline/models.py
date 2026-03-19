@@ -32,13 +32,17 @@ class SkillPathSet(SkillModel):
     document_registry_path: Path
     skill_root: Path
     extract_dir: Path
+    check_dir: Path
     verify_dir: Path
     enrich_dir: Path
     export_dir: Path
     actors_raw_path: Path
     events_raw_path: Path
+    check_report_path: Path
     verification_log_path: Path
+    verification_findings_path: Path
     enrichment_path: Path
+    deterministic_enrichment_path: Path
     deal_events_path: Path
 
 
@@ -183,6 +187,7 @@ class SkillEventsArtifact(SkillModel):
 class VerificationFinding(SkillModel):
     check_type: str
     severity: Literal["error", "warning"]
+    repairability: Literal["repairable", "non_repairable"] | None = None
     description: str
     actor_ids: list[str] = Field(default_factory=list)
     event_ids: list[str] = Field(default_factory=list)
@@ -237,15 +242,15 @@ class DropoutClassification(SkillModel):
 
 
 class BidClassification(SkillModel):
-    label: Literal["Formal", "Informal"]
-    rule_applied: int
+    label: Literal["Formal", "Informal", "Uncertain"]
+    rule_applied: float | None = None
     basis: str
 
 
 class RoundRecord(SkillModel):
     announcement_event_id: str
     deadline_event_id: str | None = None
-    round_scope: Literal["formal", "informal"]
+    round_scope: Literal["formal", "informal", "extension"]
     invited_actor_ids: list[str] = Field(default_factory=list)
     active_bidders_at_time: int
     is_selective: bool
@@ -303,11 +308,36 @@ class SkillEnrichmentArtifact(SkillModel):
     review_flags: list[str]
 
 
+class CheckFinding(SkillModel):
+    check_id: str
+    severity: Literal["blocker", "warning"]
+    description: str
+    actor_ids: list[str] = Field(default_factory=list)
+    event_ids: list[str] = Field(default_factory=list)
+
+
+class CheckReportSummary(SkillModel):
+    blocker_count: int
+    warning_count: int
+    status: Literal["pass", "fail"]
+
+
+class SkillCheckReport(SkillModel):
+    findings: list[CheckFinding] = Field(default_factory=list)
+    summary: CheckReportSummary
+
+
 class ExtractStageSummary(SkillModel):
     status: StageStatus
     actor_count: int = 0
     event_count: int = 0
     proposal_count: int = 0
+
+
+class CheckStageSummary(SkillModel):
+    status: StageStatus
+    blocker_count: int = 0
+    warning_count: int = 0
 
 
 class VerifyStageSummary(SkillModel):
@@ -336,6 +366,7 @@ class DealAgentSummary(SkillModel):
     seed: SeedEntry
     paths: SkillPathSet
     extract: ExtractStageSummary
+    check: CheckStageSummary
     verify: VerifyStageSummary
     enrich: EnrichStageSummary
     export: ExportStageSummary
