@@ -98,3 +98,48 @@ def test_dedup_preserves_different_actors(tmp_path: Path) -> None:
     result = json.loads(paths.events_raw_path.read_text(encoding="utf-8"))
 
     assert len(result["events"]) == 2
+
+
+def test_nda_gate_removes_drop_without_prior_nda(tmp_path: Path) -> None:
+    events = [
+        _evt("evt_001", "nda", actor_ids=["bidder_a"]),
+        _evt("evt_002", "drop", actor_ids=["bidder_b"], date="2016-06-03"),
+        _evt("evt_003", "executed", actor_ids=["bidder_a"], date="2016-07-13"),
+    ]
+    _write_canon_fixture(tmp_path, events=events)
+    run_canonicalize("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    result = json.loads(paths.events_raw_path.read_text(encoding="utf-8"))
+
+    assert len(result["events"]) == 2
+    assert not any(e["event_id"] == "evt_002" for e in result["events"])
+
+
+def test_nda_gate_preserves_drop_with_prior_nda(tmp_path: Path) -> None:
+    events = [
+        _evt("evt_001", "nda", actor_ids=["bidder_a"]),
+        _evt("evt_002", "drop", actor_ids=["bidder_a"], date="2016-06-03"),
+        _evt("evt_003", "executed", actor_ids=["bidder_a"], date="2016-07-13"),
+    ]
+    _write_canon_fixture(tmp_path, events=events)
+    run_canonicalize("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    result = json.loads(paths.events_raw_path.read_text(encoding="utf-8"))
+
+    assert len(result["events"]) == 3
+
+
+def test_nda_gate_removes_drop_with_empty_actor_ids(tmp_path: Path) -> None:
+    """Drops with empty actor_ids are unnamed parties without NDAs — remove them."""
+    events = [
+        _evt("evt_001", "nda", actor_ids=["bidder_a"]),
+        _evt("evt_002", "drop", actor_ids=[], date="2016-06-03"),
+        _evt("evt_003", "executed", actor_ids=["bidder_a"], date="2016-07-13"),
+    ]
+    _write_canon_fixture(tmp_path, events=events)
+    run_canonicalize("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    result = json.loads(paths.events_raw_path.read_text(encoding="utf-8"))
+
+    assert len(result["events"]) == 2
+    assert not any(e["event_id"] == "evt_002" for e in result["events"])

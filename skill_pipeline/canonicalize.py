@@ -96,6 +96,30 @@ def _dedup_events(events: list[dict]) -> tuple[list[dict], dict[str, str]]:
     return kept, dedup_log
 
 
+def _gate_drops_by_nda(events: list[dict]) -> tuple[list[dict], list[dict]]:
+    """Remove drop events for actors without a prior NDA. Returns (filtered, log)."""
+    nda_actors: set[str] = set()
+    for evt in events:
+        if evt["event_type"] == "nda":
+            nda_actors.update(evt.get("actor_ids", []))
+
+    kept: list[dict] = []
+    gate_log: list[dict] = []
+    for evt in events:
+        if evt["event_type"] == "drop":
+            drop_actors = set(evt.get("actor_ids", []))
+            if not drop_actors or not drop_actors.issubset(nda_actors):
+                missing = drop_actors - nda_actors if drop_actors else {"(empty)"}
+                gate_log.append({
+                    "removed_event_id": evt["event_id"],
+                    "reason": f"Drop actor(s) {missing} have no prior NDA.",
+                })
+                continue
+        kept.append(evt)
+
+    return kept, gate_log
+
+
 def run_canonicalize(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> int:
     """Run canonicalization on extracted skill artifacts.
 
@@ -121,6 +145,9 @@ def run_canonicalize(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> in
 
     events, dedup_log = _dedup_events(events)
     log["dedup_log"] = dedup_log
+
+    events, nda_gate_log = _gate_drops_by_nda(events)
+    log["nda_gate_log"] = nda_gate_log
 
     # Write back events
     paths.events_raw_path.write_text(
