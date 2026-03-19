@@ -44,6 +44,8 @@ class SkillPathSet(SkillModel):
     enrichment_path: Path
     deterministic_enrichment_path: Path
     deal_events_path: Path
+    canonicalize_dir: Path
+    canonicalize_log_path: Path
 
 
 class SeedEntry(SkillModel):

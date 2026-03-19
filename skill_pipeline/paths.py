@@ -14,9 +14,11 @@ def build_skill_paths(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> S
     source_dir = deals_root / deal_slug / "source"
     skill_root = skill_data_root / deal_slug
     extract_dir = skill_root / "extract"
+    check_dir = skill_root / "check"
     verify_dir = skill_root / "verify"
     enrich_dir = skill_root / "enrich"
     export_dir = skill_root / "export"
+    canonicalize_dir = skill_root / "canonicalize"
     return SkillPathSet(
         project_root=project_root,
         data_dir=data_dir,
@@ -31,22 +33,30 @@ def build_skill_paths(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> S
         document_registry_path=raw_root / deal_slug / "document_registry.json",
         skill_root=skill_root,
         extract_dir=extract_dir,
+        check_dir=check_dir,
         verify_dir=verify_dir,
         enrich_dir=enrich_dir,
         export_dir=export_dir,
         actors_raw_path=extract_dir / "actors_raw.json",
         events_raw_path=extract_dir / "events_raw.json",
+        check_report_path=check_dir / "check_report.json",
         verification_log_path=verify_dir / "verification_log.json",
+        verification_findings_path=verify_dir / "verification_findings.json",
         enrichment_path=enrich_dir / "enrichment.json",
+        deterministic_enrichment_path=enrich_dir / "deterministic_enrichment.json",
         deal_events_path=export_dir / "deal_events.csv",
+        canonicalize_dir=canonicalize_dir,
+        canonicalize_log_path=canonicalize_dir / "canonicalize_log.json",
     )
 
 
 def ensure_output_directories(paths: SkillPathSet) -> None:
     paths.extract_dir.mkdir(parents=True, exist_ok=True)
+    paths.check_dir.mkdir(parents=True, exist_ok=True)
     paths.verify_dir.mkdir(parents=True, exist_ok=True)
     paths.enrich_dir.mkdir(parents=True, exist_ok=True)
     paths.export_dir.mkdir(parents=True, exist_ok=True)
+    paths.canonicalize_dir.mkdir(parents=True, exist_ok=True)
 
 
 def missing_required_inputs(paths: SkillPathSet) -> list[Path]:
