@@ -31,10 +31,12 @@ def _write_shared_inputs(tmp_path: Path, *, slug: str = "imprivata") -> None:
 def _write_skill_outputs(tmp_path: Path, *, slug: str = "imprivata") -> Path:
     skill_root = tmp_path / "data" / "skill" / slug
     extract_dir = skill_root / "extract"
+    coverage_dir = skill_root / "coverage"
     verify_dir = skill_root / "verify"
     enrich_dir = skill_root / "enrich"
     export_dir = skill_root / "export"
     extract_dir.mkdir(parents=True, exist_ok=True)
+    coverage_dir.mkdir(parents=True, exist_ok=True)
     verify_dir.mkdir(parents=True, exist_ok=True)
     enrich_dir.mkdir(parents=True, exist_ok=True)
     export_dir.mkdir(parents=True, exist_ok=True)
@@ -179,6 +181,13 @@ def _write_skill_outputs(tmp_path: Path, *, slug: str = "imprivata") -> Path:
             "status": "pass",
         },
     }
+    coverage_summary_payload = {
+        "status": "pass",
+        "finding_count": 1,
+        "error_count": 0,
+        "warning_count": 1,
+        "counts_by_cue_family": {"advisor": 1},
+    }
     enrichment_payload = {
         "dropout_classifications": {},
         "bid_classifications": {
@@ -216,6 +225,10 @@ def _write_skill_outputs(tmp_path: Path, *, slug: str = "imprivata") -> Path:
 
     (extract_dir / "actors_raw.json").write_text(json.dumps(actors_payload), encoding="utf-8")
     (extract_dir / "events_raw.json").write_text(json.dumps(events_payload), encoding="utf-8")
+    (coverage_dir / "coverage_summary.json").write_text(
+        json.dumps(coverage_summary_payload),
+        encoding="utf-8",
+    )
     (verify_dir / "verification_log.json").write_text(
         json.dumps(verification_payload),
         encoding="utf-8",
@@ -252,6 +265,7 @@ def test_run_deal_agent_creates_isolated_skill_directories_and_reports_missing_s
     assert summary.paths.skill_root == skill_root
     assert summary.paths.source_dir == tmp_path / "data" / "deals" / "imprivata" / "source"
     assert summary.extract.status == "missing"
+    assert summary.coverage.status == "missing"
     assert summary.verify.status == "missing"
     assert summary.enrich.status == "missing"
     assert summary.export.status == "missing"
@@ -283,6 +297,9 @@ def test_run_deal_agent_summarizes_existing_skill_artifacts(tmp_path: Path):
     assert summary.extract.actor_count == 1
     assert summary.extract.event_count == 2
     assert summary.extract.proposal_count == 1
+    assert summary.coverage.status == "pass"
+    assert summary.coverage.error_count == 0
+    assert summary.coverage.warning_count == 1
     assert summary.verify.status == "pass"
     assert summary.verify.round_1_errors == 1
     assert summary.verify.fixes_applied == 1

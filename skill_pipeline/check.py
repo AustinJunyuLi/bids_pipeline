@@ -7,12 +7,11 @@ from pathlib import Path
 from typing import Literal
 
 from skill_pipeline.config import PROJECT_ROOT
+from skill_pipeline.extract_artifacts import LoadedExtractArtifacts, load_extract_artifacts
 from skill_pipeline.models import (
     CheckFinding,
     CheckReportSummary,
-    SkillActorsArtifact,
     SkillCheckReport,
-    SkillEventsArtifact,
 )
 from skill_pipeline.paths import build_skill_paths, ensure_output_directories
 
@@ -28,9 +27,10 @@ def _write_json(path: Path, report: SkillCheckReport) -> None:
     path.write_text(report.model_dump_json(indent=2), encoding="utf-8")
 
 
-def _check_proposal_terms(events: SkillEventsArtifact) -> list[CheckFinding]:
+def _check_proposal_terms(artifacts: LoadedExtractArtifacts) -> list[CheckFinding]:
     findings: list[CheckFinding] = []
-    for evt in events.events:
+    events = artifacts.raw_events.events if artifacts.mode == "legacy" else artifacts.events.events
+    for evt in events:
         if evt.event_type != "proposal":
             continue
         if evt.terms is None or evt.formality_signals is None:
@@ -45,9 +45,10 @@ def _check_proposal_terms(events: SkillEventsArtifact) -> list[CheckFinding]:
     return findings
 
 
-def _check_bidder_kind(actors: SkillActorsArtifact) -> list[CheckFinding]:
+def _check_bidder_kind(artifacts: LoadedExtractArtifacts) -> list[CheckFinding]:
     findings: list[CheckFinding] = []
-    for actor in actors.actors:
+    actors = artifacts.raw_actors.actors if artifacts.mode == "legacy" else artifacts.actors.actors
+    for actor in actors:
         if actor.role == "bidder" and actor.bidder_kind is None:
             findings.append(
                 CheckFinding(
@@ -60,24 +61,38 @@ def _check_bidder_kind(actors: SkillActorsArtifact) -> list[CheckFinding]:
     return findings
 
 
-def _check_empty_anchor_text(
-    actors: SkillActorsArtifact, events: SkillEventsArtifact
-) -> list[CheckFinding]:
+def _check_empty_anchor_text(artifacts: LoadedExtractArtifacts) -> list[CheckFinding]:
     findings: list[CheckFinding] = []
     actor_ids_affected: set[str] = set()
     event_ids_affected: set[str] = set()
 
-    for actor in actors.actors:
-        for ref in actor.evidence_refs:
-            if not ref.anchor_text or not ref.anchor_text.strip():
-                actor_ids_affected.add(actor.actor_id)
-                break
+    if artifacts.mode == "legacy":
+        for actor in artifacts.raw_actors.actors:
+            for ref in actor.evidence_refs:
+                if not ref.anchor_text or not ref.anchor_text.strip():
+                    actor_ids_affected.add(actor.actor_id)
+                    break
 
-    for evt in events.events:
-        for ref in evt.evidence_refs:
-            if not ref.anchor_text or not ref.anchor_text.strip():
-                event_ids_affected.add(evt.event_id)
-                break
+        for evt in artifacts.raw_events.events:
+            for ref in evt.evidence_refs:
+                if not ref.anchor_text or not ref.anchor_text.strip():
+                    event_ids_affected.add(evt.event_id)
+                    break
+    else:
+        span_index = artifacts.span_index
+        for actor in artifacts.actors.actors:
+            for span_id in actor.evidence_span_ids:
+                span = span_index.get(span_id)
+                if span is None or not span.anchor_text or not span.anchor_text.strip():
+                    actor_ids_affected.add(actor.actor_id)
+                    break
+
+        for evt in artifacts.events.events:
+            for span_id in evt.evidence_span_ids:
+                span = span_index.get(span_id)
+                if span is None or not span.anchor_text or not span.anchor_text.strip():
+                    event_ids_affected.add(evt.event_id)
+                    break
 
     if actor_ids_affected or event_ids_affected:
         findings.append(
@@ -114,13 +129,12 @@ def run_check(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> int:
     Returns 1 if any blocker exists, else 0.
     """
     paths = build_skill_paths(deal_slug, project_root=project_root)
-    actors = SkillActorsArtifact.model_validate(_read_json(paths.actors_raw_path))
-    events = SkillEventsArtifact.model_validate(_read_json(paths.events_raw_path))
+    artifacts = load_extract_artifacts(paths)
 
     findings: list[CheckFinding] = []
-    findings.extend(_check_proposal_terms(events))
-    findings.extend(_check_bidder_kind(actors))
-    findings.extend(_check_empty_anchor_text(actors, events))
+    findings.extend(_check_proposal_terms(artifacts))
+    findings.extend(_check_bidder_kind(artifacts))
+    findings.extend(_check_empty_anchor_text(artifacts))
 
     report = _build_report(findings)
     ensure_output_directories(paths)

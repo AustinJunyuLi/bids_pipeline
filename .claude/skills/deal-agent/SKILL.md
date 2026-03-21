@@ -15,7 +15,8 @@ description: Use when orchestrating the repo's end-to-end skill workflow for a d
 
 Thin orchestrator that runs four sub-skills against preprocessed source:
 extract-deal, verify-extraction, enrich-deal, export-csv. Deterministic runtime
-stages (check, verify, enrich-core) are available via `skill-pipeline` CLI.
+stages (canonicalize, check, verify, coverage, enrich-core) are available via
+`skill-pipeline` CLI.
 
 ## Prerequisite
 
@@ -31,11 +32,14 @@ individual skills when re-running a specific stage.
 
 | # | Skill | Artifacts | Failure Mode |
 |---|---|---|---|
-| 0 | `check` (deterministic) | `check/check_report.json` | Fail closed on blockers |
-| 1 | `extract-deal` | `extract/actors_raw.json`, `extract/events_raw.json` | Fail closed |
-| 2 | `verify-extraction` | `verify/verification_findings.json`, `verify/verification_log.json` (+ updated extraction files) | Fail closed (stop on round-2 errors) |
-| 3 | `enrich-deal` | `enrich/deterministic_enrichment.json`, `enrich/enrichment.json` | Fail closed |
-| 4 | `export-csv` | `export/deal_events.csv` | Fail closed |
+| 0 | `extract-deal` | `extract/actors_raw.json`, `extract/events_raw.json` | Fail closed |
+| 1 | `canonicalize` (deterministic) | `extract/spans.json`, `canonicalize/canonicalize_log.json` | Fail closed |
+| 2 | `check` (deterministic) | `check/check_report.json` | Fail closed on blockers |
+| 3 | `verify` + `coverage` (deterministic) | `verify/verification_findings.json`, `verify/verification_log.json`, `coverage/coverage_findings.json`, `coverage/coverage_summary.json` | Fail closed on error status |
+| 4 | `verify-extraction` | updated extraction files + verify/coverage findings consumed | Fail closed (stop on round-2 errors) |
+| 5 | `enrich-core` (deterministic) | `enrich/deterministic_enrichment.json` | Fail closed |
+| 6 | `enrich-deal` | `enrich/enrichment.json` | Fail closed |
+| 7 | `export-csv` | `export/deal_events.csv` | Fail closed |
 
 ## Procedure
 
@@ -52,6 +56,7 @@ individual skills when re-running a specific stage.
    - data/skill/<slug>/extract/
    - data/skill/<slug>/check/
    - data/skill/<slug>/verify/
+   - data/skill/<slug>/coverage/
    - data/skill/<slug>/enrich/
    - data/skill/<slug>/export/
 
@@ -60,8 +65,10 @@ individual skills when re-running a specific stage.
    If gate fails: stop.
 
 4a. Run `skill-pipeline canonicalize --deal <slug>`.
-   - Output: `data/skill/<slug>/canonicalize/canonicalize_log.json`
-   - Overwrites `actors_raw.json` and `events_raw.json` in place
+   - Outputs: `data/skill/<slug>/canonicalize/canonicalize_log.json`
+     and `data/skill/<slug>/extract/spans.json`
+   - Overwrites `actors_raw.json` and `events_raw.json` in place with the
+     canonical schema (`evidence_span_ids`, normalized dates)
    - Deduplicates events, removes drops without NDAs, recovers unnamed parties
 
 4b. Run deterministic check: `skill-pipeline check --deal <slug>`
@@ -72,21 +79,27 @@ individual skills when re-running a specific stage.
    Gate: verification_log.json exists AND summary.status != "fail".
    Writes verification_findings.json and verification_log.json.
 
+5a. Run deterministic coverage: `skill-pipeline coverage --deal <slug>`
+   Gate: coverage_summary.json exists and summary.status != "fail".
+   Writes coverage_findings.json and coverage_summary.json.
+
 6. Run /verify-extraction <slug>
-   Gate: same as step 5. May invoke LLM repair when all error-level
-   findings are repairable; otherwise fail closed.
+   Gate: verification and coverage artifacts exist. May invoke LLM repair when
+   all error-level findings are repairable; otherwise fail closed.
 
-7. Run /enrich-deal <slug>
-   Gate: enrichment.json exists. Deterministic core (rounds, bid
-   classification, cycles, formal_boundary) is in
-   deterministic_enrichment.json from `skill-pipeline enrich-core --deal <slug>`.
+7. Run `skill-pipeline enrich-core --deal <slug>`
+   Gate: deterministic_enrichment.json exists.
 
-8. Run /export-csv <slug>
+8. Run /enrich-deal <slug>
+   Gate: enrichment.json exists.
+
+9. Run /export-csv <slug>
    Gate: deal_events.csv exists.
 
-9. Report summary:
+10. Report summary:
    - Actor count, event count, proposal count
    - Check: blocker count, warning count (if check_report exists)
+   - Coverage: error count, warning count (if coverage_summary exists)
    - Verification: round 1 errors found, fixes applied, round 2 status
    - Enrichment: cycle count, formal/informal split, initiation judgment type
    - Review flags count
@@ -97,8 +110,10 @@ individual skills when re-running a specific stage.
 
 Each skill is independently callable:
 
+- `skill-pipeline canonicalize --deal <slug>` -- upgrade extraction into canonical span-backed artifacts
 - `skill-pipeline check --deal <slug>` -- run deterministic structural check
 - `skill-pipeline verify --deal <slug>` -- run deterministic verification
+- `skill-pipeline coverage --deal <slug>` -- run deterministic source-coverage audit
 - `skill-pipeline enrich-core --deal <slug>` -- run deterministic enrich core
 - `/extract-deal <slug>` -- run extraction only
 - `/verify-extraction <slug>` -- run verification only

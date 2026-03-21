@@ -53,8 +53,10 @@ pipeline export --deal imprivata
 skill-pipeline deal-agent --deal imprivata
 
 # Deterministic skill-runtime stages used by the hybrid workflow
+skill-pipeline canonicalize --deal imprivata
 skill-pipeline check --deal imprivata
 skill-pipeline verify --deal imprivata
+skill-pipeline coverage --deal imprivata
 skill-pipeline enrich-core --deal imprivata
 ```
 
@@ -106,6 +108,7 @@ have already run.
   |-- skill-pipeline canonicalize --deal <slug>
   |-- skill-pipeline check --deal <slug>
   |-- skill-pipeline verify --deal <slug>
+  |-- skill-pipeline coverage --deal <slug>
   |-- /verify-extraction <slug>
   |-- skill-pipeline enrich-core --deal <slug>
   |-- /enrich-deal <slug>
@@ -123,9 +126,13 @@ have already run.
     -   `/export-csv <slug>`: CSV formatting / export
 -   `skill-pipeline` CLI owns:
     -   `skill-pipeline deal-agent --deal <slug>`: preflight and summary only
-    -   `skill-pipeline canonicalize --deal <slug>`: event dedup, NDA-gate, unnamed-party recovery
+    -   `skill-pipeline canonicalize --deal <slug>`: upgrade legacy extract JSON into
+        canonical span-backed artifacts, normalize dates, deduplicate events,
+        gate drops by NDA, recover unnamed parties
     -   `skill-pipeline check --deal <slug>`: deterministic structural gate
     -   `skill-pipeline verify --deal <slug>`: strict deterministic verification
+    -   `skill-pipeline coverage --deal <slug>`: deterministic source-coverage audit
+        over evidence cues vs extracted actors/events
     -   `skill-pipeline enrich-core --deal <slug>`: deterministic rounds, bid
         classifications, cycles, and formal boundary
 
@@ -145,7 +152,12 @@ this exact procedure:
     `skill-pipeline enrich-core` before extract artifacts exist.
 3.  Run `skill-pipeline canonicalize --deal <slug>`.
     -   Output: `data/skill/<slug>/canonicalize/canonicalize_log.json`
-    -   Overwrites `actors_raw.json` and `events_raw.json` in place
+        plus `data/skill/<slug>/extract/spans.json`
+    -   Overwrites `actors_raw.json` and `events_raw.json` in place with the
+        canonical schema
+    -   Canonical schema uses `evidence_span_ids` and `ResolvedDate` objects;
+        legacy `evidence_refs` and `DateHint` input are accepted only before
+        canonicalize runs
     -   Deduplicates events, removes drops without NDAs, recovers unnamed parties
 4.  Run `skill-pipeline check --deal <slug>`.
     -   Output: `data/skill/<slug>/check/check_report.json`
@@ -155,23 +167,30 @@ this exact procedure:
         -   `data/skill/<slug>/verify/verification_findings.json`
         -   `data/skill/<slug>/verify/verification_log.json`
     -   Strict quote policy: EXACT and NORMALIZED resolve; FUZZY does not
-6.  Run `/verify-extraction <slug>`.
+6.  Run `skill-pipeline coverage --deal <slug>`.
+    -   Outputs:
+        -   `data/skill/<slug>/coverage/coverage_findings.json`
+        -   `data/skill/<slug>/coverage/coverage_summary.json`
+    -   Coverage fails on uncovered high-confidence critical cues such as
+        proposal, NDA, withdrawal/drop, and process-initiation evidence
+7.  Run `/verify-extraction <slug>`.
     -   Use `verification_findings.json` as the deterministic input
+    -   Use `coverage_findings.json` as an additional deterministic repair input
     -   Run the LLM repair loop only if **all** error-level findings are `repairable`
     -   If any error-level finding is `non_repairable`, fail closed and do not
         run repair
-7.  Run `skill-pipeline enrich-core --deal <slug>`.
+8.  Run `skill-pipeline enrich-core --deal <slug>`.
     -   Output: `data/skill/<slug>/enrich/deterministic_enrichment.json`
-8.  Run `/enrich-deal <slug>`.
+9.  Run `/enrich-deal <slug>`.
     -   This adds the interpretive remainder and writes
         `data/skill/<slug>/enrich/enrichment.json`
-9.  Run `/export-csv <slug>`.
+10. Run `/export-csv <slug>`.
     -   Output: `data/skill/<slug>/export/deal_events.csv`
 
 #### Common failure mode
 
 If `skill-pipeline canonicalize`, `skill-pipeline check`, `skill-pipeline verify`,
-or `skill-pipeline enrich-core` fails with:
+`skill-pipeline coverage`, or `skill-pipeline enrich-core` fails with:
 
 `FileNotFoundError: Missing required input: data/skill/<slug>/extract/actors_raw.json`
 
@@ -223,7 +242,9 @@ After extraction, QA verifies every evidence citation:
 -   `pipeline/models/extraction.py` — ActorRecord, SourceSpan, DealExtraction, event types
 -   `pipeline/models/common.py` — enums (EventType, ActorRole, QuoteMatchType, etc.)
 -   `pipeline/llm/schemas.py` — Pydantic schemas for LLM output (ActorExtractionOutput, EventExtractionOutput)
--   `skill_pipeline/models.py` — skill-workflow artifact models and summary models; keep these separate from `pipeline/models/*`
+-   `skill_pipeline/models.py` — skill-workflow raw and canonical artifact models,
+    including `ResolvedDate`, `SpanRecord`, and coverage artifacts; keep these
+    separate from `pipeline/models/*`
 
 ## Key Invariants
 

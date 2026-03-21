@@ -10,6 +10,7 @@ from uuid import uuid4
 from skill_pipeline.canonicalize import run_canonicalize
 from skill_pipeline.check import run_check
 from skill_pipeline.config import PROJECT_ROOT, RAW_DIR, SKILL_PIPELINE_VERSION
+from skill_pipeline.coverage import run_coverage
 from skill_pipeline.deal_agent import run_deal_agent
 from skill_pipeline.enrich_core import run_enrich_core
 from skill_pipeline.pipeline_models.common import PIPELINE_VERSION
@@ -122,6 +123,18 @@ def build_parser() -> argparse.ArgumentParser:
         help=argparse.SUPPRESS,
     )
 
+    coverage_parser = subparsers.add_parser(
+        "coverage",
+        help="Run deterministic source-coverage audit on extracted skill artifacts.",
+    )
+    coverage_parser.add_argument("--deal", required=True)
+    coverage_parser.add_argument(
+        "--project-root",
+        type=Path,
+        default=PROJECT_ROOT,
+        help=argparse.SUPPRESS,
+    )
+
     enrich_core_parser = subparsers.add_parser(
         "enrich-core",
         help="Run deterministic enrich-core: rounds, bid classification, cycles, formal boundary.",
@@ -200,6 +213,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         return run_check(args.deal, project_root=args.project_root)
     if args.command == "verify":
         return run_verify(args.deal, project_root=args.project_root)
+    if args.command == "coverage":
+        return run_coverage(args.deal, project_root=args.project_root)
     if args.command == "enrich-core":
         return run_enrich_core(args.deal, project_root=args.project_root)
     if args.command == "canonicalize":

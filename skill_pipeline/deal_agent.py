@@ -4,14 +4,17 @@ import json
 from pathlib import Path
 
 from skill_pipeline.config import PROJECT_ROOT
+from skill_pipeline.extract_artifacts import load_extract_artifacts
 from skill_pipeline.models import (
+    CheckStageSummary,
+    CoverageStageSummary,
+    CoverageSummary,
     DealAgentSummary,
     EnrichStageSummary,
     ExportStageSummary,
     ExtractStageSummary,
-    SkillActorsArtifact,
+    SkillCheckReport,
     SkillEnrichmentArtifact,
-    SkillEventsArtifact,
     SkillVerificationLog,
     StageStatus,
     VerifyStageSummary,
@@ -36,6 +39,8 @@ def run_deal_agent(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> Deal
         seed=seed,
         paths=paths,
         extract=_summarize_extract(paths),
+        check=_summarize_check(paths),
+        coverage=_summarize_coverage(paths),
         verify=_summarize_verify(paths),
         enrich=_summarize_enrich(paths),
         export=_summarize_export(paths),
@@ -46,17 +51,44 @@ def _summarize_extract(paths) -> ExtractStageSummary:
     if not paths.actors_raw_path.exists() or not paths.events_raw_path.exists():
         return ExtractStageSummary(status=StageStatus.MISSING)
 
-    actors = SkillActorsArtifact.model_validate(_read_json(paths.actors_raw_path))
-    events = SkillEventsArtifact.model_validate(_read_json(paths.events_raw_path))
-    actor_count = len(actors.actors)
-    event_count = len(events.events)
-    proposal_count = sum(event.event_type == "proposal" for event in events.events)
+    artifacts = load_extract_artifacts(paths)
+    actors = artifacts.raw_actors.actors if artifacts.mode == "legacy" else artifacts.actors.actors
+    events = artifacts.raw_events.events if artifacts.mode == "legacy" else artifacts.events.events
+    actor_count = len(actors)
+    event_count = len(events)
+    proposal_count = sum(event.event_type == "proposal" for event in events)
     status = StageStatus.PASS if actor_count > 0 and event_count > 0 else StageStatus.FAIL
     return ExtractStageSummary(
         status=status,
         actor_count=actor_count,
         event_count=event_count,
         proposal_count=proposal_count,
+    )
+
+
+def _summarize_check(paths) -> CheckStageSummary:
+    if not paths.check_report_path.exists():
+        return CheckStageSummary(status=StageStatus.MISSING)
+
+    report = SkillCheckReport.model_validate(_read_json(paths.check_report_path))
+    status = StageStatus.PASS if report.summary.status == "pass" else StageStatus.FAIL
+    return CheckStageSummary(
+        status=status,
+        blocker_count=report.summary.blocker_count,
+        warning_count=report.summary.warning_count,
+    )
+
+
+def _summarize_coverage(paths) -> CoverageStageSummary:
+    if not paths.coverage_summary_path.exists():
+        return CoverageStageSummary(status=StageStatus.MISSING)
+
+    summary = CoverageSummary.model_validate(_read_json(paths.coverage_summary_path))
+    status = StageStatus.PASS if summary.status == "pass" else StageStatus.FAIL
+    return CoverageStageSummary(
+        status=status,
+        error_count=summary.error_count,
+        warning_count=summary.warning_count,
     )
 
 

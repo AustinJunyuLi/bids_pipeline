@@ -19,20 +19,106 @@ def _write_canon_fixture(
     data_dir = tmp_path / "data"
     deals_source_dir = data_dir / "deals" / slug / "source"
     extract_dir = data_dir / "skill" / slug / "extract"
+    raw_dir = tmp_path / "raw" / slug
+    filings_dir = raw_dir / "filings"
     deals_source_dir.mkdir(parents=True, exist_ok=True)
     extract_dir.mkdir(parents=True, exist_ok=True)
+    filings_dir.mkdir(parents=True, exist_ok=True)
     (data_dir / "seeds.csv").write_text(
         "deal_slug,target_name,acquirer,date_announced,primary_url,is_reference\n"
         f"{slug},TARGET,ACQUIRER,2016-07-13,https://example.com,false\n",
         encoding="utf-8",
     )
-    (deals_source_dir / "chronology_blocks.jsonl").write_text("{}\n", encoding="utf-8")
-    (deals_source_dir / "evidence_items.jsonl").write_text("{}\n", encoding="utf-8")
-    (tmp_path / "raw" / slug).mkdir(parents=True, exist_ok=True)
-    (tmp_path / "raw" / slug / "document_registry.json").write_text("{}", encoding="utf-8")
 
     if actors_payload is None:
         actors_payload = {"actors": [], "count_assertions": [], "unresolved_mentions": []}
+
+    refs: list[dict] = []
+    for actor in actors_payload.get("actors", []):
+        refs.extend(actor.get("evidence_refs", []))
+    for assertion in actors_payload.get("count_assertions", []):
+        refs.extend(assertion.get("evidence_refs", []))
+    for event in events:
+        refs.extend(event.get("evidence_refs", []))
+
+    block_texts: dict[str, list[str]] = {}
+    evidence_items: list[dict] = []
+    for ref in refs:
+        block_id = ref.get("block_id")
+        anchor_text = ref.get("anchor_text") or "placeholder source text"
+        if block_id:
+            block_texts.setdefault(block_id, []).append(anchor_text)
+        if ref.get("evidence_id"):
+            evidence_items.append(
+                {
+                    "evidence_id": ref["evidence_id"],
+                    "document_id": "DOC001",
+                    "accession_number": "DOC001",
+                    "filing_type": "DEFM14A",
+                    "start_line": 1,
+                    "end_line": 1,
+                    "raw_text": anchor_text,
+                    "evidence_type": "dated_action",
+                    "confidence": "high",
+                    "matched_terms": [anchor_text],
+                    "date_text": None,
+                    "actor_hint": None,
+                    "value_hint": None,
+                    "note": None,
+                }
+            )
+
+    if not block_texts:
+        block_texts["B001"] = ["placeholder source text"]
+
+    chronology_blocks: list[dict] = []
+    filing_lines: list[str] = []
+    for ordinal, block_id in enumerate(sorted(block_texts), start=1):
+        line_text = " ".join(dict.fromkeys(block_texts[block_id]))
+        if not line_text.strip():
+            line_text = f"{block_id} placeholder source text"
+        chronology_blocks.append(
+            {
+                "block_id": block_id,
+                "document_id": "DOC001",
+                "ordinal": ordinal,
+                "start_line": ordinal,
+                "end_line": ordinal,
+                "raw_text": line_text,
+                "clean_text": line_text,
+                "is_heading": False,
+                "page_break_before": False,
+                "page_break_after": False,
+            }
+        )
+        filing_lines.append(line_text)
+
+    evidence_jsonl = "\n".join(json.dumps(item) for item in evidence_items)
+    if evidence_jsonl:
+        evidence_jsonl += "\n"
+    (deals_source_dir / "chronology_blocks.jsonl").write_text(
+        "\n".join(json.dumps(block) for block in chronology_blocks) + "\n",
+        encoding="utf-8",
+    )
+    (deals_source_dir / "evidence_items.jsonl").write_text(evidence_jsonl, encoding="utf-8")
+    (raw_dir / "document_registry.json").write_text(
+        json.dumps(
+            {
+                "artifact_type": "raw_document_registry",
+                "documents": [
+                    {
+                        "document_id": "DOC001",
+                        "accession_number": "DOC001",
+                        "filing_type": "DEFM14A",
+                        "txt_path": f"raw/{slug}/filings/DOC001.txt",
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    (filings_dir / "DOC001.txt").write_text("\n".join(filing_lines) + "\n", encoding="utf-8")
+
     (extract_dir / "actors_raw.json").write_text(json.dumps(actors_payload), encoding="utf-8")
     (extract_dir / "events_raw.json").write_text(
         json.dumps({"events": events, "exclusions": [], "coverage_notes": []}),

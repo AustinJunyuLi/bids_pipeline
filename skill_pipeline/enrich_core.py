@@ -6,11 +6,10 @@ import json
 from pathlib import Path
 
 from skill_pipeline.config import PROJECT_ROOT
+from skill_pipeline.extract_artifacts import LoadedExtractArtifacts, load_extract_artifacts
 from skill_pipeline.models import (
     BidClassification,
-    SkillActorsArtifact,
     SkillEventRecord,
-    SkillEventsArtifact,
 )
 from skill_pipeline.paths import build_skill_paths, ensure_output_directories
 
@@ -29,7 +28,7 @@ def _write_json(path: Path, data: dict) -> None:
     path.write_text(json.dumps(data, indent=2), encoding="utf-8")
 
 
-def _pair_rounds(events: list[SkillEventRecord], actors: SkillActorsArtifact) -> list[dict]:
+def _pair_rounds(events: list[SkillEventRecord], actors) -> list[dict]:
     """Pair round announcements with deadlines. Preserve extension rounds as round_scope='extension'."""
     rounds: list[dict] = []
     bidder_ids = {a.actor_id for a in actors.actors if a.role == "bidder"}
@@ -245,16 +244,23 @@ def _compute_formal_boundary(
 
 def _populate_invited_from_count_assertions(
     events: list[SkillEventRecord],
-    actors: SkillActorsArtifact,
+    artifacts: LoadedExtractArtifacts,
 ) -> None:
     """Populate invited_actor_ids on round announcement events from count_assertions.
 
     Mutates events in place. Only acts on assertions with subject 'final_round_invitees'
     whose anchor text can be matched to actors in the roster.
     """
-    invitee_assertions = [
-        ca for ca in actors.count_assertions if ca.subject == "final_round_invitees"
-    ]
+    if artifacts.mode == "legacy":
+        actors = artifacts.raw_actors
+        invitee_assertions = [
+            ca for ca in actors.count_assertions if ca.subject == "final_round_invitees"
+        ]
+    else:
+        actors = artifacts.actors
+        invitee_assertions = [
+            ca for ca in actors.count_assertions if ca.subject == "final_round_invitees"
+        ]
     if not invitee_assertions:
         return
 
@@ -274,8 +280,17 @@ def _populate_invited_from_count_assertions(
     for ca in invitee_assertions:
         # Try to match actor names from anchor text
         matched_ids: list[str] = []
-        for ref in ca.evidence_refs:
-            anchor = ref.anchor_text.lower()
+        if artifacts.mode == "legacy":
+            anchors = [ref.anchor_text.lower() for ref in ca.evidence_refs]
+        else:
+            span_index = artifacts.span_index
+            anchors = [
+                span_index[span_id].anchor_text.lower()
+                for span_id in ca.evidence_span_ids
+                if span_id in span_index and span_index[span_id].anchor_text
+            ]
+
+        for anchor in anchors:
             for name, aid in name_to_id.items():
                 if name in anchor and aid not in matched_ids:
                     matched_ids.append(aid)
@@ -302,11 +317,11 @@ def run_enrich_core(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> int
     if not paths.events_raw_path.exists():
         raise FileNotFoundError(f"Missing required input: {paths.events_raw_path}")
 
-    actors = SkillActorsArtifact.model_validate(_read_json(paths.actors_raw_path))
-    events_artifact = SkillEventsArtifact.model_validate(_read_json(paths.events_raw_path))
-    events = events_artifact.events
+    artifacts = load_extract_artifacts(paths)
+    actors = artifacts.raw_actors if artifacts.mode == "legacy" else artifacts.actors
+    events = artifacts.raw_events.events if artifacts.mode == "legacy" else artifacts.events.events
 
-    _populate_invited_from_count_assertions(events, actors)
+    _populate_invited_from_count_assertions(events, artifacts)
 
     rounds = _pair_rounds(events, actors)
     bid_classifications = _classify_proposals(events, rounds)

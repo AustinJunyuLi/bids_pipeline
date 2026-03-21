@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from skill_pipeline.extract_artifacts import LoadedExtractArtifacts, load_extract_artifacts
 from skill_pipeline.pipeline_models.common import QuoteMatchType
 from skill_pipeline.pipeline_models.source import ChronologyBlock, EvidenceItem
 from skill_pipeline.normalize.quotes import find_anchor_in_segment
@@ -12,8 +13,6 @@ from skill_pipeline.normalize.quotes import find_anchor_in_segment
 from skill_pipeline.config import PROJECT_ROOT
 from skill_pipeline.models import (
     EvidenceRef,
-    SkillActorsArtifact,
-    SkillEventsArtifact,
     SkillPathSet,
     SkillVerificationLog,
     VerificationFinding,
@@ -82,9 +81,8 @@ def _resolve_quote_match(
     return match_type
 
 
-def _check_quote_verification(
-    actors: SkillActorsArtifact,
-    events: SkillEventsArtifact,
+def _check_quote_verification_legacy(
+    artifacts: LoadedExtractArtifacts,
     blocks: list[ChronologyBlock],
     evidence_items: list[EvidenceItem],
     document_lines: dict[str, list[str]],
@@ -92,6 +90,8 @@ def _check_quote_verification(
     """Verify every evidence_ref. EXACT and NORMALIZED resolve; FUZZY does not."""
     findings: list[VerificationFinding] = []
     total_checks = 0
+    actors = artifacts.raw_actors
+    events = artifacts.raw_events
     blocks_by_id: dict[str, ChronologyBlock] = {}
     for b in blocks:
         if b.block_id in blocks_by_id:
@@ -195,8 +195,8 @@ def _check_quote_verification(
 
 
 def _check_referential_integrity(
-    actors: SkillActorsArtifact,
-    events: SkillEventsArtifact,
+    actors,
+    events,
 ) -> tuple[list[VerificationFinding], int]:
     """Event actor_ids, invited_actor_ids, and advised_actor_id must exist in actors."""
     findings: list[VerificationFinding] = []
@@ -247,7 +247,7 @@ def _check_referential_integrity(
     return findings, total_checks
 
 
-def _check_structural_integrity(events: SkillEventsArtifact) -> tuple[list[VerificationFinding], int]:
+def _check_structural_integrity(events) -> tuple[list[VerificationFinding], int]:
     """Minimal structural checks: initiation event, outcome event, proposal actor_ids."""
     findings: list[VerificationFinding] = []
     total_checks = 2
@@ -307,24 +307,121 @@ def _check_structural_integrity(events: SkillEventsArtifact) -> tuple[list[Verif
     return findings, total_checks
 
 
+def _check_quote_verification_canonical(
+    artifacts: LoadedExtractArtifacts,
+    document_lines: dict[str, list[str]],
+) -> tuple[list[VerificationFinding], int]:
+    findings: list[VerificationFinding] = []
+    total_checks = 0
+    span_index = artifacts.span_index
+
+    def _check_span_ids(span_ids: list[str], *, actor_ids: list[str], event_ids: list[str]) -> None:
+        nonlocal total_checks
+        for span_id in span_ids:
+            total_checks += 1
+            span = span_index.get(span_id)
+            if span is None:
+                findings.append(
+                    VerificationFinding(
+                        check_type="quote_verification",
+                        severity="error",
+                        repairability="repairable",
+                        description=f"Unknown evidence span_id: {span_id!r}",
+                        actor_ids=actor_ids,
+                        event_ids=event_ids,
+                        span_ids=[span_id],
+                    )
+                )
+                continue
+            if not span.anchor_text or not span.anchor_text.strip():
+                continue
+            raw_lines = document_lines.get(span.document_id, [])
+            if not raw_lines:
+                findings.append(
+                    VerificationFinding(
+                        check_type="quote_verification",
+                        severity="error",
+                        repairability="repairable",
+                        description=f"No document lines for span {span_id!r}; cannot verify anchor.",
+                        actor_ids=actor_ids,
+                        event_ids=event_ids,
+                        span_ids=[span_id],
+                        block_ids=span.block_ids,
+                        evidence_ids=span.evidence_ids,
+                        anchor_text=span.anchor_text,
+                    )
+                )
+                continue
+
+            segment_lines = raw_lines[span.start_line - 1 : span.end_line]
+            raw_segment = "\n".join(segment_lines)
+            match_type = _resolve_quote_match(
+                raw_segment,
+                span.anchor_text,
+                raw_lines,
+                span.start_line,
+                span.end_line,
+            )
+            if match_type in {QuoteMatchType.FUZZY, QuoteMatchType.UNRESOLVED}:
+                findings.append(
+                    VerificationFinding(
+                        check_type="quote_verification",
+                        severity="error",
+                        repairability="repairable",
+                        description=f"anchor_text not found at EXACT/NORMALIZED level within +/-{SPAN_EXPANSION_LINES} lines of span {span_id}",
+                        actor_ids=actor_ids,
+                        event_ids=event_ids,
+                        span_ids=[span_id],
+                        block_ids=span.block_ids,
+                        evidence_ids=span.evidence_ids,
+                        anchor_text=span.anchor_text,
+                    )
+                )
+            elif span.match_type in {QuoteMatchType.FUZZY, QuoteMatchType.UNRESOLVED}:
+                findings.append(
+                    VerificationFinding(
+                        check_type="quote_verification",
+                        severity="error",
+                        repairability="repairable",
+                        description=f"Stored span {span_id} has non-verifiable match_type {span.match_type}.",
+                        actor_ids=actor_ids,
+                        event_ids=event_ids,
+                        span_ids=[span_id],
+                        block_ids=span.block_ids,
+                        evidence_ids=span.evidence_ids,
+                        anchor_text=span.anchor_text,
+                    )
+                )
+
+    for actor in artifacts.actors.actors:
+        _check_span_ids(actor.evidence_span_ids, actor_ids=[actor.actor_id], event_ids=[])
+
+    for evt in artifacts.events.events:
+        _check_span_ids(evt.evidence_span_ids, actor_ids=[], event_ids=[evt.event_id])
+
+    return findings, total_checks
+
+
 def _collect_verification_findings(paths: SkillPathSet) -> tuple[list[VerificationFinding], int]:
     """Run all checks and return findings."""
     blocks = _load_chronology_blocks(paths.chronology_blocks_path)
     evidence_items = _load_evidence_items(paths.evidence_items_path)
     document_lines = _load_document_lines(paths.raw_root / paths.deal_slug / "filings")
-
-    actors = SkillActorsArtifact.model_validate(
-        json.loads(paths.actors_raw_path.read_text(encoding="utf-8"))
-    )
-    events = SkillEventsArtifact.model_validate(
-        json.loads(paths.events_raw_path.read_text(encoding="utf-8"))
-    )
+    artifacts = load_extract_artifacts(paths)
+    actors = artifacts.raw_actors if artifacts.mode == "legacy" else artifacts.actors
+    events = artifacts.raw_events if artifacts.mode == "legacy" else artifacts.events
 
     findings: list[VerificationFinding] = []
     total_checks = 0
-    quote_findings, quote_checks = _check_quote_verification(
-        actors, events, blocks, evidence_items, document_lines
-    )
+    if artifacts.mode == "legacy":
+        quote_findings, quote_checks = _check_quote_verification_legacy(
+            artifacts, blocks, evidence_items, document_lines
+        )
+    else:
+        quote_findings, quote_checks = _check_quote_verification_canonical(
+            artifacts,
+            document_lines,
+        )
     findings.extend(quote_findings)
     total_checks += quote_checks
     referential_findings, referential_checks = _check_referential_integrity(actors, events)
