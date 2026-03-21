@@ -1,0 +1,91 @@
+{
+  "dropout_classifications": {
+    "evt_020": {
+      "label": "Drop",
+      "basis": "Company I did not submit an acquisition proposal during the go-shop process.",
+      "source_text": "other potential acquirors. Of those contacted, only six parties expressed interest, and only one of the six (which we refer to as Company I) executed a confidentiality agreement with, and conducted a due diligence investigation of, Saks. None of the parties contacted as part of the go shop process, including Company I, has submitted an acquisition proposal for Saks. Approximately two weeks after the end of the go shop period, Saks received a letter from Company I raising issues concerning what"
+    }
+  },
+  "bid_classifications": {
+    "evt_007": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_008": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_011": {
+      "label": "Formal",
+      "rule_applied": 2.0,
+      "basis": "Observable formal signal from formality_signals."
+    },
+    "evt_012": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_013": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_015": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_016": {
+      "label": "Formal",
+      "rule_applied": 2.0,
+      "basis": "Observable formal signal from formality_signals."
+    }
+  },
+  "rounds": [
+    {
+      "announcement_event_id": "evt_009",
+      "deadline_event_id": null,
+      "round_scope": "formal",
+      "invited_actor_ids": [
+        "bidder_hudsons_bay",
+        "bidder_sponsor_a",
+        "bidder_sponsor_e"
+      ],
+      "active_bidders_at_time": 3,
+      "is_selective": false
+    }
+  ],
+  "cycles": [
+    {
+      "cycle_id": "cycle_1",
+      "start_event_id": "evt_001",
+      "end_event_id": "evt_020",
+      "boundary_basis": "Single cycle -- no termination events"
+    }
+  ],
+  "formal_boundary": {
+    "cycle_1": {
+      "event_id": "evt_011",
+      "basis": "First formal proposal in cycle: evt_011."
+    }
+  },
+  "initiation_judgment": {
+    "type": "bidder_driven",
+    "basis": "Sponsor A's unsolicited approach preceded Saks' engagement of Goldman Sachs and the later formal sale process.",
+    "source_text": "expressing interest in a potential acquisition of Saks. In early March 2013, Mr. Sadove met with senior representatives of Sponsor A to discuss the possibility of a potential transaction. No specific proposals were made by Sponsor A, and no",
+    "confidence": "high"
+  },
+  "advisory_verification": {
+    "advisor_goldman_sachs": {
+      "advised_actor_id": null,
+      "verified": false,
+      "source_text": "In late May 2013, media reports began to appear stating that Saks had engaged Goldman Sachs to explore a potential sale of Saks."
+    }
+  },
+  "count_reconciliation": [],
+  "review_flags": [
+    "advisory_missing_link:advisor_goldman_sachs"
+  ]
+}

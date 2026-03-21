@@ -8,7 +8,7 @@ Research pipeline that extracts structured M&A deal data from SEC filings using 
 
 ## Project Structure & Module Organization
 
-Canonical deterministic pipeline code lives in [`pipeline/`](./pipeline): extraction, QA, enrichment, export, raw/source handling, and the `pipeline` CLI entrypoint. Isolated skill-workflow runtime code lives in [`skill_pipeline/`](./skill_pipeline): skill-specific models, path construction, seed loading, and the `skill-pipeline` CLI. Tests live in [`tests/`](./tests). Canonical pipeline artifacts live under [`data/deals/`](./data/deals); skill-workflow artifacts live under [`data/skill/`](./data/skill). Both workflows share read-only upstream inputs from [`raw/`](./raw) and `data/deals/<slug>/source/`. Design docs and prompt specs are in [`docs/`](./docs). External review packages and debugging bundles live in [`diagnosis/`](./diagnosis).
+Canonical deterministic pipeline code lives in [`pipeline/`](./pipeline): extraction, QA, enrichment, export, raw/source handling, and the `pipeline` CLI entrypoint. Isolated skill-workflow runtime code lives in [`skill_pipeline/`](./skill_pipeline): skill-specific models, path construction, seed loading, and the `skill-pipeline` CLI. Tests live in [`tests/`](./tests). Canonical pipeline artifacts live under [`data/deals/`](./data/deals); skill-workflow artifacts live under [`data/skill/`](./data/skill). Both workflows share read-only upstream inputs from [`raw/`](./raw) and `data/deals/<slug>/source/`. For the skill workflow, those upstream inputs are now a **single-filing seed-only bundle**: one filing frozen in `raw/<slug>/`, then one copied filing plus derived chronology/evidence artifacts in `data/deals/<slug>/source/`. Design docs and prompt specs are in [`docs/`](./docs). External review packages and debugging bundles live in [`diagnosis/`](./diagnosis).
 
 ## Build, Test, and Development Commands
 
@@ -104,6 +104,18 @@ If `raw/<slug>/discovery.json` or `raw/<slug>/document_registry.json` still come
 from an older multi-filing run, rerun `skill-pipeline raw-fetch --deal <slug>`
 before preprocess.
 
+The skill workflow source contract is:
+
+- `raw/<slug>/discovery.json` has exactly one primary candidate
+- `raw/<slug>/discovery.json` has no supplementary candidates
+- `raw/<slug>/document_registry.json` has exactly one document
+- `data/deals/<slug>/source/filings/` contains only that one filing's copies
+- `data/deals/<slug>/source/supplementary_snippets.jsonl` must not exist
+
+If any of those conditions are violated, treat the source bundle as stale and
+rerun `skill-pipeline raw-fetch --deal <slug>` followed by
+`skill-pipeline preprocess-source --deal <slug>` before doing extraction work.
+
 #### Critical distinction for agents
 
 -   `/deal-agent <slug>` is the agent-facing end-to-end orchestrator.
@@ -157,12 +169,20 @@ this exact procedure:
     -   `data/deals/<slug>/source/chronology_blocks.jsonl`
     -   `data/deals/<slug>/source/evidence_items.jsonl`
     -   `raw/<slug>/document_registry.json`
-2.  If `data/skill/<slug>/extract/actors_raw.json` and
+    -   `raw/<slug>/discovery.json`
+2.  Confirm the upstream source bundle is seed-only:
+    -   `raw/<slug>/discovery.json` has exactly one primary candidate
+    -   `raw/<slug>/discovery.json` has no supplementary candidates
+    -   `raw/<slug>/document_registry.json` has exactly one document
+    -   `data/deals/<slug>/source/supplementary_snippets.jsonl` does not exist
+    -   If not, rerun `skill-pipeline raw-fetch --deal <slug>` and
+        `skill-pipeline preprocess-source --deal <slug>` before continuing
+3.  If `data/skill/<slug>/extract/actors_raw.json` and
     `data/skill/<slug>/extract/events_raw.json` do not exist, run
     `/extract-deal <slug>` first. Do **not** run `skill-pipeline canonicalize`,
     `skill-pipeline check`, `skill-pipeline verify`, or
     `skill-pipeline enrich-core` before extract artifacts exist.
-3.  Run `skill-pipeline canonicalize --deal <slug>`.
+4.  Run `skill-pipeline canonicalize --deal <slug>`.
     -   Output: `data/skill/<slug>/canonicalize/canonicalize_log.json`
         plus `data/skill/<slug>/extract/spans.json`
     -   Overwrites `actors_raw.json` and `events_raw.json` in place with the
@@ -171,32 +191,32 @@ this exact procedure:
         legacy `evidence_refs` and `DateHint` input are accepted only before
         canonicalize runs
     -   Deduplicates events, removes drops without NDAs, recovers unnamed parties
-4.  Run `skill-pipeline check --deal <slug>`.
+5.  Run `skill-pipeline check --deal <slug>`.
     -   Output: `data/skill/<slug>/check/check_report.json`
     -   Gate: stop on blocker findings
-5.  Run `skill-pipeline verify --deal <slug>`.
+6.  Run `skill-pipeline verify --deal <slug>`.
     -   Outputs:
         -   `data/skill/<slug>/verify/verification_findings.json`
         -   `data/skill/<slug>/verify/verification_log.json`
     -   Strict quote policy: EXACT and NORMALIZED resolve; FUZZY does not
-6.  Run `skill-pipeline coverage --deal <slug>`.
+7.  Run `skill-pipeline coverage --deal <slug>`.
     -   Outputs:
         -   `data/skill/<slug>/coverage/coverage_findings.json`
         -   `data/skill/<slug>/coverage/coverage_summary.json`
     -   Coverage fails on uncovered high-confidence critical cues such as
         proposal, NDA, withdrawal/drop, and process-initiation evidence
-7.  Run `/verify-extraction <slug>`.
+8.  Run `/verify-extraction <slug>`.
     -   Use `verification_findings.json` as the deterministic input
     -   Use `coverage_findings.json` as an additional deterministic repair input
     -   Run the LLM repair loop only if **all** error-level findings are `repairable`
     -   If any error-level finding is `non_repairable`, fail closed and do not
         run repair
-8.  Run `skill-pipeline enrich-core --deal <slug>`.
+9.  Run `skill-pipeline enrich-core --deal <slug>`.
     -   Output: `data/skill/<slug>/enrich/deterministic_enrichment.json`
-9.  Run `/enrich-deal <slug>`.
+10. Run `/enrich-deal <slug>`.
     -   This adds the interpretive remainder and writes
         `data/skill/<slug>/enrich/enrichment.json`
-10. Run `/export-csv <slug>`.
+11. Run `/export-csv <slug>`.
     -   Output: `data/skill/<slug>/export/deal_events.csv`
 
 #### Common failure mode

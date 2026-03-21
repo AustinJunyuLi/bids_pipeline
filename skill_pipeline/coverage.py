@@ -23,6 +23,47 @@ CRITICAL_CUE_FAMILIES = frozenset(
     }
 )
 
+CONCRETE_PROPOSAL_PHRASES = (
+    "submitted a proposal",
+    "submitted an indication of interest",
+    "submitted an offer",
+    "making an offer to acquire",
+    "made an offer to acquire",
+    "offer to acquire",
+    "proposal to acquire",
+    "submission of a proposal",
+    "submitted a revised proposal",
+    "submitted a written proposal",
+    "indicative price ranges",
+)
+
+INTEREST_PHRASES = (
+    "expressing interest in a potential acquisition",
+    "potential interest in acquiring",
+    "interested in acquiring",
+    "possibility of a potential transaction",
+    "potential acquisition",
+    "potential transaction",
+    "consideration of a potential acquisition",
+)
+
+NEGATED_PROPOSAL_PHRASES = (
+    "no specific proposals were made",
+    "no proposal was made",
+    "no transaction terms were discussed",
+)
+
+PROCESS_INITIATION_PHRASES = (
+    "initiated a sale process",
+    "commenced a sale process",
+    "launched a sale process",
+    "began a sale process",
+    "formal sale process",
+    "explore strategic alternatives",
+    "strategic alternatives review",
+    "pursue strategic alternatives",
+)
+
 
 @dataclass
 class CoverageCue:
@@ -62,13 +103,16 @@ def _build_coverage_cues(
 
     cues: list[CoverageCue] = []
     for item in evidence_items:
+        block_ids = _block_ids_for_evidence(item, blocks_by_document.get(item.document_id, []))
+        if not block_ids:
+            continue
         cue_family = _classify_cue_family(item)
         if cue_family is None or item.confidence == "low":
             continue
         cues.append(
             CoverageCue(
                 cue_family=cue_family,
-                block_ids=_block_ids_for_evidence(item, blocks_by_document.get(item.document_id, [])),
+                block_ids=block_ids,
                 evidence_ids=[item.evidence_id],
                 matched_terms=item.matched_terms,
                 confidence=item.confidence,
@@ -83,16 +127,20 @@ def _classify_cue_family(item: EvidenceItem) -> str | None:
 
     if any(token in text for token in ("confidentiality agreement", "confidentiality", "non-disclosure", "nondisclosure", " nda")):
         return "nda"
-    if any(token in text for token in ("proposal", "offer", "bid", "indication of interest", "submitted")):
-        return "proposal"
     if any(token in text for token in ("declined", "dropped", "withdrew", "withdrawn", "did not submit", "no longer interested")):
         return "withdrawal_or_drop"
     if any(token in text for token in ("financial advisor", "legal advisor", "advisor", "adviser", "retained", "engaged")):
         return "advisor"
+    if any(token in text for token in PROCESS_INITIATION_PHRASES):
+        return "process_initiation"
+    if any(token in text for token in NEGATED_PROPOSAL_PHRASES):
+        return "bidder_interest"
+    if any(token in text for token in INTEREST_PHRASES):
+        return "bidder_interest"
     if any(token in text for token in ("expressed interest", "indicated interest", "approached", "contacted", "interested in acquiring")):
         return "bidder_interest"
-    if any(token in text for token in ("sale process", "strategic alternatives", "initiated", "commenced", "explore strategic alternatives")):
-        return "process_initiation"
+    if any(token in text for token in CONCRETE_PROPOSAL_PHRASES):
+        return "proposal"
     return None
 
 
@@ -189,6 +237,8 @@ def _span_ids_overlap(cue: CoverageCue, span_ids: list[str], span_index: dict) -
 
 def _severity_for_cue(cue: CoverageCue) -> str | None:
     if cue.cue_family == "advisor":
+        return "warning" if cue.confidence in {"high", "medium"} else None
+    if cue.cue_family == "bidder_interest":
         return "warning" if cue.confidence in {"high", "medium"} else None
     if cue.cue_family in CRITICAL_CUE_FAMILIES and cue.confidence == "high":
         return "error"

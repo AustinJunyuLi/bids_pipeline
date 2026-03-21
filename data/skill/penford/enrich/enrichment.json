@@ -1,0 +1,82 @@
+{
+  "dropout_classifications": {
+    "evt_016": {
+      "label": "Drop",
+      "basis": "Party D stated that it would not move forward with discussions regarding a potential transaction.",
+      "source_text": "Also on October 8, 2014, Deutsche Bank met with representatives from Party D, who indicated that it did not intend to move forward with discussions regarding a potential transaction involving the Company."
+    }
+  },
+  "bid_classifications": {
+    "evt_004": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_005": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_009": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_014": {
+      "label": "Formal",
+      "rule_applied": 2.0,
+      "basis": "Observable formal signal from formality_signals."
+    },
+    "evt_017": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_018": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
+    }
+  },
+  "rounds": [
+    {
+      "announcement_event_id": "evt_015",
+      "deadline_event_id": null,
+      "round_scope": "formal",
+      "invited_actor_ids": [],
+      "active_bidders_at_time": 4,
+      "is_selective": false
+    }
+  ],
+  "cycles": [
+    {
+      "cycle_id": "cycle_1",
+      "start_event_id": "evt_001",
+      "end_event_id": "evt_021",
+      "boundary_basis": "Single cycle -- no termination events"
+    }
+  ],
+  "formal_boundary": {
+    "cycle_1": {
+      "event_id": "evt_014",
+      "basis": "First formal proposal in cycle: evt_014."
+    }
+  },
+  "initiation_judgment": {
+    "type": "bidder_driven",
+    "basis": "Ingredion's unsolicited outreach preceded Penford's engagement of Deutsche Bank and any extracted formal sale-process launch.",
+    "source_text": "Ms. Gordon met for lunch, during which meeting Ms. Gordon advised Mr. Malkoski of Ingredion's interest in acquiring Penford.",
+    "confidence": "medium"
+  },
+  "advisory_verification": {
+    "advisor_deutsche_bank": {
+      "advised_actor_id": null,
+      "verified": false,
+      "source_text": "and the Executive Committee's decision to engage Deutsche Bank with regard to shareholder matters and to evaluate strategic alternatives."
+    }
+  },
+  "count_reconciliation": [],
+  "review_flags": [
+    "advisory_missing_link:advisor_deutsche_bank"
+  ]
+}

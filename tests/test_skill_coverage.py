@@ -258,6 +258,130 @@ def test_coverage_warns_on_uncovered_medium_confidence_advisor_cue(tmp_path: Pat
     assert findings["findings"][0]["severity"] == "warning"
 
 
+def test_coverage_ignores_evidence_without_chronology_overlap(tmp_path: Path) -> None:
+    evidence_items = [
+        {
+            "evidence_id": "DOC001:E0001",
+            "document_id": "DOC001",
+            "accession_number": "DOC001",
+            "filing_type": "DEFM14A",
+            "start_line": 50,
+            "end_line": 50,
+            "raw_text": "Party A submitted a proposal.",
+            "evidence_type": "dated_action",
+            "confidence": "high",
+            "matched_terms": ["proposal", "submitted"],
+            "date_text": "July 5, 2016",
+            "actor_hint": "Party A",
+            "value_hint": None,
+            "note": None,
+        }
+    ]
+    chronology_blocks = [
+        {
+            "block_id": "B001",
+            "document_id": "DOC001",
+            "ordinal": 1,
+            "start_line": 1,
+            "end_line": 10,
+            "raw_text": "This block does not overlap the proposal evidence.",
+            "clean_text": "This block does not overlap the proposal evidence.",
+            "is_heading": False,
+            "page_break_before": False,
+            "page_break_after": False,
+        }
+    ]
+    _write_coverage_fixture(
+        tmp_path,
+        evidence_items=evidence_items,
+        chronology_blocks=chronology_blocks,
+    )
+
+    exit_code = run_coverage("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    findings = json.loads(paths.coverage_findings_path.read_text(encoding="utf-8"))
+    summary = json.loads(paths.coverage_summary_path.read_text(encoding="utf-8"))
+
+    assert exit_code == 0
+    assert findings["findings"] == []
+    assert summary["status"] == "pass"
+    assert summary["finding_count"] == 0
+
+
+def test_coverage_treats_no_specific_proposals_as_bidder_interest(tmp_path: Path) -> None:
+    evidence_items = [
+        {
+            "evidence_id": "DOC001:E0001",
+            "document_id": "DOC001",
+            "accession_number": "DOC001",
+            "filing_type": "DEFM14A",
+            "start_line": 1,
+            "end_line": 3,
+            "raw_text": (
+                "Mr. Sadove met with Sponsor A to discuss a potential transaction. "
+                "No specific proposals were made by Sponsor A, and no specific transaction terms were discussed."
+            ),
+            "evidence_type": "dated_action",
+            "confidence": "high",
+            "matched_terms": ["discussed", "met", "proposal"],
+            "date_text": "March 2013",
+            "actor_hint": "Sponsor A",
+            "value_hint": None,
+            "note": None,
+        }
+    ]
+    _write_coverage_fixture(tmp_path, evidence_items=evidence_items)
+
+    exit_code = run_coverage("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    findings = json.loads(paths.coverage_findings_path.read_text(encoding="utf-8"))
+    summary = json.loads(paths.coverage_summary_path.read_text(encoding="utf-8"))
+
+    assert exit_code == 0
+    assert summary["status"] == "pass"
+    assert summary["warning_count"] == 1
+    assert findings["findings"][0]["cue_family"] == "bidder_interest"
+    assert findings["findings"][0]["severity"] == "warning"
+    assert findings["findings"][0]["suggested_event_types"] == ["bidder_interest", "bidder_sale"]
+
+
+def test_coverage_does_not_treat_possible_sale_process_discussion_as_process_initiation(
+    tmp_path: Path,
+) -> None:
+    evidence_items = [
+        {
+            "evidence_id": "DOC001:E0001",
+            "document_id": "DOC001",
+            "accession_number": "DOC001",
+            "filing_type": "DEFM14A",
+            "start_line": 1,
+            "end_line": 4,
+            "raw_text": (
+                "The board discussed strategic alternatives, process considerations and next steps. "
+                "Management noted that, if progress continued, the company could later engage in a market check process. "
+                "Another bidder was not interested in participating in any potential sale process at that time."
+            ),
+            "evidence_type": "dated_action",
+            "confidence": "high",
+            "matched_terms": ["discussed", "meeting", "offer", "proposal"],
+            "date_text": "August 13, 2014",
+            "actor_hint": None,
+            "value_hint": None,
+            "note": None,
+        }
+    ]
+    _write_coverage_fixture(tmp_path, evidence_items=evidence_items)
+
+    exit_code = run_coverage("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    findings = json.loads(paths.coverage_findings_path.read_text(encoding="utf-8"))
+    summary = json.loads(paths.coverage_summary_path.read_text(encoding="utf-8"))
+
+    assert exit_code == 0
+    assert summary["status"] == "pass"
+    assert findings["findings"] == []
+
+
 def test_skill_cli_supports_coverage_subcommand() -> None:
     parser = cli.build_parser()
     args = parser.parse_args(["coverage", "--deal", "imprivata"])

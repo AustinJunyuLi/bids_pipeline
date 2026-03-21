@@ -1,0 +1,10 @@
+{
+  "dedup_log": {},
+  "nda_gate_log": [
+    {
+      "removed_event_id": "evt_012",
+      "reason": "Drop actor(s) {'bidder_party_f'} have no prior NDA."
+    }
+  ],
+  "recovery_log": []
+}
