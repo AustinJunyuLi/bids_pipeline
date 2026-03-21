@@ -137,7 +137,9 @@ Fallback rule:
 - If `enrichment.json` is absent but `deterministic_enrichment.json` exists, use the deterministic artifact for `bid_classifications`.
 - Do **not** invent `dropout_classifications` from the deterministic artifact. Skip dropout subtype comparison and note the skip in the report.
 
-The export CSV is a required post-pipeline cross-check, but extract plus enrich remain the structured source of record for reconciliation.
+The export CSV is the primary comparison surface for reconciliation. Extract
+plus enrich provide canonical IDs, provenance, and fallback details when the
+CSV intentionally compresses information.
 
 ### Step 3: Load the filing text through the live source contract
 
@@ -301,11 +303,13 @@ If two or more candidate matches remain plausible after using the strongest fiel
 The exported CSV (`deal_events.csv`) is the primary comparison surface.
 Compare the CSV row against the matched Alex row first. Fall back to
 internal extraction/enrichment artifacts only for fields the CSV does not
-carry (e.g., `evidence_span_ids` for filing arbitration in Step 7).
+carry or intentionally compresses (e.g., `evidence_span_ids` for filing
+arbitration in Step 7, or `Uncertain` bid classifications that export as
+`bid_type=NA` plus a review flag).
 
 If a CSV column disagrees with the internal artifact it was derived from,
-that is an export regression — flag it in the report as
-`export_regression` rather than a benchmark mismatch.
+that is an export regression. Record it under a dedicated
+`export_regressions` array rather than as a benchmark mismatch.
 
 For each matched pair, compare these fields when relevant:
 
@@ -315,18 +319,26 @@ For each matched pair, compare these fields when relevant:
 | `bid_range` | `range` column (format: `X-Y`) | `bid_value_lower` to `bid_value_upper` | proposals |
 | `bid_type` | `bid_type` column | `bid_type` | proposals |
 | `dropout_subtype` | `note` column (`Drop`, `DropBelowM`, etc.) | `bid_note` subtype | drops |
-| `bidder_type` | `type` column | `bidder_type_note` | NDAs / first bidder appearance |
+| `bidder_type` | `type` column | derived from `bidder_type_financial`, `bidder_type_strategic`, `bidder_type_mixed`, `bidder_type_nonUS`; use `bidder_type_note` only for explicit extra qualifiers such as `public` | NDAs / first bidder appearance |
 | `date_precise` | `date_p` column | `bid_date_precise` | all |
 | `date_rough` | `date_r` column | `bid_date_rough` | all |
 | `all_cash` | `cash` column | `all_cash` | proposals |
 | `bidder_name` | `bidder` column | Alex bidder field | all actor rows |
 
-Bidder type code mapping (for cross-check against internal artifacts when
-the CSV `type` column is `NA` on non-first-appearance rows):
-- strategic + private + domestic = `S`
-- financial + private + domestic = `F`
-- add `public` prefix if `listing_status=public`
-- add `non-US` prefix if `geography=non_us`
+Bidder type code mapping:
+- on the Alex side, derive the base code from the workbook flags:
+  - `bidder_type_mixed` -> `S/F`
+  - otherwise `bidder_type_strategic` -> `S`
+  - otherwise `bidder_type_financial` -> `F`
+  - otherwise `NA`
+- prefix `non-US ` when `bidder_type_nonUS` is populated
+- only compare `public` or `private` qualifiers when Alex encodes them
+  explicitly in `bidder_type_note`; otherwise listing-status differences are
+  unsupported, not mismatches
+- grouped strings such as `11S, 14F` are aggregate-only representations and
+  should not be compared as atomic bidder-type values
+- when the CSV `type` column is `NA` on non-first-appearance rows, use the
+  internal actor artifact only to confirm the exported omission is expected
 
 Known Alex-side cleanup:
 - `"Informsl"` -> `"Informal"`
@@ -336,28 +348,34 @@ Tolerances:
 - bid values: plus or minus $0.01
 - dates: precision-aware comparison using the pipeline's `date.precision`
   field from the internal extraction artifact:
-  - `EXACT_DAY`: exact match only
-  - `MONTH_EARLY`, `MONTH_MID`, `MONTH_LATE`: Alex's date must fall
+  - `exact_day`: exact match only
+  - `month_early`, `month_mid`, `month_late`: Alex's date must fall
     within the pipeline's `normalized_start` to `normalized_end` range
-  - `MONTH`: Alex's date must fall within the calendar month
-  - `QUARTER`: Alex's date must fall within the calendar quarter
-  - `RANGE`: Alex's date must fall within `normalized_start` to
+  - `month`: Alex's date must fall within the calendar month
+  - `quarter`: Alex's date must fall within the calendar quarter
+  - `range`: Alex's date must fall within `normalized_start` to
     `normalized_end`
-  - `RELATIVE`, `YEAR`, `UNKNOWN`: widen tolerance to +/- 30 days and
-    note the imprecision in the report
+  - `relative`, `year`, `unknown`: widen tolerance to plus or minus 30 days
+    and note the imprecision in the report
   - When the CSV `date_p` is `NA` (imprecise date), use `date_r` for
     matching and note the rough-date comparison in the report
 
 #### `Uncertain` handling
 
-`Uncertain` is a valid pipeline output, not a missing value.
+`Uncertain` is a valid pipeline output, even though the CSV intentionally
+encodes it as `bid_type=NA`.
 
-If the pipeline labels a proposal `Uncertain` and Alex labels it `Formal` or `Informal`:
+Treat a matched proposal as pipeline `Uncertain` if either:
+- the CSV `review_flags` column contains `bid_classification_uncertain:<event_id>`
+- or `enrichment.bid_classifications[event_id].label == "Uncertain"`
+
+If that fallback identifies `Uncertain` and Alex labels the row `Formal` or
+`Informal`:
 - record the mismatch
 - arbitrate it against the filing
 - do **not** treat Alex's forced label as automatically more correct
 
-An `Uncertain` mismatch alone should never force `fail`.
+An `Uncertain` mismatch alone should never trigger `high_attention`.
 
 ### Step 7: Arbitrate disagreements against the filing
 
@@ -370,7 +388,7 @@ For each field mismatch:
    filing `.txt` path.
 3. Read the filing passage with plus or minus 5 lines of context.
 4. Search for both the pipeline claim and Alex claim.
-6. Record:
+5. Record:
    - `filing_supports: "pipeline" | "alex" | "both" | "neither" | "inconclusive" | "no_evidence"`
    - a filing snippet
 
@@ -484,6 +502,15 @@ Write to `data/skill/<slug>/reconcile/reconciliation_report.json`:
       "filing_snippet": "Several parties executed confidentiality agreements..."
     }
   ],
+  "export_regressions": [
+    {
+      "pipeline_event_id": "evt_004",
+      "field": "bid_type",
+      "csv_value": "NA",
+      "internal_value": "Formal",
+      "description": "CSV dropped a non-uncertain bid classification that existed in enrichment."
+    }
+  ],
   "field_mismatches": [
     {
       "pipeline_event_id": "evt_008",
@@ -522,8 +549,9 @@ Write to `data/skill/<slug>/reconcile/reconciliation_report.json`:
     }
   ],
   "summary": {
-    "status": "warn",
+    "status": "attention",
     "match_rate": 0.92,
+    "export_regression_count": 1,
     "field_mismatch_count": 1,
     "aggregate_warning_count": 1,
     "arbitration_pipeline_wins": 0,
@@ -543,20 +571,21 @@ Define:
 
 Evaluate in order:
 
-1. `fail` if:
+1. `high_attention` if:
+   - any `export_regressions` exist, or
    - `match_rate < 0.7`, or
    - ungrounded atomic orphans outnumber grounded atomic orphans, or
    - a numeric aggregate row has `count_conflict` and the filing clearly supports Alex's count against the pipeline
 
-2. `warn` if:
+2. `attention` if:
    - `match_rate < 0.9`, or
    - any field mismatch has `filing_supports` in `alex`, `inconclusive`, or `no_evidence`, or
    - any atomic orphan is `ungrounded`, or
    - any aggregate row has verdict `count_conflict`, `ambiguous`, or `ungrounded`
 
-3. `pass` otherwise
+3. `clean` otherwise
 
-Aggregate rows alone should not trigger `fail` unless the filing clearly contradicts the pipeline's count-level story.
+Aggregate rows alone should not trigger `high_attention` unless the filing clearly contradicts the pipeline's count-level story.
 
 ### Step 11: Report summary to the user
 
@@ -593,7 +622,8 @@ Print a concise summary:
 ## Gate
 
 `reconciliation_report.json` exists. The `summary.status` field is
-informational (`pass`, `warn`, or `fail`) and does NOT gate the pipeline.
-This is a diagnostic report for the researcher, not a pipeline stop
-condition. A `fail` status means the disagreement with Alex is large
-enough to warrant investigation, not that the pipeline output is wrong.
+informational (`clean`, `attention`, or `high_attention`) and does NOT gate
+the pipeline. This is a diagnostic report for the researcher, not a
+pipeline stop condition. A `high_attention` status means the disagreement
+with Alex is large enough to warrant investigation, not that the pipeline
+output is wrong.
