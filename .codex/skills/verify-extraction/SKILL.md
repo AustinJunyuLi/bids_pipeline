@@ -24,6 +24,16 @@ Log every finding, every fix, and the final disposition.
 - Prerequisite: `extract-deal` has already produced `actors_raw.json` and
   `events_raw.json`.
 
+## Benchmark Boundary
+
+Benchmark materials are forbidden during generation. Do not consult benchmark
+files, benchmark notes, `example/`, `diagnosis/`,
+`data/skill/<slug>/reconcile/*`, or `/reconcile-alex` before `/export-csv`
+completes.
+
+Use only filing-grounded inputs while verifying. Benchmark comparison is
+post-export only and read-only.
+
 **Deterministic pre-steps:** Run `skill-pipeline verify --deal <slug>` and
 `skill-pipeline coverage --deal <slug>` first. These write
 `verification_findings.json`, `verification_log.json`,

@@ -28,6 +28,16 @@ already ran.
 Invoke as `/deal-agent <slug>` for end-to-end extraction through CSV export. Use
 individual skills when re-running a specific stage.
 
+## Benchmark Boundary
+
+Benchmark materials are forbidden during generation. Do not consult benchmark
+files, benchmark notes, `example/`, `diagnosis/`,
+`data/skill/<slug>/reconcile/*`, or `/reconcile-alex` before `/export-csv`
+completes.
+
+Use only filing-grounded inputs through export. Benchmark comparison is
+post-export only and read-only.
+
 ## Skills
 
 | # | Skill | Artifacts | Failure Mode |

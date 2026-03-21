@@ -1,6 +1,6 @@
 ---
 name: export-csv
-description: Use when flattening skill extraction and enrichment artifacts into the repo's Alex-compatible review CSV for a deal.
+description: Use when flattening skill extraction and enrichment artifacts into the repo review CSV for a deal.
 ---
 
 # export-csv
@@ -8,18 +8,28 @@ description: Use when flattening skill extraction and enrichment artifacts into 
 ## Design Principles
 
 1. No analysis, no judgment. Pure formatting.
-2. Match Alex Gorbenko's spreadsheet conventions exactly.
+2. Match the repo's fixed review CSV contract exactly.
 3. One event per row. One deal per file.
 
 ## Purpose
 
-Flatten extraction + enrichment into Alex-compatible CSV for human review.
+Flatten extraction + enrichment into the repo review CSV for human review.
 
 ## When To Use
 
 - Called by deal-agent after enrich-deal, or independently via
   `/export-csv <slug>`.
 - Prerequisite: extract-deal and enrich-deal have already run for this deal.
+
+## Benchmark Boundary
+
+Benchmark materials are forbidden during generation. Do not consult benchmark
+files, benchmark notes, `example/`, `diagnosis/`,
+`data/skill/<slug>/reconcile/*`, or `/reconcile-alex` before `/export-csv`
+completes.
+
+This skill writes the repo review CSV from filing-grounded artifacts. Benchmark
+comparison is post-export only and read-only.
 
 ## Reads
 
@@ -153,7 +163,7 @@ Three rules:
 
 **c3:** always empty.
 
-## Alex-Compatible Formatting Rules
+## Review CSV Formatting Rules
 
 **Bidder type:** The `type` column is populated only on the first row for each
 actor (typically the NDA row). Subsequent rows for that actor (proposals,

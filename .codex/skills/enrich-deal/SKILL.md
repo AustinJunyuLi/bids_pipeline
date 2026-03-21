@@ -26,6 +26,16 @@ most.
 - Prerequisite: verified `actors_raw.json` and `events_raw.json` exist in
   `data/skill/<slug>/extract/`.
 
+## Benchmark Boundary
+
+Benchmark materials are forbidden during generation. Do not consult benchmark
+files, benchmark notes, `example/`, `diagnosis/`,
+`data/skill/<slug>/reconcile/*`, or `/reconcile-alex` before `/export-csv`
+completes.
+
+Use only filing-grounded inputs while enriching. Benchmark comparison is
+post-export only and read-only.
+
 **Deterministic core:** Run `skill-pipeline enrich-core --deal <slug>` first.
 This writes `enrich/deterministic_enrichment.json` with `rounds`,
 `bid_classifications`, `cycles`, and `formal_boundary`. Residual bid
