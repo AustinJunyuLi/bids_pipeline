@@ -137,6 +137,7 @@ rerun `skill-pipeline raw-fetch --deal <slug>` followed by
   |-- skill-pipeline enrich-core --deal <slug>
   |-- /enrich-deal <slug>
   |-- /export-csv <slug>
+  |-- /reconcile-alex <slug>          (optional, post-export diagnostic)
 ```
 
 #### What each layer owns
@@ -148,6 +149,10 @@ rerun `skill-pipeline raw-fetch --deal <slug>` followed by
     -   `/verify-extraction <slug>`: repair loop and final verification gate
     -   `/enrich-deal <slug>`: interpretive enrichment remainder
     -   `/export-csv <slug>`: CSV formatting / export
+    -   `/reconcile-alex <slug>`: post-export benchmark QA against Alex's
+        spreadsheet. Diagnostic only — does not gate the pipeline or
+        rewrite any generation artifacts. Invoke only after `/export-csv`
+        completes.
 -   `skill-pipeline` CLI owns:
     -   `skill-pipeline deal-agent --deal <slug>`: preflight and summary only
     -   `skill-pipeline canonicalize --deal <slug>`: upgrade legacy extract JSON into
@@ -218,6 +223,10 @@ this exact procedure:
         `data/skill/<slug>/enrich/enrichment.json`
 11. Run `/export-csv <slug>`.
     -   Output: `data/skill/<slug>/export/deal_events.csv`
+12. (Optional) Run `/reconcile-alex <slug>`.
+    -   Output: `data/skill/<slug>/reconcile/reconciliation_report.json`
+    -   Post-export only. Diagnostic, not a pipeline gate.
+    -   Status is `clean`, `attention`, or `high_attention` — informational only.
 
 #### Common failure mode
 
@@ -244,6 +253,35 @@ Repository support for this workflow is split across two layers:
     `data/seeds.csv`.
 -   Canonical pipeline artifacts under `data/deals/<slug>/...` remain separate
     and must not be used as skill outputs.
+
+#### Benchmark separation
+
+-   The generation workflow is filing-grounded from `/extract-deal <slug>`
+    through `/export-csv <slug>`.
+-   Before `/export-csv` completes, do **not** consult benchmark materials,
+    benchmark notes, or reconciliation artifacts.
+-   Treat `example/` as post-export-only material.
+-   `/reconcile-alex <slug>` is a read-only, post-export diagnostic. It must
+    not rewrite `extract/`, `verify/`, `enrich/`, or `export/` artifacts.
+-   If any prior session consulted benchmark materials before `/export-csv` and
+    then generated `data/skill/<slug>/...` artifacts, treat those artifacts as
+    tainted for blind evaluation. Regenerate from the filing-grounded workflow
+    first.
+
+#### Artifact directories
+
+Skill workflow artifacts under `data/skill/<slug>/`:
+
+| Directory | Stage | Contents |
+|-----------|-------|----------|
+| `extract/` | `/extract-deal` + `canonicalize` | `actors_raw.json`, `events_raw.json`, `spans.json` |
+| `canonicalize/` | `canonicalize` | `canonicalize_log.json` |
+| `check/` | `check` | `check_report.json` |
+| `verify/` | `verify` | `verification_findings.json`, `verification_log.json` |
+| `coverage/` | `coverage` | `coverage_findings.json`, `coverage_summary.json` |
+| `enrich/` | `enrich-core` + `/enrich-deal` | `deterministic_enrichment.json`, `enrichment.json` |
+| `export/` | `/export-csv` | `deal_events.csv` |
+| `reconcile/` | `/reconcile-alex` | `alex_rows.json`, `reconciliation_report.json` |
 
 Historical notes may still describe the skill workflow as purely agent-driven or
 may imply that `skill-pipeline deal-agent` is the end-to-end runner. Those notes
