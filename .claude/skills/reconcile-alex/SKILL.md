@@ -87,13 +87,22 @@ with open('data/seeds.csv') as f:
         print(json.dumps({'error': f'slug {slug} not found in seeds.csv'}))
         sys.exit(1)
 
+import re
+def _normalize_company(name):
+    n = re.sub(r'[^a-z0-9 ]', ' ', name.strip().lower())
+    for suffix in ('inc', 'corp', 'corporation', 'llc', 'ltd', 'l p', 'co', 'company'):
+        n = re.sub(r'\b' + suffix + r'\b', '', n)
+    return ' '.join(n.split())
+
+normalized_target = _normalize_company(target_name)
+
 wb = load_workbook('example/deal_details_Alex_2026.xlsx', read_only=True, data_only=True)
 ws = wb['deal_details']
 headers = [cell.value for cell in next(ws.iter_rows(min_row=1, max_row=1))]
 rows = []
 for row in ws.iter_rows(min_row=2, values_only=True):
     d = dict(zip(headers, row))
-    if d.get('TargetName') and d['TargetName'].strip().upper() == target_name.strip().upper():
+    if d.get('TargetName') and _normalize_company(d['TargetName']) == normalized_target:
         for k, v in d.items():
             if isinstance(v, datetime):
                 d[k] = v.isoformat()
@@ -233,6 +242,23 @@ Pipeline side:
 - check `display_name` first
 - then check `aliases`
 
+#### Consortium / joint-bid matching
+
+When a pipeline event has multiple `actor_ids` (joint bid), or the CSV
+`bidder` column contains `/` (slash-separated names):
+
+1. Build the pipeline actor set from `actor_ids`, resolving each to
+   `display_name` from the actor roster.
+2. If Alex's bidder field also contains `/`, split on `/` and normalize
+   each component independently.
+3. Match if the normalized actor sets are equal regardless of order.
+4. For `type` comparison, split the CSV `type` column on `/` and compare
+   each component against the corresponding Alex type field.
+
+Individual member events (e.g., separate NDA rows per consortium member)
+still match as single-actor rows. Only joint proposal/drop rows use
+consortium matching.
+
 #### Proposal matching
 
 Match in this order:
@@ -272,19 +298,31 @@ If two or more candidate matches remain plausible after using the strongest fiel
 
 ### Step 6: Compare fields for matched pairs
 
+The exported CSV (`deal_events.csv`) is the primary comparison surface.
+Compare the CSV row against the matched Alex row first. Fall back to
+internal extraction/enrichment artifacts only for fields the CSV does not
+carry (e.g., `evidence_span_ids` for filing arbitration in Step 7).
+
+If a CSV column disagrees with the internal artifact it was derived from,
+that is an export regression — flag it in the report as
+`export_regression` rather than a benchmark mismatch.
+
 For each matched pair, compare these fields when relevant:
 
-| Field | Pipeline source | Alex source | Event types |
+| Field | Pipeline source (CSV column) | Alex source | Event types |
 |---|---|---|---|
-| `bid_value` | `terms.per_share` | `bid_value` or `bid_value_pershare` | proposals |
-| `bid_range` | `terms.range_low` to `range_high` | `bid_value_lower` to `bid_value_upper` | proposals |
-| `bid_type` | `enrichment.bid_classifications[event_id].label` | `bid_type` | proposals |
-| `dropout_subtype` | `enrichment.dropout_classifications[event_id].label` (normalize `DropBelowM` to `DropM`) | `bid_note` subtype | drops |
-| `bidder_type` | actor `bidder_kind` + `listing_status` + `geography` | `bidder_type_note` | NDAs / first bidder appearance |
-| `date_precise` | `date.sort_date` (or `date.normalized_start` for ranges) | `bid_date_precise` | all |
-| `all_cash` | `terms.consideration_type == "cash"` | `all_cash` | proposals |
+| `bid_value` | `val` column | `bid_value` or `bid_value_pershare` | proposals |
+| `bid_range` | `range` column (format: `X-Y`) | `bid_value_lower` to `bid_value_upper` | proposals |
+| `bid_type` | `bid_type` column | `bid_type` | proposals |
+| `dropout_subtype` | `note` column (`Drop`, `DropBelowM`, etc.) | `bid_note` subtype | drops |
+| `bidder_type` | `type` column | `bidder_type_note` | NDAs / first bidder appearance |
+| `date_precise` | `date_p` column | `bid_date_precise` | all |
+| `date_rough` | `date_r` column | `bid_date_rough` | all |
+| `all_cash` | `cash` column | `all_cash` | proposals |
+| `bidder_name` | `bidder` column | Alex bidder field | all actor rows |
 
-Bidder type code mapping:
+Bidder type code mapping (for cross-check against internal artifacts when
+the CSV `type` column is `NA` on non-first-appearance rows):
 - strategic + private + domestic = `S`
 - financial + private + domestic = `F`
 - add `public` prefix if `listing_status=public`
@@ -296,7 +334,19 @@ Known Alex-side cleanup:
 
 Tolerances:
 - bid values: plus or minus $0.01
-- dates: exact match only
+- dates: precision-aware comparison using the pipeline's `date.precision`
+  field from the internal extraction artifact:
+  - `EXACT_DAY`: exact match only
+  - `MONTH_EARLY`, `MONTH_MID`, `MONTH_LATE`: Alex's date must fall
+    within the pipeline's `normalized_start` to `normalized_end` range
+  - `MONTH`: Alex's date must fall within the calendar month
+  - `QUARTER`: Alex's date must fall within the calendar quarter
+  - `RANGE`: Alex's date must fall within `normalized_start` to
+    `normalized_end`
+  - `RELATIVE`, `YEAR`, `UNKNOWN`: widen tolerance to +/- 30 days and
+    note the imprecision in the report
+  - When the CSV `date_p` is `NA` (imprecise date), use `date_r` for
+    matching and note the rough-date comparison in the report
 
 #### `Uncertain` handling
 
@@ -542,4 +592,8 @@ Print a concise summary:
 
 ## Gate
 
-`reconciliation_report.json` exists and `summary.status != "fail"`.
+`reconciliation_report.json` exists. The `summary.status` field is
+informational (`pass`, `warn`, or `fail`) and does NOT gate the pipeline.
+This is a diagnostic report for the researcher, not a pipeline stop
+condition. A `fail` status means the disagreement with Alex is large
+enough to warrant investigation, not that the pipeline output is wrong.
