@@ -346,6 +346,7 @@ BIDS_LLM_PROVIDER      — default: anthropic (anthropic|openai)
 BIDS_LLM_MODEL         — override model ID
 BIDS_LLM_REASONING_EFFORT — provider-specific reasoning effort
 BIDS_LLM_STRUCTURED_MODE  — prompted_json|provider_native|auto
+EDGAR_IDENTITY         — required for live SEC access during `skill-pipeline raw-fetch`; local value: Austin Li, University College London, junyu.li.24@ucl.ac.uk
 ```
 
 ## Active Deals
@@ -354,7 +355,7 @@ BIDS_LLM_STRUCTURED_MODE  — prompted_json|provider_native|auto
 
 ## Security & Configuration Tips
 
-Do not commit API keys or provider secrets. Use environment variables such as `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, `BIDS_LLM_PROVIDER`, and `BIDS_LLM_MODEL`. Treat canonical pipeline artifacts under `data/deals/` and skill workflow artifacts under `data/skill/` as generated outputs; only edit them intentionally and document why.
+Do not commit API keys or provider secrets. Use environment variables such as `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, `BIDS_LLM_PROVIDER`, `BIDS_LLM_MODEL`, and `EDGAR_IDENTITY`. For live SEC fetches on this machine, `EDGAR_IDENTITY` should be set to `Austin Li, University College London, junyu.li.24@ucl.ac.uk`. Treat canonical pipeline artifacts under `data/deals/` and skill workflow artifacts under `data/skill/` as generated outputs; only edit them intentionally and document why.
 
 You are my local Python agent.
 
