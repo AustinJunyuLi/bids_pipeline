@@ -192,7 +192,6 @@ def main(argv: Sequence[str] | None = None) -> int:
         print(json.dumps(result, indent=2))
         return 0
     if args.command == "source-discover":
-        from skill_pipeline.raw.stage import build_edgar_search_fn, fetch_raw_deal
         from skill_pipeline.raw.discover import build_raw_discovery_manifest
         from skill_pipeline.source.ranking import extract_cik_from_url
 
@@ -200,12 +199,10 @@ def main(argv: Sequence[str] | None = None) -> int:
         seeds_path = args.project_root / "data" / "seeds.csv"
         entry = load_seed_entry(args.deal, seeds_path=seeds_path)
         seed = _seed_entry_to_seed_deal(entry, run_id=run_id)
-        search_fn = build_edgar_search_fn(seed)
         discovery = build_raw_discovery_manifest(
             seed,
             run_id=run_id,
             cik=extract_cik_from_url(seed.primary_url_seed),
-            search_fn=search_fn,
         )
         print(discovery.model_dump_json(indent=2))
         return 0

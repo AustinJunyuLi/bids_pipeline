@@ -10,7 +10,6 @@ from skill_pipeline.source.ranking import (
     rank_filing_candidates,
     search_terms_for_form,
 )
-from skill_pipeline.source.supplementary import index_supplementary_snippets
 
 _atomic_write_text = atomic_write_text
 _atomic_write_json = atomic_write_json
@@ -31,7 +30,6 @@ __all__ = [
     "extract_cik_from_url",
     "fetch_filing_contents",
     "freeze_filing",
-    "index_supplementary_snippets",
     "load_filing_overrides",
     "locate_chronology",
     "parse_filing_date",

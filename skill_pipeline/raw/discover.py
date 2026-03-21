@@ -1,36 +1,11 @@
 from __future__ import annotations
 
-from collections.abc import Callable, Iterable
-from typing import Any
+import re
+from urllib.parse import urlparse
 
-from skill_pipeline.config import PRIMARY_FILING_TYPES, SUPPLEMENTARY_FILING_TYPES
 from skill_pipeline.pipeline_models.raw import RawDiscoveryManifest
 from skill_pipeline.pipeline_models.source import FilingCandidate, SeedDeal
-from skill_pipeline.source.discovery import FallbackLookupFn, SearchFn, search_candidates_with_fallback
-
-
-def collect_filing_candidates(
-    seed: SeedDeal,
-    *,
-    filing_types: Iterable[str],
-    filing_family: str,
-    search_fn: SearchFn,
-    fallback_lookup_fn: FallbackLookupFn | None = None,
-    top_k_per_form: int = 3,
-) -> list[FilingCandidate]:
-    candidates: list[FilingCandidate] = []
-    for filing_type in filing_types:
-        candidates.extend(
-            search_candidates_with_fallback(
-                seed,
-                filing_type=filing_type,
-                filing_family=filing_family,
-                search_fn=search_fn,
-                fallback_lookup_fn=fallback_lookup_fn,
-                top_k=top_k_per_form,
-            )
-        )
-    return _dedupe_candidates(candidates)
+from skill_pipeline.source.ranking import extract_cik_from_url
 
 
 def build_raw_discovery_manifest(
@@ -38,51 +13,62 @@ def build_raw_discovery_manifest(
     *,
     run_id: str,
     cik: str | None = None,
-    primary_filing_types: Iterable[str] = PRIMARY_FILING_TYPES,
-    supplementary_filing_types: Iterable[str] = SUPPLEMENTARY_FILING_TYPES,
-    search_fn: SearchFn,
-    fallback_lookup_fn: FallbackLookupFn | None = None,
-    top_k_per_form: int = 3,
 ) -> RawDiscoveryManifest:
-    primary_candidates = collect_filing_candidates(
-        seed,
-        filing_types=primary_filing_types,
-        filing_family="primary",
-        search_fn=search_fn,
-        fallback_lookup_fn=fallback_lookup_fn,
-        top_k_per_form=top_k_per_form,
-    )
-    supplementary_candidates = collect_filing_candidates(
-        seed,
-        filing_types=supplementary_filing_types,
-        filing_family="supplementary",
-        search_fn=search_fn,
-        fallback_lookup_fn=fallback_lookup_fn,
-        top_k_per_form=top_k_per_form,
-    )
+    candidate = _candidate_from_seed_url(seed)
     return RawDiscoveryManifest(
         run_id=run_id,
         deal_slug=seed.deal_slug,
         seed=seed,
-        cik=cik,
-        primary_candidates=primary_candidates,
-        supplementary_candidates=supplementary_candidates,
+        cik=cik if cik is not None else extract_cik_from_url(seed.primary_url_seed),
+        primary_candidates=[candidate],
+        supplementary_candidates=[],
+        fetch_scope="seed_only",
     )
 
 
-def _dedupe_candidates(candidates: list[FilingCandidate]) -> list[FilingCandidate]:
-    unique: dict[str, FilingCandidate] = {}
-    for candidate in sorted(candidates, key=_candidate_sort_key):
-        key = candidate.accession_number or candidate.document_id
-        unique.setdefault(key, candidate)
-    return list(unique.values())
-
-
-def _candidate_sort_key(candidate: FilingCandidate) -> tuple[Any, ...]:
-    ranking = candidate.ranking_features
-    return (
-        0 if ranking.get("seed_accession_match") else 1,
-        ranking.get("form_preference", float("inf")),
-        ranking.get("days_from_announcement", float("inf")),
-        candidate.accession_number or candidate.document_id,
+def _candidate_from_seed_url(seed: SeedDeal) -> FilingCandidate:
+    sec_url = seed.primary_url_seed
+    accession_number = _extract_unambiguous_accession(sec_url)
+    return FilingCandidate(
+        document_id=accession_number,
+        accession_number=accession_number,
+        filing_type="UNKNOWN",
+        sec_url=sec_url,
+        source_origin="seed_accession",
+        ranking_features={
+            "seed_accession_match": True,
+            "filing_family": "primary",
+        },
     )
+
+
+def _extract_unambiguous_accession(url: str | None) -> str:
+    if not url:
+        raise ValueError("primary_url is required and must be a standard SEC Archives filing URL")
+    if not _is_standard_sec_archives_url(url):
+        raise ValueError("primary_url must be a standard SEC Archives filing URL")
+
+    matches = re.findall(r"\d{10}-\d{2}-\d{6}|\d{18}", url)
+    normalized_matches = {_normalize_accession(match) for match in matches}
+    if len(normalized_matches) > 1:
+        raise ValueError("primary_url contains an ambiguous accession")
+    if not normalized_matches:
+        raise ValueError("primary_url must contain an unambiguous SEC accession")
+    return normalized_matches.pop()
+
+
+def _normalize_accession(value: str) -> str:
+    if re.fullmatch(r"\d{10}-\d{2}-\d{6}", value):
+        return value
+    if re.fullmatch(r"\d{18}", value):
+        return f"{value[:10]}-{value[10:12]}-{value[12:]}"
+    raise ValueError(f"Invalid accession format: {value}")
+
+
+def _is_standard_sec_archives_url(url: str) -> bool:
+    parsed = urlparse(url)
+    if parsed.scheme not in {"http", "https"}:
+        return False
+    if parsed.netloc not in {"sec.gov", "www.sec.gov"}:
+        return False
+    return parsed.path.startswith("/Archives/edgar/data/")

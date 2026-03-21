@@ -52,6 +52,10 @@ pipeline export --deal imprivata
 # Isolated skill workflow preflight / summary
 skill-pipeline deal-agent --deal imprivata
 
+# Seed-only skill workflow upstream stages
+skill-pipeline raw-fetch --deal imprivata
+skill-pipeline preprocess-source --deal imprivata
+
 # Deterministic skill-runtime stages used by the hybrid workflow
 skill-pipeline canonicalize --deal imprivata
 skill-pipeline check --deal imprivata
@@ -89,8 +93,16 @@ Use the canonical pipeline for deterministic runs, reproducible artifacts, and a
 ### Skill-Driven Hybrid Workflow
 
 The quick workflow is now a hybrid agent + deterministic flow after
-`pipeline raw fetch --deal <slug>` and `pipeline preprocess source --deal <slug>`
+`skill-pipeline raw-fetch --deal <slug>` and
+`skill-pipeline preprocess-source --deal <slug>`
 have already run.
+
+`skill-pipeline raw-fetch` and `skill-pipeline preprocess-source` are
+**seed-only** stages. They use the filing URL from `data/seeds.csv` as the only
+upstream filing source. They do not discover or preserve supplementary filings.
+If `raw/<slug>/discovery.json` or `raw/<slug>/document_registry.json` still come
+from an older multi-filing run, rerun `skill-pipeline raw-fetch --deal <slug>`
+before preprocess.
 
 #### Critical distinction for agents
 

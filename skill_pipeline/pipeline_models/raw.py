@@ -12,7 +12,7 @@ class RawDiscoveryManifest(ArtifactEnvelope):
     cik: str | None = None
     primary_candidates: list[FilingCandidate] = Field(default_factory=list)
     supplementary_candidates: list[FilingCandidate] = Field(default_factory=list)
-    fetch_scope: Literal["all_candidates"] = "all_candidates"
+    fetch_scope: Literal["all_candidates", "seed_only"] = "seed_only"
 
 
 class RawDocumentRegistry(ArtifactEnvelope):

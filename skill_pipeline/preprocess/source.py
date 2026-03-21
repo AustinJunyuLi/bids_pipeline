@@ -12,10 +12,6 @@ from skill_pipeline.pipeline_models.source import ChronologySelection, EvidenceI
 from skill_pipeline.source.blocks import build_chronology_blocks
 from skill_pipeline.source.evidence import scan_document_evidence
 from skill_pipeline.source.locate import select_chronology
-from skill_pipeline.source.supplementary import evidence_items_to_snippets
-
-
-CONFIDENCE_RANK = {"high": 0, "medium": 1, "low": 2, "none": 3}
 
 
 def preprocess_source_deal(
@@ -39,94 +35,70 @@ def preprocess_source_deal(
     }
     documents.update({document.document_id: document for document in registry.documents})
 
-    document_lines: dict[str, list[str]] = {}
-    primary_candidates = sorted(discovery.primary_candidates, key=_candidate_sort_key)
-    evaluations: list[tuple[FilingCandidate, FrozenDocument, ChronologySelection, list[str]]] = []
-    for candidate in primary_candidates:
-        document = _lookup_document(candidate, documents)
-        if document is None:
-            continue
-        lines = _load_lines(project_root, document, deal_slug=deal_slug, deals_dir=deals_dir)
-        if not lines:
-            continue
-        document_lines[document.document_id] = lines
-        selection = select_chronology(
+    if len(discovery.primary_candidates) != 1:
+        raise ValueError("Expected exactly one primary candidate in discovery.json")
+    if discovery.supplementary_candidates:
+        raise ValueError("supplementary_candidates must be empty under seed-only preprocess")
+    if len(registry.documents) != 1:
+        raise ValueError(
+            "document_registry.json must contain exactly one document under seed-only preprocess"
+        )
+
+    candidate = discovery.primary_candidates[0]
+    document = _lookup_document(candidate, documents)
+    if document is None:
+        raise ValueError("discovery candidate is missing from document_registry.json")
+
+    lines = _load_lines(project_root, document)
+    if not lines:
+        raise FileNotFoundError(f"No local raw primary filings available for {deal_slug}")
+
+    selection = select_chronology(
+        lines,
+        document_id=document.document_id,
+        accession_number=document.accession_number,
+        filing_type=document.filing_type,
+        run_id=run_id,
+        deal_slug=deal_slug,
+    )
+    blocks = build_chronology_blocks(lines, selection=selection)
+    evidence_items = _dedupe_evidence_items(
+        scan_document_evidence(
             lines,
             document_id=document.document_id,
             accession_number=document.accession_number,
             filing_type=document.filing_type,
-            run_id=run_id,
-            deal_slug=deal_slug,
         )
-        evaluations.append((candidate, document, selection, lines))
-
-    if not evaluations:
-        raise FileNotFoundError(f"No local raw primary filings available for {deal_slug}")
-
-    best_candidate, best_document, best_selection, best_lines = min(
-        evaluations,
-        key=lambda item: _selection_sort_key(item[2], item[0]),
     )
-
-    blocks = build_chronology_blocks(best_lines, selection=best_selection)
-
-    all_evidence_items: list[EvidenceItem] = []
-    all_candidates = [*discovery.primary_candidates, *discovery.supplementary_candidates]
-    seen_document_ids: set[str] = set()
-    for candidate in sorted(all_candidates, key=_candidate_sort_key):
-        document = _lookup_document(candidate, documents)
-        if document is None or document.document_id in seen_document_ids:
-            continue
-        seen_document_ids.add(document.document_id)
-        lines = document_lines.get(document.document_id)
-        if lines is None:
-            lines = _load_lines(project_root, document, deal_slug=deal_slug, deals_dir=deals_dir)
-            if not lines:
-                continue
-            document_lines[document.document_id] = lines
-        all_evidence_items.extend(
-            scan_document_evidence(
-                lines,
-                document_id=document.document_id,
-                accession_number=document.accession_number,
-                filing_type=document.filing_type,
-            )
-        )
-    all_evidence_items = _dedupe_evidence_items(all_evidence_items)
-    snippets = evidence_items_to_snippets([item for item in all_evidence_items if item.document_id != best_document.document_id])
 
     source_dir = deals_dir / deal_slug / "source"
     source_dir.mkdir(parents=True, exist_ok=True)
+    _remove_stale_source_artifacts(source_dir, registry.documents)
     _materialize_source_filings(project_root, source_dir, registry.documents)
-    _atomic_write_json(source_dir / "chronology_selection.json", best_selection.model_dump(mode="json"))
+    _atomic_write_json(source_dir / "chronology_selection.json", selection.model_dump(mode="json"))
     _atomic_write_jsonl(
         source_dir / "chronology_blocks.jsonl",
         [block.model_dump(mode="json") for block in blocks],
     )
     _atomic_write_jsonl(
         source_dir / "evidence_items.jsonl",
-        [item.model_dump(mode="json") for item in all_evidence_items],
-    )
-    _atomic_write_jsonl(
-        source_dir / "supplementary_snippets.jsonl",
-        [snippet.model_dump(mode="json") for snippet in snippets],
+        [item.model_dump(mode="json") for item in evidence_items],
     )
     _atomic_write_json(
         source_dir / "chronology.json",
-        _legacy_chronology_bookmark(best_document, best_selection),
+        _legacy_chronology_bookmark(document, selection),
     )
 
     return {
-        "selected_document_id": best_document.document_id,
-        "selected_accession_number": best_document.accession_number,
-        "confidence": best_selection.confidence,
-        "confidence_factors": best_selection.confidence_factors,
+        "selected_document_id": document.document_id,
+        "selected_accession_number": document.accession_number,
+        "confidence": selection.confidence,
+        "confidence_factors": selection.confidence_factors,
         "block_count": len(blocks),
-        "snippet_count": len(snippets),
-        "evidence_count": len(all_evidence_items),
-        "candidate_count": len(evaluations),
-        "top_primary_candidate_id": best_candidate.document_id,
-        "scanned_document_count": len(seen_document_ids),
+        "evidence_count": len(evidence_items),
+        "candidate_count": 1,
+        "top_primary_candidate_id": candidate.document_id,
+        "scanned_document_count": 1,
     }
 
 
@@ -142,51 +114,11 @@ def _lookup_document(
 def _load_lines(
     project_root: Path,
     document: FrozenDocument,
-    *,
-    deal_slug: str,
-    deals_dir: Path,
 ) -> list[str]:
-    candidate_paths = [project_root / document.txt_path]
-    accession_or_document = document.accession_number or document.document_id
-    candidate_paths.append(deals_dir / deal_slug / "source" / "filings" / f"{accession_or_document}.txt")
-    candidate_paths.append(deals_dir / deal_slug / "source" / "filings" / f"{document.document_id}.txt")
-    for path in candidate_paths:
-        if path.exists():
-            return path.read_text(encoding="utf-8").splitlines()
+    path = project_root / document.txt_path
+    if path.exists():
+        return path.read_text(encoding="utf-8").splitlines()
     return []
-
-
-def _candidate_sort_key(candidate: FilingCandidate) -> tuple[Any, ...]:
-    ranking = candidate.ranking_features
-    return (
-        0 if ranking.get("seed_accession_match") else 1,
-        ranking.get("form_preference", float("inf")),
-        ranking.get("days_from_announcement", float("inf")),
-        candidate.accession_number or candidate.document_id,
-    )
-
-
-def _selection_sort_key(
-    selection: ChronologySelection,
-    candidate: FilingCandidate,
-) -> tuple[Any, ...]:
-    confidence_factors = selection.confidence_factors or {}
-    ambiguity_risk = confidence_factors.get("ambiguity_risk", "high")
-    ambiguity_rank = {"low": 0, "medium": 1, "high": 2}.get(ambiguity_risk, 3)
-    coverage_assessment = confidence_factors.get("coverage_assessment", "short_uncertain")
-    coverage_rank = {
-        "full": 0,
-        "adequate": 1,
-        "short_but_probably_complete": 2,
-        "short_uncertain": 3,
-    }.get(coverage_assessment, 4)
-    return (
-        0 if selection.selected_candidate is not None else 1,
-        ambiguity_rank,
-        CONFIDENCE_RANK[selection.confidence],
-        coverage_rank,
-        _candidate_sort_key(candidate),
-    )
 
 
 def _legacy_chronology_bookmark(
@@ -221,6 +153,35 @@ def _dedupe_evidence_items(items: list[EvidenceItem]) -> list[EvidenceItem]:
         seen.add(key)
         deduped.append(item)
     return deduped
+
+
+def _remove_stale_source_artifacts(
+    source_dir: Path,
+    documents: list[FrozenDocument],
+) -> None:
+    stale_snippets_path = source_dir / "supplementary_snippets.jsonl"
+    if stale_snippets_path.exists():
+        stale_snippets_path.unlink()
+
+    filings_dir = source_dir / "filings"
+    if not filings_dir.exists():
+        return
+
+    expected_names: set[str] = set()
+    for document in documents:
+        aliases = {document.document_id}
+        if document.accession_number:
+            aliases.add(document.accession_number)
+        for alias in aliases:
+            expected_names.add(f"{alias}.txt")
+            if document.html_path:
+                expected_names.add(f"{alias}.html")
+            if document.md_path:
+                expected_names.add(f"{alias}.md")
+
+    for path in filings_dir.iterdir():
+        if path.is_file() and path.name not in expected_names:
+            path.unlink()
 
 
 def _materialize_source_filings(
