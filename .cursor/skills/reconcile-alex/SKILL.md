@@ -51,6 +51,7 @@ Before starting, confirm ALL of these exist:
 
 - `data/skill/<slug>/extract/actors_raw.json`
 - `data/skill/<slug>/extract/events_raw.json`
+- `data/skill/<slug>/extract/spans.json`
 - `data/skill/<slug>/export/deal_events.csv`
 - At least one of:
   - `data/skill/<slug>/enrich/enrichment.json`
@@ -280,7 +281,7 @@ For each matched pair, compare these fields when relevant:
 | `bid_type` | `enrichment.bid_classifications[event_id].label` | `bid_type` | proposals |
 | `dropout_subtype` | `enrichment.dropout_classifications[event_id].label` (normalize `DropBelowM` to `DropM`) | `bid_note` subtype | drops |
 | `bidder_type` | actor `bidder_kind` + `listing_status` + `geography` | `bidder_type_note` | NDAs / first bidder appearance |
-| `date_precise` | `date.normalized_hint` | `bid_date_precise` | all |
+| `date_precise` | `date.sort_date` (or `date.normalized_start` for ranges) | `bid_date_precise` | all |
 | `all_cash` | `terms.consideration_type == "cash"` | `all_cash` | proposals |
 
 Bidder type code mapping:
@@ -312,11 +313,13 @@ An `Uncertain` mismatch alone should never force `fail`.
 
 For each field mismatch:
 
-1. Resolve the pipeline event's `evidence_refs` to the relevant chronology block or evidence item.
-2. From the chronology block, recover `document_id`, `start_line`, and `end_line`.
-3. Use `document_registry.json` to resolve the correct filing `.txt` path.
-4. Read the filing passage with plus or minus 5 lines of context.
-5. Search for both the pipeline claim and Alex claim.
+1. Resolve the pipeline event's `evidence_span_ids` by looking up each span_id
+   in `data/skill/<slug>/extract/spans.json`. Each `SpanRecord` has
+   `document_id`, `start_line`, `end_line`, `block_ids`, and `anchor_text`.
+2. Use `document_registry.json` to resolve `document_id` to the correct
+   filing `.txt` path.
+3. Read the filing passage with plus or minus 5 lines of context.
+4. Search for both the pipeline claim and Alex claim.
 6. Record:
    - `filing_supports: "pipeline" | "alex" | "both" | "neither" | "inconclusive" | "no_evidence"`
    - a filing snippet
@@ -362,14 +365,16 @@ Use the current pipeline logic when explicit keywords are not enough.
   - compare the filing's drop language against earlier proposal values for that actor
   - do not rely on keywords alone
 
-If the event has no usable evidence refs, verdict is `no_evidence`.
+If the event has no usable `evidence_span_ids`, verdict is `no_evidence`.
 
 ### Step 8: Verify orphans and aggregate rows separately
 
 #### Pipeline-only atomic orphans
 
-These have evidence refs.
+These have `evidence_span_ids`.
 
+- look up each span_id in `spans.json` to get `document_id`, `start_line`,
+  `end_line`, and `anchor_text`
 - read the referenced filing passage
 - check whether `anchor_text` appears at EXACT or NORMALIZED match level
 - verdict: `grounded` or `ungrounded`
@@ -517,8 +522,9 @@ Print a concise summary:
 
 | File | Content |
 |---|---|
-| `data/skill/<slug>/extract/actors_raw.json` | Pipeline actors with names, types, and evidence refs |
-| `data/skill/<slug>/extract/events_raw.json` | Pipeline events with dates, amounts, and evidence refs |
+| `data/skill/<slug>/extract/actors_raw.json` | Pipeline actors with names, types, and evidence_span_ids |
+| `data/skill/<slug>/extract/events_raw.json` | Pipeline events with dates, amounts, and evidence_span_ids |
+| `data/skill/<slug>/extract/spans.json` | Resolved span registry (span_id → document_id, lines, anchor_text) |
 | `data/skill/<slug>/enrich/enrichment.json` | Full enrichment including bid and dropout classifications |
 | `data/skill/<slug>/enrich/deterministic_enrichment.json` | Fallback for bid classifications only |
 | `data/deals/<slug>/source/chronology_blocks.jsonl` | block_id to document_id and filing-line mapping |
