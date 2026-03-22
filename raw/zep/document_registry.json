@@ -1,0 +1,23 @@
+{
+  "schema_version": "2.0.0",
+  "artifact_type": "raw_document_registry",
+  "created_at": "2026-03-21T17:56:17.035212Z",
+  "pipeline_version": "0.1.0",
+  "run_id": "skill-4b8f3c08",
+  "deal_slug": "zep",
+  "documents": [
+    {
+      "document_id": "0001047469-15-004989",
+      "accession_number": "0001047469-15-004989",
+      "filing_type": "UNKNOWN",
+      "filing_date": null,
+      "html_path": "raw/zep/filings/0001047469-15-004989.html",
+      "txt_path": "raw/zep/filings/0001047469-15-004989.txt",
+      "md_path": null,
+      "sha256_txt": "89f756cf4ad569cfc451f9c7150bec6a2aa1a0f5a5746eb86f691fdabddfdd44",
+      "sha256_html": "47c30b0ad0f5f357608e6b2cb859b58f0947faac30559577bdc32e5c1205e99a",
+      "byte_count_txt": 691506,
+      "fetched_at": "2026-03-21T17:56:17.035178Z"
+    }
+  ]
+}

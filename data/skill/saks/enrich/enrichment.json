@@ -1,0 +1,76 @@
+{
+  "dropout_classifications": {
+    "evt_011": {
+      "label": "Drop",
+      "basis": "Sponsor G exited the process without a filing-stated value comparison or target exclusion.",
+      "source_text": "Saks was subsequently informed that Sponsor G was no longer participating in the process."
+    }
+  },
+  "bid_classifications": {
+    "evt_006": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_007": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_009": {
+      "label": "Formal",
+      "rule_applied": 2.0,
+      "basis": "Observable formal signal from formality_signals."
+    },
+    "evt_010": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_012": {
+      "label": "Formal",
+      "rule_applied": 2.0,
+      "basis": "Observable formal signal from formality_signals."
+    }
+  },
+  "rounds": [],
+  "cycles": [
+    {
+      "cycle_id": "cycle_1",
+      "start_event_id": "evt_001",
+      "end_event_id": "evt_015",
+      "boundary_basis": "Single cycle -- no termination events"
+    }
+  ],
+  "formal_boundary": {
+    "cycle_1": {
+      "event_id": "evt_009",
+      "basis": "First formal proposal per Rule 2 because Hudson's Bay submitted a revised draft merger agreement."
+    }
+  },
+  "initiation_judgment": {
+    "type": "bidder_driven",
+    "basis": "The sale process moved into an active transaction track only after unsolicited approaches from Sponsor A and Hudson's Bay.",
+    "source_text": "In February 2013, Stephen I. Sadove, Saks\u0092 Chairman and Chief Executive Officer, received an unsolicited phone call from a representative of a private equity firm, which we refer to as Sponsor A, expressing interest in a potential acquisition of Saks.",
+    "confidence": "medium"
+  },
+  "advisory_verification": {
+    "advisor_goldman_sachs": {
+      "advised_actor_id": "target_board",
+      "verified": true,
+      "source_text": "For the past several years, Goldman Sachs, one of Saks\u0092 longstanding financial advisors, has participated in these reviews."
+    },
+    "advisor_wachtell_lipton": {
+      "advised_actor_id": "target_board",
+      "verified": true,
+      "source_text": "On April 11, 2013, the Finance committee of the board and the Executive committee of the board held a special joint telephonic meeting attended by representatives of Goldman Sachs and Wachtell, Lipton, Rosen & Katz, referred to as Wachtell Lipton, Saks\u0092 external counsel."
+    },
+    "advisor_morgan_stanley": {
+      "advised_actor_id": "target_board",
+      "verified": true,
+      "source_text": "Also on July 26, 2013, the board held a special telephonic meeting attended by representatives of Goldman Sachs, Morgan Stanley & Co. LLC (a long-time advisor to Saks, referred to as \u0093 Morgan Stanley\u0094) and Wachtell Lipton."
+    }
+  },
+  "count_reconciliation": [],
+  "review_flags": []
+}

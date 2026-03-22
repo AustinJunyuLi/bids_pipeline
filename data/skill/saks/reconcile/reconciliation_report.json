@@ -1,0 +1,261 @@
+{
+  "deal_slug": "saks",
+  "target_name": "SAKS INC",
+  "pipeline_event_count": 16,
+  "alex_event_count": 25,
+  "aggregate_alex_count": 0,
+  "matched_count": 13,
+  "pipeline_only_count": 3,
+  "alex_only_count": 12,
+  "aggregate_rows": [],
+  "export_regressions": [],
+  "field_mismatches": [
+    {
+      "pipeline_event_id": "evt_006",
+      "alex_bidder_id": 7,
+      "match_detail": "proposal_L3",
+      "mismatches": [
+        {
+          "field": "date_rough",
+          "pipeline_value": "2013-06-01",
+          "alex_value": "2013-06-03",
+          "filing_supports": "both",
+          "arbitration_note": "Same month; date coding convention difference"
+        }
+      ]
+    },
+    {
+      "pipeline_event_id": "evt_007",
+      "alex_bidder_id": 8,
+      "match_detail": "proposal_L3",
+      "mismatches": [
+        {
+          "field": "date_rough",
+          "pipeline_value": "2013-06-01",
+          "alex_value": "2013-06-03",
+          "filing_supports": "both",
+          "arbitration_note": "Same month; date coding convention difference"
+        }
+      ]
+    },
+    {
+      "pipeline_event_id": "evt_011",
+      "alex_bidder_id": 14,
+      "match_detail": "drop_L2",
+      "mismatches": [
+        {
+          "field": "date_rough",
+          "pipeline_value": "2013-07-15",
+          "alex_value": null,
+          "filing_supports": "inconclusive"
+        }
+      ]
+    },
+    {
+      "pipeline_event_id": "evt_015",
+      "alex_bidder_id": 20,
+      "match_detail": "nda_L3",
+      "mismatches": [
+        {
+          "field": "date_rough",
+          "pipeline_value": null,
+          "alex_value": "2013-07-29",
+          "filing_supports": "inconclusive"
+        }
+      ]
+    },
+    {
+      "pipeline_event_id": "evt_001",
+      "alex_bidder_id": 0.5,
+      "match_detail": "bidder_interest_L4",
+      "mismatches": [
+        {
+          "field": "date_rough",
+          "pipeline_value": "2013-02-01",
+          "alex_value": "2013-02-15",
+          "filing_supports": "both",
+          "arbitration_note": "Same month; date coding convention difference"
+        },
+        {
+          "field": "bidder_type",
+          "pipeline_value": "F",
+          "alex_value": "NA",
+          "filing_supports": "inconclusive",
+          "arbitration_note": "Bidder type derivation methodology differs"
+        }
+      ]
+    },
+    {
+      "pipeline_event_id": "evt_013",
+      "alex_bidder_id": 19.5,
+      "match_detail": "executed_L1",
+      "mismatches": [
+        {
+          "field": "date_precise",
+          "pipeline_value": "2013-07-28",
+          "alex_value": null,
+          "filing_supports": "inconclusive"
+        }
+      ]
+    }
+  ],
+  "pipeline_only": [
+    {
+      "event_id": "evt_002",
+      "family": "bidder_interest",
+      "bidder": "Hudson's Bay",
+      "date": "2013-04-01",
+      "span_count": 2,
+      "verified_spans": 2,
+      "verdict": "grounded",
+      "note": null
+    },
+    {
+      "event_id": "evt_003",
+      "family": "target_sale",
+      "bidder": "",
+      "date": "2013-06-05",
+      "span_count": 1,
+      "verified_spans": 1,
+      "verdict": "grounded",
+      "note": null
+    },
+    {
+      "event_id": "evt_014",
+      "family": "bid_press_release",
+      "bidder": "Hudson's Bay",
+      "date": "2013-07-29",
+      "span_count": 1,
+      "verified_spans": 1,
+      "verdict": "grounded",
+      "note": null
+    }
+  ],
+  "alex_only": [
+    {
+      "alex_bidder_id": 0.3,
+      "family": "ib",
+      "bidder": "Goldman Sachs",
+      "date": "2012-12-15",
+      "bid_note": "IB",
+      "verdict": "likely_grounded",
+      "note": "Filing confirms Goldman Sachs as longstanding advisor with December 2012 review; pipeline does not extract ib_retention events"
+    },
+    {
+      "alex_bidder_id": 1,
+      "family": "proposal",
+      "bidder": "Hudson's Bay",
+      "date": "2013-04-15",
+      "bid_note": "NA",
+      "verdict": "likely_grounded",
+      "note": "Filing confirms April 15 meeting where HB indicated at-least-$15 interest; pipeline codes this as bidder_interest not proposal"
+    },
+    {
+      "alex_bidder_id": 2,
+      "family": "proposal",
+      "bidder": "Sponsor A",
+      "date": "2013-04-15",
+      "bid_note": "NA",
+      "verdict": "likely_grounded",
+      "note": "Filing confirms April 15 meeting where Sponsor A indicated at-least-$15 interest; pipeline codes this as part of bidder_interest narrative"
+    },
+    {
+      "alex_bidder_id": 3,
+      "family": "drop",
+      "bidder": "Sponsor A",
+      "date": "2013-04-26",
+      "bid_note": "Drop",
+      "verdict": "ungrounded",
+      "note": "Filing describes NDA signing on April 26 not a dropout; Sponsor A continued participating with Sponsor E"
+    },
+    {
+      "alex_bidder_id": 9,
+      "family": "final_round_ann",
+      "bidder": "NA",
+      "date": "2013-07-02",
+      "bid_note": "Final Round Ann",
+      "verdict": "likely_grounded",
+      "note": "Filing confirms July 2 draft merger agreement distribution with July 11 deadline; pipeline did not extract final_round_ann"
+    },
+    {
+      "alex_bidder_id": 10,
+      "family": "drop",
+      "bidder": "Sponsor A/E",
+      "date": "2013-07-07",
+      "bid_note": "Drop",
+      "verdict": "likely_grounded",
+      "note": "Filing: Sponsor A ceased primary participation in early July 2013; pipeline did not extract a separate Sponsor A/E drop"
+    },
+    {
+      "alex_bidder_id": 13.5,
+      "family": "final_round",
+      "bidder": "NA",
+      "date": "2013-07-02",
+      "bid_note": "Final Round",
+      "verdict": "likely_grounded",
+      "note": "Filing confirms July 11 as offer submission deadline; pipeline did not extract final_round event"
+    },
+    {
+      "alex_bidder_id": 15,
+      "family": "proposal",
+      "bidder": "Company H",
+      "date": "2013-07-21",
+      "bid_note": "NA",
+      "verdict": "likely_grounded",
+      "note": "Filing confirms Company H letter on July 21 for $2.6B; pipeline excluded Company H (no NDA, no follow-up); Alex comment suggests deletion"
+    },
+    {
+      "alex_bidder_id": 16,
+      "family": "drop",
+      "bidder": "Company H",
+      "date": null,
+      "bid_note": "Drop",
+      "verdict": "likely_grounded",
+      "note": "Company H never established contact after letter; pipeline excluded Company H entirely"
+    },
+    {
+      "alex_bidder_id": 17,
+      "family": "proposal",
+      "bidder": "Sponsor A/E",
+      "date": "2013-07-22",
+      "bid_note": "NA",
+      "verdict": "ungrounded",
+      "note": "Alex comment: 'Not a separate bid, should be deleted'; continuation of July 11 range, not new proposal; Alex comment suggests deletion"
+    },
+    {
+      "alex_bidder_id": 19,
+      "family": "drop",
+      "bidder": "Spnosor A/E",
+      "date": "2013-07-28",
+      "bid_note": "DropTarget",
+      "verdict": "likely_grounded",
+      "note": "Sponsor A/E implicitly dropped at merger execution July 28; pipeline did not extract explicit DropTarget"
+    },
+    {
+      "alex_bidder_id": 21,
+      "family": "drop",
+      "bidder": "Company I",
+      "date": "2013-09-06",
+      "bid_note": "Drop",
+      "verdict": "likely_grounded",
+      "note": "Filing confirms go-shop ended Sep 6 with no Company I proposal; pipeline did not extract separate drop for Company I"
+    }
+  ],
+  "summary": {
+    "status": "high_attention",
+    "match_rate": 0.52,
+    "matched_count": 13,
+    "pipeline_only_count": 3,
+    "alex_only_count": 12,
+    "pipeline_only_grounded": 3,
+    "pipeline_only_ungrounded": 0,
+    "alex_only_likely_grounded": 10,
+    "alex_only_ungrounded": 2,
+    "field_mismatch_count": 7,
+    "filing_supports_pipeline": 0,
+    "filing_supports_alex": 0,
+    "filing_supports_both": 3,
+    "filing_supports_inconclusive": 4,
+    "filing_supports_no_evidence": 0
+  }
+}

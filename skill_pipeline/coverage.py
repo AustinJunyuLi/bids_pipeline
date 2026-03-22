@@ -64,6 +64,12 @@ PROCESS_INITIATION_PHRASES = (
     "pursue strategic alternatives",
 )
 
+EXCLUSION_CATEGORY_TO_CUE_FAMILIES = {
+    "unsigned_nda": {"nda"},
+    "partial_company_bid": {"proposal", "bidder_interest"},
+    "stale_process_reference": {"process_initiation"},
+}
+
 
 @dataclass
 class CoverageCue:
@@ -172,9 +178,33 @@ def _block_ids_for_evidence(item: EvidenceItem, blocks: list[ChronologyBlock]) -
 
 
 def _cue_is_covered(cue: CoverageCue, artifacts: LoadedExtractArtifacts) -> bool:
+    if _cue_is_excluded(cue, artifacts):
+        return True
     if artifacts.mode == "legacy":
         return _cue_is_covered_legacy(cue, artifacts)
     return _cue_is_covered_canonical(cue, artifacts)
+
+
+def _cue_is_excluded(cue: CoverageCue, artifacts: LoadedExtractArtifacts) -> bool:
+    exclusions = (
+        artifacts.raw_events.exclusions
+        if artifacts.mode == "legacy"
+        else artifacts.events.exclusions
+    )
+    cue_block_ids = set(cue.block_ids)
+    for exclusion in exclusions:
+        if cue_block_ids.intersection(exclusion.block_ids) and _exclusion_applies_to_cue(
+            exclusion.category,
+            cue.cue_family,
+        ):
+            return True
+    return False
+
+
+def _exclusion_applies_to_cue(category: str, cue_family: str) -> bool:
+    if category in {"non_event_context", "duplicate_mention", "other"}:
+        return True
+    return cue_family in EXCLUSION_CATEGORY_TO_CUE_FAMILIES.get(category, set())
 
 
 def _cue_is_covered_legacy(cue: CoverageCue, artifacts: LoadedExtractArtifacts) -> bool:

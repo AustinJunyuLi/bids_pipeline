@@ -79,6 +79,22 @@ def test_generation_docs_state_benchmark_boundary_explicitly() -> None:
     )
 
 
+def test_generation_docs_forbid_opening_reconcile_skill_pre_export() -> None:
+    violations: list[str] = []
+    for path in GENERATION_DOCS:
+        text = _read(path).lower()
+        if "reconcile-alex" not in text:
+            violations.append(f"{path}: missing reconcile-alex reference")
+            continue
+        if "do not open" not in text and "do not read" not in text:
+            violations.append(f"{path}: missing do-not-open/do-not-read rule for reconcile-alex")
+
+    assert not violations, (
+        "Generation docs do not explicitly forbid opening reconcile-alex pre-export:\n"
+        + "\n".join(violations)
+    )
+
+
 def test_generation_docs_treat_export_as_repo_review_contract() -> None:
     violations: list[str] = []
     for path in GENERATION_DOCS:

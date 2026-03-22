@@ -59,3 +59,48 @@ Spec and plan docs also use old paths but CLAUDE.md warns about this.
 6. 4 skills, no audit theater
 7. Two-phase dropout classification
 8. Free-text comments + machine-readable review_flags
+
+---
+
+## Session: 2026-03-21 — Codebase Scan + STEC Reconciliation
+
+### Work Done
+
+1. **Full codebase scan** — deployed 5 parallel agents covering pipeline/, skill_pipeline/, tests/, data/, config/docs, and git history. Produced complete module maps and coverage analysis.
+
+2. **Deep skill_pipeline scan** — deployed 6 parallel agents for line-by-line analysis of all 34 Python modules:
+   - canonicalize.py: schema upgrade, dedup, NDA-gate, unnamed recovery
+   - verify.py + coverage.py: quote verification, cue families, matching logic
+   - check.py + enrich_core.py: structural gates, bid classification rules
+   - models.py + normalize/ + provenance.py: schemas, date parsing, quote matching
+   - raw/ + preprocess/ + source/: seed-only fetch, chronology location, evidence scanning
+   - cli.py + deal_agent.py + all 10 test files: CLI dispatch, test coverage gaps
+
+3. **STEC reconcile-alex** — ran `/reconcile-alex stec` end-to-end:
+   - Extracted 28 Alex rows from benchmark xlsx
+   - Matched 22 atomic events across families
+   - Status: `attention` (match rate ~85%)
+   - Key disagreements: bid_type on WDC's May 28 and Jun 14 proposals (pipeline=Informal, Alex=Formal — inconclusive, mixed filing signals)
+   - Alex-only: 2 DropTarget for partial-company exclusions (Company E, F), 2 informal round interpretations
+   - All pipeline orphans filing-grounded
+   - Report: `data/skill/stec/reconcile/reconciliation_report.json`
+
+### Issues Found (from deep scan)
+
+| # | Issue | Severity |
+|---|-------|----------|
+| 1 | NDA gate ignores temporal order | Medium |
+| 2 | Unresolved spans allowed in canonicalize output | Medium |
+| 3 | Empty anchor_text silently skipped in verify | Medium |
+| 4 | spans.json optional for canonical mode — defaults to empty | Medium |
+| 5 | Zero export test coverage | High |
+| 6 | First-match-wins cue classification in coverage | Low |
+| 7 | Dedup tiebreaker arbitrary on identical summaries | Low |
+
+### Current State
+
+- Branch: `baseline-check-summary` (8 commits ahead of main)
+- 19 modified tracked files (skills, CLAUDE.md, coverage.py, tests)
+- All 9 raw bundles untracked (seed-only, ready for preprocess)
+- Only `stec` fully compiled through export + reconcile
+- 8 deals need `skill-pipeline preprocess-source` before extraction

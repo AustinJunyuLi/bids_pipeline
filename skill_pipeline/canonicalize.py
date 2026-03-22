@@ -314,9 +314,6 @@ def _dedup_events(events: list[dict]) -> tuple[list[dict], dict[str, str]]:
 
 def _gate_drops_by_nda(events: list[dict]) -> tuple[list[dict], list[dict]]:
     nda_actors: set[str] = set()
-    for event in events:
-        if event["event_type"] == "nda":
-            nda_actors.update(event.get("actor_ids", []))
 
     kept: list[dict] = []
     gate_log: list[dict] = []
@@ -332,6 +329,8 @@ def _gate_drops_by_nda(events: list[dict]) -> tuple[list[dict], list[dict]]:
                     }
                 )
                 continue
+        if event["event_type"] == "nda":
+            nda_actors.update(event.get("actor_ids", []))
         kept.append(event)
     return kept, gate_log
 

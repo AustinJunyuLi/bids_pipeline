@@ -1,0 +1,606 @@
+{
+  "findings": [
+    {
+      "cue_family": "advisor",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "Medium-confidence advisor cue was not covered by extracted artifacts.",
+      "block_ids": [
+        "B002"
+      ],
+      "evidence_ids": [
+        "0001193125-13-390275:E0270"
+      ],
+      "matched_terms": [
+        "advisor",
+        "advisors",
+        "financial advisor"
+      ],
+      "confidence": "medium",
+      "suggested_event_types": [
+        "ib_retention"
+      ]
+    },
+    {
+      "cue_family": "advisor",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "High-confidence advisor cue was not covered by extracted artifacts.",
+      "block_ids": [
+        "B004"
+      ],
+      "evidence_ids": [
+        "0001193125-13-390275:E0273"
+      ],
+      "matched_terms": [
+        "meeting",
+        "requested"
+      ],
+      "confidence": "high",
+      "suggested_event_types": [
+        "ib_retention"
+      ]
+    },
+    {
+      "cue_family": "advisor",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "Medium-confidence advisor cue was not covered by extracted artifacts.",
+      "block_ids": [
+        "B004"
+      ],
+      "evidence_ids": [
+        "0001193125-13-390275:E0274"
+      ],
+      "matched_terms": [
+        "advisor",
+        "advisors"
+      ],
+      "confidence": "medium",
+      "suggested_event_types": [
+        "ib_retention"
+      ]
+    },
+    {
+      "cue_family": "bidder_interest",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "High-confidence bidder_interest cue was not covered by extracted artifacts.",
+      "block_ids": [
+        "B006"
+      ],
+      "evidence_ids": [
+        "0001193125-13-390275:E0276"
+      ],
+      "matched_terms": [
+        "discussed",
+        "meeting"
+      ],
+      "confidence": "high",
+      "suggested_event_types": [
+        "bidder_interest",
+        "bidder_sale"
+      ]
+    },
+    {
+      "cue_family": "bidder_interest",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "High-confidence bidder_interest cue was not covered by extracted artifacts.",
+      "block_ids": [
+        "B008"
+      ],
+      "evidence_ids": [
+        "0001193125-13-390275:E0277"
+      ],
+      "matched_terms": [
+        "discussed",
+        "meeting",
+        "sent"
+      ],
+      "confidence": "high",
+      "suggested_event_types": [
+        "bidder_interest",
+        "bidder_sale"
+      ]
+    },
+    {
+      "cue_family": "bidder_interest",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "High-confidence bidder_interest cue was not covered by extracted artifacts.",
+      "block_ids": [
+        "B013"
+      ],
+      "evidence_ids": [
+        "0001193125-13-390275:E0286"
+      ],
+      "matched_terms": [
+        "discussed",
+        "meeting",
+        "sent"
+      ],
+      "confidence": "high",
+      "suggested_event_types": [
+        "bidder_interest",
+        "bidder_sale"
+      ]
+    },
+    {
+      "cue_family": "advisor",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "Medium-confidence advisor cue was not covered by extracted artifacts.",
+      "block_ids": [
+        "B022"
+      ],
+      "evidence_ids": [
+        "0001193125-13-390275:E0300"
+      ],
+      "matched_terms": [
+        "engaged"
+      ],
+      "confidence": "medium",
+      "suggested_event_types": [
+        "ib_retention"
+      ]
+    },
+    {
+      "cue_family": "advisor",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "High-confidence advisor cue was not covered by extracted artifacts.",
+      "block_ids": [
+        "B027"
+      ],
+      "evidence_ids": [
+        "0001193125-13-390275:E0312"
+      ],
+      "matched_terms": [
+        "engaged",
+        "meeting",
+        "offer",
+        "sent",
+        "submitted"
+      ],
+      "confidence": "high",
+      "suggested_event_types": [
+        "ib_retention"
+      ]
+    },
+    {
+      "cue_family": "advisor",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "Medium-confidence advisor cue was not covered by extracted artifacts.",
+      "block_ids": [
+        "B027"
+      ],
+      "evidence_ids": [
+        "0001193125-13-390275:E0313"
+      ],
+      "matched_terms": [
+        "due diligence"
+      ],
+      "confidence": "medium",
+      "suggested_event_types": [
+        "ib_retention"
+      ]
+    },
+    {
+      "cue_family": "bidder_interest",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "Medium-confidence bidder_interest cue was not covered by extracted artifacts.",
+      "block_ids": [
+        "B032"
+      ],
+      "evidence_ids": [
+        "0001193125-13-390275:E0323"
+      ],
+      "matched_terms": [
+        "closing"
+      ],
+      "confidence": "medium",
+      "suggested_event_types": [
+        "bidder_interest",
+        "bidder_sale"
+      ]
+    },
+    {
+      "cue_family": "bidder_interest",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "High-confidence bidder_interest cue was not covered by extracted artifacts.",
+      "block_ids": [
+        "B035"
+      ],
+      "evidence_ids": [
+        "0001193125-13-390275:E0328"
+      ],
+      "matched_terms": [
+        "proposal",
+        "submitted"
+      ],
+      "confidence": "high",
+      "suggested_event_types": [
+        "bidder_interest",
+        "bidder_sale"
+      ]
+    },
+    {
+      "cue_family": "bidder_interest",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "High-confidence bidder_interest cue was not covered by extracted artifacts.",
+      "block_ids": [
+        "B035"
+      ],
+      "evidence_ids": [
+        "0001193125-13-390275:E0329"
+      ],
+      "matched_terms": [
+        "$14.50",
+        "$15.25 per share",
+        "$15.50 per share"
+      ],
+      "confidence": "high",
+      "suggested_event_types": [
+        "bidder_interest",
+        "bidder_sale"
+      ]
+    },
+    {
+      "cue_family": "bidder_interest",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "High-confidence bidder_interest cue was not covered by extracted artifacts.",
+      "block_ids": [
+        "B035"
+      ],
+      "evidence_ids": [
+        "0001193125-13-390275:E0330"
+      ],
+      "matched_terms": [
+        "draft merger agreement",
+        "due diligence"
+      ],
+      "confidence": "high",
+      "suggested_event_types": [
+        "bidder_interest",
+        "bidder_sale"
+      ]
+    },
+    {
+      "cue_family": "bidder_interest",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "High-confidence bidder_interest cue was not covered by extracted artifacts.",
+      "block_ids": [
+        "B035"
+      ],
+      "evidence_ids": [
+        "0001193125-13-390275:E0331"
+      ],
+      "matched_terms": [
+        "closing",
+        "merger agreement"
+      ],
+      "confidence": "high",
+      "suggested_event_types": [
+        "bidder_interest",
+        "bidder_sale"
+      ]
+    },
+    {
+      "cue_family": "bidder_interest",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "High-confidence bidder_interest cue was not covered by extracted artifacts.",
+      "block_ids": [
+        "B039",
+        "B040"
+      ],
+      "evidence_ids": [
+        "0001193125-13-390275:E0337"
+      ],
+      "matched_terms": [
+        "authorized",
+        "discussed",
+        "meeting",
+        "proposal",
+        "sent"
+      ],
+      "confidence": "high",
+      "suggested_event_types": [
+        "bidder_interest",
+        "bidder_sale"
+      ]
+    },
+    {
+      "cue_family": "bidder_interest",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "Medium-confidence bidder_interest cue was not covered by extracted artifacts.",
+      "block_ids": [
+        "B039",
+        "B040"
+      ],
+      "evidence_ids": [
+        "0001193125-13-390275:E0338"
+      ],
+      "matched_terms": [
+        "counsel",
+        "shareholder"
+      ],
+      "confidence": "medium",
+      "suggested_event_types": [
+        "bidder_interest",
+        "bidder_sale"
+      ]
+    },
+    {
+      "cue_family": "bidder_interest",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "Medium-confidence bidder_interest cue was not covered by extracted artifacts.",
+      "block_ids": [
+        "B044"
+      ],
+      "evidence_ids": [
+        "0001193125-13-390275:E0344"
+      ],
+      "matched_terms": [
+        "due diligence"
+      ],
+      "confidence": "medium",
+      "suggested_event_types": [
+        "bidder_interest",
+        "bidder_sale"
+      ]
+    },
+    {
+      "cue_family": "advisor",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "High-confidence advisor cue was not covered by extracted artifacts.",
+      "block_ids": [
+        "B048"
+      ],
+      "evidence_ids": [
+        "0001193125-13-390275:E0356"
+      ],
+      "matched_terms": [
+        "meeting",
+        "offer"
+      ],
+      "confidence": "high",
+      "suggested_event_types": [
+        "ib_retention"
+      ]
+    },
+    {
+      "cue_family": "advisor",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "Medium-confidence advisor cue was not covered by extracted artifacts.",
+      "block_ids": [
+        "B048"
+      ],
+      "evidence_ids": [
+        "0001193125-13-390275:E0357"
+      ],
+      "matched_terms": [
+        "$16 per share"
+      ],
+      "confidence": "medium",
+      "suggested_event_types": [
+        "ib_retention"
+      ]
+    },
+    {
+      "cue_family": "advisor",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "Medium-confidence advisor cue was not covered by extracted artifacts.",
+      "block_ids": [
+        "B048"
+      ],
+      "evidence_ids": [
+        "0001193125-13-390275:E0358"
+      ],
+      "matched_terms": [
+        "advisor",
+        "financial advisor"
+      ],
+      "confidence": "medium",
+      "suggested_event_types": [
+        "ib_retention"
+      ]
+    },
+    {
+      "cue_family": "advisor",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "Medium-confidence advisor cue was not covered by extracted artifacts.",
+      "block_ids": [
+        "B048"
+      ],
+      "evidence_ids": [
+        "0001193125-13-390275:E0359"
+      ],
+      "matched_terms": [
+        "draft merger agreement"
+      ],
+      "confidence": "medium",
+      "suggested_event_types": [
+        "ib_retention"
+      ]
+    },
+    {
+      "cue_family": "bidder_interest",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "High-confidence bidder_interest cue was not covered by extracted artifacts.",
+      "block_ids": [
+        "B049"
+      ],
+      "evidence_ids": [
+        "0001193125-13-390275:E0361"
+      ],
+      "matched_terms": [
+        "meeting",
+        "offer",
+        "sent"
+      ],
+      "confidence": "high",
+      "suggested_event_types": [
+        "bidder_interest",
+        "bidder_sale"
+      ]
+    },
+    {
+      "cue_family": "advisor",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "Medium-confidence advisor cue was not covered by extracted artifacts.",
+      "block_ids": [
+        "B054"
+      ],
+      "evidence_ids": [
+        "0001193125-13-390275:E0370"
+      ],
+      "matched_terms": [
+        "$16 per share"
+      ],
+      "confidence": "medium",
+      "suggested_event_types": [
+        "ib_retention"
+      ]
+    },
+    {
+      "cue_family": "advisor",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "Medium-confidence advisor cue was not covered by extracted artifacts.",
+      "block_ids": [
+        "B054"
+      ],
+      "evidence_ids": [
+        "0001193125-13-390275:E0371"
+      ],
+      "matched_terms": [
+        "advisor",
+        "advisors"
+      ],
+      "confidence": "medium",
+      "suggested_event_types": [
+        "ib_retention"
+      ]
+    },
+    {
+      "cue_family": "advisor",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "Medium-confidence advisor cue was not covered by extracted artifacts.",
+      "block_ids": [
+        "B054"
+      ],
+      "evidence_ids": [
+        "0001193125-13-390275:E0372"
+      ],
+      "matched_terms": [
+        "draft merger agreement"
+      ],
+      "confidence": "medium",
+      "suggested_event_types": [
+        "ib_retention"
+      ]
+    },
+    {
+      "cue_family": "advisor",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "High-confidence advisor cue was not covered by extracted artifacts.",
+      "block_ids": [
+        "B055"
+      ],
+      "evidence_ids": [
+        "0001193125-13-390275:E0374"
+      ],
+      "matched_terms": [
+        "authorized",
+        "meeting",
+        "proposal",
+        "sent"
+      ],
+      "confidence": "high",
+      "suggested_event_types": [
+        "ib_retention"
+      ]
+    },
+    {
+      "cue_family": "advisor",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "Medium-confidence advisor cue was not covered by extracted artifacts.",
+      "block_ids": [
+        "B055"
+      ],
+      "evidence_ids": [
+        "0001193125-13-390275:E0375"
+      ],
+      "matched_terms": [
+        "advisor",
+        "advisors",
+        "shareholder"
+      ],
+      "confidence": "medium",
+      "suggested_event_types": [
+        "ib_retention"
+      ]
+    },
+    {
+      "cue_family": "advisor",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "Medium-confidence advisor cue was not covered by extracted artifacts.",
+      "block_ids": [
+        "B056"
+      ],
+      "evidence_ids": [
+        "0001193125-13-390275:E0376"
+      ],
+      "matched_terms": [
+        "advisor",
+        "advisors"
+      ],
+      "confidence": "medium",
+      "suggested_event_types": [
+        "ib_retention"
+      ]
+    },
+    {
+      "cue_family": "bidder_interest",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "High-confidence bidder_interest cue was not covered by extracted artifacts.",
+      "block_ids": [
+        "B057"
+      ],
+      "evidence_ids": [
+        "0001193125-13-390275:E0378"
+      ],
+      "matched_terms": [
+        "discussed",
+        "meeting",
+        "met"
+      ],
+      "confidence": "high",
+      "suggested_event_types": [
+        "bidder_interest",
+        "bidder_sale"
+      ]
+    }
+  ]
+}

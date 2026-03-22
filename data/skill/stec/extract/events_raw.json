@@ -1,0 +1,1193 @@
+{
+  "events": [
+    {
+      "event_id": "evt_001",
+      "event_type": "target_sale",
+      "date": {
+        "raw_text": "fourth quarter of 2012",
+        "normalized_start": null,
+        "normalized_end": null,
+        "sort_date": null,
+        "precision": "unknown",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": "Unable to parse date deterministically.",
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "target_board"
+      ],
+      "summary": "sTec's board began a formal review of strategic alternatives, including a potential sale and market check.",
+      "evidence_span_ids": [
+        "span_0014"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_002",
+      "event_type": "bidder_interest",
+      "date": {
+        "raw_text": "November 14, 2012",
+        "normalized_start": "2012-11-14",
+        "normalized_end": "2012-11-14",
+        "sort_date": "2012-11-14",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_company_a"
+      ],
+      "summary": "Company A's banker requested a preliminary meeting and circulated a draft NDA for a possible business transaction, but the meeting was cancelled.",
+      "evidence_span_ids": [
+        "span_0015"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": [
+        "The planned meeting was cancelled because Company A management had not demonstrated involvement."
+      ]
+    },
+    {
+      "event_id": "evt_003",
+      "event_type": "activist_sale",
+      "date": {
+        "raw_text": "December 6, 2012",
+        "normalized_start": "2012-12-06",
+        "normalized_end": "2012-12-06",
+        "sort_date": "2012-12-06",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "activist_balch_hill"
+      ],
+      "summary": "Balch Hill publicly urged the board to reduce costs and explore strategic alternatives.",
+      "evidence_span_ids": [
+        "span_0016"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_004",
+      "event_type": "target_sale",
+      "date": {
+        "raw_text": "February 13, 2013",
+        "normalized_start": "2013-02-13",
+        "normalized_end": "2013-02-13",
+        "sort_date": "2013-02-13",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "target_board"
+      ],
+      "summary": "The board formed a special committee to review strategic alternatives, including a possible sale of the company.",
+      "evidence_span_ids": [
+        "span_0001"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_005",
+      "event_type": "bidder_interest",
+      "date": {
+        "raw_text": "February 13, 2013",
+        "normalized_start": "2013-02-13",
+        "normalized_end": "2013-02-13",
+        "sort_date": "2013-02-13",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_company_b"
+      ],
+      "summary": "Company B's president said he intended to present sTec as a possible acquisition target to Company B management.",
+      "evidence_span_ids": [
+        "span_0017"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_006",
+      "event_type": "bidder_interest",
+      "date": {
+        "raw_text": "mid-March, 2013",
+        "normalized_start": null,
+        "normalized_end": null,
+        "sort_date": null,
+        "precision": "unknown",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": "Unable to parse date deterministically.",
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_company_d"
+      ],
+      "summary": "Company D contacted sTec to express interest in exploring an acquisition of the company.",
+      "evidence_span_ids": [
+        "span_0018"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_007",
+      "event_type": "ib_retention",
+      "date": {
+        "raw_text": "March 28, 2013",
+        "normalized_start": "2013-03-28",
+        "normalized_end": "2013-03-28",
+        "sort_date": "2013-03-28",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "advisor_bofa_merrill_lynch"
+      ],
+      "summary": "sTec formally engaged BofA Merrill Lynch as its financial advisor for the strategic review.",
+      "evidence_span_ids": [
+        "span_0011"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_008",
+      "event_type": "nda",
+      "date": {
+        "raw_text": "April 4, 2013",
+        "normalized_start": "2013-04-04",
+        "normalized_end": "2013-04-04",
+        "sort_date": "2013-04-04",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_company_e"
+      ],
+      "summary": "sTec entered into a non-disclosure agreement with Company E.",
+      "evidence_span_ids": [
+        "span_0019"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": [
+        "The agreement included a continuing don't-ask-don't-waive provision."
+      ]
+    },
+    {
+      "event_id": "evt_009",
+      "event_type": "nda",
+      "date": {
+        "raw_text": "April 10, 2013",
+        "normalized_start": "2013-04-10",
+        "normalized_end": "2013-04-10",
+        "sort_date": "2013-04-10",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_company_d"
+      ],
+      "summary": "sTec entered into a non-disclosure agreement with Company D.",
+      "evidence_span_ids": [
+        "span_0020"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": []
+    },
+    {
+      "event_id": "evt_010",
+      "event_type": "nda",
+      "date": {
+        "raw_text": "April 11, 2013",
+        "normalized_start": "2013-04-11",
+        "normalized_end": "2013-04-11",
+        "sort_date": "2013-04-11",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_company_f"
+      ],
+      "summary": "sTec entered into a non-disclosure agreement with Company F.",
+      "evidence_span_ids": [
+        "span_0021"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": [
+        "The agreement included a continuing don't-ask-don't-waive provision."
+      ]
+    },
+    {
+      "event_id": "evt_011",
+      "event_type": "nda",
+      "date": {
+        "raw_text": "April 17, 2013",
+        "normalized_start": "2013-04-17",
+        "normalized_end": "2013-04-17",
+        "sort_date": "2013-04-17",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_company_g"
+      ],
+      "summary": "sTec entered into a non-disclosure agreement with Company G.",
+      "evidence_span_ids": [
+        "span_0022"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": []
+    },
+    {
+      "event_id": "evt_012",
+      "event_type": "nda",
+      "date": {
+        "raw_text": "April 17, 2013",
+        "normalized_start": "2013-04-17",
+        "normalized_end": "2013-04-17",
+        "sort_date": "2013-04-17",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_wdc"
+      ],
+      "summary": "sTec amended its existing non-disclosure agreement with WDC while the sale process was active.",
+      "evidence_span_ids": [
+        "span_0023"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": [
+        "The filing refers to an addendum to an existing NDA rather than the original execution date."
+      ]
+    },
+    {
+      "event_id": "evt_013",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "April 23, 2013",
+        "normalized_start": "2013-04-23",
+        "normalized_end": "2013-04-23",
+        "sort_date": "2013-04-23",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_company_d"
+      ],
+      "summary": "Company D gave a verbal preliminary valuation indication above $5.60 per share and described additional diligence needs.",
+      "evidence_span_ids": [
+        "span_0024"
+      ],
+      "terms": {
+        "per_share": null,
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": null
+      },
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": true,
+        "mentions_preliminary": false,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": false,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": [
+        "The filing states only that the value was greater than $5.60 per share."
+      ]
+    },
+    {
+      "event_id": "evt_014",
+      "event_type": "bidder_interest",
+      "date": {
+        "raw_text": "May 1, 2013",
+        "normalized_start": "2013-05-01",
+        "normalized_end": "2013-05-01",
+        "sort_date": "2013-05-01",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_company_h"
+      ],
+      "summary": "Company H contacted BofA Merrill Lynch to express interest in a potential transaction with sTec.",
+      "evidence_span_ids": [
+        "span_0009"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_015",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "May 3, 2013",
+        "normalized_start": "2013-05-03",
+        "normalized_end": "2013-05-03",
+        "sort_date": "2013-05-03",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_wdc"
+      ],
+      "summary": "WDC submitted an initial written cash proposal in the range of $6.60 to $7.10 per share.",
+      "evidence_span_ids": [
+        "span_0025"
+      ],
+      "terms": {
+        "per_share": null,
+        "range_low": "6.60",
+        "range_high": "7.10",
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": true,
+        "mentions_indication_of_interest": true,
+        "mentions_preliminary": false,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": false,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_016",
+      "event_type": "drop",
+      "date": {
+        "raw_text": "May 3, 2013",
+        "normalized_start": "2013-05-03",
+        "normalized_end": "2013-05-03",
+        "sort_date": "2013-05-03",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_company_g"
+      ],
+      "summary": "Company G exited the process without submitting a written indication of interest.",
+      "evidence_span_ids": [
+        "span_0026"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": "Company G indicated it would not continue in the process.",
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_017",
+      "event_type": "nda",
+      "date": {
+        "raw_text": "May 8, 2013",
+        "normalized_start": "2013-05-08",
+        "normalized_end": "2013-05-08",
+        "sort_date": "2013-05-08",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_company_h"
+      ],
+      "summary": "sTec entered into a non-disclosure agreement with Company H.",
+      "evidence_span_ids": [
+        "span_0027"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": [
+        "The agreement included a continuing don't-ask-don't-waive provision."
+      ]
+    },
+    {
+      "event_id": "evt_018",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "May 10, 2013",
+        "normalized_start": "2013-05-10",
+        "normalized_end": "2013-05-10",
+        "sort_date": "2013-05-10",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_company_d"
+      ],
+      "summary": "Company D submitted a written non-binding cash indication at $5.75 per share and attached a draft exclusivity agreement.",
+      "evidence_span_ids": [
+        "span_0028"
+      ],
+      "terms": {
+        "per_share": "5.75",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": true,
+        "mentions_preliminary": false,
+        "mentions_non_binding": true,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": false,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": [
+        "The attached draft was an exclusivity agreement, not a merger agreement."
+      ]
+    },
+    {
+      "event_id": "evt_019",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "May 15, 2013",
+        "normalized_start": "2013-05-15",
+        "normalized_end": "2013-05-15",
+        "sort_date": "2013-05-15",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_company_h"
+      ],
+      "summary": "Company H submitted a written non-binding cash range of $5.00 to $5.75 per share.",
+      "evidence_span_ids": [
+        "span_0029"
+      ],
+      "terms": {
+        "per_share": null,
+        "range_low": "5.00",
+        "range_high": "5.75",
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": true,
+        "mentions_indication_of_interest": true,
+        "mentions_preliminary": false,
+        "mentions_non_binding": true,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": false,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_020",
+      "event_type": "final_round_ann",
+      "date": {
+        "raw_text": "May 16, 2013",
+        "normalized_start": "2013-05-16",
+        "normalized_end": "2013-05-16",
+        "sort_date": "2013-05-16",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "target_board"
+      ],
+      "summary": "sTec launched a final round by sending WDC and Company D draft merger agreements and requiring responses by May 28.",
+      "evidence_span_ids": [
+        "span_0030"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": "formal",
+      "invited_actor_ids": [
+        "bidder_wdc",
+        "bidder_company_d"
+      ],
+      "deadline_date": {
+        "raw_text": "May 28, 2013",
+        "normalized_start": "2013-05-28",
+        "normalized_end": "2013-05-28",
+        "sort_date": "2013-05-28",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_021",
+      "event_type": "drop",
+      "date": {
+        "raw_text": "May 23, 2013",
+        "normalized_start": "2013-05-23",
+        "normalized_end": "2013-05-23",
+        "sort_date": "2013-05-23",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_company_h"
+      ],
+      "summary": "Company H stayed interested but was unwilling to increase its price range and did not advance further.",
+      "evidence_span_ids": [
+        "span_0031"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": "Company H remained interested in a potential acquisition of the company but was not able to increase its indicated value range.",
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_022",
+      "event_type": "final_round",
+      "date": {
+        "raw_text": "May 28, 2013",
+        "normalized_start": "2013-05-28",
+        "normalized_end": "2013-05-28",
+        "sort_date": "2013-05-28",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "target_board"
+      ],
+      "summary": "Responses to sTec's final round process letters were due on May 28, 2013.",
+      "evidence_span_ids": [
+        "span_0032"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": "formal",
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_023",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "May 28, 2013",
+        "normalized_start": "2013-05-28",
+        "normalized_end": "2013-05-28",
+        "sort_date": "2013-05-28",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_wdc"
+      ],
+      "summary": "WDC submitted a $9.15 per share cash proposal with a mark-up of the merger agreement and drafts of ancillary agreements.",
+      "evidence_span_ids": [
+        "span_0033"
+      ],
+      "terms": {
+        "per_share": "9.15",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": false,
+        "mentions_preliminary": false,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": true,
+        "requested_binding_offer_via_process_letter": true,
+        "after_final_round_announcement": true,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": [
+        "The proposal contemplated signing definitive documentation by June 3, 2013."
+      ]
+    },
+    {
+      "event_id": "evt_024",
+      "event_type": "drop",
+      "date": {
+        "raw_text": "May 31, 2013",
+        "normalized_start": "2013-05-31",
+        "normalized_end": "2013-05-31",
+        "sort_date": "2013-05-31",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_wdc"
+      ],
+      "summary": "WDC halted the transaction after the board had chosen to proceed on its $9.15 terms.",
+      "evidence_span_ids": [
+        "span_0034"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": "WDC was reevaluating its interest in acquiring sTec and was not prepared to move forward with a transaction at that time.",
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_025",
+      "event_type": "drop",
+      "date": {
+        "raw_text": "June 5, 2013",
+        "normalized_start": "2013-06-05",
+        "normalized_end": "2013-06-05",
+        "sort_date": "2013-06-05",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_company_d"
+      ],
+      "summary": "Company D disengaged because it could not actively continue due diligence for more than two weeks.",
+      "evidence_span_ids": [
+        "span_0035"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": "Company D would not be in a position to actively conduct due diligence for more than two weeks and was disengaging from the process.",
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_026",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "June 10, 2013",
+        "normalized_start": "2013-06-10",
+        "normalized_end": "2013-06-10",
+        "sort_date": "2013-06-10",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_wdc"
+      ],
+      "summary": "WDC returned with a lower written cash range of $6.60 to $7.10 per share while keeping the other transaction terms from May 28.",
+      "evidence_span_ids": [
+        "span_0036"
+      ],
+      "terms": {
+        "per_share": null,
+        "range_low": "6.60",
+        "range_high": "7.10",
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": true,
+        "mentions_indication_of_interest": true,
+        "mentions_preliminary": false,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": true,
+        "after_final_round_deadline": true,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": [
+        "WDC stated it was otherwise prepared to move forward on the transaction terms previously proposed on May 28, 2013."
+      ]
+    },
+    {
+      "event_id": "evt_027",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "June 14, 2013",
+        "normalized_start": "2013-06-14",
+        "normalized_end": "2013-06-14",
+        "sort_date": "2013-06-14",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_wdc"
+      ],
+      "summary": "WDC submitted a $6.85 per share cash offer as its best and final price and said it could announce a transaction on June 24.",
+      "evidence_span_ids": [
+        "span_0037"
+      ],
+      "terms": {
+        "per_share": "6.85",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": false,
+        "mentions_preliminary": false,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": true,
+        "after_final_round_announcement": true,
+        "after_final_round_deadline": true,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": [
+        "WDC stated that $6.85 per share was its best and final price and otherwise on the transaction terms previously proposed on May 28, 2013."
+      ]
+    },
+    {
+      "event_id": "evt_028",
+      "event_type": "executed",
+      "date": {
+        "raw_text": "June 23, 2013",
+        "normalized_start": "2013-06-23",
+        "normalized_end": "2013-06-23",
+        "sort_date": "2013-06-23",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_wdc"
+      ],
+      "summary": "sTec, WDC, and Merger Sub executed the merger agreement.",
+      "evidence_span_ids": [
+        "span_0038"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": "bidder_wdc",
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_029",
+      "event_type": "bid_press_release",
+      "date": {
+        "raw_text": "June 24, 2013",
+        "normalized_start": "2013-06-24",
+        "normalized_end": "2013-06-24",
+        "sort_date": "2013-06-24",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_wdc"
+      ],
+      "summary": "WDC and sTec publicly announced the signed transaction.",
+      "evidence_span_ids": [
+        "span_0039"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    }
+  ],
+  "exclusions": [
+    {
+      "category": "partial_company_bid",
+      "block_ids": [
+        "B024",
+        "B037",
+        "B096"
+      ],
+      "explanation": "Company C and, later, Companies E and F were discussed only as buyers of selected assets rather than whole-company acquirers, so they are excluded from whole-company proposal and drop events."
+    },
+    {
+      "category": "unsigned_nda",
+      "block_ids": [
+        "B008",
+        "B028",
+        "B046"
+      ],
+      "explanation": "These blocks describe draft or proposed non-disclosure agreements that were sent before execution, not signed NDAs."
+    },
+    {
+      "category": "non_event_context",
+      "block_ids": [
+        "B041",
+        "B096",
+        "B097"
+      ],
+      "explanation": "These blocks discuss existing confidentiality arrangements or diligence concerns in process-management context rather than recording new NDA events."
+    },
+    {
+      "category": "other",
+      "block_ids": [
+        "B010",
+        "B037"
+      ],
+      "explanation": "These blocks describe declined advisor engagements or partial-asset interest that should not produce bidder drop events in the whole-company sale extract."
+    },
+    {
+      "category": "stale_process_reference",
+      "block_ids": [
+        "B005"
+      ],
+      "explanation": "The 2011 and summer-2012 WDC conversations predated the active strategic review and involved no proposed transaction terms or follow-up until 2013."
+    },
+    {
+      "category": "duplicate_mention",
+      "block_ids": [
+        "B070"
+      ],
+      "explanation": "This block repeats the May 29 board direction and does not add a new round event beyond the final-round process already captured from B064."
+    }
+  ],
+  "coverage_notes": [
+    "target_sale: extracted (evt_001, evt_004)",
+    "target_sale_public: NOT FOUND -- no public sale-process announcement before signing",
+    "bidder_sale: NOT FOUND -- no bidder-led auction separate from the board's strategic review",
+    "bidder_interest: extracted (evt_002, evt_005, evt_006, evt_014)",
+    "activist_sale: extracted (evt_003)",
+    "sale_press_release: NOT FOUND -- no stand-alone strategic-review press release before signing",
+    "bid_press_release: extracted (evt_029)",
+    "ib_retention: extracted (evt_007)",
+    "nda: extracted (evt_008, evt_009, evt_010, evt_011, evt_012, evt_017)",
+    "proposal: extracted (evt_013, evt_015, evt_018, evt_019, evt_023, evt_026, evt_027)",
+    "drop: extracted (evt_016, evt_021, evt_024, evt_025)",
+    "final_round_inf_ann: NOT FOUND -- the filing describes a formal final round rather than an informal round",
+    "final_round_inf: NOT FOUND -- no informal-round deadline extracted",
+    "final_round_ann: extracted (evt_020)",
+    "final_round: extracted (evt_022)",
+    "final_round_ext_ann: NOT FOUND -- no extension round announcement extracted",
+    "final_round_ext: NOT FOUND -- no extension round deadline extracted",
+    "executed: extracted (evt_028)",
+    "terminated: NOT FOUND -- the process culminated in a signed merger rather than a terminated sale process",
+    "restarted: NOT FOUND -- no terminated-and-restarted company sale cycle was described"
+  ]
+}

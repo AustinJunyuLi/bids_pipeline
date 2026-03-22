@@ -215,6 +215,21 @@ def test_nda_gate_preserves_drop_with_prior_nda(tmp_path: Path) -> None:
     assert len(result["events"]) == 3
 
 
+def test_nda_gate_removes_drop_when_nda_occurs_later(tmp_path: Path) -> None:
+    events = [
+        _evt("evt_001", "drop", actor_ids=["bidder_a"], date="2016-06-03"),
+        _evt("evt_002", "nda", actor_ids=["bidder_a"], date="2016-06-04"),
+        _evt("evt_003", "executed", actor_ids=["bidder_a"], date="2016-07-13"),
+    ]
+    _write_canon_fixture(tmp_path, events=events)
+    run_canonicalize("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    result = json.loads(paths.events_raw_path.read_text(encoding="utf-8"))
+
+    assert len(result["events"]) == 2
+    assert not any(e["event_id"] == "evt_001" for e in result["events"])
+
+
 def test_recover_unnamed_party_from_count_gap(tmp_path: Path) -> None:
     actors_payload = {
         "actors": [

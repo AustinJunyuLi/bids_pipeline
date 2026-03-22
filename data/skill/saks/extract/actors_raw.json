@@ -1,0 +1,194 @@
+{
+  "actors": [
+    {
+      "actor_id": "target_board",
+      "display_name": "Saks Board",
+      "canonical_name": "BOARD OF DIRECTORS OF SAKS INC",
+      "aliases": [
+        "board",
+        "Finance committee"
+      ],
+      "role": "target_board",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0001"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_hudsons_bay",
+      "display_name": "Hudson's Bay",
+      "canonical_name": "HUDSON'S BAY COMPANY",
+      "aliases": [
+        "Hudson's Bay"
+      ],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": "public",
+      "geography": "non_us",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0002"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_sponsor_a",
+      "display_name": "Sponsor A",
+      "canonical_name": "SPONSOR A",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": "private",
+      "geography": "domestic",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0003"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_sponsor_e",
+      "display_name": "Sponsor E",
+      "canonical_name": "SPONSOR E",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": "private",
+      "geography": "domestic",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0004"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_sponsor_g",
+      "display_name": "Sponsor G",
+      "canonical_name": "SPONSOR G",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": "private",
+      "geography": "domestic",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0005"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_i",
+      "display_name": "Company I",
+      "canonical_name": "COMPANY I",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": "domestic",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0006"
+      ],
+      "notes": [
+        "Post-signing go-shop participant."
+      ]
+    },
+    {
+      "actor_id": "advisor_goldman_sachs",
+      "display_name": "Goldman Sachs",
+      "canonical_name": "GOLDMAN, SACHS & CO.",
+      "aliases": [
+        "Goldman Sachs"
+      ],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "target_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0007",
+        "span_0008"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_wachtell_lipton",
+      "display_name": "Wachtell Lipton",
+      "canonical_name": "WACHTELL, LIPTON, ROSEN & KATZ",
+      "aliases": [
+        "Wachtell, Lipton, Rosen & Katz",
+        "Wachtell Lipton"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": "target_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0009",
+        "span_0010"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_morgan_stanley",
+      "display_name": "Morgan Stanley",
+      "canonical_name": "MORGAN STANLEY & CO. LLC",
+      "aliases": [
+        "Morgan Stanley"
+      ],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "target_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0011",
+        "span_0012"
+      ],
+      "notes": []
+    }
+  ],
+  "count_assertions": [],
+  "unresolved_mentions": []
+}

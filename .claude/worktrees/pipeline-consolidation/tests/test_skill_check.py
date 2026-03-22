@@ -1,0 +1,250 @@
+"""Tests for the deterministic check stage."""
+
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+import pytest
+
+from skill_pipeline import cli
+from skill_pipeline.check import run_check
+from skill_pipeline.paths import build_skill_paths
+
+
+def _resolved_date(raw_text: str, sort_date: str) -> dict[str, object]:
+    return {
+        "raw_text": raw_text,
+        "normalized_start": sort_date,
+        "normalized_end": sort_date,
+        "sort_date": sort_date,
+        "precision": "exact_day",
+        "anchor_event_id": None,
+        "anchor_span_id": None,
+        "resolution_note": None,
+        "is_inferred": False,
+    }
+
+
+def _write_check_fixture(
+    tmp_path: Path,
+    *,
+    slug: str = "imprivata",
+    bidder_kind: str | None = "financial",
+    proposal_terms: bool = True,
+    proposal_formality_signals: bool = True,
+    anchor_text: str = "indication of interest",
+) -> None:
+    """Write minimal materialized artifacts for check tests.
+
+    One bidder actor + one proposal event. Parameters control what to omit
+    for each test scenario.
+    """
+    data_dir = tmp_path / "data"
+    deals_source_dir = data_dir / "deals" / slug / "source"
+    raw_dir = tmp_path / "raw" / slug
+    skill_root = data_dir / "skill" / slug
+    materialize_dir = skill_root / "materialize"
+
+    deals_source_dir.mkdir(parents=True, exist_ok=True)
+    raw_dir.mkdir(parents=True, exist_ok=True)
+    materialize_dir.mkdir(parents=True, exist_ok=True)
+
+    (data_dir / "seeds.csv").write_text(
+        (
+            "deal_slug,target_name,acquirer,date_announced,primary_url,is_reference\n"
+            f"{slug},IMPRIVATA INC,THOMA BRAVO LLC,2016-07-13,https://example.com,false\n"
+        ),
+        encoding="utf-8",
+    )
+    (deals_source_dir / "chronology_blocks.jsonl").write_text("{}\n", encoding="utf-8")
+    (deals_source_dir / "evidence_items.jsonl").write_text("{}\n", encoding="utf-8")
+    (raw_dir / "document_registry.json").write_text("{}", encoding="utf-8")
+
+    actors_payload = {
+        "actors": [
+            {
+                "actor_id": "party_a",
+                "display_name": "Party A",
+                "canonical_name": "PARTY A",
+                "aliases": [],
+                "role": "bidder",
+                "advisor_kind": None,
+                "advised_actor_id": None,
+                "bidder_kind": bidder_kind,
+                "listing_status": "private",
+                "geography": "domestic",
+                "is_grouped": False,
+                "group_size": None,
+                "group_label": None,
+                "evidence_span_ids": ["span_actor"],
+                "notes": [],
+            }
+        ],
+        "count_assertions": [],
+        "unresolved_mentions": [],
+    }
+
+    proposal_event = {
+        "event_id": "evt_002",
+        "event_type": "proposal",
+        "date": _resolved_date("July 5, 2016", "2016-07-05"),
+        "actor_ids": ["party_a"],
+        "summary": "Party A submitted an indication of interest.",
+        "evidence_span_ids": ["span_event"],
+        "terms": (
+            {
+                "per_share": 25.0,
+                "range_low": None,
+                "range_high": None,
+                "enterprise_value": None,
+                "consideration_type": "cash",
+            }
+            if proposal_terms
+            else None
+        ),
+        "formality_signals": (
+            {
+                "contains_range": False,
+                "mentions_indication_of_interest": True,
+                "mentions_preliminary": False,
+                "mentions_non_binding": False,
+                "mentions_binding_offer": False,
+                "includes_draft_merger_agreement": False,
+                "includes_marked_up_agreement": False,
+                "requested_binding_offer_via_process_letter": False,
+                "after_final_round_announcement": False,
+                "after_final_round_deadline": False,
+                "is_subject_to_financing": None,
+            }
+            if proposal_formality_signals
+            else None
+        ),
+        "whole_company_scope": True,
+        "drop_reason_text": None,
+        "round_scope": None,
+        "invited_actor_ids": [],
+        "deadline_date": None,
+        "executed_with_actor_id": None,
+        "boundary_note": None,
+        "nda_signed": None,
+        "notes": [],
+    }
+
+    spans_payload = {
+        "spans": [
+            {
+                "span_id": "span_actor",
+                "document_id": "DOC001",
+                "accession_number": "DOC001",
+                "filing_type": "DEFM14A",
+                "start_line": 1,
+                "end_line": 1,
+                "start_char": 1,
+                "end_char": 7,
+                "block_ids": ["B001"],
+                "evidence_ids": [],
+                "anchor_text": "Party A",
+                "quote_text": "Party A submitted an indication of interest.",
+                "quote_text_normalized": "party a submitted an indication of interest.",
+                "match_type": "exact",
+                "resolution_note": None,
+            },
+            {
+                "span_id": "span_event",
+                "document_id": "DOC001",
+                "accession_number": "DOC001",
+                "filing_type": "DEFM14A",
+                "start_line": 1,
+                "end_line": 1,
+                "start_char": 9,
+                "end_char": 43,
+                "block_ids": ["B002"],
+                "evidence_ids": [],
+                "anchor_text": anchor_text,
+                "quote_text": "Party A submitted an indication of interest.",
+                "quote_text_normalized": "party a submitted an indication of interest.",
+                "match_type": "exact",
+                "resolution_note": None,
+            },
+        ]
+    }
+
+    events_payload = {
+        "events": [proposal_event],
+        "exclusions": [],
+        "coverage_notes": [],
+    }
+
+    (materialize_dir / "actors.json").write_text(json.dumps(actors_payload), encoding="utf-8")
+    (materialize_dir / "events.json").write_text(json.dumps(events_payload), encoding="utf-8")
+    (materialize_dir / "spans.json").write_text(json.dumps(spans_payload), encoding="utf-8")
+
+
+def test_run_check_fails_on_missing_proposal_terms(tmp_path: Path) -> None:
+    _write_check_fixture(
+        tmp_path,
+        proposal_terms=False,
+        proposal_formality_signals=True,
+    )
+    exit_code = run_check("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    report = json.loads(paths.check_report_path.read_text(encoding="utf-8"))
+
+    assert exit_code == 1
+    assert report["summary"]["status"] == "fail"
+    assert report["summary"]["blocker_count"] == 1
+    assert report["findings"][0]["check_id"] == "proposal_terms_required"
+
+
+def test_run_check_fails_on_missing_proposal_formality_signals(tmp_path: Path) -> None:
+    _write_check_fixture(
+        tmp_path,
+        proposal_terms=True,
+        proposal_formality_signals=False,
+    )
+    exit_code = run_check("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    report = json.loads(paths.check_report_path.read_text(encoding="utf-8"))
+
+    assert exit_code == 1
+    assert report["summary"]["status"] == "fail"
+    assert report["summary"]["blocker_count"] == 1
+    assert report["findings"][0]["check_id"] == "proposal_terms_required"
+
+
+def test_run_check_warns_but_passes_on_missing_bidder_kind(tmp_path: Path) -> None:
+    _write_check_fixture(tmp_path, bidder_kind=None)
+    exit_code = run_check("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    report = json.loads(paths.check_report_path.read_text(encoding="utf-8"))
+
+    assert exit_code == 0
+    assert report["summary"]["status"] == "pass"
+    assert report["summary"]["warning_count"] == 1
+
+
+def test_run_check_fails_on_empty_anchor_text(tmp_path: Path) -> None:
+    _write_check_fixture(tmp_path, anchor_text="")
+    exit_code = run_check("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    report = json.loads(paths.check_report_path.read_text(encoding="utf-8"))
+
+    assert exit_code == 1
+    assert report["summary"]["status"] == "fail"
+    assert report["summary"]["blocker_count"] == 1
+    assert report["findings"][0]["check_id"] == "empty_anchor_text"
+
+
+def test_skill_cli_supports_check_subcommand() -> None:
+    parser = cli.build_parser()
+    args = parser.parse_args(["check", "--deal", "imprivata"])
+
+    assert args.command == "check"
+    assert args.deal == "imprivata"
+
+
+def test_check_cli_invokes_run_check(tmp_path: Path) -> None:
+    _write_check_fixture(tmp_path)
+    exit_code = cli.main(["check", "--deal", "imprivata", "--project-root", str(tmp_path)])
+    assert exit_code == 0

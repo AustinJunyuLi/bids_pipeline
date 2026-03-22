@@ -260,6 +260,10 @@ Repository support for this workflow is split across two layers:
     through `/export-csv <slug>`.
 -   Before `/export-csv` completes, do **not** consult benchmark materials,
     benchmark notes, or reconciliation artifacts.
+-   Before `/export-csv` completes, do not open, read, or consult the
+    `reconcile-alex` skill file itself in any mirror
+    (`.claude/`, `.codex/`, or `.cursor/`). Treat the skill text as
+    post-export-only benchmark material.
 -   Treat `example/` as post-export-only material.
 -   `/reconcile-alex <slug>` is a read-only, post-export diagnostic. It must
     not rewrite `extract/`, `verify/`, `enrich/`, or `export/` artifacts.

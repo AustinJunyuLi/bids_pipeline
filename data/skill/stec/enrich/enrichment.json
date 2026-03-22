@@ -1,0 +1,115 @@
+{
+  "dropout_classifications": {
+    "evt_016": {
+      "label": "Drop",
+      "basis": "Company G exited the process without submitting a written indication of interest or stating a valuation-based reason.",
+      "source_text": "Company G indicated it would not continue in the process."
+    },
+    "evt_021": {
+      "label": "DropAtInf",
+      "basis": "Company H said it remained interested but could not increase the same indicated value range it had previously submitted.",
+      "source_text": "Company H remained interested in a potential acquisition of the company but that Company H was not able to increase its indicated value range."
+    },
+    "evt_024": {
+      "label": "Drop",
+      "basis": "WDC said it was reevaluating its interest and was not prepared to move forward at that time.",
+      "source_text": "WDC was reevaluating its interest in acquiring sTec, and that WDC was not prepared to move forward with a transaction with sTec at that time."
+    },
+    "evt_025": {
+      "label": "Drop",
+      "basis": "Company D disengaged because it could not actively continue due diligence for more than two weeks.",
+      "source_text": "Company D would not be in a position to actively conduct due diligence for more than two weeks and was disengaging from the process."
+    }
+  },
+  "bid_classifications": {
+    "evt_013": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_015": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_018": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_019": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_023": {
+      "label": "Formal",
+      "rule_applied": 2.0,
+      "basis": "Observable formal signal from formality_signals."
+    },
+    "evt_026": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_027": {
+      "label": "Formal",
+      "rule_applied": 2.5,
+      "basis": "Proposal after final round announcement/deadline with no informal signals."
+    }
+  },
+  "rounds": [
+    {
+      "announcement_event_id": "evt_020",
+      "deadline_event_id": "evt_022",
+      "round_scope": "formal",
+      "invited_actor_ids": [
+        "bidder_wdc",
+        "bidder_company_d"
+      ],
+      "active_bidders_at_time": 5,
+      "is_selective": true
+    }
+  ],
+  "cycles": [
+    {
+      "cycle_id": "cycle_1",
+      "start_event_id": "evt_001",
+      "end_event_id": "evt_029",
+      "boundary_basis": "Single cycle -- no termination events"
+    }
+  ],
+  "formal_boundary": {
+    "cycle_1": {
+      "event_id": "evt_023",
+      "basis": "First formal proposal per Rule 2 because WDC submitted a mark-up of the merger agreement with ancillary drafts."
+    }
+  },
+  "initiation_judgment": {
+    "type": "target_driven",
+    "basis": "The board initiated a formal strategic-alternatives review because of operating challenges before any bidder delivered a concrete process-triggering proposal.",
+    "source_text": "As it evaluated the advisability and potential long-term impacts of the cost reductions, our board of directors determined that it would be beneficial to undertake a formal review of strategic alternatives, including exploring a potential sale of sTec.",
+    "confidence": "high"
+  },
+  "advisory_verification": {
+    "advisor_bofa_merrill_lynch": {
+      "advised_actor_id": "target_board",
+      "verified": true,
+      "source_text": "On March 28, 2013, sTec entered into an engagement letter with BofA Merrill Lynch to provide financial advisory services."
+    },
+    "advisor_gibson_dunn": {
+      "advised_actor_id": "target_board",
+      "verified": true,
+      "source_text": "a representative from the law firm of Gibson, Dunn & Crutcher LLP (\" Gibson Dunn\"), which had been engaged in October 2012 as the company\u2019s outside corporate counsel"
+    }
+  },
+  "count_reconciliation": [
+    {
+      "assertion": "sTec executed six non-disclosure agreements related to the exploration of a potential sale of the company",
+      "extracted_count": 6,
+      "classification": null,
+      "note": "Counts match exactly."
+    }
+  ],
+  "review_flags": []
+}

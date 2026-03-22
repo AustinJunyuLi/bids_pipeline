@@ -1,0 +1,42 @@
+{
+  "schema_version": "2.0.0",
+  "artifact_type": "raw_discovery_manifest",
+  "created_at": "2026-03-21T17:55:17.196456Z",
+  "pipeline_version": "0.1.0",
+  "run_id": "skill-dac6a877",
+  "deal_slug": "penford",
+  "seed": {
+    "schema_version": "2.0.0",
+    "artifact_type": "seed_deal",
+    "created_at": "2026-03-21T17:55:17.195790Z",
+    "pipeline_version": "0.1.0",
+    "run_id": "skill-dac6a877",
+    "deal_slug": "penford",
+    "target_name": "PENFORD CORP",
+    "acquirer_seed": "INGREDION INC",
+    "date_announced_seed": "2014-10-15",
+    "primary_url_seed": "https://www.sec.gov/Archives/edgar/data/739608/0001193125-14-455030-index.htm",
+    "is_reference": true,
+    "seed_row_refs": [],
+    "notes": []
+  },
+  "cik": "739608",
+  "primary_candidates": [
+    {
+      "document_id": "0001193125-14-455030",
+      "accession_number": "0001193125-14-455030",
+      "filing_type": "UNKNOWN",
+      "filing_date": null,
+      "sec_url": "https://www.sec.gov/Archives/edgar/data/739608/0001193125-14-455030-index.htm",
+      "source_origin": "seed_accession",
+      "ranking_features": {
+        "seed_accession_match": true,
+        "filing_family": "primary"
+      },
+      "selected_for_localization": false,
+      "rejected_reason": null
+    }
+  ],
+  "supplementary_candidates": [],
+  "fetch_scope": "seed_only"
+}

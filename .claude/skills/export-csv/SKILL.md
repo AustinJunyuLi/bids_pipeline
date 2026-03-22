@@ -27,6 +27,8 @@ Benchmark materials are forbidden during generation. Do not consult benchmark
 files, benchmark notes, `example/`, `diagnosis/`,
 `data/skill/<slug>/reconcile/*`, or `/reconcile-alex` before `/export-csv`
 completes.
+Do not open or read the `reconcile-alex` skill file itself in `.claude/`,
+`.codex/`, or `.cursor/` before `/export-csv` completes.
 
 This skill writes the repo review CSV from filing-grounded artifacts. Benchmark
 comparison is post-export only and read-only.

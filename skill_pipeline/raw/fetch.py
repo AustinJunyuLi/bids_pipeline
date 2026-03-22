@@ -71,12 +71,12 @@ def fetch_filing_contents(
     if txt_text:
         return html_text, txt_text
 
-    if sec_url is None:
-        raise RuntimeError(f"Failed to fetch filing text for {accession_number}")
-
-    http_get_fn = http_get_fn or _default_http_get
-    html_text = http_get_fn(sec_url)
-    return html_text, html_text
+    raise RuntimeError(
+        f"Failed to obtain canonical filing text for {accession_number}; "
+        f"refusing to treat SEC HTML content as plain text"
+        + (f" from {sec_url}" if sec_url else "")
+        + "."
+    )
 
 
 def freeze_raw_filing(

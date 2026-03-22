@@ -1,0 +1,23 @@
+{
+  "schema_version": "2.0.0",
+  "artifact_type": "raw_document_registry",
+  "created_at": "2026-03-21T17:55:17.195100Z",
+  "pipeline_version": "0.1.0",
+  "run_id": "skill-ad40fbb1",
+  "deal_slug": "medivation",
+  "documents": [
+    {
+      "document_id": "0001193125-16-696889",
+      "accession_number": "0001193125-16-696889",
+      "filing_type": "UNKNOWN",
+      "filing_date": null,
+      "html_path": "raw/medivation/filings/0001193125-16-696889.html",
+      "txt_path": "raw/medivation/filings/0001193125-16-696889.txt",
+      "md_path": null,
+      "sha256_txt": "ee3134daae2a090234fe52a25db1c75a92d078a7d0fad49ec55a6c6d0b236e6d",
+      "sha256_html": "bb9605e6969a0c74d646834d8a6195fc2ff6e7c63776dddebd8edb5723878467",
+      "byte_count_txt": 25072,
+      "fetched_at": "2026-03-21T17:55:17.195074Z"
+    }
+  ]
+}

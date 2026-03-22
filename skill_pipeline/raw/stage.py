@@ -25,13 +25,14 @@ def fetch_raw_deal(
     identity: str | None = None,
 ) -> dict[str, Any]:
     raw_dir = RAW_DIR if raw_dir is None else raw_dir
-    _set_identity(identity)
 
     discovery = build_raw_discovery_manifest(
         seed,
         run_id=run_id,
         cik=extract_cik_from_url(seed.primary_url_seed),
     )
+    if fetch_contents_fn is fetch_filing_contents:
+        _set_identity(identity)
     raw_deal_dir = raw_dir / seed.deal_slug
     raw_deal_dir.mkdir(parents=True, exist_ok=True)
     atomic_write_json(raw_deal_dir / "discovery.json", discovery.model_dump(mode="json"))
@@ -63,7 +64,7 @@ def fetch_raw_deal(
 def _set_identity(identity: str | None = None) -> None:
     if set_identity is None:
         raise ModuleNotFoundError(
-            "edgar is required for live SEC access; pass search_fn in tests or install edgartools."
+            "edgar is required for live SEC access; pass fetch_contents_fn in tests or install edgartools."
         )
     selected = identity
     if selected is None:

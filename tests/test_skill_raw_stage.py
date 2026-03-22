@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 
 from skill_pipeline.pipeline_models.source import SeedDeal
+from skill_pipeline.raw import fetch as raw_fetch
 from skill_pipeline.raw import stage
 from skill_pipeline.raw.discover import build_raw_discovery_manifest
 
@@ -92,6 +93,19 @@ def test_build_raw_discovery_manifest_rejects_ambiguous_seed_url() -> None:
             ),
             run_id="run-1",
             cik="1328015",
+        )
+
+
+def test_fetch_filing_contents_fails_closed_when_only_html_fallback_is_available() -> None:
+    with pytest.raises(RuntimeError, match="canonical filing text"):
+        raw_fetch.fetch_filing_contents(
+            "0001193125-16-677939",
+            sec_url=(
+                "https://www.sec.gov/Archives/edgar/data/1328015/"
+                "0001193125-16-677939-index.htm"
+            ),
+            get_filing_fn=lambda accession: None,
+            http_get_fn=lambda url: "<html>index only</html>",
         )
 
 
