@@ -50,6 +50,8 @@ def run_extract(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> int:
         user_message=event_user,
         output_model=RawSkillEventsArtifact,
     )
+    if not events.events:
+        raise ValueError("Event extraction returned zero events.")
     events = _sanitize_events_output(events)
 
     paths.actors_raw_path.write_text(actors.model_dump_json(indent=2), encoding="utf-8")

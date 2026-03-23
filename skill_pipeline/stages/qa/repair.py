@@ -77,11 +77,27 @@ def _load_rendered_blocks(path: Path) -> str:
 
 def _apply_patches(paths, patches: RepairPatchArtifact) -> None:
     if patches.actors_raw is not None:
+        original = RawSkillActorsArtifact.model_validate_json(
+            paths.actors_raw_path.read_text(encoding="utf-8")
+        )
+        if len(patches.actors_raw.actors) < len(original.actors):
+            raise ValueError(
+                f"Repair dropped actors: {len(original.actors)} → "
+                f"{len(patches.actors_raw.actors)}"
+            )
         paths.actors_raw_path.write_text(
             patches.actors_raw.model_dump_json(indent=2),
             encoding="utf-8",
         )
     if patches.events_raw is not None:
+        original = RawSkillEventsArtifact.model_validate_json(
+            paths.events_raw_path.read_text(encoding="utf-8")
+        )
+        if len(patches.events_raw.events) < len(original.events):
+            raise ValueError(
+                f"Repair dropped events: {len(original.events)} → "
+                f"{len(patches.events_raw.events)}"
+            )
         paths.events_raw_path.write_text(
             patches.events_raw.model_dump_json(indent=2),
             encoding="utf-8",
