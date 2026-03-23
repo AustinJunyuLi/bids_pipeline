@@ -6,8 +6,8 @@ import json
 from pathlib import Path
 
 from skill_pipeline import cli
-from skill_pipeline.coverage import run_coverage
-from skill_pipeline.paths import build_skill_paths
+from skill_pipeline.stages.qa.coverage import run_coverage
+from skill_pipeline.core.paths import build_skill_paths
 
 
 def _write_coverage_fixture(
@@ -22,9 +22,9 @@ def _write_coverage_fixture(
 ) -> None:
     data_dir = tmp_path / "data"
     source_dir = data_dir / "deals" / slug / "source"
-    extract_dir = data_dir / "skill" / slug / "extract"
+    materialize_dir = data_dir / "skill" / slug / "materialize"
     source_dir.mkdir(parents=True, exist_ok=True)
-    extract_dir.mkdir(parents=True, exist_ok=True)
+    materialize_dir.mkdir(parents=True, exist_ok=True)
 
     if chronology_blocks is None:
         chronology_blocks = [
@@ -43,7 +43,11 @@ def _write_coverage_fixture(
         ]
 
     if actors_payload is None:
-        actors_payload = {"actors": [], "count_assertions": [], "unresolved_mentions": []}
+        actors_payload = {
+            "actors": [],
+            "count_assertions": [],
+            "unresolved_mentions": [],
+        }
     if events_payload is None:
         events_payload = {"events": [], "exclusions": [], "coverage_notes": []}
 
@@ -62,13 +66,21 @@ def _write_coverage_fixture(
         "\n".join(json.dumps(item) for item in evidence_items) + "\n",
         encoding="utf-8",
     )
-    (extract_dir / "actors_raw.json").write_text(json.dumps(actors_payload), encoding="utf-8")
-    (extract_dir / "events_raw.json").write_text(json.dumps(events_payload), encoding="utf-8")
+    (materialize_dir / "actors.json").write_text(
+        json.dumps(actors_payload), encoding="utf-8"
+    )
+    (materialize_dir / "events.json").write_text(
+        json.dumps(events_payload), encoding="utf-8"
+    )
     if spans_payload is not None:
-        (extract_dir / "spans.json").write_text(json.dumps(spans_payload), encoding="utf-8")
+        (materialize_dir / "spans.json").write_text(
+            json.dumps(spans_payload), encoding="utf-8"
+        )
 
 
-def test_coverage_reports_uncovered_high_confidence_proposal_cue(tmp_path: Path) -> None:
+def test_coverage_reports_uncovered_high_confidence_proposal_cue(
+    tmp_path: Path,
+) -> None:
     evidence_items = [
         {
             "evidence_id": "DOC001:E0001",
@@ -92,7 +104,9 @@ def test_coverage_reports_uncovered_high_confidence_proposal_cue(tmp_path: Path)
         "exclusions": [],
         "coverage_notes": [],
     }
-    _write_coverage_fixture(tmp_path, evidence_items=evidence_items, events_payload=events_payload)
+    _write_coverage_fixture(
+        tmp_path, evidence_items=evidence_items, events_payload=events_payload
+    )
 
     exit_code = run_coverage("imprivata", project_root=tmp_path)
     paths = build_skill_paths("imprivata", project_root=tmp_path)
@@ -108,7 +122,9 @@ def test_coverage_reports_uncovered_high_confidence_proposal_cue(tmp_path: Path)
     assert findings["findings"][0]["suggested_event_types"] == ["proposal"]
 
 
-def test_coverage_passes_when_canonical_proposal_span_covers_cue(tmp_path: Path) -> None:
+def test_coverage_passes_when_canonical_proposal_span_covers_cue(
+    tmp_path: Path,
+) -> None:
     evidence_items = [
         {
             "evidence_id": "DOC001:E0001",
@@ -225,7 +241,9 @@ def test_coverage_passes_when_canonical_proposal_span_covers_cue(tmp_path: Path)
     assert summary["error_count"] == 0
 
 
-def test_coverage_warns_on_uncovered_medium_confidence_advisor_cue(tmp_path: Path) -> None:
+def test_coverage_warns_on_uncovered_medium_confidence_advisor_cue(
+    tmp_path: Path,
+) -> None:
     evidence_items = [
         {
             "evidence_id": "DOC001:E0001",
@@ -256,170 +274,6 @@ def test_coverage_warns_on_uncovered_medium_confidence_advisor_cue(tmp_path: Pat
     assert summary["warning_count"] == 1
     assert findings["findings"][0]["cue_family"] == "advisor"
     assert findings["findings"][0]["severity"] == "warning"
-
-
-def test_coverage_treats_unsigned_nda_exclusion_as_addressed(tmp_path: Path) -> None:
-    evidence_items = [
-        {
-            "evidence_id": "DOC001:E0001",
-            "document_id": "DOC001",
-            "accession_number": "DOC001",
-            "filing_type": "DEFM14A",
-            "start_line": 1,
-            "end_line": 1,
-            "raw_text": "Company A sent a draft non-disclosure agreement for a possible transaction.",
-            "evidence_type": "dated_action",
-            "confidence": "high",
-            "matched_terms": ["sent", "non-disclosure"],
-            "date_text": "July 1, 2016",
-            "actor_hint": "Company A",
-            "value_hint": None,
-            "note": None,
-        }
-    ]
-    events_payload = {
-        "events": [],
-        "exclusions": [
-            {
-                "category": "unsigned_nda",
-                "block_ids": ["B001"],
-                "explanation": "Only a draft NDA was circulated; no executed confidentiality agreement followed.",
-            }
-        ],
-        "coverage_notes": [],
-    }
-    _write_coverage_fixture(tmp_path, evidence_items=evidence_items, events_payload=events_payload)
-
-    exit_code = run_coverage("imprivata", project_root=tmp_path)
-    paths = build_skill_paths("imprivata", project_root=tmp_path)
-    findings = json.loads(paths.coverage_findings_path.read_text(encoding="utf-8"))
-    summary = json.loads(paths.coverage_summary_path.read_text(encoding="utf-8"))
-
-    assert exit_code == 0
-    assert findings["findings"] == []
-    assert summary["status"] == "pass"
-
-
-def test_coverage_unsigned_nda_exclusion_does_not_hide_proposal_cue_in_same_block(
-    tmp_path: Path,
-) -> None:
-    evidence_items = [
-        {
-            "evidence_id": "DOC001:E0001",
-            "document_id": "DOC001",
-            "accession_number": "DOC001",
-            "filing_type": "DEFM14A",
-            "start_line": 1,
-            "end_line": 1,
-            "raw_text": "Company A sent a draft non-disclosure agreement for a possible transaction.",
-            "evidence_type": "dated_action",
-            "confidence": "high",
-            "matched_terms": ["sent", "non-disclosure"],
-            "date_text": "July 1, 2016",
-            "actor_hint": "Company A",
-            "value_hint": None,
-            "note": None,
-        },
-        {
-            "evidence_id": "DOC001:E0002",
-            "document_id": "DOC001",
-            "accession_number": "DOC001",
-            "filing_type": "DEFM14A",
-            "start_line": 2,
-            "end_line": 2,
-            "raw_text": "Party A submitted an indication of interest.",
-            "evidence_type": "dated_action",
-            "confidence": "high",
-            "matched_terms": ["submitted", "indication of interest"],
-            "date_text": "July 5, 2016",
-            "actor_hint": "Party A",
-            "value_hint": None,
-            "note": None,
-        },
-    ]
-    chronology_blocks = [
-        {
-            "block_id": "B001",
-            "document_id": "DOC001",
-            "ordinal": 1,
-            "start_line": 1,
-            "end_line": 2,
-            "raw_text": "\n".join(item["raw_text"] for item in evidence_items),
-            "clean_text": " ".join(item["raw_text"] for item in evidence_items),
-            "is_heading": False,
-            "page_break_before": False,
-            "page_break_after": False,
-        }
-    ]
-    events_payload = {
-        "events": [],
-        "exclusions": [
-            {
-                "category": "unsigned_nda",
-                "block_ids": ["B001"],
-                "explanation": "Only the draft NDA should be excluded.",
-            }
-        ],
-        "coverage_notes": [],
-    }
-    _write_coverage_fixture(
-        tmp_path,
-        evidence_items=evidence_items,
-        chronology_blocks=chronology_blocks,
-        events_payload=events_payload,
-    )
-
-    exit_code = run_coverage("imprivata", project_root=tmp_path)
-    paths = build_skill_paths("imprivata", project_root=tmp_path)
-    findings = json.loads(paths.coverage_findings_path.read_text(encoding="utf-8"))
-    summary = json.loads(paths.coverage_summary_path.read_text(encoding="utf-8"))
-
-    assert exit_code == 1
-    assert summary["status"] == "fail"
-    assert summary["error_count"] == 1
-    assert [finding["cue_family"] for finding in findings["findings"]] == ["proposal"]
-
-
-def test_coverage_treats_non_event_context_exclusion_as_addressed(tmp_path: Path) -> None:
-    evidence_items = [
-        {
-            "evidence_id": "DOC001:E0001",
-            "document_id": "DOC001",
-            "accession_number": "DOC001",
-            "filing_type": "DEFM14A",
-            "start_line": 1,
-            "end_line": 1,
-            "raw_text": "The board discussed non-disclosure agreements and related waiver provisions under existing agreements.",
-            "evidence_type": "dated_action",
-            "confidence": "high",
-            "matched_terms": ["entered into", "non-disclosure"],
-            "date_text": "July 5, 2016",
-            "actor_hint": None,
-            "value_hint": None,
-            "note": None,
-        }
-    ]
-    events_payload = {
-        "events": [],
-        "exclusions": [
-            {
-                "category": "non_event_context",
-                "block_ids": ["B001"],
-                "explanation": "This block discusses the implications of existing NDAs, not a new NDA event.",
-            }
-        ],
-        "coverage_notes": [],
-    }
-    _write_coverage_fixture(tmp_path, evidence_items=evidence_items, events_payload=events_payload)
-
-    exit_code = run_coverage("imprivata", project_root=tmp_path)
-    paths = build_skill_paths("imprivata", project_root=tmp_path)
-    findings = json.loads(paths.coverage_findings_path.read_text(encoding="utf-8"))
-    summary = json.loads(paths.coverage_summary_path.read_text(encoding="utf-8"))
-
-    assert exit_code == 0
-    assert findings["findings"] == []
-    assert summary["status"] == "pass"
 
 
 def test_coverage_ignores_evidence_without_chronology_overlap(tmp_path: Path) -> None:
@@ -472,7 +326,9 @@ def test_coverage_ignores_evidence_without_chronology_overlap(tmp_path: Path) ->
     assert summary["finding_count"] == 0
 
 
-def test_coverage_treats_no_specific_proposals_as_bidder_interest(tmp_path: Path) -> None:
+def test_coverage_treats_no_specific_proposals_as_bidder_interest(
+    tmp_path: Path,
+) -> None:
     evidence_items = [
         {
             "evidence_id": "DOC001:E0001",
@@ -506,7 +362,10 @@ def test_coverage_treats_no_specific_proposals_as_bidder_interest(tmp_path: Path
     assert summary["warning_count"] == 1
     assert findings["findings"][0]["cue_family"] == "bidder_interest"
     assert findings["findings"][0]["severity"] == "warning"
-    assert findings["findings"][0]["suggested_event_types"] == ["bidder_interest", "bidder_sale"]
+    assert findings["findings"][0]["suggested_event_types"] == [
+        "bidder_interest",
+        "bidder_sale",
+    ]
 
 
 def test_coverage_does_not_treat_possible_sale_process_discussion_as_process_initiation(

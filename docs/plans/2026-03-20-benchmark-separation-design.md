@@ -1,5 +1,7 @@
 # Benchmark Separation Design
 
+> Historical note: this design predates the final Python-only production surface. The live generation path is `skill-pipeline run`, and reconciliation is the standalone post-export script `scripts/reconcile_alex.py`; older slash-skill references below are archival.
+
 ## Problem
 
 The repo currently separates filing-grounded generation from benchmark

@@ -4,8 +4,8 @@ import calendar
 import re
 from datetime import date, timedelta
 
-from skill_pipeline.models import ResolvedDate
-from skill_pipeline.pipeline_models.common import DatePrecision
+from skill_pipeline.schemas.runtime import ResolvedDate
+from skill_pipeline.schemas.common import DatePrecision
 
 
 MONTHS = {
@@ -83,7 +83,11 @@ def parse_resolved_date(
 
     iso_day_match = ISO_DAY_RE.search(text)
     if iso_day_match:
-        parsed = date(int(iso_day_match.group(1)), int(iso_day_match.group(2)), int(iso_day_match.group(3)))
+        parsed = date(
+            int(iso_day_match.group(1)),
+            int(iso_day_match.group(2)),
+            int(iso_day_match.group(3)),
+        )
         return _make_resolved_date(
             raw_text=text,
             normalized_start=parsed,

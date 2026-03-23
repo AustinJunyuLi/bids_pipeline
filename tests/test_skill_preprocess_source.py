@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from skill_pipeline.preprocess.source import preprocess_source_deal
+from skill_pipeline.stages.preprocess.source import preprocess_source_deal
 
 
 def _write_seed_only_raw_fixture(
@@ -56,7 +56,9 @@ def _write_seed_only_raw_fixture(
             "is_reference": False,
         },
         "cik": "1328015",
-        "primary_candidates": primary_candidates if primary_candidates is not None else [primary_candidate],
+        "primary_candidates": primary_candidates
+        if primary_candidates is not None
+        else [primary_candidate],
         "supplementary_candidates": supplementary_candidates or [],
         "fetch_scope": "seed_only",
     }
@@ -67,8 +69,12 @@ def _write_seed_only_raw_fixture(
         "documents": [registry_document, *(extra_documents or [])],
     }
 
-    (raw_deal_dir / "discovery.json").write_text(json.dumps(discovery), encoding="utf-8")
-    (raw_deal_dir / "document_registry.json").write_text(json.dumps(registry), encoding="utf-8")
+    (raw_deal_dir / "discovery.json").write_text(
+        json.dumps(discovery), encoding="utf-8"
+    )
+    (raw_deal_dir / "document_registry.json").write_text(
+        json.dumps(registry), encoding="utf-8"
+    )
     (filings_dir / "0001193125-16-677939.txt").write_text(
         "\n".join(
             [
@@ -94,7 +100,9 @@ def test_preprocess_source_scans_only_the_single_seed_document_and_cleans_stale_
     source_dir = deals_dir / "imprivata" / "source"
     source_filings_dir = source_dir / "filings"
     source_filings_dir.mkdir(parents=True, exist_ok=True)
-    (source_dir / "supplementary_snippets.jsonl").write_text("stale\n", encoding="utf-8")
+    (source_dir / "supplementary_snippets.jsonl").write_text(
+        "stale\n", encoding="utf-8"
+    )
     (source_filings_dir / "stale-doc.txt").write_text("stale\n", encoding="utf-8")
 
     result = preprocess_source_deal(
@@ -148,7 +156,9 @@ def test_preprocess_source_fails_when_supplementary_candidates_are_present(
         )
 
 
-def test_preprocess_source_fails_when_registry_has_multiple_documents(tmp_path: Path) -> None:
+def test_preprocess_source_fails_when_registry_has_multiple_documents(
+    tmp_path: Path,
+) -> None:
     raw_deal_dir, deals_dir = _write_seed_only_raw_fixture(
         tmp_path,
         extra_documents=[

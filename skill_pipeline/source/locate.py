@@ -4,8 +4,8 @@ import re
 from dataclasses import dataclass
 from typing import Any
 
-from skill_pipeline.pipeline_models.common import SCHEMA_VERSION
-from skill_pipeline.pipeline_models.source import ChronologyCandidate, ChronologySelection
+from skill_pipeline.schemas.common import SCHEMA_VERSION
+from skill_pipeline.schemas.source import ChronologyCandidate, ChronologySelection
 
 
 BACKGROUND_HEADING_RE = re.compile(
@@ -116,7 +116,9 @@ def select_chronology(
         f"Selected heading on line {winner.start_line} using normalized heading matching "
         f"and narrative scoring; considered {len(ordered)} viable background-like candidate(s)."
     )
-    review_required = confidence in {"low", "none"} or confidence_factors["ambiguity_risk"] in {"medium", "high"}
+    review_required = confidence in {"low", "none"} or confidence_factors[
+        "ambiguity_risk"
+    ] in {"medium", "high"}
     return ChronologySelection(
         schema_version=SCHEMA_VERSION,
         artifact_type="chronology_selection",
@@ -156,7 +158,9 @@ def collect_chronology_candidates(
                     end_line=min(len(lines), idx + 50),
                     score=200,
                     source_methods=["markdown_heading"],
-                    is_standalone_background=bool(STANDALONE_BACKGROUND_RE.match(normalized)),
+                    is_standalone_background=bool(
+                        STANDALONE_BACKGROUND_RE.match(normalized)
+                    ),
                     diagnostics={"representation": "markdown"},
                 )
             )
@@ -177,7 +181,9 @@ def collect_chronology_candidates(
                 end_line=end_line,
                 score=250,
                 source_methods=["sections_api"],
-                is_standalone_background=bool(STANDALONE_BACKGROUND_RE.match(normalized)),
+                is_standalone_background=bool(
+                    STANDALONE_BACKGROUND_RE.match(normalized)
+                ),
                 diagnostics={"representation": "sections_api"},
             )
         )
@@ -190,13 +196,19 @@ def classify_chronology_confidence(
     runner_up: ChronologyCandidate | None,
 ) -> tuple[str, dict[str, Any]]:
     section_length = winner.end_line - winner.start_line + 1
-    score_gap = winner.score - runner_up.score if runner_up is not None else winner.score
+    score_gap = (
+        winner.score - runner_up.score if runner_up is not None else winner.score
+    )
     ambiguity_risk = _ambiguity_risk(winner, runner_up, score_gap)
     coverage_assessment = _coverage_assessment(section_length, winner.score, score_gap)
 
     if ambiguity_risk == "high":
         confidence = "low"
-    elif winner.score >= 700 and score_gap >= 100 and coverage_assessment in {"full", "adequate"}:
+    elif (
+        winner.score >= 700
+        and score_gap >= 100
+        and coverage_assessment in {"full", "adequate"}
+    ):
         confidence = "high"
     elif winner.score >= 450 and score_gap >= 80:
         confidence = "medium"
@@ -211,8 +223,6 @@ def classify_chronology_confidence(
     }
 
 
-
-
 def _ambiguity_risk(
     winner: ChronologyCandidate,
     runner_up: ChronologyCandidate | None,
@@ -221,7 +231,9 @@ def _ambiguity_risk(
     if runner_up is None:
         return "low"
     same_neighborhood = abs(winner.start_line - runner_up.start_line) <= 8
-    if runner_up.score >= winner.score - 40 or (same_neighborhood and runner_up.score >= winner.score - 75):
+    if runner_up.score >= winner.score - 40 or (
+        same_neighborhood and runner_up.score >= winner.score - 75
+    ):
         return "high"
     if runner_up.score >= winner.score - 120:
         return "medium"
@@ -237,6 +249,7 @@ def _coverage_assessment(section_length: int, winner_score: int, score_gap: int)
         return "short_but_probably_complete"
     return "short_uncertain"
 
+
 def normalize_heading_candidate(line: str) -> str:
     stripped = line.strip().strip('"“”').strip()
     stripped = ROMAN_HEADING_PREFIX_RE.sub("", stripped)
@@ -249,7 +262,9 @@ def normalize_heading_candidates_batch(lines: list[str]) -> list[str]:
     return [normalize_heading_candidate(line) for line in lines]
 
 
-def _collect_text_candidates(lines: list[str], *, document_id: str) -> list[ChronologyCandidate]:
+def _collect_text_candidates(
+    lines: list[str], *, document_id: str
+) -> list[ChronologyCandidate]:
     candidates: list[ChronologyCandidate] = []
     normalized_headings = normalize_heading_candidates_batch(lines)
     heading_indexes: list[int] = []
@@ -261,7 +276,9 @@ def _collect_text_candidates(lines: list[str], *, document_id: str) -> list[Chro
         if not heading:
             continue
         is_background_heading = bool(BACKGROUND_HEADING_RE.match(normalized_heading))
-        is_standalone_background = bool(STANDALONE_BACKGROUND_RE.match(normalized_heading))
+        is_standalone_background = bool(
+            STANDALONE_BACKGROUND_RE.match(normalized_heading)
+        )
         if not is_background_heading and not is_standalone_background:
             continue
         if not looks_like_heading(heading):
@@ -329,7 +346,9 @@ def score_heading_context(
     party_hits = sum(1 for line in lookahead if PARTY_RE.search(line))
     paragraph_breaks = sum(1 for line in lookahead if not line.strip())
     toc_like_followers = sum(
-        1 for line in lookahead[:12] if DOT_LEADER_RE.search(line.strip()) or looks_like_heading(line)
+        1
+        for line in lookahead[:12]
+        if DOT_LEADER_RE.search(line.strip()) or looks_like_heading(line)
     )
     section_end_idx = find_section_end(lines, start_idx + 1)
     section_length = max(0, section_end_idx - start_idx)
@@ -341,7 +360,11 @@ def score_heading_context(
         return -1
     if not is_standalone_background and date_hits == 0 and party_hits < 2:
         return -1
-    if start_idx <= int(total_lines * 0.05) and toc_like_followers >= 4 and date_hits == 0:
+    if (
+        start_idx <= int(total_lines * 0.05)
+        and toc_like_followers >= 4
+        and date_hits == 0
+    ):
         return -1
 
     score = min(section_length, 1600)
@@ -432,19 +455,24 @@ def score_chronology_candidate(lines: list[str], start_idx: int, end_idx: int) -
     return len(non_blank) + date_hits * 15 + paragraph_breaks * 5
 
 
-def _dedupe_candidates(candidates: list[ChronologyCandidate]) -> list[ChronologyCandidate]:
+def _dedupe_candidates(
+    candidates: list[ChronologyCandidate],
+) -> list[ChronologyCandidate]:
     deduped: list[ChronologyCandidate] = []
     for candidate in candidates:
         merged = False
         for index, existing in enumerate(deduped):
             same_heading = candidate.heading_normalized == existing.heading_normalized
-            same_section = candidate.end_line == existing.end_line and abs(
-                candidate.start_line - existing.start_line
-            ) <= 3
+            same_section = (
+                candidate.end_line == existing.end_line
+                and abs(candidate.start_line - existing.start_line) <= 3
+            )
             if not (same_heading and same_section):
                 continue
 
-            merged_methods = sorted(set(existing.source_methods + candidate.source_methods))
+            merged_methods = sorted(
+                set(existing.source_methods + candidate.source_methods)
+            )
             winner = candidate if candidate.score > existing.score else existing
             deduped[index] = winner.model_copy(
                 update={

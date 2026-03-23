@@ -1,12 +1,22 @@
 # Reconcile-Alex: Pipeline vs Hand-Coded Spreadsheet Reconciliation
 
+> Historical note: the live implementation is the standalone `python scripts/reconcile_alex.py --deal <slug>` path described in `CLAUDE.md`. Any references below to `deal-agent` orchestration or an in-pipeline reconcile stage are archival.
+
 **Date:** 2026-03-20
 **Status:** DRAFT
 **Approach:** C (match first, verify selectively)
 
+**Superseded implementation note:** reconciliation was intentionally kept
+outside the production pipeline. The live implementation is the standalone
+script `python scripts/reconcile_alex.py --deal <slug>`, not a
+`skill-pipeline reconcile` stage.
+
 ## Purpose
 
-Deterministic CLI stage that compares the pipeline's extraction artifacts against Alex's hand-coded spreadsheet (`example/deal_details_Alex_2026.xlsx`), then arbitrates disagreements and validates orphan events against the raw SEC filing text.
+Standalone post-production diagnostic script that compares exported pipeline
+artifacts against Alex's hand-coded spreadsheet
+(`example/deal_details_Alex_2026.xlsx`), then arbitrates disagreements and
+validates orphan events against the raw SEC filing text.
 
 Alex's spreadsheet is susceptible to human review errors but embodies the correct collection logic. The pipeline may hallucinate or miss events. Neither source is authoritative — the raw filing text is the tiebreaker.
 
@@ -302,22 +312,21 @@ CLI exit code: `run_reconcile` returns 1 on `fail`, 0 on `pass` or `warn`.
 
 | File | Purpose |
 |---|---|
-| `skill_pipeline/reconcile.py` | Core module: loading, matching, comparison, arbitration, existence checks, report building |
-| `tests/test_skill_reconcile.py` | Test suite with fixtures for matching, field comparison, arbitration, orphan detection |
-| `.claude/skills/reconcile-alex/SKILL.md` | Skill doc following existing SKILL.md format (frontmatter with name/description, sections: Design Principles, Purpose, When To Use, Reads, Writes, Gate) |
+| `scripts/reconcile_alex.py` | Standalone post-production reconciliation entrypoint and core logic |
+| `tests/test_reconcile_alex_script.py` | Test suite for matching, field comparison, arbitration, orphan detection, and CLI behavior |
 
 ## Files to Modify
 
 | File | Change |
 |---|---|
-| `skill_pipeline/models.py` | Add `ReconciliationReport`, `FieldMismatch`, `OrphanEvent`, `ReconciliationSummary` models. Add `reconcile_dir: Path` and `reconcile_report_path: Path` to `SkillPathSet`. |
-| `skill_pipeline/paths.py` | Add `reconcile_dir` and `reconcile_report_path` construction in `build_skill_paths()`. Add `paths.reconcile_dir` to `ensure_output_directories()`. |
-| `skill_pipeline/cli.py` | Add `reconcile` subcommand with `--deal` arg, dispatch to `run_reconcile()`. |
+| `skill_pipeline/models.py` | Keep reconciliation output paths in `SkillPathSet` so the standalone script writes into `data/skill/<slug>/reconcile/`. |
+| `skill_pipeline/paths.py` | Keep `reconcile_dir` and `reconcile_report_path` construction in `build_skill_paths()`. |
+| `CLAUDE.md` | Document reconciliation as standalone post-export QA only. |
 
 ## Entry Point
 
 ```python
-def run_reconcile(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> int:
+def main(argv: Sequence[str] | None = None) -> int:
     """Compare pipeline artifacts vs Alex's spreadsheet, arbitrate via filing text.
 
     Return 0 on pass/warn, 1 on fail.

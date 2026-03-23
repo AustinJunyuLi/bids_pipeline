@@ -176,7 +176,9 @@ def run_repair(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> int:
         )
         _apply_patches(paths, patches)
 
-        run_materialize(deal_slug, project_root=project_root)
+        rc = run_materialize(deal_slug, project_root=project_root)
+        if rc != 0:
+            raise RuntimeError(f"Materialize failed after repair round {round_num}")
         run_check(deal_slug, project_root=project_root)
         run_verify(deal_slug, project_root=project_root)
         run_coverage(deal_slug, project_root=project_root)

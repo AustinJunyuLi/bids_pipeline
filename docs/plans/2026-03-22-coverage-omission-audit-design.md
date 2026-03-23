@@ -1,5 +1,7 @@
 # Coverage Omission Audit Design
 
+> Historical note: this document contains design-time terminology from the migration period. The live production flow is `skill-pipeline run` through `export`, with standalone post-export `scripts/reconcile_alex.py`; references below to slash skills or `canonicalize` are archival.
+
 **Date:** 2026-03-22  
 **Status:** Proposed  
 **Goal:** Reduce systematic structural omissions while preserving the pipeline's filing-grounded verification model.

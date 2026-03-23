@@ -7,16 +7,21 @@ from pathlib import Path
 from typing import Sequence
 from uuid import uuid4
 
-from skill_pipeline.canonicalize import run_canonicalize
-from skill_pipeline.check import run_check
-from skill_pipeline.config import PROJECT_ROOT, RAW_DIR, SKILL_PIPELINE_VERSION
-from skill_pipeline.coverage import run_coverage
-from skill_pipeline.deal_agent import run_deal_agent
-from skill_pipeline.enrich_core import run_enrich_core
-from skill_pipeline.pipeline_models.common import PIPELINE_VERSION
-from skill_pipeline.pipeline_models.source import SeedDeal
-from skill_pipeline.seeds import load_seed_entry
-from skill_pipeline.verify import run_verify
+from skill_pipeline.stages.qa.check import run_check
+from skill_pipeline.core.config import PROJECT_ROOT, SKILL_PIPELINE_VERSION
+from skill_pipeline.stages.qa.coverage import run_coverage
+from skill_pipeline.stages.enrich.core import run_enrich_core
+from skill_pipeline.stages.enrich.interpret import run_enrich_interpret
+from skill_pipeline.stages.export import run_export
+from skill_pipeline.stages.extract import run_extract
+from skill_pipeline.stages.materialize import run_materialize
+from skill_pipeline.stages.qa.omission_audit import run_omission_audit
+from skill_pipeline.schemas.common import PIPELINE_VERSION
+from skill_pipeline.schemas.source import SeedDeal
+from skill_pipeline.stages.qa.repair import run_repair
+from skill_pipeline.stages.run import run_deal
+from skill_pipeline.core.seeds import load_seed_entry
+from skill_pipeline.stages.qa.verify import run_verify
 
 
 def _seed_entry_to_seed_deal(entry, *, run_id: str) -> SeedDeal:
@@ -51,18 +56,6 @@ def build_parser() -> argparse.ArgumentParser:
     )
     subparsers = parser.add_subparsers(dest="command")
 
-    deal_agent_parser = subparsers.add_parser(
-        "deal-agent",
-        help="Verify shared inputs, create isolated skill directories, and summarize skill artifacts.",
-    )
-    deal_agent_parser.add_argument("--deal", required=True)
-    deal_agent_parser.add_argument(
-        "--project-root",
-        type=Path,
-        default=PROJECT_ROOT,
-        help=argparse.SUPPRESS,
-    )
-
     raw_fetch_parser = subparsers.add_parser(
         "raw-fetch",
         help="Discover and fetch raw SEC filings for a deal.",
@@ -87,21 +80,9 @@ def build_parser() -> argparse.ArgumentParser:
         help=argparse.SUPPRESS,
     )
 
-    source_discover_parser = subparsers.add_parser(
-        "source-discover",
-        help="Discover source filing candidates for a deal (no fetch).",
-    )
-    source_discover_parser.add_argument("--deal", required=True)
-    source_discover_parser.add_argument(
-        "--project-root",
-        type=Path,
-        default=PROJECT_ROOT,
-        help=argparse.SUPPRESS,
-    )
-
     check_parser = subparsers.add_parser(
         "check",
-        help="Run structural checks on extracted skill artifacts.",
+        help="Run structural checks on materialized skill artifacts.",
     )
     check_parser.add_argument("--deal", required=True)
     check_parser.add_argument(
@@ -113,7 +94,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     verify_parser = subparsers.add_parser(
         "verify",
-        help="Run strict deterministic verification on extracted skill artifacts.",
+        help="Run strict deterministic verification on materialized skill artifacts.",
     )
     verify_parser.add_argument("--deal", required=True)
     verify_parser.add_argument(
@@ -125,10 +106,34 @@ def build_parser() -> argparse.ArgumentParser:
 
     coverage_parser = subparsers.add_parser(
         "coverage",
-        help="Run deterministic source-coverage audit on extracted skill artifacts.",
+        help="Run deterministic source-coverage audit on materialized skill artifacts.",
     )
     coverage_parser.add_argument("--deal", required=True)
     coverage_parser.add_argument(
+        "--project-root",
+        type=Path,
+        default=PROJECT_ROOT,
+        help=argparse.SUPPRESS,
+    )
+
+    omission_audit_parser = subparsers.add_parser(
+        "omission-audit",
+        help="Run LLM omission audit over uncovered chronology blocks.",
+    )
+    omission_audit_parser.add_argument("--deal", required=True)
+    omission_audit_parser.add_argument(
+        "--project-root",
+        type=Path,
+        default=PROJECT_ROOT,
+        help=argparse.SUPPRESS,
+    )
+
+    repair_parser = subparsers.add_parser(
+        "repair",
+        help="Run the LLM repair loop over raw extraction artifacts.",
+    )
+    repair_parser.add_argument("--deal", required=True)
+    repair_parser.add_argument(
         "--project-root",
         type=Path,
         default=PROJECT_ROOT,
@@ -147,12 +152,60 @@ def build_parser() -> argparse.ArgumentParser:
         help=argparse.SUPPRESS,
     )
 
-    canonicalize_parser = subparsers.add_parser(
-        "canonicalize",
-        help="Deduplicate events, gate drops by NDA, recover unnamed parties.",
+    enrich_interpret_parser = subparsers.add_parser(
+        "enrich-interpret",
+        help="Run LLM interpretive enrichment and merge final enrichment.json.",
     )
-    canonicalize_parser.add_argument("--deal", required=True)
-    canonicalize_parser.add_argument(
+    enrich_interpret_parser.add_argument("--deal", required=True)
+    enrich_interpret_parser.add_argument(
+        "--project-root",
+        type=Path,
+        default=PROJECT_ROOT,
+        help=argparse.SUPPRESS,
+    )
+
+    export_parser = subparsers.add_parser(
+        "export",
+        help="Write the deterministic repo review CSV from materialized artifacts and enrichment.",
+    )
+    export_parser.add_argument("--deal", required=True)
+    export_parser.add_argument(
+        "--project-root",
+        type=Path,
+        default=PROJECT_ROOT,
+        help=argparse.SUPPRESS,
+    )
+
+    run_parser = subparsers.add_parser(
+        "run",
+        help="Run the production skill pipeline through export; reconcile remains standalone.",
+    )
+    run_parser.add_argument("--deal", required=True)
+    run_parser.add_argument(
+        "--project-root",
+        type=Path,
+        default=PROJECT_ROOT,
+        help=argparse.SUPPRESS,
+    )
+
+    extract_parser = subparsers.add_parser(
+        "extract",
+        help="Run LLM actor and event extraction from preprocessed source artifacts.",
+    )
+    extract_parser.add_argument("--deal", required=True)
+    extract_parser.add_argument(
+        "--project-root",
+        type=Path,
+        default=PROJECT_ROOT,
+        help=argparse.SUPPRESS,
+    )
+
+    materialize_parser = subparsers.add_parser(
+        "materialize",
+        help="Resolve spans, normalize dates, deduplicate events, gate drops, and recover unnamed parties.",
+    )
+    materialize_parser.add_argument("--deal", required=True)
+    materialize_parser.add_argument(
         "--project-root",
         type=Path,
         default=PROJECT_ROOT,
@@ -165,12 +218,8 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv: Sequence[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
-    if args.command == "deal-agent":
-        summary = run_deal_agent(args.deal, project_root=args.project_root)
-        print(summary.model_dump_json(indent=2))
-        return 0
     if args.command == "raw-fetch":
-        from skill_pipeline.raw.stage import fetch_raw_deal
+        from skill_pipeline.stages.raw.stage import fetch_raw_deal
 
         run_id = f"skill-{uuid4().hex[:8]}"
         seeds_path = args.project_root / "data" / "seeds.csv"
@@ -181,7 +230,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         print(json.dumps(result, indent=2))
         return 0
     if args.command == "preprocess-source":
-        from skill_pipeline.preprocess.source import preprocess_source_deal
+        from skill_pipeline.stages.preprocess.source import preprocess_source_deal
 
         run_id = f"skill-{uuid4().hex[:8]}"
         raw_dir = args.project_root / "raw"
@@ -191,31 +240,28 @@ def main(argv: Sequence[str] | None = None) -> int:
         )
         print(json.dumps(result, indent=2))
         return 0
-    if args.command == "source-discover":
-        from skill_pipeline.raw.discover import build_raw_discovery_manifest
-        from skill_pipeline.source.ranking import extract_cik_from_url
-
-        run_id = f"skill-{uuid4().hex[:8]}"
-        seeds_path = args.project_root / "data" / "seeds.csv"
-        entry = load_seed_entry(args.deal, seeds_path=seeds_path)
-        seed = _seed_entry_to_seed_deal(entry, run_id=run_id)
-        discovery = build_raw_discovery_manifest(
-            seed,
-            run_id=run_id,
-            cik=extract_cik_from_url(seed.primary_url_seed),
-        )
-        print(discovery.model_dump_json(indent=2))
-        return 0
     if args.command == "check":
         return run_check(args.deal, project_root=args.project_root)
     if args.command == "verify":
         return run_verify(args.deal, project_root=args.project_root)
     if args.command == "coverage":
         return run_coverage(args.deal, project_root=args.project_root)
+    if args.command == "omission-audit":
+        return run_omission_audit(args.deal, project_root=args.project_root)
+    if args.command == "repair":
+        return run_repair(args.deal, project_root=args.project_root)
+    if args.command == "run":
+        return run_deal(args.deal, project_root=args.project_root)
     if args.command == "enrich-core":
         return run_enrich_core(args.deal, project_root=args.project_root)
-    if args.command == "canonicalize":
-        return run_canonicalize(args.deal, project_root=args.project_root)
+    if args.command == "enrich-interpret":
+        return run_enrich_interpret(args.deal, project_root=args.project_root)
+    if args.command == "export":
+        return run_export(args.deal, project_root=args.project_root)
+    if args.command == "extract":
+        return run_extract(args.deal, project_root=args.project_root)
+    if args.command == "materialize":
+        return run_materialize(args.deal, project_root=args.project_root)
     parser.print_help()
     return 1
 

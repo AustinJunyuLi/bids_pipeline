@@ -5,8 +5,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from skill_pipeline.paths import build_skill_paths
-from skill_pipeline.verify import run_verify
+from skill_pipeline.core.paths import build_skill_paths
+from skill_pipeline.stages.qa.verify import run_verify
 
 
 def _read_findings_list(path: Path) -> list[dict[str, object]]:
@@ -17,7 +17,57 @@ def _read_findings_list(path: Path) -> list[dict[str, object]]:
     return findings
 
 
-def _write_verify_fixture_for_fuzzy_only_match(tmp_path: Path, *, slug: str = "imprivata") -> None:
+def _resolved_date(
+    raw_text: str,
+    sort_date: str | None,
+    *,
+    precision: str = "exact_day",
+) -> dict[str, object]:
+    return {
+        "raw_text": raw_text,
+        "normalized_start": sort_date,
+        "normalized_end": sort_date,
+        "sort_date": sort_date,
+        "precision": precision,
+        "anchor_event_id": None,
+        "anchor_span_id": None,
+        "resolution_note": None,
+        "is_inferred": False,
+    }
+
+
+def _span_record(
+    span_id: str,
+    *,
+    document_id: str,
+    block_ids: list[str],
+    evidence_ids: list[str],
+    anchor_text: str,
+    quote_text: str,
+    match_type: str = "exact",
+) -> dict[str, object]:
+    return {
+        "span_id": span_id,
+        "document_id": document_id,
+        "accession_number": document_id,
+        "filing_type": "DEFM14A",
+        "start_line": 1,
+        "end_line": 1,
+        "start_char": 1,
+        "end_char": max(1, len(anchor_text)),
+        "block_ids": block_ids,
+        "evidence_ids": evidence_ids,
+        "anchor_text": anchor_text,
+        "quote_text": quote_text,
+        "quote_text_normalized": quote_text.lower(),
+        "match_type": match_type,
+        "resolution_note": None,
+    }
+
+
+def _write_verify_fixture_for_fuzzy_only_match(
+    tmp_path: Path, *, slug: str = "imprivata"
+) -> None:
     """Create fixture where anchor_text matches only FUZZY (pipeline would resolve, we reject).
 
     Block raw_text = "Party A submitted a bid on July 5."
@@ -31,11 +81,11 @@ def _write_verify_fixture_for_fuzzy_only_match(tmp_path: Path, *, slug: str = "i
     raw_dir = tmp_path / "raw" / slug
     filings_dir = raw_dir / "filings"
     skill_root = data_dir / "skill" / slug
-    extract_dir = skill_root / "extract"
+    materialize_dir = skill_root / "materialize"
 
     deals_source_dir.mkdir(parents=True, exist_ok=True)
     filings_dir.mkdir(parents=True, exist_ok=True)
-    extract_dir.mkdir(parents=True, exist_ok=True)
+    materialize_dir.mkdir(parents=True, exist_ok=True)
 
     (data_dir / "seeds.csv").write_text(
         (
@@ -128,9 +178,7 @@ def _write_verify_fixture_for_fuzzy_only_match(tmp_path: Path, *, slug: str = "i
                 "is_grouped": False,
                 "group_size": None,
                 "group_label": None,
-                "evidence_refs": [
-                    {"block_id": "B001", "evidence_id": None, "anchor_text": anchor_text}
-                ],
+                "evidence_span_ids": ["span_actor_0001"],
                 "notes": [],
             }
         ],
@@ -143,12 +191,10 @@ def _write_verify_fixture_for_fuzzy_only_match(tmp_path: Path, *, slug: str = "i
             {
                 "event_id": "evt_001",
                 "event_type": "proposal",
-                "date": {"raw_text": "July 5, 2016", "normalized_hint": "2016-07-05"},
+                "date": _resolved_date("July 5, 2016", "2016-07-05"),
                 "actor_ids": ["party_a"],
                 "summary": "Party A submitted a bid.",
-                "evidence_refs": [
-                    {"block_id": "B001", "evidence_id": None, "anchor_text": anchor_text}
-                ],
+                "evidence_span_ids": ["span_event_0001"],
                 "terms": {
                     "per_share": 25.0,
                     "range_low": None,
@@ -184,11 +230,41 @@ def _write_verify_fixture_for_fuzzy_only_match(tmp_path: Path, *, slug: str = "i
         "coverage_notes": [],
     }
 
-    (extract_dir / "actors_raw.json").write_text(json.dumps(actors_payload), encoding="utf-8")
-    (extract_dir / "events_raw.json").write_text(json.dumps(events_payload), encoding="utf-8")
+    spans_payload = {
+        "spans": [
+            _span_record(
+                "span_actor_0001",
+                document_id=doc_id,
+                block_ids=["B001"],
+                evidence_ids=[f"{doc_id}:E0001"],
+                anchor_text=anchor_text,
+                quote_text=block_raw_text,
+            ),
+            _span_record(
+                "span_event_0001",
+                document_id=doc_id,
+                block_ids=["B001"],
+                evidence_ids=[f"{doc_id}:E0001"],
+                anchor_text=anchor_text,
+                quote_text=block_raw_text,
+            ),
+        ]
+    }
+
+    (materialize_dir / "actors.json").write_text(
+        json.dumps(actors_payload), encoding="utf-8"
+    )
+    (materialize_dir / "events.json").write_text(
+        json.dumps(events_payload), encoding="utf-8"
+    )
+    (materialize_dir / "spans.json").write_text(
+        json.dumps(spans_payload), encoding="utf-8"
+    )
 
 
-def _write_verify_fixture_for_clean_pass(tmp_path: Path, *, slug: str = "imprivata") -> None:
+def _write_verify_fixture_for_clean_pass(
+    tmp_path: Path, *, slug: str = "imprivata"
+) -> None:
     """Create fixture where all evidence refs resolve EXACT or NORMALIZED."""
     doc_id = "DOC002"
     data_dir = tmp_path / "data"
@@ -196,11 +272,11 @@ def _write_verify_fixture_for_clean_pass(tmp_path: Path, *, slug: str = "impriva
     raw_dir = tmp_path / "raw" / slug
     filings_dir = raw_dir / "filings"
     skill_root = data_dir / "skill" / slug
-    extract_dir = skill_root / "extract"
+    materialize_dir = skill_root / "materialize"
 
     deals_source_dir.mkdir(parents=True, exist_ok=True)
     filings_dir.mkdir(parents=True, exist_ok=True)
-    extract_dir.mkdir(parents=True, exist_ok=True)
+    materialize_dir.mkdir(parents=True, exist_ok=True)
 
     (data_dir / "seeds.csv").write_text(
         (
@@ -269,13 +345,7 @@ def _write_verify_fixture_for_clean_pass(tmp_path: Path, *, slug: str = "impriva
                 "is_grouped": False,
                 "group_size": None,
                 "group_label": None,
-                "evidence_refs": [
-                    {
-                        "block_id": "B001",
-                        "evidence_id": None,
-                        "anchor_text": "Party A signed an NDA",
-                    }
-                ],
+                "evidence_span_ids": ["span_actor_0001"],
                 "notes": [],
             }
         ],
@@ -288,16 +358,10 @@ def _write_verify_fixture_for_clean_pass(tmp_path: Path, *, slug: str = "impriva
             {
                 "event_id": "evt_001",
                 "event_type": "target_sale",
-                "date": {"raw_text": "June 2016", "normalized_hint": "2016-06"},
+                "date": _resolved_date("June 2016", "2016-06-01", precision="month"),
                 "actor_ids": ["party_a"],
                 "summary": "Target initiated sale process.",
-                "evidence_refs": [
-                    {
-                        "block_id": "B001",
-                        "evidence_id": None,
-                        "anchor_text": "indication of interest",
-                    }
-                ],
+                "evidence_span_ids": ["span_event_0001"],
                 "terms": None,
                 "formality_signals": None,
                 "whole_company_scope": True,
@@ -313,16 +377,10 @@ def _write_verify_fixture_for_clean_pass(tmp_path: Path, *, slug: str = "impriva
             {
                 "event_id": "evt_002",
                 "event_type": "executed",
-                "date": {"raw_text": "July 13, 2016", "normalized_hint": "2016-07-13"},
+                "date": _resolved_date("July 13, 2016", "2016-07-13"),
                 "actor_ids": ["party_a"],
                 "summary": "Deal executed.",
-                "evidence_refs": [
-                    {
-                        "block_id": "B001",
-                        "evidence_id": None,
-                        "anchor_text": "submitted an indication of interest",
-                    }
-                ],
+                "evidence_span_ids": ["span_event_0002"],
                 "terms": None,
                 "formality_signals": None,
                 "whole_company_scope": True,
@@ -340,8 +398,44 @@ def _write_verify_fixture_for_clean_pass(tmp_path: Path, *, slug: str = "impriva
         "coverage_notes": [],
     }
 
-    (extract_dir / "actors_raw.json").write_text(json.dumps(actors_payload), encoding="utf-8")
-    (extract_dir / "events_raw.json").write_text(json.dumps(events_payload), encoding="utf-8")
+    spans_payload = {
+        "spans": [
+            _span_record(
+                "span_actor_0001",
+                document_id=doc_id,
+                block_ids=["B001"],
+                evidence_ids=[],
+                anchor_text="Party A signed an NDA",
+                quote_text=block_raw_text,
+            ),
+            _span_record(
+                "span_event_0001",
+                document_id=doc_id,
+                block_ids=["B001"],
+                evidence_ids=[],
+                anchor_text="indication of interest",
+                quote_text=block_raw_text,
+            ),
+            _span_record(
+                "span_event_0002",
+                document_id=doc_id,
+                block_ids=["B001"],
+                evidence_ids=[],
+                anchor_text="submitted an indication of interest",
+                quote_text=block_raw_text,
+            ),
+        ]
+    }
+
+    (materialize_dir / "actors.json").write_text(
+        json.dumps(actors_payload), encoding="utf-8"
+    )
+    (materialize_dir / "events.json").write_text(
+        json.dumps(events_payload), encoding="utf-8"
+    )
+    (materialize_dir / "spans.json").write_text(
+        json.dumps(spans_payload), encoding="utf-8"
+    )
 
 
 def test_verify_treats_fuzzy_match_as_unresolved(tmp_path: Path) -> None:
@@ -372,9 +466,13 @@ def test_verify_writes_compatible_pass_log_without_llm_repair(tmp_path: Path) ->
 def test_verify_reports_missing_actor_reference(tmp_path: Path) -> None:
     _write_verify_fixture_for_clean_pass(tmp_path)
     paths = build_skill_paths("imprivata", project_root=tmp_path)
-    events_payload = json.loads(paths.events_raw_path.read_text(encoding="utf-8"))
+    events_payload = json.loads(
+        paths.materialized_events_path.read_text(encoding="utf-8")
+    )
     events_payload["events"][0]["actor_ids"] = ["missing_actor"]
-    paths.events_raw_path.write_text(json.dumps(events_payload), encoding="utf-8")
+    paths.materialized_events_path.write_text(
+        json.dumps(events_payload), encoding="utf-8"
+    )
 
     exit_code = run_verify("imprivata", project_root=tmp_path)
     findings = _read_findings_list(paths.verification_findings_path)
@@ -387,24 +485,22 @@ def test_verify_reports_missing_actor_reference(tmp_path: Path) -> None:
     )
 
 
-def test_verify_reports_structural_failure_for_empty_proposal_actor_ids(tmp_path: Path) -> None:
+def test_verify_reports_structural_failure_for_empty_proposal_actor_ids(
+    tmp_path: Path,
+) -> None:
     _write_verify_fixture_for_clean_pass(tmp_path)
     paths = build_skill_paths("imprivata", project_root=tmp_path)
-    events_payload = json.loads(paths.events_raw_path.read_text(encoding="utf-8"))
+    events_payload = json.loads(
+        paths.materialized_events_path.read_text(encoding="utf-8")
+    )
     events_payload["events"] = [
         {
             "event_id": "evt_003",
             "event_type": "proposal",
-            "date": {"raw_text": "July 5, 2016", "normalized_hint": "2016-07-05"},
+            "date": _resolved_date("July 5, 2016", "2016-07-05"),
             "actor_ids": [],
             "summary": "Proposal with no linked actor.",
-            "evidence_refs": [
-                {
-                    "block_id": "B001",
-                    "evidence_id": None,
-                    "anchor_text": "submitted an indication of interest",
-                }
-            ],
+            "evidence_span_ids": ["span_event_0002"],
             "terms": None,
             "formality_signals": None,
             "whole_company_scope": True,
@@ -418,7 +514,9 @@ def test_verify_reports_structural_failure_for_empty_proposal_actor_ids(tmp_path
             "notes": [],
         }
     ]
-    paths.events_raw_path.write_text(json.dumps(events_payload), encoding="utf-8")
+    paths.materialized_events_path.write_text(
+        json.dumps(events_payload), encoding="utf-8"
+    )
 
     exit_code = run_verify("imprivata", project_root=tmp_path)
     findings = _read_findings_list(paths.verification_findings_path)

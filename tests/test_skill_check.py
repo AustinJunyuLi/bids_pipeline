@@ -5,11 +5,23 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-import pytest
-
 from skill_pipeline import cli
-from skill_pipeline.check import run_check
-from skill_pipeline.paths import build_skill_paths
+from skill_pipeline.stages.qa.check import run_check
+from skill_pipeline.core.paths import build_skill_paths
+
+
+def _resolved_date(raw_text: str, sort_date: str) -> dict[str, object]:
+    return {
+        "raw_text": raw_text,
+        "normalized_start": sort_date,
+        "normalized_end": sort_date,
+        "sort_date": sort_date,
+        "precision": "exact_day",
+        "anchor_event_id": None,
+        "anchor_span_id": None,
+        "resolution_note": None,
+        "is_inferred": False,
+    }
 
 
 def _write_check_fixture(
@@ -21,7 +33,7 @@ def _write_check_fixture(
     proposal_formality_signals: bool = True,
     anchor_text: str = "indication of interest",
 ) -> None:
-    """Write minimal extract artifacts for check tests.
+    """Write minimal materialized artifacts for check tests.
 
     One bidder actor + one proposal event. Parameters control what to omit
     for each test scenario.
@@ -30,11 +42,11 @@ def _write_check_fixture(
     deals_source_dir = data_dir / "deals" / slug / "source"
     raw_dir = tmp_path / "raw" / slug
     skill_root = data_dir / "skill" / slug
-    extract_dir = skill_root / "extract"
+    materialize_dir = skill_root / "materialize"
 
     deals_source_dir.mkdir(parents=True, exist_ok=True)
     raw_dir.mkdir(parents=True, exist_ok=True)
-    extract_dir.mkdir(parents=True, exist_ok=True)
+    materialize_dir.mkdir(parents=True, exist_ok=True)
 
     (data_dir / "seeds.csv").write_text(
         (
@@ -63,9 +75,7 @@ def _write_check_fixture(
                 "is_grouped": False,
                 "group_size": None,
                 "group_label": None,
-                "evidence_refs": [
-                    {"block_id": "B001", "evidence_id": None, "anchor_text": "Party A"}
-                ],
+                "evidence_span_ids": ["span_actor"],
                 "notes": [],
             }
         ],
@@ -73,17 +83,13 @@ def _write_check_fixture(
         "unresolved_mentions": [],
     }
 
-    proposal_evidence_refs = [
-        {"block_id": "B002", "evidence_id": None, "anchor_text": anchor_text}
-    ]
-
     proposal_event = {
         "event_id": "evt_002",
         "event_type": "proposal",
-        "date": {"raw_text": "July 5, 2016", "normalized_hint": "2016-07-05"},
+        "date": _resolved_date("July 5, 2016", "2016-07-05"),
         "actor_ids": ["party_a"],
         "summary": "Party A submitted an indication of interest.",
-        "evidence_refs": proposal_evidence_refs,
+        "evidence_span_ids": ["span_event"],
         "terms": (
             {
                 "per_share": 25.0,
@@ -123,14 +129,60 @@ def _write_check_fixture(
         "notes": [],
     }
 
+    spans_payload = {
+        "spans": [
+            {
+                "span_id": "span_actor",
+                "document_id": "DOC001",
+                "accession_number": "DOC001",
+                "filing_type": "DEFM14A",
+                "start_line": 1,
+                "end_line": 1,
+                "start_char": 1,
+                "end_char": 7,
+                "block_ids": ["B001"],
+                "evidence_ids": [],
+                "anchor_text": "Party A",
+                "quote_text": "Party A submitted an indication of interest.",
+                "quote_text_normalized": "party a submitted an indication of interest.",
+                "match_type": "exact",
+                "resolution_note": None,
+            },
+            {
+                "span_id": "span_event",
+                "document_id": "DOC001",
+                "accession_number": "DOC001",
+                "filing_type": "DEFM14A",
+                "start_line": 1,
+                "end_line": 1,
+                "start_char": 9,
+                "end_char": 43,
+                "block_ids": ["B002"],
+                "evidence_ids": [],
+                "anchor_text": anchor_text,
+                "quote_text": "Party A submitted an indication of interest.",
+                "quote_text_normalized": "party a submitted an indication of interest.",
+                "match_type": "exact",
+                "resolution_note": None,
+            },
+        ]
+    }
+
     events_payload = {
         "events": [proposal_event],
         "exclusions": [],
         "coverage_notes": [],
     }
 
-    (extract_dir / "actors_raw.json").write_text(json.dumps(actors_payload), encoding="utf-8")
-    (extract_dir / "events_raw.json").write_text(json.dumps(events_payload), encoding="utf-8")
+    (materialize_dir / "actors.json").write_text(
+        json.dumps(actors_payload), encoding="utf-8"
+    )
+    (materialize_dir / "events.json").write_text(
+        json.dumps(events_payload), encoding="utf-8"
+    )
+    (materialize_dir / "spans.json").write_text(
+        json.dumps(spans_payload), encoding="utf-8"
+    )
 
 
 def test_run_check_fails_on_missing_proposal_terms(tmp_path: Path) -> None:
@@ -198,5 +250,7 @@ def test_skill_cli_supports_check_subcommand() -> None:
 
 def test_check_cli_invokes_run_check(tmp_path: Path) -> None:
     _write_check_fixture(tmp_path)
-    exit_code = cli.main(["check", "--deal", "imprivata", "--project-root", str(tmp_path)])
+    exit_code = cli.main(
+        ["check", "--deal", "imprivata", "--project-root", str(tmp_path)]
+    )
     assert exit_code == 0

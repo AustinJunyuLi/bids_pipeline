@@ -6,10 +6,9 @@ from pathlib import Path
 
 import pytest
 
-from skill_pipeline.pipeline_models.source import SeedDeal
-from skill_pipeline.raw import fetch as raw_fetch
-from skill_pipeline.raw import stage
-from skill_pipeline.raw.discover import build_raw_discovery_manifest
+from skill_pipeline.schemas.source import SeedDeal
+from skill_pipeline.stages.raw import stage
+from skill_pipeline.stages.raw.discover import build_raw_discovery_manifest
 
 
 def _seed(*, primary_url: str | None) -> SeedDeal:
@@ -41,7 +40,9 @@ def test_set_identity_uses_explicit_identity(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     captured: dict[str, str | None] = {"value": None}
-    monkeypatch.setattr(stage, "set_identity", lambda value: captured.__setitem__("value", value))
+    monkeypatch.setattr(
+        stage, "set_identity", lambda value: captured.__setitem__("value", value)
+    )
 
     stage._set_identity("Austin Li junyu.li.24@ucl.ac.uk")
 
@@ -67,8 +68,7 @@ def test_build_raw_discovery_manifest_uses_only_seed_url() -> None:
     assert candidate.accession_number == "0001193125-16-677939"
     assert candidate.document_id == "0001193125-16-677939"
     assert candidate.sec_url == (
-        "https://www.sec.gov/Archives/edgar/data/1328015/"
-        "0001193125-16-677939-index.htm"
+        "https://www.sec.gov/Archives/edgar/data/1328015/0001193125-16-677939-index.htm"
     )
     assert candidate.source_origin == "seed_accession"
 
@@ -93,19 +93,6 @@ def test_build_raw_discovery_manifest_rejects_ambiguous_seed_url() -> None:
             ),
             run_id="run-1",
             cik="1328015",
-        )
-
-
-def test_fetch_filing_contents_fails_closed_when_only_html_fallback_is_available() -> None:
-    with pytest.raises(RuntimeError, match="canonical filing text"):
-        raw_fetch.fetch_filing_contents(
-            "0001193125-16-677939",
-            sec_url=(
-                "https://www.sec.gov/Archives/edgar/data/1328015/"
-                "0001193125-16-677939-index.htm"
-            ),
-            get_filing_fn=lambda accession: None,
-            http_get_fn=lambda url: "<html>index only</html>",
         )
 
 
@@ -154,7 +141,9 @@ def test_set_identity_prefers_pipeline_env_over_other_identity_vars(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     captured: dict[str, str | None] = {"value": None}
-    monkeypatch.setattr(stage, "set_identity", lambda value: captured.__setitem__("value", value))
+    monkeypatch.setattr(
+        stage, "set_identity", lambda value: captured.__setitem__("value", value)
+    )
     monkeypatch.setenv("PIPELINE_SEC_IDENTITY", "pipe@example.com")
     monkeypatch.setenv("SEC_IDENTITY", "sec@example.com")
     monkeypatch.setenv("EDGAR_IDENTITY", "edgar@example.com")

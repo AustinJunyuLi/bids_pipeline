@@ -3,7 +3,7 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass
 
-from skill_pipeline.pipeline_models.source import EvidenceItem, EvidenceType
+from skill_pipeline.schemas.source import EvidenceItem, EvidenceType
 from skill_pipeline.source.locate import looks_like_heading
 
 
@@ -168,7 +168,12 @@ def scan_document_evidence(
         lowered = _normalize(raw_text)
         matches = _classify_paragraph(raw_text, lowered)
         for evidence_type, matched_terms in matches:
-            key = (evidence_type.value, paragraph.start_line, paragraph.end_line, lowered)
+            key = (
+                evidence_type.value,
+                paragraph.start_line,
+                paragraph.end_line,
+                lowered,
+            )
             if key in seen:
                 continue
             seen.add(key)
@@ -186,7 +191,9 @@ def scan_document_evidence(
                     end_line=paragraph.end_line,
                     raw_text=raw_text,
                     evidence_type=evidence_type,
-                    confidence=_score_confidence(evidence_type, matched_terms, raw_text),
+                    confidence=_score_confidence(
+                        evidence_type, matched_terms, raw_text
+                    ),
                     matched_terms=matched_terms,
                     date_text=_first_match(DATE_FRAGMENT_RE, raw_text),
                     actor_hint=_extract_actor_hint(raw_text),
@@ -199,14 +206,20 @@ def scan_document_evidence(
     return evidence
 
 
-def group_evidence_by_type(items: list[EvidenceItem]) -> dict[EvidenceType, list[EvidenceItem]]:
-    grouped: dict[EvidenceType, list[EvidenceItem]] = {evidence_type: [] for evidence_type in EvidenceType}
+def group_evidence_by_type(
+    items: list[EvidenceItem],
+) -> dict[EvidenceType, list[EvidenceItem]]:
+    grouped: dict[EvidenceType, list[EvidenceItem]] = {
+        evidence_type: [] for evidence_type in EvidenceType
+    }
     for item in items:
         grouped.setdefault(item.evidence_type, []).append(item)
     return grouped
 
 
-def _classify_paragraph(raw_text: str, lowered: str) -> list[tuple[EvidenceType, list[str]]]:
+def _classify_paragraph(
+    raw_text: str, lowered: str
+) -> list[tuple[EvidenceType, list[str]]]:
     matches: list[tuple[EvidenceType, list[str]]] = []
 
     dated_terms = [term for term in ACTION_TERMS if term in lowered]
@@ -247,7 +260,9 @@ def _score_confidence(
         term in HIGH_VALUE_PROCESS_TERMS for term in matched_terms
     ):
         score += 2
-    if evidence_type == EvidenceType.OUTCOME_FACT and any(term in raw_text.lower() for term in {"closing", "executed", "termination fee"}):
+    if evidence_type == EvidenceType.OUTCOME_FACT and any(
+        term in raw_text.lower() for term in {"closing", "executed", "termination fee"}
+    ):
         score += 2
     if score >= 4:
         return "high"
@@ -269,7 +284,9 @@ def _extract_actor_hint(text: str) -> str | None:
     patterns = [
         re.compile(r"\b(?:Party|Bidder)\s+[A-Z]\b"),
         re.compile(r"\b(?:Board|Special Committee|Transaction Committee)\b"),
-        re.compile(r"\b[A-Z][A-Za-z&'.,-]+\s+(?:Partners|Sachs|Lynch|Morgan|Cooley|Gabelli|JANA|GAMCO|BMO)\b"),
+        re.compile(
+            r"\b[A-Z][A-Za-z&'.,-]+\s+(?:Partners|Sachs|Lynch|Morgan|Cooley|Gabelli|JANA|GAMCO|BMO)\b"
+        ),
     ]
     for pattern in patterns:
         match = pattern.search(text)

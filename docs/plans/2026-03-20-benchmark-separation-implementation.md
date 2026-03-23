@@ -1,5 +1,7 @@
 # Benchmark Separation Implementation Plan
 
+> Historical note: this plan predates the final cleanup of mirrored skill directories. Active benchmark-boundary enforcement now lives in `CLAUDE.md`, the Python runtime, and the test suite; references below to old skill mirrors are archival.
+
 > **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 
 **Goal:** Enforce a hard separation between filing-grounded generation and post-export benchmark reconciliation in the live repo instructions.

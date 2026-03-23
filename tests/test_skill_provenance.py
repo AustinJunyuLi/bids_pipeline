@@ -6,11 +6,11 @@ import json
 from datetime import date
 from pathlib import Path
 
-from skill_pipeline.canonicalize import run_canonicalize
+from skill_pipeline.stages.materialize import run_materialize
 from skill_pipeline.normalize.dates import parse_resolved_date
-from skill_pipeline.paths import build_skill_paths
-from skill_pipeline.pipeline_models.common import DatePrecision, QuoteMatchType
-from skill_pipeline.provenance import resolve_text_span
+from skill_pipeline.core.paths import build_skill_paths
+from skill_pipeline.schemas.common import DatePrecision, QuoteMatchType
+from skill_pipeline.core.provenance import resolve_text_span
 
 
 def test_parse_resolved_date_handles_exact_quarter_and_relative_forms() -> None:
@@ -64,7 +64,9 @@ def test_resolve_text_span_records_line_and_char_offsets() -> None:
     assert span.evidence_ids == ["DOC001:E0001"]
 
 
-def test_canonicalize_upgrades_legacy_extract_to_span_backed_schema(tmp_path: Path) -> None:
+def test_materialize_upgrades_legacy_extract_to_span_backed_schema(
+    tmp_path: Path,
+) -> None:
     slug = "imprivata"
     data_dir = tmp_path / "data"
     source_dir = data_dir / "deals" / slug / "source"
@@ -218,16 +220,24 @@ def test_canonicalize_upgrades_legacy_extract_to_span_backed_schema(tmp_path: Pa
         "exclusions": [],
         "coverage_notes": [],
     }
-    (extract_dir / "actors_raw.json").write_text(json.dumps(actors_payload), encoding="utf-8")
-    (extract_dir / "events_raw.json").write_text(json.dumps(events_payload), encoding="utf-8")
+    (extract_dir / "actors_raw.json").write_text(
+        json.dumps(actors_payload), encoding="utf-8"
+    )
+    (extract_dir / "events_raw.json").write_text(
+        json.dumps(events_payload), encoding="utf-8"
+    )
 
-    run_canonicalize(slug, project_root=tmp_path)
+    run_materialize(slug, project_root=tmp_path)
 
     paths = build_skill_paths(slug, project_root=tmp_path)
-    actors = json.loads(paths.actors_raw_path.read_text(encoding="utf-8"))
-    events = json.loads(paths.events_raw_path.read_text(encoding="utf-8"))
-    spans = json.loads(paths.spans_path.read_text(encoding="utf-8"))
+    raw_actors = json.loads(paths.actors_raw_path.read_text(encoding="utf-8"))
+    raw_events = json.loads(paths.events_raw_path.read_text(encoding="utf-8"))
+    actors = json.loads(paths.materialized_actors_path.read_text(encoding="utf-8"))
+    events = json.loads(paths.materialized_events_path.read_text(encoding="utf-8"))
+    spans = json.loads(paths.materialized_spans_path.read_text(encoding="utf-8"))
 
+    assert "evidence_refs" in raw_actors["actors"][0]
+    assert "evidence_refs" in raw_events["events"][0]
     assert actors["actors"][0]["evidence_span_ids"] == ["span_0001"]
     assert "evidence_refs" not in actors["actors"][0]
     assert events["events"][0]["evidence_span_ids"] == ["span_0002"]

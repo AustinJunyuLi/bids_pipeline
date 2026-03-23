@@ -1,5 +1,7 @@
 # Pipeline Design v3 — Evidence-First Informal Bids Extraction Pipeline
 
+> Historical note: this document is archival architecture context. The live production contract is in `CLAUDE.md`; names such as `canonicalize` or older pre-consolidation pipeline surfaces below are not active runtime instructions.
+
 Date: 2026-03-16  
 Supersedes: `docs/plans/2026-03-16-pipeline-design-v2.md`
 

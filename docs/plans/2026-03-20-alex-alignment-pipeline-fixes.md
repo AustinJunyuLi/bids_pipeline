@@ -1,5 +1,7 @@
 # Alex Alignment Pipeline Fixes Implementation Plan
 
+> Historical note: this plan predates the final Python-only `skill_pipeline/` runtime. References below to hybrid skills, `canonicalize`, or mirrored skill directories are archival; the live production contract is in `CLAUDE.md`.
+
 > **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 
 **Goal:** Align the hybrid skill pipeline with Alex's benchmark logic for start-of-sale markers and preserve extraction audit data through canonicalization.

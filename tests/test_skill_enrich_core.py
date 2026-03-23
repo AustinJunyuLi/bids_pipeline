@@ -5,8 +5,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from skill_pipeline.enrich_core import run_enrich_core
-from skill_pipeline.paths import build_skill_paths
+from skill_pipeline.stages.enrich.core import run_enrich_core
+from skill_pipeline.core.paths import build_skill_paths
 
 
 def _base_event(evt_id: str, event_type: str, **overrides: object) -> dict:
@@ -17,7 +17,9 @@ def _base_event(evt_id: str, event_type: str, **overrides: object) -> dict:
         "date": {"raw_text": "2016-06", "normalized_hint": "2016-06"},
         "actor_ids": [],
         "summary": "",
-        "evidence_refs": [{"block_id": "B001", "evidence_id": "E001", "anchor_text": "x"}],
+        "evidence_refs": [
+            {"block_id": "B001", "evidence_id": "E001", "anchor_text": "x"}
+        ],
         "terms": None,
         "formality_signals": None,
         "whole_company_scope": True,
@@ -32,6 +34,175 @@ def _base_event(evt_id: str, event_type: str, **overrides: object) -> dict:
     }
     evt.update(overrides)
     return evt
+
+
+def _resolved_date_from_hint(date_payload: dict | None) -> dict | None:
+    if date_payload is None:
+        return None
+    hint = date_payload.get("normalized_hint")
+    raw_text = date_payload.get("raw_text")
+    if hint and len(hint) == 10:
+        normalized_start = hint
+        normalized_end = hint
+        sort_date = hint
+        precision = "exact_day"
+    elif hint and len(hint) == 7:
+        normalized_start = f"{hint}-01"
+        normalized_end = f"{hint}-01"
+        sort_date = f"{hint}-01"
+        precision = "month"
+    else:
+        normalized_start = None
+        normalized_end = None
+        sort_date = None
+        precision = "unknown"
+    return {
+        "raw_text": raw_text,
+        "normalized_start": normalized_start,
+        "normalized_end": normalized_end,
+        "sort_date": sort_date,
+        "precision": precision,
+        "anchor_event_id": None,
+        "anchor_span_id": None,
+        "resolution_note": None,
+        "is_inferred": False,
+    }
+
+
+def _write_materialized_artifacts(
+    materialize_dir: Path,
+    *,
+    actors_payload: dict,
+    events_payload: dict,
+) -> None:
+    spans: list[dict[str, object]] = []
+    span_counter = 1
+
+    def _next_span_id() -> str:
+        nonlocal span_counter
+        span_id = f"span_{span_counter:04d}"
+        span_counter += 1
+        return span_id
+
+    canonical_actors = {
+        "actors": [],
+        "count_assertions": [],
+        "unresolved_mentions": list(actors_payload.get("unresolved_mentions", [])),
+    }
+
+    for actor in actors_payload.get("actors", []):
+        actor_copy = dict(actor)
+        span_ids: list[str] = []
+        for ref in actor_copy.pop("evidence_refs", []):
+            span_id = _next_span_id()
+            span_ids.append(span_id)
+            anchor_text = ref.get("anchor_text", "")
+            spans.append(
+                {
+                    "span_id": span_id,
+                    "document_id": "DOC001",
+                    "accession_number": "DOC001",
+                    "filing_type": "DEFM14A",
+                    "start_line": 1,
+                    "end_line": 1,
+                    "start_char": 1,
+                    "end_char": max(1, len(anchor_text)),
+                    "block_ids": [ref["block_id"]] if ref.get("block_id") else [],
+                    "evidence_ids": [ref["evidence_id"]]
+                    if ref.get("evidence_id")
+                    else [],
+                    "anchor_text": anchor_text,
+                    "quote_text": anchor_text or "x",
+                    "quote_text_normalized": (anchor_text or "x").lower(),
+                    "match_type": "exact",
+                    "resolution_note": None,
+                }
+            )
+        actor_copy["evidence_span_ids"] = span_ids
+        canonical_actors["actors"].append(actor_copy)
+
+    for assertion in actors_payload.get("count_assertions", []):
+        assertion_copy = {
+            "subject": assertion["subject"],
+            "count": assertion["count"],
+            "evidence_span_ids": [],
+        }
+        for ref in assertion.get("evidence_refs", []):
+            span_id = _next_span_id()
+            assertion_copy["evidence_span_ids"].append(span_id)
+            anchor_text = ref.get("anchor_text", "")
+            spans.append(
+                {
+                    "span_id": span_id,
+                    "document_id": "DOC001",
+                    "accession_number": "DOC001",
+                    "filing_type": "DEFM14A",
+                    "start_line": 1,
+                    "end_line": 1,
+                    "start_char": 1,
+                    "end_char": max(1, len(anchor_text)),
+                    "block_ids": [ref["block_id"]] if ref.get("block_id") else [],
+                    "evidence_ids": [ref["evidence_id"]]
+                    if ref.get("evidence_id")
+                    else [],
+                    "anchor_text": anchor_text,
+                    "quote_text": anchor_text or "x",
+                    "quote_text_normalized": (anchor_text or "x").lower(),
+                    "match_type": "exact",
+                    "resolution_note": None,
+                }
+            )
+        canonical_actors["count_assertions"].append(assertion_copy)
+
+    canonical_events = {
+        "events": [],
+        "exclusions": list(events_payload.get("exclusions", [])),
+        "coverage_notes": list(events_payload.get("coverage_notes", [])),
+    }
+    for event in events_payload.get("events", []):
+        event_copy = dict(event)
+        span_ids = []
+        for ref in event_copy.pop("evidence_refs", []):
+            span_id = _next_span_id()
+            span_ids.append(span_id)
+            anchor_text = ref.get("anchor_text", "")
+            spans.append(
+                {
+                    "span_id": span_id,
+                    "document_id": "DOC001",
+                    "accession_number": "DOC001",
+                    "filing_type": "DEFM14A",
+                    "start_line": 1,
+                    "end_line": 1,
+                    "start_char": 1,
+                    "end_char": max(1, len(anchor_text)),
+                    "block_ids": [ref["block_id"]] if ref.get("block_id") else [],
+                    "evidence_ids": [ref["evidence_id"]]
+                    if ref.get("evidence_id")
+                    else [],
+                    "anchor_text": anchor_text,
+                    "quote_text": anchor_text or "x",
+                    "quote_text_normalized": (anchor_text or "x").lower(),
+                    "match_type": "exact",
+                    "resolution_note": None,
+                }
+            )
+        event_copy["evidence_span_ids"] = span_ids
+        event_copy["date"] = _resolved_date_from_hint(event_copy["date"])
+        event_copy["deadline_date"] = _resolved_date_from_hint(
+            event_copy.get("deadline_date")
+        )
+        canonical_events["events"].append(event_copy)
+
+    (materialize_dir / "actors.json").write_text(
+        json.dumps(canonical_actors), encoding="utf-8"
+    )
+    (materialize_dir / "events.json").write_text(
+        json.dumps(canonical_events), encoding="utf-8"
+    )
+    (materialize_dir / "spans.json").write_text(
+        json.dumps({"spans": spans}), encoding="utf-8"
+    )
 
 
 def _write_enrich_core_fixture(
@@ -51,10 +222,10 @@ def _write_enrich_core_fixture(
     data_dir = tmp_path / "data"
     deals_source_dir = data_dir / "deals" / slug / "source"
     skill_root = data_dir / "skill" / slug
-    extract_dir = skill_root / "extract"
+    materialize_dir = skill_root / "materialize"
 
     deals_source_dir.mkdir(parents=True, exist_ok=True)
-    extract_dir.mkdir(parents=True, exist_ok=True)
+    materialize_dir.mkdir(parents=True, exist_ok=True)
 
     (data_dir / "seeds.csv").write_text(
         (
@@ -66,7 +237,9 @@ def _write_enrich_core_fixture(
     (deals_source_dir / "chronology_blocks.jsonl").write_text("{}\n", encoding="utf-8")
     (deals_source_dir / "evidence_items.jsonl").write_text("{}\n", encoding="utf-8")
     (tmp_path / "raw" / slug).mkdir(parents=True, exist_ok=True)
-    (tmp_path / "raw" / slug / "document_registry.json").write_text("{}", encoding="utf-8")
+    (tmp_path / "raw" / slug / "document_registry.json").write_text(
+        "{}", encoding="utf-8"
+    )
 
     actors_payload = {
         "actors": [
@@ -84,7 +257,9 @@ def _write_enrich_core_fixture(
                 "is_grouped": False,
                 "group_size": None,
                 "group_label": None,
-                "evidence_refs": [{"block_id": "B001", "evidence_id": None, "anchor_text": "Party A"}],
+                "evidence_refs": [
+                    {"block_id": "B001", "evidence_id": None, "anchor_text": "Party A"}
+                ],
                 "notes": [],
             }
         ],
@@ -118,7 +293,9 @@ def _write_enrich_core_fixture(
                 "date": {"raw_text": "June 2016", "normalized_hint": "2016-06"},
                 "actor_ids": ["party_a"],
                 "summary": "Target initiated sale.",
-                "evidence_refs": [{"block_id": "B001", "evidence_id": None, "anchor_text": "sale"}],
+                "evidence_refs": [
+                    {"block_id": "B001", "evidence_id": None, "anchor_text": "sale"}
+                ],
                 "terms": None,
                 "formality_signals": None,
                 "whole_company_scope": True,
@@ -137,8 +314,16 @@ def _write_enrich_core_fixture(
                 "date": {"raw_text": "July 5, 2016", "normalized_hint": "2016-07-05"},
                 "actor_ids": ["party_a"],
                 "summary": "Party A submitted a bid.",
-                "evidence_refs": [{"block_id": "B001", "evidence_id": None, "anchor_text": "bid"}],
-                "terms": {"per_share": 25.0, "range_low": None, "range_high": None, "enterprise_value": None, "consideration_type": "cash"},
+                "evidence_refs": [
+                    {"block_id": "B001", "evidence_id": None, "anchor_text": "bid"}
+                ],
+                "terms": {
+                    "per_share": 25.0,
+                    "range_low": None,
+                    "range_high": None,
+                    "enterprise_value": None,
+                    "consideration_type": "cash",
+                },
                 "formality_signals": residual_formality,
                 "whole_company_scope": True,
                 "drop_reason_text": None,
@@ -156,7 +341,9 @@ def _write_enrich_core_fixture(
                 "date": {"raw_text": "July 13, 2016", "normalized_hint": "2016-07-13"},
                 "actor_ids": ["party_a"],
                 "summary": "Deal executed.",
-                "evidence_refs": [{"block_id": "B001", "evidence_id": None, "anchor_text": "executed"}],
+                "evidence_refs": [
+                    {"block_id": "B001", "evidence_id": None, "anchor_text": "executed"}
+                ],
                 "terms": None,
                 "formality_signals": None,
                 "whole_company_scope": True,
@@ -179,7 +366,9 @@ def _write_enrich_core_fixture(
                 "date": {"raw_text": "June 2016", "normalized_hint": "2016-06"},
                 "actor_ids": ["party_a"],
                 "summary": "Target initiated sale.",
-                "evidence_refs": [{"block_id": "B001", "evidence_id": None, "anchor_text": "sale"}],
+                "evidence_refs": [
+                    {"block_id": "B001", "evidence_id": None, "anchor_text": "sale"}
+                ],
                 "terms": None,
                 "formality_signals": None,
                 "whole_company_scope": True,
@@ -198,7 +387,9 @@ def _write_enrich_core_fixture(
                 "date": {"raw_text": "June 15, 2016", "normalized_hint": "2016-06-15"},
                 "actor_ids": ["party_a"],
                 "summary": "Party A signed NDA.",
-                "evidence_refs": [{"block_id": "B001", "evidence_id": None, "anchor_text": "NDA"}],
+                "evidence_refs": [
+                    {"block_id": "B001", "evidence_id": None, "anchor_text": "NDA"}
+                ],
                 "terms": None,
                 "formality_signals": None,
                 "whole_company_scope": True,
@@ -217,7 +408,13 @@ def _write_enrich_core_fixture(
                 "date": {"raw_text": "July 1, 2016", "normalized_hint": "2016-07-01"},
                 "actor_ids": [],
                 "summary": "Target announced extension round.",
-                "evidence_refs": [{"block_id": "B001", "evidence_id": None, "anchor_text": "extension"}],
+                "evidence_refs": [
+                    {
+                        "block_id": "B001",
+                        "evidence_id": None,
+                        "anchor_text": "extension",
+                    }
+                ],
                 "terms": None,
                 "formality_signals": None,
                 "whole_company_scope": True,
@@ -236,14 +433,19 @@ def _write_enrich_core_fixture(
                 "date": {"raw_text": "July 5, 2016", "normalized_hint": "2016-07-05"},
                 "actor_ids": [],
                 "summary": "Extension round deadline.",
-                "evidence_refs": [{"block_id": "B001", "evidence_id": None, "anchor_text": "deadline"}],
+                "evidence_refs": [
+                    {"block_id": "B001", "evidence_id": None, "anchor_text": "deadline"}
+                ],
                 "terms": None,
                 "formality_signals": None,
                 "whole_company_scope": True,
                 "drop_reason_text": None,
                 "round_scope": None,
                 "invited_actor_ids": [],
-                "deadline_date": {"raw_text": "July 5, 2016", "normalized_hint": "2016-07-05"},
+                "deadline_date": {
+                    "raw_text": "July 5, 2016",
+                    "normalized_hint": "2016-07-05",
+                },
                 "executed_with_actor_id": None,
                 "boundary_note": None,
                 "nda_signed": None,
@@ -255,7 +457,9 @@ def _write_enrich_core_fixture(
                 "date": {"raw_text": "July 13, 2016", "normalized_hint": "2016-07-13"},
                 "actor_ids": ["party_a"],
                 "summary": "Deal executed.",
-                "evidence_refs": [{"block_id": "B001", "evidence_id": None, "anchor_text": "executed"}],
+                "evidence_refs": [
+                    {"block_id": "B001", "evidence_id": None, "anchor_text": "executed"}
+                ],
                 "terms": None,
                 "formality_signals": None,
                 "whole_company_scope": True,
@@ -272,43 +476,61 @@ def _write_enrich_core_fixture(
 
     events_payload = {"events": events, "exclusions": [], "coverage_notes": []}
 
-    (extract_dir / "actors_raw.json").write_text(json.dumps(actors_payload), encoding="utf-8")
-    (extract_dir / "events_raw.json").write_text(json.dumps(events_payload), encoding="utf-8")
+    _write_materialized_artifacts(
+        materialize_dir,
+        actors_payload=actors_payload,
+        events_payload=events_payload,
+    )
 
 
 def test_enrich_core_preserves_extension_rounds(tmp_path: Path) -> None:
     _write_enrich_core_fixture(tmp_path)
     run_enrich_core("imprivata", project_root=tmp_path)
     paths = build_skill_paths("imprivata", project_root=tmp_path)
-    artifact = json.loads(paths.deterministic_enrichment_path.read_text(encoding="utf-8"))
+    artifact = json.loads(
+        paths.deterministic_enrichment_path.read_text(encoding="utf-8")
+    )
 
     assert "rounds" in artifact
     assert len(artifact["rounds"]) >= 1
     assert artifact["rounds"][0]["round_scope"] == "extension"
 
 
-def test_enrich_core_marks_residual_bid_uncertain_and_leaves_boundary_null(tmp_path: Path) -> None:
+def test_enrich_core_marks_residual_bid_uncertain_and_leaves_boundary_null(
+    tmp_path: Path,
+) -> None:
     _write_enrich_core_fixture(tmp_path, residual_only=True)
     run_enrich_core("imprivata", project_root=tmp_path)
     paths = build_skill_paths("imprivata", project_root=tmp_path)
-    artifact = json.loads(paths.deterministic_enrichment_path.read_text(encoding="utf-8"))
+    artifact = json.loads(
+        paths.deterministic_enrichment_path.read_text(encoding="utf-8")
+    )
 
     assert artifact["bid_classifications"]["evt_002"]["label"] == "Uncertain"
     assert artifact["formal_boundary"]["cycle_1"]["event_id"] is None
 
 
-def test_cycle_segmentation_terminated_no_restart_honest_boundary_basis(tmp_path: Path) -> None:
+def test_cycle_segmentation_terminated_no_restart_honest_boundary_basis(
+    tmp_path: Path,
+) -> None:
     """Single cycle with terminated but no restarted must not claim 'no termination events'."""
     events = [
         _base_event("evt_001", "target_sale"),
         _base_event("evt_002", "nda", actor_ids=["party_a"]),
         _base_event("evt_003", "terminated"),
-        _base_event("evt_004", "executed", actor_ids=["party_a"], executed_with_actor_id="party_a"),
+        _base_event(
+            "evt_004",
+            "executed",
+            actor_ids=["party_a"],
+            executed_with_actor_id="party_a",
+        ),
     ]
     _write_enrich_core_fixture(tmp_path, events_override=events)
     run_enrich_core("imprivata", project_root=tmp_path)
     paths = build_skill_paths("imprivata", project_root=tmp_path)
-    artifact = json.loads(paths.deterministic_enrichment_path.read_text(encoding="utf-8"))
+    artifact = json.loads(
+        paths.deterministic_enrichment_path.read_text(encoding="utf-8")
+    )
 
     cycles = artifact["cycles"]
     assert len(cycles) == 1
@@ -319,7 +541,9 @@ def test_cycle_segmentation_terminated_no_restart_honest_boundary_basis(tmp_path
     assert "terminat" in cycles[0]["boundary_basis"].lower()
 
 
-def test_cycle_segmentation_terminated_intervening_restarted_no_orphans(tmp_path: Path) -> None:
+def test_cycle_segmentation_terminated_intervening_restarted_no_orphans(
+    tmp_path: Path,
+) -> None:
     """Events between terminated and restarted must not be orphaned; boundary is at restarted."""
     events = [
         _base_event("evt_001", "target_sale"),
@@ -331,7 +555,9 @@ def test_cycle_segmentation_terminated_intervening_restarted_no_orphans(tmp_path
     _write_enrich_core_fixture(tmp_path, events_override=events)
     run_enrich_core("imprivata", project_root=tmp_path)
     paths = build_skill_paths("imprivata", project_root=tmp_path)
-    artifact = json.loads(paths.deterministic_enrichment_path.read_text(encoding="utf-8"))
+    artifact = json.loads(
+        paths.deterministic_enrichment_path.read_text(encoding="utf-8")
+    )
 
     cycles = artifact["cycles"]
     assert len(cycles) == 2
@@ -345,7 +571,9 @@ def test_cycle_segmentation_terminated_intervening_restarted_no_orphans(tmp_path
     assert cycles[1]["boundary_basis"] == "Final cycle."
 
 
-def test_rule_2_5_classifies_after_final_round_deadline_as_formal(tmp_path: Path) -> None:
+def test_rule_2_5_classifies_after_final_round_deadline_as_formal(
+    tmp_path: Path,
+) -> None:
     """Proposal with after_final_round_deadline=True and no informal signals -> Formal via Rule 2.5."""
     formality_signals = {
         "contains_range": False,
@@ -363,13 +591,25 @@ def test_rule_2_5_classifies_after_final_round_deadline_as_formal(tmp_path: Path
     events = [
         _base_event("evt_001", "target_sale"),
         _base_event("evt_002", "nda", actor_ids=["party_a"]),
-        _base_event("evt_003", "proposal", actor_ids=["party_a"], formality_signals=formality_signals),
-        _base_event("evt_004", "executed", actor_ids=["party_a"], executed_with_actor_id="party_a"),
+        _base_event(
+            "evt_003",
+            "proposal",
+            actor_ids=["party_a"],
+            formality_signals=formality_signals,
+        ),
+        _base_event(
+            "evt_004",
+            "executed",
+            actor_ids=["party_a"],
+            executed_with_actor_id="party_a",
+        ),
     ]
     _write_enrich_core_fixture(tmp_path, events_override=events)
     run_enrich_core("imprivata", project_root=tmp_path)
     paths = build_skill_paths("imprivata", project_root=tmp_path)
-    artifact = json.loads(paths.deterministic_enrichment_path.read_text(encoding="utf-8"))
+    artifact = json.loads(
+        paths.deterministic_enrichment_path.read_text(encoding="utf-8")
+    )
 
     classification = artifact["bid_classifications"]["evt_003"]
     assert classification["label"] == "Formal"
@@ -394,13 +634,25 @@ def test_rule_1_overrides_rule_2_5_when_non_binding(tmp_path: Path) -> None:
     events = [
         _base_event("evt_001", "target_sale"),
         _base_event("evt_002", "nda", actor_ids=["party_a"]),
-        _base_event("evt_003", "proposal", actor_ids=["party_a"], formality_signals=formality_signals),
-        _base_event("evt_004", "executed", actor_ids=["party_a"], executed_with_actor_id="party_a"),
+        _base_event(
+            "evt_003",
+            "proposal",
+            actor_ids=["party_a"],
+            formality_signals=formality_signals,
+        ),
+        _base_event(
+            "evt_004",
+            "executed",
+            actor_ids=["party_a"],
+            executed_with_actor_id="party_a",
+        ),
     ]
     _write_enrich_core_fixture(tmp_path, events_override=events)
     run_enrich_core("imprivata", project_root=tmp_path)
     paths = build_skill_paths("imprivata", project_root=tmp_path)
-    artifact = json.loads(paths.deterministic_enrichment_path.read_text(encoding="utf-8"))
+    artifact = json.loads(
+        paths.deterministic_enrichment_path.read_text(encoding="utf-8")
+    )
 
     classification = artifact["bid_classifications"]["evt_003"]
     assert classification["label"] == "Informal"
@@ -425,13 +677,25 @@ def test_formal_boundary_when_formal_proposal_in_cycle(tmp_path: Path) -> None:
     events = [
         _base_event("evt_001", "target_sale"),
         _base_event("evt_002", "nda", actor_ids=["party_a"]),
-        _base_event("evt_003", "proposal", actor_ids=["party_a"], formality_signals=formal_signals),
-        _base_event("evt_004", "executed", actor_ids=["party_a"], executed_with_actor_id="party_a"),
+        _base_event(
+            "evt_003",
+            "proposal",
+            actor_ids=["party_a"],
+            formality_signals=formal_signals,
+        ),
+        _base_event(
+            "evt_004",
+            "executed",
+            actor_ids=["party_a"],
+            executed_with_actor_id="party_a",
+        ),
     ]
     _write_enrich_core_fixture(tmp_path, events_override=events)
     run_enrich_core("imprivata", project_root=tmp_path)
     paths = build_skill_paths("imprivata", project_root=tmp_path)
-    artifact = json.loads(paths.deterministic_enrichment_path.read_text(encoding="utf-8"))
+    artifact = json.loads(
+        paths.deterministic_enrichment_path.read_text(encoding="utf-8")
+    )
 
     assert artifact["formal_boundary"]["cycle_1"]["event_id"] == "evt_003"
     assert "evt_003" in artifact["formal_boundary"]["cycle_1"]["basis"]
@@ -442,9 +706,9 @@ def test_invited_actor_ids_populated_from_count_assertions(tmp_path: Path) -> No
     slug = "imprivata"
     data_dir = tmp_path / "data"
     deals_source_dir = data_dir / "deals" / slug / "source"
-    extract_dir = data_dir / "skill" / slug / "extract"
+    materialize_dir = data_dir / "skill" / slug / "materialize"
     deals_source_dir.mkdir(parents=True, exist_ok=True)
-    extract_dir.mkdir(parents=True, exist_ok=True)
+    materialize_dir.mkdir(parents=True, exist_ok=True)
 
     (data_dir / "seeds.csv").write_text(
         "deal_slug,target_name,acquirer,date_announced,primary_url,is_reference\n"
@@ -454,7 +718,9 @@ def test_invited_actor_ids_populated_from_count_assertions(tmp_path: Path) -> No
     (deals_source_dir / "chronology_blocks.jsonl").write_text("{}\n", encoding="utf-8")
     (deals_source_dir / "evidence_items.jsonl").write_text("{}\n", encoding="utf-8")
     (tmp_path / "raw" / slug).mkdir(parents=True, exist_ok=True)
-    (tmp_path / "raw" / slug / "document_registry.json").write_text("{}", encoding="utf-8")
+    (tmp_path / "raw" / slug / "document_registry.json").write_text(
+        "{}", encoding="utf-8"
+    )
 
     actors_payload = {
         "actors": [
@@ -472,7 +738,9 @@ def test_invited_actor_ids_populated_from_count_assertions(tmp_path: Path) -> No
                 "is_grouped": False,
                 "group_size": None,
                 "group_label": None,
-                "evidence_refs": [{"block_id": "B001", "evidence_id": None, "anchor_text": "x"}],
+                "evidence_refs": [
+                    {"block_id": "B001", "evidence_id": None, "anchor_text": "x"}
+                ],
                 "notes": [],
             },
             {
@@ -489,7 +757,9 @@ def test_invited_actor_ids_populated_from_count_assertions(tmp_path: Path) -> No
                 "is_grouped": False,
                 "group_size": None,
                 "group_label": None,
-                "evidence_refs": [{"block_id": "B001", "evidence_id": None, "anchor_text": "x"}],
+                "evidence_refs": [
+                    {"block_id": "B001", "evidence_id": None, "anchor_text": "x"}
+                ],
                 "notes": [],
             },
             {
@@ -506,7 +776,9 @@ def test_invited_actor_ids_populated_from_count_assertions(tmp_path: Path) -> No
                 "is_grouped": False,
                 "group_size": None,
                 "group_label": None,
-                "evidence_refs": [{"block_id": "B001", "evidence_id": None, "anchor_text": "x"}],
+                "evidence_refs": [
+                    {"block_id": "B001", "evidence_id": None, "anchor_text": "x"}
+                ],
                 "notes": [],
             },
         ],
@@ -537,12 +809,17 @@ def test_invited_actor_ids_populated_from_count_assertions(tmp_path: Path) -> No
     ]
     events_payload = {"events": events, "exclusions": [], "coverage_notes": []}
 
-    (extract_dir / "actors_raw.json").write_text(json.dumps(actors_payload), encoding="utf-8")
-    (extract_dir / "events_raw.json").write_text(json.dumps(events_payload), encoding="utf-8")
+    _write_materialized_artifacts(
+        materialize_dir,
+        actors_payload=actors_payload,
+        events_payload=events_payload,
+    )
 
     run_enrich_core(slug, project_root=tmp_path)
     paths = build_skill_paths(slug, project_root=tmp_path)
-    artifact = json.loads(paths.deterministic_enrichment_path.read_text(encoding="utf-8"))
+    artifact = json.loads(
+        paths.deterministic_enrichment_path.read_text(encoding="utf-8")
+    )
 
     assert len(artifact["rounds"]) >= 1
     formal_round = artifact["rounds"][0]
@@ -555,9 +832,9 @@ def test_invited_population_graceful_on_unmatched_names(tmp_path: Path) -> None:
     slug = "imprivata"
     data_dir = tmp_path / "data"
     deals_source_dir = data_dir / "deals" / slug / "source"
-    extract_dir = data_dir / "skill" / slug / "extract"
+    materialize_dir = data_dir / "skill" / slug / "materialize"
     deals_source_dir.mkdir(parents=True, exist_ok=True)
-    extract_dir.mkdir(parents=True, exist_ok=True)
+    materialize_dir.mkdir(parents=True, exist_ok=True)
 
     (data_dir / "seeds.csv").write_text(
         "deal_slug,target_name,acquirer,date_announced,primary_url,is_reference\n"
@@ -567,7 +844,9 @@ def test_invited_population_graceful_on_unmatched_names(tmp_path: Path) -> None:
     (deals_source_dir / "chronology_blocks.jsonl").write_text("{}\n", encoding="utf-8")
     (deals_source_dir / "evidence_items.jsonl").write_text("{}\n", encoding="utf-8")
     (tmp_path / "raw" / slug).mkdir(parents=True, exist_ok=True)
-    (tmp_path / "raw" / slug / "document_registry.json").write_text("{}", encoding="utf-8")
+    (tmp_path / "raw" / slug / "document_registry.json").write_text(
+        "{}", encoding="utf-8"
+    )
 
     actors_payload = {
         "actors": [
@@ -585,7 +864,9 @@ def test_invited_population_graceful_on_unmatched_names(tmp_path: Path) -> None:
                 "is_grouped": False,
                 "group_size": None,
                 "group_label": None,
-                "evidence_refs": [{"block_id": "B001", "evidence_id": None, "anchor_text": "x"}],
+                "evidence_refs": [
+                    {"block_id": "B001", "evidence_id": None, "anchor_text": "x"}
+                ],
                 "notes": [],
             },
         ],
@@ -614,12 +895,17 @@ def test_invited_population_graceful_on_unmatched_names(tmp_path: Path) -> None:
     ]
     events_payload = {"events": events, "exclusions": [], "coverage_notes": []}
 
-    (extract_dir / "actors_raw.json").write_text(json.dumps(actors_payload), encoding="utf-8")
-    (extract_dir / "events_raw.json").write_text(json.dumps(events_payload), encoding="utf-8")
+    _write_materialized_artifacts(
+        materialize_dir,
+        actors_payload=actors_payload,
+        events_payload=events_payload,
+    )
 
     run_enrich_core(slug, project_root=tmp_path)
     paths = build_skill_paths(slug, project_root=tmp_path)
-    artifact = json.loads(paths.deterministic_enrichment_path.read_text(encoding="utf-8"))
+    artifact = json.loads(
+        paths.deterministic_enrichment_path.read_text(encoding="utf-8")
+    )
 
     assert len(artifact["rounds"]) >= 1
     formal_round = artifact["rounds"][0]

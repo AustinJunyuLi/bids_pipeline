@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from skill_pipeline.pipeline_models.source import ChronologyBlock, ChronologySelection
+from skill_pipeline.schemas.source import ChronologyBlock, ChronologySelection
 from skill_pipeline.source.locate import looks_like_heading
 
 

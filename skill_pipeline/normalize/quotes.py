@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from skill_pipeline.pipeline_models.common import QuoteMatchType
+from skill_pipeline.schemas.common import QuoteMatchType
 
 
 TRANSLATIONS = {
@@ -61,7 +61,9 @@ def normalize_for_matching_with_map(text: str) -> tuple[str, list[int]]:
     return "".join(chars), index_map
 
 
-def simplify_for_matching_with_map(text: str, index_map: list[int]) -> tuple[str, list[int]]:
+def simplify_for_matching_with_map(
+    text: str, index_map: list[int]
+) -> tuple[str, list[int]]:
     chars: list[str] = []
     simplified_map: list[int] = []
 
@@ -74,7 +76,9 @@ def simplify_for_matching_with_map(text: str, index_map: list[int]) -> tuple[str
     return "".join(chars), simplified_map
 
 
-def strip_parenthetical_text_with_map(text: str, index_map: list[int]) -> tuple[str, list[int]]:
+def strip_parenthetical_text_with_map(
+    text: str, index_map: list[int]
+) -> tuple[str, list[int]]:
     chars: list[str] = []
     stripped_map: list[int] = []
     depth = 0
@@ -129,7 +133,9 @@ def find_anchor_in_segment(
             original_end = index_map[normalized_end] + 1
             return QuoteMatchType.NORMALIZED, original_start, original_end
 
-        simplified_segment, simplified_map = simplify_for_matching_with_map(normalized_segment, index_map)
+        simplified_segment, simplified_map = simplify_for_matching_with_map(
+            normalized_segment, index_map
+        )
         simplified_anchor, _anchor_map = simplify_for_matching_with_map(
             normalized_anchor,
             list(range(len(normalized_anchor))),
@@ -158,7 +164,9 @@ def find_anchor_in_segment(
                 original_end = parenthetical_map[parenthetical_end] + 1
                 return QuoteMatchType.FUZZY, original_start, original_end
 
-        compact_segment, compact_map = compact_alnum_with_map(parenthetical_segment, parenthetical_map)
+        compact_segment, compact_map = compact_alnum_with_map(
+            parenthetical_segment, parenthetical_map
+        )
         compact_anchor, _anchor_map = compact_alnum_with_map(
             parenthetical_anchor,
             list(range(len(parenthetical_anchor))),

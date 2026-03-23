@@ -1,5 +1,7 @@
 # Seed-Only Fetch And Preprocess Design
 
+> Historical note: the live production contract is in `CLAUDE.md`. The only active upstream CLI surfaces are `skill-pipeline raw-fetch` and `skill-pipeline preprocess-source`; older references below to `source-discover`, legacy `skill_pipeline.source.*` compatibility modules, or downstream `canonicalize` are archival.
+
 **Status:** DRAFT
 **Date:** 2026-03-20
 **Confidence:** 9/10
