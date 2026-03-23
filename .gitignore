@@ -10,7 +10,12 @@ __pycache__/
 *.swp
 *.swo
 *.tmp
+*.tmp.*
 .DS_Store
+
+# Local backend credentials
+.env
+.env.local
 
 # Local git worktrees
 .worktrees/
