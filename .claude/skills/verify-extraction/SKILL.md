@@ -32,6 +32,16 @@ EXACT and NORMALIZED resolve; FUZZY does not. The LLM repair loop should run
 only when **all** error-level findings across both deterministic artifacts are
 `repairable`; any `non_repairable` error fails closed.
 
+## Benchmark Boundary
+
+Benchmark materials are forbidden during generation. Do not consult benchmark
+files, benchmark notes, `example/`, `diagnosis/`,
+`data/skill/<slug>/reconcile/*`, or `/reconcile-alex` before `/export-csv`
+completes.
+
+Use only filing-grounded source artifacts during verification. Benchmark
+comparison is post-export only and read-only.
+
 ## Reads
 
 | File | What it provides |

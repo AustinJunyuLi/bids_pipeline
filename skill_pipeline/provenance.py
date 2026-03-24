@@ -10,6 +10,7 @@ from skill_pipeline.pipeline_models.common import QuoteMatchType
 
 
 SPAN_EXPANSION_LINES = 3
+STRICT_QUOTE_MATCH_TYPES = frozenset({QuoteMatchType.EXACT, QuoteMatchType.NORMALIZED})
 
 
 def resolve_text_span(
@@ -31,7 +32,7 @@ def resolve_text_span(
 
     window_start_line = start_line
     resolved_lines = block_lines
-    if match_type == QuoteMatchType.UNRESOLVED:
+    if match_type not in STRICT_QUOTE_MATCH_TYPES:
         expanded_start_line = max(1, start_line - SPAN_EXPANSION_LINES)
         expanded_end_line = min(len(raw_lines), end_line + SPAN_EXPANSION_LINES)
         if expanded_start_line != start_line or expanded_end_line != end_line:
@@ -41,7 +42,7 @@ def resolve_text_span(
                 expanded_segment,
                 anchor_text,
             )
-            if expanded_match_type != QuoteMatchType.UNRESOLVED:
+            if expanded_match_type in STRICT_QUOTE_MATCH_TYPES:
                 match_type = expanded_match_type
                 start_idx = expanded_start_idx
                 end_idx = expanded_end_idx

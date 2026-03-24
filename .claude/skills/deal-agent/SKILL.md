@@ -20,13 +20,23 @@ stages (canonicalize, check, verify, coverage, enrich-core) are available via
 
 ## Prerequisite
 
-`pipeline raw fetch --deal <slug>` and `pipeline preprocess source --deal <slug>`
-already ran.
+`skill-pipeline raw-fetch --deal <slug>` and
+`skill-pipeline preprocess-source --deal <slug>` already ran.
 
 ## When To Use
 
 Invoke as `/deal-agent <slug>` for end-to-end extraction through CSV export. Use
 individual skills when re-running a specific stage.
+
+## Benchmark Boundary
+
+Benchmark materials are forbidden during generation. Do not consult benchmark
+files, benchmark notes, `example/`, `diagnosis/`,
+`data/skill/<slug>/reconcile/*`, or `/reconcile-alex` before `/export-csv`
+completes.
+
+Use only filing-grounded inputs through export. Benchmark comparison is
+post-export only and read-only.
 
 ## Skills
 

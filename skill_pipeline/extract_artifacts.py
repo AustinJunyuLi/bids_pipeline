@@ -35,22 +35,25 @@ class LoadedExtractArtifacts:
 def load_extract_artifacts(paths: SkillPathSet) -> LoadedExtractArtifacts:
     actors_payload = _read_json(paths.actors_raw_path)
     events_payload = _read_json(paths.events_raw_path)
-    canonical = (
-        paths.spans_path.exists()
-        or _payload_has_span_ids(actors_payload, "actors")
-        or _payload_has_span_ids(actors_payload, "count_assertions")
-        or _payload_has_span_ids(events_payload, "events")
+    actors_canonical = _payload_has_span_ids(actors_payload, "actors") or _payload_has_span_ids(
+        actors_payload,
+        "count_assertions",
     )
+    events_canonical = _payload_has_span_ids(events_payload, "events")
+    canonical = actors_canonical or events_canonical
 
     if canonical:
-        spans_payload = _read_json(paths.spans_path) if paths.spans_path.exists() else {"spans": []}
+        if not paths.spans_path.exists():
+            raise FileNotFoundError(
+                f"Missing required canonical sidecar: {paths.spans_path}"
+            )
         return LoadedExtractArtifacts(
             mode="canonical",
             raw_actors=None,
             raw_events=None,
             actors=SkillActorsArtifact.model_validate(actors_payload),
             events=SkillEventsArtifact.model_validate(events_payload),
-            spans=SpanRegistryArtifact.model_validate(spans_payload),
+            spans=SpanRegistryArtifact.model_validate(_read_json(paths.spans_path)),
         )
 
     return LoadedExtractArtifacts(

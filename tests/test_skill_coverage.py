@@ -258,6 +258,156 @@ def test_coverage_warns_on_uncovered_medium_confidence_advisor_cue(tmp_path: Pat
     assert findings["findings"][0]["severity"] == "warning"
 
 
+def test_coverage_reports_uncovered_second_proposal_cue_in_same_block(
+    tmp_path: Path,
+) -> None:
+    chronology_blocks = [
+        {
+            "block_id": "B001",
+            "document_id": "DOC001",
+            "ordinal": 1,
+            "start_line": 1,
+            "end_line": 2,
+            "raw_text": "Party A submitted an indication of interest.\nParty B submitted an indication of interest.",
+            "clean_text": "Party A submitted an indication of interest. Party B submitted an indication of interest.",
+            "is_heading": False,
+            "page_break_before": False,
+            "page_break_after": False,
+        }
+    ]
+    evidence_items = [
+        {
+            "evidence_id": "DOC001:E0001",
+            "document_id": "DOC001",
+            "accession_number": "DOC001",
+            "filing_type": "DEFM14A",
+            "start_line": 1,
+            "end_line": 1,
+            "raw_text": "Party A submitted an indication of interest.",
+            "evidence_type": "dated_action",
+            "confidence": "high",
+            "matched_terms": ["submitted", "indication of interest"],
+            "date_text": "July 5, 2016",
+            "actor_hint": "Party A",
+            "value_hint": None,
+            "note": None,
+        },
+        {
+            "evidence_id": "DOC001:E0002",
+            "document_id": "DOC001",
+            "accession_number": "DOC001",
+            "filing_type": "DEFM14A",
+            "start_line": 2,
+            "end_line": 2,
+            "raw_text": "Party B submitted an indication of interest.",
+            "evidence_type": "dated_action",
+            "confidence": "high",
+            "matched_terms": ["submitted", "indication of interest"],
+            "date_text": "July 5, 2016",
+            "actor_hint": "Party B",
+            "value_hint": None,
+            "note": None,
+        },
+    ]
+    events_payload = {
+        "events": [
+            {
+                "event_id": "evt_001",
+                "event_type": "proposal",
+                "date": {
+                    "raw_text": "July 5, 2016",
+                    "normalized_start": "2016-07-05",
+                    "normalized_end": "2016-07-05",
+                    "sort_date": "2016-07-05",
+                    "precision": "exact_day",
+                    "anchor_event_id": None,
+                    "anchor_span_id": None,
+                    "resolution_note": None,
+                    "is_inferred": False,
+                },
+                "actor_ids": ["party_a"],
+                "summary": "Party A submitted an indication of interest.",
+                "evidence_span_ids": ["span_0001"],
+                "terms": None,
+                "formality_signals": None,
+                "whole_company_scope": True,
+                "drop_reason_text": None,
+                "round_scope": None,
+                "invited_actor_ids": [],
+                "deadline_date": None,
+                "executed_with_actor_id": None,
+                "boundary_note": None,
+                "nda_signed": None,
+                "notes": [],
+            }
+        ],
+        "exclusions": [],
+        "coverage_notes": [],
+    }
+    actors_payload = {
+        "actors": [
+            {
+                "actor_id": "party_a",
+                "display_name": "Party A",
+                "canonical_name": "PARTY A",
+                "aliases": [],
+                "role": "bidder",
+                "advisor_kind": None,
+                "advised_actor_id": None,
+                "bidder_kind": "financial",
+                "listing_status": "private",
+                "geography": "domestic",
+                "is_grouped": False,
+                "group_size": None,
+                "group_label": None,
+                "evidence_span_ids": [],
+                "notes": [],
+            }
+        ],
+        "count_assertions": [],
+        "unresolved_mentions": [],
+    }
+    spans_payload = {
+        "spans": [
+            {
+                "span_id": "span_0001",
+                "document_id": "DOC001",
+                "accession_number": "DOC001",
+                "filing_type": "DEFM14A",
+                "start_line": 1,
+                "end_line": 1,
+                "start_char": 8,
+                "end_char": 43,
+                "block_ids": ["B001"],
+                "evidence_ids": ["DOC001:E0001"],
+                "anchor_text": "submitted an indication of interest",
+                "quote_text": "Party A submitted an indication of interest.",
+                "quote_text_normalized": "party a submitted an indication of interest.",
+                "match_type": "exact",
+                "resolution_note": None,
+            }
+        ]
+    }
+    _write_coverage_fixture(
+        tmp_path,
+        evidence_items=evidence_items,
+        chronology_blocks=chronology_blocks,
+        actors_payload=actors_payload,
+        events_payload=events_payload,
+        spans_payload=spans_payload,
+    )
+
+    exit_code = run_coverage("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    findings = json.loads(paths.coverage_findings_path.read_text(encoding="utf-8"))
+    summary = json.loads(paths.coverage_summary_path.read_text(encoding="utf-8"))
+
+    assert exit_code == 1
+    assert summary["status"] == "fail"
+    assert summary["error_count"] == 1
+    assert findings["findings"][0]["evidence_ids"] == ["DOC001:E0002"]
+
+
 def test_skill_cli_supports_coverage_subcommand() -> None:
     parser = cli.build_parser()
     args = parser.parse_args(["coverage", "--deal", "imprivata"])

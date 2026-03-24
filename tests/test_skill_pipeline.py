@@ -312,3 +312,50 @@ def test_run_deal_agent_summarizes_existing_skill_artifacts(tmp_path: Path):
     assert summary.enrich.review_flags_count == 1
     assert summary.export.status == "pass"
     assert summary.export.output_path == skill_root / "export" / "deal_events.csv"
+
+
+def test_run_deal_agent_reports_deterministic_enrichment_when_interpretive_artifact_is_missing(
+    tmp_path: Path,
+):
+    _write_shared_inputs(tmp_path)
+    skill_root = _write_skill_outputs(tmp_path)
+    enrich_dir = skill_root / "enrich"
+    (enrich_dir / "enrichment.json").unlink()
+    (enrich_dir / "deterministic_enrichment.json").write_text(
+        json.dumps(
+            {
+                "rounds": [],
+                "bid_classifications": {
+                    "evt_002": {
+                        "label": "Formal",
+                        "rule_applied": 2,
+                        "basis": "Proposal included formality signals.",
+                    }
+                },
+                "cycles": [
+                    {
+                        "cycle_id": "cycle_1",
+                        "start_event_id": "evt_001",
+                        "end_event_id": "evt_002",
+                        "boundary_basis": "Single cycle -- no termination events",
+                    }
+                ],
+                "formal_boundary": {
+                    "cycle_1": {
+                        "event_id": "evt_002",
+                        "basis": "First formal proposal in cycle: evt_002.",
+                    }
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    summary = run_deal_agent("imprivata", project_root=tmp_path)
+
+    assert summary.enrich.status == "pass"
+    assert summary.enrich.cycle_count == 1
+    assert summary.enrich.formal_bid_count == 1
+    assert summary.enrich.informal_bid_count == 0
+    assert summary.enrich.initiation_judgment_type is None
+    assert summary.enrich.review_flags_count == 0

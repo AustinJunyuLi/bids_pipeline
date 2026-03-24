@@ -32,6 +32,16 @@ This writes `enrich/deterministic_enrichment.json` with `rounds`,
 classification is `Uncertain`, not forced `Informal`. The interpretive remainder
 (initiation, advisory verification, count reconciliation) stays in this skill.
 
+## Benchmark Boundary
+
+Benchmark materials are forbidden during generation. Do not consult benchmark
+files, benchmark notes, `example/`, `diagnosis/`,
+`data/skill/<slug>/reconcile/*`, or `/reconcile-alex` before `/export-csv`
+completes.
+
+Use only filing-grounded extract and source artifacts during enrichment.
+Benchmark comparison is post-export only and read-only.
+
 ## Reads
 
 | File | What it provides |

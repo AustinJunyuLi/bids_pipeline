@@ -23,7 +23,18 @@ source. The skill defines its own JSON format as specified below.
 
 - Called by the deal-agent orchestrator, or independently via
   `/extract-deal <slug>`.
-- Prerequisite: `pipeline raw fetch` + `pipeline preprocess source` already ran.
+- Prerequisite: `skill-pipeline raw-fetch` +
+  `skill-pipeline preprocess-source` already ran.
+
+## Benchmark Boundary
+
+Benchmark materials are forbidden during generation. Do not consult benchmark
+files, benchmark notes, `example/`, `diagnosis/`,
+`data/skill/<slug>/reconcile/*`, or `/reconcile-alex` before `/export-csv`
+completes.
+
+Use only filing-grounded source artifacts during extraction. Benchmark
+comparison is post-export only and read-only.
 
 ## Reads
 

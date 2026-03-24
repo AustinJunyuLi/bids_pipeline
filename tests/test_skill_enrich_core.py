@@ -5,6 +5,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
+
 from skill_pipeline.enrich_core import run_enrich_core
 from skill_pipeline.paths import build_skill_paths
 
@@ -276,8 +278,74 @@ def _write_enrich_core_fixture(
     (extract_dir / "events_raw.json").write_text(json.dumps(events_payload), encoding="utf-8")
 
 
+def _write_gate_artifacts(
+    tmp_path: Path,
+    *,
+    slug: str = "imprivata",
+    check_status: str = "pass",
+    verify_status: str = "pass",
+    coverage_status: str = "pass",
+) -> None:
+    skill_root = tmp_path / "data" / "skill" / slug
+    check_dir = skill_root / "check"
+    verify_dir = skill_root / "verify"
+    coverage_dir = skill_root / "coverage"
+    check_dir.mkdir(parents=True, exist_ok=True)
+    verify_dir.mkdir(parents=True, exist_ok=True)
+    coverage_dir.mkdir(parents=True, exist_ok=True)
+
+    blocker_count = 1 if check_status == "fail" else 0
+    verify_errors = 1 if verify_status == "fail" else 0
+    coverage_errors = 1 if coverage_status == "fail" else 0
+
+    (check_dir / "check_report.json").write_text(
+        json.dumps(
+            {
+                "findings": [],
+                "summary": {
+                    "blocker_count": blocker_count,
+                    "warning_count": 0,
+                    "status": check_status,
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+    (verify_dir / "verification_log.json").write_text(
+        json.dumps(
+            {
+                "round_1": {"findings": [], "fixes_applied": []},
+                "round_2": {"findings": [], "status": verify_status},
+                "summary": {
+                    "total_checks": 0,
+                    "round_1_errors": verify_errors,
+                    "round_1_warnings": 0,
+                    "fixes_applied": 0,
+                    "round_2_errors": 0,
+                    "round_2_warnings": 0,
+                    "status": verify_status,
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+    (coverage_dir / "coverage_summary.json").write_text(
+        json.dumps(
+            {
+                "status": coverage_status,
+                "finding_count": coverage_errors,
+                "error_count": coverage_errors,
+                "warning_count": 0,
+                "counts_by_cue_family": {},
+            }
+        ),
+        encoding="utf-8",
+    )
+
+
 def test_enrich_core_preserves_extension_rounds(tmp_path: Path) -> None:
     _write_enrich_core_fixture(tmp_path)
+    _write_gate_artifacts(tmp_path)
     run_enrich_core("imprivata", project_root=tmp_path)
     paths = build_skill_paths("imprivata", project_root=tmp_path)
     artifact = json.loads(paths.deterministic_enrichment_path.read_text(encoding="utf-8"))
@@ -289,6 +357,7 @@ def test_enrich_core_preserves_extension_rounds(tmp_path: Path) -> None:
 
 def test_enrich_core_marks_residual_bid_uncertain_and_leaves_boundary_null(tmp_path: Path) -> None:
     _write_enrich_core_fixture(tmp_path, residual_only=True)
+    _write_gate_artifacts(tmp_path)
     run_enrich_core("imprivata", project_root=tmp_path)
     paths = build_skill_paths("imprivata", project_root=tmp_path)
     artifact = json.loads(paths.deterministic_enrichment_path.read_text(encoding="utf-8"))
@@ -306,6 +375,7 @@ def test_cycle_segmentation_terminated_no_restart_honest_boundary_basis(tmp_path
         _base_event("evt_004", "executed", actor_ids=["party_a"], executed_with_actor_id="party_a"),
     ]
     _write_enrich_core_fixture(tmp_path, events_override=events)
+    _write_gate_artifacts(tmp_path)
     run_enrich_core("imprivata", project_root=tmp_path)
     paths = build_skill_paths("imprivata", project_root=tmp_path)
     artifact = json.loads(paths.deterministic_enrichment_path.read_text(encoding="utf-8"))
@@ -329,6 +399,7 @@ def test_cycle_segmentation_terminated_intervening_restarted_no_orphans(tmp_path
         _base_event("evt_005", "executed"),
     ]
     _write_enrich_core_fixture(tmp_path, events_override=events)
+    _write_gate_artifacts(tmp_path)
     run_enrich_core("imprivata", project_root=tmp_path)
     paths = build_skill_paths("imprivata", project_root=tmp_path)
     artifact = json.loads(paths.deterministic_enrichment_path.read_text(encoding="utf-8"))
@@ -367,6 +438,7 @@ def test_rule_2_5_classifies_after_final_round_deadline_as_formal(tmp_path: Path
         _base_event("evt_004", "executed", actor_ids=["party_a"], executed_with_actor_id="party_a"),
     ]
     _write_enrich_core_fixture(tmp_path, events_override=events)
+    _write_gate_artifacts(tmp_path)
     run_enrich_core("imprivata", project_root=tmp_path)
     paths = build_skill_paths("imprivata", project_root=tmp_path)
     artifact = json.loads(paths.deterministic_enrichment_path.read_text(encoding="utf-8"))
@@ -398,6 +470,7 @@ def test_rule_1_overrides_rule_2_5_when_non_binding(tmp_path: Path) -> None:
         _base_event("evt_004", "executed", actor_ids=["party_a"], executed_with_actor_id="party_a"),
     ]
     _write_enrich_core_fixture(tmp_path, events_override=events)
+    _write_gate_artifacts(tmp_path)
     run_enrich_core("imprivata", project_root=tmp_path)
     paths = build_skill_paths("imprivata", project_root=tmp_path)
     artifact = json.loads(paths.deterministic_enrichment_path.read_text(encoding="utf-8"))
@@ -429,6 +502,7 @@ def test_formal_boundary_when_formal_proposal_in_cycle(tmp_path: Path) -> None:
         _base_event("evt_004", "executed", actor_ids=["party_a"], executed_with_actor_id="party_a"),
     ]
     _write_enrich_core_fixture(tmp_path, events_override=events)
+    _write_gate_artifacts(tmp_path)
     run_enrich_core("imprivata", project_root=tmp_path)
     paths = build_skill_paths("imprivata", project_root=tmp_path)
     artifact = json.loads(paths.deterministic_enrichment_path.read_text(encoding="utf-8"))
@@ -540,6 +614,7 @@ def test_invited_actor_ids_populated_from_count_assertions(tmp_path: Path) -> No
     (extract_dir / "actors_raw.json").write_text(json.dumps(actors_payload), encoding="utf-8")
     (extract_dir / "events_raw.json").write_text(json.dumps(events_payload), encoding="utf-8")
 
+    _write_gate_artifacts(tmp_path, slug=slug)
     run_enrich_core(slug, project_root=tmp_path)
     paths = build_skill_paths(slug, project_root=tmp_path)
     artifact = json.loads(paths.deterministic_enrichment_path.read_text(encoding="utf-8"))
@@ -617,6 +692,7 @@ def test_invited_population_graceful_on_unmatched_names(tmp_path: Path) -> None:
     (extract_dir / "actors_raw.json").write_text(json.dumps(actors_payload), encoding="utf-8")
     (extract_dir / "events_raw.json").write_text(json.dumps(events_payload), encoding="utf-8")
 
+    _write_gate_artifacts(tmp_path, slug=slug)
     run_enrich_core(slug, project_root=tmp_path)
     paths = build_skill_paths(slug, project_root=tmp_path)
     artifact = json.loads(paths.deterministic_enrichment_path.read_text(encoding="utf-8"))
@@ -625,3 +701,32 @@ def test_invited_population_graceful_on_unmatched_names(tmp_path: Path) -> None:
     formal_round = artifact["rounds"][0]
     assert formal_round["invited_actor_ids"] == []
     assert formal_round["is_selective"] is False
+
+
+def test_enrich_core_requires_gate_artifacts(tmp_path: Path) -> None:
+    _write_enrich_core_fixture(tmp_path)
+
+    with pytest.raises(FileNotFoundError, match="check_report.json"):
+        run_enrich_core("imprivata", project_root=tmp_path)
+
+
+def test_enrich_core_rejects_failed_verify_gate(tmp_path: Path) -> None:
+    _write_enrich_core_fixture(tmp_path)
+    _write_gate_artifacts(tmp_path, verify_status="fail")
+
+    with pytest.raises(ValueError, match="verify"):
+        run_enrich_core("imprivata", project_root=tmp_path)
+
+
+def test_enrich_core_invalidates_stale_output_when_gate_fails_on_rerun(tmp_path: Path) -> None:
+    _write_enrich_core_fixture(tmp_path)
+    _write_gate_artifacts(tmp_path)
+    run_enrich_core("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+
+    _write_gate_artifacts(tmp_path, verify_status="fail")
+
+    with pytest.raises(ValueError, match="verify"):
+        run_enrich_core("imprivata", project_root=tmp_path)
+
+    assert not paths.deterministic_enrichment_path.exists()

@@ -6,6 +6,7 @@ from pathlib import Path
 import pytest
 
 from skill_pipeline.preprocess.source import preprocess_source_deal
+from skill_pipeline.source.locate import select_chronology
 
 
 def _write_seed_only_raw_fixture(
@@ -238,3 +239,93 @@ def test_preprocess_source_fails_when_primary_candidate_is_missing_from_registry
             raw_dir=raw_deal_dir.parent,
             deals_dir=deals_dir,
         )
+
+
+def test_select_chronology_ignores_empty_background_heading_before_next_heading() -> None:
+    lines = [
+        "Background of the Merger",
+        "Opinion of Financial Advisor",
+        "Background of the Merger",
+        "",
+        "On July 1, 2016, Party A met with the Board.",
+        "",
+        "On July 5, 2016, Party A submitted a proposal.",
+        "",
+        "The Merger Agreement",
+    ]
+
+    selection = select_chronology(
+        lines,
+        document_id="DOC001",
+        accession_number="DOC001",
+        filing_type="DEFM14A",
+    )
+
+    assert selection.selected_candidate is not None
+    assert selection.selected_candidate.start_line == 3
+
+
+def test_preprocess_source_fails_when_no_chronology_candidate_is_found(
+    tmp_path: Path,
+) -> None:
+    raw_deal_dir, deals_dir = _write_seed_only_raw_fixture(tmp_path)
+    (raw_deal_dir / "filings" / "0001193125-16-677939.txt").write_text(
+        "\n".join(
+            [
+                "Merger discussion timeline",
+                "",
+                "On July 1, 2016, Party A signed a confidentiality agreement.",
+                "",
+                "On July 5, 2016, Party A submitted an indication of interest.",
+            ]
+        ),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="No acceptable background-style chronology candidates"):
+        preprocess_source_deal(
+            "imprivata",
+            run_id="run-1",
+            raw_dir=raw_deal_dir.parent,
+            deals_dir=deals_dir,
+        )
+
+
+def test_preprocess_source_invalidates_existing_outputs_when_rerun_fails(
+    tmp_path: Path,
+) -> None:
+    raw_deal_dir, deals_dir = _write_seed_only_raw_fixture(tmp_path)
+    source_dir = deals_dir / "imprivata" / "source"
+
+    preprocess_source_deal(
+        "imprivata",
+        run_id="run-1",
+        raw_dir=raw_deal_dir.parent,
+        deals_dir=deals_dir,
+    )
+    (raw_deal_dir / "filings" / "0001193125-16-677939.txt").write_text(
+        "\n".join(
+            [
+                "Merger discussion timeline",
+                "",
+                "On July 1, 2016, Party A signed a confidentiality agreement.",
+                "",
+                "On July 5, 2016, Party A submitted an indication of interest.",
+            ]
+        ),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="No acceptable background-style chronology candidates"):
+        preprocess_source_deal(
+            "imprivata",
+            run_id="run-2",
+            raw_dir=raw_deal_dir.parent,
+            deals_dir=deals_dir,
+        )
+
+    assert not (source_dir / "chronology_selection.json").exists()
+    assert not (source_dir / "chronology_blocks.jsonl").exists()
+    assert not (source_dir / "evidence_items.jsonl").exists()
+    assert not (source_dir / "chronology.json").exists()
+    assert not (source_dir / "filings" / "0001193125-16-677939.txt").exists()

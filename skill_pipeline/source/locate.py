@@ -321,7 +321,7 @@ def score_heading_context(
     total_lines = len(lines)
     lookahead = lines[start_idx + 1 : start_idx + 121]
     non_blank = [line.strip() for line in lookahead if line.strip()]
-    min_non_blank = min(10, max(4, total_lines // 20))
+    min_non_blank = min(10, max(3, total_lines // 20))
     if len(non_blank) < min_non_blank:
         return -1
 
@@ -332,7 +332,7 @@ def score_heading_context(
         1 for line in lookahead[:12] if DOT_LEADER_RE.search(line.strip()) or looks_like_heading(line)
     )
     section_end_idx = find_section_end(lines, start_idx + 1)
-    section_length = max(0, section_end_idx - start_idx)
+    section_length = max(0, section_end_idx - start_idx + 1)
     min_section_length = min(60, max(6, total_lines // 15))
 
     if section_length < min_section_length:
@@ -386,7 +386,7 @@ def score_heading_context_batch(
 
 
 def find_section_end(lines: list[str], start_idx: int) -> int:
-    for idx in range(start_idx + 1, len(lines)):
+    for idx in range(start_idx, len(lines)):
         candidate = lines[idx].strip()
         if not candidate:
             continue

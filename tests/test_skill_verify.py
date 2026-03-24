@@ -5,8 +5,9 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from skill_pipeline.pipeline_models.common import QuoteMatchType
 from skill_pipeline.paths import build_skill_paths
-from skill_pipeline.verify import run_verify
+from skill_pipeline.verify import _resolve_quote_match, run_verify
 
 
 def _read_findings_list(path: Path) -> list[dict[str, object]]:
@@ -356,6 +357,24 @@ def test_verify_treats_fuzzy_match_as_unresolved(tmp_path: Path) -> None:
     assert findings[0]["repairability"] == "repairable"
 
 
+def test_verify_promotes_expanded_exact_match_over_initial_fuzzy_match() -> None:
+    anchor_text = "Party A submitted a bid on July 5 (preliminary)"
+    raw_lines = [
+        "Party A submitted a bid on July 5.",
+        "Party A submitted a bid on July 5 (preliminary).",
+    ]
+
+    match_type = _resolve_quote_match(
+        raw_lines[0],
+        anchor_text,
+        raw_lines,
+        1,
+        1,
+    )
+
+    assert match_type == QuoteMatchType.EXACT
+
+
 def test_verify_writes_compatible_pass_log_without_llm_repair(tmp_path: Path) -> None:
     _write_verify_fixture_for_clean_pass(tmp_path)
     exit_code = run_verify("imprivata", project_root=tmp_path)
@@ -364,7 +383,7 @@ def test_verify_writes_compatible_pass_log_without_llm_repair(tmp_path: Path) ->
 
     assert exit_code == 0
     assert log["summary"]["status"] == "pass"
-    assert log["summary"]["total_checks"] == 8
+    assert log["summary"]["total_checks"] == 9
     assert "round_1" in log
     assert "round_2" in log
 
@@ -383,6 +402,26 @@ def test_verify_reports_missing_actor_reference(tmp_path: Path) -> None:
     assert any(
         finding["check_type"] == "referential_integrity"
         and finding["event_ids"] == ["evt_001"]
+        for finding in findings
+    )
+
+
+def test_verify_reports_missing_executed_with_actor_reference(tmp_path: Path) -> None:
+    _write_verify_fixture_for_clean_pass(tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    events_payload = json.loads(paths.events_raw_path.read_text(encoding="utf-8"))
+    events_payload["events"][1]["actor_ids"] = []
+    events_payload["events"][1]["executed_with_actor_id"] = "missing_actor"
+    paths.events_raw_path.write_text(json.dumps(events_payload), encoding="utf-8")
+
+    exit_code = run_verify("imprivata", project_root=tmp_path)
+    findings = _read_findings_list(paths.verification_findings_path)
+
+    assert exit_code == 1
+    assert any(
+        finding["check_type"] == "referential_integrity"
+        and finding["event_ids"] == ["evt_002"]
+        and "executed_with_actor_id" in finding["description"]
         for finding in findings
     )
 

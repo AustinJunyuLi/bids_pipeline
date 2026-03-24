@@ -1,6 +1,6 @@
 # Skills
 
-5 active skills for the deal extraction quick workflow:
+6 active skills for the deal extraction quick workflow:
 
 | Skill | Purpose |
 |---|---|
@@ -8,6 +8,8 @@
 | `extract-deal` | Actor + event extraction from SEC filing text |
 | `verify-extraction` | Fact-check extraction, 2-round fix loop |
 | `enrich-deal` | Classify bids, segment cycles, judge initiation |
-| `export-csv` | Format to Alex-compatible 14-column CSV |
+| `export-csv` | Format to the repo review CSV |
+| `reconcile-alex` | Post-export benchmark QA against Alex's spreadsheet |
 
-Usage: `/deal-agent <slug>` for end-to-end, or invoke individual skills.
+Usage: `/deal-agent <slug>` for end-to-end generation, or invoke individual
+skills. Use `/reconcile-alex <slug>` only after `/export-csv` completes.

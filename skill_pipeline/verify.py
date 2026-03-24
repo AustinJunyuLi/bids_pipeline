@@ -23,6 +23,7 @@ from skill_pipeline.models import (
 from skill_pipeline.paths import build_skill_paths, ensure_output_directories
 
 SPAN_EXPANSION_LINES = 3
+STRICT_QUOTE_MATCH_TYPES = frozenset({QuoteMatchType.EXACT, QuoteMatchType.NORMALIZED})
 
 
 def _load_document_lines(filings_dir: Path) -> dict[str, list[str]]:
@@ -71,13 +72,15 @@ def _resolve_quote_match(
     Returns EXACT, NORMALIZED, FUZZY, or UNRESOLVED.
     """
     match_type, _, _ = find_anchor_in_segment(raw_segment, anchor_text)
-    if match_type != QuoteMatchType.UNRESOLVED:
+    if match_type in STRICT_QUOTE_MATCH_TYPES:
         return match_type
     expanded_start = max(1, start_line - SPAN_EXPANSION_LINES)
     expanded_end = min(len(raw_lines), end_line + SPAN_EXPANSION_LINES)
     expanded_lines = raw_lines[expanded_start - 1 : expanded_end]
     expanded_segment = "\n".join(expanded_lines)
-    match_type, _, _ = find_anchor_in_segment(expanded_segment, anchor_text)
+    expanded_match_type, _, _ = find_anchor_in_segment(expanded_segment, anchor_text)
+    if expanded_match_type in STRICT_QUOTE_MATCH_TYPES:
+        return expanded_match_type
     return match_type
 
 
@@ -213,6 +216,21 @@ def _check_referential_integrity(
                         severity="error",
                         repairability="repairable",
                         description=f"Event references actor {aid!r} which is absent from actors.",
+                        event_ids=[evt.event_id],
+                    )
+                )
+        if evt.executed_with_actor_id:
+            total_checks += 1
+            if evt.executed_with_actor_id not in actor_ids:
+                findings.append(
+                    VerificationFinding(
+                        check_type="referential_integrity",
+                        severity="error",
+                        repairability="repairable",
+                        description=(
+                            f"Executed event references executed_with_actor_id "
+                            f"{evt.executed_with_actor_id!r} which is absent from actors."
+                        ),
                         event_ids=[evt.event_id],
                     )
                 )

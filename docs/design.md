@@ -2,20 +2,46 @@
 
 ## Current
 
-The active pipeline architecture is the v3 evidence-first rewrite.
+The active implementation in this worktree is the seed-only `skill_pipeline`
+hybrid workflow.
 
-- **Design:** [`docs/plans/2026-03-16-pipeline-design-v3.md`](plans/2026-03-16-pipeline-design-v3.md)
-- **Prompt engineering spec:** [`docs/plans/2026-03-16-prompt-engineering-spec.md`](plans/2026-03-16-prompt-engineering-spec.md)
-- **LLM rewrite adoption design:** [`docs/plans/2026-03-17-llm-rewrite-adoption-design.md`](plans/2026-03-17-llm-rewrite-adoption-design.md)
-- **LLM rewrite adoption implementation:** [`docs/plans/2026-03-17-llm-rewrite-adoption-implementation.md`](plans/2026-03-17-llm-rewrite-adoption-implementation.md)
+Operational sequence:
 
-Architecture: 7-stage evidence-first pipeline (Raw Discovery & Freeze, Enhanced
-Preprocess / Source Build, LLM Extraction, Reconciliation & QA, Enrichment,
-Export, Reference Validation).
+1. `skill-pipeline raw-fetch --deal <slug>`
+2. `skill-pipeline preprocess-source --deal <slug>`
+3. `/extract-deal <slug>`
+4. `skill-pipeline canonicalize --deal <slug>`
+5. `skill-pipeline check --deal <slug>`
+6. `skill-pipeline verify --deal <slug>`
+7. `skill-pipeline coverage --deal <slug>`
+8. `/verify-extraction <slug>`
+9. `skill-pipeline enrich-core --deal <slug>`
+10. `/enrich-deal <slug>`
+11. `/export-csv <slug>`
+
+Artifact flow:
+
+- `raw/<slug>/` contains immutable frozen filing text plus seed-only discovery metadata.
+- `data/deals/<slug>/source/` contains `chronology_blocks.jsonl` and `evidence_items.jsonl`.
+- `data/skill/<slug>/extract/` contains raw or canonical actors/events plus `spans.json`.
+- `data/skill/<slug>/{check,verify,coverage,enrich,export}/` contains downstream deterministic outputs.
+
+Current design constraints:
+
+- Upstream source preparation is seed-only and single-primary-document.
+- Canonical extract artifacts require a valid `spans.json` sidecar.
+- `enrich-core` must only run after passing `check`, `verify`, and `coverage`.
+- `skill-pipeline deal-agent` is preflight/summary only, not the end-to-end runner.
 
 ## Notes
 
-Superseded v1 and v2 design/implementation plans were removed from the active
-tree during cleanup so review bundles only carry the current planning surface.
+The v3 evidence-first rewrite plans remain useful historical background, but
+they are not the authoritative description of the current runtime surface in
+this worktree:
+
+- [`docs/plans/2026-03-16-pipeline-design-v3.md`](plans/2026-03-16-pipeline-design-v3.md)
+- [`docs/plans/2026-03-16-prompt-engineering-spec.md`](plans/2026-03-16-prompt-engineering-spec.md)
+- [`docs/plans/2026-03-17-llm-rewrite-adoption-design.md`](plans/2026-03-17-llm-rewrite-adoption-design.md)
+- [`docs/plans/2026-03-17-llm-rewrite-adoption-implementation.md`](plans/2026-03-17-llm-rewrite-adoption-implementation.md)
 
 Active external review rounds are retained under `diagnosis/deepthink/`.

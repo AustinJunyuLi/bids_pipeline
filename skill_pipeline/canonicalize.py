@@ -115,20 +115,37 @@ def _resolve_ref_to_span_id(
     if existing is not None:
         return existing
 
+    block_id = ref.get("block_id")
+    evidence_id = ref.get("evidence_id")
     block_ids: list[str] = []
     evidence_ids: list[str] = []
-    if ref.get("evidence_id") and ref["evidence_id"] in evidence_by_id:
-        evidence_item = evidence_by_id[ref["evidence_id"]]
+    if evidence_id:
+        evidence_item = evidence_by_id.get(evidence_id)
+        if evidence_item is None:
+            raise ValueError(f"Unknown evidence_id in evidence reference: {evidence_id!r}")
+
         document_id = evidence_item.document_id
         accession_number = evidence_item.accession_number
         filing_type = evidence_item.filing_type
         start_line = evidence_item.start_line
         end_line = evidence_item.end_line
         evidence_ids = [evidence_item.evidence_id]
-        if ref.get("block_id"):
-            block_ids.append(ref["block_id"])
-    elif ref.get("block_id") and ref["block_id"] in blocks_by_id:
-        block = blocks_by_id[ref["block_id"]]
+
+        if block_id:
+            block = blocks_by_id.get(block_id)
+            if block is None:
+                raise ValueError(
+                    f"Mismatched evidence reference: block_id={block_id!r} evidence_id={evidence_id!r}"
+                )
+            if block.document_id != evidence_item.document_id or not (
+                block.start_line <= evidence_item.start_line <= evidence_item.end_line <= block.end_line
+            ):
+                raise ValueError(
+                    f"Mismatched evidence reference: block_id={block_id!r} evidence_id={evidence_id!r}"
+                )
+            block_ids = [block.block_id]
+    elif block_id and block_id in blocks_by_id:
+        block = blocks_by_id[block_id]
         document_id = block.document_id
         meta = document_meta.get(document_id, {})
         accession_number = meta.get("accession_number")
@@ -289,27 +306,56 @@ def _dedup_events(events: list[dict]) -> tuple[list[dict], dict[str, str]]:
             if len(cluster) == 1:
                 kept.append(cluster[0])
                 continue
-            survivor = max(cluster, key=lambda event: len(event.get("summary", "")))
-            merged_span_ids: list[str] = []
+
+            by_semantics: dict[str, list[dict]] = defaultdict(list)
             for event in cluster:
-                for span_id in event.get("evidence_span_ids", []):
-                    if span_id not in merged_span_ids:
-                        merged_span_ids.append(span_id)
-            survivor["evidence_span_ids"] = merged_span_ids
-            merged_notes: list[str] = []
-            for event in cluster:
-                for note in event.get("notes", []):
-                    if note not in merged_notes:
-                        merged_notes.append(note)
-            survivor["notes"] = merged_notes
-            kept.append(survivor)
-            for event in cluster:
-                if event["event_id"] != survivor["event_id"]:
-                    dedup_log[event["event_id"]] = survivor["event_id"]
+                by_semantics[_event_semantics_key(event)].append(event)
+
+            for semantic_group in by_semantics.values():
+                if len(semantic_group) == 1:
+                    kept.append(semantic_group[0])
+                    continue
+
+                survivor = max(semantic_group, key=lambda event: len(event.get("summary", "")))
+                merged_span_ids: list[str] = []
+                for event in semantic_group:
+                    for span_id in event.get("evidence_span_ids", []):
+                        if span_id not in merged_span_ids:
+                            merged_span_ids.append(span_id)
+                survivor["evidence_span_ids"] = merged_span_ids
+                merged_notes: list[str] = []
+                for event in semantic_group:
+                    for note in event.get("notes", []):
+                        if note not in merged_notes:
+                            merged_notes.append(note)
+                survivor["notes"] = merged_notes
+                kept.append(survivor)
+                for event in semantic_group:
+                    if event["event_id"] != survivor["event_id"]:
+                        dedup_log[event["event_id"]] = survivor["event_id"]
 
     id_order = {event["event_id"]: index for index, event in enumerate(events)}
     kept.sort(key=lambda event: id_order.get(event["event_id"], 0))
     return kept, dedup_log
+
+
+def _event_semantics_key(event: dict) -> str:
+    semantics = {
+        "event_type": event.get("event_type"),
+        "date": event.get("date"),
+        "actor_ids": sorted(event.get("actor_ids", [])),
+        "terms": event.get("terms"),
+        "formality_signals": event.get("formality_signals"),
+        "whole_company_scope": event.get("whole_company_scope"),
+        "drop_reason_text": event.get("drop_reason_text"),
+        "round_scope": event.get("round_scope"),
+        "invited_actor_ids": sorted(event.get("invited_actor_ids", [])),
+        "deadline_date": event.get("deadline_date"),
+        "executed_with_actor_id": event.get("executed_with_actor_id"),
+        "boundary_note": event.get("boundary_note"),
+        "nda_signed": event.get("nda_signed"),
+    }
+    return json.dumps(semantics, sort_keys=True)
 
 
 def _gate_drops_by_nda(events: list[dict]) -> tuple[list[dict], list[dict]]:

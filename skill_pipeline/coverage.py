@@ -166,8 +166,10 @@ def _refs_overlap(cue: CoverageCue, refs: list) -> bool:
     cue_block_ids = set(cue.block_ids)
     cue_evidence_ids = set(cue.evidence_ids)
     for ref in refs:
-        if ref.evidence_id and ref.evidence_id in cue_evidence_ids:
-            return True
+        if cue_evidence_ids and ref.evidence_id:
+            if ref.evidence_id in cue_evidence_ids:
+                return True
+            continue
         if ref.block_id and ref.block_id in cue_block_ids:
             return True
     return False
@@ -180,8 +182,10 @@ def _span_ids_overlap(cue: CoverageCue, span_ids: list[str], span_index: dict) -
         span = span_index.get(span_id)
         if span is None:
             continue
-        if cue_evidence_ids.intersection(span.evidence_ids):
-            return True
+        if cue_evidence_ids and span.evidence_ids:
+            if cue_evidence_ids.intersection(span.evidence_ids):
+                return True
+            continue
         if cue_block_ids.intersection(span.block_ids):
             return True
     return False

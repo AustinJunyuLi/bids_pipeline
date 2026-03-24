@@ -33,9 +33,6 @@ def fetch_raw_deal(
         cik=extract_cik_from_url(seed.primary_url_seed),
     )
     raw_deal_dir = raw_dir / seed.deal_slug
-    raw_deal_dir.mkdir(parents=True, exist_ok=True)
-    atomic_write_json(raw_deal_dir / "discovery.json", discovery.model_dump(mode="json"))
-
     candidate = discovery.primary_candidates[0]
     accession = candidate.accession_number or candidate.document_id
     html_text, txt_text = fetch_contents_fn(accession, sec_url=candidate.sec_url)
@@ -48,6 +45,8 @@ def fetch_raw_deal(
     )
 
     registry = RawDocumentRegistry(run_id=run_id, deal_slug=seed.deal_slug, documents=[document])
+    raw_deal_dir.mkdir(parents=True, exist_ok=True)
+    atomic_write_json(raw_deal_dir / "discovery.json", discovery.model_dump(mode="json"))
     atomic_write_json(raw_deal_dir / "document_registry.json", registry.model_dump(mode="json"))
     return {
         "deal_slug": seed.deal_slug,

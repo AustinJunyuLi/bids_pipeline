@@ -9,7 +9,10 @@ from skill_pipeline.config import PROJECT_ROOT
 from skill_pipeline.extract_artifacts import LoadedExtractArtifacts, load_extract_artifacts
 from skill_pipeline.models import (
     BidClassification,
+    CoverageSummary,
     SkillEventRecord,
+    SkillCheckReport,
+    SkillVerificationLog,
 )
 from skill_pipeline.paths import build_skill_paths, ensure_output_directories
 
@@ -26,6 +29,40 @@ def _read_json(path: Path) -> dict:
 
 def _write_json(path: Path, data: dict) -> None:
     path.write_text(json.dumps(data, indent=2), encoding="utf-8")
+
+
+def _invalidate_enrich_outputs(paths) -> None:
+    if paths.deterministic_enrichment_path.exists():
+        paths.deterministic_enrichment_path.unlink()
+
+
+def _require_gate_artifacts(paths) -> None:
+    required_paths = [
+        paths.check_report_path,
+        paths.verification_log_path,
+        paths.coverage_summary_path,
+    ]
+    for path in required_paths:
+        if not path.exists():
+            raise FileNotFoundError(f"Missing required input: {path}")
+
+    check_report = SkillCheckReport.model_validate(_read_json(paths.check_report_path))
+    if check_report.summary.status != "pass":
+        raise ValueError(
+            f"Cannot run enrich-core before check passes: {paths.check_report_path}"
+        )
+
+    verify_log = SkillVerificationLog.model_validate(_read_json(paths.verification_log_path))
+    if verify_log.summary.status != "pass":
+        raise ValueError(
+            f"Cannot run enrich-core before verify passes: {paths.verification_log_path}"
+        )
+
+    coverage_summary = CoverageSummary.model_validate(_read_json(paths.coverage_summary_path))
+    if coverage_summary.status != "pass":
+        raise ValueError(
+            f"Cannot run enrich-core before coverage passes: {paths.coverage_summary_path}"
+        )
 
 
 def _pair_rounds(events: list[SkillEventRecord], actors) -> list[dict]:
@@ -312,30 +349,35 @@ def run_enrich_core(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> int
     """
     paths = build_skill_paths(deal_slug, project_root=project_root)
 
-    if not paths.actors_raw_path.exists():
-        raise FileNotFoundError(f"Missing required input: {paths.actors_raw_path}")
-    if not paths.events_raw_path.exists():
-        raise FileNotFoundError(f"Missing required input: {paths.events_raw_path}")
+    try:
+        if not paths.actors_raw_path.exists():
+            raise FileNotFoundError(f"Missing required input: {paths.actors_raw_path}")
+        if not paths.events_raw_path.exists():
+            raise FileNotFoundError(f"Missing required input: {paths.events_raw_path}")
 
-    artifacts = load_extract_artifacts(paths)
-    actors = artifacts.raw_actors if artifacts.mode == "legacy" else artifacts.actors
-    events = artifacts.raw_events.events if artifacts.mode == "legacy" else artifacts.events.events
+        _require_gate_artifacts(paths)
+        artifacts = load_extract_artifacts(paths)
+        actors = artifacts.raw_actors if artifacts.mode == "legacy" else artifacts.actors
+        events = artifacts.raw_events.events if artifacts.mode == "legacy" else artifacts.events.events
 
-    _populate_invited_from_count_assertions(events, artifacts)
+        _populate_invited_from_count_assertions(events, artifacts)
 
-    rounds = _pair_rounds(events, actors)
-    bid_classifications = _classify_proposals(events, rounds)
-    cycles = _segment_cycles(events)
-    formal_boundary = _compute_formal_boundary(cycles, bid_classifications, events)
+        rounds = _pair_rounds(events, actors)
+        bid_classifications = _classify_proposals(events, rounds)
+        cycles = _segment_cycles(events)
+        formal_boundary = _compute_formal_boundary(cycles, bid_classifications, events)
 
-    ensure_output_directories(paths)
-    _write_json(
-        paths.deterministic_enrichment_path,
-        {
-            "rounds": rounds,
-            "bid_classifications": bid_classifications,
-            "cycles": cycles,
-            "formal_boundary": formal_boundary,
-        },
-    )
+        ensure_output_directories(paths)
+        _write_json(
+            paths.deterministic_enrichment_path,
+            {
+                "rounds": rounds,
+                "bid_classifications": bid_classifications,
+                "cycles": cycles,
+                "formal_boundary": formal_boundary,
+            },
+        )
+    except Exception:
+        _invalidate_enrich_outputs(paths)
+        raise
     return 0

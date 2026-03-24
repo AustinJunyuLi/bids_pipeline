@@ -1,6 +1,6 @@
 ---
 name: export-csv
-description: Use when flattening skill extraction and enrichment artifacts into the repo's Alex-compatible review CSV for a deal.
+description: Use when flattening skill extraction and enrichment artifacts into the repo review CSV for a deal.
 ---
 
 # export-csv
@@ -8,18 +8,28 @@ description: Use when flattening skill extraction and enrichment artifacts into 
 ## Design Principles
 
 1. No analysis, no judgment. Pure formatting.
-2. Match Alex Gorbenko's spreadsheet conventions exactly.
+2. Preserve the repository's review contract without importing benchmark-only guidance.
 3. One event per row. One deal per file.
 
 ## Purpose
 
-Flatten extraction + enrichment into Alex-compatible CSV for human review.
+Flatten extraction + enrichment into the repository review CSV for human review.
 
 ## When To Use
 
 - Called by deal-agent after enrich-deal, or independently via
   `/export-csv <slug>`.
 - Prerequisite: extract-deal and enrich-deal have already run for this deal.
+
+## Benchmark Boundary
+
+Benchmark materials are forbidden during generation. Do not consult benchmark
+files, benchmark notes, `example/`, `diagnosis/`,
+`data/skill/<slug>/reconcile/*`, or `/reconcile-alex` before `/export-csv`
+completes.
+
+Export is the boundary: generate the repo review CSV from filing-grounded
+artifacts only, then do any benchmark comparison post-export.
 
 ## Reads
 
@@ -39,7 +49,7 @@ findings that need human attention are already captured in enrichment.json's
 | Column | Source | Format |
 |---|---|---|
 | `bidderID` | Sequential assignment with fractional IDs for inserted events | Numeric (1, 1.5, 2, etc.) |
-| `note` | Event type mapped to Alex's labels | See mapping table below |
+| `note` | Event type mapped to repo review labels | See mapping table below |
 | `bidder` | Actor `display_name` from actor roster | Text or `NA` |
 | `type` | Bidder type code from actor fields | `S`, `F`, `non-US S`, `public F`, etc. or `NA` |
 | `bid_type` | From enrichment `bid_classifications` | `Formal`, `Informal`, or `NA` |
@@ -50,7 +60,7 @@ findings that need human attention are already captured in enrichment.json's
 | `cash` | All-cash indicator from `consideration_type` | `1` or `NA` |
 | `c1` | Primary annotation | Free text or empty |
 | `c2` | Deal terms / conditions | Free text or empty |
-| `c3` | Always empty (matching Alex's practice) | Always empty |
+| `c3` | Always empty | Always empty |
 | `review_flags` | Machine-readable uncertainty markers | Pipe-separated tags or empty |
 
 **Uncertain handling:** When `bid_classifications` labels a proposal as
@@ -86,7 +96,7 @@ but not `bid_classification_uncertain:evt_022`.
 | `terminated` | `Terminated` | NA |
 | `restarted` | `Restarted` | Bidder name (if applicable) |
 
-`proposal` maps to note value `NA`. This is Alex's convention for bid rows.
+`proposal` maps to note value `NA`. This is the repository convention for bid rows.
 Bids are identified by having a value in `val` or `range`, not by the note
 column. This `NA` is not the same as `NA` meaning "missing" in other columns.
 
@@ -153,7 +163,7 @@ Three rules:
 
 **c3:** always empty.
 
-## Alex-Compatible Formatting Rules
+## CSV Formatting Rules
 
 **Bidder type:** The `type` column is populated only on the first row for each
 actor (typically the NDA row). Subsequent rows for that actor (proposals,
@@ -161,7 +171,7 @@ drops, executed) use `NA` for the type column.
 
 **Range for point bids:** When a proposal has `per_share` but no
 `range_low`/`range_high` (or they equal `per_share`), output `range` as
-`val-val` (e.g., `15-15`). This matches Alex's convention.
+`val-val` (e.g., `15-15`).
 
 ## BidderID Assignment
 
@@ -190,8 +200,8 @@ drops, executed) use `NA` for the type column.
 
 ## Deal-Level Header
 
-The CSV starts with a header block for the deal. Column names match Alex's
-spreadsheet. Source field mapping from seeds.csv:
+The CSV starts with a header block for the deal. Source field mapping from
+`seeds.csv`:
 
 | seeds.csv field | CSV header column |
 |---|---|

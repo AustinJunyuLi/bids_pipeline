@@ -107,26 +107,48 @@ def _summarize_verify(paths) -> VerifyStageSummary:
 
 
 def _summarize_enrich(paths) -> EnrichStageSummary:
-    if not paths.enrichment_path.exists():
-        return EnrichStageSummary(status=StageStatus.MISSING)
+    if paths.enrichment_path.exists():
+        enrichment = SkillEnrichmentArtifact.model_validate(_read_json(paths.enrichment_path))
+        formal_bid_count = sum(
+            classification.label == "Formal"
+            for classification in enrichment.bid_classifications.values()
+        )
+        informal_bid_count = sum(
+            classification.label == "Informal"
+            for classification in enrichment.bid_classifications.values()
+        )
+        return EnrichStageSummary(
+            status=StageStatus.PASS,
+            cycle_count=len(enrichment.cycles),
+            formal_bid_count=formal_bid_count,
+            informal_bid_count=informal_bid_count,
+            initiation_judgment_type=enrichment.initiation_judgment.type,
+            review_flags_count=len(enrichment.review_flags),
+        )
 
-    enrichment = SkillEnrichmentArtifact.model_validate(_read_json(paths.enrichment_path))
-    formal_bid_count = sum(
-        classification.label == "Formal"
-        for classification in enrichment.bid_classifications.values()
-    )
-    informal_bid_count = sum(
-        classification.label == "Informal"
-        for classification in enrichment.bid_classifications.values()
-    )
-    return EnrichStageSummary(
-        status=StageStatus.PASS,
-        cycle_count=len(enrichment.cycles),
-        formal_bid_count=formal_bid_count,
-        informal_bid_count=informal_bid_count,
-        initiation_judgment_type=enrichment.initiation_judgment.type,
-        review_flags_count=len(enrichment.review_flags),
-    )
+    if paths.deterministic_enrichment_path.exists():
+        enrichment = _read_json(paths.deterministic_enrichment_path)
+        bid_classifications = enrichment.get("bid_classifications", {})
+        formal_bid_count = sum(
+            classification.get("label") == "Formal"
+            for classification in bid_classifications.values()
+            if isinstance(classification, dict)
+        )
+        informal_bid_count = sum(
+            classification.get("label") == "Informal"
+            for classification in bid_classifications.values()
+            if isinstance(classification, dict)
+        )
+        return EnrichStageSummary(
+            status=StageStatus.PASS,
+            cycle_count=len(enrichment.get("cycles", [])),
+            formal_bid_count=formal_bid_count,
+            informal_bid_count=informal_bid_count,
+            initiation_judgment_type=None,
+            review_flags_count=0,
+        )
+
+    return EnrichStageSummary(status=StageStatus.MISSING)
 
 
 def _summarize_export(paths) -> ExportStageSummary:

@@ -5,7 +5,10 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
+
 from skill_pipeline.canonicalize import run_canonicalize
+from skill_pipeline.extract_artifacts import load_extract_artifacts
 from skill_pipeline.paths import build_skill_paths
 
 
@@ -333,3 +336,176 @@ def test_nda_gate_removes_drop_with_empty_actor_ids(tmp_path: Path) -> None:
 
     assert len(result["events"]) == 2
     assert not any(e["event_id"] == "evt_002" for e in result["events"])
+
+
+def test_canonicalize_rejects_mismatched_block_and_evidence_refs(tmp_path: Path) -> None:
+    slug = "imprivata"
+    data_dir = tmp_path / "data"
+    deals_source_dir = data_dir / "deals" / slug / "source"
+    extract_dir = data_dir / "skill" / slug / "extract"
+    raw_dir = tmp_path / "raw" / slug
+    filings_dir = raw_dir / "filings"
+    deals_source_dir.mkdir(parents=True, exist_ok=True)
+    extract_dir.mkdir(parents=True, exist_ok=True)
+    filings_dir.mkdir(parents=True, exist_ok=True)
+
+    (data_dir / "seeds.csv").write_text(
+        "deal_slug,target_name,acquirer,date_announced,primary_url,is_reference\n"
+        f"{slug},TARGET,ACQUIRER,2016-07-13,https://example.com,false\n",
+        encoding="utf-8",
+    )
+    chronology_blocks = [
+        {
+            "block_id": "B001",
+            "document_id": "DOC001",
+            "ordinal": 1,
+            "start_line": 1,
+            "end_line": 1,
+            "raw_text": "anchor one",
+            "clean_text": "anchor one",
+            "is_heading": False,
+            "page_break_before": False,
+            "page_break_after": False,
+        },
+        {
+            "block_id": "B002",
+            "document_id": "DOC001",
+            "ordinal": 2,
+            "start_line": 2,
+            "end_line": 2,
+            "raw_text": "anchor two",
+            "clean_text": "anchor two",
+            "is_heading": False,
+            "page_break_before": False,
+            "page_break_after": False,
+        },
+    ]
+    evidence_items = [
+        {
+            "evidence_id": "DOC001:E0001",
+            "document_id": "DOC001",
+            "accession_number": "DOC001",
+            "filing_type": "DEFM14A",
+            "start_line": 1,
+            "end_line": 1,
+            "raw_text": "anchor one",
+            "evidence_type": "dated_action",
+            "confidence": "high",
+            "matched_terms": ["anchor one"],
+            "date_text": None,
+            "actor_hint": None,
+            "value_hint": None,
+            "note": None,
+        }
+    ]
+    actors_payload = {
+        "actors": [
+            {
+                "actor_id": "bidder_a",
+                "display_name": "Bidder A",
+                "canonical_name": "BIDDER A",
+                "aliases": [],
+                "role": "bidder",
+                "advisor_kind": None,
+                "advised_actor_id": None,
+                "bidder_kind": "financial",
+                "listing_status": "private",
+                "geography": "domestic",
+                "is_grouped": False,
+                "group_size": None,
+                "group_label": None,
+                "evidence_refs": [
+                    {
+                        "block_id": "B002",
+                        "evidence_id": "DOC001:E0001",
+                        "anchor_text": "anchor one",
+                    }
+                ],
+                "notes": [],
+            }
+        ],
+        "count_assertions": [],
+        "unresolved_mentions": [],
+    }
+    events_payload = {
+        "events": [_evt("evt_001", "executed", actor_ids=["bidder_a"], date="2016-07-13")],
+        "exclusions": [],
+        "coverage_notes": [],
+    }
+
+    (deals_source_dir / "chronology_blocks.jsonl").write_text(
+        "\n".join(json.dumps(block) for block in chronology_blocks) + "\n",
+        encoding="utf-8",
+    )
+    (deals_source_dir / "evidence_items.jsonl").write_text(
+        "\n".join(json.dumps(item) for item in evidence_items) + "\n",
+        encoding="utf-8",
+    )
+    (raw_dir / "document_registry.json").write_text(
+        json.dumps(
+            {
+                "artifact_type": "raw_document_registry",
+                "documents": [
+                    {
+                        "document_id": "DOC001",
+                        "accession_number": "DOC001",
+                        "filing_type": "DEFM14A",
+                        "txt_path": f"raw/{slug}/filings/DOC001.txt",
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    (filings_dir / "DOC001.txt").write_text("anchor one\nanchor two\n", encoding="utf-8")
+    (extract_dir / "actors_raw.json").write_text(json.dumps(actors_payload), encoding="utf-8")
+    (extract_dir / "events_raw.json").write_text(json.dumps(events_payload), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="block_id"):
+        run_canonicalize(slug, project_root=tmp_path)
+
+
+def test_dedup_preserves_events_with_conflicting_structured_fields(tmp_path: Path) -> None:
+    first = _evt("evt_001", "proposal", actor_ids=["bidder_a"], block_id="B064", summary="first")
+    second = _evt("evt_002", "proposal", actor_ids=["bidder_a"], block_id="B064", summary="second")
+    first["terms"] = {
+        "per_share": 25.0,
+        "range_low": None,
+        "range_high": None,
+        "enterprise_value": None,
+        "consideration_type": "cash",
+    }
+    second["terms"] = {
+        "per_share": 27.0,
+        "range_low": None,
+        "range_high": None,
+        "enterprise_value": None,
+        "consideration_type": "cash",
+    }
+    events = [
+        first,
+        second,
+        _evt("evt_003", "executed", actor_ids=["bidder_a"], date="2016-07-13"),
+    ]
+
+    _write_canon_fixture(tmp_path, events=events)
+    run_canonicalize("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    result = json.loads(paths.events_raw_path.read_text(encoding="utf-8"))
+
+    proposal_events = [event for event in result["events"] if event["event_type"] == "proposal"]
+    assert len(proposal_events) == 2
+
+
+def test_load_extract_artifacts_requires_spans_for_canonical_payloads(tmp_path: Path) -> None:
+    events = [
+        _evt("evt_001", "proposal", actor_ids=["bidder_a"], block_id="B064"),
+        _evt("evt_002", "executed", actor_ids=["bidder_a"], date="2016-07-13"),
+    ]
+    _write_canon_fixture(tmp_path, events=events)
+    run_canonicalize("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    paths.spans_path.unlink()
+
+    with pytest.raises(FileNotFoundError, match="spans"):
+        load_extract_artifacts(paths)

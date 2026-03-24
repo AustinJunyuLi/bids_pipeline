@@ -22,6 +22,7 @@ def preprocess_source_deal(
     deals_dir: Path = DEALS_DIR,
 ) -> dict[str, Any]:
     raw_deal_dir = raw_dir / deal_slug
+    source_dir = deals_dir / deal_slug / "source"
     discovery = RawDiscoveryManifest.model_validate_json(
         (raw_deal_dir / "discovery.json").read_text(encoding="utf-8")
     )
@@ -53,41 +54,52 @@ def preprocess_source_deal(
     if not lines:
         raise FileNotFoundError(f"No local raw primary filings available for {deal_slug}")
 
-    selection = select_chronology(
-        lines,
-        document_id=document.document_id,
-        accession_number=document.accession_number,
-        filing_type=document.filing_type,
-        run_id=run_id,
-        deal_slug=deal_slug,
-    )
-    blocks = build_chronology_blocks(lines, selection=selection)
-    evidence_items = _dedupe_evidence_items(
-        scan_document_evidence(
+    try:
+        selection = select_chronology(
             lines,
             document_id=document.document_id,
             accession_number=document.accession_number,
             filing_type=document.filing_type,
+            run_id=run_id,
+            deal_slug=deal_slug,
         )
-    )
+        if selection.selected_candidate is None:
+            raise ValueError(selection.adjudication_basis)
 
-    source_dir = deals_dir / deal_slug / "source"
-    source_dir.mkdir(parents=True, exist_ok=True)
-    _remove_stale_source_artifacts(source_dir, registry.documents)
-    _materialize_source_filings(project_root, source_dir, registry.documents)
-    _atomic_write_json(source_dir / "chronology_selection.json", selection.model_dump(mode="json"))
-    _atomic_write_jsonl(
-        source_dir / "chronology_blocks.jsonl",
-        [block.model_dump(mode="json") for block in blocks],
-    )
-    _atomic_write_jsonl(
-        source_dir / "evidence_items.jsonl",
-        [item.model_dump(mode="json") for item in evidence_items],
-    )
-    _atomic_write_json(
-        source_dir / "chronology.json",
-        _legacy_chronology_bookmark(document, selection),
-    )
+        blocks = build_chronology_blocks(lines, selection=selection)
+        if not blocks:
+            raise ValueError(
+                f"Chronology selection for {document.document_id} produced zero chronology blocks."
+            )
+
+        evidence_items = _dedupe_evidence_items(
+            scan_document_evidence(
+                lines,
+                document_id=document.document_id,
+                accession_number=document.accession_number,
+                filing_type=document.filing_type,
+            )
+        )
+
+        source_dir.mkdir(parents=True, exist_ok=True)
+        _remove_stale_source_artifacts(source_dir, registry.documents)
+        _materialize_source_filings(project_root, source_dir, registry.documents)
+        _atomic_write_json(source_dir / "chronology_selection.json", selection.model_dump(mode="json"))
+        _atomic_write_jsonl(
+            source_dir / "chronology_blocks.jsonl",
+            [block.model_dump(mode="json") for block in blocks],
+        )
+        _atomic_write_jsonl(
+            source_dir / "evidence_items.jsonl",
+            [item.model_dump(mode="json") for item in evidence_items],
+        )
+        _atomic_write_json(
+            source_dir / "chronology.json",
+            _legacy_chronology_bookmark(document, selection),
+        )
+    except Exception:
+        _invalidate_source_artifacts(source_dir)
+        raise
 
     return {
         "selected_document_id": document.document_id,
@@ -182,6 +194,23 @@ def _remove_stale_source_artifacts(
     for path in filings_dir.iterdir():
         if path.is_file() and path.name not in expected_names:
             path.unlink()
+
+
+def _invalidate_source_artifacts(source_dir: Path) -> None:
+    generated_paths = [
+        source_dir / "chronology_selection.json",
+        source_dir / "chronology_blocks.jsonl",
+        source_dir / "evidence_items.jsonl",
+        source_dir / "chronology.json",
+        source_dir / "supplementary_snippets.jsonl",
+    ]
+    for path in generated_paths:
+        if path.exists():
+            path.unlink()
+
+    filings_dir = source_dir / "filings"
+    if filings_dir.exists():
+        shutil.rmtree(filings_dir)
 
 
 def _materialize_source_filings(

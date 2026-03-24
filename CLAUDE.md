@@ -8,55 +8,57 @@ Research pipeline that extracts structured M&A deal data from SEC filings using 
 
 ## Project Structure & Module Organization
 
-Canonical deterministic pipeline code lives in [`pipeline/`](./pipeline): extraction, QA, enrichment, export, raw/source handling, and the `pipeline` CLI entrypoint. Isolated skill-workflow runtime code lives in [`skill_pipeline/`](./skill_pipeline): skill-specific models, path construction, seed loading, and the `skill-pipeline` CLI. Tests live in [`tests/`](./tests). Canonical pipeline artifacts live under [`data/deals/`](./data/deals); skill-workflow artifacts live under [`data/skill/`](./data/skill). Both workflows share read-only upstream inputs from [`raw/`](./raw) and `data/deals/<slug>/source/`. Design docs and prompt specs are in [`docs/`](./docs). External review packages and debugging bundles live in [`diagnosis/`](./diagnosis).
+The only Python package and installed CLI in this worktree is [`skill_pipeline/`](./skill_pipeline) with the `skill-pipeline` entrypoint from [`pyproject.toml`](./pyproject.toml). There is no active [`pipeline/`](./pipeline) package here; any notes that refer to it are historical and should not be treated as implementation guidance.
+
+Core modules:
+
+- `skill_pipeline/cli.py` - command routing for the deterministic stages
+- `skill_pipeline/raw/` - seed-only raw fetch, immutable filing freeze, discovery manifest
+- `skill_pipeline/preprocess/` and `skill_pipeline/source/` - chronology selection, block building, evidence scanning
+- `skill_pipeline/canonicalize.py` - raw-to-canonical upgrade, span resolution, dedup, NDA gating, unnamed-party recovery
+- `skill_pipeline/check.py`, `skill_pipeline/verify.py`, `skill_pipeline/coverage.py` - deterministic gates
+- `skill_pipeline/enrich_core.py` - deterministic rounds, bid classifications, cycles, formal boundary
+- `skill_pipeline/deal_agent.py` - preflight and artifact summary only
+- `skill_pipeline/models.py` and `skill_pipeline/paths.py` - artifact schemas and path conventions
+
+Artifacts:
+
+- `raw/<slug>/` - immutable filing text plus seed-only discovery metadata
+- `data/deals/<slug>/source/` - chronology and evidence artifacts shared by the skill workflow
+- `data/skill/<slug>/extract/` - raw or canonical actors/events plus `spans.json`
+- `data/skill/<slug>/{check,verify,coverage,enrich,export}/` - downstream deterministic outputs
+- `tests/` - focused regression tests for each stage
+- `docs/` - design notes and implementation plans
 
 ## Build, Test, and Development Commands
 
 ``` bash
-# Install package and both CLI entrypoints in editable mode
+# Install the single CLI entrypoint in editable mode
 pip install -e .
 
 # Run all tests
 pytest -q
 
-# Run isolated skill runtime tests
-pytest -q tests/test_skill_pipeline.py
+# Run focused stage suites
+pytest -q tests/test_skill_raw_stage.py tests/test_skill_preprocess_source.py
+pytest -q tests/test_skill_verify.py tests/test_skill_coverage.py
+pytest -q tests/test_skill_canonicalize.py
+pytest -q tests/test_skill_enrich_core.py tests/test_skill_pipeline.py
 
 # Run a single test file
-pytest -q tests/test_qa_stage.py
+pytest -q tests/test_skill_pipeline.py
 
 # Run a single test
-pytest -q tests/test_qa_stage.py::test_name -v
+pytest -q tests/test_skill_pipeline.py::test_name -v
 
-# Focused extraction subset
-pytest -q tests/test_extract_pipeline.py -k event
-
-# Discover source filings for a deal
-pipeline source discover --deal imprivata
-
-# Fetch raw filings from EDGAR
-pipeline raw fetch --deal imprivata
-
-# Preprocess source from raw filings
-pipeline preprocess source --deal imprivata
-
-# Canonical pipeline extraction examples
-pipeline extract actors --deal imprivata --provider anthropic --model claude-sonnet-4-6
-pipeline extract events --deal imprivata --provider openai --model gpt-5.4 --reasoning-effort none
-
-# Canonical pipeline post-extraction stages
-pipeline qa --deal imprivata --resume
-pipeline enrich --deal imprivata
-pipeline export --deal imprivata
-
-# Isolated skill workflow preflight / summary
-skill-pipeline deal-agent --deal imprivata
-
-# Seed-only skill workflow upstream stages
+# Seed-only upstream stages
 skill-pipeline raw-fetch --deal imprivata
 skill-pipeline preprocess-source --deal imprivata
 
-# Deterministic skill-runtime stages used by the hybrid workflow
+# Preflight / summary only
+skill-pipeline deal-agent --deal imprivata
+
+# Deterministic stages after extract artifacts exist
 skill-pipeline canonicalize --deal imprivata
 skill-pipeline check --deal imprivata
 skill-pipeline verify --deal imprivata
@@ -66,206 +68,81 @@ skill-pipeline enrich-core --deal imprivata
 
 ## Architecture
 
-### Canonical Pipeline
-
-7-stage pipeline. Each stage reads from the previous stage's output directory:
-
-```         
-raw/<slug>/filings/*.txt          (Stage 1: frozen SEC filing text — NEVER modified)
-    ↓
-data/deals/<slug>/source/         (Stage 2: chronology_blocks.jsonl, evidence_items.jsonl)
-    ↓
-data/deals/<slug>/extract/        (Stage 3: actors_raw.json, events_raw.json via LLM)
-    ↓
-data/deals/<slug>/qa/             (Stage 4: extraction_canonical.json, report.json, span_registry.jsonl)
-    ↓
-data/deals/<slug>/enrich/         (Stage 5: deal_enrichment.json)
-    ↓
-data/deals/<slug>/export/         (Stage 6: events_long.csv, alex_compat.csv)
-    ↓
-data/validate/                    (Stage 7: reference_summary.json)
-```
-
-State is tracked in `data/runs/pipeline_state.sqlite`.
-
-Use the canonical pipeline for deterministic runs, reproducible artifacts, and any work that should align with the repository's Python pipeline code.
-
-### Skill-Driven Hybrid Workflow
-
-The quick workflow is now a hybrid agent + deterministic flow after
-`skill-pipeline raw-fetch --deal <slug>` and
-`skill-pipeline preprocess-source --deal <slug>`
-have already run.
-
-`skill-pipeline raw-fetch` and `skill-pipeline preprocess-source` are
-**seed-only** stages. They use the filing URL from `data/seeds.csv` as the only
-upstream filing source. They do not discover or preserve supplementary filings.
-If `raw/<slug>/discovery.json` or `raw/<slug>/document_registry.json` still come
-from an older multi-filing run, rerun `skill-pipeline raw-fetch --deal <slug>`
-before preprocess.
-
-#### Critical distinction for agents
-
--   `/deal-agent <slug>` is the agent-facing end-to-end orchestrator.
--   `skill-pipeline deal-agent --deal <slug>` is **not** the end-to-end runner. It is
-    only a preflight / directory-creation / artifact-summary CLI.
--   Do **not** tell the user that `skill-pipeline deal-agent` executes extraction,
-    repair, enrichment, or export. It does not.
-
-#### End-to-end hybrid sequence
+The active runtime is the `skill_pipeline` hybrid workflow. The deterministic stages are intended to run after seed-only source preparation and agent-produced extract artifacts.
 
 ``` text
-/deal-agent <slug>
-  |-- /extract-deal <slug>
-  |-- skill-pipeline canonicalize --deal <slug>
-  |-- skill-pipeline check --deal <slug>
-  |-- skill-pipeline verify --deal <slug>
-  |-- skill-pipeline coverage --deal <slug>
-  |-- /verify-extraction <slug>
-  |-- skill-pipeline enrich-core --deal <slug>
-  |-- /enrich-deal <slug>
-  |-- /export-csv <slug>
+data/seeds.csv
+  -> skill-pipeline raw-fetch --deal <slug>
+  -> raw/<slug>/filings/*.txt + raw/<slug>/{discovery,document_registry}.json
+  -> skill-pipeline preprocess-source --deal <slug>
+  -> data/deals/<slug>/source/{chronology_blocks,evidence_items}.jsonl
+  -> /extract-deal <slug>
+  -> data/skill/<slug>/extract/{actors_raw,events_raw}.json
+  -> skill-pipeline canonicalize --deal <slug>
+  -> skill-pipeline check --deal <slug>
+  -> skill-pipeline verify --deal <slug>
+  -> skill-pipeline coverage --deal <slug>
+  -> /verify-extraction <slug> (if deterministic findings are repairable)
+  -> skill-pipeline enrich-core --deal <slug>
+  -> /enrich-deal <slug>
+  -> /export-csv <slug>
+  -> /reconcile-alex <slug> (optional post-export diagnostic)
 ```
 
-#### What each layer owns
+Important distinctions:
 
--   Agent skills own:
-    -   `/extract-deal <slug>`: LLM extraction into
-        `data/skill/<slug>/extract/actors_raw.json` and
-        `data/skill/<slug>/extract/events_raw.json`
-    -   `/verify-extraction <slug>`: repair loop and final verification gate
-    -   `/enrich-deal <slug>`: interpretive enrichment remainder
-    -   `/export-csv <slug>`: CSV formatting / export
--   `skill-pipeline` CLI owns:
-    -   `skill-pipeline deal-agent --deal <slug>`: preflight and summary only
-    -   `skill-pipeline canonicalize --deal <slug>`: upgrade legacy extract JSON into
-        canonical span-backed artifacts, normalize dates, deduplicate events,
-        gate drops by NDA, recover unnamed parties
-    -   `skill-pipeline check --deal <slug>`: deterministic structural gate
-    -   `skill-pipeline verify --deal <slug>`: strict deterministic verification
-    -   `skill-pipeline coverage --deal <slug>`: deterministic source-coverage audit
-        over evidence cues vs extracted actors/events
-    -   `skill-pipeline enrich-core --deal <slug>`: deterministic rounds, bid
-        classifications, cycles, and formal boundary
+- `skill-pipeline raw-fetch` and `skill-pipeline preprocess-source` are **seed-only**. They use the filing URL from `data/seeds.csv` and do not preserve supplementary filings.
+- `skill-pipeline deal-agent --deal <slug>` is **summary/preflight only**. It does not run extraction, repair, enrichment, or export.
+- `skill-pipeline canonicalize`, `check`, `verify`, `coverage`, and `enrich-core` are fail-fast deterministic gates. Do not add fallback logic to keep them running on missing or contradictory inputs.
+- `skill-pipeline enrich-core` now requires passing `check`, `verify`, and `coverage` artifacts before it will write `data/skill/<slug>/enrich/deterministic_enrichment.json`.
+- `data/skill/<slug>/extract/spans.json` is required once extract artifacts are canonicalized. Missing sidecars are an error, not a cue to fabricate an empty registry.
 
-#### Agent-facing manual
+### Benchmark Separation
 
-If you are a fresh agent and need to run the skill workflow correctly, follow
-this exact procedure:
+Benchmark materials are post-export only. Do not consult `example/`,
+`diagnosis/`, benchmark workbooks, or `/reconcile-alex` before `/export-csv`
+completes.
 
-1.  Confirm prerequisites exist:
-    -   `data/deals/<slug>/source/chronology_blocks.jsonl`
-    -   `data/deals/<slug>/source/evidence_items.jsonl`
-    -   `raw/<slug>/document_registry.json`
-2.  If `data/skill/<slug>/extract/actors_raw.json` and
-    `data/skill/<slug>/extract/events_raw.json` do not exist, run
-    `/extract-deal <slug>` first. Do **not** run `skill-pipeline canonicalize`,
-    `skill-pipeline check`, `skill-pipeline verify`, or
-    `skill-pipeline enrich-core` before extract artifacts exist.
-3.  Run `skill-pipeline canonicalize --deal <slug>`.
-    -   Output: `data/skill/<slug>/canonicalize/canonicalize_log.json`
-        plus `data/skill/<slug>/extract/spans.json`
-    -   Overwrites `actors_raw.json` and `events_raw.json` in place with the
-        canonical schema
-    -   Canonical schema uses `evidence_span_ids` and `ResolvedDate` objects;
-        legacy `evidence_refs` and `DateHint` input are accepted only before
-        canonicalize runs
-    -   Deduplicates events, removes drops without NDAs, recovers unnamed parties
-4.  Run `skill-pipeline check --deal <slug>`.
-    -   Output: `data/skill/<slug>/check/check_report.json`
-    -   Gate: stop on blocker findings
-5.  Run `skill-pipeline verify --deal <slug>`.
-    -   Outputs:
-        -   `data/skill/<slug>/verify/verification_findings.json`
-        -   `data/skill/<slug>/verify/verification_log.json`
-    -   Strict quote policy: EXACT and NORMALIZED resolve; FUZZY does not
-6.  Run `skill-pipeline coverage --deal <slug>`.
-    -   Outputs:
-        -   `data/skill/<slug>/coverage/coverage_findings.json`
-        -   `data/skill/<slug>/coverage/coverage_summary.json`
-    -   Coverage fails on uncovered high-confidence critical cues such as
-        proposal, NDA, withdrawal/drop, and process-initiation evidence
-7.  Run `/verify-extraction <slug>`.
-    -   Use `verification_findings.json` as the deterministic input
-    -   Use `coverage_findings.json` as an additional deterministic repair input
-    -   Run the LLM repair loop only if **all** error-level findings are `repairable`
-    -   If any error-level finding is `non_repairable`, fail closed and do not
-        run repair
-8.  Run `skill-pipeline enrich-core --deal <slug>`.
-    -   Output: `data/skill/<slug>/enrich/deterministic_enrichment.json`
-9.  Run `/enrich-deal <slug>`.
-    -   This adds the interpretive remainder and writes
-        `data/skill/<slug>/enrich/enrichment.json`
-10. Run `/export-csv <slug>`.
-    -   Output: `data/skill/<slug>/export/deal_events.csv`
+Generation stops at the repository's filing-grounded export contract.
+Extraction, canonicalization, check, verify, coverage, enrichment, and export
+must not use benchmark conventions as hidden requirements. `/reconcile-alex` is
+an optional diagnostic comparison skill that runs only after export and never
+rewrites generation artifacts.
 
-#### Common failure mode
+### Stage Responsibilities
 
-If `skill-pipeline canonicalize`, `skill-pipeline check`, `skill-pipeline verify`,
-`skill-pipeline coverage`, or `skill-pipeline enrich-core` fails with:
+- `/extract-deal <slug>` writes legacy extract artifacts with `evidence_refs` into `data/skill/<slug>/extract/`.
+- `skill-pipeline canonicalize --deal <slug>` upgrades those artifacts into canonical span-backed form, normalizes dates, deduplicates only semantically equivalent events, removes drops without prior NDA support, and recovers unnamed parties when the deterministic rules allow it.
+- `skill-pipeline check --deal <slug>` is the structural blocker gate.
+- `skill-pipeline verify --deal <slug>` enforces referential integrity and strict quote resolution. `EXACT` and `NORMALIZED` pass; `FUZZY` does not.
+- `skill-pipeline coverage --deal <slug>` audits source cues against extracted actors/events and fails on uncovered high-confidence critical evidence.
+- `/verify-extraction <slug>` consumes deterministic findings and may run a repair loop only when every error-level finding is repairable.
+- `skill-pipeline enrich-core --deal <slug>` writes deterministic rounds, bid classifications, cycles, and formal-boundary outputs.
+- `/enrich-deal <slug>` writes the later interpretive `enrichment.json` layer if used.
+- `/export-csv <slug>` writes the repository review CSV from filing-grounded extract and enrich artifacts only.
+- `/reconcile-alex <slug>` is optional post-export benchmark QA. It must not modify generation artifacts or become a prerequisite for export.
 
-`FileNotFoundError: Missing required input: data/skill/<slug>/extract/actors_raw.json`
+### Key Files
 
-that usually means the agent skipped `/extract-deal <slug>` or is running the
-deterministic stage before skill extract artifacts exist. This is expected
-fail-fast behavior, not a reason to add fallback logic.
-
-Repository support for this workflow is split across two layers:
-
--   The skill files define the stage semantics and gate conditions for
-    `/extract-deal`, `/verify-extraction`, `/enrich-deal`, and `/export-csv`.
--   The isolated [`skill_pipeline/`](./skill_pipeline) package provides
-    deterministic runtime support plus preflight / summary CLI commands.
--   Skill artifacts live under `data/skill/<slug>/`
-    (`extract/`, `check/`, `verify/`, `enrich/`, `export/`), and the final review
-    CSV is `data/skill/<slug>/export/deal_events.csv`.
--   Shared read-only inputs for the skill workflow are
-    `data/deals/<slug>/source/`, `raw/<slug>/document_registry.json`, and
-    `data/seeds.csv`.
--   Canonical pipeline artifacts under `data/deals/<slug>/...` remain separate
-    and must not be used as skill outputs.
-
-Historical notes may still describe the skill workflow as purely agent-driven or
-may imply that `skill-pipeline deal-agent` is the end-to-end runner. Those notes
-are stale. Follow this file and the current skill docs instead.
-
-### LLM Call Path
-
-The critical extraction path flows through these files in order:
-
-1.  `pipeline/extract/actors.py` / `events.py` — orchestrate extraction, set token budgets
-2.  `pipeline/llm/prompts.py` — render the user message from chronology blocks + evidence items
-3.  `pipeline/llm/backend.py` — `ainvoke_structured()` sends the prompt, parses JSON, runs repair loop on validation failure
-4.  `pipeline/llm/anthropic_backend.py` / `openai_backend.py` — provider-specific request construction
-5.  `pipeline/llm/token_budget.py` — complexity classification and output budget estimation
-
-### QA Span Resolution
-
-After extraction, QA verifies every evidence citation:
-
-1.  `pipeline/qa/rules.py` — `SpanRegistry` resolves each `block_id`/`evidence_id` + `anchor_text` to a `SourceSpan`
-2.  `pipeline/normalize/spans.py` — maps anchor text to line/char positions in the source filing
-3.  `pipeline/normalize/quotes.py` — matching cascade: exact substring → normalized (smart quotes/whitespace) → unresolved
-4.  Any unresolved span is a **blocker** — the deal cannot be exported
-
-### Key Models
-
--   `pipeline/models/source.py` — ChronologyBlock, EvidenceItem, ChronologySelection
--   `pipeline/models/extraction.py` — ActorRecord, SourceSpan, DealExtraction, event types
--   `pipeline/models/common.py` — enums (EventType, ActorRole, QuoteMatchType, etc.)
--   `pipeline/llm/schemas.py` — Pydantic schemas for LLM output (ActorExtractionOutput, EventExtractionOutput)
--   `skill_pipeline/models.py` — skill-workflow raw and canonical artifact models,
-    including `ResolvedDate`, `SpanRecord`, and coverage artifacts; keep these
-    separate from `pipeline/models/*`
+- `skill_pipeline/raw/fetch.py` and `skill_pipeline/raw/stage.py` - immutable filing freeze and seed-only ingress
+- `skill_pipeline/preprocess/source.py` and `skill_pipeline/source/locate.py` - chronology discovery and fail-closed preprocessing
+- `skill_pipeline/provenance.py` and `skill_pipeline/canonicalize.py` - span resolution and canonical schema upgrade
+- `skill_pipeline/check.py`, `skill_pipeline/verify.py`, `skill_pipeline/coverage.py` - deterministic gates
+- `skill_pipeline/enrich_core.py` - downstream deterministic enrichment
+- `skill_pipeline/deal_agent.py` - artifact summary that recognizes both `deterministic_enrichment.json` and `enrichment.json`
+- `skill_pipeline/models.py` - raw/canonical artifact models, `ResolvedDate`, `SpanRecord`, verification and coverage schemas
 
 ## Key Invariants
 
 -   Filing `.txt` files under `raw/` are immutable truth sources. Never rewrite them.
 -   Filing text is the only factual source. Do not use spreadsheets or notes as evidence.
--   Evidence items use per-filing sequential IDs (E0001, E0002...) that collide across filings. QA must handle duplicates.
--   The LLM's `anchor_text` is free-form output that must survive deterministic substring matching in QA. The model is told "do not paraphrase" but compliance varies by provider.
--   `prompted_json` is the default structured output mode. The system prompt includes a JSON schema outline and tells the model to return exactly one JSON object.
--   GPT-5.4 shares `max_completion_tokens` between hidden reasoning and visible output. Use `reasoning_effort=none` for extraction.
+-   `raw-fetch` and `preprocess-source` are single-seed, single-primary-document stages in this worktree.
+-   Evidence items use per-filing IDs, so provenance resolution must validate document/line consistency instead of assuming global uniqueness.
+-   Canonical extract artifacts must carry `evidence_span_ids`, and canonical loading must fail if `spans.json` is missing.
+-   `check`, `verify`, and `coverage` are prerequisites for `enrich-core`; enrichment must not create success artifacts on unchecked extracts.
+-   `skill-pipeline deal-agent` is only a preflight / summary command. It may summarize deterministic enrichment from `deterministic_enrichment.json` even when the later interpretive `enrichment.json` does not exist yet.
+-   Benchmark materials are forbidden until `/export-csv` completes. `example/`, `diagnosis/`, and `/reconcile-alex` are post-export only.
+-   `edgartools>=5.23` is currently allowed in `pyproject.toml`, but the live fetch path emits v6 deprecation warnings. Treat pinning or capping before a breaking v6 release as a follow-up dependency risk.
 
 ## Coding Style & Naming Conventions
 
@@ -277,7 +154,7 @@ Pytest is configured via [`pytest.ini`](./pytest.ini) with `tests/` as the test 
 
 ## Commit & Pull Request Guidelines
 
-Recent history uses conventional prefixes such as `feat:`, `fix:`, and `test:`. Keep commit subjects short and imperative, for example `fix: resolve duplicate evidence ids in QA`. PRs should include: the affected deal slugs or stages, a brief rationale, commands run (`pytest -q ...`, pipeline CLI invocations), and before/after artifact notes when outputs change.
+Recent history uses conventional prefixes such as `feat:`, `fix:`, and `test:`. Keep commit subjects short and imperative, for example `fix: reject mismatched span references in canonicalize`. PRs should include: the affected deal slugs or stages, a brief rationale, commands run (`pytest -q ...`, `skill-pipeline ...`), and before/after artifact notes when outputs change.
 
 ## Environment Variables
 
@@ -288,6 +165,8 @@ BIDS_LLM_PROVIDER      — default: anthropic (anthropic|openai)
 BIDS_LLM_MODEL         — override model ID
 BIDS_LLM_REASONING_EFFORT — provider-specific reasoning effort
 BIDS_LLM_STRUCTURED_MODE  — prompted_json|provider_native|auto
+PIPELINE_SEC_IDENTITY  — preferred EDGAR identity for raw-fetch
+SEC_IDENTITY / EDGAR_IDENTITY — fallback EDGAR identity env vars
 ```
 
 ## Active Deals
