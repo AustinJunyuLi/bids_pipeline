@@ -335,11 +335,68 @@ def _populate_invited_from_count_assertions(
         if not matched_ids:
             continue
 
-        # Find the best matching round announcement event (with empty invited_actor_ids)
+        if artifacts.mode == "legacy":
+            assertion_sources = _evidence_sources_from_refs(ca.evidence_refs)
+        else:
+            assertion_sources = _evidence_sources_from_span_ids(ca.evidence_span_ids, artifacts.span_index)
+
+        if not assertion_sources:
+            continue
+
+        matching_events: list[SkillEventRecord] = []
         for evt in events:
-            if evt.event_type in ann_types and not evt.invited_actor_ids:
-                evt.invited_actor_ids = matched_ids
-                break  # Only populate the first matching empty announcement
+            if evt.event_type not in ann_types or evt.invited_actor_ids:
+                continue
+            if artifacts.mode == "legacy":
+                event_sources = _evidence_sources_from_refs(evt.evidence_refs)
+            else:
+                event_sources = _evidence_sources_from_span_ids(evt.evidence_span_ids, artifacts.span_index)
+            if _evidence_sources_overlap(assertion_sources, event_sources):
+                matching_events.append(evt)
+
+        if len(matching_events) == 1:
+            matching_events[0].invited_actor_ids = matched_ids
+
+
+def _evidence_sources_from_refs(refs: list) -> list[tuple[set[str], set[str]]]:
+    sources: list[tuple[set[str], set[str]]] = []
+    for ref in refs:
+        evidence_ids = {ref.evidence_id} if ref.evidence_id else set()
+        block_ids = {ref.block_id} if ref.block_id else set()
+        if evidence_ids or block_ids:
+            sources.append((evidence_ids, block_ids))
+    return sources
+
+
+def _evidence_sources_from_span_ids(
+    span_ids: list[str],
+    span_index: dict,
+) -> list[tuple[set[str], set[str]]]:
+    sources: list[tuple[set[str], set[str]]] = []
+    for span_id in span_ids:
+        span = span_index.get(span_id)
+        if span is None:
+            continue
+        evidence_ids = set(span.evidence_ids)
+        block_ids = set(span.block_ids)
+        if evidence_ids or block_ids:
+            sources.append((evidence_ids, block_ids))
+    return sources
+
+
+def _evidence_sources_overlap(
+    left_sources: list[tuple[set[str], set[str]]],
+    right_sources: list[tuple[set[str], set[str]]],
+) -> bool:
+    for left_evidence_ids, left_block_ids in left_sources:
+        for right_evidence_ids, right_block_ids in right_sources:
+            if left_evidence_ids and right_evidence_ids:
+                if left_evidence_ids.intersection(right_evidence_ids):
+                    return True
+                continue
+            if left_block_ids.intersection(right_block_ids):
+                return True
+    return False
 
 
 def run_enrich_core(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> int:

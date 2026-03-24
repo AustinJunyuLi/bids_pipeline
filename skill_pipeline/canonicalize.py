@@ -359,18 +359,14 @@ def _event_semantics_key(event: dict) -> str:
 
 
 def _gate_drops_by_nda(events: list[dict]) -> tuple[list[dict], list[dict]]:
-    nda_actors: set[str] = set()
-    for event in events:
-        if event["event_type"] == "nda":
-            nda_actors.update(event.get("actor_ids", []))
-
+    nda_actors_seen: set[str] = set()
     kept: list[dict] = []
     gate_log: list[dict] = []
     for event in events:
         if event["event_type"] == "drop":
             drop_actors = set(event.get("actor_ids", []))
-            if not drop_actors or not drop_actors.issubset(nda_actors):
-                missing = drop_actors - nda_actors if drop_actors else {"(empty)"}
+            if not drop_actors or not drop_actors.issubset(nda_actors_seen):
+                missing = drop_actors - nda_actors_seen if drop_actors else {"(empty)"}
                 gate_log.append(
                     {
                         "removed_event_id": event["event_id"],
@@ -379,6 +375,8 @@ def _gate_drops_by_nda(events: list[dict]) -> tuple[list[dict], list[dict]]:
                 )
                 continue
         kept.append(event)
+        if event["event_type"] == "nda":
+            nda_actors_seen.update(event.get("actor_ids", []))
     return kept, gate_log
 
 
