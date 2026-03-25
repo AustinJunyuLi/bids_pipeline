@@ -2,16 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: planning
-stopped_at: Phase 2 context gathered
-last_updated: "2026-03-25T14:57:55.544Z"
-last_activity: 2026-03-25 - initialized GSD planning artifacts for the brownfield repo
+status: Ready to execute
+stopped_at: Completed 06-chunked-extraction-architecture-01-PLAN.md
+last_updated: "2026-03-25T15:54:01.884Z"
 progress:
-  total_phases: 5
+  total_phases: 6
   completed_phases: 0
-  total_plans: 3
-  completed_plans: 0
-  percent: 0
+  total_plans: 7
+  completed_plans: 1
 ---
 
 # Project State
@@ -21,16 +19,12 @@ progress:
 See: `.planning/PROJECT.md` (updated 2026-03-25)
 
 **Core value:** Produce filing-grounded deal data that remains auditable back to SEC source text and reproducible across machines.
-**Current focus:** Phase 1 - Workflow Contract Surface
+**Current focus:** Phase 06 — chunked-extraction-architecture
 
 ## Current Position
 
-Phase: 1 of 5 (Workflow Contract Surface)
-Plan: 0 of 3 in current phase
-Status: Ready to plan
-Last activity: 2026-03-25 - initialized GSD planning artifacts for the brownfield repo
-
-Progress: [..........] 0%
+Phase: 06 (chunked-extraction-architecture) — EXECUTING
+Plan: 2 of 4
 
 ## Performance Metrics
 
@@ -51,6 +45,8 @@ Progress: [..........] 0%
 - Last 5 plans: none
 - Trend: n/a
 
+| Phase 06-chunked-extraction-architecture P01 | 1 min | 2 tasks | 7 files |
+
 ## Accumulated Context
 
 ### Decisions
@@ -60,6 +56,8 @@ Recent decisions affecting current work:
 
 - Initialization keeps `CLAUDE.md` as the authoritative repo instruction file.
 - Initialization treats the current hybrid pipeline as a brownfield baseline instead of a rewrite target.
+- [Phase 06]: Document chunking as the only extract-deal path and keep consolidation responsible for global event IDs and temporal flags
+- [Phase 06]: Correct the extraction skill reads contract to match the repo's seed-only single-document source artifacts
 
 ### Pending Todos
 
@@ -71,6 +69,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-25T14:57:55.542Z
-Stopped at: Phase 2 context gathered
-Resume file: .planning/phases/02-deterministic-stage-interfaces/02-CONTEXT.md
+Last session: 2026-03-25T15:54:01.882Z
+Stopped at: Completed 06-chunked-extraction-architecture-01-PLAN.md
+Resume file: None

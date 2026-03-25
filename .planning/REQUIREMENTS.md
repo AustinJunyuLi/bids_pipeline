@@ -9,7 +9,7 @@
 
 - [ ] **WFLO-01**: Contributor can identify the entrypoint, required inputs, outputs, and fail-fast prerequisites for every active stage from `raw-fetch` through `/export-csv`.
 - [ ] **WFLO-02**: Contributor can run each deterministic CLI stage against documented artifact paths without manual file surgery.
-- [ ] **WFLO-03**: Skill-driven stages write artifacts that deterministic stages can consume without manual schema edits or ad hoc file renaming.
+- [x] **WFLO-03**: Skill-driven stages write artifacts that deterministic stages can consume without manual schema edits or ad hoc file renaming.
 
 ### Quality and Verification
 
@@ -54,7 +54,7 @@
 | WFLO-01 | Phase 1 | Pending |
 | RISK-02 | Phase 1 | Pending |
 | WFLO-02 | Phase 2 | Pending |
-| WFLO-03 | Phase 2 | Pending |
+| WFLO-03 | Phase 2 | Complete |
 | QUAL-03 | Phase 2 | Pending |
 | QUAL-01 | Phase 3 | Pending |
 | QUAL-02 | Phase 3 | Pending |
