@@ -29,6 +29,13 @@ Artifacts:
 - `data/skill/<slug>/{check,verify,coverage,enrich,export}/` - downstream deterministic outputs
 - `tests/` - focused regression tests for each stage
 - `docs/` - design notes and implementation plans
+- `.planning/` - GSD project memory (`PROJECT.md`, `REQUIREMENTS.md`, `ROADMAP.md`, `STATE.md`) plus brownfield codebase maps under `.planning/codebase/`
+
+## Project Planning
+
+- `.planning/` is the tracked GSD planning surface for this repository.
+- `CLAUDE.md` remains the authoritative repository instruction file. Do not replace the minimal `AGENTS.md` pointer with generic GSD boilerplate.
+- Use `.planning/PROJECT.md` for project context, `.planning/REQUIREMENTS.md` for scoped work, `.planning/ROADMAP.md` for phase structure, and `.planning/STATE.md` for current position.
 
 ## Build, Test, and Development Commands
 
