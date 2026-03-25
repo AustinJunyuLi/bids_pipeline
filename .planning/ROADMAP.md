@@ -15,6 +15,7 @@ This is a brownfield roadmap for an existing hybrid SEC-filing extraction pipeli
 - [ ] **Phase 3: Regression and Policy Checks** - make verification and boundary checks easier to run and extend
 - [ ] **Phase 4: Cross-Platform Contributor Operations** - keep Windows and Linux development quiet and reproducible
 - [ ] **Phase 5: Dependency Risk Management** - track and mitigate external breakpoints before they block active work
+- [ ] **Phase 6: Chunked Extraction Architecture** - redesign extraction from two-pass single-shot to all-chunked sequential with consolidation
 
 ## Phase Details
 
@@ -93,10 +94,28 @@ Plans:
 - [ ] 05-02: Add or refine checks that catch risky dependency changes early
 - [ ] 05-03: Fold dependency risk review into normal phase planning
 
+### Phase 6: Chunked Extraction Architecture
+**Goal**: Redesign `/extract-deal` from two-pass single-shot to all-chunked sequential extraction with consolidation pass, add deterministic actor dedup and audit, and refactor `/enrich-deal` to use event-targeted re-reads.
+**Depends on**: Phase 2 (deterministic stage interfaces must be stable before changing extraction)
+**Requirements**: WFLO-03 (skill-to-CLI handoff), QUAL-01 (regression coverage)
+**Success Criteria** (what must be TRUE):
+1. All 9 deals extract through the chunked path at ~3-4K tokens per chunk with no single-shot fallback.
+2. Consolidation pass produces deduplicated actors and events with global event_ids in the same `actors_raw.json` + `events_raw.json` contract.
+3. `canonicalize` actor dedup and `check` actor audit catch residual duplicates from chunk boundaries.
+4. Petsmart's silent NDA signers (9 unnamed parties) are captured via improved count_assertion extraction feeding existing unnamed-party recovery.
+5. `enrich-deal` uses event-targeted re-reads (~2-3K context per task) instead of full-context calls.
+6. All existing tests pass. New regression tests cover chunked extraction, actor dedup, and actor audit.
+
+Plans:
+- [ ] 06-01: Implement chunked extraction in extract-deal skill (routing, chunk construction, sequential execution, consolidation)
+- [ ] 06-02: Add _dedup_actors to canonicalize and _check_actor_audit to check with regression tests
+- [ ] 06-03: Refactor enrich-deal to event-targeted re-reads
+- [ ] 06-04: End-to-end validation on stec (largest) and petsmart (silent NDA test case)
+
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
+Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
@@ -105,3 +124,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 | 3. Regression and Policy Checks | 0/3 | Not started | - |
 | 4. Cross-Platform Contributor Operations | 0/3 | Not started | - |
 | 5. Dependency Risk Management | 0/3 | Not started | - |
+| 6. Chunked Extraction Architecture | 0/4 | Context ready | - |
