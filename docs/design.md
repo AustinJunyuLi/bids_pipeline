@@ -3,35 +3,35 @@
 ## Current
 
 The active implementation in this worktree is the seed-only `skill_pipeline`
-hybrid workflow.
+hybrid workflow. For the detailed stage inventory, artifact contracts, and gate
+boundaries, see [`docs/workflow-contract.md`](workflow-contract.md).
 
-Operational sequence:
+Operational sequence (compact):
 
-1. `skill-pipeline raw-fetch --deal <slug>`
-2. `skill-pipeline preprocess-source --deal <slug>`
-3. `/extract-deal <slug>`
-4. `skill-pipeline canonicalize --deal <slug>`
-5. `skill-pipeline check --deal <slug>`
-6. `skill-pipeline verify --deal <slug>`
-7. `skill-pipeline coverage --deal <slug>`
-8. `/verify-extraction <slug>`
-9. `skill-pipeline enrich-core --deal <slug>`
-10. `/enrich-deal <slug>`
-11. `/export-csv <slug>`
+```text
+raw-fetch -> preprocess-source -> /extract-deal -> canonicalize
+-> check -> verify -> coverage -> /verify-extraction
+-> enrich-core -> /enrich-deal -> /export-csv
+```
 
-Artifact flow:
+`/reconcile-alex` is optional and post-export only.
 
-- `raw/<slug>/` contains immutable frozen filing text plus seed-only discovery metadata.
-- `data/deals/<slug>/source/` contains `chronology_blocks.jsonl` and `evidence_items.jsonl`.
-- `data/skill/<slug>/extract/` contains raw or canonical actors/events plus `spans.json`.
-- `data/skill/<slug>/{check,verify,coverage,enrich,export}/` contains downstream deterministic outputs.
+Key artifact roots:
 
-Current design constraints:
+- `raw/<slug>/` -- immutable frozen filing text plus seed-only discovery metadata
+- `data/deals/<slug>/source/` -- chronology blocks and evidence items
+- `data/skill/<slug>/extract/` -- raw or canonical actors/events plus `spans.json`
+- `data/skill/<slug>/{check,verify,coverage,enrich,export}/` -- downstream stage outputs
+
+Design constraints:
 
 - Upstream source preparation is seed-only and single-primary-document.
 - Canonical extract artifacts require a valid `spans.json` sidecar.
 - `enrich-core` must only run after passing `check`, `verify`, and `coverage`.
 - `skill-pipeline deal-agent` is preflight/summary only, not the end-to-end runner.
+
+Stage classification, artifact paths, and gate behavior are documented in
+[`docs/workflow-contract.md`](workflow-contract.md).
 
 ## Notes
 
