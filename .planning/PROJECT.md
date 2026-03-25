@@ -40,12 +40,13 @@ Produce filing-grounded deal data that remains auditable back to SEC source text
 ## Context
 
 - The tracked runtime is the `skill_pipeline` package with `skill-pipeline` as the only installed console entrypoint
-- The operative workflow is hybrid: deterministic CLI stages surround LLM-driven skills such as `/extract-deal`, `/verify-extraction`, `/enrich-deal`, and `/export-csv`
+- The operative workflow is a hybrid deterministic/skill sandwich: 7 deterministic CLI stages surround 3 LLM skill stages, 1 hybrid repair stage, and 1 optional post-export diagnostic (see [`docs/workflow-contract.md`](../docs/workflow-contract.md) for the canonical stage inventory)
 - The repository carries 9 active deal slugs, with `data/seeds.csv` as the entrypoint for raw fetch
 - `raw/` and tracked `data/` artifacts are part of the working dataset, not disposable scratch output
 - Development happens on both Windows and Linux, with GitHub as the synchronization point
 - `CLAUDE.md` remains the authoritative repository instruction source even after adopting GSD planning in `.planning/`
 - Phase 06 completed the chunked extraction architecture shift: `petsmart-inc` is locally auditable through chunked extraction and unnamed-party recovery, while `stec` is approved through the Phase 06 validation summary's reported fresh rerun caveat
+- Phase 01 published the workflow contract surface: `docs/workflow-contract.md` is the single canonical stage inventory, `CLAUDE.md` carries the deal-agent disambiguation, and `.planning/phases/01-workflow-contract-surface/01-CONTEXT.md` preserves the accepted baseline and tracked drifts
 
 ## Constraints
 
@@ -64,6 +65,9 @@ Produce filing-grounded deal data that remains auditable back to SEC source text
 | Use committed planning docs with standard granularity on the current branch | This repo needs durable shared memory, but not micro-phases for every small change | Pending |
 | Skip external ecosystem research during initialization | The immediate goal is to frame the existing brownfield codebase, and the repo already contains enough local context for that | Pending |
 | Treat chunk debug artifacts as the primary runtime proof for a specific extraction run | Final raw JSON artifacts keep the same contract before and after the chunked redesign, so run-specific validation needs direct chunk evidence | Good |
+| Publish `docs/workflow-contract.md` as the single canonical stage inventory | Contributors need one document that names every stage, classification, artifact root, and gate boundary rather than cross-reading code and skill docs | Good |
+| Record the hybrid deterministic/skill baseline in `.planning/` project memory | Later phases can start from committed artifacts instead of rediscovering the workflow split | Good |
+| Remove stale `supplementary_snippets.jsonl` from skill reads rather than marking optional | Current `preprocess-source` actively deletes the file; keeping it in skill docs creates false expectations | Good |
 
 ## Evolution
 
@@ -83,4 +87,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-25 after Phase 06 completion*
+*Last updated: 2026-03-25 after Phase 01 plan 03*

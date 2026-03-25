@@ -4,13 +4,15 @@
 
 ## Pattern Overview
 
-**Overall:** Monolithic local CLI pipeline with hybrid agent-assisted stages
+**Overall:** Hybrid deterministic/skill sandwich pipeline -- deterministic CLI stages surround LLM-driven skill stages
 
 **Key Characteristics:**
 - One installed package, `skill_pipeline/`, with a single console entrypoint in `skill_pipeline/cli.py`
 - File-based artifact flow instead of service-to-service communication
-- Deterministic Python stages wrapped around LLM-driven skill stages documented in `.claude/skills/`
+- 7 deterministic stages own artifact validity and fail-fast gating; 3 LLM skill stages own extraction, interpretation, and export formatting; 1 hybrid repair stage; 1 optional post-export diagnostic
+- Deterministic stages wrap around LLM stages in a sandwich pattern: deterministic ingress -> LLM extraction -> deterministic canonicalize/check/verify/coverage -> hybrid repair -> deterministic enrich-core -> LLM enrich-deal -> LLM export-csv
 - Fail-fast behavior on missing inputs, schema mismatches, and boundary violations
+- Canonical stage inventory lives in `docs/workflow-contract.md` (published in Phase 01)
 
 ## Layers
 
@@ -128,7 +130,14 @@
 - `.gitattributes` enforces `LF` text files
 - `.claude/skills` is canonical, while `.codex/skills` and `.cursor/skills` are derived mirrors
 
+## Accepted Hybrid Baseline (Phase 01)
+
+The deterministic/skill sandwich is the accepted brownfield baseline for all subsequent phases. The stage classification and ordering are locked by `docs/workflow-contract.md` and protected by regression assertions in `tests/test_workflow_contract_surface.py`. The deal-agent disambiguation (CLI summary vs skill orchestrator) is documented in both `CLAUDE.md` and the workflow contract.
+
+Later phases should treat this architecture as stable ground truth rather than re-deriving it from code inspection.
+
 ---
 
 *Architecture analysis: 2026-03-25*
+*Updated: 2026-03-25 after Phase 01 plan 03*
 *Update when major patterns change*

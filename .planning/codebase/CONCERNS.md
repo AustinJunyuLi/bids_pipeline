@@ -18,6 +18,32 @@
 - Impact: dependency upgrades can create noise or confusion about what the installed CLI actually requires
 - Fix approach: document which dependencies are deterministic-runtime critical versus hybrid-workflow supporting
 
+## Documentation and Contract Drifts (Phase 01)
+
+**`supplementary_snippets.jsonl` is not part of the live source contract:**
+- Files: `skill_pipeline/preprocess/source.py`, `.claude/skills/enrich-deal/SKILL.md`
+- Issue: `preprocess-source` actively deletes stale `supplementary_snippets.jsonl` and does not regenerate it; the file was historically listed as a skill-stage read input
+- Resolution: Phase 01 plan 02 removed the stale reference from enrich-deal SKILL.md; future docs must not list this file as a required input
+- Status: resolved in Phase 01
+
+**Legacy `data/deals/<slug>/{extract,qa}` artifacts are not the active contract surface:**
+- Files: `data/deals/*/extract/`, `data/deals/*/qa/`
+- Issue: the checked-in dataset still contains outputs from an earlier pipeline layout, but current code and skill docs target `data/skill/<slug>/...`
+- Impact: contributors or docs that reference `data/deals/<slug>/extract` for current extraction output will be wrong
+- Status: labeled as historical/non-authoritative in Phase 01; no cleanup needed unless later phases intentionally revive that layout
+
+**Historical docs look plausible but are not authoritative for the current runtime:**
+- Files: `docs/plans/2026-03-16-pipeline-design-v3.md`, `quality_reports/session_logs/2026-03-18_skill-pipeline-design.md`
+- Issue: those documents describe earlier transition states (all-filings preprocess, "Alex-compatible" export framing) that no longer match the seed-only, filing-grounded contract
+- Resolution: Phase 01 published `docs/workflow-contract.md` as the single canonical stage inventory; historical docs are background context, not live contracts
+- Status: documented in Phase 01
+
+**deal-agent name collision between CLI summary and skill orchestrator:**
+- Files: `skill_pipeline/deal_agent.py`, `.claude/skills/deal-agent/SKILL.md`, `CLAUDE.md`
+- Issue: both surfaces share the name "deal-agent" but have different responsibilities; contributors may assume the CLI command runs end-to-end extraction
+- Resolution: Phase 01 plan 02 added a disambiguation section to CLAUDE.md and the workflow contract
+- Status: documented in Phase 01
+
 ## Known Bugs / Operational Risks
 
 **Future `edgartools` compatibility break risk:**
@@ -105,4 +131,5 @@
 ---
 
 *Concerns audit: 2026-03-25*
+*Updated: 2026-03-25 after Phase 01 plan 03*
 *Update as issues are fixed or new ones are discovered*
