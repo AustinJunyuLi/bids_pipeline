@@ -16,8 +16,9 @@ description: Use when extracting skill-workflow actor and event artifacts from p
 
 ## Purpose
 
-Two-pass LLM extraction of actors and events from preprocessed SEC filing
-source. The skill defines its own JSON format as specified below.
+Chunked sequential LLM extraction of actors and events from preprocessed SEC
+filing source, followed by a consolidation pass that preserves the existing
+output schema. The skill defines its own JSON format as specified below.
 
 ## When To Use
 
@@ -43,54 +44,64 @@ comparison is post-export only and read-only.
 | `data/deals/<slug>/source/chronology_selection.json` | Selected filing and section |
 | `data/deals/<slug>/source/chronology_blocks.jsonl` | Chronology narrative blocks |
 | `data/deals/<slug>/source/evidence_items.jsonl` | Pre-tagged anchors for dates, actors, values, and process signals |
-| `data/deals/<slug>/source/supplementary_snippets.jsonl` | Cross-filing hints from non-primary filings |
 | `raw/<slug>/document_registry.json` | Filing metadata and paths |
 | `raw/<slug>/filings/*.txt` | Frozen text for verbatim anchors |
 
 ## Extraction Method
 
-### Pass 1 — Forward Scan
+### Chunk Construction
 
-#### Step 1a: Actor Extraction
+Split `chronology_blocks.jsonl` into sequential chunks of roughly 10-12 blocks
+per chunk, targeting about 3-4K tokens each. Follow these chunking rules:
 
-Extract every party mentioned in the chronology:
+- Every block appears in exactly one primary chunk.
+- Adjacent chunks share 1-2 blocks of overlap to catch boundary-spanning
+  events.
+- Heading blocks (`is_heading=true`) are never chunk boundaries. Keep the
+  heading with the following narrative block.
+- Number chunks sequentially as `chunk_1`, `chunk_2`, ..., `chunk_N`.
 
-- Named bidders, advisors, activists, and target-side entities
-- Filing aliases such as `Party A`
-- Unnamed aggregates when the filing counts them but does not individualize them
+For each chunk, scope evidence from `evidence_items.jsonl` to only the items
+whose `start_line`..`end_line` range intersects that chunk's block range.
 
-For each actor, produce a `RawActorRecord` with the standard roster fields plus:
+### Chunk Extraction (Sequential)
 
-- `advised_actor_id`: for advisors only, link the advisor to the actor it
-  represents when the filing says so. Example: if the text says "Wachtell,
-  Lipton, Rosen & Katz, counsel to the Company", set `advised_actor_id` to the
-  target-side actor. If unclear, set `null`.
+Process chunks in order: `chunk_1` first, then `chunk_2`, and so on. Each chunk
+receives:
 
-Also extract `count_assertions` for explicit numeric statements such as:
+1. Its block window rendered as numbered text
+2. Scoped evidence items for that window only
+3. The running actor roster from prior chunks (empty for `chunk_1`)
 
-- "15 parties signed confidentiality agreements"
-- "7 bidders were invited to the final round"
+Each chunk extracts actors and events together. For every chunk:
 
-#### Step 1b: Event Extraction
+- Extract every actor visible in the chunk's blocks, including named bidders,
+  advisors, activists, target-side entities, filing aliases such as `Party A`,
+  and unnamed aggregates when the filing counts them but does not individualize
+  them.
+- If a chunk identifies a party that is not already present on the running
+  roster, mint a new actor with a new `actor_id` plus `evidence_refs` grounded
+  in this chunk.
+- For advisors, set `advised_actor_id` when the filing identifies the client.
+  Example: if the text says "Wachtell, Lipton, Rosen & Katz, counsel to the
+  Company", set `advised_actor_id` to the target-side actor. If unclear, set
+  `null`.
+- Extract `count_assertions` for explicit numeric statements such as "15
+  parties signed confidentiality agreements" or "7 bidders were invited to the
+  final round."
+- Extract all events visible in the chunk's blocks across the 20-type taxonomy
+  below.
 
-Every event must have a stable `event_id` (e.g., `evt_001`, `evt_002`)
-assigned at extraction time. IDs must not change once assigned. Downstream
-skills reference events by event_id.
+Chunk-level event rules:
 
-Extract all events across the 20-type taxonomy below. Every event needs:
-
-- `event_id`
+For each event, include:
+- Assign temporary per-chunk `event_id` values such as `c1_evt_001` or
+  `c2_evt_003`. Consolidation replaces them with global IDs later.
 - `event_type`
 - `date`
 - `actor_ids`
 - `summary`
 - `evidence_refs` with verbatim `anchor_text`
-
-Events with genuinely unknown dates: set `date.raw_text` and
-`date.normalized_hint` both to null. The event is still extracted.
-
-Additional event rules:
-
 - Proposal events must include `terms`, `consideration_type`, and
   `formality_signals`.
 - Add `formality_signals.is_subject_to_financing`:
@@ -98,8 +109,6 @@ Additional event rules:
   - `false` when the text explicitly says financing is committed, available, or
     not a condition
   - `null` when financing is not discussed
-- Only set `after_final_round_announcement=true` if you have already extracted
-  a chronologically earlier `final_round_ann` or `final_round_ext_ann`.
 - Round events must include `round_scope`. For announcement events, also fill
   `invited_actor_ids` when the filing names or clearly identifies the invitees.
 - Collapse every withdrawal or exclusion into `drop`. Do not emit
@@ -109,11 +118,18 @@ Additional event rules:
   clear.
 - For `executed`, fill `executed_with_actor_id` when the counterparty is known.
 - For `terminated` and `restarted`, fill `boundary_note`.
+- Do not set the final-round temporal flags during chunk extraction. Those
+  signals require cross-chunk history and are set only during consolidation.
 
-Open-world actor minting is allowed. If an event clearly references a party not
-yet on the roster, add that actor with evidence. When minting new actors during
-event extraction, add a corresponding actor record to actors_raw.json with
-evidence_refs.
+Events with genuinely unknown dates: set `date.raw_text` and
+`date.normalized_hint` both to null. The event is still extracted.
+
+roster carry-forward is mandatory. After each chunk completes, merge its newly
+minted actors into the running roster before prompting the next chunk.
+
+Write each chunk's structured draft to
+`data/skill/<slug>/extract/chunks/` as a transient debug artifact. These files
+support operator review only and are not consumed by deterministic stages.
 
 ### Date and Event Precision Rules
 
@@ -136,14 +152,46 @@ tactic (consent solicitation, proxy fight) as a condition of joining the
 friendly process is NOT a `terminated` event. Note it in the NDA event's
 `notes` field instead.
 
-### Pass 2 — Gap Re-Read (Always Runs)
+### Consolidation Pass
 
-1. For each of the 20 event types, list extracted events or write
-   `NOT FOUND — [specific filing-based reason]`.
-2. Re-read the most relevant sections for missing NDA, dropout, adviser, and
-   process-initiation events.
-3. Re-check actor lifecycle coverage. If an actor disappears from the process,
-   record that in `coverage_notes` even if the terminal event remains unresolved.
+After all chunks finish, run one consolidation pass. It receives:
+
+1. The final accumulated actor roster
+2. All chunk event drafts from every chunk
+3. All merged `count_assertions`
+4. Evidence gap signals for block ranges that still have no extracted events, if
+   any
+
+The consolidation pass performs these actions:
+
+1. Actor dedup by canonical name. Group actors by
+   `(canonical_name.strip().upper(), role, bidder_kind)`. Keep the survivor
+   with the richest evidence, merge duplicate `evidence_refs` into the
+   survivor, and log the merge decisions in the transient working notes.
+2. Event dedup for overlap zones. When adjacent chunks both extract the same
+   overlap event, dedup by `(event_type, date, actor_ids)`, keep the richer
+   summary, and merge `evidence_refs`.
+3. 20-type taxonomy sweep. For every event type, either confirm the extracted
+   events or write `NOT FOUND -- [specific filing-based reason]` in
+   `coverage_notes`.
+4. Count reconciliation. Compare `count_assertions` against the extracted
+   actor/event roster and flag mismatches for downstream review.
+5. Targeted re-reads. For event types still marked `NOT FOUND`, re-read the
+   3-5 most relevant blocks for that type and extract any missing events.
+6. Temporal signal assignment. Set
+   `after_final_round_announcement` and `after_final_round_deadline` on
+   proposal events only after scanning the consolidated event timeline for the
+   relevant prior round events.
+7. Global event ID assignment. Replace temporary chunk event IDs with stable
+   global IDs (`evt_001`, `evt_002`, ...) in chronological order and update any
+   dependent references such as `invited_actor_ids`.
+
+### Output
+
+Consolidation writes the final `actors_raw.json` and `events_raw.json` to
+`data/skill/<slug>/extract/`. These use the same schema and artifact paths as
+today. Do not change downstream contracts, Pydantic models, or deterministic
+stage expectations.
 
 ## Writes
 
