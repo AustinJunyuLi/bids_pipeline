@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: Ready to execute
-stopped_at: Completed 01-01-PLAN.md
-last_updated: "2026-03-25T23:17:10.848Z"
+stopped_at: Completed 01-02-PLAN.md
+last_updated: "2026-03-25T23:22:21.544Z"
 progress:
   total_phases: 6
   completed_phases: 1
   total_plans: 7
-  completed_plans: 5
+  completed_plans: 6
 ---
 
 # Project State
@@ -24,7 +24,7 @@ See: `.planning/PROJECT.md` (updated 2026-03-25)
 ## Current Position
 
 Phase: 01 (workflow-contract-surface) — EXECUTING
-Plan: 2 of 3
+Plan: 3 of 3
 
 ## Performance Metrics
 
@@ -50,6 +50,7 @@ Plan: 2 of 3
 | Phase 06-chunked-extraction-architecture P03 | 2 min | 2 tasks | 6 files |
 | Phase 06-chunked-extraction-architecture P04 | human verification | 2 tasks | 2 files |
 | Phase 01 P01 | 2min | 3 tasks | 3 files |
+| Phase 01 P02 | 3min | 3 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -68,6 +69,8 @@ Recent decisions affecting current work:
 - [Phase 06]: Scope LLM enrichment rereads from event-linked block windows instead of full chronology context.
 - [Phase 01]: Workflow contract doc is the single detailed inventory; design.md stays a concise index pointing to it
 - [Phase 01]: Stage count: 7 deterministic, 3 LLM skill, 1 hybrid repair, 1 optional post-export diagnostic
+- [Phase 01]: Add deal-agent disambiguation section to CLAUDE.md rather than duplicating full workflow-contract.md
+- [Phase 01]: Remove stale supplementary_snippets.jsonl from enrich-deal Reads since preprocess-source actively deletes it
 
 ### Pending Todos
 
@@ -79,6 +82,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-25T23:17:10.846Z
-Stopped at: Completed 01-01-PLAN.md
+Last session: 2026-03-25T23:22:21.542Z
+Stopped at: Completed 01-02-PLAN.md
 Resume file: None
