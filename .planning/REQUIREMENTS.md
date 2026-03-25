@@ -25,7 +25,7 @@
 ### Risk Management
 
 - [ ] **RISK-01**: Contributor can identify external dependency risks that could break live SEC fetches before they interrupt active deal work.
-- [ ] **RISK-02**: Contributor can recover project context and next steps from committed planning docs without relying on private local notes.
+- [x] **RISK-02**: Contributor can recover project context and next steps from committed planning docs without relying on private local notes.
 
 ## v2 Requirements
 
@@ -52,7 +52,7 @@
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | WFLO-01 | Phase 1 | Complete |
-| RISK-02 | Phase 1 | Pending |
+| RISK-02 | Phase 1 | Complete |
 | WFLO-02 | Phase 2 | Pending |
 | WFLO-03 | Phase 2 | Complete |
 | QUAL-03 | Phase 2 | Pending |
