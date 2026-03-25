@@ -109,7 +109,7 @@ Plans:
 
 Plans:
 - [x] 06-01-PLAN.md — Rewrite extract-deal SKILL.md for all-chunked sequential extraction with consolidation
-- [ ] 06-02-PLAN.md — Add _dedup_actors to canonicalize and _check_actor_audit to check with regression tests
+- [x] 06-02-PLAN.md — Add _dedup_actors to canonicalize and _check_actor_audit to check with regression tests
 - [ ] 06-03-PLAN.md — Refactor enrich-deal SKILL.md to event-targeted re-reads
 - [ ] 06-04-PLAN.md — End-to-end validation on stec (largest) and petsmart (silent NDA test case)
 

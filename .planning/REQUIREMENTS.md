@@ -13,7 +13,7 @@
 
 ### Quality and Verification
 
-- [ ] **QUAL-01**: Contributor can run targeted regression tests for raw, preprocess, canonicalize, verify, coverage, enrich-core, and repo policy boundaries from committed commands.
+- [x] **QUAL-01**: Contributor can run targeted regression tests for raw, preprocess, canonicalize, verify, coverage, enrich-core, and repo policy boundaries from committed commands.
 - [ ] **QUAL-02**: Contributor can detect benchmark-boundary drift and skill-mirror drift with automated checks before merging.
 - [ ] **QUAL-03**: Contributor can trace workflow failures to the stage and artifact that violated the contract rather than debug from scratch.
 
@@ -56,7 +56,7 @@
 | WFLO-02 | Phase 2 | Pending |
 | WFLO-03 | Phase 2 | Complete |
 | QUAL-03 | Phase 2 | Pending |
-| QUAL-01 | Phase 3 | Pending |
+| QUAL-01 | Phase 3 | Complete |
 | QUAL-02 | Phase 3 | Pending |
 | OPS-01 | Phase 4 | Pending |
 | OPS-02 | Phase 4 | Pending |

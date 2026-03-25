@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: Ready to execute
-stopped_at: Completed 06-chunked-extraction-architecture-01-PLAN.md
-last_updated: "2026-03-25T15:54:01.884Z"
+stopped_at: Completed 06-02-PLAN.md
+last_updated: "2026-03-25T16:03:06.256Z"
 progress:
   total_phases: 6
   completed_phases: 0
   total_plans: 7
-  completed_plans: 1
+  completed_plans: 2
 ---
 
 # Project State
@@ -24,7 +24,7 @@ See: `.planning/PROJECT.md` (updated 2026-03-25)
 ## Current Position
 
 Phase: 06 (chunked-extraction-architecture) — EXECUTING
-Plan: 2 of 4
+Plan: 3 of 4
 
 ## Performance Metrics
 
@@ -46,6 +46,7 @@ Plan: 2 of 4
 - Trend: n/a
 
 | Phase 06-chunked-extraction-architecture P01 | 1 min | 2 tasks | 7 files |
+| Phase 06-chunked-extraction-architecture P02 | 7 min | 2 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -58,6 +59,8 @@ Recent decisions affecting current work:
 - Initialization treats the current hybrid pipeline as a brownfield baseline instead of a rewrite target.
 - [Phase 06]: Document chunking as the only extract-deal path and keep consolidation responsible for global event IDs and temporal flags
 - [Phase 06]: Correct the extraction skill reads contract to match the repo's seed-only single-document source artifacts
+- [Phase 06-chunked-extraction-architecture]: Deduplicate actors by normalized canonical name, role, and bidder kind before NDA gating so later stages operate on survivor actor IDs
+- [Phase 06-chunked-extraction-architecture]: Surface actor audit residuals as warnings instead of blockers because they are QA signals rather than structural contract failures
 
 ### Pending Todos
 
@@ -69,6 +72,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-25T15:54:01.882Z
-Stopped at: Completed 06-chunked-extraction-architecture-01-PLAN.md
+Last session: 2026-03-25T16:03:06.254Z
+Stopped at: Completed 06-02-PLAN.md
 Resume file: None
