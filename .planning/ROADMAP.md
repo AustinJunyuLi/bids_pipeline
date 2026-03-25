@@ -30,7 +30,7 @@ This is a brownfield roadmap for an existing hybrid SEC-filing extraction pipeli
 **Plans**: 3 plans
 
 Plans:
-- [ ] 01-01-PLAN.md — Publish the contributor-facing workflow contract and lock it with a doc regression test
+- [x] 01-01-PLAN.md — Publish the contributor-facing workflow contract and lock it with a doc regression test
 - [ ] 01-02-PLAN.md — Align `CLAUDE.md` and the canonical skills index with the hybrid deterministic vs LLM split
 - [ ] 01-03-PLAN.md — Capture the stabilized brownfield workflow in `.planning/` for later phases
 
