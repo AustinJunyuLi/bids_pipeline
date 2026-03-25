@@ -159,6 +159,178 @@ def _evt(
     }
 
 
+def _actor(
+    actor_id: str,
+    canonical_name: str,
+    *,
+    role: str = "bidder",
+    bidder_kind: str | None = "financial",
+    advised_actor_id: str | None = None,
+    evidence_refs: list[dict] | None = None,
+    aliases: list[str] | None = None,
+    notes: list[str] | None = None,
+) -> dict:
+    return {
+        "actor_id": actor_id,
+        "display_name": canonical_name.title(),
+        "canonical_name": canonical_name,
+        "aliases": aliases or [],
+        "role": role,
+        "advisor_kind": None,
+        "advised_actor_id": advised_actor_id,
+        "bidder_kind": bidder_kind,
+        "listing_status": "private",
+        "geography": "domestic",
+        "is_grouped": False,
+        "group_size": None,
+        "group_label": None,
+        "evidence_refs": evidence_refs or [{"block_id": "B001", "evidence_id": None, "anchor_text": "x"}],
+        "notes": notes or [],
+    }
+
+
+def test_dedup_actors_merges_duplicates(tmp_path: Path) -> None:
+    actors_payload = {
+        "actors": [
+            _actor(
+                "party_a_1",
+                "PARTY A",
+                evidence_refs=[
+                    {"block_id": "B001", "evidence_id": None, "anchor_text": "Party A contacted the company"},
+                    {"block_id": "B002", "evidence_id": None, "anchor_text": "Party A signed an NDA"},
+                ],
+            ),
+            _actor(
+                "party_a_2",
+                "PARTY A",
+                evidence_refs=[
+                    {"block_id": "B003", "evidence_id": None, "anchor_text": "Party A submitted an indication"},
+                ],
+            ),
+        ],
+        "count_assertions": [],
+        "unresolved_mentions": [],
+    }
+    event = _evt(
+        "evt_001",
+        "proposal",
+        actor_ids=["party_a_2"],
+        block_id="B003",
+        summary="Party A submitted an indication.",
+    )
+    event["invited_actor_ids"] = ["party_a_2"]
+    event["executed_with_actor_id"] = "party_a_2"
+
+    _write_canon_fixture(tmp_path, actors_payload=actors_payload, events=[event])
+    run_canonicalize("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+
+    actors_result = json.loads(paths.actors_raw_path.read_text(encoding="utf-8"))
+    events_result = json.loads(paths.events_raw_path.read_text(encoding="utf-8"))
+    log = json.loads(paths.canonicalize_log_path.read_text(encoding="utf-8"))
+
+    assert [actor["actor_id"] for actor in actors_result["actors"]] == ["party_a_1"]
+    assert log["actor_dedup_log"] == {"party_a_2": "party_a_1"}
+    assert events_result["events"][0]["actor_ids"] == ["party_a_1"]
+    assert events_result["events"][0]["invited_actor_ids"] == ["party_a_1"]
+    assert events_result["events"][0]["executed_with_actor_id"] == "party_a_1"
+
+
+def test_dedup_actors_different_role_not_merged(tmp_path: Path) -> None:
+    actors_payload = {
+        "actors": [
+            _actor("party_a_bidder", "PARTY A", role="bidder", bidder_kind="financial"),
+            _actor("party_a_advisor", "PARTY A", role="advisor", bidder_kind=None),
+        ],
+        "count_assertions": [],
+        "unresolved_mentions": [],
+    }
+
+    _write_canon_fixture(
+        tmp_path,
+        actors_payload=actors_payload,
+        events=[_evt("evt_001", "executed", actor_ids=["party_a_bidder"])],
+    )
+    run_canonicalize("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    actors_result = json.loads(paths.actors_raw_path.read_text(encoding="utf-8"))
+
+    assert [actor["actor_id"] for actor in actors_result["actors"]] == [
+        "party_a_bidder",
+        "party_a_advisor",
+    ]
+
+
+def test_dedup_actors_evidence_merged(tmp_path: Path) -> None:
+    actors_payload = {
+        "actors": [
+            _actor(
+                "party_a_1",
+                "PARTY A",
+                evidence_refs=[
+                    {"block_id": "B001", "evidence_id": None, "anchor_text": "Party A first mention"},
+                    {"block_id": "B002", "evidence_id": None, "anchor_text": "Party A second mention"},
+                ],
+                aliases=["Sponsor A"],
+                notes=["first note"],
+            ),
+            _actor(
+                "party_a_2",
+                "PARTY A",
+                evidence_refs=[
+                    {"block_id": "B002", "evidence_id": None, "anchor_text": "Party A second mention"},
+                    {"block_id": "B003", "evidence_id": None, "anchor_text": "Party A third mention"},
+                ],
+                aliases=["Sponsor A", "Fund A"],
+                notes=["second note"],
+            ),
+        ],
+        "count_assertions": [],
+        "unresolved_mentions": [],
+    }
+
+    _write_canon_fixture(
+        tmp_path,
+        actors_payload=actors_payload,
+        events=[_evt("evt_001", "nda", actor_ids=["party_a_1"])],
+    )
+    run_canonicalize("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    actors_result = json.loads(paths.actors_raw_path.read_text(encoding="utf-8"))
+
+    assert actors_result["actors"][0]["evidence_span_ids"] == [
+        "span_0001",
+        "span_0002",
+        "span_0003",
+    ]
+    assert actors_result["actors"][0]["aliases"] == ["Sponsor A", "Fund A"]
+    assert actors_result["actors"][0]["notes"] == ["first note", "second note"]
+
+
+def test_dedup_actors_no_duplicates_passthrough(tmp_path: Path) -> None:
+    actors_payload = {
+        "actors": [_actor("party_a", "PARTY A")],
+        "count_assertions": [],
+        "unresolved_mentions": [],
+    }
+
+    _write_canon_fixture(
+        tmp_path,
+        actors_payload=actors_payload,
+        events=[_evt("evt_001", "nda", actor_ids=["party_a"])],
+    )
+    run_canonicalize("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+
+    actors_result = json.loads(paths.actors_raw_path.read_text(encoding="utf-8"))
+    events_result = json.loads(paths.events_raw_path.read_text(encoding="utf-8"))
+    log = json.loads(paths.canonicalize_log_path.read_text(encoding="utf-8"))
+
+    assert [actor["actor_id"] for actor in actors_result["actors"]] == ["party_a"]
+    assert events_result["events"][0]["actor_ids"] == ["party_a"]
+    assert log["actor_dedup_log"] == {}
+
+
 def test_dedup_collapses_same_type_date_actor_block(tmp_path: Path) -> None:
     events = [
         _evt("evt_001", "final_round_ann", block_id="B036", summary="short"),

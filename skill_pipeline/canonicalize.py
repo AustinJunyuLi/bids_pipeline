@@ -339,6 +339,76 @@ def _dedup_events(events: list[dict]) -> tuple[list[dict], dict[str, str]]:
     return kept, dedup_log
 
 
+def _append_unique(target: list[str], values: list[str]) -> None:
+    for value in values:
+        if value not in target:
+            target.append(value)
+
+
+def _remap_actor_ids(actor_ids: list[str], actor_dedup_log: dict[str, str]) -> list[str]:
+    remapped: list[str] = []
+    for actor_id in actor_ids:
+        survivor_id = actor_dedup_log.get(actor_id, actor_id)
+        if survivor_id not in remapped:
+            remapped.append(survivor_id)
+    return remapped
+
+
+def _dedup_actors(
+    actors_dict: dict,
+    events: list[dict],
+) -> tuple[dict, list[dict], dict[str, str]]:
+    """Deduplicate actors by (canonical_name_normalized, role, bidder_kind)."""
+    actors = actors_dict["actors"]
+    actor_dedup_log: dict[str, str] = {}
+    groups: dict[tuple[str, str, str | None], list[dict]] = defaultdict(list)
+    for actor in actors:
+        key = (
+            actor["canonical_name"].strip().upper(),
+            actor["role"],
+            actor.get("bidder_kind"),
+        )
+        groups[key].append(actor)
+
+    kept_actors: list[dict] = []
+    for group in groups.values():
+        survivor = max(group, key=lambda actor: len(actor.get("evidence_span_ids", [])))
+        if len(group) > 1:
+            merged_span_ids = list(survivor.get("evidence_span_ids", []))
+            merged_aliases = list(survivor.get("aliases", []))
+            merged_notes = list(survivor.get("notes", []))
+            for actor in group:
+                if actor["actor_id"] == survivor["actor_id"]:
+                    continue
+                _append_unique(merged_span_ids, actor.get("evidence_span_ids", []))
+                _append_unique(merged_aliases, actor.get("aliases", []))
+                _append_unique(merged_notes, actor.get("notes", []))
+                actor_dedup_log[actor["actor_id"]] = survivor["actor_id"]
+            survivor["evidence_span_ids"] = merged_span_ids
+            survivor["aliases"] = merged_aliases
+            survivor["notes"] = merged_notes
+        kept_actors.append(survivor)
+
+    actor_order = {actor["actor_id"]: index for index, actor in enumerate(actors)}
+    kept_actors.sort(key=lambda actor: actor_order.get(actor["actor_id"], 0))
+
+    for actor in kept_actors:
+        advised_actor_id = actor.get("advised_actor_id")
+        if advised_actor_id in actor_dedup_log:
+            actor["advised_actor_id"] = actor_dedup_log[advised_actor_id]
+
+    for event in events:
+        event["actor_ids"] = _remap_actor_ids(event.get("actor_ids", []), actor_dedup_log)
+        invited_actor_ids = event.get("invited_actor_ids", [])
+        event["invited_actor_ids"] = _remap_actor_ids(invited_actor_ids, actor_dedup_log)
+        executed_with_actor_id = event.get("executed_with_actor_id")
+        if executed_with_actor_id in actor_dedup_log:
+            event["executed_with_actor_id"] = actor_dedup_log[executed_with_actor_id]
+
+    actors_dict["actors"] = kept_actors
+    return actors_dict, events, actor_dedup_log
+
+
 def _event_semantics_key(event: dict) -> str:
     semantics = {
         "event_type": event.get("event_type"),
@@ -558,10 +628,13 @@ def run_canonicalize(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> in
     )
 
     events = events_dict["events"]
-    log: dict = {"dedup_log": {}, "nda_gate_log": [], "recovery_log": []}
+    log: dict = {"dedup_log": {}, "actor_dedup_log": {}, "nda_gate_log": [], "recovery_log": []}
 
     events, dedup_log = _dedup_events(events)
     log["dedup_log"] = dedup_log
+
+    actors_dict, events, actor_dedup_log = _dedup_actors(actors_dict, events)
+    log["actor_dedup_log"] = actor_dedup_log
 
     events, nda_gate_log = _gate_drops_by_nda(events)
     log["nda_gate_log"] = nda_gate_log
