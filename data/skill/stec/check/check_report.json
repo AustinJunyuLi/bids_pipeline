@@ -1,0 +1,61 @@
+{
+  "findings": [
+    {
+      "check_id": "bidder_no_nda",
+      "severity": "warning",
+      "description": "Bidder 'bidder_company_a' has no NDA event.",
+      "actor_ids": [
+        "bidder_company_a"
+      ],
+      "event_ids": []
+    },
+    {
+      "check_id": "bidder_no_nda",
+      "severity": "warning",
+      "description": "Bidder 'bidder_company_b' has no NDA event.",
+      "actor_ids": [
+        "bidder_company_b"
+      ],
+      "event_ids": []
+    },
+    {
+      "check_id": "bidder_no_nda",
+      "severity": "warning",
+      "description": "Bidder 'bidder_company_c' has no NDA event.",
+      "actor_ids": [
+        "bidder_company_c"
+      ],
+      "event_ids": []
+    },
+    {
+      "check_id": "count_assertion_gap",
+      "severity": "warning",
+      "description": "Count assertion 'executed_ndas' expects 6, found 7.",
+      "actor_ids": [],
+      "event_ids": []
+    },
+    {
+      "check_id": "advisor_missing_advised",
+      "severity": "warning",
+      "description": "Advisor 'advisor_latham_watkins' has no advised_actor_id.",
+      "actor_ids": [
+        "advisor_latham_watkins"
+      ],
+      "event_ids": []
+    },
+    {
+      "check_id": "advisor_missing_advised",
+      "severity": "warning",
+      "description": "Advisor 'advisor_paul_hastings' has no advised_actor_id.",
+      "actor_ids": [
+        "advisor_paul_hastings"
+      ],
+      "event_ids": []
+    }
+  ],
+  "summary": {
+    "blocker_count": 0,
+    "warning_count": 6,
+    "status": "pass"
+  }
+}

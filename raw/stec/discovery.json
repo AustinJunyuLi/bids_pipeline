@@ -1,25 +1,23 @@
 {
   "schema_version": "2.0.0",
   "artifact_type": "raw_discovery_manifest",
-  "created_at": "2026-03-16T23:47:33.642348Z",
+  "created_at": "2026-03-25T14:38:55.384247Z",
   "pipeline_version": "0.1.0",
-  "run_id": "alex9-prellm-20260316-234644",
+  "run_id": "skill-3e5a519f",
   "deal_slug": "stec",
   "seed": {
     "schema_version": "2.0.0",
     "artifact_type": "seed_deal",
-    "created_at": "2026-03-16T23:46:45.679411Z",
+    "created_at": "2026-03-25T14:38:55.384060Z",
     "pipeline_version": "0.1.0",
-    "run_id": "alex9-prellm-20260316-234644",
+    "run_id": "skill-3e5a519f",
     "deal_slug": "stec",
     "target_name": "S T E C INC",
     "acquirer_seed": "WESTERN DIGITAL CORP",
     "date_announced_seed": "2013-06-24",
     "primary_url_seed": "https://www.sec.gov/Archives/edgar/data/1102741/0001193125-13-325730-index.htm",
     "is_reference": true,
-    "seed_row_refs": [
-      "csv:326"
-    ],
+    "seed_row_refs": [],
     "notes": []
   },
   "cik": "1102741",
@@ -27,192 +25,18 @@
     {
       "document_id": "0001193125-13-325730",
       "accession_number": "0001193125-13-325730",
-      "filing_type": "DEFM14A",
-      "filing_date": "2013-08-08",
-      "sec_url": "https://www.sec.gov/Archives/edgar/data/1102741/0001193125-13-325730-index.html",
-      "source_origin": "edgartools_search",
+      "filing_type": "UNKNOWN",
+      "filing_date": null,
+      "sec_url": "https://www.sec.gov/Archives/edgar/data/1102741/0001193125-13-325730-index.htm",
+      "source_origin": "seed_accession",
       "ranking_features": {
         "seed_accession_match": true,
-        "days_from_announcement": 45,
-        "within_window": true,
-        "form_preference": 0,
-        "filing_family": "primary"
-      },
-      "selected_for_localization": false,
-      "rejected_reason": null
-    },
-    {
-      "document_id": "0001193125-13-301062",
-      "accession_number": "0001193125-13-301062",
-      "filing_type": "PREM14A",
-      "filing_date": "2013-07-25",
-      "sec_url": "https://www.sec.gov/Archives/edgar/data/1102741/0001193125-13-301062-index.html",
-      "source_origin": "edgartools_search",
-      "ranking_features": {
-        "seed_accession_match": false,
-        "days_from_announcement": 31,
-        "within_window": true,
-        "form_preference": 1,
         "filing_family": "primary"
       },
       "selected_for_localization": false,
       "rejected_reason": null
     }
   ],
-  "supplementary_candidates": [
-    {
-      "document_id": "0001193125-13-269505",
-      "accession_number": "0001193125-13-269505",
-      "filing_type": "DEFA14A",
-      "filing_date": "2013-06-25",
-      "sec_url": "https://www.sec.gov/Archives/edgar/data/1102741/0001193125-13-269505-index.html",
-      "source_origin": "edgartools_search",
-      "ranking_features": {
-        "seed_accession_match": false,
-        "days_from_announcement": 1,
-        "within_window": true,
-        "form_preference": 0,
-        "filing_family": "supplementary"
-      },
-      "selected_for_localization": false,
-      "rejected_reason": null
-    },
-    {
-      "document_id": "0001193125-13-269509",
-      "accession_number": "0001193125-13-269509",
-      "filing_type": "DEFA14A",
-      "filing_date": "2013-06-25",
-      "sec_url": "https://www.sec.gov/Archives/edgar/data/1102741/0001193125-13-269509-index.html",
-      "source_origin": "edgartools_search",
-      "ranking_features": {
-        "seed_accession_match": false,
-        "days_from_announcement": 1,
-        "within_window": true,
-        "form_preference": 0,
-        "filing_family": "supplementary"
-      },
-      "selected_for_localization": false,
-      "rejected_reason": null
-    },
-    {
-      "document_id": "0001193125-13-252523",
-      "accession_number": "0001193125-13-252523",
-      "filing_type": "DEFA14A",
-      "filing_date": "2013-06-10",
-      "sec_url": "https://www.sec.gov/Archives/edgar/data/1102741/0001193125-13-252523-index.html",
-      "source_origin": "edgartools_search",
-      "ranking_features": {
-        "seed_accession_match": false,
-        "days_from_announcement": 14,
-        "within_window": true,
-        "form_preference": 0,
-        "filing_family": "supplementary"
-      },
-      "selected_for_localization": false,
-      "rejected_reason": null
-    },
-    {
-      "document_id": "0001193125-13-269504",
-      "accession_number": "0001193125-13-269504",
-      "filing_type": "8-K",
-      "filing_date": "2013-06-25",
-      "sec_url": "https://www.sec.gov/Archives/edgar/data/1102741/0001193125-13-269504-index.html",
-      "source_origin": "edgartools_search",
-      "ranking_features": {
-        "seed_accession_match": false,
-        "days_from_announcement": 1,
-        "within_window": true,
-        "form_preference": 1,
-        "filing_family": "supplementary"
-      },
-      "selected_for_localization": false,
-      "rejected_reason": null
-    },
-    {
-      "document_id": "0001193125-13-315258",
-      "accession_number": "0001193125-13-315258",
-      "filing_type": "8-K",
-      "filing_date": "2013-08-01",
-      "sec_url": "https://www.sec.gov/Archives/edgar/data/1102741/0001193125-13-315258-index.html",
-      "source_origin": "edgartools_search",
-      "ranking_features": {
-        "seed_accession_match": false,
-        "days_from_announcement": 38,
-        "within_window": true,
-        "form_preference": 1,
-        "filing_family": "supplementary"
-      },
-      "selected_for_localization": false,
-      "rejected_reason": null
-    },
-    {
-      "document_id": "0001171843-13-003249",
-      "accession_number": "0001171843-13-003249",
-      "filing_type": "8-K",
-      "filing_date": "2013-08-07",
-      "sec_url": "https://www.sec.gov/Archives/edgar/data/1102741/0001171843-13-003249-index.html",
-      "source_origin": "edgartools_search",
-      "ranking_features": {
-        "seed_accession_match": false,
-        "days_from_announcement": 44,
-        "within_window": true,
-        "form_preference": 1,
-        "filing_family": "supplementary"
-      },
-      "selected_for_localization": false,
-      "rejected_reason": null
-    },
-    {
-      "document_id": "0001193125-13-282788",
-      "accession_number": "0001193125-13-282788",
-      "filing_type": "SC 13D",
-      "filing_date": "2013-07-03",
-      "sec_url": "https://www.sec.gov/Archives/edgar/data/1102741/0001193125-13-282788-index.html",
-      "source_origin": "edgartools_search",
-      "ranking_features": {
-        "seed_accession_match": false,
-        "days_from_announcement": 9,
-        "within_window": true,
-        "form_preference": 2,
-        "filing_family": "supplementary"
-      },
-      "selected_for_localization": false,
-      "rejected_reason": null
-    },
-    {
-      "document_id": "0000921895-13-001304",
-      "accession_number": "0000921895-13-001304",
-      "filing_type": "SC 13D/A",
-      "filing_date": "2013-06-24",
-      "sec_url": "https://www.sec.gov/Archives/edgar/data/1102741/0000921895-13-001304-index.html",
-      "source_origin": "edgartools_search",
-      "ranking_features": {
-        "seed_accession_match": false,
-        "days_from_announcement": 0,
-        "within_window": true,
-        "form_preference": 3,
-        "filing_family": "supplementary"
-      },
-      "selected_for_localization": false,
-      "rejected_reason": null
-    },
-    {
-      "document_id": "0000921895-13-001312",
-      "accession_number": "0000921895-13-001312",
-      "filing_type": "SC 13D/A",
-      "filing_date": "2013-06-26",
-      "sec_url": "https://www.sec.gov/Archives/edgar/data/1102741/0000921895-13-001312-index.html",
-      "source_origin": "edgartools_search",
-      "ranking_features": {
-        "seed_accession_match": false,
-        "days_from_announcement": 2,
-        "within_window": true,
-        "form_preference": 3,
-        "filing_family": "supplementary"
-      },
-      "selected_for_localization": false,
-      "rejected_reason": null
-    }
-  ],
-  "fetch_scope": "all_candidates"
+  "supplementary_candidates": [],
+  "fetch_scope": "seed_only"
 }

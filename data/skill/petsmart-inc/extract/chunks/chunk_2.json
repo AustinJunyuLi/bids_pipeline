@@ -1,0 +1,654 @@
+{
+  "chunk_id": "chunk_2",
+  "window_block_ids": [
+    "B011",
+    "B012",
+    "B013",
+    "B014",
+    "B015",
+    "B016",
+    "B017",
+    "B018",
+    "B019",
+    "B020",
+    "B021",
+    "B022",
+    "B023",
+    "B024",
+    "B025"
+  ],
+  "primary_block_ids": [
+    "B013",
+    "B014",
+    "B015",
+    "B016",
+    "B017",
+    "B018",
+    "B019",
+    "B020",
+    "B021",
+    "B022",
+    "B023",
+    "B024",
+    "B025"
+  ],
+  "incoming_actor_ids": [
+    "target_petsmart_board",
+    "advisor_jp_morgan",
+    "advisor_wachtell_lipton",
+    "activist_jana",
+    "activist_longview"
+  ],
+  "new_actor_ids": [
+    "bidder_buyer_group",
+    "bidder_2",
+    "bidder_3",
+    "bidder_high_range",
+    "bidder_beta",
+    "bidder_gamma"
+  ],
+  "all_actor_ids_after_chunk": [
+    "target_petsmart_board",
+    "advisor_jp_morgan",
+    "advisor_wachtell_lipton",
+    "activist_jana",
+    "activist_longview",
+    "bidder_buyer_group",
+    "bidder_2",
+    "bidder_3",
+    "bidder_high_range",
+    "bidder_beta",
+    "bidder_gamma"
+  ],
+  "actors": [
+    {
+      "actor_id": "bidder_buyer_group",
+      "display_name": "Buyer Group",
+      "canonical_name": "BUYER GROUP",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": "private",
+      "geography": "domestic",
+      "is_grouped": true,
+      "group_size": null,
+      "group_label": "Buyer Group",
+      "evidence_refs": [
+        {
+          "block_id": "B019",
+          "evidence_id": null,
+          "anchor_text": "Buyer Group"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_2",
+      "display_name": "Bidder 2",
+      "canonical_name": "BIDDER 2",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": "private",
+      "geography": "domestic",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B019",
+          "evidence_id": null,
+          "anchor_text": "Bidder 2"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_3",
+      "display_name": "Bidder 3",
+      "canonical_name": "BIDDER 3",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": "private",
+      "geography": "domestic",
+      "is_grouped": true,
+      "group_size": 2,
+      "group_label": "Bidder 3 paired bidders",
+      "evidence_refs": [
+        {
+          "block_id": "B021",
+          "evidence_id": null,
+          "anchor_text": "Bidder 3"
+        }
+      ],
+      "notes": [
+        "Represents the two final-round bidders that were later permitted to bid together."
+      ]
+    },
+    {
+      "actor_id": "bidder_high_range",
+      "display_name": "Unnamed High-Range Bidder",
+      "canonical_name": "UNNAMED HIGH-RANGE BIDDER",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": "private",
+      "geography": "domestic",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B019",
+          "evidence_id": null,
+          "anchor_text": "another bidder, which suggested a range of"
+        }
+      ],
+      "notes": [
+        "Unnamed bidder group inferred from the filing's explicit reference to another bidder at $80.00 to $85.00 per share."
+      ]
+    },
+    {
+      "actor_id": "bidder_beta",
+      "display_name": "Unnamed Indication Bidder 5",
+      "canonical_name": "UNNAMED INDICATION BIDDER 5",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": "private",
+      "geography": "domestic",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B019",
+          "evidence_id": null,
+          "anchor_text": "six of the potentially interested parties submitted indications of interest"
+        }
+      ],
+      "notes": [
+        "Unnamed bidder group inferred from the filing's count of six indications of interest."
+      ]
+    },
+    {
+      "actor_id": "bidder_gamma",
+      "display_name": "Unnamed Indication Bidder 6",
+      "canonical_name": "UNNAMED INDICATION BIDDER 6",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": "private",
+      "geography": "domestic",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B019",
+          "evidence_id": null,
+          "anchor_text": "six of the potentially interested parties submitted indications of interest"
+        }
+      ],
+      "notes": [
+        "Unnamed bidder group inferred from the filing's count of six indications of interest."
+      ]
+    }
+  ],
+  "events": [
+    {
+      "event_id": "evt_005",
+      "event_type": "nda",
+      "date": {
+        "raw_text": "October 2014",
+        "normalized_hint": "2014-10"
+      },
+      "actor_ids": [
+        "bidder_buyer_group"
+      ],
+      "summary": "Buyer Group was part of the October NDA and diligence cohort.",
+      "evidence_refs": [
+        {
+          "block_id": "B015",
+          "evidence_id": null,
+          "anchor_text": "entered into confidentiality and standstill agreements with 15 potentially interested financial buyers"
+        }
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": []
+    },
+    {
+      "event_id": "evt_006",
+      "event_type": "nda",
+      "date": {
+        "raw_text": "October 2014",
+        "normalized_hint": "2014-10"
+      },
+      "actor_ids": [
+        "bidder_2"
+      ],
+      "summary": "Bidder 2 was part of the October NDA and diligence cohort.",
+      "evidence_refs": [
+        {
+          "block_id": "B015",
+          "evidence_id": null,
+          "anchor_text": "entered into confidentiality and standstill agreements with 15 potentially interested financial buyers"
+        }
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": []
+    },
+    {
+      "event_id": "evt_007",
+      "event_type": "nda",
+      "date": {
+        "raw_text": "October 2014",
+        "normalized_hint": "2014-10"
+      },
+      "actor_ids": [
+        "bidder_3"
+      ],
+      "summary": "Bidder 3 traced back to the October NDA and diligence cohort.",
+      "evidence_refs": [
+        {
+          "block_id": "B015",
+          "evidence_id": null,
+          "anchor_text": "entered into confidentiality and standstill agreements with 15 potentially interested financial buyers"
+        }
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": []
+    },
+    {
+      "event_id": "evt_008",
+      "event_type": "nda",
+      "date": {
+        "raw_text": "October 2014",
+        "normalized_hint": "2014-10"
+      },
+      "actor_ids": [
+        "bidder_high_range"
+      ],
+      "summary": "An unnamed high-range bidder was part of the October NDA and diligence cohort.",
+      "evidence_refs": [
+        {
+          "block_id": "B015",
+          "evidence_id": null,
+          "anchor_text": "entered into confidentiality and standstill agreements with 15 potentially interested financial buyers"
+        }
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": []
+    },
+    {
+      "event_id": "evt_009",
+      "event_type": "nda",
+      "date": {
+        "raw_text": "October 2014",
+        "normalized_hint": "2014-10"
+      },
+      "actor_ids": [
+        "bidder_beta"
+      ],
+      "summary": "An unnamed indication bidder was part of the October NDA and diligence cohort.",
+      "evidence_refs": [
+        {
+          "block_id": "B015",
+          "evidence_id": null,
+          "anchor_text": "entered into confidentiality and standstill agreements with 15 potentially interested financial buyers"
+        }
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": []
+    },
+    {
+      "event_id": "evt_010",
+      "event_type": "nda",
+      "date": {
+        "raw_text": "October 2014",
+        "normalized_hint": "2014-10"
+      },
+      "actor_ids": [
+        "bidder_gamma"
+      ],
+      "summary": "A second unnamed indication bidder was part of the October NDA and diligence cohort.",
+      "evidence_refs": [
+        {
+          "block_id": "B015",
+          "evidence_id": null,
+          "anchor_text": "entered into confidentiality and standstill agreements with 15 potentially interested financial buyers"
+        }
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": []
+    },
+    {
+      "event_id": "evt_011",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "October 30, 2014",
+        "normalized_hint": "2014-10-30"
+      },
+      "actor_ids": [
+        "bidder_buyer_group"
+      ],
+      "summary": "Buyer Group submitted a non-binding preliminary indication of interest at $81.00 to $83.00 per share.",
+      "evidence_refs": [
+        {
+          "block_id": "B019",
+          "evidence_id": null,
+          "anchor_text": "Buyer Group"
+        }
+      ],
+      "terms": {
+        "per_share": null,
+        "range_low": 81.0,
+        "range_high": 83.0,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": true,
+        "mentions_indication_of_interest": true,
+        "mentions_preliminary": true,
+        "mentions_non_binding": true,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": false,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_012",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "October 30, 2014",
+        "normalized_hint": "2014-10-30"
+      },
+      "actor_ids": [
+        "bidder_high_range"
+      ],
+      "summary": "An unnamed bidder suggested $80.00 to $85.00 per share in its preliminary indication.",
+      "evidence_refs": [
+        {
+          "block_id": "B019",
+          "evidence_id": null,
+          "anchor_text": "another bidder, which suggested a range of"
+        }
+      ],
+      "terms": {
+        "per_share": null,
+        "range_low": 80.0,
+        "range_high": 85.0,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": true,
+        "mentions_indication_of_interest": true,
+        "mentions_preliminary": true,
+        "mentions_non_binding": true,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": false,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_013",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "October 30 to November 2, 2014",
+        "normalized_hint": null
+      },
+      "actor_ids": [
+        "bidder_2"
+      ],
+      "summary": "Bidder 2 improved its preliminary indication to $81.00 to $84.00 per share after follow-up discussions.",
+      "evidence_refs": [
+        {
+          "block_id": "B019",
+          "evidence_id": null,
+          "anchor_text": "Bidder 2"
+        }
+      ],
+      "terms": {
+        "per_share": null,
+        "range_low": 81.0,
+        "range_high": 84.0,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": true,
+        "mentions_indication_of_interest": true,
+        "mentions_preliminary": true,
+        "mentions_non_binding": true,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": false,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_014",
+      "event_type": "final_round_ann",
+      "date": {
+        "raw_text": "November 3, 2014",
+        "normalized_hint": "2014-11-03"
+      },
+      "actor_ids": [],
+      "summary": "The board advanced four bidders at or above $80.00 per share to the final round.",
+      "evidence_refs": [
+        {
+          "block_id": "B020",
+          "evidence_id": null,
+          "anchor_text": "allow the four bidders that had indicated a price or range at or above $80.00 per share to proceed to the final round of the sale process"
+        }
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": "formal",
+      "invited_actor_ids": [
+        "bidder_buyer_group",
+        "bidder_2",
+        "bidder_high_range",
+        "bidder_3"
+      ],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_015",
+      "event_type": "drop",
+      "date": {
+        "raw_text": "November 3, 2014",
+        "normalized_hint": "2014-11-03"
+      },
+      "actor_ids": [
+        "bidder_beta"
+      ],
+      "summary": "One unnamed bidder was eliminated after failing to indicate willingness to stay in the process above its initial price.",
+      "evidence_refs": [
+        {
+          "block_id": "B020",
+          "evidence_id": null,
+          "anchor_text": "Following this meeting, representatives of J. P. Morgan notified the eliminated parties"
+        }
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": "none of which indicated any interest or ability to remain in the process at price levels above their respective initial indications",
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_016",
+      "event_type": "drop",
+      "date": {
+        "raw_text": "November 3, 2014",
+        "normalized_hint": "2014-11-03"
+      },
+      "actor_ids": [
+        "bidder_gamma"
+      ],
+      "summary": "A second unnamed bidder was eliminated after failing to indicate willingness to stay in the process above its initial price.",
+      "evidence_refs": [
+        {
+          "block_id": "B020",
+          "evidence_id": null,
+          "anchor_text": "Following this meeting, representatives of J. P. Morgan notified the eliminated parties"
+        }
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": "none of which indicated any interest or ability to remain in the process at price levels above their respective initial indications",
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    }
+  ],
+  "count_assertions": [
+    {
+      "subject": "nda_signed_financial_buyers",
+      "count": 15,
+      "evidence_refs": [
+        {
+          "block_id": "B015",
+          "evidence_id": null,
+          "anchor_text": "entered into confidentiality and standstill agreements with 15 potentially interested financial buyers"
+        }
+      ]
+    }
+  ],
+  "unresolved_mentions": [
+    "Unnamed financial buyer 1 signed a confidentiality and standstill agreement, engaged in due diligence, and remained unnamed in the filing narrative.",
+    "Unnamed financial buyer 2 signed a confidentiality and standstill agreement, engaged in due diligence, and remained unnamed in the filing narrative.",
+    "Unnamed financial buyer 3 signed a confidentiality and standstill agreement, engaged in due diligence, and remained unnamed in the filing narrative.",
+    "Unnamed financial buyer 4 signed a confidentiality and standstill agreement, engaged in due diligence, and remained unnamed in the filing narrative.",
+    "Unnamed financial buyer 5 signed a confidentiality and standstill agreement, engaged in due diligence, and remained unnamed in the filing narrative.",
+    "Unnamed financial buyer 6 signed a confidentiality and standstill agreement, engaged in due diligence, and remained unnamed in the filing narrative.",
+    "Unnamed financial buyer 7 signed a confidentiality and standstill agreement, engaged in due diligence, and remained unnamed in the filing narrative.",
+    "Unnamed financial buyer 8 signed a confidentiality and standstill agreement, engaged in due diligence, and remained unnamed in the filing narrative.",
+    "Unnamed financial buyer 9 signed a confidentiality and standstill agreement, engaged in due diligence, and remained unnamed in the filing narrative."
+  ]
+}

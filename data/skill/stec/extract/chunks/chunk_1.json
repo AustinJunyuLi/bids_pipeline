@@ -1,0 +1,1590 @@
+{
+  "chunk_id": "chunk_1",
+  "chunk_number": 1,
+  "source": "fresh_post_phase06_rerun",
+  "chunk_strategy": {
+    "method": "balanced_token_partition_manual_skill_follow",
+    "estimated_token_budget": 3800,
+    "estimated_window_tokens": 2772,
+    "overlap_usable_blocks": 0,
+    "usable_block_count": 13,
+    "full_window_block_count": 15
+  },
+  "primary_window": {
+    "start_block_id": "B001",
+    "end_block_id": "B015",
+    "usable_block_ids": [
+      "B001",
+      "B002",
+      "B003",
+      "B005",
+      "B006",
+      "B007",
+      "B008",
+      "B010",
+      "B011",
+      "B012",
+      "B013",
+      "B014",
+      "B015"
+    ]
+  },
+  "context_window": {
+    "start_block_id": "B001",
+    "end_block_id": "B015",
+    "full_block_ids": [
+      "B001",
+      "B002",
+      "B003",
+      "B004",
+      "B005",
+      "B006",
+      "B007",
+      "B008",
+      "B009",
+      "B010",
+      "B011",
+      "B012",
+      "B013",
+      "B014",
+      "B015"
+    ],
+    "start_line": 1244,
+    "end_line": 1320,
+    "overlap_prev_block_ids": [],
+    "overlap_next_block_ids": [
+      "B015"
+    ]
+  },
+  "scoped_evidence": {
+    "count": 22,
+    "evidence_ids": [
+      "0001193125-13-325730:E0256",
+      "0001193125-13-325730:E0257",
+      "0001193125-13-325730:E0258",
+      "0001193125-13-325730:E0259",
+      "0001193125-13-325730:E0260",
+      "0001193125-13-325730:E0261",
+      "0001193125-13-325730:E0262",
+      "0001193125-13-325730:E0263",
+      "0001193125-13-325730:E0264",
+      "0001193125-13-325730:E0265",
+      "0001193125-13-325730:E0266",
+      "0001193125-13-325730:E0267",
+      "0001193125-13-325730:E0268",
+      "0001193125-13-325730:E0269",
+      "0001193125-13-325730:E0270",
+      "0001193125-13-325730:E0271",
+      "0001193125-13-325730:E0272",
+      "0001193125-13-325730:E0273",
+      "0001193125-13-325730:E0274",
+      "0001193125-13-325730:E0275",
+      "0001193125-13-325730:E0276",
+      "0001193125-13-325730:E0277"
+    ],
+    "items": [
+      {
+        "evidence_id": "0001193125-13-325730:E0256",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1246,
+        "end_line": 1249,
+        "raw_text": "Over the last few years, as developments in enterprise Solid State Drives (\u0093 SSDs\u0094) created challenges to the company\u0092s\nperformance and prospects, management and our board of directors regularly reviewed and assessed the company\u0092s strategy with the goal of maximizing shareholder value. As a result of these reviews, our board of directors considered a number of\npotential strategic alternatives, including strategic acquisitions and divestitures, investment in and creation of a parallel sales and marketing group focusing on new customers, a sale of the company and licensing opportunities for the\ncompany\u0092s intellectual property.",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [
+          "shareholder"
+        ],
+        "date_text": null,
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected actor identification: shareholder"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0257",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1246,
+        "end_line": 1249,
+        "raw_text": "Over the last few years, as developments in enterprise Solid State Drives (\u0093 SSDs\u0094) created challenges to the company\u0092s\nperformance and prospects, management and our board of directors regularly reviewed and assessed the company\u0092s strategy with the goal of maximizing shareholder value. As a result of these reviews, our board of directors considered a number of\npotential strategic alternatives, including strategic acquisitions and divestitures, investment in and creation of a parallel sales and marketing group focusing on new customers, a sale of the company and licensing opportunities for the\ncompany\u0092s intellectual property.",
+        "evidence_type": "process_signal",
+        "confidence": "low",
+        "matched_terms": [
+          "strategic alternatives"
+        ],
+        "date_text": null,
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected process signal: strategic alternatives"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0258",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1258,
+        "end_line": 1264,
+        "raw_text": "however, prior to the process described below, such approaches have been general and exploratory in nature, and no specific transaction terms were proposed. In addition, in 2011, while attending\nan industry event, Mr. Manouch Moshayedi, our Founder, and then Chief Executive Officer and Chairman of the Board, attended a lunch meeting with Mr. John Coyne, the then CEO of WDC. This meeting was in keeping with\nMr. Moshayedi\u0092s practice of meeting from time-to-time with other executives in the storage industry. During their lunch conversation, among other topics discussed, Mr. Coyne noted that WDC was interested in exploring potential ways of\nexpanding in SSDs. In the months that followed, sTec\u0092s management did not receive any further communications from WDC, and sTec\u0092s management had no further discussions with WDC management until the following year. In the summer of 2012,\nMr. Moshayedi attended a lunch meeting at the invitation of Mr. Michael Hajeck, then WDC\u0092s Senior Vice President and General Manager, Solid State Business Unit. At the lunch meeting with Mr. Manouch Moshayedi, Mr. Hajeck\ninquired about the interest of Mr. Manouch Moshayedi and Mr. Mark Moshayedi, our then President, Chief Operating Officer and Chief Technical Officer, in continuing to run sTec and whether they had any plans to retire, but there was no\nfurther discussion between WDC and sTec until the communications described below.",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [],
+        "date_text": null,
+        "actor_hint": "Board",
+        "value_hint": null,
+        "note": null
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0259",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1274,
+        "end_line": 1280,
+        "raw_text": "In response, by the fourth quarter of 2012, our board of directors was considering a number of further strategic alternatives presented by management, including a plan to significantly reduce expenses to\nalign our cost structure with our reduced revenues by scaling down head count and resources in a number of functional areas, including operations, research and development, and general and administrative. As it evaluated the advisability and\npotential long-term impacts of the cost reductions, our board of directors determined that it would be beneficial to undertake a formal review of strategic alternatives, including exploring a potential sale of sTec. In particular, our board of\ndirectors determined that it would be beneficial to perform a market check to determine if potential acquirers would present a better opportunity to maximize shareholder value, than would result from continuing to operate the company on a standalone\nbasis under the cost reduction plan. Consequently, in mid-November, 2012, our board of directors authorized management to contact potential financial advisors to explore their interest in representing the company in its exploration of strategic\nalternatives, including a potential sale of the company. During this timeframe, management contacted two financial advisors about the prospect of working with the company, however, both responded that they were not in a position to advise the\ncompany at that time. Although sTec did not engage a financial advisor at that time, our board of directors made a determination to continue to review sTec\u0092s strategic alternatives.",
+        "evidence_type": "dated_action",
+        "confidence": "high",
+        "matched_terms": [
+          "authorized",
+          "contacted",
+          "sent"
+        ],
+        "date_text": "November",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected dated action: authorized, contacted, sent"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0260",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1274,
+        "end_line": 1280,
+        "raw_text": "In response, by the fourth quarter of 2012, our board of directors was considering a number of further strategic alternatives presented by management, including a plan to significantly reduce expenses to\nalign our cost structure with our reduced revenues by scaling down head count and resources in a number of functional areas, including operations, research and development, and general and administrative. As it evaluated the advisability and\npotential long-term impacts of the cost reductions, our board of directors determined that it would be beneficial to undertake a formal review of strategic alternatives, including exploring a potential sale of sTec. In particular, our board of\ndirectors determined that it would be beneficial to perform a market check to determine if potential acquirers would present a better opportunity to maximize shareholder value, than would result from continuing to operate the company on a standalone\nbasis under the cost reduction plan. Consequently, in mid-November, 2012, our board of directors authorized management to contact potential financial advisors to explore their interest in representing the company in its exploration of strategic\nalternatives, including a potential sale of the company. During this timeframe, management contacted two financial advisors about the prospect of working with the company, however, both responded that they were not in a position to advise the\ncompany at that time. Although sTec did not engage a financial advisor at that time, our board of directors made a determination to continue to review sTec\u0092s strategic alternatives.",
+        "evidence_type": "actor_identification",
+        "confidence": "high",
+        "matched_terms": [
+          "advisor",
+          "advisors",
+          "financial advisor",
+          "shareholder"
+        ],
+        "date_text": "November",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected actor identification: advisor, advisors, financial advisor, shareholder"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0261",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1274,
+        "end_line": 1280,
+        "raw_text": "In response, by the fourth quarter of 2012, our board of directors was considering a number of further strategic alternatives presented by management, including a plan to significantly reduce expenses to\nalign our cost structure with our reduced revenues by scaling down head count and resources in a number of functional areas, including operations, research and development, and general and administrative. As it evaluated the advisability and\npotential long-term impacts of the cost reductions, our board of directors determined that it would be beneficial to undertake a formal review of strategic alternatives, including exploring a potential sale of sTec. In particular, our board of\ndirectors determined that it would be beneficial to perform a market check to determine if potential acquirers would present a better opportunity to maximize shareholder value, than would result from continuing to operate the company on a standalone\nbasis under the cost reduction plan. Consequently, in mid-November, 2012, our board of directors authorized management to contact potential financial advisors to explore their interest in representing the company in its exploration of strategic\nalternatives, including a potential sale of the company. During this timeframe, management contacted two financial advisors about the prospect of working with the company, however, both responded that they were not in a position to advise the\ncompany at that time. Although sTec did not engage a financial advisor at that time, our board of directors made a determination to continue to review sTec\u0092s strategic alternatives.",
+        "evidence_type": "process_signal",
+        "confidence": "low",
+        "matched_terms": [
+          "strategic alternatives"
+        ],
+        "date_text": "November",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected process signal: strategic alternatives"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0262",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1282,
+        "end_line": 1285,
+        "raw_text": "On November 14, 2012, an investment bank representing Company A, a participant in the storage industry, contacted our management to\nrequest a preliminary meeting between sTec and Company A. Company A\u0092s financial advisor followed up on the preliminary contact to provide a proposed agenda for the meeting, covering topics related to our operations and technology, and a draft\nnon-disclosure agreement for the purpose of evaluating a possible business transaction between sTec and Company A. A meeting was scheduled between Company A and sTec, however, it was subsequently cancelled because of concerns expressed by\nnon-management board members, which were communicated to Company A, that the management of Company A had not demonstrated any involvement in the process.",
+        "evidence_type": "dated_action",
+        "confidence": "high",
+        "matched_terms": [
+          "contacted",
+          "meeting",
+          "proposed",
+          "sent"
+        ],
+        "date_text": "November 14, 2012",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected dated action: contacted, meeting, proposed, sent"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0263",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1282,
+        "end_line": 1285,
+        "raw_text": "On November 14, 2012, an investment bank representing Company A, a participant in the storage industry, contacted our management to\nrequest a preliminary meeting between sTec and Company A. Company A\u0092s financial advisor followed up on the preliminary contact to provide a proposed agenda for the meeting, covering topics related to our operations and technology, and a draft\nnon-disclosure agreement for the purpose of evaluating a possible business transaction between sTec and Company A. A meeting was scheduled between Company A and sTec, however, it was subsequently cancelled because of concerns expressed by\nnon-management board members, which were communicated to Company A, that the management of Company A had not demonstrated any involvement in the process.",
+        "evidence_type": "actor_identification",
+        "confidence": "medium",
+        "matched_terms": [
+          "advisor",
+          "financial advisor",
+          "investment bank"
+        ],
+        "date_text": "November 14, 2012",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected actor identification: advisor, financial advisor, investment bank"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0264",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1282,
+        "end_line": 1285,
+        "raw_text": "On November 14, 2012, an investment bank representing Company A, a participant in the storage industry, contacted our management to\nrequest a preliminary meeting between sTec and Company A. Company A\u0092s financial advisor followed up on the preliminary contact to provide a proposed agenda for the meeting, covering topics related to our operations and technology, and a draft\nnon-disclosure agreement for the purpose of evaluating a possible business transaction between sTec and Company A. A meeting was scheduled between Company A and sTec, however, it was subsequently cancelled because of concerns expressed by\nnon-management board members, which were communicated to Company A, that the management of Company A had not demonstrated any involvement in the process.",
+        "evidence_type": "process_signal",
+        "confidence": "low",
+        "matched_terms": [
+          "non-disclosure"
+        ],
+        "date_text": "November 14, 2012",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected process signal: non-disclosure"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0265",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1290,
+        "end_line": 1294,
+        "raw_text": "On November 29, 2012, our board of directors held a regularly scheduled in-person board\nmeeting, at which the board of directors further discussed, among other matters, potential strategic alternatives in response to the company\u0092s financial performance, including the potential for both acquisitions and divestitures in several\nareas relevant to the company\u0092s strategy. In addition, a representative from the law firm of Gibson, Dunn & Crutcher LLP (\u0093 Gibson Dunn\u0094), which had been engaged in October 2012 as the company\u0092s outside corporate counsel,\nwas present telephonically for a portion of the meeting and delivered a presentation that reviewed the company\u0092s defensive profile and the relevant fiduciary duties of the board of directors in connection with a review of strategic\nalternatives. Management also reported to our board of directors on the feedback received from the two financial advisors that had declined to be engaged by sTec earlier in the month.",
+        "evidence_type": "dated_action",
+        "confidence": "high",
+        "matched_terms": [
+          "declined",
+          "delivered",
+          "discussed",
+          "engaged",
+          "meeting",
+          "received",
+          "sent"
+        ],
+        "date_text": "November 29, 2012",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected dated action: declined, delivered, discussed, engaged, meeting"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0266",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1290,
+        "end_line": 1294,
+        "raw_text": "On November 29, 2012, our board of directors held a regularly scheduled in-person board\nmeeting, at which the board of directors further discussed, among other matters, potential strategic alternatives in response to the company\u0092s financial performance, including the potential for both acquisitions and divestitures in several\nareas relevant to the company\u0092s strategy. In addition, a representative from the law firm of Gibson, Dunn & Crutcher LLP (\u0093 Gibson Dunn\u0094), which had been engaged in October 2012 as the company\u0092s outside corporate counsel,\nwas present telephonically for a portion of the meeting and delivered a presentation that reviewed the company\u0092s defensive profile and the relevant fiduciary duties of the board of directors in connection with a review of strategic\nalternatives. Management also reported to our board of directors on the feedback received from the two financial advisors that had declined to be engaged by sTec earlier in the month.",
+        "evidence_type": "actor_identification",
+        "confidence": "high",
+        "matched_terms": [
+          "advisor",
+          "advisors",
+          "counsel",
+          "financial advisor",
+          "law firm"
+        ],
+        "date_text": "November 29, 2012",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected actor identification: advisor, advisors, counsel, financial advisor, law firm"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0267",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1290,
+        "end_line": 1294,
+        "raw_text": "On November 29, 2012, our board of directors held a regularly scheduled in-person board\nmeeting, at which the board of directors further discussed, among other matters, potential strategic alternatives in response to the company\u0092s financial performance, including the potential for both acquisitions and divestitures in several\nareas relevant to the company\u0092s strategy. In addition, a representative from the law firm of Gibson, Dunn & Crutcher LLP (\u0093 Gibson Dunn\u0094), which had been engaged in October 2012 as the company\u0092s outside corporate counsel,\nwas present telephonically for a portion of the meeting and delivered a presentation that reviewed the company\u0092s defensive profile and the relevant fiduciary duties of the board of directors in connection with a review of strategic\nalternatives. Management also reported to our board of directors on the feedback received from the two financial advisors that had declined to be engaged by sTec earlier in the month.",
+        "evidence_type": "process_signal",
+        "confidence": "low",
+        "matched_terms": [
+          "strategic alternatives"
+        ],
+        "date_text": "November 29, 2012",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected process signal: strategic alternatives"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0268",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1296,
+        "end_line": 1300,
+        "raw_text": "Around this timeframe, Balch Hill Partners, L. P. (\u0093 Balch Hill\u0094), an activist investor in the technology sector, reported its\nacquisition of 6.4% of sTec\u0092s outstanding shares. Balch Hill filed its first Schedule 13D with the SEC on November 16, 2012. Balch Hill was later joined by Potomac Capital Partners II, L. P. (\u0093 Potomac\u0094), and Balch Hill and Potomac\nsubsequently jointly increased their beneficial holdings to 9.8%. Then, on December 6, 2012, Balch Hill filed an amendment to its Schedule 13D, and concurrently issued a letter to our board of directors urging our board to reduce costs, focus\non products with a SAS interface, and explore strategic alternatives. Balch Hill, and later Potomac, advocated a reversal of sTec\u0092s new go-to-market strategy, at a critical period in the strategy transition. Until the time that the merger with\nWDC was publicly announced, Balch Hill and Potomac continued this activist campaign, which also included the nomination of three persons for election to our board of directors at our 2013 annual meeting of shareholders.",
+        "evidence_type": "dated_action",
+        "confidence": "high",
+        "matched_terms": [
+          "announced",
+          "meeting"
+        ],
+        "date_text": "November 16, 2012",
+        "actor_hint": "Hill Partners",
+        "value_hint": null,
+        "note": "detected dated action: announced, meeting"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0269",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1296,
+        "end_line": 1300,
+        "raw_text": "Around this timeframe, Balch Hill Partners, L. P. (\u0093 Balch Hill\u0094), an activist investor in the technology sector, reported its\nacquisition of 6.4% of sTec\u0092s outstanding shares. Balch Hill filed its first Schedule 13D with the SEC on November 16, 2012. Balch Hill was later joined by Potomac Capital Partners II, L. P. (\u0093 Potomac\u0094), and Balch Hill and Potomac\nsubsequently jointly increased their beneficial holdings to 9.8%. Then, on December 6, 2012, Balch Hill filed an amendment to its Schedule 13D, and concurrently issued a letter to our board of directors urging our board to reduce costs, focus\non products with a SAS interface, and explore strategic alternatives. Balch Hill, and later Potomac, advocated a reversal of sTec\u0092s new go-to-market strategy, at a critical period in the strategy transition. Until the time that the merger with\nWDC was publicly announced, Balch Hill and Potomac continued this activist campaign, which also included the nomination of three persons for election to our board of directors at our 2013 annual meeting of shareholders.",
+        "evidence_type": "actor_identification",
+        "confidence": "medium",
+        "matched_terms": [
+          "activist",
+          "shareholder"
+        ],
+        "date_text": "November 16, 2012",
+        "actor_hint": "Hill Partners",
+        "value_hint": null,
+        "note": "detected actor identification: activist, shareholder"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0270",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1296,
+        "end_line": 1300,
+        "raw_text": "Around this timeframe, Balch Hill Partners, L. P. (\u0093 Balch Hill\u0094), an activist investor in the technology sector, reported its\nacquisition of 6.4% of sTec\u0092s outstanding shares. Balch Hill filed its first Schedule 13D with the SEC on November 16, 2012. Balch Hill was later joined by Potomac Capital Partners II, L. P. (\u0093 Potomac\u0094), and Balch Hill and Potomac\nsubsequently jointly increased their beneficial holdings to 9.8%. Then, on December 6, 2012, Balch Hill filed an amendment to its Schedule 13D, and concurrently issued a letter to our board of directors urging our board to reduce costs, focus\non products with a SAS interface, and explore strategic alternatives. Balch Hill, and later Potomac, advocated a reversal of sTec\u0092s new go-to-market strategy, at a critical period in the strategy transition. Until the time that the merger with\nWDC was publicly announced, Balch Hill and Potomac continued this activist campaign, which also included the nomination of three persons for election to our board of directors at our 2013 annual meeting of shareholders.",
+        "evidence_type": "process_signal",
+        "confidence": "low",
+        "matched_terms": [
+          "strategic alternatives"
+        ],
+        "date_text": "November 16, 2012",
+        "actor_hint": "Hill Partners",
+        "value_hint": null,
+        "note": "detected process signal: strategic alternatives"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0271",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1305,
+        "end_line": 1309,
+        "raw_text": "Our board of directors met telephonically on February 11, 12 and 13, 2013. During the meeting on February 13, our board of directors established a special committee of the board, initially\ncomposed of Dr. Daly, and Messrs. Colpitts and Witte, and subsequently expanded to four members on March 26, 2013. The mandate of the special committee was to conduct a review of sTec\u0092s strategic alternatives, including a possible\nsale of the company, as well as the alternative of continuing as a standalone company with further reductions in our workforce and other cost reduction initiatives. The board believed that it was prudent to appoint a special committee of independent\ndirectors to provide an objective analysis of all strategic alternatives available to the company. The special committee was also authorized to engage advisors, including a financial advisor. At that meeting, the board of directors also delegated to\nthe non-management members of the board (Dr. Daly and Messrs. Bahri, Ball, Colpitts and Witte, or the \u0093independent directors\u0094), the review and evaluation of potential responses to Balch Hill and Potomac.",
+        "evidence_type": "dated_action",
+        "confidence": "high",
+        "matched_terms": [
+          "authorized",
+          "meeting",
+          "met"
+        ],
+        "date_text": "February",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected dated action: authorized, meeting, met"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0272",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1305,
+        "end_line": 1309,
+        "raw_text": "Our board of directors met telephonically on February 11, 12 and 13, 2013. During the meeting on February 13, our board of directors established a special committee of the board, initially\ncomposed of Dr. Daly, and Messrs. Colpitts and Witte, and subsequently expanded to four members on March 26, 2013. The mandate of the special committee was to conduct a review of sTec\u0092s strategic alternatives, including a possible\nsale of the company, as well as the alternative of continuing as a standalone company with further reductions in our workforce and other cost reduction initiatives. The board believed that it was prudent to appoint a special committee of independent\ndirectors to provide an objective analysis of all strategic alternatives available to the company. The special committee was also authorized to engage advisors, including a financial advisor. At that meeting, the board of directors also delegated to\nthe non-management members of the board (Dr. Daly and Messrs. Bahri, Ball, Colpitts and Witte, or the \u0093independent directors\u0094), the review and evaluation of potential responses to Balch Hill and Potomac.",
+        "evidence_type": "actor_identification",
+        "confidence": "high",
+        "matched_terms": [
+          "advisor",
+          "advisors",
+          "financial advisor",
+          "special committee"
+        ],
+        "date_text": "February",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected actor identification: advisor, advisors, financial advisor, special committee"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0273",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1305,
+        "end_line": 1309,
+        "raw_text": "Our board of directors met telephonically on February 11, 12 and 13, 2013. During the meeting on February 13, our board of directors established a special committee of the board, initially\ncomposed of Dr. Daly, and Messrs. Colpitts and Witte, and subsequently expanded to four members on March 26, 2013. The mandate of the special committee was to conduct a review of sTec\u0092s strategic alternatives, including a possible\nsale of the company, as well as the alternative of continuing as a standalone company with further reductions in our workforce and other cost reduction initiatives. The board believed that it was prudent to appoint a special committee of independent\ndirectors to provide an objective analysis of all strategic alternatives available to the company. The special committee was also authorized to engage advisors, including a financial advisor. At that meeting, the board of directors also delegated to\nthe non-management members of the board (Dr. Daly and Messrs. Bahri, Ball, Colpitts and Witte, or the \u0093independent directors\u0094), the review and evaluation of potential responses to Balch Hill and Potomac.",
+        "evidence_type": "process_signal",
+        "confidence": "low",
+        "matched_terms": [
+          "strategic alternatives"
+        ],
+        "date_text": "February",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected process signal: strategic alternatives"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0274",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1311,
+        "end_line": 1313,
+        "raw_text": "On February 13, 2013, Mr. Manouch Moshayedi met with the President of Company B, a participant in the electronics industry.\nCompany B\u0092s President stated that the following week Company B was holding a management meeting at which Company B would be discussing its SSD opportunities, and the President intended to present sTec as a possible acquisition target to the\nmanagement of Company B.",
+        "evidence_type": "dated_action",
+        "confidence": "high",
+        "matched_terms": [
+          "meeting",
+          "met",
+          "sent"
+        ],
+        "date_text": "February 13, 2013",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected dated action: meeting, met, sent"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0275",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1315,
+        "end_line": 1320,
+        "raw_text": "On February 14, 2013, the board of directors held a telephonic special meeting, which only the\nindependent directors attended. Mr. Robert M. Saman, our Chief Legal Officer, General Counsel and Secretary, and a representative from Gibson Dunn also attended the meeting. The directors discussed the appointment of the special committee,\nand actions to be taken by the special committee in connection with reviewing the company\u0092s strategic alternatives. The representative from Gibson Dunn reviewed the fiduciary duties of the board of directors and the special committee under\nCalifornia law in connection with the review of the company\u0092s strategic alternatives. The directors also discussed potential strategic alternatives and the current challenges facing the company. The directors also discussed with Mr. Saman\na number of potential financial advisors for engagement by the special committee to assist it and our board of directors with the strategic review, as well as the process for selection. The directors discussed a number of factors to be considered in\nany potential",
+        "evidence_type": "dated_action",
+        "confidence": "high",
+        "matched_terms": [
+          "discussed",
+          "meeting",
+          "sent"
+        ],
+        "date_text": "February 14, 2013",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected dated action: discussed, meeting, sent"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0276",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1315,
+        "end_line": 1320,
+        "raw_text": "On February 14, 2013, the board of directors held a telephonic special meeting, which only the\nindependent directors attended. Mr. Robert M. Saman, our Chief Legal Officer, General Counsel and Secretary, and a representative from Gibson Dunn also attended the meeting. The directors discussed the appointment of the special committee,\nand actions to be taken by the special committee in connection with reviewing the company\u0092s strategic alternatives. The representative from Gibson Dunn reviewed the fiduciary duties of the board of directors and the special committee under\nCalifornia law in connection with the review of the company\u0092s strategic alternatives. The directors also discussed potential strategic alternatives and the current challenges facing the company. The directors also discussed with Mr. Saman\na number of potential financial advisors for engagement by the special committee to assist it and our board of directors with the strategic review, as well as the process for selection. The directors discussed a number of factors to be considered in\nany potential",
+        "evidence_type": "actor_identification",
+        "confidence": "high",
+        "matched_terms": [
+          "advisor",
+          "advisors",
+          "counsel",
+          "financial advisor",
+          "special committee"
+        ],
+        "date_text": "February 14, 2013",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected actor identification: advisor, advisors, counsel, financial advisor, special committee"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0277",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1315,
+        "end_line": 1320,
+        "raw_text": "On February 14, 2013, the board of directors held a telephonic special meeting, which only the\nindependent directors attended. Mr. Robert M. Saman, our Chief Legal Officer, General Counsel and Secretary, and a representative from Gibson Dunn also attended the meeting. The directors discussed the appointment of the special committee,\nand actions to be taken by the special committee in connection with reviewing the company\u0092s strategic alternatives. The representative from Gibson Dunn reviewed the fiduciary duties of the board of directors and the special committee under\nCalifornia law in connection with the review of the company\u0092s strategic alternatives. The directors also discussed potential strategic alternatives and the current challenges facing the company. The directors also discussed with Mr. Saman\na number of potential financial advisors for engagement by the special committee to assist it and our board of directors with the strategic review, as well as the process for selection. The directors discussed a number of factors to be considered in\nany potential",
+        "evidence_type": "process_signal",
+        "confidence": "low",
+        "matched_terms": [
+          "strategic alternatives"
+        ],
+        "date_text": "February 14, 2013",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected process signal: strategic alternatives"
+      }
+    ]
+  },
+  "roster_in": [],
+  "roster_out": [
+    {
+      "actor_id": "target_stec_board",
+      "display_name": "sTec Board",
+      "canonical_name": "STEC BOARD",
+      "aliases": [
+        "sTec",
+        "our board of directors",
+        "the board of directors",
+        "our management"
+      ],
+      "role": "target_board",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B007",
+          "evidence_id": null,
+          "anchor_text": "our board of directors"
+        }
+      ],
+      "notes": [
+        "Represents the company-side board and management when the filing refers to sTec generically in the sale process."
+      ]
+    },
+    {
+      "actor_id": "target_stec_special_committee",
+      "display_name": "sTec Special Committee",
+      "canonical_name": "STEC SPECIAL COMMITTEE",
+      "aliases": [
+        "special committee"
+      ],
+      "role": "target_board",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B013",
+          "evidence_id": null,
+          "anchor_text": "special committee of the board"
+        }
+      ],
+      "notes": [
+        "Formed on February 13, 2013 to review strategic alternatives, including a possible sale of the company."
+      ]
+    },
+    {
+      "actor_id": "target_stec_independent_directors",
+      "display_name": "sTec Independent Directors",
+      "canonical_name": "STEC INDEPENDENT DIRECTORS",
+      "aliases": [
+        "independent directors",
+        "non-management members of the board"
+      ],
+      "role": "target_board",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": true,
+      "group_size": 5,
+      "group_label": "Independent directors",
+      "evidence_refs": [
+        {
+          "block_id": "B013",
+          "evidence_id": null,
+          "anchor_text": "independent directors"
+        }
+      ],
+      "notes": [
+        "Represents the non-management directors delegated to evaluate responses to Balch Hill and Potomac."
+      ]
+    },
+    {
+      "actor_id": "advisor_gibson_dunn",
+      "display_name": "Gibson Dunn",
+      "canonical_name": "GIBSON, DUNN & CRUTCHER LLP",
+      "aliases": [
+        "Gibson Dunn"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": "target_stec_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B010",
+          "evidence_id": null,
+          "anchor_text": "Gibson, Dunn & Crutcher LLP"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_unnamed_initial_financial_advisors",
+      "display_name": "Two Unnamed Financial Advisors",
+      "canonical_name": "TWO UNNAMED FINANCIAL ADVISORS",
+      "aliases": [],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "target_stec_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": true,
+      "group_size": 2,
+      "group_label": "Two financial advisors contacted in mid-November 2012",
+      "evidence_refs": [
+        {
+          "block_id": "B007",
+          "evidence_id": null,
+          "anchor_text": "management contacted two financial advisors about the prospect of working with the company"
+        }
+      ],
+      "notes": [
+        "Both advisors declined to advise sTec."
+      ]
+    },
+    {
+      "actor_id": "advisor_company_a_financial_advisor",
+      "display_name": "Company A Financial Advisor",
+      "canonical_name": "COMPANY A FINANCIAL ADVISOR",
+      "aliases": [
+        "investment bank representing Company A",
+        "Company A financial advisor"
+      ],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "bidder_company_a",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B008",
+          "evidence_id": null,
+          "anchor_text": "an investment bank representing Company A"
+        }
+      ],
+      "notes": [
+        "The filing does not identify this advisor by name."
+      ]
+    },
+    {
+      "actor_id": "activist_balch_hill",
+      "display_name": "Balch Hill",
+      "canonical_name": "BALCH HILL PARTNERS, L. P.",
+      "aliases": [
+        "Balch Hill"
+      ],
+      "role": "activist",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B011",
+          "evidence_id": null,
+          "anchor_text": "Balch Hill Partners, L. P."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "activist_potomac",
+      "display_name": "Potomac",
+      "canonical_name": "POTOMAC CAPITAL PARTNERS II, L. P.",
+      "aliases": [
+        "Potomac"
+      ],
+      "role": "activist",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B011",
+          "evidence_id": null,
+          "anchor_text": "Potomac Capital Partners II, L. P."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_wdc",
+      "display_name": "WDC",
+      "canonical_name": "WDC",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B005",
+          "evidence_id": null,
+          "anchor_text": "WDC"
+        }
+      ],
+      "notes": [
+        "Pre-process WDC contacts in this chunk are described as general and exploratory and did not include specific transaction terms."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_a",
+      "display_name": "Company A",
+      "canonical_name": "COMPANY A",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B008",
+          "evidence_id": null,
+          "anchor_text": "Company A"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_b",
+      "display_name": "Company B",
+      "canonical_name": "COMPANY B",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B014",
+          "evidence_id": null,
+          "anchor_text": "Company B"
+        }
+      ],
+      "notes": []
+    }
+  ],
+  "chunk_output": {
+    "actors": [
+      {
+        "actor_id": "target_stec_board",
+        "display_name": "sTec Board",
+        "canonical_name": "STEC BOARD",
+        "aliases": [
+          "sTec",
+          "our board of directors",
+          "the board of directors",
+          "our management"
+        ],
+        "role": "target_board",
+        "advisor_kind": null,
+        "advised_actor_id": null,
+        "bidder_kind": null,
+        "listing_status": null,
+        "geography": null,
+        "is_grouped": false,
+        "group_size": null,
+        "group_label": null,
+        "evidence_refs": [
+          {
+            "block_id": "B007",
+            "evidence_id": null,
+            "anchor_text": "our board of directors"
+          }
+        ],
+        "notes": [
+          "Represents the company-side board and management when the filing refers to sTec generically in the sale process."
+        ]
+      },
+      {
+        "actor_id": "target_stec_special_committee",
+        "display_name": "sTec Special Committee",
+        "canonical_name": "STEC SPECIAL COMMITTEE",
+        "aliases": [
+          "special committee"
+        ],
+        "role": "target_board",
+        "advisor_kind": null,
+        "advised_actor_id": null,
+        "bidder_kind": null,
+        "listing_status": null,
+        "geography": null,
+        "is_grouped": false,
+        "group_size": null,
+        "group_label": null,
+        "evidence_refs": [
+          {
+            "block_id": "B013",
+            "evidence_id": null,
+            "anchor_text": "special committee of the board"
+          }
+        ],
+        "notes": [
+          "Formed on February 13, 2013 to review strategic alternatives, including a possible sale of the company."
+        ]
+      },
+      {
+        "actor_id": "target_stec_independent_directors",
+        "display_name": "sTec Independent Directors",
+        "canonical_name": "STEC INDEPENDENT DIRECTORS",
+        "aliases": [
+          "independent directors",
+          "non-management members of the board"
+        ],
+        "role": "target_board",
+        "advisor_kind": null,
+        "advised_actor_id": null,
+        "bidder_kind": null,
+        "listing_status": null,
+        "geography": null,
+        "is_grouped": true,
+        "group_size": 5,
+        "group_label": "Independent directors",
+        "evidence_refs": [
+          {
+            "block_id": "B013",
+            "evidence_id": null,
+            "anchor_text": "independent directors"
+          }
+        ],
+        "notes": [
+          "Represents the non-management directors delegated to evaluate responses to Balch Hill and Potomac."
+        ]
+      },
+      {
+        "actor_id": "advisor_gibson_dunn",
+        "display_name": "Gibson Dunn",
+        "canonical_name": "GIBSON, DUNN & CRUTCHER LLP",
+        "aliases": [
+          "Gibson Dunn"
+        ],
+        "role": "advisor",
+        "advisor_kind": "legal",
+        "advised_actor_id": "target_stec_board",
+        "bidder_kind": null,
+        "listing_status": null,
+        "geography": null,
+        "is_grouped": false,
+        "group_size": null,
+        "group_label": null,
+        "evidence_refs": [
+          {
+            "block_id": "B010",
+            "evidence_id": null,
+            "anchor_text": "Gibson, Dunn & Crutcher LLP"
+          }
+        ],
+        "notes": []
+      },
+      {
+        "actor_id": "advisor_unnamed_initial_financial_advisors",
+        "display_name": "Two Unnamed Financial Advisors",
+        "canonical_name": "TWO UNNAMED FINANCIAL ADVISORS",
+        "aliases": [],
+        "role": "advisor",
+        "advisor_kind": "financial",
+        "advised_actor_id": "target_stec_board",
+        "bidder_kind": null,
+        "listing_status": null,
+        "geography": null,
+        "is_grouped": true,
+        "group_size": 2,
+        "group_label": "Two financial advisors contacted in mid-November 2012",
+        "evidence_refs": [
+          {
+            "block_id": "B007",
+            "evidence_id": null,
+            "anchor_text": "management contacted two financial advisors about the prospect of working with the company"
+          }
+        ],
+        "notes": [
+          "Both advisors declined to advise sTec."
+        ]
+      },
+      {
+        "actor_id": "advisor_company_a_financial_advisor",
+        "display_name": "Company A Financial Advisor",
+        "canonical_name": "COMPANY A FINANCIAL ADVISOR",
+        "aliases": [
+          "investment bank representing Company A",
+          "Company A financial advisor"
+        ],
+        "role": "advisor",
+        "advisor_kind": "financial",
+        "advised_actor_id": "bidder_company_a",
+        "bidder_kind": null,
+        "listing_status": null,
+        "geography": null,
+        "is_grouped": false,
+        "group_size": null,
+        "group_label": null,
+        "evidence_refs": [
+          {
+            "block_id": "B008",
+            "evidence_id": null,
+            "anchor_text": "an investment bank representing Company A"
+          }
+        ],
+        "notes": [
+          "The filing does not identify this advisor by name."
+        ]
+      },
+      {
+        "actor_id": "activist_balch_hill",
+        "display_name": "Balch Hill",
+        "canonical_name": "BALCH HILL PARTNERS, L. P.",
+        "aliases": [
+          "Balch Hill"
+        ],
+        "role": "activist",
+        "advisor_kind": null,
+        "advised_actor_id": null,
+        "bidder_kind": null,
+        "listing_status": null,
+        "geography": null,
+        "is_grouped": false,
+        "group_size": null,
+        "group_label": null,
+        "evidence_refs": [
+          {
+            "block_id": "B011",
+            "evidence_id": null,
+            "anchor_text": "Balch Hill Partners, L. P."
+          }
+        ],
+        "notes": []
+      },
+      {
+        "actor_id": "activist_potomac",
+        "display_name": "Potomac",
+        "canonical_name": "POTOMAC CAPITAL PARTNERS II, L. P.",
+        "aliases": [
+          "Potomac"
+        ],
+        "role": "activist",
+        "advisor_kind": null,
+        "advised_actor_id": null,
+        "bidder_kind": null,
+        "listing_status": null,
+        "geography": null,
+        "is_grouped": false,
+        "group_size": null,
+        "group_label": null,
+        "evidence_refs": [
+          {
+            "block_id": "B011",
+            "evidence_id": null,
+            "anchor_text": "Potomac Capital Partners II, L. P."
+          }
+        ],
+        "notes": []
+      },
+      {
+        "actor_id": "bidder_wdc",
+        "display_name": "WDC",
+        "canonical_name": "WDC",
+        "aliases": [],
+        "role": "bidder",
+        "advisor_kind": null,
+        "advised_actor_id": null,
+        "bidder_kind": "strategic",
+        "listing_status": null,
+        "geography": null,
+        "is_grouped": false,
+        "group_size": null,
+        "group_label": null,
+        "evidence_refs": [
+          {
+            "block_id": "B005",
+            "evidence_id": null,
+            "anchor_text": "WDC"
+          }
+        ],
+        "notes": [
+          "Pre-process WDC contacts in this chunk are described as general and exploratory and did not include specific transaction terms."
+        ]
+      },
+      {
+        "actor_id": "bidder_company_a",
+        "display_name": "Company A",
+        "canonical_name": "COMPANY A",
+        "aliases": [],
+        "role": "bidder",
+        "advisor_kind": null,
+        "advised_actor_id": null,
+        "bidder_kind": "strategic",
+        "listing_status": null,
+        "geography": null,
+        "is_grouped": false,
+        "group_size": null,
+        "group_label": null,
+        "evidence_refs": [
+          {
+            "block_id": "B008",
+            "evidence_id": null,
+            "anchor_text": "Company A"
+          }
+        ],
+        "notes": []
+      },
+      {
+        "actor_id": "bidder_company_b",
+        "display_name": "Company B",
+        "canonical_name": "COMPANY B",
+        "aliases": [],
+        "role": "bidder",
+        "advisor_kind": null,
+        "advised_actor_id": null,
+        "bidder_kind": "strategic",
+        "listing_status": null,
+        "geography": null,
+        "is_grouped": false,
+        "group_size": null,
+        "group_label": null,
+        "evidence_refs": [
+          {
+            "block_id": "B014",
+            "evidence_id": null,
+            "anchor_text": "Company B"
+          }
+        ],
+        "notes": []
+      }
+    ],
+    "count_assertions": [
+      {
+        "subject": "financial_advisors_contacted",
+        "count": 2,
+        "evidence_refs": [
+          {
+            "block_id": "B007",
+            "evidence_id": null,
+            "anchor_text": "management contacted two financial advisors about the prospect of working with the company"
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "event_id": "c1_evt_001",
+        "event_type": "target_sale",
+        "date": {
+          "raw_text": "mid-November, 2012",
+          "normalized_hint": "2012-11"
+        },
+        "actor_ids": [
+          "target_stec_board"
+        ],
+        "summary": "The sTec board launched a formal strategic alternatives review and authorized outreach to potential financial advisors about a possible sale of the company.",
+        "evidence_refs": [
+          {
+            "block_id": "B007",
+            "evidence_id": null,
+            "anchor_text": "our board of directors determined that it would be beneficial to undertake a formal review of strategic alternatives, including exploring a potential sale of sTec"
+          },
+          {
+            "block_id": "B007",
+            "evidence_id": null,
+            "anchor_text": "our board of directors authorized management to contact potential financial advisors to explore their interest in representing the company in its exploration of strategic alternatives, including a potential sale of the company"
+          }
+        ],
+        "terms": null,
+        "formality_signals": null,
+        "whole_company_scope": null,
+        "drop_reason_text": null,
+        "round_scope": null,
+        "invited_actor_ids": [],
+        "deadline_date": null,
+        "executed_with_actor_id": null,
+        "boundary_note": null,
+        "nda_signed": null,
+        "notes": []
+      },
+      {
+        "event_id": "c1_evt_002",
+        "event_type": "bidder_interest",
+        "date": {
+          "raw_text": "November 14, 2012",
+          "normalized_hint": "2012-11-14"
+        },
+        "actor_ids": [
+          "bidder_company_a"
+        ],
+        "summary": "Company A, through its financial advisor, requested a preliminary meeting with sTec and circulated a draft NDA regarding a possible transaction.",
+        "evidence_refs": [
+          {
+            "block_id": "B008",
+            "evidence_id": null,
+            "anchor_text": "contacted our management to\nrequest a preliminary meeting between sTec and Company A"
+          },
+          {
+            "block_id": "B008",
+            "evidence_id": null,
+            "anchor_text": "a draft\nnon-disclosure agreement for the purpose of evaluating a possible business transaction between sTec and Company A"
+          }
+        ],
+        "terms": null,
+        "formality_signals": null,
+        "whole_company_scope": null,
+        "drop_reason_text": null,
+        "round_scope": null,
+        "invited_actor_ids": [],
+        "deadline_date": null,
+        "executed_with_actor_id": null,
+        "boundary_note": null,
+        "nda_signed": null,
+        "notes": []
+      },
+      {
+        "event_id": "c1_evt_003",
+        "event_type": "drop",
+        "date": {
+          "raw_text": null,
+          "normalized_hint": null
+        },
+        "actor_ids": [
+          "bidder_company_a"
+        ],
+        "summary": "The planned meeting with Company A was cancelled after non-management directors questioned whether Company A management was involved in the process.",
+        "evidence_refs": [
+          {
+            "block_id": "B008",
+            "evidence_id": null,
+            "anchor_text": "it was subsequently cancelled because of concerns expressed by\nnon-management board members"
+          }
+        ],
+        "terms": null,
+        "formality_signals": null,
+        "whole_company_scope": null,
+        "drop_reason_text": "concerns expressed by\nnon-management board members, which were communicated to Company A, that the management of Company A had not demonstrated any involvement in the process.",
+        "round_scope": null,
+        "invited_actor_ids": [],
+        "deadline_date": null,
+        "executed_with_actor_id": null,
+        "boundary_note": null,
+        "nda_signed": null,
+        "notes": [
+          "Target-side cancellation is described, but the filing does not provide a separate cancellation date."
+        ]
+      },
+      {
+        "event_id": "c1_evt_004",
+        "event_type": "ib_retention",
+        "date": {
+          "raw_text": "October 2012",
+          "normalized_hint": "2012-10"
+        },
+        "actor_ids": [
+          "target_stec_board",
+          "advisor_gibson_dunn"
+        ],
+        "summary": "sTec engaged Gibson Dunn as outside corporate counsel during the board's strategic alternatives review.",
+        "evidence_refs": [
+          {
+            "block_id": "B010",
+            "evidence_id": null,
+            "anchor_text": "Gibson, Dunn & Crutcher LLP"
+          },
+          {
+            "block_id": "B010",
+            "evidence_id": null,
+            "anchor_text": "had been engaged in October 2012 as the company"
+          }
+        ],
+        "terms": null,
+        "formality_signals": null,
+        "whole_company_scope": null,
+        "drop_reason_text": null,
+        "round_scope": null,
+        "invited_actor_ids": [],
+        "deadline_date": null,
+        "executed_with_actor_id": null,
+        "boundary_note": null,
+        "nda_signed": null,
+        "notes": []
+      },
+      {
+        "event_id": "c1_evt_005",
+        "event_type": "activist_sale",
+        "date": {
+          "raw_text": "December 6, 2012",
+          "normalized_hint": "2012-12-06"
+        },
+        "actor_ids": [
+          "activist_balch_hill"
+        ],
+        "summary": "Balch Hill urged the board to explore strategic alternatives in its December 6 activist letter.",
+        "evidence_refs": [
+          {
+            "block_id": "B011",
+            "evidence_id": null,
+            "anchor_text": "on December 6, 2012, Balch Hill filed an amendment to its Schedule 13D"
+          },
+          {
+            "block_id": "B011",
+            "evidence_id": null,
+            "anchor_text": "issued a letter to our board of directors urging our board to reduce costs, focus\non products with a SAS interface, and explore strategic alternatives"
+          }
+        ],
+        "terms": null,
+        "formality_signals": null,
+        "whole_company_scope": null,
+        "drop_reason_text": null,
+        "round_scope": null,
+        "invited_actor_ids": [],
+        "deadline_date": null,
+        "executed_with_actor_id": null,
+        "boundary_note": null,
+        "nda_signed": null,
+        "notes": []
+      },
+      {
+        "event_id": "c1_evt_006",
+        "event_type": "target_sale",
+        "date": {
+          "raw_text": "February 13, 2013",
+          "normalized_hint": "2013-02-13"
+        },
+        "actor_ids": [
+          "target_stec_board",
+          "target_stec_special_committee"
+        ],
+        "summary": "The sTec board formed a special committee to review strategic alternatives, including a possible sale of the company.",
+        "evidence_refs": [
+          {
+            "block_id": "B013",
+            "evidence_id": null,
+            "anchor_text": "our board of directors established a special committee of the board"
+          },
+          {
+            "block_id": "B013",
+            "evidence_id": null,
+            "anchor_text": "strategic alternatives, including a possible\nsale of the company"
+          }
+        ],
+        "terms": null,
+        "formality_signals": null,
+        "whole_company_scope": null,
+        "drop_reason_text": null,
+        "round_scope": null,
+        "invited_actor_ids": [],
+        "deadline_date": null,
+        "executed_with_actor_id": null,
+        "boundary_note": null,
+        "nda_signed": null,
+        "notes": []
+      },
+      {
+        "event_id": "c1_evt_007",
+        "event_type": "bidder_interest",
+        "date": {
+          "raw_text": "February 13, 2013",
+          "normalized_hint": "2013-02-13"
+        },
+        "actor_ids": [
+          "bidder_company_b"
+        ],
+        "summary": "Company B signaled interest by saying it intended to present sTec as a possible acquisition target to Company B management.",
+        "evidence_refs": [
+          {
+            "block_id": "B014",
+            "evidence_id": null,
+            "anchor_text": "Mr. Manouch Moshayedi met with the President of Company B"
+          },
+          {
+            "block_id": "B014",
+            "evidence_id": null,
+            "anchor_text": "present sTec as a possible acquisition target to the\nmanagement of Company B"
+          }
+        ],
+        "terms": null,
+        "formality_signals": null,
+        "whole_company_scope": null,
+        "drop_reason_text": null,
+        "round_scope": null,
+        "invited_actor_ids": [],
+        "deadline_date": null,
+        "executed_with_actor_id": null,
+        "boundary_note": null,
+        "nda_signed": null,
+        "notes": []
+      }
+    ],
+    "exclusions": [
+      {
+        "category": "non_event_context",
+        "block_ids": [
+          "B002"
+        ],
+        "explanation": "The board's multi-year review of strategy and strategic alternatives is background context rather than a discrete dated sale-process event."
+      },
+      {
+        "category": "stale_process_reference",
+        "block_ids": [
+          "B003",
+          "B005"
+        ],
+        "explanation": "Pre-process third-party approaches, including WDC lunch conversations, were described as general and exploratory and the filing states that no specific transaction terms were proposed."
+      },
+      {
+        "category": "unsigned_nda",
+        "block_ids": [
+          "B008"
+        ],
+        "explanation": "Company A's advisor circulated only a draft non-disclosure agreement; the filing does not say any NDA was executed."
+      },
+      {
+        "category": "non_event_context",
+        "block_ids": [
+          "B015"
+        ],
+        "explanation": "The February 14, 2013 meeting discussed committee actions and advisor selection factors, but it does not record a new retention or other discrete taxonomy event."
+      }
+    ],
+    "unresolved_mentions": [
+      "The President of Company B is described but not named, so the February 13, 2013 expression of interest is attributed to Company B rather than to an individual executive.",
+      "Robert M. Saman is identified as a company-side participant in the February 14, 2013 meeting, but the raw actor role taxonomy does not provide a separate officer role."
+    ],
+    "coverage_notes": [
+      "target_sale: extracted (c1_evt_001, c1_evt_006)",
+      "target_sale_public: NOT FOUND -- chunk 1 contains no public announcement of a strategic review",
+      "bidder_sale: NOT FOUND -- no acquirer-launched sale process is described in chunk 1",
+      "bidder_interest: extracted (c1_evt_002, c1_evt_007)",
+      "activist_sale: extracted (c1_evt_005)",
+      "sale_press_release: NOT FOUND -- no press release about strategic alternatives appears in chunk 1",
+      "bid_press_release: NOT FOUND -- no press release announcing a deal or public bid appears in chunk 1",
+      "ib_retention: extracted (c1_evt_004)",
+      "nda: NOT FOUND -- Company A sent only a draft non-disclosure agreement and no executed NDA is described in chunk 1",
+      "proposal: NOT FOUND -- the chunk describes exploratory contacts and explicitly says that no specific transaction terms were proposed",
+      "drop: extracted (c1_evt_003)",
+      "final_round_inf_ann: NOT FOUND -- no informal final-round process is described in chunk 1",
+      "final_round_inf: NOT FOUND -- no informal final-round deadline is described in chunk 1",
+      "final_round_ann: NOT FOUND -- no formal final-round announcement is described in chunk 1",
+      "final_round: NOT FOUND -- no formal final-round deadline is described in chunk 1",
+      "final_round_ext_ann: NOT FOUND -- no extension round is described in chunk 1",
+      "final_round_ext: NOT FOUND -- no extension round deadline is described in chunk 1",
+      "executed: NOT FOUND -- no merger agreement is signed in chunk 1",
+      "terminated: NOT FOUND -- the sale process is not terminated in chunk 1",
+      "restarted: NOT FOUND -- no restarted sale process is described in chunk 1"
+    ]
+  },
+  "source_blocks": [
+    {
+      "block_id": "B001",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 1,
+      "start_line": 1244,
+      "end_line": 1244,
+      "raw_text": "Background of the Merger",
+      "clean_text": "Background of the Merger",
+      "is_heading": true,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B002",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 2,
+      "start_line": 1246,
+      "end_line": 1249,
+      "raw_text": "Over the last few years, as developments in enterprise Solid State Drives (\u0093 SSDs\u0094) created challenges to the company\u0092s\nperformance and prospects, management and our board of directors regularly reviewed and assessed the company\u0092s strategy with the goal of maximizing shareholder value. As a result of these reviews, our board of directors considered a number of\npotential strategic alternatives, including strategic acquisitions and divestitures, investment in and creation of a parallel sales and marketing group focusing on new customers, a sale of the company and licensing opportunities for the\ncompany\u0092s intellectual property.",
+      "clean_text": "Over the last few years, as developments in enterprise Solid State Drives (\u0093 SSDs\u0094) created challenges to the company\u0092s performance and prospects, management and our board of directors regularly reviewed and assessed the company\u0092s strategy with the goal of maximizing shareholder value. As a result of these reviews, our board of directors considered a number of potential strategic alternatives, including strategic acquisitions and divestitures, investment in and creation of a parallel sales and marketing group focusing on new customers, a sale of the company and licensing opportunities for the company\u0092s intellectual property.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B003",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 3,
+      "start_line": 1251,
+      "end_line": 1253,
+      "raw_text": "In addition, from time-to-time, sTec\u0092s board and management have received informal\napproaches from third parties indicating an interest in discussing a potential acquisition of the company. The company\u0092s policy is to respond to such inquiries in a manner that our board of directors considers consistent with its fiduciary\nduties;",
+      "clean_text": "In addition, from time-to-time, sTec\u0092s board and management have received informal approaches from third parties indicating an interest in discussing a potential acquisition of the company. The company\u0092s policy is to respond to such inquiries in a manner that our board of directors considers consistent with its fiduciary duties;",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B004",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 4,
+      "start_line": 1255,
+      "end_line": 1255,
+      "raw_text": "23",
+      "clean_text": "23",
+      "is_heading": true,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B005",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 5,
+      "start_line": 1258,
+      "end_line": 1264,
+      "raw_text": "however, prior to the process described below, such approaches have been general and exploratory in nature, and no specific transaction terms were proposed. In addition, in 2011, while attending\nan industry event, Mr. Manouch Moshayedi, our Founder, and then Chief Executive Officer and Chairman of the Board, attended a lunch meeting with Mr. John Coyne, the then CEO of WDC. This meeting was in keeping with\nMr. Moshayedi\u0092s practice of meeting from time-to-time with other executives in the storage industry. During their lunch conversation, among other topics discussed, Mr. Coyne noted that WDC was interested in exploring potential ways of\nexpanding in SSDs. In the months that followed, sTec\u0092s management did not receive any further communications from WDC, and sTec\u0092s management had no further discussions with WDC management until the following year. In the summer of 2012,\nMr. Moshayedi attended a lunch meeting at the invitation of Mr. Michael Hajeck, then WDC\u0092s Senior Vice President and General Manager, Solid State Business Unit. At the lunch meeting with Mr. Manouch Moshayedi, Mr. Hajeck\ninquired about the interest of Mr. Manouch Moshayedi and Mr. Mark Moshayedi, our then President, Chief Operating Officer and Chief Technical Officer, in continuing to run sTec and whether they had any plans to retire, but there was no\nfurther discussion between WDC and sTec until the communications described below.",
+      "clean_text": "however, prior to the process described below, such approaches have been general and exploratory in nature, and no specific transaction terms were proposed. In addition, in 2011, while attending an industry event, Mr. Manouch Moshayedi, our Founder, and then Chief Executive Officer and Chairman of the Board, attended a lunch meeting with Mr. John Coyne, the then CEO of WDC. This meeting was in keeping with Mr. Moshayedi\u0092s practice of meeting from time-to-time with other executives in the storage industry. During their lunch conversation, among other topics discussed, Mr. Coyne noted that WDC was interested in exploring potential ways of expanding in SSDs. In the months that followed, sTec\u0092s management did not receive any further communications from WDC, and sTec\u0092s management had no further discussions with WDC management until the following year. In the summer of 2012, Mr. Moshayedi attended a lunch meeting at the invitation of Mr. Michael Hajeck, then WDC\u0092s Senior Vice President and General Manager, Solid State Business Unit. At the lunch meeting with Mr. Manouch Moshayedi, Mr. Hajeck inquired about the interest of Mr. Manouch Moshayedi and Mr. Mark Moshayedi, our then President, Chief Operating Officer and Chief Technical Officer, in continuing to run sTec and whether they had any plans to retire, but there was no further discussion between WDC and sTec until the communications described below.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B006",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 6,
+      "start_line": 1266,
+      "end_line": 1272,
+      "raw_text": "In the fourth quarter of 2011, sTec\ngenerated a net loss, as the company continued to face a number of challenges, particularly increasing competition in its core OEM business. In response, the company began to implement a new business strategy, initially by hiring key industry\nveterans in late 2011 to assist with the strategy\u0092s development and execution. Under the new business strategy, in addition to targeting OEM customers, from which historically all of sTec\u0092s SSD sales were derived, the company began\npursuing enterprise end-user customers directly. This new business strategy was an effort to increase and diversify sTec\u0092s customer base, increase sTec\u0092s value contribution by providing more highly integrated solutions and generate\nadditional pull-through demand of its products by providing these solutions directly to the end customer. sTec implemented this strategy through, among other actions, investing in the expansion of its sales channels and increasing its enterprise\nsales and marketing force. While sTec began to see results from this new business strategy in the second half of 2012, when for the first time, one of sTec\u0092s non-OEM customers generated over 10% of its SSD revenue, the lead time for a stable\nbase of recurring sales from these new customers proved to be longer than anticipated, product adoption was difficult to forecast and the company\u0092s losses continued.",
+      "clean_text": "In the fourth quarter of 2011, sTec generated a net loss, as the company continued to face a number of challenges, particularly increasing competition in its core OEM business. In response, the company began to implement a new business strategy, initially by hiring key industry veterans in late 2011 to assist with the strategy\u0092s development and execution. Under the new business strategy, in addition to targeting OEM customers, from which historically all of sTec\u0092s SSD sales were derived, the company began pursuing enterprise end-user customers directly. This new business strategy was an effort to increase and diversify sTec\u0092s customer base, increase sTec\u0092s value contribution by providing more highly integrated solutions and generate additional pull-through demand of its products by providing these solutions directly to the end customer. sTec implemented this strategy through, among other actions, investing in the expansion of its sales channels and increasing its enterprise sales and marketing force. While sTec began to see results from this new business strategy in the second half of 2012, when for the first time, one of sTec\u0092s non-OEM customers generated over 10% of its SSD revenue, the lead time for a stable base of recurring sales from these new customers proved to be longer than anticipated, product adoption was difficult to forecast and the company\u0092s losses continued.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B007",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 7,
+      "start_line": 1274,
+      "end_line": 1280,
+      "raw_text": "In response, by the fourth quarter of 2012, our board of directors was considering a number of further strategic alternatives presented by management, including a plan to significantly reduce expenses to\nalign our cost structure with our reduced revenues by scaling down head count and resources in a number of functional areas, including operations, research and development, and general and administrative. As it evaluated the advisability and\npotential long-term impacts of the cost reductions, our board of directors determined that it would be beneficial to undertake a formal review of strategic alternatives, including exploring a potential sale of sTec. In particular, our board of\ndirectors determined that it would be beneficial to perform a market check to determine if potential acquirers would present a better opportunity to maximize shareholder value, than would result from continuing to operate the company on a standalone\nbasis under the cost reduction plan. Consequently, in mid-November, 2012, our board of directors authorized management to contact potential financial advisors to explore their interest in representing the company in its exploration of strategic\nalternatives, including a potential sale of the company. During this timeframe, management contacted two financial advisors about the prospect of working with the company, however, both responded that they were not in a position to advise the\ncompany at that time. Although sTec did not engage a financial advisor at that time, our board of directors made a determination to continue to review sTec\u0092s strategic alternatives.",
+      "clean_text": "In response, by the fourth quarter of 2012, our board of directors was considering a number of further strategic alternatives presented by management, including a plan to significantly reduce expenses to align our cost structure with our reduced revenues by scaling down head count and resources in a number of functional areas, including operations, research and development, and general and administrative. As it evaluated the advisability and potential long-term impacts of the cost reductions, our board of directors determined that it would be beneficial to undertake a formal review of strategic alternatives, including exploring a potential sale of sTec. In particular, our board of directors determined that it would be beneficial to perform a market check to determine if potential acquirers would present a better opportunity to maximize shareholder value, than would result from continuing to operate the company on a standalone basis under the cost reduction plan. Consequently, in mid-November, 2012, our board of directors authorized management to contact potential financial advisors to explore their interest in representing the company in its exploration of strategic alternatives, including a potential sale of the company. During this timeframe, management contacted two financial advisors about the prospect of working with the company, however, both responded that they were not in a position to advise the company at that time. Although sTec did not engage a financial advisor at that time, our board of directors made a determination to continue to review sTec\u0092s strategic alternatives.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B008",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 8,
+      "start_line": 1282,
+      "end_line": 1285,
+      "raw_text": "On November 14, 2012, an investment bank representing Company A, a participant in the storage industry, contacted our management to\nrequest a preliminary meeting between sTec and Company A. Company A\u0092s financial advisor followed up on the preliminary contact to provide a proposed agenda for the meeting, covering topics related to our operations and technology, and a draft\nnon-disclosure agreement for the purpose of evaluating a possible business transaction between sTec and Company A. A meeting was scheduled between Company A and sTec, however, it was subsequently cancelled because of concerns expressed by\nnon-management board members, which were communicated to Company A, that the management of Company A had not demonstrated any involvement in the process.",
+      "clean_text": "On November 14, 2012, an investment bank representing Company A, a participant in the storage industry, contacted our management to request a preliminary meeting between sTec and Company A. Company A\u0092s financial advisor followed up on the preliminary contact to provide a proposed agenda for the meeting, covering topics related to our operations and technology, and a draft non-disclosure agreement for the purpose of evaluating a possible business transaction between sTec and Company A. A meeting was scheduled between Company A and sTec, however, it was subsequently cancelled because of concerns expressed by non-management board members, which were communicated to Company A, that the management of Company A had not demonstrated any involvement in the process.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B009",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 9,
+      "start_line": 1287,
+      "end_line": 1287,
+      "raw_text": "24",
+      "clean_text": "24",
+      "is_heading": true,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B010",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 10,
+      "start_line": 1290,
+      "end_line": 1294,
+      "raw_text": "On November 29, 2012, our board of directors held a regularly scheduled in-person board\nmeeting, at which the board of directors further discussed, among other matters, potential strategic alternatives in response to the company\u0092s financial performance, including the potential for both acquisitions and divestitures in several\nareas relevant to the company\u0092s strategy. In addition, a representative from the law firm of Gibson, Dunn & Crutcher LLP (\u0093 Gibson Dunn\u0094), which had been engaged in October 2012 as the company\u0092s outside corporate counsel,\nwas present telephonically for a portion of the meeting and delivered a presentation that reviewed the company\u0092s defensive profile and the relevant fiduciary duties of the board of directors in connection with a review of strategic\nalternatives. Management also reported to our board of directors on the feedback received from the two financial advisors that had declined to be engaged by sTec earlier in the month.",
+      "clean_text": "On November 29, 2012, our board of directors held a regularly scheduled in-person board meeting, at which the board of directors further discussed, among other matters, potential strategic alternatives in response to the company\u0092s financial performance, including the potential for both acquisitions and divestitures in several areas relevant to the company\u0092s strategy. In addition, a representative from the law firm of Gibson, Dunn & Crutcher LLP (\u0093 Gibson Dunn\u0094), which had been engaged in October 2012 as the company\u0092s outside corporate counsel, was present telephonically for a portion of the meeting and delivered a presentation that reviewed the company\u0092s defensive profile and the relevant fiduciary duties of the board of directors in connection with a review of strategic alternatives. Management also reported to our board of directors on the feedback received from the two financial advisors that had declined to be engaged by sTec earlier in the month.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B011",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 11,
+      "start_line": 1296,
+      "end_line": 1300,
+      "raw_text": "Around this timeframe, Balch Hill Partners, L. P. (\u0093 Balch Hill\u0094), an activist investor in the technology sector, reported its\nacquisition of 6.4% of sTec\u0092s outstanding shares. Balch Hill filed its first Schedule 13D with the SEC on November 16, 2012. Balch Hill was later joined by Potomac Capital Partners II, L. P. (\u0093 Potomac\u0094), and Balch Hill and Potomac\nsubsequently jointly increased their beneficial holdings to 9.8%. Then, on December 6, 2012, Balch Hill filed an amendment to its Schedule 13D, and concurrently issued a letter to our board of directors urging our board to reduce costs, focus\non products with a SAS interface, and explore strategic alternatives. Balch Hill, and later Potomac, advocated a reversal of sTec\u0092s new go-to-market strategy, at a critical period in the strategy transition. Until the time that the merger with\nWDC was publicly announced, Balch Hill and Potomac continued this activist campaign, which also included the nomination of three persons for election to our board of directors at our 2013 annual meeting of shareholders.",
+      "clean_text": "Around this timeframe, Balch Hill Partners, L. P. (\u0093 Balch Hill\u0094), an activist investor in the technology sector, reported its acquisition of 6.4% of sTec\u0092s outstanding shares. Balch Hill filed its first Schedule 13D with the SEC on November 16, 2012. Balch Hill was later joined by Potomac Capital Partners II, L. P. (\u0093 Potomac\u0094), and Balch Hill and Potomac subsequently jointly increased their beneficial holdings to 9.8%. Then, on December 6, 2012, Balch Hill filed an amendment to its Schedule 13D, and concurrently issued a letter to our board of directors urging our board to reduce costs, focus on products with a SAS interface, and explore strategic alternatives. Balch Hill, and later Potomac, advocated a reversal of sTec\u0092s new go-to-market strategy, at a critical period in the strategy transition. Until the time that the merger with WDC was publicly announced, Balch Hill and Potomac continued this activist campaign, which also included the nomination of three persons for election to our board of directors at our 2013 annual meeting of shareholders.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B012",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 12,
+      "start_line": 1302,
+      "end_line": 1303,
+      "raw_text": "During the fourth quarter of 2012, in order to help reduce our losses and focus our business, we commenced a reduction in our workforce\nby 42 employees worldwide, and in January of 2013, we further reduced our workforce by 23 employees, an aggregate reduction of approximately 7% of our workforce.",
+      "clean_text": "During the fourth quarter of 2012, in order to help reduce our losses and focus our business, we commenced a reduction in our workforce by 42 employees worldwide, and in January of 2013, we further reduced our workforce by 23 employees, an aggregate reduction of approximately 7% of our workforce.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B013",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 13,
+      "start_line": 1305,
+      "end_line": 1309,
+      "raw_text": "Our board of directors met telephonically on February 11, 12 and 13, 2013. During the meeting on February 13, our board of directors established a special committee of the board, initially\ncomposed of Dr. Daly, and Messrs. Colpitts and Witte, and subsequently expanded to four members on March 26, 2013. The mandate of the special committee was to conduct a review of sTec\u0092s strategic alternatives, including a possible\nsale of the company, as well as the alternative of continuing as a standalone company with further reductions in our workforce and other cost reduction initiatives. The board believed that it was prudent to appoint a special committee of independent\ndirectors to provide an objective analysis of all strategic alternatives available to the company. The special committee was also authorized to engage advisors, including a financial advisor. At that meeting, the board of directors also delegated to\nthe non-management members of the board (Dr. Daly and Messrs. Bahri, Ball, Colpitts and Witte, or the \u0093independent directors\u0094), the review and evaluation of potential responses to Balch Hill and Potomac.",
+      "clean_text": "Our board of directors met telephonically on February 11, 12 and 13, 2013. During the meeting on February 13, our board of directors established a special committee of the board, initially composed of Dr. Daly, and Messrs. Colpitts and Witte, and subsequently expanded to four members on March 26, 2013. The mandate of the special committee was to conduct a review of sTec\u0092s strategic alternatives, including a possible sale of the company, as well as the alternative of continuing as a standalone company with further reductions in our workforce and other cost reduction initiatives. The board believed that it was prudent to appoint a special committee of independent directors to provide an objective analysis of all strategic alternatives available to the company. The special committee was also authorized to engage advisors, including a financial advisor. At that meeting, the board of directors also delegated to the non-management members of the board (Dr. Daly and Messrs. Bahri, Ball, Colpitts and Witte, or the \u0093independent directors\u0094), the review and evaluation of potential responses to Balch Hill and Potomac.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B014",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 14,
+      "start_line": 1311,
+      "end_line": 1313,
+      "raw_text": "On February 13, 2013, Mr. Manouch Moshayedi met with the President of Company B, a participant in the electronics industry.\nCompany B\u0092s President stated that the following week Company B was holding a management meeting at which Company B would be discussing its SSD opportunities, and the President intended to present sTec as a possible acquisition target to the\nmanagement of Company B.",
+      "clean_text": "On February 13, 2013, Mr. Manouch Moshayedi met with the President of Company B, a participant in the electronics industry. Company B\u0092s President stated that the following week Company B was holding a management meeting at which Company B would be discussing its SSD opportunities, and the President intended to present sTec as a possible acquisition target to the management of Company B.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B015",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 15,
+      "start_line": 1315,
+      "end_line": 1320,
+      "raw_text": "On February 14, 2013, the board of directors held a telephonic special meeting, which only the\nindependent directors attended. Mr. Robert M. Saman, our Chief Legal Officer, General Counsel and Secretary, and a representative from Gibson Dunn also attended the meeting. The directors discussed the appointment of the special committee,\nand actions to be taken by the special committee in connection with reviewing the company\u0092s strategic alternatives. The representative from Gibson Dunn reviewed the fiduciary duties of the board of directors and the special committee under\nCalifornia law in connection with the review of the company\u0092s strategic alternatives. The directors also discussed potential strategic alternatives and the current challenges facing the company. The directors also discussed with Mr. Saman\na number of potential financial advisors for engagement by the special committee to assist it and our board of directors with the strategic review, as well as the process for selection. The directors discussed a number of factors to be considered in\nany potential",
+      "clean_text": "On February 14, 2013, the board of directors held a telephonic special meeting, which only the independent directors attended. Mr. Robert M. Saman, our Chief Legal Officer, General Counsel and Secretary, and a representative from Gibson Dunn also attended the meeting. The directors discussed the appointment of the special committee, and actions to be taken by the special committee in connection with reviewing the company\u0092s strategic alternatives. The representative from Gibson Dunn reviewed the fiduciary duties of the board of directors and the special committee under California law in connection with the review of the company\u0092s strategic alternatives. The directors also discussed potential strategic alternatives and the current challenges facing the company. The directors also discussed with Mr. Saman a number of potential financial advisors for engagement by the special committee to assist it and our board of directors with the strategic review, as well as the process for selection. The directors discussed a number of factors to be considered in any potential",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    }
+  ]
+}

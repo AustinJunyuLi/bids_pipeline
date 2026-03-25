@@ -1,20 +1,20 @@
 {
   "schema_version": "2.0.0",
   "artifact_type": "chronology_selection",
-  "created_at": "2026-03-19T00:39:16.794000Z",
+  "created_at": "2026-03-25T14:39:05.286871Z",
   "pipeline_version": "0.1.0",
-  "run_id": "run-42e76564",
+  "run_id": "skill-c67d6dcf",
   "deal_slug": "stec",
   "document_id": "0001193125-13-325730",
   "accession_number": "0001193125-13-325730",
-  "filing_type": "DEFM14A",
+  "filing_type": "UNKNOWN",
   "selected_candidate": {
     "document_id": "0001193125-13-325730",
     "heading_text": "Background of the Merger",
     "heading_normalized": "Background of the Merger",
     "start_line": 1244,
     "end_line": 2045,
-    "score": 7383,
+    "score": 7384,
     "source_methods": [
       "txt_heading",
       "txt_search"
@@ -32,7 +32,7 @@
   "review_required": false,
   "confidence_factors": {
     "section_length": 802,
-    "score_gap": 7383,
+    "score_gap": 7384,
     "ambiguity_risk": "low",
     "coverage_assessment": "full"
   }

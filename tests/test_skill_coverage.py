@@ -414,3 +414,231 @@ def test_skill_cli_supports_coverage_subcommand() -> None:
 
     assert args.command == "coverage"
     assert args.deal == "imprivata"
+
+
+def test_coverage_ignores_evidence_outside_chronology_blocks(tmp_path: Path) -> None:
+    chronology_blocks = [
+        {
+            "block_id": "B001",
+            "document_id": "DOC001",
+            "ordinal": 1,
+            "start_line": 1,
+            "end_line": 5,
+            "raw_text": "Board reviewed strategic alternatives.",
+            "clean_text": "Board reviewed strategic alternatives.",
+            "is_heading": False,
+            "page_break_before": False,
+            "page_break_after": False,
+        }
+    ]
+    evidence_items = [
+        {
+            "evidence_id": "DOC001:E0001",
+            "document_id": "DOC001",
+            "accession_number": "DOC001",
+            "filing_type": "DEFM14A",
+            "start_line": 20,
+            "end_line": 20,
+            "raw_text": "Party A submitted an indication of interest.",
+            "evidence_type": "dated_action",
+            "confidence": "high",
+            "matched_terms": ["submitted", "indication of interest"],
+            "date_text": "July 5, 2016",
+            "actor_hint": "Party A",
+            "value_hint": None,
+            "note": None,
+        }
+    ]
+    _write_coverage_fixture(
+        tmp_path,
+        evidence_items=evidence_items,
+        chronology_blocks=chronology_blocks,
+    )
+
+    exit_code = run_coverage("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    findings = json.loads(paths.coverage_findings_path.read_text(encoding="utf-8"))
+    summary = json.loads(paths.coverage_summary_path.read_text(encoding="utf-8"))
+
+    assert exit_code == 0
+    assert findings["findings"] == []
+    assert summary["status"] == "pass"
+
+
+def test_coverage_does_not_flag_draft_nda_as_critical_nda_cue(tmp_path: Path) -> None:
+    evidence_items = [
+        {
+            "evidence_id": "DOC001:E0001",
+            "document_id": "DOC001",
+            "accession_number": "DOC001",
+            "filing_type": "DEFM14A",
+            "start_line": 1,
+            "end_line": 1,
+            "raw_text": "Party A sent a draft non-disclosure agreement.",
+            "evidence_type": "dated_action",
+            "confidence": "high",
+            "matched_terms": ["sent", "non-disclosure"],
+            "date_text": "July 5, 2016",
+            "actor_hint": "Party A",
+            "value_hint": None,
+            "note": None,
+        }
+    ]
+    _write_coverage_fixture(tmp_path, evidence_items=evidence_items)
+
+    exit_code = run_coverage("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    findings = json.loads(paths.coverage_findings_path.read_text(encoding="utf-8"))
+    summary = json.loads(paths.coverage_summary_path.read_text(encoding="utf-8"))
+
+    assert exit_code == 0
+    assert findings["findings"] == []
+    assert summary["status"] == "pass"
+
+
+def test_coverage_respects_explicit_block_exclusions(tmp_path: Path) -> None:
+    evidence_items = [
+        {
+            "evidence_id": "DOC001:E0001",
+            "document_id": "DOC001",
+            "accession_number": "DOC001",
+            "filing_type": "DEFM14A",
+            "start_line": 1,
+            "end_line": 1,
+            "raw_text": "Party A submitted a proposal to acquire selected assets.",
+            "evidence_type": "dated_action",
+            "confidence": "high",
+            "matched_terms": ["proposal", "submitted"],
+            "date_text": "July 5, 2016",
+            "actor_hint": "Party A",
+            "value_hint": None,
+            "note": None,
+        }
+    ]
+    events_payload = {
+        "events": [],
+        "exclusions": [
+            {
+                "category": "partial_company_bid",
+                "block_ids": ["B001"],
+                "explanation": "Asset-only interest should not create a whole-company proposal event.",
+            }
+        ],
+        "coverage_notes": [],
+    }
+    _write_coverage_fixture(
+        tmp_path,
+        evidence_items=evidence_items,
+        events_payload=events_payload,
+    )
+
+    exit_code = run_coverage("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    findings = json.loads(paths.coverage_findings_path.read_text(encoding="utf-8"))
+    summary = json.loads(paths.coverage_summary_path.read_text(encoding="utf-8"))
+
+    assert exit_code == 0
+    assert findings["findings"] == []
+    assert summary["status"] == "pass"
+
+
+def test_coverage_treats_advisor_declination_as_advisor_warning_not_drop(tmp_path: Path) -> None:
+    evidence_items = [
+        {
+            "evidence_id": "DOC001:E0001",
+            "document_id": "DOC001",
+            "accession_number": "DOC001",
+            "filing_type": "DEFM14A",
+            "start_line": 1,
+            "end_line": 1,
+            "raw_text": "Two financial advisors declined to be engaged by the company.",
+            "evidence_type": "dated_action",
+            "confidence": "high",
+            "matched_terms": ["declined", "engaged"],
+            "date_text": "July 5, 2016",
+            "actor_hint": None,
+            "value_hint": None,
+            "note": None,
+        }
+    ]
+    _write_coverage_fixture(tmp_path, evidence_items=evidence_items)
+
+    exit_code = run_coverage("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    findings = json.loads(paths.coverage_findings_path.read_text(encoding="utf-8"))
+    summary = json.loads(paths.coverage_summary_path.read_text(encoding="utf-8"))
+
+    assert exit_code == 0
+    assert summary["status"] == "pass"
+    assert summary["error_count"] == 0
+    assert summary["warning_count"] == 1
+    assert findings["findings"][0]["cue_family"] == "advisor"
+
+
+def test_coverage_does_not_treat_generic_commenced_negotiation_as_process_start(
+    tmp_path: Path,
+) -> None:
+    evidence_items = [
+        {
+            "evidence_id": "DOC001:E0001",
+            "document_id": "DOC001",
+            "accession_number": "DOC001",
+            "filing_type": "DEFM14A",
+            "start_line": 1,
+            "end_line": 1,
+            "raw_text": "Counsel to the parties commenced negotiating the covenant not to sue.",
+            "evidence_type": "dated_action",
+            "confidence": "high",
+            "matched_terms": ["commenced"],
+            "date_text": "July 5, 2016",
+            "actor_hint": None,
+            "value_hint": None,
+            "note": None,
+        }
+    ]
+    _write_coverage_fixture(tmp_path, evidence_items=evidence_items)
+
+    exit_code = run_coverage("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    findings = json.loads(paths.coverage_findings_path.read_text(encoding="utf-8"))
+    summary = json.loads(paths.coverage_summary_path.read_text(encoding="utf-8"))
+
+    assert exit_code == 0
+    assert findings["findings"] == []
+    assert summary["status"] == "pass"
+
+
+def test_coverage_does_not_flag_merger_clause_superior_proposal_as_bid_event(
+    tmp_path: Path,
+) -> None:
+    evidence_items = [
+        {
+            "evidence_id": "DOC001:E0001",
+            "document_id": "DOC001",
+            "accession_number": "DOC001",
+            "filing_type": "DEFM14A",
+            "start_line": 1,
+            "end_line": 1,
+            "raw_text": (
+                "The merger agreement may be terminated if the company receives a "
+                "superior proposal before stockholder approval."
+            ),
+            "evidence_type": "outcome_fact",
+            "confidence": "high",
+            "matched_terms": ["merger agreement", "shareholder approval", "terminated"],
+            "date_text": None,
+            "actor_hint": None,
+            "value_hint": None,
+            "note": None,
+        }
+    ]
+    _write_coverage_fixture(tmp_path, evidence_items=evidence_items)
+
+    exit_code = run_coverage("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    findings = json.loads(paths.coverage_findings_path.read_text(encoding="utf-8"))
+    summary = json.loads(paths.coverage_summary_path.read_text(encoding="utf-8"))
+
+    assert exit_code == 0
+    assert findings["findings"] == []
+    assert summary["status"] == "pass"

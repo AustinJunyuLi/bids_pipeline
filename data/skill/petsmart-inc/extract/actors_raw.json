@@ -1,0 +1,420 @@
+{
+  "actors": [
+    {
+      "actor_id": "target_petsmart_board",
+      "display_name": "PetSmart Board",
+      "canonical_name": "PETSMART BOARD",
+      "aliases": [
+        "Company",
+        "the board",
+        "PetSmart"
+      ],
+      "role": "target_board",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0001"
+      ],
+      "notes": [
+        "Represents the target board and company-side decision maker in the chronology."
+      ]
+    },
+    {
+      "actor_id": "advisor_jp_morgan",
+      "display_name": "J. P. Morgan",
+      "canonical_name": "J. P. MORGAN",
+      "aliases": [],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "target_petsmart_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0002"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_wachtell_lipton",
+      "display_name": "Wachtell Lipton",
+      "canonical_name": "WACHTELL, LIPTON, ROSEN & KATZ",
+      "aliases": [
+        "Wachtell Lipton"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": "target_petsmart_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0003"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "activist_jana",
+      "display_name": "JANA Partners",
+      "canonical_name": "JANA PARTNERS",
+      "aliases": [],
+      "role": "activist",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0004"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "activist_longview",
+      "display_name": "Longview",
+      "canonical_name": "LONGVIEW",
+      "aliases": [],
+      "role": "activist",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0005"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_buyer_group",
+      "display_name": "Buyer Group",
+      "canonical_name": "BUYER GROUP",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": "private",
+      "geography": "domestic",
+      "is_grouped": true,
+      "group_size": null,
+      "group_label": "Buyer Group",
+      "evidence_span_ids": [
+        "span_0006"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_2",
+      "display_name": "Bidder 2",
+      "canonical_name": "BIDDER 2",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": "private",
+      "geography": "domestic",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0007"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_3",
+      "display_name": "Bidder 3",
+      "canonical_name": "BIDDER 3",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": "private",
+      "geography": "domestic",
+      "is_grouped": true,
+      "group_size": 2,
+      "group_label": "Bidder 3 paired bidders",
+      "evidence_span_ids": [
+        "span_0008"
+      ],
+      "notes": [
+        "Represents the two final-round bidders that were later permitted to bid together."
+      ]
+    },
+    {
+      "actor_id": "bidder_high_range",
+      "display_name": "Unnamed High-Range Bidder",
+      "canonical_name": "UNNAMED HIGH-RANGE BIDDER",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": "private",
+      "geography": "domestic",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0009"
+      ],
+      "notes": [
+        "Unnamed bidder group inferred from the filing's explicit reference to another bidder at $80.00 to $85.00 per share."
+      ]
+    },
+    {
+      "actor_id": "bidder_beta",
+      "display_name": "Unnamed Indication Bidder 5",
+      "canonical_name": "UNNAMED INDICATION BIDDER 5",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": "private",
+      "geography": "domestic",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0010"
+      ],
+      "notes": [
+        "Unnamed bidder group inferred from the filing's count of six indications of interest."
+      ]
+    },
+    {
+      "actor_id": "bidder_gamma",
+      "display_name": "Unnamed Indication Bidder 6",
+      "canonical_name": "UNNAMED INDICATION BIDDER 6",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": "private",
+      "geography": "domestic",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0010"
+      ],
+      "notes": [
+        "Unnamed bidder group inferred from the filing's count of six indications of interest."
+      ]
+    },
+    {
+      "actor_id": "placeholder_financial_1",
+      "display_name": "Another financial sponsor",
+      "canonical_name": "ANOTHER FINANCIAL SPONSOR",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": "private",
+      "geography": "domestic",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [],
+      "notes": [
+        "Synthesized from unresolved_mention: Unnamed financial buyer 1 signed a confidentiality and standstill agreement, engaged in due diligence, and remained unnamed in the filing narrative."
+      ]
+    },
+    {
+      "actor_id": "placeholder_financial_2",
+      "display_name": "Another financial sponsor",
+      "canonical_name": "ANOTHER FINANCIAL SPONSOR",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": "private",
+      "geography": "domestic",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [],
+      "notes": [
+        "Synthesized from unresolved_mention: Unnamed financial buyer 2 signed a confidentiality and standstill agreement, engaged in due diligence, and remained unnamed in the filing narrative."
+      ]
+    },
+    {
+      "actor_id": "placeholder_financial_3",
+      "display_name": "Another financial sponsor",
+      "canonical_name": "ANOTHER FINANCIAL SPONSOR",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": "private",
+      "geography": "domestic",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [],
+      "notes": [
+        "Synthesized from unresolved_mention: Unnamed financial buyer 3 signed a confidentiality and standstill agreement, engaged in due diligence, and remained unnamed in the filing narrative."
+      ]
+    },
+    {
+      "actor_id": "placeholder_financial_4",
+      "display_name": "Another financial sponsor",
+      "canonical_name": "ANOTHER FINANCIAL SPONSOR",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": "private",
+      "geography": "domestic",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [],
+      "notes": [
+        "Synthesized from unresolved_mention: Unnamed financial buyer 4 signed a confidentiality and standstill agreement, engaged in due diligence, and remained unnamed in the filing narrative."
+      ]
+    },
+    {
+      "actor_id": "placeholder_financial_5",
+      "display_name": "Another financial sponsor",
+      "canonical_name": "ANOTHER FINANCIAL SPONSOR",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": "private",
+      "geography": "domestic",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [],
+      "notes": [
+        "Synthesized from unresolved_mention: Unnamed financial buyer 5 signed a confidentiality and standstill agreement, engaged in due diligence, and remained unnamed in the filing narrative."
+      ]
+    },
+    {
+      "actor_id": "placeholder_financial_6",
+      "display_name": "Another financial sponsor",
+      "canonical_name": "ANOTHER FINANCIAL SPONSOR",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": "private",
+      "geography": "domestic",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [],
+      "notes": [
+        "Synthesized from unresolved_mention: Unnamed financial buyer 6 signed a confidentiality and standstill agreement, engaged in due diligence, and remained unnamed in the filing narrative."
+      ]
+    },
+    {
+      "actor_id": "placeholder_financial_7",
+      "display_name": "Another financial sponsor",
+      "canonical_name": "ANOTHER FINANCIAL SPONSOR",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": "private",
+      "geography": "domestic",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [],
+      "notes": [
+        "Synthesized from unresolved_mention: Unnamed financial buyer 7 signed a confidentiality and standstill agreement, engaged in due diligence, and remained unnamed in the filing narrative."
+      ]
+    },
+    {
+      "actor_id": "placeholder_financial_8",
+      "display_name": "Another financial sponsor",
+      "canonical_name": "ANOTHER FINANCIAL SPONSOR",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": "private",
+      "geography": "domestic",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [],
+      "notes": [
+        "Synthesized from unresolved_mention: Unnamed financial buyer 8 signed a confidentiality and standstill agreement, engaged in due diligence, and remained unnamed in the filing narrative."
+      ]
+    },
+    {
+      "actor_id": "placeholder_financial_9",
+      "display_name": "Another financial sponsor",
+      "canonical_name": "ANOTHER FINANCIAL SPONSOR",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": "private",
+      "geography": "domestic",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [],
+      "notes": [
+        "Synthesized from unresolved_mention: Unnamed financial buyer 9 signed a confidentiality and standstill agreement, engaged in due diligence, and remained unnamed in the filing narrative."
+      ]
+    }
+  ],
+  "count_assertions": [
+    {
+      "subject": "nda_signed_financial_buyers",
+      "count": 15,
+      "evidence_span_ids": [
+        "span_0011"
+      ]
+    }
+  ],
+  "unresolved_mentions": [
+    "Unnamed financial buyer 1 signed a confidentiality and standstill agreement, engaged in due diligence, and remained unnamed in the filing narrative.",
+    "Unnamed financial buyer 2 signed a confidentiality and standstill agreement, engaged in due diligence, and remained unnamed in the filing narrative.",
+    "Unnamed financial buyer 3 signed a confidentiality and standstill agreement, engaged in due diligence, and remained unnamed in the filing narrative.",
+    "Unnamed financial buyer 4 signed a confidentiality and standstill agreement, engaged in due diligence, and remained unnamed in the filing narrative.",
+    "Unnamed financial buyer 5 signed a confidentiality and standstill agreement, engaged in due diligence, and remained unnamed in the filing narrative.",
+    "Unnamed financial buyer 6 signed a confidentiality and standstill agreement, engaged in due diligence, and remained unnamed in the filing narrative.",
+    "Unnamed financial buyer 7 signed a confidentiality and standstill agreement, engaged in due diligence, and remained unnamed in the filing narrative.",
+    "Unnamed financial buyer 8 signed a confidentiality and standstill agreement, engaged in due diligence, and remained unnamed in the filing narrative.",
+    "Unnamed financial buyer 9 signed a confidentiality and standstill agreement, engaged in due diligence, and remained unnamed in the filing narrative."
+  ]
+}

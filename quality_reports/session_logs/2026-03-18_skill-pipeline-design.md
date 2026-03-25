@@ -59,3 +59,33 @@ Spec and plan docs also use old paths but CLAUDE.md warns about this.
 6. 4 skills, no audit theater
 7. Two-phase dropout classification
 8. Free-text comments + machine-readable review_flags
+
+---
+
+## Session: 2026-03-25 — STEC Reconciliation Against Alex
+
+### What happened
+
+Ran `/reconcile-alex stec` after full pipeline completion through `/export-csv`.
+Extracted 28 Alex rows, matched against 34 pipeline export rows.
+
+### Results
+
+- **Match rate:** 25/28 (89%) atomic rows matched by family + date + actor
+- **Status:** ATTENTION
+- **All 9 pipeline orphans:** filing-grounded (process milestones, Company A interest, WDC temp drop)
+- **3 Alex orphans:** 2 categorization differences (informal round), 1 genuine miss (Company H drop May 23)
+
+### Key findings
+
+1. **5 Alex date_p errors** — Company B, Company D, IB retention all had 2013-04-04 (copy-paste); executed had 2013-06-14 (proposal date not execution); final round deadline had 2013-05-16 (announcement date not deadline). Pipeline correct on all.
+2. **13 bidder_type fields missing from export CSV** — pipeline actors_raw.json has the correct `bidder_kind: strategic` but the export formatter drops the type column for non-NDA rows. Export regression to fix.
+3. **3 val fields** — Alex records lower bound of range bids as point value; pipeline leaves val null for ranges. Convention difference.
+4. **Company H drop (May 23)** — filing line 1501: "Company H was not able to increase its indicated value range." Pipeline omits this. Genuine miss.
+5. **Informal round categorization** — Alex has "Final Round Inf Ann" (Apr 23) and "Final Round Inf" (May 3). Pipeline treats these as individual IOIs. Filing says "process letters requesting non-binding indications of interest by May 3" which is structurally a round. Alex's categorization is defensible.
+
+### Actionable items
+
+- Fix export CSV to propagate bidder_type from actors_raw
+- Add Company H May 23 drop to extraction
+- Decide val convention for range bids (lower bound vs null)

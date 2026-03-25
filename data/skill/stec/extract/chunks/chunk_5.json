@@ -1,0 +1,3196 @@
+{
+  "chunk_id": "chunk_5",
+  "chunk_number": 5,
+  "source": "fresh_post_phase06_rerun",
+  "chunk_strategy": {
+    "method": "balanced_token_partition_manual_skill_follow",
+    "estimated_token_budget": 3800,
+    "estimated_window_tokens": 3877,
+    "overlap_usable_blocks": 1,
+    "usable_block_count": 47,
+    "full_window_block_count": 51
+  },
+  "primary_window": {
+    "start_block_id": "B097",
+    "end_block_id": "B146",
+    "usable_block_ids": [
+      "B097",
+      "B098",
+      "B100",
+      "B101",
+      "B102",
+      "B103",
+      "B104",
+      "B105",
+      "B106",
+      "B107",
+      "B108",
+      "B109",
+      "B111",
+      "B112",
+      "B113",
+      "B114",
+      "B115",
+      "B116",
+      "B117",
+      "B118",
+      "B119",
+      "B120",
+      "B121",
+      "B122",
+      "B123",
+      "B124",
+      "B126",
+      "B127",
+      "B128",
+      "B129",
+      "B130",
+      "B131",
+      "B132",
+      "B133",
+      "B134",
+      "B135",
+      "B136",
+      "B137",
+      "B138",
+      "B139",
+      "B140",
+      "B141",
+      "B143",
+      "B144",
+      "B145",
+      "B146"
+    ]
+  },
+  "context_window": {
+    "start_block_id": "B096",
+    "end_block_id": "B146",
+    "full_block_ids": [
+      "B096",
+      "B097",
+      "B098",
+      "B099",
+      "B100",
+      "B101",
+      "B102",
+      "B103",
+      "B104",
+      "B105",
+      "B106",
+      "B107",
+      "B108",
+      "B109",
+      "B110",
+      "B111",
+      "B112",
+      "B113",
+      "B114",
+      "B115",
+      "B116",
+      "B117",
+      "B118",
+      "B119",
+      "B120",
+      "B121",
+      "B122",
+      "B123",
+      "B124",
+      "B125",
+      "B126",
+      "B127",
+      "B128",
+      "B129",
+      "B130",
+      "B131",
+      "B132",
+      "B133",
+      "B134",
+      "B135",
+      "B136",
+      "B137",
+      "B138",
+      "B139",
+      "B140",
+      "B141",
+      "B142",
+      "B143",
+      "B144",
+      "B145",
+      "B146"
+    ],
+    "start_line": 1633,
+    "end_line": 1782,
+    "overlap_prev_block_ids": [
+      "B096"
+    ],
+    "overlap_next_block_ids": [
+      "B146"
+    ]
+  },
+  "scoped_evidence": {
+    "count": 59,
+    "evidence_ids": [
+      "0001193125-13-325730:E0433",
+      "0001193125-13-325730:E0434",
+      "0001193125-13-325730:E0435",
+      "0001193125-13-325730:E0436",
+      "0001193125-13-325730:E0437",
+      "0001193125-13-325730:E0438",
+      "0001193125-13-325730:E0439",
+      "0001193125-13-325730:E0440",
+      "0001193125-13-325730:E0441",
+      "0001193125-13-325730:E0442",
+      "0001193125-13-325730:E0443",
+      "0001193125-13-325730:E0444",
+      "0001193125-13-325730:E0445",
+      "0001193125-13-325730:E0446",
+      "0001193125-13-325730:E0447",
+      "0001193125-13-325730:E0448",
+      "0001193125-13-325730:E0449",
+      "0001193125-13-325730:E0450",
+      "0001193125-13-325730:E0451",
+      "0001193125-13-325730:E0452",
+      "0001193125-13-325730:E0453",
+      "0001193125-13-325730:E0454",
+      "0001193125-13-325730:E0455",
+      "0001193125-13-325730:E0456",
+      "0001193125-13-325730:E0457",
+      "0001193125-13-325730:E0458",
+      "0001193125-13-325730:E0459",
+      "0001193125-13-325730:E0460",
+      "0001193125-13-325730:E0461",
+      "0001193125-13-325730:E0462",
+      "0001193125-13-325730:E0463",
+      "0001193125-13-325730:E0464",
+      "0001193125-13-325730:E0465",
+      "0001193125-13-325730:E0466",
+      "0001193125-13-325730:E0467",
+      "0001193125-13-325730:E0468",
+      "0001193125-13-325730:E0469",
+      "0001193125-13-325730:E0470",
+      "0001193125-13-325730:E0471",
+      "0001193125-13-325730:E0472",
+      "0001193125-13-325730:E0473",
+      "0001193125-13-325730:E0474",
+      "0001193125-13-325730:E0475",
+      "0001193125-13-325730:E0476",
+      "0001193125-13-325730:E0477",
+      "0001193125-13-325730:E0478",
+      "0001193125-13-325730:E0479",
+      "0001193125-13-325730:E0480",
+      "0001193125-13-325730:E0481",
+      "0001193125-13-325730:E0482",
+      "0001193125-13-325730:E0483",
+      "0001193125-13-325730:E0484",
+      "0001193125-13-325730:E0485",
+      "0001193125-13-325730:E0486",
+      "0001193125-13-325730:E0487",
+      "0001193125-13-325730:E0488",
+      "0001193125-13-325730:E0489",
+      "0001193125-13-325730:E0490",
+      "0001193125-13-325730:E0491"
+    ],
+    "items": [
+      {
+        "evidence_id": "0001193125-13-325730:E0433",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1633,
+        "end_line": 1639,
+        "raw_text": "agreement. Among other matters, Gibson Dunn communicated to Shearman sTec\u0092s desire to include in the merger agreement a general waiver of all \u0093don\u0092t ask don\u0092t waive\u0094\nprovisions in its non-disclosure agreements with potential bidders. Shearman communicated that WDC would not agree to this waiver, and in addition, WDC would view it as improper if sTec unilaterally waived these provisions, indicating that WDC may\nnot move forward with the transaction if sTec unilaterally waived these provisions. Gibson Dunn discussed this communication from WDC and other proposed changes to the merger agreement with Dr. Daly and Mr. Saman. Based on the history of\nthe discussions with the potential bidders with \u0093don\u0092t ask don\u0092t waive\u0094 provisions in their non-disclosure agreements that would continue in effect after sTec entered into an acquisition agreement, Dr. Daly, on behalf of the\nspecial committee, believed the possibility that any of these potential bidders would be willing and able to make a superior proposal was remote. Specifically, Company E and Company F had expressed an interest solely in purchasing certain assets of\nsTec, and Company H had repeatedly stated it could not increase its price above the range of $5.00 to $5.75 per share. Based upon direction from Dr. Daly in view of WDC\u0092s indication that it was not willing to negotiate further, and may not\nproceed with the transaction if sTec did not agree to certain terms, Gibson Dunn focused on a limited number of issues in the merger agreement in its continued discussions with Shearman through June 23, 2013.",
+        "evidence_type": "dated_action",
+        "confidence": "high",
+        "matched_terms": [
+          "discussed",
+          "entered into",
+          "proposal",
+          "proposed"
+        ],
+        "date_text": "may",
+        "actor_hint": null,
+        "value_hint": "$5.00 to $5.75 per share",
+        "note": "detected dated action: discussed, entered into, proposal, proposed"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0434",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1633,
+        "end_line": 1639,
+        "raw_text": "agreement. Among other matters, Gibson Dunn communicated to Shearman sTec\u0092s desire to include in the merger agreement a general waiver of all \u0093don\u0092t ask don\u0092t waive\u0094\nprovisions in its non-disclosure agreements with potential bidders. Shearman communicated that WDC would not agree to this waiver, and in addition, WDC would view it as improper if sTec unilaterally waived these provisions, indicating that WDC may\nnot move forward with the transaction if sTec unilaterally waived these provisions. Gibson Dunn discussed this communication from WDC and other proposed changes to the merger agreement with Dr. Daly and Mr. Saman. Based on the history of\nthe discussions with the potential bidders with \u0093don\u0092t ask don\u0092t waive\u0094 provisions in their non-disclosure agreements that would continue in effect after sTec entered into an acquisition agreement, Dr. Daly, on behalf of the\nspecial committee, believed the possibility that any of these potential bidders would be willing and able to make a superior proposal was remote. Specifically, Company E and Company F had expressed an interest solely in purchasing certain assets of\nsTec, and Company H had repeatedly stated it could not increase its price above the range of $5.00 to $5.75 per share. Based upon direction from Dr. Daly in view of WDC\u0092s indication that it was not willing to negotiate further, and may not\nproceed with the transaction if sTec did not agree to certain terms, Gibson Dunn focused on a limited number of issues in the merger agreement in its continued discussions with Shearman through June 23, 2013.",
+        "evidence_type": "financial_term",
+        "confidence": "medium",
+        "matched_terms": [
+          "$5.00 to $5.75 per share"
+        ],
+        "date_text": "may",
+        "actor_hint": null,
+        "value_hint": "$5.00 to $5.75 per share",
+        "note": "detected financial term: $5.00 to $5.75 per share"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0435",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1633,
+        "end_line": 1639,
+        "raw_text": "agreement. Among other matters, Gibson Dunn communicated to Shearman sTec\u0092s desire to include in the merger agreement a general waiver of all \u0093don\u0092t ask don\u0092t waive\u0094\nprovisions in its non-disclosure agreements with potential bidders. Shearman communicated that WDC would not agree to this waiver, and in addition, WDC would view it as improper if sTec unilaterally waived these provisions, indicating that WDC may\nnot move forward with the transaction if sTec unilaterally waived these provisions. Gibson Dunn discussed this communication from WDC and other proposed changes to the merger agreement with Dr. Daly and Mr. Saman. Based on the history of\nthe discussions with the potential bidders with \u0093don\u0092t ask don\u0092t waive\u0094 provisions in their non-disclosure agreements that would continue in effect after sTec entered into an acquisition agreement, Dr. Daly, on behalf of the\nspecial committee, believed the possibility that any of these potential bidders would be willing and able to make a superior proposal was remote. Specifically, Company E and Company F had expressed an interest solely in purchasing certain assets of\nsTec, and Company H had repeatedly stated it could not increase its price above the range of $5.00 to $5.75 per share. Based upon direction from Dr. Daly in view of WDC\u0092s indication that it was not willing to negotiate further, and may not\nproceed with the transaction if sTec did not agree to certain terms, Gibson Dunn focused on a limited number of issues in the merger agreement in its continued discussions with Shearman through June 23, 2013.",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [
+          "special committee"
+        ],
+        "date_text": "may",
+        "actor_hint": null,
+        "value_hint": "$5.00 to $5.75 per share",
+        "note": "detected actor identification: special committee"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0436",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1633,
+        "end_line": 1639,
+        "raw_text": "agreement. Among other matters, Gibson Dunn communicated to Shearman sTec\u0092s desire to include in the merger agreement a general waiver of all \u0093don\u0092t ask don\u0092t waive\u0094\nprovisions in its non-disclosure agreements with potential bidders. Shearman communicated that WDC would not agree to this waiver, and in addition, WDC would view it as improper if sTec unilaterally waived these provisions, indicating that WDC may\nnot move forward with the transaction if sTec unilaterally waived these provisions. Gibson Dunn discussed this communication from WDC and other proposed changes to the merger agreement with Dr. Daly and Mr. Saman. Based on the history of\nthe discussions with the potential bidders with \u0093don\u0092t ask don\u0092t waive\u0094 provisions in their non-disclosure agreements that would continue in effect after sTec entered into an acquisition agreement, Dr. Daly, on behalf of the\nspecial committee, believed the possibility that any of these potential bidders would be willing and able to make a superior proposal was remote. Specifically, Company E and Company F had expressed an interest solely in purchasing certain assets of\nsTec, and Company H had repeatedly stated it could not increase its price above the range of $5.00 to $5.75 per share. Based upon direction from Dr. Daly in view of WDC\u0092s indication that it was not willing to negotiate further, and may not\nproceed with the transaction if sTec did not agree to certain terms, Gibson Dunn focused on a limited number of issues in the merger agreement in its continued discussions with Shearman through June 23, 2013.",
+        "evidence_type": "process_signal",
+        "confidence": "medium",
+        "matched_terms": [
+          "non-disclosure",
+          "superior proposal"
+        ],
+        "date_text": "may",
+        "actor_hint": null,
+        "value_hint": "$5.00 to $5.75 per share",
+        "note": "detected process signal: non-disclosure, superior proposal"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0437",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1633,
+        "end_line": 1639,
+        "raw_text": "agreement. Among other matters, Gibson Dunn communicated to Shearman sTec\u0092s desire to include in the merger agreement a general waiver of all \u0093don\u0092t ask don\u0092t waive\u0094\nprovisions in its non-disclosure agreements with potential bidders. Shearman communicated that WDC would not agree to this waiver, and in addition, WDC would view it as improper if sTec unilaterally waived these provisions, indicating that WDC may\nnot move forward with the transaction if sTec unilaterally waived these provisions. Gibson Dunn discussed this communication from WDC and other proposed changes to the merger agreement with Dr. Daly and Mr. Saman. Based on the history of\nthe discussions with the potential bidders with \u0093don\u0092t ask don\u0092t waive\u0094 provisions in their non-disclosure agreements that would continue in effect after sTec entered into an acquisition agreement, Dr. Daly, on behalf of the\nspecial committee, believed the possibility that any of these potential bidders would be willing and able to make a superior proposal was remote. Specifically, Company E and Company F had expressed an interest solely in purchasing certain assets of\nsTec, and Company H had repeatedly stated it could not increase its price above the range of $5.00 to $5.75 per share. Based upon direction from Dr. Daly in view of WDC\u0092s indication that it was not willing to negotiate further, and may not\nproceed with the transaction if sTec did not agree to certain terms, Gibson Dunn focused on a limited number of issues in the merger agreement in its continued discussions with Shearman through June 23, 2013.",
+        "evidence_type": "outcome_fact",
+        "confidence": "low",
+        "matched_terms": [
+          "merger agreement"
+        ],
+        "date_text": "may",
+        "actor_hint": null,
+        "value_hint": "$5.00 to $5.75 per share",
+        "note": "detected outcome fact: merger agreement"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0438",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1641,
+        "end_line": 1649,
+        "raw_text": "On June 23, 2013, the special committee held a telephonic meeting. Messrs. Cook, Saman and Morales and representatives from BofA\nMerrill Lynch and Gibson Dunn were in attendance. Gibson Dunn reviewed with the directors the terms and conditions of the proposed form of merger agreement. The special committee reviewed with representatives of BofA Merrill Lynch the process that\nhad been conducted and the contacts with the potential acquirers. The special committee discussed the potential ability and interest of Company E, Company F and Company H to make a superior proposal to the $6.85 per share proposal of WDC, and the\nspecial committee determined that the possibility of such a proposal was remote and that it was in the best interests of the shareholders to continue with the WDC transaction notwithstanding the \u0093don\u0092t ask don\u0092t waive\u0094 provisions\nin such parties\u0092 non-disclosure agreements. BofA Merrill Lynch then reviewed its financial analysis of the merger consideration. Gibson Dunn reviewed the significant terms and conditions of the ancillary agreements to be entered into by Messrs.\nMoshayedi, including the covenant not to sue and the consulting agreements, and the financial terms thereof. The directors discussed the terms of the merger agreement, such ancillary agreements and the letter agreements proposed by Messrs. Moshayedi\nto be entered into relating to the terms and conditions of payments under their existing severance and change in control agreements. Following further discussion, the special committee unanimously determined that the merger agreement and the\ntransactions contemplated thereby, including the merger, were in the best interests of the company\u0092s shareholders, and approved and adopted the merger agreement, and unanimously determined to recommend to our board of directors that the board\napprove and adopt the merger and the merger agreement and that the board recommend that the shareholders vote in favor of the approval and adoption of the merger agreement and the merger.",
+        "evidence_type": "dated_action",
+        "confidence": "high",
+        "matched_terms": [
+          "discussed",
+          "entered into",
+          "meeting",
+          "proposal",
+          "proposed",
+          "sent"
+        ],
+        "date_text": "June 23, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": "$6.85 per share",
+        "note": "detected dated action: discussed, entered into, meeting, proposal, proposed"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0439",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1641,
+        "end_line": 1649,
+        "raw_text": "On June 23, 2013, the special committee held a telephonic meeting. Messrs. Cook, Saman and Morales and representatives from BofA\nMerrill Lynch and Gibson Dunn were in attendance. Gibson Dunn reviewed with the directors the terms and conditions of the proposed form of merger agreement. The special committee reviewed with representatives of BofA Merrill Lynch the process that\nhad been conducted and the contacts with the potential acquirers. The special committee discussed the potential ability and interest of Company E, Company F and Company H to make a superior proposal to the $6.85 per share proposal of WDC, and the\nspecial committee determined that the possibility of such a proposal was remote and that it was in the best interests of the shareholders to continue with the WDC transaction notwithstanding the \u0093don\u0092t ask don\u0092t waive\u0094 provisions\nin such parties\u0092 non-disclosure agreements. BofA Merrill Lynch then reviewed its financial analysis of the merger consideration. Gibson Dunn reviewed the significant terms and conditions of the ancillary agreements to be entered into by Messrs.\nMoshayedi, including the covenant not to sue and the consulting agreements, and the financial terms thereof. The directors discussed the terms of the merger agreement, such ancillary agreements and the letter agreements proposed by Messrs. Moshayedi\nto be entered into relating to the terms and conditions of payments under their existing severance and change in control agreements. Following further discussion, the special committee unanimously determined that the merger agreement and the\ntransactions contemplated thereby, including the merger, were in the best interests of the company\u0092s shareholders, and approved and adopted the merger agreement, and unanimously determined to recommend to our board of directors that the board\napprove and adopt the merger and the merger agreement and that the board recommend that the shareholders vote in favor of the approval and adoption of the merger agreement and the merger.",
+        "evidence_type": "financial_term",
+        "confidence": "medium",
+        "matched_terms": [
+          "$6.85 per share"
+        ],
+        "date_text": "June 23, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": "$6.85 per share",
+        "note": "detected financial term: $6.85 per share"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0440",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1641,
+        "end_line": 1649,
+        "raw_text": "On June 23, 2013, the special committee held a telephonic meeting. Messrs. Cook, Saman and Morales and representatives from BofA\nMerrill Lynch and Gibson Dunn were in attendance. Gibson Dunn reviewed with the directors the terms and conditions of the proposed form of merger agreement. The special committee reviewed with representatives of BofA Merrill Lynch the process that\nhad been conducted and the contacts with the potential acquirers. The special committee discussed the potential ability and interest of Company E, Company F and Company H to make a superior proposal to the $6.85 per share proposal of WDC, and the\nspecial committee determined that the possibility of such a proposal was remote and that it was in the best interests of the shareholders to continue with the WDC transaction notwithstanding the \u0093don\u0092t ask don\u0092t waive\u0094 provisions\nin such parties\u0092 non-disclosure agreements. BofA Merrill Lynch then reviewed its financial analysis of the merger consideration. Gibson Dunn reviewed the significant terms and conditions of the ancillary agreements to be entered into by Messrs.\nMoshayedi, including the covenant not to sue and the consulting agreements, and the financial terms thereof. The directors discussed the terms of the merger agreement, such ancillary agreements and the letter agreements proposed by Messrs. Moshayedi\nto be entered into relating to the terms and conditions of payments under their existing severance and change in control agreements. Following further discussion, the special committee unanimously determined that the merger agreement and the\ntransactions contemplated thereby, including the merger, were in the best interests of the company\u0092s shareholders, and approved and adopted the merger agreement, and unanimously determined to recommend to our board of directors that the board\napprove and adopt the merger and the merger agreement and that the board recommend that the shareholders vote in favor of the approval and adoption of the merger agreement and the merger.",
+        "evidence_type": "actor_identification",
+        "confidence": "medium",
+        "matched_terms": [
+          "shareholder",
+          "special committee"
+        ],
+        "date_text": "June 23, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": "$6.85 per share",
+        "note": "detected actor identification: shareholder, special committee"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0441",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1641,
+        "end_line": 1649,
+        "raw_text": "On June 23, 2013, the special committee held a telephonic meeting. Messrs. Cook, Saman and Morales and representatives from BofA\nMerrill Lynch and Gibson Dunn were in attendance. Gibson Dunn reviewed with the directors the terms and conditions of the proposed form of merger agreement. The special committee reviewed with representatives of BofA Merrill Lynch the process that\nhad been conducted and the contacts with the potential acquirers. The special committee discussed the potential ability and interest of Company E, Company F and Company H to make a superior proposal to the $6.85 per share proposal of WDC, and the\nspecial committee determined that the possibility of such a proposal was remote and that it was in the best interests of the shareholders to continue with the WDC transaction notwithstanding the \u0093don\u0092t ask don\u0092t waive\u0094 provisions\nin such parties\u0092 non-disclosure agreements. BofA Merrill Lynch then reviewed its financial analysis of the merger consideration. Gibson Dunn reviewed the significant terms and conditions of the ancillary agreements to be entered into by Messrs.\nMoshayedi, including the covenant not to sue and the consulting agreements, and the financial terms thereof. The directors discussed the terms of the merger agreement, such ancillary agreements and the letter agreements proposed by Messrs. Moshayedi\nto be entered into relating to the terms and conditions of payments under their existing severance and change in control agreements. Following further discussion, the special committee unanimously determined that the merger agreement and the\ntransactions contemplated thereby, including the merger, were in the best interests of the company\u0092s shareholders, and approved and adopted the merger agreement, and unanimously determined to recommend to our board of directors that the board\napprove and adopt the merger and the merger agreement and that the board recommend that the shareholders vote in favor of the approval and adoption of the merger agreement and the merger.",
+        "evidence_type": "process_signal",
+        "confidence": "medium",
+        "matched_terms": [
+          "non-disclosure",
+          "superior proposal"
+        ],
+        "date_text": "June 23, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": "$6.85 per share",
+        "note": "detected process signal: non-disclosure, superior proposal"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0442",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1641,
+        "end_line": 1649,
+        "raw_text": "On June 23, 2013, the special committee held a telephonic meeting. Messrs. Cook, Saman and Morales and representatives from BofA\nMerrill Lynch and Gibson Dunn were in attendance. Gibson Dunn reviewed with the directors the terms and conditions of the proposed form of merger agreement. The special committee reviewed with representatives of BofA Merrill Lynch the process that\nhad been conducted and the contacts with the potential acquirers. The special committee discussed the potential ability and interest of Company E, Company F and Company H to make a superior proposal to the $6.85 per share proposal of WDC, and the\nspecial committee determined that the possibility of such a proposal was remote and that it was in the best interests of the shareholders to continue with the WDC transaction notwithstanding the \u0093don\u0092t ask don\u0092t waive\u0094 provisions\nin such parties\u0092 non-disclosure agreements. BofA Merrill Lynch then reviewed its financial analysis of the merger consideration. Gibson Dunn reviewed the significant terms and conditions of the ancillary agreements to be entered into by Messrs.\nMoshayedi, including the covenant not to sue and the consulting agreements, and the financial terms thereof. The directors discussed the terms of the merger agreement, such ancillary agreements and the letter agreements proposed by Messrs. Moshayedi\nto be entered into relating to the terms and conditions of payments under their existing severance and change in control agreements. Following further discussion, the special committee unanimously determined that the merger agreement and the\ntransactions contemplated thereby, including the merger, were in the best interests of the company\u0092s shareholders, and approved and adopted the merger agreement, and unanimously determined to recommend to our board of directors that the board\napprove and adopt the merger and the merger agreement and that the board recommend that the shareholders vote in favor of the approval and adoption of the merger agreement and the merger.",
+        "evidence_type": "outcome_fact",
+        "confidence": "medium",
+        "matched_terms": [
+          "merger agreement",
+          "vote"
+        ],
+        "date_text": "June 23, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": "$6.85 per share",
+        "note": "detected outcome fact: merger agreement, vote"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0443",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1651,
+        "end_line": 1658,
+        "raw_text": "Immediately thereafter, on June 23, 2013, our board of directors held a telephonic special meeting. Messrs. Cook, Saman, Higa and\nMorales and representatives from BofA Merrill Lynch and Gibson Dunn were in attendance. Dr. Daly reported on the special committee\u0092s decision. The board reviewed with BofA Merrill Lynch the process that had been conducted at the\nboard\u0092s direction and the contacts with each of the potential acquirers. BofA Merrill Lynch then reviewed its financial analysis of the merger consideration and delivered to our board of directors an oral opinion, which was confirmed by\ndelivery of a written opinion dated June 23, 2013, to the effect that, as of that date and based on and subject to various assumptions and limitations described in its opinion, the merger consideration to be received by holders of sTec common\nstock (other than sTec, WDC, Merger Sub and their respective affiliates and dissenting shareholders) was fair, from a financial point of view, to such holders. Gibson Dunn reviewed the significant terms and conditions of the merger agreement,\nincluding, but not limited to, certain operating restrictions on sTec from the signing date of the merger agreement until the closing date of the transaction, the ability of and conditions under which our board of directors could terminate the\nagreement to accept a superior proposal or change its recommendation of the merger, the situations in which sTec may have to pay a termination fee, the amount of such a termination fee, the situations in which WDC may have to pay a termination fee,\nthe amount of such a termination fee and related considerations, and the conditions to closing of the transaction. Gibson Dunn reviewed with our board of directors its fiduciary duties and related",
+        "evidence_type": "dated_action",
+        "confidence": "high",
+        "matched_terms": [
+          "delivered",
+          "meeting",
+          "proposal",
+          "received",
+          "sent"
+        ],
+        "date_text": "June 23, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected dated action: delivered, meeting, proposal, received, sent"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0444",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1651,
+        "end_line": 1658,
+        "raw_text": "Immediately thereafter, on June 23, 2013, our board of directors held a telephonic special meeting. Messrs. Cook, Saman, Higa and\nMorales and representatives from BofA Merrill Lynch and Gibson Dunn were in attendance. Dr. Daly reported on the special committee\u0092s decision. The board reviewed with BofA Merrill Lynch the process that had been conducted at the\nboard\u0092s direction and the contacts with each of the potential acquirers. BofA Merrill Lynch then reviewed its financial analysis of the merger consideration and delivered to our board of directors an oral opinion, which was confirmed by\ndelivery of a written opinion dated June 23, 2013, to the effect that, as of that date and based on and subject to various assumptions and limitations described in its opinion, the merger consideration to be received by holders of sTec common\nstock (other than sTec, WDC, Merger Sub and their respective affiliates and dissenting shareholders) was fair, from a financial point of view, to such holders. Gibson Dunn reviewed the significant terms and conditions of the merger agreement,\nincluding, but not limited to, certain operating restrictions on sTec from the signing date of the merger agreement until the closing date of the transaction, the ability of and conditions under which our board of directors could terminate the\nagreement to accept a superior proposal or change its recommendation of the merger, the situations in which sTec may have to pay a termination fee, the amount of such a termination fee, the situations in which WDC may have to pay a termination fee,\nthe amount of such a termination fee and related considerations, and the conditions to closing of the transaction. Gibson Dunn reviewed with our board of directors its fiduciary duties and related",
+        "evidence_type": "actor_identification",
+        "confidence": "medium",
+        "matched_terms": [
+          "shareholder",
+          "special committee"
+        ],
+        "date_text": "June 23, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected actor identification: shareholder, special committee"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0445",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1651,
+        "end_line": 1658,
+        "raw_text": "Immediately thereafter, on June 23, 2013, our board of directors held a telephonic special meeting. Messrs. Cook, Saman, Higa and\nMorales and representatives from BofA Merrill Lynch and Gibson Dunn were in attendance. Dr. Daly reported on the special committee\u0092s decision. The board reviewed with BofA Merrill Lynch the process that had been conducted at the\nboard\u0092s direction and the contacts with each of the potential acquirers. BofA Merrill Lynch then reviewed its financial analysis of the merger consideration and delivered to our board of directors an oral opinion, which was confirmed by\ndelivery of a written opinion dated June 23, 2013, to the effect that, as of that date and based on and subject to various assumptions and limitations described in its opinion, the merger consideration to be received by holders of sTec common\nstock (other than sTec, WDC, Merger Sub and their respective affiliates and dissenting shareholders) was fair, from a financial point of view, to such holders. Gibson Dunn reviewed the significant terms and conditions of the merger agreement,\nincluding, but not limited to, certain operating restrictions on sTec from the signing date of the merger agreement until the closing date of the transaction, the ability of and conditions under which our board of directors could terminate the\nagreement to accept a superior proposal or change its recommendation of the merger, the situations in which sTec may have to pay a termination fee, the amount of such a termination fee, the situations in which WDC may have to pay a termination fee,\nthe amount of such a termination fee and related considerations, and the conditions to closing of the transaction. Gibson Dunn reviewed with our board of directors its fiduciary duties and related",
+        "evidence_type": "process_signal",
+        "confidence": "low",
+        "matched_terms": [
+          "superior proposal"
+        ],
+        "date_text": "June 23, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected process signal: superior proposal"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0446",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1651,
+        "end_line": 1658,
+        "raw_text": "Immediately thereafter, on June 23, 2013, our board of directors held a telephonic special meeting. Messrs. Cook, Saman, Higa and\nMorales and representatives from BofA Merrill Lynch and Gibson Dunn were in attendance. Dr. Daly reported on the special committee\u0092s decision. The board reviewed with BofA Merrill Lynch the process that had been conducted at the\nboard\u0092s direction and the contacts with each of the potential acquirers. BofA Merrill Lynch then reviewed its financial analysis of the merger consideration and delivered to our board of directors an oral opinion, which was confirmed by\ndelivery of a written opinion dated June 23, 2013, to the effect that, as of that date and based on and subject to various assumptions and limitations described in its opinion, the merger consideration to be received by holders of sTec common\nstock (other than sTec, WDC, Merger Sub and their respective affiliates and dissenting shareholders) was fair, from a financial point of view, to such holders. Gibson Dunn reviewed the significant terms and conditions of the merger agreement,\nincluding, but not limited to, certain operating restrictions on sTec from the signing date of the merger agreement until the closing date of the transaction, the ability of and conditions under which our board of directors could terminate the\nagreement to accept a superior proposal or change its recommendation of the merger, the situations in which sTec may have to pay a termination fee, the amount of such a termination fee, the situations in which WDC may have to pay a termination fee,\nthe amount of such a termination fee and related considerations, and the conditions to closing of the transaction. Gibson Dunn reviewed with our board of directors its fiduciary duties and related",
+        "evidence_type": "outcome_fact",
+        "confidence": "high",
+        "matched_terms": [
+          "closing",
+          "merger agreement",
+          "termination fee"
+        ],
+        "date_text": "June 23, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected outcome fact: closing, merger agreement, termination fee"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0447",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1663,
+        "end_line": 1669,
+        "raw_text": "terms and conditions of the merger agreement and other transaction considerations. Our board of directors discussed the potential ability and interest of Company E, Company F and Company H to\nmake a superior proposal to the $6.85 per share proposal of WDC, and our board of directors determined that the possibility of such a proposal was remote and that it was in the best interests of the shareholders to continue with the WDC transaction\nnotwithstanding the \u0093don\u0092t ask don\u0092t waive\u0094 provisions in such parties\u0092 non-disclosure agreements. Gibson Dunn then reviewed with our board of directors the terms of the ancillary agreements, including the voting agreements,\nand the shares subject to such agreements, and the ancillary agreements to be entered into by WDC with Messrs. Moshayedi, including the covenant not to sue and the consulting agreements, and the financial terms thereof. Finally, Gibson Dunn reviewed\nthe terms of the letter agreements proposed by Messrs. Moshayedi to be entered into relating to the terms and conditions of payments under their existing severance and change in control agreements. The directors discussed the terms of the merger\nagreement, the ancillary agreements and the letter agreements. Following further discussion, our board of directors unanimously determined that the merger agreement and the transactions contemplated thereby, including the merger, were in the best\ninterests of the company\u0092s shareholders, and approved and adopted the merger agreement. Our board of directors also unanimously recommended that the company\u0092s shareholders approve and adopt the merger agreement.",
+        "evidence_type": "financial_term",
+        "confidence": "medium",
+        "matched_terms": [
+          "$6.85 per share"
+        ],
+        "date_text": null,
+        "actor_hint": null,
+        "value_hint": "$6.85 per share",
+        "note": "detected financial term: $6.85 per share"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0448",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1663,
+        "end_line": 1669,
+        "raw_text": "terms and conditions of the merger agreement and other transaction considerations. Our board of directors discussed the potential ability and interest of Company E, Company F and Company H to\nmake a superior proposal to the $6.85 per share proposal of WDC, and our board of directors determined that the possibility of such a proposal was remote and that it was in the best interests of the shareholders to continue with the WDC transaction\nnotwithstanding the \u0093don\u0092t ask don\u0092t waive\u0094 provisions in such parties\u0092 non-disclosure agreements. Gibson Dunn then reviewed with our board of directors the terms of the ancillary agreements, including the voting agreements,\nand the shares subject to such agreements, and the ancillary agreements to be entered into by WDC with Messrs. Moshayedi, including the covenant not to sue and the consulting agreements, and the financial terms thereof. Finally, Gibson Dunn reviewed\nthe terms of the letter agreements proposed by Messrs. Moshayedi to be entered into relating to the terms and conditions of payments under their existing severance and change in control agreements. The directors discussed the terms of the merger\nagreement, the ancillary agreements and the letter agreements. Following further discussion, our board of directors unanimously determined that the merger agreement and the transactions contemplated thereby, including the merger, were in the best\ninterests of the company\u0092s shareholders, and approved and adopted the merger agreement. Our board of directors also unanimously recommended that the company\u0092s shareholders approve and adopt the merger agreement.",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [
+          "shareholder"
+        ],
+        "date_text": null,
+        "actor_hint": null,
+        "value_hint": "$6.85 per share",
+        "note": "detected actor identification: shareholder"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0449",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1663,
+        "end_line": 1669,
+        "raw_text": "terms and conditions of the merger agreement and other transaction considerations. Our board of directors discussed the potential ability and interest of Company E, Company F and Company H to\nmake a superior proposal to the $6.85 per share proposal of WDC, and our board of directors determined that the possibility of such a proposal was remote and that it was in the best interests of the shareholders to continue with the WDC transaction\nnotwithstanding the \u0093don\u0092t ask don\u0092t waive\u0094 provisions in such parties\u0092 non-disclosure agreements. Gibson Dunn then reviewed with our board of directors the terms of the ancillary agreements, including the voting agreements,\nand the shares subject to such agreements, and the ancillary agreements to be entered into by WDC with Messrs. Moshayedi, including the covenant not to sue and the consulting agreements, and the financial terms thereof. Finally, Gibson Dunn reviewed\nthe terms of the letter agreements proposed by Messrs. Moshayedi to be entered into relating to the terms and conditions of payments under their existing severance and change in control agreements. The directors discussed the terms of the merger\nagreement, the ancillary agreements and the letter agreements. Following further discussion, our board of directors unanimously determined that the merger agreement and the transactions contemplated thereby, including the merger, were in the best\ninterests of the company\u0092s shareholders, and approved and adopted the merger agreement. Our board of directors also unanimously recommended that the company\u0092s shareholders approve and adopt the merger agreement.",
+        "evidence_type": "process_signal",
+        "confidence": "medium",
+        "matched_terms": [
+          "non-disclosure",
+          "superior proposal"
+        ],
+        "date_text": null,
+        "actor_hint": null,
+        "value_hint": "$6.85 per share",
+        "note": "detected process signal: non-disclosure, superior proposal"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0450",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1663,
+        "end_line": 1669,
+        "raw_text": "terms and conditions of the merger agreement and other transaction considerations. Our board of directors discussed the potential ability and interest of Company E, Company F and Company H to\nmake a superior proposal to the $6.85 per share proposal of WDC, and our board of directors determined that the possibility of such a proposal was remote and that it was in the best interests of the shareholders to continue with the WDC transaction\nnotwithstanding the \u0093don\u0092t ask don\u0092t waive\u0094 provisions in such parties\u0092 non-disclosure agreements. Gibson Dunn then reviewed with our board of directors the terms of the ancillary agreements, including the voting agreements,\nand the shares subject to such agreements, and the ancillary agreements to be entered into by WDC with Messrs. Moshayedi, including the covenant not to sue and the consulting agreements, and the financial terms thereof. Finally, Gibson Dunn reviewed\nthe terms of the letter agreements proposed by Messrs. Moshayedi to be entered into relating to the terms and conditions of payments under their existing severance and change in control agreements. The directors discussed the terms of the merger\nagreement, the ancillary agreements and the letter agreements. Following further discussion, our board of directors unanimously determined that the merger agreement and the transactions contemplated thereby, including the merger, were in the best\ninterests of the company\u0092s shareholders, and approved and adopted the merger agreement. Our board of directors also unanimously recommended that the company\u0092s shareholders approve and adopt the merger agreement.",
+        "evidence_type": "outcome_fact",
+        "confidence": "low",
+        "matched_terms": [
+          "merger agreement"
+        ],
+        "date_text": null,
+        "actor_hint": null,
+        "value_hint": "$6.85 per share",
+        "note": "detected outcome fact: merger agreement"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0451",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1671,
+        "end_line": 1673,
+        "raw_text": "On June 23, 2013, sTec, WDC, and Merger Sub executed the merger agreement; each of our officers and directors executed their\nrespective voting agreements with WDC; Mr. Manouch Moshayedi and WDC executed the covenant not to sue, the consulting services agreement and a non-competition agreement; Mr. Mark Moshayedi and WDC executed the technical services agreement\nand a non-competition agreement; sTec and Messrs. Moshayedi executed the letter agreements; and an affiliate of Messrs. Moshayedi and WDC executed a landlord\u0092s consent to assignment.",
+        "evidence_type": "dated_action",
+        "confidence": "high",
+        "matched_terms": [
+          "executed",
+          "sent"
+        ],
+        "date_text": "June 23, 2013",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected dated action: executed, sent"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0452",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1671,
+        "end_line": 1673,
+        "raw_text": "On June 23, 2013, sTec, WDC, and Merger Sub executed the merger agreement; each of our officers and directors executed their\nrespective voting agreements with WDC; Mr. Manouch Moshayedi and WDC executed the covenant not to sue, the consulting services agreement and a non-competition agreement; Mr. Mark Moshayedi and WDC executed the technical services agreement\nand a non-competition agreement; sTec and Messrs. Moshayedi executed the letter agreements; and an affiliate of Messrs. Moshayedi and WDC executed a landlord\u0092s consent to assignment.",
+        "evidence_type": "outcome_fact",
+        "confidence": "high",
+        "matched_terms": [
+          "executed",
+          "merger agreement"
+        ],
+        "date_text": "June 23, 2013",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected outcome fact: executed, merger agreement"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0453",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1675,
+        "end_line": 1676,
+        "raw_text": "On June 24, 2013, prior to the opening of trading on the U. S. stock exchanges, WDC and sTec announced in a joint press release the\nexecution of the merger agreement.",
+        "evidence_type": "dated_action",
+        "confidence": "medium",
+        "matched_terms": [
+          "announced"
+        ],
+        "date_text": "June 24, 2013",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected dated action: announced"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0454",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1675,
+        "end_line": 1676,
+        "raw_text": "On June 24, 2013, prior to the opening of trading on the U. S. stock exchanges, WDC and sTec announced in a joint press release the\nexecution of the merger agreement.",
+        "evidence_type": "outcome_fact",
+        "confidence": "low",
+        "matched_terms": [
+          "merger agreement"
+        ],
+        "date_text": "June 24, 2013",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected outcome fact: merger agreement"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0455",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1680,
+        "end_line": 1680,
+        "raw_text": "On June 23, 2013, our board of directors, upon the unanimous recommendation of the special committee:",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [
+          "special committee"
+        ],
+        "date_text": "June 23, 2013",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected actor identification: special committee"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0456",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1682,
+        "end_line": 1682,
+        "raw_text": "unanimously determined that the merger agreement, the merger and the other transactions contemplated by the merger agreement are in the best interests",
+        "evidence_type": "outcome_fact",
+        "confidence": "low",
+        "matched_terms": [
+          "merger agreement"
+        ],
+        "date_text": null,
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected outcome fact: merger agreement"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0457",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1684,
+        "end_line": 1686,
+        "raw_text": "recommended that the shareholders of the company vote in favor of the approval and adoption of the merger agreement and the transactions contemplated         \n  thereby, subject to the right of the board to withhold, withdraw, qualify or modify its recommendation in accordance with the terms of the merger agreement.  \n \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [
+          "shareholder"
+        ],
+        "date_text": null,
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected actor identification: shareholder"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0458",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1684,
+        "end_line": 1686,
+        "raw_text": "recommended that the shareholders of the company vote in favor of the approval and adoption of the merger agreement and the transactions contemplated         \n  thereby, subject to the right of the board to withhold, withdraw, qualify or modify its recommendation in accordance with the terms of the merger agreement.  \n \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+        "evidence_type": "outcome_fact",
+        "confidence": "medium",
+        "matched_terms": [
+          "merger agreement",
+          "vote"
+        ],
+        "date_text": null,
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected outcome fact: merger agreement, vote"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0459",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1688,
+        "end_line": 1689,
+        "raw_text": "In the course of reaching the determinations and making the recommendation described above, our board of directors consulted with its outside legal and financial advisors and with sTec\u0092s management\nand considered a number of factors that it believed supported its decision, including the following (which are not listed in any relative order of importance):",
+        "evidence_type": "actor_identification",
+        "confidence": "medium",
+        "matched_terms": [
+          "advisor",
+          "advisors",
+          "financial advisor"
+        ],
+        "date_text": null,
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected actor identification: advisor, advisors, financial advisor"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0460",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1691,
+        "end_line": 1691,
+        "raw_text": "Best Alternative for Maximizing Shareholder Value. Our board of directors considered that receipt of the merger consideration of $6.85 per share",
+        "evidence_type": "financial_term",
+        "confidence": "medium",
+        "matched_terms": [
+          "$6.85 per share"
+        ],
+        "date_text": null,
+        "actor_hint": null,
+        "value_hint": "$6.85 per share",
+        "note": "detected financial term: $6.85 per share"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0461",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1691,
+        "end_line": 1691,
+        "raw_text": "Best Alternative for Maximizing Shareholder Value. Our board of directors considered that receipt of the merger consideration of $6.85 per share",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [
+          "shareholder"
+        ],
+        "date_text": null,
+        "actor_hint": null,
+        "value_hint": "$6.85 per share",
+        "note": "detected actor identification: shareholder"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0462",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1700,
+        "end_line": 1700,
+        "raw_text": "the other strategic alternatives reasonably available to sTec, including the alternative of remaining a stand-alone public company and other strategic",
+        "evidence_type": "process_signal",
+        "confidence": "low",
+        "matched_terms": [
+          "strategic alternatives"
+        ],
+        "date_text": null,
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected process signal: strategic alternatives"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0463",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1702,
+        "end_line": 1702,
+        "raw_text": "our board of directors\u0092 belief that sTec is unlikely to achieve a sustainable trading price for its common stock in excess of the $6.85 per share",
+        "evidence_type": "financial_term",
+        "confidence": "medium",
+        "matched_terms": [
+          "$6.85 per share"
+        ],
+        "date_text": null,
+        "actor_hint": null,
+        "value_hint": "$6.85 per share",
+        "note": "detected financial term: $6.85 per share"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0464",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1704,
+        "end_line": 1704,
+        "raw_text": "our board of directors\u0092 belief that, with the assistance of its financial advisor, it had negotiated the highest price per share for sTec\u0092s",
+        "evidence_type": "actor_identification",
+        "confidence": "medium",
+        "matched_terms": [
+          "advisor",
+          "financial advisor"
+        ],
+        "date_text": null,
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected actor identification: advisor, financial advisor"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0465",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1706,
+        "end_line": 1706,
+        "raw_text": "the contact, either directly or through the company\u0092s management or advisors, with 17 other potential buyers over the course of the strategic",
+        "evidence_type": "actor_identification",
+        "confidence": "medium",
+        "matched_terms": [
+          "advisor",
+          "advisors"
+        ],
+        "date_text": null,
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected actor identification: advisor, advisors"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0466",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1708,
+        "end_line": 1708,
+        "raw_text": "our board of directors\u0092 belief that the process conducted by sTec, in conjunction with its advisors, had resulted in the highest price reasonably",
+        "evidence_type": "actor_identification",
+        "confidence": "medium",
+        "matched_terms": [
+          "advisor",
+          "advisors"
+        ],
+        "date_text": null,
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected actor identification: advisor, advisors"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0467",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1712,
+        "end_line": 1712,
+        "raw_text": "Attractive Value. Our board of directors considered the value of the merger consideration of $6.85 per share in cash attractive relative to",
+        "evidence_type": "financial_term",
+        "confidence": "medium",
+        "matched_terms": [
+          "$6.85 per share"
+        ],
+        "date_text": null,
+        "actor_hint": null,
+        "value_hint": "$6.85 per share",
+        "note": "detected financial term: $6.85 per share"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0468",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1714,
+        "end_line": 1714,
+        "raw_text": "High Likelihood of Completion. Our board of directors considered the high degree of certainty that the closing will be achieved, particularly in",
+        "evidence_type": "outcome_fact",
+        "confidence": "medium",
+        "matched_terms": [
+          "closing"
+        ],
+        "date_text": null,
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected outcome fact: closing"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0469",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1720,
+        "end_line": 1720,
+        "raw_text": "that WDC represented in the merger agreement that it has (and at the closing of the merger will have) sufficient cash to enable it to pay the merger",
+        "evidence_type": "outcome_fact",
+        "confidence": "high",
+        "matched_terms": [
+          "closing",
+          "merger agreement"
+        ],
+        "date_text": null,
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected outcome fact: closing, merger agreement"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0470",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1722,
+        "end_line": 1722,
+        "raw_text": "that WDC committed in the merger agreement to use its reasonable best efforts to cause the merger to be completed and to avoid or eliminate each and",
+        "evidence_type": "outcome_fact",
+        "confidence": "low",
+        "matched_terms": [
+          "merger agreement"
+        ],
+        "date_text": null,
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected outcome fact: merger agreement"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0471",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1724,
+        "end_line": 1726,
+        "raw_text": "the provision of the merger agreement that allows the end date for completing the merger to be extended to February 28, 2014, if the merger has  \n  not been completed by the initial December 31, 2013 deadline because certain required antitrust approvals have not been obtained or because of   \n \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+        "evidence_type": "outcome_fact",
+        "confidence": "low",
+        "matched_terms": [
+          "merger agreement"
+        ],
+        "date_text": "February 28, 2014",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected outcome fact: merger agreement"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0472",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1733,
+        "end_line": 1733,
+        "raw_text": "sTec\u0092s ability to seek specific performance to prevent breaches of the merger agreement by WDC and to enforce specifically the terms of the merger",
+        "evidence_type": "outcome_fact",
+        "confidence": "low",
+        "matched_terms": [
+          "merger agreement"
+        ],
+        "date_text": null,
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected outcome fact: merger agreement"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0473",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1735,
+        "end_line": 1738,
+        "raw_text": "Receipt of Opinion from BofA Merrill Lynch. Our board of directors considered the opinion of BofA Merrill Lynch, dated June 23, 2013, to                                                              \n  our board of directors as to the fairness, from a financial point of view and as of the date of the opinion, of the merger consideration to be received by holders of sTec common stock (other th...  \n  and dissenting shareholders), as more fully described below in the section entitled \u0093\u0097 Financial Advisor\u0092s Opinion.\u0094                                                                                  \n \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+        "evidence_type": "dated_action",
+        "confidence": "high",
+        "matched_terms": [
+          "received",
+          "sent"
+        ],
+        "date_text": "June 23, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected dated action: received, sent"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0474",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1735,
+        "end_line": 1738,
+        "raw_text": "Receipt of Opinion from BofA Merrill Lynch. Our board of directors considered the opinion of BofA Merrill Lynch, dated June 23, 2013, to                                                              \n  our board of directors as to the fairness, from a financial point of view and as of the date of the opinion, of the merger consideration to be received by holders of sTec common stock (other th...  \n  and dissenting shareholders), as more fully described below in the section entitled \u0093\u0097 Financial Advisor\u0092s Opinion.\u0094                                                                                  \n \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+        "evidence_type": "actor_identification",
+        "confidence": "medium",
+        "matched_terms": [
+          "advisor",
+          "financial advisor",
+          "shareholder"
+        ],
+        "date_text": "June 23, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected actor identification: advisor, financial advisor, shareholder"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0475",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1740,
+        "end_line": 1740,
+        "raw_text": "Support of sTec\u0092s Principal Shareholders. Our board of directors considered that Messrs. Moshayedi, who combined hold 13.8% of the",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [
+          "shareholder"
+        ],
+        "date_text": null,
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected actor identification: shareholder"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0476",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1742,
+        "end_line": 1742,
+        "raw_text": "Other Terms of the Transaction. The board of directors of sTec considered the terms and conditions of the merger agreement and related",
+        "evidence_type": "outcome_fact",
+        "confidence": "low",
+        "matched_terms": [
+          "merger agreement"
+        ],
+        "date_text": null,
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected outcome fact: merger agreement"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0477",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1744,
+        "end_line": 1744,
+        "raw_text": "the availability of statutory dissenters\u0092 rights to all of sTec\u0092s shareholders who desire to exercise such rights, and who comply with all",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [
+          "shareholder"
+        ],
+        "date_text": null,
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected actor identification: shareholder"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0478",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1746,
+        "end_line": 1746,
+        "raw_text": "the provision of the merger agreement allowing our board of directors to terminate the merger agreement in order to accept a superior proposal, subject",
+        "evidence_type": "process_signal",
+        "confidence": "low",
+        "matched_terms": [
+          "superior proposal"
+        ],
+        "date_text": null,
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected process signal: superior proposal"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0479",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1746,
+        "end_line": 1746,
+        "raw_text": "the provision of the merger agreement allowing our board of directors to terminate the merger agreement in order to accept a superior proposal, subject",
+        "evidence_type": "outcome_fact",
+        "confidence": "low",
+        "matched_terms": [
+          "merger agreement"
+        ],
+        "date_text": null,
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected outcome fact: merger agreement"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0480",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1748,
+        "end_line": 1748,
+        "raw_text": "the fact that the voting agreement entered into by the directors and officers terminates upon termination of the merger agreement.",
+        "evidence_type": "outcome_fact",
+        "confidence": "low",
+        "matched_terms": [
+          "merger agreement"
+        ],
+        "date_text": null,
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected outcome fact: merger agreement"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0481",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1753,
+        "end_line": 1753,
+        "raw_text": "that sTec\u0092s shareholders will have no ongoing equity participation in sTec or in WDC following the merger, and that such shareholders will cease",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [
+          "shareholder"
+        ],
+        "date_text": null,
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected actor identification: shareholder"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0482",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1755,
+        "end_line": 1757,
+        "raw_text": "the risk that one or more conditions to the parties\u0092 obligations to complete the merger will not be satisfied, and the related risk that the  \n  merger may not be completed even if the merger agreement is adopted and approved by sTec\u0092s shareholders;                                      \n \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [
+          "shareholder"
+        ],
+        "date_text": "may",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected actor identification: shareholder"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0483",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1755,
+        "end_line": 1757,
+        "raw_text": "the risk that one or more conditions to the parties\u0092 obligations to complete the merger will not be satisfied, and the related risk that the  \n  merger may not be completed even if the merger agreement is adopted and approved by sTec\u0092s shareholders;                                      \n \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+        "evidence_type": "outcome_fact",
+        "confidence": "low",
+        "matched_terms": [
+          "merger agreement"
+        ],
+        "date_text": "may",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected outcome fact: merger agreement"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0484",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1763,
+        "end_line": 1763,
+        "raw_text": "the requirement under the merger agreement that, unless the merger agreement is terminated by sTec in certain circumstances in order to accept a",
+        "evidence_type": "outcome_fact",
+        "confidence": "medium",
+        "matched_terms": [
+          "merger agreement",
+          "terminated"
+        ],
+        "date_text": null,
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected outcome fact: merger agreement, terminated"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0485",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1765,
+        "end_line": 1767,
+        "raw_text": "that certain terms of the merger agreement prohibit sTec and its representatives from soliciting third-party bids and from accepting, approving or                                                    \n  recommending third-party bids except in limited circumstances, which terms could reduce the likelihood that other potential acquirers would propose an alternative transaction that may be more a...  \n \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+        "evidence_type": "dated_action",
+        "confidence": "medium",
+        "matched_terms": [
+          "sent"
+        ],
+        "date_text": "may",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected dated action: sent"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0486",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1765,
+        "end_line": 1767,
+        "raw_text": "that certain terms of the merger agreement prohibit sTec and its representatives from soliciting third-party bids and from accepting, approving or                                                    \n  recommending third-party bids except in limited circumstances, which terms could reduce the likelihood that other potential acquirers would propose an alternative transaction that may be more a...  \n \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [
+          "party "
+        ],
+        "date_text": "may",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected actor identification: party "
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0487",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1765,
+        "end_line": 1767,
+        "raw_text": "that certain terms of the merger agreement prohibit sTec and its representatives from soliciting third-party bids and from accepting, approving or                                                    \n  recommending third-party bids except in limited circumstances, which terms could reduce the likelihood that other potential acquirers would propose an alternative transaction that may be more a...  \n \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+        "evidence_type": "outcome_fact",
+        "confidence": "low",
+        "matched_terms": [
+          "merger agreement"
+        ],
+        "date_text": "may",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected outcome fact: merger agreement"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0488",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1769,
+        "end_line": 1771,
+        "raw_text": "the risk of incurring substantial expenses related to the merger, including in connection with any litigation that may result from the announcement or  \n  pendency of the merger;                                                                                                                                 \n \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+        "evidence_type": "outcome_fact",
+        "confidence": "low",
+        "matched_terms": [
+          "litigation"
+        ],
+        "date_text": "may",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected outcome fact: litigation"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0489",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1776,
+        "end_line": 1776,
+        "raw_text": "the risk of sTec experiencing a material adverse change as defined in the merger agreement prior to closing that would allow WDC to terminate the",
+        "evidence_type": "outcome_fact",
+        "confidence": "high",
+        "matched_terms": [
+          "closing",
+          "merger agreement"
+        ],
+        "date_text": null,
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected outcome fact: closing, merger agreement"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0490",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1780,
+        "end_line": 1780,
+        "raw_text": "the possibility that, in certain circumstances under the merger agreement primarily related to the existence of an alternative acquisition proposal or",
+        "evidence_type": "outcome_fact",
+        "confidence": "low",
+        "matched_terms": [
+          "merger agreement"
+        ],
+        "date_text": null,
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected outcome fact: merger agreement"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0491",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1782,
+        "end_line": 1784,
+        "raw_text": "In\naddition, our board of directors was aware of and considered the interests that sTec directors and executive officers may have with respect to the transaction that differ from, or are in addition to, their interests as shareholders of sTec\ngenerally, as described in the section entitled \u0093 The Merger\u0097 Interests of sTec\u0092s Directors and Executive Officers in the Merger.\u0094",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [
+          "shareholder"
+        ],
+        "date_text": "may",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected actor identification: shareholder"
+      }
+    ]
+  },
+  "roster_in": [
+    {
+      "actor_id": "target_stec_board",
+      "display_name": "sTec Board",
+      "canonical_name": "STEC BOARD",
+      "aliases": [
+        "sTec",
+        "our board of directors",
+        "the board of directors",
+        "our management"
+      ],
+      "role": "target_board",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B007",
+          "evidence_id": null,
+          "anchor_text": "our board of directors"
+        }
+      ],
+      "notes": [
+        "Represents the company-side board and management when the filing refers to sTec generically in the sale process."
+      ]
+    },
+    {
+      "actor_id": "target_stec_special_committee",
+      "display_name": "sTec Special Committee",
+      "canonical_name": "STEC SPECIAL COMMITTEE",
+      "aliases": [
+        "special committee"
+      ],
+      "role": "target_board",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B013",
+          "evidence_id": null,
+          "anchor_text": "special committee of the board"
+        }
+      ],
+      "notes": [
+        "Formed on February 13, 2013 to review strategic alternatives, including a possible sale of the company."
+      ]
+    },
+    {
+      "actor_id": "target_stec_independent_directors",
+      "display_name": "sTec Independent Directors",
+      "canonical_name": "STEC INDEPENDENT DIRECTORS",
+      "aliases": [
+        "independent directors",
+        "non-management members of the board"
+      ],
+      "role": "target_board",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": true,
+      "group_size": 5,
+      "group_label": "Independent directors",
+      "evidence_refs": [
+        {
+          "block_id": "B013",
+          "evidence_id": null,
+          "anchor_text": "independent directors"
+        }
+      ],
+      "notes": [
+        "Represents the non-management directors delegated to evaluate responses to Balch Hill and Potomac."
+      ]
+    },
+    {
+      "actor_id": "advisor_gibson_dunn",
+      "display_name": "Gibson Dunn",
+      "canonical_name": "GIBSON, DUNN & CRUTCHER LLP",
+      "aliases": [
+        "Gibson Dunn"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": "target_stec_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B010",
+          "evidence_id": null,
+          "anchor_text": "Gibson, Dunn & Crutcher LLP"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_unnamed_initial_financial_advisors",
+      "display_name": "Two Unnamed Financial Advisors",
+      "canonical_name": "TWO UNNAMED FINANCIAL ADVISORS",
+      "aliases": [],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "target_stec_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": true,
+      "group_size": 2,
+      "group_label": "Two financial advisors contacted in mid-November 2012",
+      "evidence_refs": [
+        {
+          "block_id": "B007",
+          "evidence_id": null,
+          "anchor_text": "management contacted two financial advisors about the prospect of working with the company"
+        }
+      ],
+      "notes": [
+        "Both advisors declined to advise sTec."
+      ]
+    },
+    {
+      "actor_id": "advisor_company_a_financial_advisor",
+      "display_name": "Company A Financial Advisor",
+      "canonical_name": "COMPANY A FINANCIAL ADVISOR",
+      "aliases": [
+        "investment bank representing Company A",
+        "Company A financial advisor"
+      ],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "bidder_company_a",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B008",
+          "evidence_id": null,
+          "anchor_text": "an investment bank representing Company A"
+        }
+      ],
+      "notes": [
+        "The filing does not identify this advisor by name."
+      ]
+    },
+    {
+      "actor_id": "activist_balch_hill",
+      "display_name": "Balch Hill",
+      "canonical_name": "BALCH HILL PARTNERS, L. P.",
+      "aliases": [
+        "Balch Hill"
+      ],
+      "role": "activist",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B011",
+          "evidence_id": null,
+          "anchor_text": "Balch Hill Partners, L. P."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "activist_potomac",
+      "display_name": "Potomac",
+      "canonical_name": "POTOMAC CAPITAL PARTNERS II, L. P.",
+      "aliases": [
+        "Potomac"
+      ],
+      "role": "activist",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B011",
+          "evidence_id": null,
+          "anchor_text": "Potomac Capital Partners II, L. P."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_wdc",
+      "display_name": "WDC",
+      "canonical_name": "WDC",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B005",
+          "evidence_id": null,
+          "anchor_text": "WDC"
+        }
+      ],
+      "notes": [
+        "Pre-process WDC contacts in this chunk are described as general and exploratory and did not include specific transaction terms."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_a",
+      "display_name": "Company A",
+      "canonical_name": "COMPANY A",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B008",
+          "evidence_id": null,
+          "anchor_text": "Company A"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_b",
+      "display_name": "Company B",
+      "canonical_name": "COMPANY B",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B014",
+          "evidence_id": null,
+          "anchor_text": "Company B"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_bofa_merrill_lynch",
+      "display_name": "BofA Merrill Lynch",
+      "canonical_name": "BOFA MERRILL LYNCH",
+      "aliases": [],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "target_stec_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B030",
+          "evidence_id": null,
+          "anchor_text": "BofA Merrill Lynch"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_c",
+      "display_name": "Company C",
+      "canonical_name": "COMPANY C",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B024",
+          "evidence_id": null,
+          "anchor_text": "Company C"
+        }
+      ],
+      "notes": [
+        "Company C expressed interest only in particular or limited, select assets of sTec."
+      ]
+    },
+    {
+      "actor_id": "advisor_mackenzie_partners",
+      "display_name": "MacKenzie Partners",
+      "canonical_name": "MACKENZIE PARTNERS",
+      "aliases": [],
+      "role": "advisor",
+      "advisor_kind": "other",
+      "advised_actor_id": "target_stec_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B025",
+          "evidence_id": null,
+          "anchor_text": "MacKenzie Partners"
+        }
+      ],
+      "notes": [
+        "Served as sTec proxy solicitor in the activist campaign."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_d",
+      "display_name": "Company D",
+      "canonical_name": "COMPANY D",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B028",
+          "evidence_id": null,
+          "anchor_text": "Company D"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_h",
+      "display_name": "Company H",
+      "canonical_name": "COMPANY H",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B032",
+          "evidence_id": null,
+          "anchor_text": "Company H"
+        }
+      ],
+      "notes": [
+        "Company H is named in the outreach summary and NDA aggregate before this chunk provides a standalone dated full-company bid event."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_e",
+      "display_name": "Company E",
+      "canonical_name": "COMPANY E",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B034",
+          "evidence_id": null,
+          "anchor_text": "Company E"
+        }
+      ],
+      "notes": [
+        "Company E later indicated that it was interested only in limited, select assets of sTec."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_f",
+      "display_name": "Company F",
+      "canonical_name": "COMPANY F",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B034",
+          "evidence_id": null,
+          "anchor_text": "Company F"
+        }
+      ],
+      "notes": [
+        "Company F later indicated that it was interested only in limited, select assets of sTec."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_g",
+      "display_name": "Company G",
+      "canonical_name": "COMPANY G",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B044",
+          "evidence_id": null,
+          "anchor_text": "Company G"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_latham_watkins",
+      "display_name": "Latham & Watkins",
+      "canonical_name": "LATHAM & WATKINS LLP",
+      "aliases": [
+        "Latham & Watkins"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B060",
+          "evidence_id": null,
+          "anchor_text": "Latham & Watkins LLP"
+        }
+      ],
+      "notes": [
+        "The filing describes Latham & Watkins as litigation counsel to sTec and Mr. Manouch Moshayedi, so the schema leaves advised_actor_id null."
+      ]
+    },
+    {
+      "actor_id": "advisor_paul_hastings",
+      "display_name": "Paul Hastings",
+      "canonical_name": "PAUL HASTINGS LLP",
+      "aliases": [
+        "Paul Hastings"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B093",
+          "evidence_id": null,
+          "anchor_text": "Paul Hastings LLP"
+        }
+      ],
+      "notes": [
+        "The filing identifies Paul Hastings as counsel to Messrs. Moshayedi, who are not represented as separate actors in the raw schema."
+      ]
+    },
+    {
+      "actor_id": "advisor_shearman_sterling",
+      "display_name": "Shearman & Sterling",
+      "canonical_name": "SHEARMAN & STERLING LLP",
+      "aliases": [
+        "Shearman"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": "bidder_wdc",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B093",
+          "evidence_id": null,
+          "anchor_text": "Shearman & Sterling LLP"
+        }
+      ],
+      "notes": []
+    }
+  ],
+  "roster_out": [
+    {
+      "actor_id": "target_stec_board",
+      "display_name": "sTec Board",
+      "canonical_name": "STEC BOARD",
+      "aliases": [
+        "sTec",
+        "our board of directors",
+        "the board of directors",
+        "our management"
+      ],
+      "role": "target_board",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B007",
+          "evidence_id": null,
+          "anchor_text": "our board of directors"
+        }
+      ],
+      "notes": [
+        "Represents the company-side board and management when the filing refers to sTec generically in the sale process."
+      ]
+    },
+    {
+      "actor_id": "target_stec_special_committee",
+      "display_name": "sTec Special Committee",
+      "canonical_name": "STEC SPECIAL COMMITTEE",
+      "aliases": [
+        "special committee"
+      ],
+      "role": "target_board",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B013",
+          "evidence_id": null,
+          "anchor_text": "special committee of the board"
+        }
+      ],
+      "notes": [
+        "Formed on February 13, 2013 to review strategic alternatives, including a possible sale of the company."
+      ]
+    },
+    {
+      "actor_id": "target_stec_independent_directors",
+      "display_name": "sTec Independent Directors",
+      "canonical_name": "STEC INDEPENDENT DIRECTORS",
+      "aliases": [
+        "independent directors",
+        "non-management members of the board"
+      ],
+      "role": "target_board",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": true,
+      "group_size": 5,
+      "group_label": "Independent directors",
+      "evidence_refs": [
+        {
+          "block_id": "B013",
+          "evidence_id": null,
+          "anchor_text": "independent directors"
+        }
+      ],
+      "notes": [
+        "Represents the non-management directors delegated to evaluate responses to Balch Hill and Potomac."
+      ]
+    },
+    {
+      "actor_id": "advisor_gibson_dunn",
+      "display_name": "Gibson Dunn",
+      "canonical_name": "GIBSON, DUNN & CRUTCHER LLP",
+      "aliases": [
+        "Gibson Dunn"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": "target_stec_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B010",
+          "evidence_id": null,
+          "anchor_text": "Gibson, Dunn & Crutcher LLP"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_unnamed_initial_financial_advisors",
+      "display_name": "Two Unnamed Financial Advisors",
+      "canonical_name": "TWO UNNAMED FINANCIAL ADVISORS",
+      "aliases": [],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "target_stec_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": true,
+      "group_size": 2,
+      "group_label": "Two financial advisors contacted in mid-November 2012",
+      "evidence_refs": [
+        {
+          "block_id": "B007",
+          "evidence_id": null,
+          "anchor_text": "management contacted two financial advisors about the prospect of working with the company"
+        }
+      ],
+      "notes": [
+        "Both advisors declined to advise sTec."
+      ]
+    },
+    {
+      "actor_id": "advisor_company_a_financial_advisor",
+      "display_name": "Company A Financial Advisor",
+      "canonical_name": "COMPANY A FINANCIAL ADVISOR",
+      "aliases": [
+        "investment bank representing Company A",
+        "Company A financial advisor"
+      ],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "bidder_company_a",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B008",
+          "evidence_id": null,
+          "anchor_text": "an investment bank representing Company A"
+        }
+      ],
+      "notes": [
+        "The filing does not identify this advisor by name."
+      ]
+    },
+    {
+      "actor_id": "activist_balch_hill",
+      "display_name": "Balch Hill",
+      "canonical_name": "BALCH HILL PARTNERS, L. P.",
+      "aliases": [
+        "Balch Hill"
+      ],
+      "role": "activist",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B011",
+          "evidence_id": null,
+          "anchor_text": "Balch Hill Partners, L. P."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "activist_potomac",
+      "display_name": "Potomac",
+      "canonical_name": "POTOMAC CAPITAL PARTNERS II, L. P.",
+      "aliases": [
+        "Potomac"
+      ],
+      "role": "activist",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B011",
+          "evidence_id": null,
+          "anchor_text": "Potomac Capital Partners II, L. P."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_wdc",
+      "display_name": "WDC",
+      "canonical_name": "WDC",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B005",
+          "evidence_id": null,
+          "anchor_text": "WDC"
+        }
+      ],
+      "notes": [
+        "Pre-process WDC contacts in this chunk are described as general and exploratory and did not include specific transaction terms."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_a",
+      "display_name": "Company A",
+      "canonical_name": "COMPANY A",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B008",
+          "evidence_id": null,
+          "anchor_text": "Company A"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_b",
+      "display_name": "Company B",
+      "canonical_name": "COMPANY B",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B014",
+          "evidence_id": null,
+          "anchor_text": "Company B"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_bofa_merrill_lynch",
+      "display_name": "BofA Merrill Lynch",
+      "canonical_name": "BOFA MERRILL LYNCH",
+      "aliases": [],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "target_stec_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B030",
+          "evidence_id": null,
+          "anchor_text": "BofA Merrill Lynch"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_c",
+      "display_name": "Company C",
+      "canonical_name": "COMPANY C",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B024",
+          "evidence_id": null,
+          "anchor_text": "Company C"
+        }
+      ],
+      "notes": [
+        "Company C expressed interest only in particular or limited, select assets of sTec."
+      ]
+    },
+    {
+      "actor_id": "advisor_mackenzie_partners",
+      "display_name": "MacKenzie Partners",
+      "canonical_name": "MACKENZIE PARTNERS",
+      "aliases": [],
+      "role": "advisor",
+      "advisor_kind": "other",
+      "advised_actor_id": "target_stec_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B025",
+          "evidence_id": null,
+          "anchor_text": "MacKenzie Partners"
+        }
+      ],
+      "notes": [
+        "Served as sTec proxy solicitor in the activist campaign."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_d",
+      "display_name": "Company D",
+      "canonical_name": "COMPANY D",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B028",
+          "evidence_id": null,
+          "anchor_text": "Company D"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_h",
+      "display_name": "Company H",
+      "canonical_name": "COMPANY H",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B032",
+          "evidence_id": null,
+          "anchor_text": "Company H"
+        }
+      ],
+      "notes": [
+        "Company H is named in the outreach summary and NDA aggregate before this chunk provides a standalone dated full-company bid event."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_e",
+      "display_name": "Company E",
+      "canonical_name": "COMPANY E",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B034",
+          "evidence_id": null,
+          "anchor_text": "Company E"
+        }
+      ],
+      "notes": [
+        "Company E later indicated that it was interested only in limited, select assets of sTec."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_f",
+      "display_name": "Company F",
+      "canonical_name": "COMPANY F",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B034",
+          "evidence_id": null,
+          "anchor_text": "Company F"
+        }
+      ],
+      "notes": [
+        "Company F later indicated that it was interested only in limited, select assets of sTec."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_g",
+      "display_name": "Company G",
+      "canonical_name": "COMPANY G",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B044",
+          "evidence_id": null,
+          "anchor_text": "Company G"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_latham_watkins",
+      "display_name": "Latham & Watkins",
+      "canonical_name": "LATHAM & WATKINS LLP",
+      "aliases": [
+        "Latham & Watkins"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B060",
+          "evidence_id": null,
+          "anchor_text": "Latham & Watkins LLP"
+        }
+      ],
+      "notes": [
+        "The filing describes Latham & Watkins as litigation counsel to sTec and Mr. Manouch Moshayedi, so the schema leaves advised_actor_id null."
+      ]
+    },
+    {
+      "actor_id": "advisor_paul_hastings",
+      "display_name": "Paul Hastings",
+      "canonical_name": "PAUL HASTINGS LLP",
+      "aliases": [
+        "Paul Hastings"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B093",
+          "evidence_id": null,
+          "anchor_text": "Paul Hastings LLP"
+        }
+      ],
+      "notes": [
+        "The filing identifies Paul Hastings as counsel to Messrs. Moshayedi, who are not represented as separate actors in the raw schema."
+      ]
+    },
+    {
+      "actor_id": "advisor_shearman_sterling",
+      "display_name": "Shearman & Sterling",
+      "canonical_name": "SHEARMAN & STERLING LLP",
+      "aliases": [
+        "Shearman"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": "bidder_wdc",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B093",
+          "evidence_id": null,
+          "anchor_text": "Shearman & Sterling LLP"
+        }
+      ],
+      "notes": []
+    }
+  ],
+  "chunk_output": {
+    "actors": [],
+    "count_assertions": [],
+    "events": [
+      {
+        "event_id": "c5_evt_001",
+        "event_type": "executed",
+        "date": {
+          "raw_text": "June 23, 2013",
+          "normalized_hint": "2013-06-23"
+        },
+        "actor_ids": [
+          "target_stec_board",
+          "bidder_wdc"
+        ],
+        "summary": "sTec, WDC, and Merger Sub executed the merger agreement and related ancillary agreements on June 23, 2013.",
+        "evidence_refs": [
+          {
+            "block_id": "B101",
+            "evidence_id": null,
+            "anchor_text": "sTec, WDC, and Merger Sub executed the merger agreement"
+          },
+          {
+            "block_id": "B101",
+            "evidence_id": null,
+            "anchor_text": "each of our officers and directors executed their\nrespective voting agreements with WDC"
+          }
+        ],
+        "terms": null,
+        "formality_signals": null,
+        "whole_company_scope": null,
+        "drop_reason_text": null,
+        "round_scope": null,
+        "invited_actor_ids": [],
+        "deadline_date": null,
+        "executed_with_actor_id": "bidder_wdc",
+        "boundary_note": null,
+        "nda_signed": null,
+        "notes": [
+          "Merger Sub appears in the execution sentence but is represented through WDC rather than as a separate roster actor."
+        ]
+      },
+      {
+        "event_id": "c5_evt_002",
+        "event_type": "bid_press_release",
+        "date": {
+          "raw_text": "June 24, 2013",
+          "normalized_hint": "2013-06-24"
+        },
+        "actor_ids": [
+          "bidder_wdc"
+        ],
+        "summary": "WDC and sTec announced the execution of the merger agreement in a joint press release before trading opened on June 24, 2013.",
+        "evidence_refs": [
+          {
+            "block_id": "B102",
+            "evidence_id": null,
+            "anchor_text": "announced in a joint press release the\nexecution of the merger agreement."
+          }
+        ],
+        "terms": null,
+        "formality_signals": null,
+        "whole_company_scope": null,
+        "drop_reason_text": null,
+        "round_scope": null,
+        "invited_actor_ids": [],
+        "deadline_date": null,
+        "executed_with_actor_id": null,
+        "boundary_note": null,
+        "nda_signed": null,
+        "notes": [
+          "Classified as bid_press_release because the joint announcement concerned the signed transaction."
+        ]
+      }
+    ],
+    "exclusions": [
+      {
+        "category": "duplicate_mention",
+        "block_ids": [
+          "B096"
+        ],
+        "explanation": "The June 19 through June 23 merger-agreement negotiation context overlaps the prior chunk and does not create a separate taxonomy event here."
+      },
+      {
+        "category": "non_event_context",
+        "block_ids": [
+          "B097",
+          "B098",
+          "B100"
+        ],
+        "explanation": "The special committee and board approval-and-recommendation meetings are internal target-side deliberation steps; the discrete outcome event is the June 23 execution captured separately."
+      },
+      {
+        "category": "duplicate_mention",
+        "block_ids": [
+          "B104",
+          "B105",
+          "B106"
+        ],
+        "explanation": "These blocks restate the June 23 board determination and recommendation already described in the surrounding approval narrative."
+      },
+      {
+        "category": "non_event_context",
+        "block_ids": [
+          "B103",
+          "B107",
+          "B108",
+          "B109",
+          "B111",
+          "B112",
+          "B113",
+          "B114",
+          "B115",
+          "B116",
+          "B117",
+          "B118",
+          "B119",
+          "B120",
+          "B121",
+          "B122",
+          "B123",
+          "B124",
+          "B126",
+          "B127",
+          "B128",
+          "B129",
+          "B130",
+          "B131",
+          "B132",
+          "B133",
+          "B134",
+          "B135",
+          "B136",
+          "B137",
+          "B138",
+          "B139",
+          "B140",
+          "B141",
+          "B143",
+          "B144",
+          "B145"
+        ],
+        "explanation": "The reasons-for-merger headings, supporting factors, and risk bullets explain the board's rationale and merger terms but do not create new standalone taxonomy events."
+      }
+    ],
+    "unresolved_mentions": [
+      "Merger Sub is referenced in the June 23 execution sentence but is not modeled as a separate actor because the roster tracks the acquirer at the WDC level.",
+      "The ancillary agreements executed by Messrs. Moshayedi and their affiliate are described in detail, but those individuals and affiliate entities are not represented as separate actors in the raw schema."
+    ],
+    "coverage_notes": [
+      "target_sale: NOT FOUND -- chunk 5 documents approval and execution of the existing transaction rather than a new sale-process launch",
+      "target_sale_public: NOT FOUND -- the June 24 announcement was a signed-deal announcement, not a public strategic-review announcement",
+      "bidder_sale: NOT FOUND -- no acquirer-initiated sale process appears in chunk 5",
+      "bidder_interest: NOT FOUND -- no new undifferentiated expression of interest appears in chunk 5",
+      "activist_sale: NOT FOUND -- activists do not initiate a new sale-process event in chunk 5",
+      "sale_press_release: NOT FOUND -- no press release about strategic alternatives appears in chunk 5",
+      "bid_press_release: extracted (c5_evt_002)",
+      "ib_retention: NOT FOUND -- no new advisor retention occurs in chunk 5",
+      "nda: NOT FOUND -- no new confidentiality agreement is executed in chunk 5",
+      "proposal: NOT FOUND -- chunk 5 contains no new bidder price proposal after WDC's June 14 proposal and instead documents approval and execution",
+      "drop: NOT FOUND -- no bidder exits the process in chunk 5",
+      "final_round_inf_ann: NOT FOUND -- no informal final-round announcement appears in chunk 5",
+      "final_round_inf: NOT FOUND -- no informal final-round deadline appears in chunk 5",
+      "final_round_ann: NOT FOUND -- no new initial formal final-round announcement appears in chunk 5",
+      "final_round: NOT FOUND -- no separate formal final-round deadline event appears in chunk 5",
+      "final_round_ext_ann: NOT FOUND -- no new extension-round announcement appears in chunk 5",
+      "final_round_ext: NOT FOUND -- no separate extension-round deadline event appears in chunk 5",
+      "executed: extracted (c5_evt_001)",
+      "terminated: NOT FOUND -- the sale process is not terminated in chunk 5",
+      "restarted: NOT FOUND -- no restarted sale process appears in chunk 5"
+    ]
+  },
+  "source_blocks": [
+    {
+      "block_id": "B096",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 96,
+      "start_line": 1633,
+      "end_line": 1639,
+      "raw_text": "agreement. Among other matters, Gibson Dunn communicated to Shearman sTec\u0092s desire to include in the merger agreement a general waiver of all \u0093don\u0092t ask don\u0092t waive\u0094\nprovisions in its non-disclosure agreements with potential bidders. Shearman communicated that WDC would not agree to this waiver, and in addition, WDC would view it as improper if sTec unilaterally waived these provisions, indicating that WDC may\nnot move forward with the transaction if sTec unilaterally waived these provisions. Gibson Dunn discussed this communication from WDC and other proposed changes to the merger agreement with Dr. Daly and Mr. Saman. Based on the history of\nthe discussions with the potential bidders with \u0093don\u0092t ask don\u0092t waive\u0094 provisions in their non-disclosure agreements that would continue in effect after sTec entered into an acquisition agreement, Dr. Daly, on behalf of the\nspecial committee, believed the possibility that any of these potential bidders would be willing and able to make a superior proposal was remote. Specifically, Company E and Company F had expressed an interest solely in purchasing certain assets of\nsTec, and Company H had repeatedly stated it could not increase its price above the range of $5.00 to $5.75 per share. Based upon direction from Dr. Daly in view of WDC\u0092s indication that it was not willing to negotiate further, and may not\nproceed with the transaction if sTec did not agree to certain terms, Gibson Dunn focused on a limited number of issues in the merger agreement in its continued discussions with Shearman through June 23, 2013.",
+      "clean_text": "agreement. Among other matters, Gibson Dunn communicated to Shearman sTec\u0092s desire to include in the merger agreement a general waiver of all \u0093don\u0092t ask don\u0092t waive\u0094 provisions in its non-disclosure agreements with potential bidders. Shearman communicated that WDC would not agree to this waiver, and in addition, WDC would view it as improper if sTec unilaterally waived these provisions, indicating that WDC may not move forward with the transaction if sTec unilaterally waived these provisions. Gibson Dunn discussed this communication from WDC and other proposed changes to the merger agreement with Dr. Daly and Mr. Saman. Based on the history of the discussions with the potential bidders with \u0093don\u0092t ask don\u0092t waive\u0094 provisions in their non-disclosure agreements that would continue in effect after sTec entered into an acquisition agreement, Dr. Daly, on behalf of the special committee, believed the possibility that any of these potential bidders would be willing and able to make a superior proposal was remote. Specifically, Company E and Company F had expressed an interest solely in purchasing certain assets of sTec, and Company H had repeatedly stated it could not increase its price above the range of $5.00 to $5.75 per share. Based upon direction from Dr. Daly in view of WDC\u0092s indication that it was not willing to negotiate further, and may not proceed with the transaction if sTec did not agree to certain terms, Gibson Dunn focused on a limited number of issues in the merger agreement in its continued discussions with Shearman through June 23, 2013.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B097",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 97,
+      "start_line": 1641,
+      "end_line": 1649,
+      "raw_text": "On June 23, 2013, the special committee held a telephonic meeting. Messrs. Cook, Saman and Morales and representatives from BofA\nMerrill Lynch and Gibson Dunn were in attendance. Gibson Dunn reviewed with the directors the terms and conditions of the proposed form of merger agreement. The special committee reviewed with representatives of BofA Merrill Lynch the process that\nhad been conducted and the contacts with the potential acquirers. The special committee discussed the potential ability and interest of Company E, Company F and Company H to make a superior proposal to the $6.85 per share proposal of WDC, and the\nspecial committee determined that the possibility of such a proposal was remote and that it was in the best interests of the shareholders to continue with the WDC transaction notwithstanding the \u0093don\u0092t ask don\u0092t waive\u0094 provisions\nin such parties\u0092 non-disclosure agreements. BofA Merrill Lynch then reviewed its financial analysis of the merger consideration. Gibson Dunn reviewed the significant terms and conditions of the ancillary agreements to be entered into by Messrs.\nMoshayedi, including the covenant not to sue and the consulting agreements, and the financial terms thereof. The directors discussed the terms of the merger agreement, such ancillary agreements and the letter agreements proposed by Messrs. Moshayedi\nto be entered into relating to the terms and conditions of payments under their existing severance and change in control agreements. Following further discussion, the special committee unanimously determined that the merger agreement and the\ntransactions contemplated thereby, including the merger, were in the best interests of the company\u0092s shareholders, and approved and adopted the merger agreement, and unanimously determined to recommend to our board of directors that the board\napprove and adopt the merger and the merger agreement and that the board recommend that the shareholders vote in favor of the approval and adoption of the merger agreement and the merger.",
+      "clean_text": "On June 23, 2013, the special committee held a telephonic meeting. Messrs. Cook, Saman and Morales and representatives from BofA Merrill Lynch and Gibson Dunn were in attendance. Gibson Dunn reviewed with the directors the terms and conditions of the proposed form of merger agreement. The special committee reviewed with representatives of BofA Merrill Lynch the process that had been conducted and the contacts with the potential acquirers. The special committee discussed the potential ability and interest of Company E, Company F and Company H to make a superior proposal to the $6.85 per share proposal of WDC, and the special committee determined that the possibility of such a proposal was remote and that it was in the best interests of the shareholders to continue with the WDC transaction notwithstanding the \u0093don\u0092t ask don\u0092t waive\u0094 provisions in such parties\u0092 non-disclosure agreements. BofA Merrill Lynch then reviewed its financial analysis of the merger consideration. Gibson Dunn reviewed the significant terms and conditions of the ancillary agreements to be entered into by Messrs. Moshayedi, including the covenant not to sue and the consulting agreements, and the financial terms thereof. The directors discussed the terms of the merger agreement, such ancillary agreements and the letter agreements proposed by Messrs. Moshayedi to be entered into relating to the terms and conditions of payments under their existing severance and change in control agreements. Following further discussion, the special committee unanimously determined that the merger agreement and the transactions contemplated thereby, including the merger, were in the best interests of the company\u0092s shareholders, and approved and adopted the merger agreement, and unanimously determined to recommend to our board of directors that the board approve and adopt the merger and the merger agreement and that the board recommend that the shareholders vote in favor of the approval and adoption of the merger agreement and the merger.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B098",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 98,
+      "start_line": 1651,
+      "end_line": 1658,
+      "raw_text": "Immediately thereafter, on June 23, 2013, our board of directors held a telephonic special meeting. Messrs. Cook, Saman, Higa and\nMorales and representatives from BofA Merrill Lynch and Gibson Dunn were in attendance. Dr. Daly reported on the special committee\u0092s decision. The board reviewed with BofA Merrill Lynch the process that had been conducted at the\nboard\u0092s direction and the contacts with each of the potential acquirers. BofA Merrill Lynch then reviewed its financial analysis of the merger consideration and delivered to our board of directors an oral opinion, which was confirmed by\ndelivery of a written opinion dated June 23, 2013, to the effect that, as of that date and based on and subject to various assumptions and limitations described in its opinion, the merger consideration to be received by holders of sTec common\nstock (other than sTec, WDC, Merger Sub and their respective affiliates and dissenting shareholders) was fair, from a financial point of view, to such holders. Gibson Dunn reviewed the significant terms and conditions of the merger agreement,\nincluding, but not limited to, certain operating restrictions on sTec from the signing date of the merger agreement until the closing date of the transaction, the ability of and conditions under which our board of directors could terminate the\nagreement to accept a superior proposal or change its recommendation of the merger, the situations in which sTec may have to pay a termination fee, the amount of such a termination fee, the situations in which WDC may have to pay a termination fee,\nthe amount of such a termination fee and related considerations, and the conditions to closing of the transaction. Gibson Dunn reviewed with our board of directors its fiduciary duties and related",
+      "clean_text": "Immediately thereafter, on June 23, 2013, our board of directors held a telephonic special meeting. Messrs. Cook, Saman, Higa and Morales and representatives from BofA Merrill Lynch and Gibson Dunn were in attendance. Dr. Daly reported on the special committee\u0092s decision. The board reviewed with BofA Merrill Lynch the process that had been conducted at the board\u0092s direction and the contacts with each of the potential acquirers. BofA Merrill Lynch then reviewed its financial analysis of the merger consideration and delivered to our board of directors an oral opinion, which was confirmed by delivery of a written opinion dated June 23, 2013, to the effect that, as of that date and based on and subject to various assumptions and limitations described in its opinion, the merger consideration to be received by holders of sTec common stock (other than sTec, WDC, Merger Sub and their respective affiliates and dissenting shareholders) was fair, from a financial point of view, to such holders. Gibson Dunn reviewed the significant terms and conditions of the merger agreement, including, but not limited to, certain operating restrictions on sTec from the signing date of the merger agreement until the closing date of the transaction, the ability of and conditions under which our board of directors could terminate the agreement to accept a superior proposal or change its recommendation of the merger, the situations in which sTec may have to pay a termination fee, the amount of such a termination fee, the situations in which WDC may have to pay a termination fee, the amount of such a termination fee and related considerations, and the conditions to closing of the transaction. Gibson Dunn reviewed with our board of directors its fiduciary duties and related",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B099",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 99,
+      "start_line": 1660,
+      "end_line": 1660,
+      "raw_text": "34",
+      "clean_text": "34",
+      "is_heading": true,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B100",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 100,
+      "start_line": 1663,
+      "end_line": 1669,
+      "raw_text": "terms and conditions of the merger agreement and other transaction considerations. Our board of directors discussed the potential ability and interest of Company E, Company F and Company H to\nmake a superior proposal to the $6.85 per share proposal of WDC, and our board of directors determined that the possibility of such a proposal was remote and that it was in the best interests of the shareholders to continue with the WDC transaction\nnotwithstanding the \u0093don\u0092t ask don\u0092t waive\u0094 provisions in such parties\u0092 non-disclosure agreements. Gibson Dunn then reviewed with our board of directors the terms of the ancillary agreements, including the voting agreements,\nand the shares subject to such agreements, and the ancillary agreements to be entered into by WDC with Messrs. Moshayedi, including the covenant not to sue and the consulting agreements, and the financial terms thereof. Finally, Gibson Dunn reviewed\nthe terms of the letter agreements proposed by Messrs. Moshayedi to be entered into relating to the terms and conditions of payments under their existing severance and change in control agreements. The directors discussed the terms of the merger\nagreement, the ancillary agreements and the letter agreements. Following further discussion, our board of directors unanimously determined that the merger agreement and the transactions contemplated thereby, including the merger, were in the best\ninterests of the company\u0092s shareholders, and approved and adopted the merger agreement. Our board of directors also unanimously recommended that the company\u0092s shareholders approve and adopt the merger agreement.",
+      "clean_text": "terms and conditions of the merger agreement and other transaction considerations. Our board of directors discussed the potential ability and interest of Company E, Company F and Company H to make a superior proposal to the $6.85 per share proposal of WDC, and our board of directors determined that the possibility of such a proposal was remote and that it was in the best interests of the shareholders to continue with the WDC transaction notwithstanding the \u0093don\u0092t ask don\u0092t waive\u0094 provisions in such parties\u0092 non-disclosure agreements. Gibson Dunn then reviewed with our board of directors the terms of the ancillary agreements, including the voting agreements, and the shares subject to such agreements, and the ancillary agreements to be entered into by WDC with Messrs. Moshayedi, including the covenant not to sue and the consulting agreements, and the financial terms thereof. Finally, Gibson Dunn reviewed the terms of the letter agreements proposed by Messrs. Moshayedi to be entered into relating to the terms and conditions of payments under their existing severance and change in control agreements. The directors discussed the terms of the merger agreement, the ancillary agreements and the letter agreements. Following further discussion, our board of directors unanimously determined that the merger agreement and the transactions contemplated thereby, including the merger, were in the best interests of the company\u0092s shareholders, and approved and adopted the merger agreement. Our board of directors also unanimously recommended that the company\u0092s shareholders approve and adopt the merger agreement.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B101",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 101,
+      "start_line": 1671,
+      "end_line": 1673,
+      "raw_text": "On June 23, 2013, sTec, WDC, and Merger Sub executed the merger agreement; each of our officers and directors executed their\nrespective voting agreements with WDC; Mr. Manouch Moshayedi and WDC executed the covenant not to sue, the consulting services agreement and a non-competition agreement; Mr. Mark Moshayedi and WDC executed the technical services agreement\nand a non-competition agreement; sTec and Messrs. Moshayedi executed the letter agreements; and an affiliate of Messrs. Moshayedi and WDC executed a landlord\u0092s consent to assignment.",
+      "clean_text": "On June 23, 2013, sTec, WDC, and Merger Sub executed the merger agreement; each of our officers and directors executed their respective voting agreements with WDC; Mr. Manouch Moshayedi and WDC executed the covenant not to sue, the consulting services agreement and a non-competition agreement; Mr. Mark Moshayedi and WDC executed the technical services agreement and a non-competition agreement; sTec and Messrs. Moshayedi executed the letter agreements; and an affiliate of Messrs. Moshayedi and WDC executed a landlord\u0092s consent to assignment.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B102",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 102,
+      "start_line": 1675,
+      "end_line": 1676,
+      "raw_text": "On June 24, 2013, prior to the opening of trading on the U. S. stock exchanges, WDC and sTec announced in a joint press release the\nexecution of the merger agreement.",
+      "clean_text": "On June 24, 2013, prior to the opening of trading on the U. S. stock exchanges, WDC and sTec announced in a joint press release the execution of the merger agreement.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B103",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 103,
+      "start_line": 1678,
+      "end_line": 1678,
+      "raw_text": "sTec\u0092s Reasons for the Merger",
+      "clean_text": "sTec\u0092s Reasons for the Merger",
+      "is_heading": true,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B104",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 104,
+      "start_line": 1680,
+      "end_line": 1680,
+      "raw_text": "On June 23, 2013, our board of directors, upon the unanimous recommendation of the special committee:",
+      "clean_text": "On June 23, 2013, our board of directors, upon the unanimous recommendation of the special committee:",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B105",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 105,
+      "start_line": 1682,
+      "end_line": 1682,
+      "raw_text": "  unanimously determined that the merger agreement, the merger and the other transactions contemplated by the merger agreement are in the best interests                                                ",
+      "clean_text": "unanimously determined that the merger agreement, the merger and the other transactions contemplated by the merger agreement are in the best interests",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B106",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 106,
+      "start_line": 1684,
+      "end_line": 1686,
+      "raw_text": "  recommended that the shareholders of the company vote in favor of the approval and adoption of the merger agreement and the transactions contemplated         \n  thereby, subject to the right of the board to withhold, withdraw, qualify or modify its recommendation in accordance with the terms of the merger agreement.  \n \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+      "clean_text": "recommended that the shareholders of the company vote in favor of the approval and adoption of the merger agreement and the transactions contemplated thereby, subject to the right of the board to withhold, withdraw, qualify or modify its recommendation in accordance with the terms of the merger agreement. \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B107",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 107,
+      "start_line": 1688,
+      "end_line": 1689,
+      "raw_text": "In the course of reaching the determinations and making the recommendation described above, our board of directors consulted with its outside legal and financial advisors and with sTec\u0092s management\nand considered a number of factors that it believed supported its decision, including the following (which are not listed in any relative order of importance):",
+      "clean_text": "In the course of reaching the determinations and making the recommendation described above, our board of directors consulted with its outside legal and financial advisors and with sTec\u0092s management and considered a number of factors that it believed supported its decision, including the following (which are not listed in any relative order of importance):",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B108",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 108,
+      "start_line": 1691,
+      "end_line": 1691,
+      "raw_text": "  Best Alternative for Maximizing Shareholder Value. Our board of directors considered that receipt of the merger consideration of $6.85 per share                                                      ",
+      "clean_text": "Best Alternative for Maximizing Shareholder Value. Our board of directors considered that receipt of the merger consideration of $6.85 per share",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B109",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 109,
+      "start_line": 1693,
+      "end_line": 1693,
+      "raw_text": "  sTec\u0092s historical operating and financial performance, its competitive position, its future prospects, and its resources at hand, including cash;  ",
+      "clean_text": "sTec\u0092s historical operating and financial performance, its competitive position, its future prospects, and its resources at hand, including cash;",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B110",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 110,
+      "start_line": 1695,
+      "end_line": 1695,
+      "raw_text": "35",
+      "clean_text": "35",
+      "is_heading": true,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B111",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 111,
+      "start_line": 1698,
+      "end_line": 1698,
+      "raw_text": "  the heightened risks and expanding challenges faced by the company in the dynamic storage industry, including increased competition, declining ASPs,  ",
+      "clean_text": "the heightened risks and expanding challenges faced by the company in the dynamic storage industry, including increased competition, declining ASPs,",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B112",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 112,
+      "start_line": 1700,
+      "end_line": 1700,
+      "raw_text": "  the other strategic alternatives reasonably available to sTec, including the alternative of remaining a stand-alone public company and other strategic                                                ",
+      "clean_text": "the other strategic alternatives reasonably available to sTec, including the alternative of remaining a stand-alone public company and other strategic",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B113",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 113,
+      "start_line": 1702,
+      "end_line": 1702,
+      "raw_text": "  our board of directors\u0092 belief that sTec is unlikely to achieve a sustainable trading price for its common stock in excess of the $6.85 per share  ",
+      "clean_text": "our board of directors\u0092 belief that sTec is unlikely to achieve a sustainable trading price for its common stock in excess of the $6.85 per share",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B114",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 114,
+      "start_line": 1704,
+      "end_line": 1704,
+      "raw_text": "  our board of directors\u0092 belief that, with the assistance of its financial advisor, it had negotiated the highest price per share for sTec\u0092s  ",
+      "clean_text": "our board of directors\u0092 belief that, with the assistance of its financial advisor, it had negotiated the highest price per share for sTec\u0092s",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B115",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 115,
+      "start_line": 1706,
+      "end_line": 1706,
+      "raw_text": "  the contact, either directly or through the company\u0092s management or advisors, with 17 other potential buyers over the course of the strategic  ",
+      "clean_text": "the contact, either directly or through the company\u0092s management or advisors, with 17 other potential buyers over the course of the strategic",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B116",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 116,
+      "start_line": 1708,
+      "end_line": 1708,
+      "raw_text": "  our board of directors\u0092 belief that the process conducted by sTec, in conjunction with its advisors, had resulted in the highest price reasonably  ",
+      "clean_text": "our board of directors\u0092 belief that the process conducted by sTec, in conjunction with its advisors, had resulted in the highest price reasonably",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B117",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 117,
+      "start_line": 1710,
+      "end_line": 1710,
+      "raw_text": "  Greater Certainty of Value. Our board of directors considered that the proposed merger consideration is to be paid entirely in cash, which                                           ",
+      "clean_text": "Greater Certainty of Value. Our board of directors considered that the proposed merger consideration is to be paid entirely in cash, which",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B118",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 118,
+      "start_line": 1712,
+      "end_line": 1712,
+      "raw_text": "  Attractive Value. Our board of directors considered the value of the merger consideration of $6.85 per share in cash attractive relative to                                                           ",
+      "clean_text": "Attractive Value. Our board of directors considered the value of the merger consideration of $6.85 per share in cash attractive relative to",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B119",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 119,
+      "start_line": 1714,
+      "end_line": 1714,
+      "raw_text": "  High Likelihood of Completion. Our board of directors considered the high degree of certainty that the closing will be achieved, particularly in  ",
+      "clean_text": "High Likelihood of Completion. Our board of directors considered the high degree of certainty that the closing will be achieved, particularly in",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B120",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 120,
+      "start_line": 1716,
+      "end_line": 1716,
+      "raw_text": "  WDC\u0092s financial capacity to complete an acquisition of this size;  ",
+      "clean_text": "WDC\u0092s financial capacity to complete an acquisition of this size;",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B121",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 121,
+      "start_line": 1718,
+      "end_line": 1718,
+      "raw_text": "  that WDC\u0092s obligation to complete the merger is not subject to receipt of financing or to any other financing-related condition;  ",
+      "clean_text": "that WDC\u0092s obligation to complete the merger is not subject to receipt of financing or to any other financing-related condition;",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B122",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 122,
+      "start_line": 1720,
+      "end_line": 1720,
+      "raw_text": "  that WDC represented in the merger agreement that it has (and at the closing of the merger will have) sufficient cash to enable it to pay the merger  ",
+      "clean_text": "that WDC represented in the merger agreement that it has (and at the closing of the merger will have) sufficient cash to enable it to pay the merger",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B123",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 123,
+      "start_line": 1722,
+      "end_line": 1722,
+      "raw_text": "  that WDC committed in the merger agreement to use its reasonable best efforts to cause the merger to be completed and to avoid or eliminate each and                                                  ",
+      "clean_text": "that WDC committed in the merger agreement to use its reasonable best efforts to cause the merger to be completed and to avoid or eliminate each and",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B124",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 124,
+      "start_line": 1724,
+      "end_line": 1726,
+      "raw_text": "  the provision of the merger agreement that allows the end date for completing the merger to be extended to February 28, 2014, if the merger has  \n  not been completed by the initial December 31, 2013 deadline because certain required antitrust approvals have not been obtained or because of   \n \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+      "clean_text": "the provision of the merger agreement that allows the end date for completing the merger to be extended to February 28, 2014, if the merger has not been completed by the initial December 31, 2013 deadline because certain required antitrust approvals have not been obtained or because of \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B125",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 125,
+      "start_line": 1728,
+      "end_line": 1728,
+      "raw_text": "36",
+      "clean_text": "36",
+      "is_heading": true,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B126",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 126,
+      "start_line": 1731,
+      "end_line": 1731,
+      "raw_text": "  the issuance or enactment by a governmental authority of an order or law prohibiting or restraining the merger (which prohibition or restraint is in respect of an antitrust law); and  ",
+      "clean_text": "the issuance or enactment by a governmental authority of an order or law prohibiting or restraining the merger (which prohibition or restraint is in respect of an antitrust law); and",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B127",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 127,
+      "start_line": 1733,
+      "end_line": 1733,
+      "raw_text": "  sTec\u0092s ability to seek specific performance to prevent breaches of the merger agreement by WDC and to enforce specifically the terms of the merger  ",
+      "clean_text": "sTec\u0092s ability to seek specific performance to prevent breaches of the merger agreement by WDC and to enforce specifically the terms of the merger",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B128",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 128,
+      "start_line": 1735,
+      "end_line": 1738,
+      "raw_text": "  Receipt of Opinion from BofA Merrill Lynch. Our board of directors considered the opinion of BofA Merrill Lynch, dated June 23, 2013, to                                                              \n  our board of directors as to the fairness, from a financial point of view and as of the date of the opinion, of the merger consideration to be received by holders of sTec common stock (other th...  \n  and dissenting shareholders), as more fully described below in the section entitled \u0093\u0097 Financial Advisor\u0092s Opinion.\u0094                                                                                  \n \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+      "clean_text": "Receipt of Opinion from BofA Merrill Lynch. Our board of directors considered the opinion of BofA Merrill Lynch, dated June 23, 2013, to our board of directors as to the fairness, from a financial point of view and as of the date of the opinion, of the merger consideration to be received by holders of sTec common stock (other th... and dissenting shareholders), as more fully described below in the section entitled \u0093\u0097 Financial Advisor\u0092s Opinion.\u0094 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B129",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 129,
+      "start_line": 1740,
+      "end_line": 1740,
+      "raw_text": "  Support of sTec\u0092s Principal Shareholders. Our board of directors considered that Messrs. Moshayedi, who combined hold 13.8% of the  ",
+      "clean_text": "Support of sTec\u0092s Principal Shareholders. Our board of directors considered that Messrs. Moshayedi, who combined hold 13.8% of the",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B130",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 130,
+      "start_line": 1742,
+      "end_line": 1742,
+      "raw_text": "  Other Terms of the Transaction. The board of directors of sTec considered the terms and conditions of the merger agreement and related  ",
+      "clean_text": "Other Terms of the Transaction. The board of directors of sTec considered the terms and conditions of the merger agreement and related",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B131",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 131,
+      "start_line": 1744,
+      "end_line": 1744,
+      "raw_text": "  the availability of statutory dissenters\u0092 rights to all of sTec\u0092s shareholders who desire to exercise such rights, and who comply with all                          ",
+      "clean_text": "the availability of statutory dissenters\u0092 rights to all of sTec\u0092s shareholders who desire to exercise such rights, and who comply with all",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B132",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 132,
+      "start_line": 1746,
+      "end_line": 1746,
+      "raw_text": "  the provision of the merger agreement allowing our board of directors to terminate the merger agreement in order to accept a superior proposal, subject    ",
+      "clean_text": "the provision of the merger agreement allowing our board of directors to terminate the merger agreement in order to accept a superior proposal, subject",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B133",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 133,
+      "start_line": 1748,
+      "end_line": 1748,
+      "raw_text": "  the fact that the voting agreement entered into by the directors and officers terminates upon termination of the merger agreement.  ",
+      "clean_text": "the fact that the voting agreement entered into by the directors and officers terminates upon termination of the merger agreement.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B134",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 134,
+      "start_line": 1750,
+      "end_line": 1751,
+      "raw_text": "Our board of directors also considered a variety of potential risks and other potentially negative factors\nrelating to the transaction, including the following, but concluded that the anticipated benefits of the transaction outweigh these considerations (which are not listed in any relative order of importance):",
+      "clean_text": "Our board of directors also considered a variety of potential risks and other potentially negative factors relating to the transaction, including the following, but concluded that the anticipated benefits of the transaction outweigh these considerations (which are not listed in any relative order of importance):",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B135",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 135,
+      "start_line": 1753,
+      "end_line": 1753,
+      "raw_text": "  that sTec\u0092s shareholders will have no ongoing equity participation in sTec or in WDC following the merger, and that such shareholders will cease         ",
+      "clean_text": "that sTec\u0092s shareholders will have no ongoing equity participation in sTec or in WDC following the merger, and that such shareholders will cease",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B136",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 136,
+      "start_line": 1755,
+      "end_line": 1757,
+      "raw_text": "  the risk that one or more conditions to the parties\u0092 obligations to complete the merger will not be satisfied, and the related risk that the  \n  merger may not be completed even if the merger agreement is adopted and approved by sTec\u0092s shareholders;                                      \n \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+      "clean_text": "the risk that one or more conditions to the parties\u0092 obligations to complete the merger will not be satisfied, and the related risk that the merger may not be completed even if the merger agreement is adopted and approved by sTec\u0092s shareholders; \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B137",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 137,
+      "start_line": 1759,
+      "end_line": 1759,
+      "raw_text": "  the fact that sTec cannot implement significant cost reductions pending the merger;  ",
+      "clean_text": "the fact that sTec cannot implement significant cost reductions pending the merger;",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B138",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 138,
+      "start_line": 1761,
+      "end_line": 1761,
+      "raw_text": "  the risks and costs to sTec if the merger does not close, including the diversion of management and employee attention, potential employee attrition  ",
+      "clean_text": "the risks and costs to sTec if the merger does not close, including the diversion of management and employee attention, potential employee attrition",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B139",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 139,
+      "start_line": 1763,
+      "end_line": 1763,
+      "raw_text": "  the requirement under the merger agreement that, unless the merger agreement is terminated by sTec in certain circumstances in order to accept a                                                      ",
+      "clean_text": "the requirement under the merger agreement that, unless the merger agreement is terminated by sTec in certain circumstances in order to accept a",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B140",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 140,
+      "start_line": 1765,
+      "end_line": 1767,
+      "raw_text": "  that certain terms of the merger agreement prohibit sTec and its representatives from soliciting third-party bids and from accepting, approving or                                                    \n  recommending third-party bids except in limited circumstances, which terms could reduce the likelihood that other potential acquirers would propose an alternative transaction that may be more a...  \n \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+      "clean_text": "that certain terms of the merger agreement prohibit sTec and its representatives from soliciting third-party bids and from accepting, approving or recommending third-party bids except in limited circumstances, which terms could reduce the likelihood that other potential acquirers would propose an alternative transaction that may be more a... \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B141",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 141,
+      "start_line": 1769,
+      "end_line": 1771,
+      "raw_text": "  the risk of incurring substantial expenses related to the merger, including in connection with any litigation that may result from the announcement or  \n  pendency of the merger;                                                                                                                                 \n \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+      "clean_text": "the risk of incurring substantial expenses related to the merger, including in connection with any litigation that may result from the announcement or pendency of the merger; \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B142",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 142,
+      "start_line": 1773,
+      "end_line": 1773,
+      "raw_text": "37",
+      "clean_text": "37",
+      "is_heading": true,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B143",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 143,
+      "start_line": 1776,
+      "end_line": 1776,
+      "raw_text": "  the risk of sTec experiencing a material adverse change as defined in the merger agreement prior to closing that would allow WDC to terminate the  ",
+      "clean_text": "the risk of sTec experiencing a material adverse change as defined in the merger agreement prior to closing that would allow WDC to terminate the",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B144",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 144,
+      "start_line": 1778,
+      "end_line": 1778,
+      "raw_text": "  that the receipt of cash in exchange for shares of sTec common stock pursuant to the merger will be a taxable transaction for U. S. federal income tax  ",
+      "clean_text": "that the receipt of cash in exchange for shares of sTec common stock pursuant to the merger will be a taxable transaction for U. S. federal income tax",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B145",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 145,
+      "start_line": 1780,
+      "end_line": 1780,
+      "raw_text": "  the possibility that, in certain circumstances under the merger agreement primarily related to the existence of an alternative acquisition proposal or  ",
+      "clean_text": "the possibility that, in certain circumstances under the merger agreement primarily related to the existence of an alternative acquisition proposal or",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B146",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 146,
+      "start_line": 1782,
+      "end_line": 1782,
+      "raw_text": "In",
+      "clean_text": "In",
+      "is_heading": true,
+      "page_break_before": false,
+      "page_break_after": false
+    }
+  ]
+}

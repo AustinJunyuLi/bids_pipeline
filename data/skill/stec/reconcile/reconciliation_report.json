@@ -1,0 +1,981 @@
+{
+  "deal": "stec",
+  "filing": "0001193125-13-325730",
+  "timestamp": "2026-03-25T17:33:37.055611",
+  "counts": {
+    "pipeline_total": 34,
+    "alex_total": 28,
+    "matched_pairs": 25,
+    "alex_orphans": 3,
+    "pipeline_orphans": 9,
+    "field_mismatches_total": 28,
+    "field_mismatches_substantive": 14,
+    "field_mismatches_trivial_bidder_type": 14
+  },
+  "field_mismatches": [
+    {
+      "alex_bidder_id": 2,
+      "pipeline_bidder_id": "2",
+      "family": "nda",
+      "field": "bidder_type",
+      "alex": "strategic",
+      "pipeline": null,
+      "filing_supports": "alex",
+      "snippet": "Filing describes Company D as 'a participant in the storage industry' (line 1365). Alex's 'strategic' classification is correct; pipeline export omits bidder type."
+    },
+    {
+      "alex_bidder_id": 11,
+      "pipeline_bidder_id": "12",
+      "family": "nda",
+      "field": "bidder_type",
+      "alex": "strategic",
+      "pipeline": null,
+      "filing_supports": "alex",
+      "snippet": "Company H is described in filing context alongside other strategic industry participants. Alex's 'strategic' is reasonable; pipeline export omits bidder type."
+    },
+    {
+      "alex_bidder_id": 16.7,
+      "pipeline_bidder_id": "20",
+      "family": "final_round_ext_deadline",
+      "field": "date_p",
+      "alex": "2013-05-16",
+      "pipeline": "2013-05-30",
+      "filing_supports": "pipeline",
+      "snippet": "Filing shows the best-and-final request was made May 29 with responses due May 30 (lines 1527-1535). Pipeline's 2013-05-30 is the actual extended deadline. Alex's 2013-05-16 records the original round announcement date."
+    },
+    {
+      "alex_bidder_id": 0.8,
+      "pipeline_bidder_id": "0.8",
+      "family": "ib_retention",
+      "field": "date_p",
+      "alex": "2013-04-04",
+      "pipeline": "2013-03-28",
+      "filing_supports": "pipeline",
+      "snippet": "Filing states 'On March 28, 2013, sTec entered into an engagement letter with BofA Merrill Lynch' (line 1380). Pipeline's 2013-03-28 is correct; Alex's 2013-04-04 appears to be a data entry error."
+    },
+    {
+      "alex_bidder_id": 6,
+      "pipeline_bidder_id": "7",
+      "family": "drop",
+      "field": "bidder_type",
+      "alex": "strategic",
+      "pipeline": null,
+      "filing_supports": "alex",
+      "snippet": "Pipeline export omits bidder type; Alex's classification is filing-consistent."
+    },
+    {
+      "alex_bidder_id": 10,
+      "pipeline_bidder_id": "11",
+      "family": "drop",
+      "field": "bidder_type",
+      "alex": "strategic",
+      "pipeline": null,
+      "filing_supports": "alex",
+      "snippet": "Pipeline export omits bidder type; Alex's classification is filing-consistent."
+    },
+    {
+      "alex_bidder_id": 17,
+      "pipeline_bidder_id": "22",
+      "family": "drop",
+      "field": "bidder_type",
+      "alex": "strategic",
+      "pipeline": null,
+      "filing_supports": "alex",
+      "snippet": "Pipeline export omits bidder type; Alex's classification is filing-consistent."
+    },
+    {
+      "alex_bidder_id": 0.5,
+      "pipeline_bidder_id": "0.6",
+      "family": "bidder_interest",
+      "field": "date_p",
+      "alex": "2013-04-04",
+      "pipeline": "2013-02-13",
+      "filing_supports": "pipeline",
+      "snippet": "Filing states 'On February 13, 2013, Mr. Manouch Moshayedi met with the President of Company B' (line 1311). Pipeline's 2013-02-13 is correct; Alex's 2013-04-04 appears to be a data entry error."
+    },
+    {
+      "alex_bidder_id": 0.7,
+      "pipeline_bidder_id": "0.7",
+      "family": "bidder_interest",
+      "field": "date_p",
+      "alex": "2013-04-04",
+      "pipeline": null,
+      "filing_supports": "pipeline",
+      "snippet": "Filing states 'In mid-March, 2013' (line 1365). Pipeline correctly omits date_p because the date is imprecise. Alex's 2013-04-04 is a different event's date incorrectly assigned."
+    },
+    {
+      "alex_bidder_id": 5.7,
+      "pipeline_bidder_id": "6",
+      "family": "proposal",
+      "field": "bidder_type",
+      "alex": "strategic",
+      "pipeline": null,
+      "filing_supports": "alex",
+      "snippet": "Pipeline export omits bidder type; Alex's classification is filing-consistent."
+    },
+    {
+      "alex_bidder_id": 5.7,
+      "pipeline_bidder_id": "6",
+      "family": "proposal",
+      "field": "all_cash",
+      "alex": null,
+      "pipeline": true,
+      "filing_supports": "inconclusive",
+      "snippet": "Filing states 'Company D provided a verbal indication of its interest to pursue a transaction at a price greater than $5.60 per share' (line 1421). The filing does not explicitly state 'cash' for this verbal IOI. Pipeline infers cash from context; Alex leaves it null."
+    },
+    {
+      "alex_bidder_id": 9,
+      "pipeline_bidder_id": "10",
+      "family": "proposal",
+      "field": "bidder_type",
+      "alex": "strategic",
+      "pipeline": null,
+      "filing_supports": "alex",
+      "snippet": "Pipeline export omits bidder type; Alex's classification is filing-consistent."
+    },
+    {
+      "alex_bidder_id": 9,
+      "pipeline_bidder_id": "10",
+      "family": "proposal",
+      "field": "val",
+      "alex": 6.6,
+      "pipeline": null,
+      "filing_supports": "alex",
+      "snippet": "Filing states WDC's May 3 range was '$6.60 to $7.10 per share'. Alex records val=6.6 (the range lower bound). Pipeline records only the range, omitting the point value. Both approaches are defensible."
+    },
+    {
+      "alex_bidder_id": 12,
+      "pipeline_bidder_id": "13",
+      "family": "proposal",
+      "field": "bidder_type",
+      "alex": "strategic",
+      "pipeline": null,
+      "filing_supports": "alex",
+      "snippet": "Pipeline export omits bidder type; Alex's classification is filing-consistent."
+    },
+    {
+      "alex_bidder_id": 13,
+      "pipeline_bidder_id": "14",
+      "family": "proposal",
+      "field": "bidder_type",
+      "alex": "strategic",
+      "pipeline": null,
+      "filing_supports": "alex",
+      "snippet": "Pipeline export omits bidder type; Alex's classification is filing-consistent."
+    },
+    {
+      "alex_bidder_id": 13,
+      "pipeline_bidder_id": "14",
+      "family": "proposal",
+      "field": "val",
+      "alex": 5.0,
+      "pipeline": null,
+      "filing_supports": "alex",
+      "snippet": "Filing states Company H's range was '$5.00 to $5.75'. Alex records val=5.0 (lower bound). Pipeline records range only."
+    },
+    {
+      "alex_bidder_id": 16,
+      "pipeline_bidder_id": "16",
+      "family": "proposal",
+      "field": "bidder_type",
+      "alex": "strategic",
+      "pipeline": null,
+      "filing_supports": "alex",
+      "snippet": "Pipeline export omits bidder type; Alex's classification is filing-consistent."
+    },
+    {
+      "alex_bidder_id": 18,
+      "pipeline_bidder_id": "23",
+      "family": "proposal",
+      "field": "bidder_type",
+      "alex": "strategic",
+      "pipeline": null,
+      "filing_supports": "alex",
+      "snippet": "Pipeline export omits bidder type; Alex's classification is filing-consistent."
+    },
+    {
+      "alex_bidder_id": 18,
+      "pipeline_bidder_id": "23",
+      "family": "proposal",
+      "field": "val",
+      "alex": 6.6,
+      "pipeline": null,
+      "filing_supports": "alex",
+      "snippet": "Same pattern as May 3 proposal: filing gives range $6.60-$7.10. Alex records lower bound; pipeline records range only."
+    },
+    {
+      "alex_bidder_id": 19,
+      "pipeline_bidder_id": "24",
+      "family": "proposal",
+      "field": "bidder_type",
+      "alex": "strategic",
+      "pipeline": null,
+      "filing_supports": "alex",
+      "snippet": "Pipeline export omits bidder type; Alex's classification is filing-consistent."
+    },
+    {
+      "alex_bidder_id": 16.5,
+      "pipeline_bidder_id": "17",
+      "family": "final_round_deadline",
+      "field": "date_p",
+      "alex": "2013-05-16",
+      "pipeline": "2013-05-28",
+      "filing_supports": "pipeline",
+      "snippet": "Filing states 'requesting a response by May 28, 2013' (line 1499). Pipeline's 2013-05-28 correctly records the deadline. Alex's 2013-05-16 records the announcement date in the precise date field, which is a column-use difference."
+    },
+    {
+      "alex_bidder_id": 20,
+      "pipeline_bidder_id": "25",
+      "family": "executed",
+      "field": "bidder_type",
+      "alex": "strategic",
+      "pipeline": null,
+      "filing_supports": "alex",
+      "snippet": "Pipeline export omits bidder type; Alex's classification is filing-consistent."
+    },
+    {
+      "alex_bidder_id": 20,
+      "pipeline_bidder_id": "25",
+      "family": "executed",
+      "field": "date_p",
+      "alex": "2013-06-14",
+      "pipeline": "2013-06-23",
+      "filing_supports": "pipeline",
+      "snippet": "Filing states 'On June 23, 2013, sTec entered into an agreement and plan of merger with Western Digital Corporation' (line 77). Pipeline's 2013-06-23 is the execution date. Alex's 2013-06-14 is the date of the final proposal, not execution."
+    },
+    {
+      "alex_bidder_id": 16.6,
+      "pipeline_bidder_id": "18",
+      "family": "final_round_ext_announcement",
+      "field": "date_r",
+      "alex": "2013-05-28",
+      "pipeline": "2013-05-29",
+      "filing_supports": "pipeline",
+      "snippet": "Filing states 'On May 29, 2013, our board of directors held a telephonic special meeting' and the best-and-final request was communicated that day (line 1514, 1527). Pipeline's 2013-05-29 is correct."
+    },
+    {
+      "alex_bidder_id": 16.6,
+      "pipeline_bidder_id": "18",
+      "family": "final_round_ext_announcement",
+      "field": "date_p",
+      "alex": "2013-05-16",
+      "pipeline": "2013-05-29",
+      "filing_supports": "pipeline",
+      "snippet": "Alex records date_p=2013-05-16 (original round announcement date). Pipeline's 2013-05-29 matches the filing's actual extended round announcement."
+    },
+    {
+      "alex_bidder_id": 7,
+      "pipeline_bidder_id": "8",
+      "family": "drop",
+      "field": "bidder_type",
+      "alex": "strategic",
+      "pipeline": null,
+      "filing_supports": "alex",
+      "snippet": "Pipeline export omits bidder type; Alex's classification is filing-consistent."
+    },
+    {
+      "alex_bidder_id": 7,
+      "pipeline_bidder_id": "8",
+      "family": "drop",
+      "field": "date_r",
+      "alex": "2013-04-24",
+      "pipeline": "2013-04-25",
+      "filing_supports": "both",
+      "snippet": "Filing says Company E drop was 'Shortly thereafter' after Company F's April 24 decline (line 1411). Both dates (April 24 and April 25) are reasonable interpretations of 'shortly thereafter'."
+    },
+    {
+      "alex_bidder_id": 7,
+      "pipeline_bidder_id": "8",
+      "family": "drop",
+      "field": "date_p",
+      "alex": "2013-04-24",
+      "pipeline": null,
+      "filing_supports": "pipeline",
+      "snippet": "Filing gives no precise date for Company E's drop, only 'shortly thereafter' after April 24. Pipeline correctly omits date_p; Alex's 2013-04-24 is an interpretation."
+    }
+  ],
+  "matched_pairs": [
+    {
+      "alex_bidder_id": 1,
+      "pipeline_bidder_id": "1",
+      "family": "nda",
+      "match_type": "exact",
+      "alex_bidder": "Company E",
+      "pipeline_bidder": "Company E",
+      "alex_date_r": "2013-04-04",
+      "pipeline_date_r": "2013-04-04",
+      "mismatches": []
+    },
+    {
+      "alex_bidder_id": 2,
+      "pipeline_bidder_id": "2",
+      "family": "nda",
+      "match_type": "exact",
+      "alex_bidder": "Company D",
+      "pipeline_bidder": "Company D",
+      "alex_date_r": "2013-04-10",
+      "pipeline_date_r": "2013-04-10",
+      "mismatches": [
+        {
+          "field": "bidder_type",
+          "alex": "strategic",
+          "pipeline": null,
+          "filing_supports": "alex",
+          "snippet": "Filing describes Company D as 'a participant in the storage industry' (line 1365). Alex's 'strategic' classification is correct; pipeline export omits bidder type."
+        }
+      ]
+    },
+    {
+      "alex_bidder_id": 3,
+      "pipeline_bidder_id": "3",
+      "family": "nda",
+      "match_type": "exact",
+      "alex_bidder": "Company F",
+      "pipeline_bidder": "Company F",
+      "alex_date_r": "2013-04-11",
+      "pipeline_date_r": "2013-04-11",
+      "mismatches": []
+    },
+    {
+      "alex_bidder_id": 4,
+      "pipeline_bidder_id": "4",
+      "family": "nda",
+      "match_type": "exact",
+      "alex_bidder": "Company G",
+      "pipeline_bidder": "Company G",
+      "alex_date_r": "2013-04-17",
+      "pipeline_date_r": "2013-04-17",
+      "mismatches": []
+    },
+    {
+      "alex_bidder_id": 5,
+      "pipeline_bidder_id": "5",
+      "family": "nda",
+      "match_type": "exact",
+      "alex_bidder": "Western Digital Corporation",
+      "pipeline_bidder": "Western Digital Corporation",
+      "alex_date_r": "2013-04-17",
+      "pipeline_date_r": "2013-04-17",
+      "mismatches": []
+    },
+    {
+      "alex_bidder_id": 11,
+      "pipeline_bidder_id": "12",
+      "family": "nda",
+      "match_type": "exact",
+      "alex_bidder": "Company H",
+      "pipeline_bidder": "Company H",
+      "alex_date_r": "2013-05-08",
+      "pipeline_date_r": "2013-05-08",
+      "mismatches": [
+        {
+          "field": "bidder_type",
+          "alex": "strategic",
+          "pipeline": null,
+          "filing_supports": "alex",
+          "snippet": "Company H is described in filing context alongside other strategic industry participants. Alex's 'strategic' is reasonable; pipeline export omits bidder type."
+        }
+      ]
+    },
+    {
+      "alex_bidder_id": 16.7,
+      "pipeline_bidder_id": "20",
+      "family": "final_round_ext_deadline",
+      "match_type": "exact_process",
+      "alex_bidder": null,
+      "pipeline_bidder": null,
+      "alex_date_r": "2013-05-30",
+      "pipeline_date_r": "2013-05-30",
+      "mismatches": [
+        {
+          "field": "date_p",
+          "alex": "2013-05-16",
+          "pipeline": "2013-05-30",
+          "filing_supports": "pipeline",
+          "snippet": "Filing shows the best-and-final request was made May 29 with responses due May 30 (lines 1527-1535). Pipeline's 2013-05-30 is the actual extended deadline. Alex's 2013-05-16 records the original round announcement date."
+        }
+      ]
+    },
+    {
+      "alex_bidder_id": 0.8,
+      "pipeline_bidder_id": "0.8",
+      "family": "ib_retention",
+      "match_type": "exact",
+      "alex_bidder": "BofA Merrill Lynch",
+      "pipeline_bidder": "BofA Merrill Lynch",
+      "alex_date_r": "2013-03-28",
+      "pipeline_date_r": "2013-03-28",
+      "mismatches": [
+        {
+          "field": "date_p",
+          "alex": "2013-04-04",
+          "pipeline": "2013-03-28",
+          "filing_supports": "pipeline",
+          "snippet": "Filing states 'On March 28, 2013, sTec entered into an engagement letter with BofA Merrill Lynch' (line 1380). Pipeline's 2013-03-28 is correct; Alex's 2013-04-04 appears to be a data entry error."
+        }
+      ]
+    },
+    {
+      "alex_bidder_id": 6,
+      "pipeline_bidder_id": "7",
+      "family": "drop",
+      "match_type": "exact",
+      "alex_bidder": "Company F",
+      "pipeline_bidder": "Company F",
+      "alex_date_r": "2013-04-24",
+      "pipeline_date_r": "2013-04-24",
+      "mismatches": [
+        {
+          "field": "bidder_type",
+          "alex": "strategic",
+          "pipeline": null,
+          "filing_supports": "alex",
+          "snippet": "Pipeline export omits bidder type; Alex's classification is filing-consistent."
+        }
+      ]
+    },
+    {
+      "alex_bidder_id": 10,
+      "pipeline_bidder_id": "11",
+      "family": "drop",
+      "match_type": "exact",
+      "alex_bidder": "Company G",
+      "pipeline_bidder": "Company G",
+      "alex_date_r": "2013-05-03",
+      "pipeline_date_r": "2013-05-03",
+      "mismatches": [
+        {
+          "field": "bidder_type",
+          "alex": "strategic",
+          "pipeline": null,
+          "filing_supports": "alex",
+          "snippet": "Pipeline export omits bidder type; Alex's classification is filing-consistent."
+        }
+      ]
+    },
+    {
+      "alex_bidder_id": 17,
+      "pipeline_bidder_id": "22",
+      "family": "drop",
+      "match_type": "exact",
+      "alex_bidder": "Company D",
+      "pipeline_bidder": "Company D",
+      "alex_date_r": "2013-06-05",
+      "pipeline_date_r": "2013-06-05",
+      "mismatches": [
+        {
+          "field": "bidder_type",
+          "alex": "strategic",
+          "pipeline": null,
+          "filing_supports": "alex",
+          "snippet": "Pipeline export omits bidder type; Alex's classification is filing-consistent."
+        }
+      ]
+    },
+    {
+      "alex_bidder_id": 0.5,
+      "pipeline_bidder_id": "0.6",
+      "family": "bidder_interest",
+      "match_type": "exact",
+      "alex_bidder": "Company B",
+      "pipeline_bidder": "Company B",
+      "alex_date_r": "2013-02-13",
+      "pipeline_date_r": "2013-02-13",
+      "mismatches": [
+        {
+          "field": "date_p",
+          "alex": "2013-04-04",
+          "pipeline": "2013-02-13",
+          "filing_supports": "pipeline",
+          "snippet": "Filing states 'On February 13, 2013, Mr. Manouch Moshayedi met with the President of Company B' (line 1311). Pipeline's 2013-02-13 is correct; Alex's 2013-04-04 appears to be a data entry error."
+        }
+      ]
+    },
+    {
+      "alex_bidder_id": 0.7,
+      "pipeline_bidder_id": "0.7",
+      "family": "bidder_interest",
+      "match_type": "exact",
+      "alex_bidder": "Company D",
+      "pipeline_bidder": "Company D",
+      "alex_date_r": "2013-03-15",
+      "pipeline_date_r": "2013-03-15",
+      "mismatches": [
+        {
+          "field": "date_p",
+          "alex": "2013-04-04",
+          "pipeline": null,
+          "filing_supports": "pipeline",
+          "snippet": "Filing states 'In mid-March, 2013' (line 1365). Pipeline correctly omits date_p because the date is imprecise. Alex's 2013-04-04 is a different event's date incorrectly assigned."
+        }
+      ]
+    },
+    {
+      "alex_bidder_id": 5.7,
+      "pipeline_bidder_id": "6",
+      "family": "proposal",
+      "match_type": "exact",
+      "alex_bidder": "Company D",
+      "pipeline_bidder": "Company D",
+      "alex_date_r": "2013-04-23",
+      "pipeline_date_r": "2013-04-23",
+      "mismatches": [
+        {
+          "field": "bidder_type",
+          "alex": "strategic",
+          "pipeline": null,
+          "filing_supports": "alex",
+          "snippet": "Pipeline export omits bidder type; Alex's classification is filing-consistent."
+        },
+        {
+          "field": "all_cash",
+          "alex": null,
+          "pipeline": true,
+          "filing_supports": "inconclusive",
+          "snippet": "Filing states 'Company D provided a verbal indication of its interest to pursue a transaction at a price greater than $5.60 per share' (line 1421). The filing does not explicitly state 'cash' for this verbal IOI. Pipeline infers cash from context; Alex leaves it null."
+        }
+      ]
+    },
+    {
+      "alex_bidder_id": 9,
+      "pipeline_bidder_id": "10",
+      "family": "proposal",
+      "match_type": "exact",
+      "alex_bidder": "Western Digital Corporation",
+      "pipeline_bidder": "Western Digital Corporation",
+      "alex_date_r": "2013-05-03",
+      "pipeline_date_r": "2013-05-03",
+      "mismatches": [
+        {
+          "field": "bidder_type",
+          "alex": "strategic",
+          "pipeline": null,
+          "filing_supports": "alex",
+          "snippet": "Pipeline export omits bidder type; Alex's classification is filing-consistent."
+        },
+        {
+          "field": "val",
+          "alex": 6.6,
+          "pipeline": null,
+          "filing_supports": "alex",
+          "snippet": "Filing states WDC's May 3 range was '$6.60 to $7.10 per share'. Alex records val=6.6 (the range lower bound). Pipeline records only the range, omitting the point value. Both approaches are defensible."
+        }
+      ]
+    },
+    {
+      "alex_bidder_id": 12,
+      "pipeline_bidder_id": "13",
+      "family": "proposal",
+      "match_type": "exact",
+      "alex_bidder": "Company D",
+      "pipeline_bidder": "Company D",
+      "alex_date_r": "2013-05-10",
+      "pipeline_date_r": "2013-05-10",
+      "mismatches": [
+        {
+          "field": "bidder_type",
+          "alex": "strategic",
+          "pipeline": null,
+          "filing_supports": "alex",
+          "snippet": "Pipeline export omits bidder type; Alex's classification is filing-consistent."
+        }
+      ]
+    },
+    {
+      "alex_bidder_id": 13,
+      "pipeline_bidder_id": "14",
+      "family": "proposal",
+      "match_type": "exact",
+      "alex_bidder": "Company H",
+      "pipeline_bidder": "Company H",
+      "alex_date_r": "2013-05-15",
+      "pipeline_date_r": "2013-05-15",
+      "mismatches": [
+        {
+          "field": "bidder_type",
+          "alex": "strategic",
+          "pipeline": null,
+          "filing_supports": "alex",
+          "snippet": "Pipeline export omits bidder type; Alex's classification is filing-consistent."
+        },
+        {
+          "field": "val",
+          "alex": 5.0,
+          "pipeline": null,
+          "filing_supports": "alex",
+          "snippet": "Filing states Company H's range was '$5.00 to $5.75'. Alex records val=5.0 (lower bound). Pipeline records range only."
+        }
+      ]
+    },
+    {
+      "alex_bidder_id": 16,
+      "pipeline_bidder_id": "16",
+      "family": "proposal",
+      "match_type": "exact",
+      "alex_bidder": "Western Digital Corporation",
+      "pipeline_bidder": "Western Digital Corporation",
+      "alex_date_r": "2013-05-28",
+      "pipeline_date_r": "2013-05-28",
+      "mismatches": [
+        {
+          "field": "bidder_type",
+          "alex": "strategic",
+          "pipeline": null,
+          "filing_supports": "alex",
+          "snippet": "Pipeline export omits bidder type; Alex's classification is filing-consistent."
+        }
+      ]
+    },
+    {
+      "alex_bidder_id": 18,
+      "pipeline_bidder_id": "23",
+      "family": "proposal",
+      "match_type": "exact",
+      "alex_bidder": "Western Digital Corporation",
+      "pipeline_bidder": "Western Digital Corporation",
+      "alex_date_r": "2013-06-10",
+      "pipeline_date_r": "2013-06-10",
+      "mismatches": [
+        {
+          "field": "bidder_type",
+          "alex": "strategic",
+          "pipeline": null,
+          "filing_supports": "alex",
+          "snippet": "Pipeline export omits bidder type; Alex's classification is filing-consistent."
+        },
+        {
+          "field": "val",
+          "alex": 6.6,
+          "pipeline": null,
+          "filing_supports": "alex",
+          "snippet": "Same pattern as May 3 proposal: filing gives range $6.60-$7.10. Alex records lower bound; pipeline records range only."
+        }
+      ]
+    },
+    {
+      "alex_bidder_id": 19,
+      "pipeline_bidder_id": "24",
+      "family": "proposal",
+      "match_type": "exact",
+      "alex_bidder": "Western Digital Corporation",
+      "pipeline_bidder": "Western Digital Corporation",
+      "alex_date_r": "2013-06-14",
+      "pipeline_date_r": "2013-06-14",
+      "mismatches": [
+        {
+          "field": "bidder_type",
+          "alex": "strategic",
+          "pipeline": null,
+          "filing_supports": "alex",
+          "snippet": "Pipeline export omits bidder type; Alex's classification is filing-consistent."
+        }
+      ]
+    },
+    {
+      "alex_bidder_id": 14,
+      "pipeline_bidder_id": "15",
+      "family": "final_round_announcement",
+      "match_type": "exact_process",
+      "alex_bidder": null,
+      "pipeline_bidder": null,
+      "alex_date_r": "2013-05-16",
+      "pipeline_date_r": "2013-05-16",
+      "mismatches": []
+    },
+    {
+      "alex_bidder_id": 16.5,
+      "pipeline_bidder_id": "17",
+      "family": "final_round_deadline",
+      "match_type": "exact_process",
+      "alex_bidder": null,
+      "pipeline_bidder": null,
+      "alex_date_r": "2013-05-28",
+      "pipeline_date_r": "2013-05-28",
+      "mismatches": [
+        {
+          "field": "date_p",
+          "alex": "2013-05-16",
+          "pipeline": "2013-05-28",
+          "filing_supports": "pipeline",
+          "snippet": "Filing states 'requesting a response by May 28, 2013' (line 1499). Pipeline's 2013-05-28 correctly records the deadline. Alex's 2013-05-16 records the announcement date in the precise date field, which is a column-use difference."
+        }
+      ]
+    },
+    {
+      "alex_bidder_id": 20,
+      "pipeline_bidder_id": "25",
+      "family": "executed",
+      "match_type": "exact",
+      "alex_bidder": "Western Digital Corporation",
+      "pipeline_bidder": "Western Digital Corporation",
+      "alex_date_r": "2013-06-23",
+      "pipeline_date_r": "2013-06-23",
+      "mismatches": [
+        {
+          "field": "bidder_type",
+          "alex": "strategic",
+          "pipeline": null,
+          "filing_supports": "alex",
+          "snippet": "Pipeline export omits bidder type; Alex's classification is filing-consistent."
+        },
+        {
+          "field": "date_p",
+          "alex": "2013-06-14",
+          "pipeline": "2013-06-23",
+          "filing_supports": "pipeline",
+          "snippet": "Filing states 'On June 23, 2013, sTec entered into an agreement and plan of merger with Western Digital Corporation' (line 77). Pipeline's 2013-06-23 is the execution date. Alex's 2013-06-14 is the date of the final proposal, not execution."
+        }
+      ]
+    },
+    {
+      "alex_bidder_id": 16.6,
+      "pipeline_bidder_id": "18",
+      "family": "final_round_ext_announcement",
+      "match_type": "relaxed_process",
+      "alex_bidder": null,
+      "pipeline_bidder": null,
+      "alex_date_r": "2013-05-28",
+      "pipeline_date_r": "2013-05-29",
+      "mismatches": [
+        {
+          "field": "date_r",
+          "alex": "2013-05-28",
+          "pipeline": "2013-05-29",
+          "filing_supports": "pipeline",
+          "snippet": "Filing states 'On May 29, 2013, our board of directors held a telephonic special meeting' and the best-and-final request was communicated that day (line 1514, 1527). Pipeline's 2013-05-29 is correct."
+        },
+        {
+          "field": "date_p",
+          "alex": "2013-05-16",
+          "pipeline": "2013-05-29",
+          "filing_supports": "pipeline",
+          "snippet": "Alex records date_p=2013-05-16 (original round announcement date). Pipeline's 2013-05-29 matches the filing's actual extended round announcement."
+        }
+      ]
+    },
+    {
+      "alex_bidder_id": 7,
+      "pipeline_bidder_id": "8",
+      "family": "drop",
+      "match_type": "relaxed",
+      "alex_bidder": "Company E",
+      "pipeline_bidder": "Company E",
+      "alex_date_r": "2013-04-24",
+      "pipeline_date_r": "2013-04-25",
+      "mismatches": [
+        {
+          "field": "bidder_type",
+          "alex": "strategic",
+          "pipeline": null,
+          "filing_supports": "alex",
+          "snippet": "Pipeline export omits bidder type; Alex's classification is filing-consistent."
+        },
+        {
+          "field": "date_r",
+          "alex": "2013-04-24",
+          "pipeline": "2013-04-25",
+          "filing_supports": "both",
+          "snippet": "Filing says Company E drop was 'Shortly thereafter' after Company F's April 24 decline (line 1411). Both dates (April 24 and April 25) are reasonable interpretations of 'shortly thereafter'."
+        },
+        {
+          "field": "date_p",
+          "alex": "2013-04-24",
+          "pipeline": null,
+          "filing_supports": "pipeline",
+          "snippet": "Filing gives no precise date for Company E's drop, only 'shortly thereafter' after April 24. Pipeline correctly omits date_p; Alex's 2013-04-24 is an interpretation."
+        }
+      ]
+    }
+  ],
+  "pipeline_only": [
+    {
+      "pipeline_bidder_id": "0.1",
+      "family": "bidder_interest",
+      "bidder": "Company A",
+      "date_r": "2012-11-14",
+      "span_grounded": true,
+      "verdict": "grounded",
+      "note": "Filing: 'On November 14, 2012, an investment bank representing Company A, a participant in the storage industry, contacted our management' (line 1282). Alex omits Company A from the spreadsheet because Company A never signed an NDA."
+    },
+    {
+      "pipeline_bidder_id": "0.2",
+      "family": "target_sale",
+      "bidder": null,
+      "date_r": "2012-11-15",
+      "span_grounded": true,
+      "verdict": "grounded",
+      "note": "Filing: 'our board of directors determined that it would be beneficial to undertake a formal review of strategic alternatives' (line 1276). Process milestone not in Alex's bidder-centric scope."
+    },
+    {
+      "pipeline_bidder_id": "0.3",
+      "family": "activist_sale",
+      "bidder": "Balch Hill Partners / Potomac Capital Partners",
+      "date_r": "2012-12-06",
+      "span_grounded": true,
+      "verdict": "grounded",
+      "note": "Filing: 'Balch Hill filed an amendment to its Schedule 13D, and concurrently issued a letter to our board of directors' (line 1298). Alex omits activist action from bidder rows."
+    },
+    {
+      "pipeline_bidder_id": "0.4",
+      "family": "target_sale",
+      "bidder": null,
+      "date_r": "2013-02-13",
+      "span_grounded": true,
+      "verdict": "grounded",
+      "note": "Filing: 'our board of directors established a special committee' (line 1305). Process milestone not in Alex's bidder-centric scope."
+    },
+    {
+      "pipeline_bidder_id": "0.9",
+      "family": "target_sale",
+      "bidder": null,
+      "date_r": "2013-04-01",
+      "span_grounded": true,
+      "verdict": "grounded",
+      "note": "Filing: 'On April 1, 2013, as directed by the special committee, BofA Merrill Lynch began contacting potential acquirers' (line 1387). Process milestone not in Alex's bidder-centric scope."
+    },
+    {
+      "pipeline_bidder_id": "9",
+      "family": "bidder_interest",
+      "bidder": "Company H",
+      "date_r": "2013-05-01",
+      "span_grounded": true,
+      "verdict": "grounded",
+      "note": "Filing: 'On May 1, 2013, Company H contacted representatives of BofA Merrill Lynch expressing an interest' (line 1442). Alex omits Company H's bidder_interest, starting from its NDA."
+    },
+    {
+      "pipeline_bidder_id": "19",
+      "family": "proposal",
+      "bidder": "Western Digital Corporation",
+      "date_r": "2013-05-30",
+      "span_grounded": true,
+      "verdict": "grounded",
+      "note": "Filing: 'On May 30, 2013, representatives of WDC verbally indicated that WDC's indication of interest... at a price of $9.15 per share' (line 1527). Alex records only one WDC $9.15 row (May 28); pipeline has both May 28 and May 30 entries."
+    },
+    {
+      "pipeline_bidder_id": "21",
+      "family": "drop",
+      "bidder": "Western Digital Corporation",
+      "date_r": "2013-05-31",
+      "span_grounded": true,
+      "verdict": "grounded",
+      "note": "Filing: 'WDC was not prepared to move forward with a transaction with sTec at that time' (line ~1550). Alex omits WDC's temporary withdrawal May 31 drop."
+    },
+    {
+      "pipeline_bidder_id": "26",
+      "family": "bid_press_release",
+      "bidder": "Western Digital Corporation",
+      "date_r": "2013-06-24",
+      "span_grounded": true,
+      "verdict": "grounded",
+      "note": "Filing: 'On June 23, 2013, sTec entered into an agreement and plan of merger' announced June 24 (line 77). Alex omits the press release row."
+    }
+  ],
+  "alex_only": [
+    {
+      "alex_bidder_id": 5.5,
+      "family": "final_round_announcement",
+      "bidder": null,
+      "date_r": "2013-04-23",
+      "verdict": "categorization_difference",
+      "note": "Alex records 'Final Round Inf Ann' on 2013-04-23. Pipeline treats the verbal IOI phase as individual proposals, not as a round announcement. No explicit informal round announcement exists in the filing; this is Alex's categorization of the IOI solicitation phase."
+    },
+    {
+      "alex_bidder_id": 10.5,
+      "family": "final_round_inf_deadline",
+      "bidder": null,
+      "date_r": "2013-05-03",
+      "verdict": "categorization_difference",
+      "note": "Alex records 'Final Round Inf' deadline spanning Apr 23 to May 3. Pipeline does not recognize a separate informal round. The filing describes individual verbal/written IOIs, not a formal 'informal round'. This is a categorization difference."
+    },
+    {
+      "alex_bidder_id": 15,
+      "family": "drop",
+      "bidder": "Company H",
+      "date_r": "2013-05-23",
+      "verdict": "grounded",
+      "note": "Filing: 'On May 23, 2013, representatives of Company H contacted a representative of BofA Merrill Lynch and indicated that Company H remained interested... but that Company H was not able to increase its indicated value range' (line 1502). Pipeline does not capture this as a separate drop event."
+    }
+  ],
+  "aggregate_rows": [
+    {
+      "family": "activist_sale",
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "delta": 1,
+      "verdict": "pipeline_broader_scope",
+      "note": "Pipeline 1 vs Alex 0. Pipeline captures process milestones Alex omits."
+    },
+    {
+      "family": "bid_press_release",
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "delta": 1,
+      "verdict": "pipeline_broader_scope",
+      "note": "Pipeline 1 vs Alex 0. Pipeline captures process milestones Alex omits."
+    },
+    {
+      "family": "bidder_interest",
+      "alex_count": 2,
+      "pipeline_count": 4,
+      "delta": 2,
+      "verdict": "pipeline_broader_scope",
+      "note": "Pipeline 4 vs Alex 2. Pipeline captures process milestones Alex omits."
+    },
+    {
+      "family": "final_round_announcement",
+      "alex_count": 2,
+      "pipeline_count": 1,
+      "delta": -1,
+      "verdict": "alex_has_unique_categorization",
+      "note": "Pipeline 1 vs Alex 2. Alex categorizes an informal round that pipeline does not."
+    },
+    {
+      "family": "final_round_inf_deadline",
+      "alex_count": 1,
+      "pipeline_count": 0,
+      "delta": -1,
+      "verdict": "alex_has_unique_categorization",
+      "note": "Pipeline 0 vs Alex 1. Alex categorizes an informal round that pipeline does not."
+    },
+    {
+      "family": "proposal",
+      "alex_count": 7,
+      "pipeline_count": 8,
+      "delta": 1,
+      "verdict": "pipeline_broader_scope",
+      "note": "Pipeline 8 vs Alex 7. Pipeline has WDC May 30 reconfirmation as separate proposal."
+    },
+    {
+      "family": "target_sale",
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "delta": 3,
+      "verdict": "pipeline_broader_scope",
+      "note": "Pipeline 3 vs Alex 0. Pipeline captures process milestones Alex omits."
+    }
+  ],
+  "export_regressions": [],
+  "summary": {
+    "status": "attention",
+    "match_rate": "25/28 alex atomic rows matched (89%)",
+    "pipeline_orphan_grounding": "9/9 pipeline orphans are span-grounded (100%)",
+    "alex_orphan_assessment": "3 alex orphans: 2 categorization differences, 1 filing-grounded drop (Company H May 23)",
+    "arbitration_summary": {
+      "pipeline_correct": 7,
+      "alex_correct": 16,
+      "both_valid": 2,
+      "inconclusive": 3,
+      "detail": "Pipeline wins on 5 precise date fields (Company B interest, Company D interest, IB retention, executed, final round deadlines) and 2 final round ext dates. Alex wins on 13 bidder_type fields (pipeline export omits them) and 3 val fields (records lower bound). Both valid on 2 date approximations (Company E drop, final round ext ann). 3 fields inconclusive (Company D cash, date_p approximations)."
+    },
+    "key_findings": [
+      "Pipeline has 34 rows vs Alex's 28, reflecting broader scope (3 target_sale, 1 activist_sale, 1 bid_press_release, 2 bidder_interest, 1 extra proposal, 1 extra drop not in Alex's bidder-centric rows).",
+      "25/28 (89%) of Alex's atomic rows match pipeline events by family + date + actor.",
+      "All 9 pipeline-only orphans are filing-grounded. They represent process milestones (target_sale, activist_sale, bid_press_release) and bidder events (Company A interest, Company H interest, WDC May 30 reconfirmation, WDC temporary drop) that Alex's narrower scope omits.",
+      "13 of 28 field mismatches are trivial: pipeline export does not populate the bidder_type column while Alex records 'strategic'. The underlying pipeline actors_raw.json has the correct bidder_kind=strategic.",
+      "5 date fields where pipeline is filing-correct and Alex appears to have data entry errors: Company B date_p (Feb 13 not Apr 4), Company D date_p (mid-March not Apr 4), IB retention (Mar 28 not Apr 4), executed date_p (Jun 23 not Jun 14), and final round deadlines.",
+      "Alex records 2 informal round milestones (Final Round Inf Ann, Final Round Inf) the pipeline does not track. The filing describes individual IOIs, not a formal 'informal round'. This is a categorization difference.",
+      "Alex records Company H drop on May 23 (filing-grounded: line 1502) that the pipeline omits.",
+      "Alex records val (point value) as the lower bound of range bids; pipeline omits val for range bids. Both approaches are defensible."
+    ]
+  }
+}

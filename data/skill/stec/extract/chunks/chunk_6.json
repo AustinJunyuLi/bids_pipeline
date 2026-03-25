@@ -1,0 +1,1809 @@
+{
+  "chunk_id": "chunk_6",
+  "chunk_number": 6,
+  "source": "fresh_post_phase06_rerun",
+  "chunk_strategy": {
+    "method": "balanced_token_partition_manual_skill_follow",
+    "estimated_token_budget": 3800,
+    "estimated_window_tokens": 3037,
+    "overlap_usable_blocks": 1,
+    "usable_block_count": 39,
+    "full_window_block_count": 42
+  },
+  "primary_window": {
+    "start_block_id": "B147",
+    "end_block_id": "B187",
+    "usable_block_ids": [
+      "B147",
+      "B148",
+      "B149",
+      "B150",
+      "B151",
+      "B152",
+      "B153",
+      "B154",
+      "B155",
+      "B156",
+      "B157",
+      "B158",
+      "B160",
+      "B161",
+      "B162",
+      "B163",
+      "B164",
+      "B165",
+      "B166",
+      "B167",
+      "B168",
+      "B169",
+      "B170",
+      "B171",
+      "B172",
+      "B174",
+      "B175",
+      "B176",
+      "B177",
+      "B179",
+      "B180",
+      "B181",
+      "B182",
+      "B183",
+      "B184",
+      "B185",
+      "B186",
+      "B187"
+    ]
+  },
+  "context_window": {
+    "start_block_id": "B146",
+    "end_block_id": "B187",
+    "full_block_ids": [
+      "B146",
+      "B147",
+      "B148",
+      "B149",
+      "B150",
+      "B151",
+      "B152",
+      "B153",
+      "B154",
+      "B155",
+      "B156",
+      "B157",
+      "B158",
+      "B159",
+      "B160",
+      "B161",
+      "B162",
+      "B163",
+      "B164",
+      "B165",
+      "B166",
+      "B167",
+      "B168",
+      "B169",
+      "B170",
+      "B171",
+      "B172",
+      "B173",
+      "B174",
+      "B175",
+      "B176",
+      "B177",
+      "B178",
+      "B179",
+      "B180",
+      "B181",
+      "B182",
+      "B183",
+      "B184",
+      "B185",
+      "B186",
+      "B187"
+    ],
+    "start_line": 1782,
+    "end_line": 1908,
+    "overlap_prev_block_ids": [
+      "B146"
+    ],
+    "overlap_next_block_ids": [
+      "B187"
+    ]
+  },
+  "scoped_evidence": {
+    "count": 27,
+    "evidence_ids": [
+      "0001193125-13-325730:E0491",
+      "0001193125-13-325730:E0492",
+      "0001193125-13-325730:E0493",
+      "0001193125-13-325730:E0494",
+      "0001193125-13-325730:E0495",
+      "0001193125-13-325730:E0496",
+      "0001193125-13-325730:E0497",
+      "0001193125-13-325730:E0498",
+      "0001193125-13-325730:E0499",
+      "0001193125-13-325730:E0500",
+      "0001193125-13-325730:E0501",
+      "0001193125-13-325730:E0502",
+      "0001193125-13-325730:E0503",
+      "0001193125-13-325730:E0504",
+      "0001193125-13-325730:E0505",
+      "0001193125-13-325730:E0506",
+      "0001193125-13-325730:E0507",
+      "0001193125-13-325730:E0508",
+      "0001193125-13-325730:E0509",
+      "0001193125-13-325730:E0510",
+      "0001193125-13-325730:E0511",
+      "0001193125-13-325730:E0512",
+      "0001193125-13-325730:E0513",
+      "0001193125-13-325730:E0514",
+      "0001193125-13-325730:E0515",
+      "0001193125-13-325730:E0516",
+      "0001193125-13-325730:E0517"
+    ],
+    "items": [
+      {
+        "evidence_id": "0001193125-13-325730:E0491",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1782,
+        "end_line": 1784,
+        "raw_text": "In\naddition, our board of directors was aware of and considered the interests that sTec directors and executive officers may have with respect to the transaction that differ from, or are in addition to, their interests as shareholders of sTec\ngenerally, as described in the section entitled \u0093 The Merger\u0097 Interests of sTec\u0092s Directors and Executive Officers in the Merger.\u0094",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [
+          "shareholder"
+        ],
+        "date_text": "may",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected actor identification: shareholder"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0492",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1786,
+        "end_line": 1789,
+        "raw_text": "The foregoing discussion of the information and factors considered by our board of directors is not intended to be exhaustive, but includes the material factors considered by our board of directors in\nreaching its determination and recommendation. In view of the variety of factors considered in connection with its evaluation of the merger, our board of directors did not find it practicable to, and did not, quantify or otherwise assign relative\nweights to the specific factors considered in reaching its determination and recommendation. In addition, individual directors may have given different weights to different factors. Our board of directors unanimously recommended the merger agreement\nand the merger based upon the totality of the information it considered.",
+        "evidence_type": "outcome_fact",
+        "confidence": "low",
+        "matched_terms": [
+          "merger agreement"
+        ],
+        "date_text": "may",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected outcome fact: merger agreement"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0493",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1794,
+        "end_line": 1796,
+        "raw_text": "After careful consideration, our board of directors, upon the unanimous recommendation the special\ncommittee, adopted resolutions approving and adopting the merger and the merger agreement, determining that the merger agreement and the terms and conditions of the merger are in the best interests of sTec and its shareholders and resolved that the\nmerger agreement be submitted for approval and adoption by the shareholders of sTec.",
+        "evidence_type": "actor_identification",
+        "confidence": "medium",
+        "matched_terms": [
+          "shareholder",
+          "special committee"
+        ],
+        "date_text": null,
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected actor identification: shareholder, special committee"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0494",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1794,
+        "end_line": 1796,
+        "raw_text": "After careful consideration, our board of directors, upon the unanimous recommendation the special\ncommittee, adopted resolutions approving and adopting the merger and the merger agreement, determining that the merger agreement and the terms and conditions of the merger are in the best interests of sTec and its shareholders and resolved that the\nmerger agreement be submitted for approval and adoption by the shareholders of sTec.",
+        "evidence_type": "outcome_fact",
+        "confidence": "low",
+        "matched_terms": [
+          "merger agreement"
+        ],
+        "date_text": null,
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected outcome fact: merger agreement"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0495",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1798,
+        "end_line": 1799,
+        "raw_text": "Accordingly, our board of directors\nrecommends that all of our shareholders vote:",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [
+          "shareholder"
+        ],
+        "date_text": null,
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected actor identification: shareholder"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0496",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1798,
+        "end_line": 1799,
+        "raw_text": "Accordingly, our board of directors\nrecommends that all of our shareholders vote:",
+        "evidence_type": "outcome_fact",
+        "confidence": "low",
+        "matched_terms": [
+          "vote"
+        ],
+        "date_text": null,
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected outcome fact: vote"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0497",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1801,
+        "end_line": 1801,
+        "raw_text": "FOR the approval and adoption of the merger agreement;",
+        "evidence_type": "outcome_fact",
+        "confidence": "low",
+        "matched_terms": [
+          "merger agreement"
+        ],
+        "date_text": null,
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected outcome fact: merger agreement"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0498",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1809,
+        "end_line": 1812,
+        "raw_text": "sTec has\nretained BofA Merrill Lynch to act as sTec\u0092s financial advisor in connection with the merger. BofA Merrill Lynch is an internationally recognized investment banking firm which is regularly engaged in the valuation of businesses and securities\nin connection with mergers and acquisitions, negotiated underwritings, secondary distributions of listed and unlisted securities, private placements and valuations for corporate and other purposes. sTec selected BofA Merrill Lynch to act as\nsTec\u0092s financial advisor in connection with the merger on the basis of BofA Merrill Lynch\u0092s experience in transactions similar to the merger, and its reputation in the investment community.",
+        "evidence_type": "actor_identification",
+        "confidence": "medium",
+        "matched_terms": [
+          "advisor",
+          "financial advisor",
+          "investment bank"
+        ],
+        "date_text": null,
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected actor identification: advisor, financial advisor, investment bank"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0499",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1814,
+        "end_line": 1817,
+        "raw_text": "On June 23, 2013, at a meeting of sTec\u0092s board of directors held to evaluate the merger, BofA Merrill Lynch delivered to\nsTec\u0092s board of directors an oral opinion, which was confirmed by delivery of a written opinion dated June 23, 2013, to the effect that, as of the date of the opinion and based on and subject to various assumptions and limitations\ndescribed in its opinion, the merger consideration to be received by holders of sTec common stock (other than sTec, WDC, Merger Sub and their respective affiliates and dissenting shareholders) was fair, from a financial point of view, to such\nholders.",
+        "evidence_type": "dated_action",
+        "confidence": "high",
+        "matched_terms": [
+          "delivered",
+          "meeting",
+          "received",
+          "sent"
+        ],
+        "date_text": "June 23, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected dated action: delivered, meeting, received, sent"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0500",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1814,
+        "end_line": 1817,
+        "raw_text": "On June 23, 2013, at a meeting of sTec\u0092s board of directors held to evaluate the merger, BofA Merrill Lynch delivered to\nsTec\u0092s board of directors an oral opinion, which was confirmed by delivery of a written opinion dated June 23, 2013, to the effect that, as of the date of the opinion and based on and subject to various assumptions and limitations\ndescribed in its opinion, the merger consideration to be received by holders of sTec common stock (other than sTec, WDC, Merger Sub and their respective affiliates and dissenting shareholders) was fair, from a financial point of view, to such\nholders.",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [
+          "shareholder"
+        ],
+        "date_text": "June 23, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected actor identification: shareholder"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0501",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1822,
+        "end_line": 1828,
+        "raw_text": "The full text of BofA Merrill Lynch\u0092s written opinion to sTec\u0092s board of\ndirectors, which describes, among other things, the assumptions made, procedures followed, factors considered and limitations on the review undertaken, is attached as Annex B to this proxy statement and is incorporated by reference herein in its\nentirety. The following summary of BofA Merrill Lynch\u0092s opinion is qualified in its entirety by reference to the full text of the opinion. BofA Merrill Lynch delivered its opinion to sTec\u0092s board of directors for the benefit and use of\nsTec\u0092s board of directors (in its capacity as such) in connection with and for purposes of its evaluation of the merger consideration from a financial point of view. BofA Merrill Lynch\u0092s opinion does not address any other aspect of the\nmerger and no opinion or view was expressed as to the relative merits of the merger in comparison to other strategies or transactions that might be available to sTec or in which sTec might engage or as to the underlying business decision of sTec to\nproceed with or effect the merger. BofA Merrill Lynch\u0092s opinion does not address any other aspect of the merger and does not constitute a recommendation to any shareholder as to how to vote or act in connection with the proposed merger or any\nrelated matter.",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [
+          "shareholder"
+        ],
+        "date_text": null,
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected actor identification: shareholder"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0502",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1822,
+        "end_line": 1828,
+        "raw_text": "The full text of BofA Merrill Lynch\u0092s written opinion to sTec\u0092s board of\ndirectors, which describes, among other things, the assumptions made, procedures followed, factors considered and limitations on the review undertaken, is attached as Annex B to this proxy statement and is incorporated by reference herein in its\nentirety. The following summary of BofA Merrill Lynch\u0092s opinion is qualified in its entirety by reference to the full text of the opinion. BofA Merrill Lynch delivered its opinion to sTec\u0092s board of directors for the benefit and use of\nsTec\u0092s board of directors (in its capacity as such) in connection with and for purposes of its evaluation of the merger consideration from a financial point of view. BofA Merrill Lynch\u0092s opinion does not address any other aspect of the\nmerger and no opinion or view was expressed as to the relative merits of the merger in comparison to other strategies or transactions that might be available to sTec or in which sTec might engage or as to the underlying business decision of sTec to\nproceed with or effect the merger. BofA Merrill Lynch\u0092s opinion does not address any other aspect of the merger and does not constitute a recommendation to any shareholder as to how to vote or act in connection with the proposed merger or any\nrelated matter.",
+        "evidence_type": "outcome_fact",
+        "confidence": "low",
+        "matched_terms": [
+          "vote"
+        ],
+        "date_text": null,
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected outcome fact: vote"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0503",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1830,
+        "end_line": 1830,
+        "raw_text": "In connection with rendering its opinion, BofA Merrill Lynch:",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [],
+        "date_text": null,
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": null
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0504",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1840,
+        "end_line": 1840,
+        "raw_text": "(5)      reviewed the trading history for sTec common stock and a comparison of that trading history with the trading histories of other companies BofA Merrill Lynch deemed",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [],
+        "date_text": null,
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": null
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0505",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1842,
+        "end_line": 1842,
+        "raw_text": "(6)      compared certain financial and stock market information of sTec with similar information of other companies BofA Merrill Lynch deemed relevant;",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [],
+        "date_text": null,
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": null
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0506",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1844,
+        "end_line": 1844,
+        "raw_text": "(7)      compared certain financial terms of the merger to financial terms, to the extent publicly available, of other transactions BofA Merrill Lynch deemed relevant;",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [],
+        "date_text": null,
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": null
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0507",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1846,
+        "end_line": 1846,
+        "raw_text": "(8)      considered the results of BofA Merrill Lynch\u0092s efforts to solicit, at the direction of sTec, indications of interest and definitive proposals from third parties",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [],
+        "date_text": null,
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": null
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0508",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1848,
+        "end_line": 1848,
+        "raw_text": "(9)      reviewed a draft dated June 23, 2013 of the merger agreement, referred to herein as the draft agreement; and",
+        "evidence_type": "outcome_fact",
+        "confidence": "low",
+        "matched_terms": [
+          "merger agreement"
+        ],
+        "date_text": "June 23, 2013",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected outcome fact: merger agreement"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0509",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1850,
+        "end_line": 1850,
+        "raw_text": "(10)      performed such other analyses and studies and considered such other information and factors as BofA Merrill Lynch deemed appropriate.",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [],
+        "date_text": null,
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": null
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0510",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1852,
+        "end_line": 1856,
+        "raw_text": "In arriving at its opinion, BofA Merrill Lynch assumed and relied upon, without independent verification, the accuracy and completeness\nof the financial and other information and data publicly available or provided to or otherwise reviewed by or discussed with it and relied upon the assurances of the management of sTec that they were not aware of any facts or circumstances that\nwould make such information or data inaccurate or misleading in any material respect. With respect to the sTec management forecasts, BofA Merrill Lynch was advised by sTec, and assumed, that they were reasonably prepared on bases reflecting the best\ncurrently available estimates and good faith judgments of the management of sTec as to the future financial performance of sTec. With respect to the sTec public forecasts, BofA Merrill Lynch was advised by sTec, and assumed, that such forecasts were\na reasonable basis upon which to evaluate the future financial performance of sTec. BofA Merrill Lynch did not make and was not provided with any independent evaluation or appraisal of the assets or liabilities (contingent or",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [],
+        "date_text": null,
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": null
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0511",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1861,
+        "end_line": 1867,
+        "raw_text": "otherwise) of sTec, nor did it make any physical inspection of the properties or assets of sTec. BofA Merrill Lynch did not evaluate the solvency or fair value of sTec or WDC or any of their\nrespective affiliates under any state, federal or other laws relating to bankruptcy, insolvency or similar matters. BofA Merrill Lynch assumed, at the direction of sTec, that the merger would be consummated in accordance with its terms, without\nwaiver, modification or amendment of any material term, condition or agreement and that, in the course of obtaining the necessary governmental, regulatory and other approvals, consents, releases and waivers for the merger, no delay, limitation,\nrestriction or condition, including any divestiture requirements or amendments or modifications, would be imposed that would have an adverse effect on sTec or the merger (including the contemplated benefits of the merger). With respect to any\nlitigation in which sTec or any of its affiliates is or may be engaged, BofA Merrill Lynch assumed, with sTec\u0092s consent and without independent verification, that neither any such litigation nor any outcome of any such litigation will affect\nsTec or the merger (including the contemplated benefits of the merger) or its analyses or opinion in any material respect. BofA Merrill Lynch also assumed, at the direction of sTec, that the final executed merger agreement would not differ in any\nmaterial respect from the draft agreement reviewed by BofA Merrill Lynch.",
+        "evidence_type": "dated_action",
+        "confidence": "high",
+        "matched_terms": [
+          "engaged",
+          "executed",
+          "sent"
+        ],
+        "date_text": "may",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected dated action: engaged, executed, sent"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0512",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1861,
+        "end_line": 1867,
+        "raw_text": "otherwise) of sTec, nor did it make any physical inspection of the properties or assets of sTec. BofA Merrill Lynch did not evaluate the solvency or fair value of sTec or WDC or any of their\nrespective affiliates under any state, federal or other laws relating to bankruptcy, insolvency or similar matters. BofA Merrill Lynch assumed, at the direction of sTec, that the merger would be consummated in accordance with its terms, without\nwaiver, modification or amendment of any material term, condition or agreement and that, in the course of obtaining the necessary governmental, regulatory and other approvals, consents, releases and waivers for the merger, no delay, limitation,\nrestriction or condition, including any divestiture requirements or amendments or modifications, would be imposed that would have an adverse effect on sTec or the merger (including the contemplated benefits of the merger). With respect to any\nlitigation in which sTec or any of its affiliates is or may be engaged, BofA Merrill Lynch assumed, with sTec\u0092s consent and without independent verification, that neither any such litigation nor any outcome of any such litigation will affect\nsTec or the merger (including the contemplated benefits of the merger) or its analyses or opinion in any material respect. BofA Merrill Lynch also assumed, at the direction of sTec, that the final executed merger agreement would not differ in any\nmaterial respect from the draft agreement reviewed by BofA Merrill Lynch.",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [],
+        "date_text": "may",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": null
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0513",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1861,
+        "end_line": 1867,
+        "raw_text": "otherwise) of sTec, nor did it make any physical inspection of the properties or assets of sTec. BofA Merrill Lynch did not evaluate the solvency or fair value of sTec or WDC or any of their\nrespective affiliates under any state, federal or other laws relating to bankruptcy, insolvency or similar matters. BofA Merrill Lynch assumed, at the direction of sTec, that the merger would be consummated in accordance with its terms, without\nwaiver, modification or amendment of any material term, condition or agreement and that, in the course of obtaining the necessary governmental, regulatory and other approvals, consents, releases and waivers for the merger, no delay, limitation,\nrestriction or condition, including any divestiture requirements or amendments or modifications, would be imposed that would have an adverse effect on sTec or the merger (including the contemplated benefits of the merger). With respect to any\nlitigation in which sTec or any of its affiliates is or may be engaged, BofA Merrill Lynch assumed, with sTec\u0092s consent and without independent verification, that neither any such litigation nor any outcome of any such litigation will affect\nsTec or the merger (including the contemplated benefits of the merger) or its analyses or opinion in any material respect. BofA Merrill Lynch also assumed, at the direction of sTec, that the final executed merger agreement would not differ in any\nmaterial respect from the draft agreement reviewed by BofA Merrill Lynch.",
+        "evidence_type": "outcome_fact",
+        "confidence": "high",
+        "matched_terms": [
+          "executed",
+          "litigation",
+          "merger agreement"
+        ],
+        "date_text": "may",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected outcome fact: executed, litigation, merger agreement"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0514",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1869,
+        "end_line": 1878,
+        "raw_text": "BofA Merrill Lynch expressed no view or opinion as\nto any terms or other aspects or implications of the merger (other than the merger consideration to the extent expressly specified in its opinion), including, without limitation, the form or structure of the merger or any terms, aspects or\nimplications of the voting agreements, the non-competition agreements, the release and covenant not to sue, the technical services and consulting services agreements (each as defined or described in the merger agreement) or any other agreement,\narrangement or understanding entered into in connection or related to the merger or otherwise. BofA Merrill Lynch\u0092s opinion was limited to the fairness, from a financial point of view, of the merger consideration to be received by the holders\nof sTec common stock (other than sTec, WDC, Merger Sub and their respective affiliates and dissenting shareholders) and no opinion or view was expressed with respect to any consideration received in connection with the merger by the holders of any\nother class of securities, creditors or other constituencies of any party. In addition, no opinion or view was expressed with respect to the fairness (financial or otherwise) of the amount, nature or any other aspect of any compensation to any of\nthe officers, directors or employees of any party to the merger, or class of such persons, relative to the merger consideration or otherwise. Furthermore, no opinion or view was expressed as to the relative merits of the merger in comparison to\nother strategies or transactions that might be available to sTec or in which sTec might engage or as to the underlying business decision of sTec to proceed with or effect the merger. In addition, BofA Merrill Lynch expressed no opinion or\nrecommendation as to how any shareholder should vote or act in connection with the merger or any related matter. Except as described above, sTec imposed no other limitations on the investigations made or procedures followed by BofA Merrill Lynch in\nrendering its opinion.",
+        "evidence_type": "actor_identification",
+        "confidence": "medium",
+        "matched_terms": [
+          "party ",
+          "shareholder"
+        ],
+        "date_text": null,
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected actor identification: party , shareholder"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0515",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1869,
+        "end_line": 1878,
+        "raw_text": "BofA Merrill Lynch expressed no view or opinion as\nto any terms or other aspects or implications of the merger (other than the merger consideration to the extent expressly specified in its opinion), including, without limitation, the form or structure of the merger or any terms, aspects or\nimplications of the voting agreements, the non-competition agreements, the release and covenant not to sue, the technical services and consulting services agreements (each as defined or described in the merger agreement) or any other agreement,\narrangement or understanding entered into in connection or related to the merger or otherwise. BofA Merrill Lynch\u0092s opinion was limited to the fairness, from a financial point of view, of the merger consideration to be received by the holders\nof sTec common stock (other than sTec, WDC, Merger Sub and their respective affiliates and dissenting shareholders) and no opinion or view was expressed with respect to any consideration received in connection with the merger by the holders of any\nother class of securities, creditors or other constituencies of any party. In addition, no opinion or view was expressed with respect to the fairness (financial or otherwise) of the amount, nature or any other aspect of any compensation to any of\nthe officers, directors or employees of any party to the merger, or class of such persons, relative to the merger consideration or otherwise. Furthermore, no opinion or view was expressed as to the relative merits of the merger in comparison to\nother strategies or transactions that might be available to sTec or in which sTec might engage or as to the underlying business decision of sTec to proceed with or effect the merger. In addition, BofA Merrill Lynch expressed no opinion or\nrecommendation as to how any shareholder should vote or act in connection with the merger or any related matter. Except as described above, sTec imposed no other limitations on the investigations made or procedures followed by BofA Merrill Lynch in\nrendering its opinion.",
+        "evidence_type": "outcome_fact",
+        "confidence": "medium",
+        "matched_terms": [
+          "merger agreement",
+          "vote"
+        ],
+        "date_text": null,
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected outcome fact: merger agreement, vote"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0516",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1880,
+        "end_line": 1882,
+        "raw_text": "BofA Merrill Lynch\u0092s opinion was necessarily based on financial, economic, monetary, market and\nother conditions and circumstances as in effect on, and the information made available to BofA Merrill Lynch as of, the date of its opinion. It should be understood that subsequent developments may affect its opinion, and BofA Merrill Lynch does not\nhave any obligation to update, revise or reaffirm its opinion. The issuance of BofA Merrill Lynch\u0092s opinion was approved by BofA Merrill Lynch\u0092s Americas Fairness Opinion Review Committee.",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [],
+        "date_text": "may",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": null
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0517",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1884,
+        "end_line": 1887,
+        "raw_text": "The following represents a brief summary of the material financial analyses presented by BofA Merrill Lynch to sTec\u0092s board of\ndirectors in connection with its opinion. The financial analyses summarized below include information presented in tabular format. In order to fully understand the financial analyses performed by BofA Merrill Lynch, the tables must be read\ntogether with the text of each summary. The tables alone do not constitute a complete description of the financial analyses performed by BofA Merrill Lynch. Considering the data set forth in the tables below without considering the full narrative\ndescription of the financial analyses, including the methodologies and assumptions underlying the analyses, could create a misleading or incomplete view of the financial analyses performed by BofA Merrill Lynch.",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [],
+        "date_text": null,
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": null
+      }
+    ]
+  },
+  "roster_in": [
+    {
+      "actor_id": "target_stec_board",
+      "display_name": "sTec Board",
+      "canonical_name": "STEC BOARD",
+      "aliases": [
+        "sTec",
+        "our board of directors",
+        "the board of directors",
+        "our management"
+      ],
+      "role": "target_board",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B007",
+          "evidence_id": null,
+          "anchor_text": "our board of directors"
+        }
+      ],
+      "notes": [
+        "Represents the company-side board and management when the filing refers to sTec generically in the sale process."
+      ]
+    },
+    {
+      "actor_id": "target_stec_special_committee",
+      "display_name": "sTec Special Committee",
+      "canonical_name": "STEC SPECIAL COMMITTEE",
+      "aliases": [
+        "special committee"
+      ],
+      "role": "target_board",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B013",
+          "evidence_id": null,
+          "anchor_text": "special committee of the board"
+        }
+      ],
+      "notes": [
+        "Formed on February 13, 2013 to review strategic alternatives, including a possible sale of the company."
+      ]
+    },
+    {
+      "actor_id": "target_stec_independent_directors",
+      "display_name": "sTec Independent Directors",
+      "canonical_name": "STEC INDEPENDENT DIRECTORS",
+      "aliases": [
+        "independent directors",
+        "non-management members of the board"
+      ],
+      "role": "target_board",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": true,
+      "group_size": 5,
+      "group_label": "Independent directors",
+      "evidence_refs": [
+        {
+          "block_id": "B013",
+          "evidence_id": null,
+          "anchor_text": "independent directors"
+        }
+      ],
+      "notes": [
+        "Represents the non-management directors delegated to evaluate responses to Balch Hill and Potomac."
+      ]
+    },
+    {
+      "actor_id": "advisor_gibson_dunn",
+      "display_name": "Gibson Dunn",
+      "canonical_name": "GIBSON, DUNN & CRUTCHER LLP",
+      "aliases": [
+        "Gibson Dunn"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": "target_stec_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B010",
+          "evidence_id": null,
+          "anchor_text": "Gibson, Dunn & Crutcher LLP"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_unnamed_initial_financial_advisors",
+      "display_name": "Two Unnamed Financial Advisors",
+      "canonical_name": "TWO UNNAMED FINANCIAL ADVISORS",
+      "aliases": [],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "target_stec_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": true,
+      "group_size": 2,
+      "group_label": "Two financial advisors contacted in mid-November 2012",
+      "evidence_refs": [
+        {
+          "block_id": "B007",
+          "evidence_id": null,
+          "anchor_text": "management contacted two financial advisors about the prospect of working with the company"
+        }
+      ],
+      "notes": [
+        "Both advisors declined to advise sTec."
+      ]
+    },
+    {
+      "actor_id": "advisor_company_a_financial_advisor",
+      "display_name": "Company A Financial Advisor",
+      "canonical_name": "COMPANY A FINANCIAL ADVISOR",
+      "aliases": [
+        "investment bank representing Company A",
+        "Company A financial advisor"
+      ],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "bidder_company_a",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B008",
+          "evidence_id": null,
+          "anchor_text": "an investment bank representing Company A"
+        }
+      ],
+      "notes": [
+        "The filing does not identify this advisor by name."
+      ]
+    },
+    {
+      "actor_id": "activist_balch_hill",
+      "display_name": "Balch Hill",
+      "canonical_name": "BALCH HILL PARTNERS, L. P.",
+      "aliases": [
+        "Balch Hill"
+      ],
+      "role": "activist",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B011",
+          "evidence_id": null,
+          "anchor_text": "Balch Hill Partners, L. P."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "activist_potomac",
+      "display_name": "Potomac",
+      "canonical_name": "POTOMAC CAPITAL PARTNERS II, L. P.",
+      "aliases": [
+        "Potomac"
+      ],
+      "role": "activist",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B011",
+          "evidence_id": null,
+          "anchor_text": "Potomac Capital Partners II, L. P."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_wdc",
+      "display_name": "WDC",
+      "canonical_name": "WDC",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B005",
+          "evidence_id": null,
+          "anchor_text": "WDC"
+        }
+      ],
+      "notes": [
+        "Pre-process WDC contacts in this chunk are described as general and exploratory and did not include specific transaction terms."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_a",
+      "display_name": "Company A",
+      "canonical_name": "COMPANY A",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B008",
+          "evidence_id": null,
+          "anchor_text": "Company A"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_b",
+      "display_name": "Company B",
+      "canonical_name": "COMPANY B",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B014",
+          "evidence_id": null,
+          "anchor_text": "Company B"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_bofa_merrill_lynch",
+      "display_name": "BofA Merrill Lynch",
+      "canonical_name": "BOFA MERRILL LYNCH",
+      "aliases": [],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "target_stec_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B030",
+          "evidence_id": null,
+          "anchor_text": "BofA Merrill Lynch"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_c",
+      "display_name": "Company C",
+      "canonical_name": "COMPANY C",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B024",
+          "evidence_id": null,
+          "anchor_text": "Company C"
+        }
+      ],
+      "notes": [
+        "Company C expressed interest only in particular or limited, select assets of sTec."
+      ]
+    },
+    {
+      "actor_id": "advisor_mackenzie_partners",
+      "display_name": "MacKenzie Partners",
+      "canonical_name": "MACKENZIE PARTNERS",
+      "aliases": [],
+      "role": "advisor",
+      "advisor_kind": "other",
+      "advised_actor_id": "target_stec_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B025",
+          "evidence_id": null,
+          "anchor_text": "MacKenzie Partners"
+        }
+      ],
+      "notes": [
+        "Served as sTec proxy solicitor in the activist campaign."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_d",
+      "display_name": "Company D",
+      "canonical_name": "COMPANY D",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B028",
+          "evidence_id": null,
+          "anchor_text": "Company D"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_h",
+      "display_name": "Company H",
+      "canonical_name": "COMPANY H",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B032",
+          "evidence_id": null,
+          "anchor_text": "Company H"
+        }
+      ],
+      "notes": [
+        "Company H is named in the outreach summary and NDA aggregate before this chunk provides a standalone dated full-company bid event."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_e",
+      "display_name": "Company E",
+      "canonical_name": "COMPANY E",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B034",
+          "evidence_id": null,
+          "anchor_text": "Company E"
+        }
+      ],
+      "notes": [
+        "Company E later indicated that it was interested only in limited, select assets of sTec."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_f",
+      "display_name": "Company F",
+      "canonical_name": "COMPANY F",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B034",
+          "evidence_id": null,
+          "anchor_text": "Company F"
+        }
+      ],
+      "notes": [
+        "Company F later indicated that it was interested only in limited, select assets of sTec."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_g",
+      "display_name": "Company G",
+      "canonical_name": "COMPANY G",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B044",
+          "evidence_id": null,
+          "anchor_text": "Company G"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_latham_watkins",
+      "display_name": "Latham & Watkins",
+      "canonical_name": "LATHAM & WATKINS LLP",
+      "aliases": [
+        "Latham & Watkins"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B060",
+          "evidence_id": null,
+          "anchor_text": "Latham & Watkins LLP"
+        }
+      ],
+      "notes": [
+        "The filing describes Latham & Watkins as litigation counsel to sTec and Mr. Manouch Moshayedi, so the schema leaves advised_actor_id null."
+      ]
+    },
+    {
+      "actor_id": "advisor_paul_hastings",
+      "display_name": "Paul Hastings",
+      "canonical_name": "PAUL HASTINGS LLP",
+      "aliases": [
+        "Paul Hastings"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B093",
+          "evidence_id": null,
+          "anchor_text": "Paul Hastings LLP"
+        }
+      ],
+      "notes": [
+        "The filing identifies Paul Hastings as counsel to Messrs. Moshayedi, who are not represented as separate actors in the raw schema."
+      ]
+    },
+    {
+      "actor_id": "advisor_shearman_sterling",
+      "display_name": "Shearman & Sterling",
+      "canonical_name": "SHEARMAN & STERLING LLP",
+      "aliases": [
+        "Shearman"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": "bidder_wdc",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B093",
+          "evidence_id": null,
+          "anchor_text": "Shearman & Sterling LLP"
+        }
+      ],
+      "notes": []
+    }
+  ],
+  "roster_out": [
+    {"actor_id":"target_stec_board","display_name":"sTec Board","canonical_name":"STEC BOARD","aliases":["sTec","our board of directors","the board of directors","our management"],"role":"target_board","advisor_kind":null,"advised_actor_id":null,"bidder_kind":null,"listing_status":null,"geography":null,"is_grouped":false,"group_size":null,"group_label":null,"evidence_refs":[{"block_id":"B007","evidence_id":null,"anchor_text":"our board of directors"}],"notes":["Represents the company-side board and management when the filing refers to sTec generically in the sale process."]},
+    {"actor_id":"target_stec_special_committee","display_name":"sTec Special Committee","canonical_name":"STEC SPECIAL COMMITTEE","aliases":["special committee"],"role":"target_board","advisor_kind":null,"advised_actor_id":null,"bidder_kind":null,"listing_status":null,"geography":null,"is_grouped":false,"group_size":null,"group_label":null,"evidence_refs":[{"block_id":"B013","evidence_id":null,"anchor_text":"special committee of the board"}],"notes":["Formed on February 13, 2013 to review strategic alternatives, including a possible sale of the company."]},
+    {"actor_id":"target_stec_independent_directors","display_name":"sTec Independent Directors","canonical_name":"STEC INDEPENDENT DIRECTORS","aliases":["independent directors","non-management members of the board"],"role":"target_board","advisor_kind":null,"advised_actor_id":null,"bidder_kind":null,"listing_status":null,"geography":null,"is_grouped":true,"group_size":5,"group_label":"Independent directors","evidence_refs":[{"block_id":"B013","evidence_id":null,"anchor_text":"independent directors"}],"notes":["Represents the non-management directors delegated to evaluate responses to Balch Hill and Potomac."]},
+    {"actor_id":"advisor_gibson_dunn","display_name":"Gibson Dunn","canonical_name":"GIBSON, DUNN & CRUTCHER LLP","aliases":["Gibson Dunn"],"role":"advisor","advisor_kind":"legal","advised_actor_id":"target_stec_board","bidder_kind":null,"listing_status":null,"geography":null,"is_grouped":false,"group_size":null,"group_label":null,"evidence_refs":[{"block_id":"B010","evidence_id":null,"anchor_text":"Gibson, Dunn & Crutcher LLP"}],"notes":[]},
+    {"actor_id":"advisor_unnamed_initial_financial_advisors","display_name":"Two Unnamed Financial Advisors","canonical_name":"TWO UNNAMED FINANCIAL ADVISORS","aliases":[],"role":"advisor","advisor_kind":"financial","advised_actor_id":"target_stec_board","bidder_kind":null,"listing_status":null,"geography":null,"is_grouped":true,"group_size":2,"group_label":"Two financial advisors contacted in mid-November 2012","evidence_refs":[{"block_id":"B007","evidence_id":null,"anchor_text":"management contacted two financial advisors about the prospect of working with the company"}],"notes":["Both advisors declined to advise sTec."]},
+    {"actor_id":"advisor_company_a_financial_advisor","display_name":"Company A Financial Advisor","canonical_name":"COMPANY A FINANCIAL ADVISOR","aliases":["investment bank representing Company A","Company A financial advisor"],"role":"advisor","advisor_kind":"financial","advised_actor_id":"bidder_company_a","bidder_kind":null,"listing_status":null,"geography":null,"is_grouped":false,"group_size":null,"group_label":null,"evidence_refs":[{"block_id":"B008","evidence_id":null,"anchor_text":"an investment bank representing Company A"}],"notes":["The filing does not identify this advisor by name."]},
+    {"actor_id":"activist_balch_hill","display_name":"Balch Hill","canonical_name":"BALCH HILL PARTNERS, L. P.","aliases":["Balch Hill"],"role":"activist","advisor_kind":null,"advised_actor_id":null,"bidder_kind":null,"listing_status":null,"geography":null,"is_grouped":false,"group_size":null,"group_label":null,"evidence_refs":[{"block_id":"B011","evidence_id":null,"anchor_text":"Balch Hill Partners, L. P."}],"notes":[]},
+    {"actor_id":"activist_potomac","display_name":"Potomac","canonical_name":"POTOMAC CAPITAL PARTNERS II, L. P.","aliases":["Potomac"],"role":"activist","advisor_kind":null,"advised_actor_id":null,"bidder_kind":null,"listing_status":null,"geography":null,"is_grouped":false,"group_size":null,"group_label":null,"evidence_refs":[{"block_id":"B011","evidence_id":null,"anchor_text":"Potomac Capital Partners II, L. P."}],"notes":[]},
+    {"actor_id":"bidder_wdc","display_name":"WDC","canonical_name":"WDC","aliases":[],"role":"bidder","advisor_kind":null,"advised_actor_id":null,"bidder_kind":"strategic","listing_status":null,"geography":null,"is_grouped":false,"group_size":null,"group_label":null,"evidence_refs":[{"block_id":"B005","evidence_id":null,"anchor_text":"WDC"}],"notes":["Pre-process WDC contacts in this chunk are described as general and exploratory and did not include specific transaction terms."]},
+    {"actor_id":"bidder_company_a","display_name":"Company A","canonical_name":"COMPANY A","aliases":[],"role":"bidder","advisor_kind":null,"advised_actor_id":null,"bidder_kind":"strategic","listing_status":null,"geography":null,"is_grouped":false,"group_size":null,"group_label":null,"evidence_refs":[{"block_id":"B008","evidence_id":null,"anchor_text":"Company A"}],"notes":[]},
+    {"actor_id":"bidder_company_b","display_name":"Company B","canonical_name":"COMPANY B","aliases":[],"role":"bidder","advisor_kind":null,"advised_actor_id":null,"bidder_kind":"strategic","listing_status":null,"geography":null,"is_grouped":false,"group_size":null,"group_label":null,"evidence_refs":[{"block_id":"B014","evidence_id":null,"anchor_text":"Company B"}],"notes":[]},
+    {"actor_id":"advisor_bofa_merrill_lynch","display_name":"BofA Merrill Lynch","canonical_name":"BOFA MERRILL LYNCH","aliases":[],"role":"advisor","advisor_kind":"financial","advised_actor_id":"target_stec_board","bidder_kind":null,"listing_status":null,"geography":null,"is_grouped":false,"group_size":null,"group_label":null,"evidence_refs":[{"block_id":"B030","evidence_id":null,"anchor_text":"BofA Merrill Lynch"}],"notes":[]},
+    {"actor_id":"bidder_company_c","display_name":"Company C","canonical_name":"COMPANY C","aliases":[],"role":"bidder","advisor_kind":null,"advised_actor_id":null,"bidder_kind":"strategic","listing_status":null,"geography":null,"is_grouped":false,"group_size":null,"group_label":null,"evidence_refs":[{"block_id":"B024","evidence_id":null,"anchor_text":"Company C"}],"notes":["Company C expressed interest only in particular or limited, select assets of sTec."]},
+    {"actor_id":"advisor_mackenzie_partners","display_name":"MacKenzie Partners","canonical_name":"MACKENZIE PARTNERS","aliases":[],"role":"advisor","advisor_kind":"other","advised_actor_id":"target_stec_board","bidder_kind":null,"listing_status":null,"geography":null,"is_grouped":false,"group_size":null,"group_label":null,"evidence_refs":[{"block_id":"B025","evidence_id":null,"anchor_text":"MacKenzie Partners"}],"notes":["Served as sTec proxy solicitor in the activist campaign."]},
+    {"actor_id":"bidder_company_d","display_name":"Company D","canonical_name":"COMPANY D","aliases":[],"role":"bidder","advisor_kind":null,"advised_actor_id":null,"bidder_kind":"strategic","listing_status":null,"geography":null,"is_grouped":false,"group_size":null,"group_label":null,"evidence_refs":[{"block_id":"B028","evidence_id":null,"anchor_text":"Company D"}],"notes":[]},
+    {"actor_id":"bidder_company_h","display_name":"Company H","canonical_name":"COMPANY H","aliases":[],"role":"bidder","advisor_kind":null,"advised_actor_id":null,"bidder_kind":"strategic","listing_status":null,"geography":null,"is_grouped":false,"group_size":null,"group_label":null,"evidence_refs":[{"block_id":"B032","evidence_id":null,"anchor_text":"Company H"}],"notes":["Company H is named in the outreach summary and NDA aggregate before this chunk provides a standalone dated full-company bid event."]},
+    {"actor_id":"bidder_company_e","display_name":"Company E","canonical_name":"COMPANY E","aliases":[],"role":"bidder","advisor_kind":null,"advised_actor_id":null,"bidder_kind":"strategic","listing_status":null,"geography":null,"is_grouped":false,"group_size":null,"group_label":null,"evidence_refs":[{"block_id":"B034","evidence_id":null,"anchor_text":"Company E"}],"notes":["Company E later indicated that it was interested only in limited, select assets of sTec."]},
+    {"actor_id":"bidder_company_f","display_name":"Company F","canonical_name":"COMPANY F","aliases":[],"role":"bidder","advisor_kind":null,"advised_actor_id":null,"bidder_kind":"strategic","listing_status":null,"geography":null,"is_grouped":false,"group_size":null,"group_label":null,"evidence_refs":[{"block_id":"B034","evidence_id":null,"anchor_text":"Company F"}],"notes":["Company F later indicated that it was interested only in limited, select assets of sTec."]},
+    {"actor_id":"bidder_company_g","display_name":"Company G","canonical_name":"COMPANY G","aliases":[],"role":"bidder","advisor_kind":null,"advised_actor_id":null,"bidder_kind":"strategic","listing_status":null,"geography":null,"is_grouped":false,"group_size":null,"group_label":null,"evidence_refs":[{"block_id":"B044","evidence_id":null,"anchor_text":"Company G"}],"notes":[]},
+    {"actor_id":"advisor_latham_watkins","display_name":"Latham & Watkins","canonical_name":"LATHAM & WATKINS LLP","aliases":["Latham & Watkins"],"role":"advisor","advisor_kind":"legal","advised_actor_id":null,"bidder_kind":null,"listing_status":null,"geography":null,"is_grouped":false,"group_size":null,"group_label":null,"evidence_refs":[{"block_id":"B060","evidence_id":null,"anchor_text":"Latham & Watkins LLP"}],"notes":["The filing describes Latham & Watkins as litigation counsel to sTec and Mr. Manouch Moshayedi, so the schema leaves advised_actor_id null."]},
+    {"actor_id":"advisor_paul_hastings","display_name":"Paul Hastings","canonical_name":"PAUL HASTINGS LLP","aliases":["Paul Hastings"],"role":"advisor","advisor_kind":"legal","advised_actor_id":null,"bidder_kind":null,"listing_status":null,"geography":null,"is_grouped":false,"group_size":null,"group_label":null,"evidence_refs":[{"block_id":"B093","evidence_id":null,"anchor_text":"Paul Hastings LLP"}],"notes":["The filing identifies Paul Hastings as counsel to Messrs. Moshayedi, who are not represented as separate actors in the raw schema."]},
+    {"actor_id":"advisor_shearman_sterling","display_name":"Shearman & Sterling","canonical_name":"SHEARMAN & STERLING LLP","aliases":["Shearman"],"role":"advisor","advisor_kind":"legal","advised_actor_id":"bidder_wdc","bidder_kind":null,"listing_status":null,"geography":null,"is_grouped":false,"group_size":null,"group_label":null,"evidence_refs":[{"block_id":"B093","evidence_id":null,"anchor_text":"Shearman & Sterling LLP"}],"notes":[]}
+  ],
+  "chunk_output": {
+    "actors": [],
+    "count_assertions": [],
+    "events": [],
+    "exclusions": [
+      {
+        "category": "non_event_context",
+        "block_ids": [
+          "B147"
+        ],
+        "explanation": "The discussion of directors' and executive officers' merger-related interests is disclosure context rather than a process or outcome event in the extraction taxonomy."
+      },
+      {
+        "category": "duplicate_mention",
+        "block_ids": [
+          "B148",
+          "B149",
+          "B150",
+          "B151",
+          "B152",
+          "B153",
+          "B154",
+          "B155"
+        ],
+        "explanation": "The recommendation section restates the board's June 23 approval of the signed deal and solicits shareholder votes, but it does not add a new external action or separate board-decision event beyond the already-captured transaction outcome."
+      },
+      {
+        "category": "duplicate_mention",
+        "block_ids": [
+          "B157"
+        ],
+        "explanation": "The statement that sTec has retained BofA Merrill Lynch is an undated restatement of the already-established advisor role rather than a new dated retention event in this chunk."
+      },
+      {
+        "category": "non_event_context",
+        "block_ids": [
+          "B156",
+          "B158",
+          "B160",
+          "B161",
+          "B162",
+          "B163",
+          "B164",
+          "B165",
+          "B166",
+          "B167",
+          "B168",
+          "B169",
+          "B170",
+          "B171",
+          "B172",
+          "B174",
+          "B175",
+          "B176",
+          "B177",
+          "B179",
+          "B180",
+          "B181",
+          "B182",
+          "B183",
+          "B184",
+          "B185",
+          "B186",
+          "B187"
+        ],
+        "explanation": "The fairness-opinion delivery summary, assumptions, valuation analyses, and comparable-company listings are explanatory proxy materials and do not create standalone taxonomy events."
+      }
+    ],
+    "unresolved_mentions": [
+      "The recommendation section refers generally to sTec directors and executive officers with merger-related interests, but those individuals are not represented as separate actors in the raw schema.",
+      "Merger Sub appears again in the fairness-opinion shareholder carveout but is not modeled as a separate roster actor."
+    ],
+    "coverage_notes": [
+      "target_sale: NOT FOUND -- chunk 6 is post-signing recommendation and fairness-opinion material rather than a sale-process launch",
+      "target_sale_public: NOT FOUND -- no public strategic-review announcement appears in chunk 6",
+      "bidder_sale: NOT FOUND -- no acquirer-initiated process event appears in chunk 6",
+      "bidder_interest: NOT FOUND -- no new bidder expression of interest appears in chunk 6",
+      "activist_sale: NOT FOUND -- no activist-driven sale event appears in chunk 6",
+      "sale_press_release: NOT FOUND -- no strategic-review press release appears in chunk 6",
+      "bid_press_release: NOT FOUND -- the signed-deal announcement was captured in the prior chunk and is not newly announced here",
+      "ib_retention: NOT FOUND -- B157 restates BofA Merrill Lynch's advisor role but does not document a new dated retention event",
+      "nda: NOT FOUND -- no confidentiality agreement event appears in chunk 6",
+      "proposal: NOT FOUND -- valuation reference ranges in the fairness analysis are not bidder proposals",
+      "drop: NOT FOUND -- no bidder withdrawal or exclusion appears in chunk 6",
+      "final_round_inf_ann: NOT FOUND -- no informal final-round announcement appears in chunk 6",
+      "final_round_inf: NOT FOUND -- no informal final-round deadline appears in chunk 6",
+      "final_round_ann: NOT FOUND -- no formal final-round announcement appears in chunk 6",
+      "final_round: NOT FOUND -- no formal final-round deadline appears in chunk 6",
+      "final_round_ext_ann: NOT FOUND -- no extension-round announcement appears in chunk 6",
+      "final_round_ext: NOT FOUND -- no extension-round deadline appears in chunk 6",
+      "executed: NOT FOUND -- the merger agreement execution was captured in the prior chunk and this window only discusses the signed transaction",
+      "terminated: NOT FOUND -- no sale-process termination appears in chunk 6",
+      "restarted: NOT FOUND -- no restarted process appears in chunk 6"
+    ]
+  },
+  "source_blocks": [
+    {
+      "block_id": "B146",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 146,
+      "start_line": 1782,
+      "end_line": 1782,
+      "raw_text": "In",
+      "clean_text": "In",
+      "is_heading": true,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B147",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 147,
+      "start_line": 1783,
+      "end_line": 1784,
+      "raw_text": "addition, our board of directors was aware of and considered the interests that sTec directors and executive officers may have with respect to the transaction that differ from, or are in addition to, their interests as shareholders of sTec\ngenerally, as described in the section entitled \u0093 The Merger\u0097 Interests of sTec\u0092s Directors and Executive Officers in the Merger.\u0094",
+      "clean_text": "addition, our board of directors was aware of and considered the interests that sTec directors and executive officers may have with respect to the transaction that differ from, or are in addition to, their interests as shareholders of sTec generally, as described in the section entitled \u0093 The Merger\u0097 Interests of sTec\u0092s Directors and Executive Officers in the Merger.\u0094",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B148",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 148,
+      "start_line": 1786,
+      "end_line": 1789,
+      "raw_text": "The foregoing discussion of the information and factors considered by our board of directors is not intended to be exhaustive, but includes the material factors considered by our board of directors in\nreaching its determination and recommendation. In view of the variety of factors considered in connection with its evaluation of the merger, our board of directors did not find it practicable to, and did not, quantify or otherwise assign relative\nweights to the specific factors considered in reaching its determination and recommendation. In addition, individual directors may have given different weights to different factors. Our board of directors unanimously recommended the merger agreement\nand the merger based upon the totality of the information it considered.",
+      "clean_text": "The foregoing discussion of the information and factors considered by our board of directors is not intended to be exhaustive, but includes the material factors considered by our board of directors in reaching its determination and recommendation. In view of the variety of factors considered in connection with its evaluation of the merger, our board of directors did not find it practicable to, and did not, quantify or otherwise assign relative weights to the specific factors considered in reaching its determination and recommendation. In addition, individual directors may have given different weights to different factors. Our board of directors unanimously recommended the merger agreement and the merger based upon the totality of the information it considered.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B149",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 149,
+      "start_line": 1791,
+      "end_line": 1791,
+      "raw_text": "sTec Board of Directors\u0092",
+      "clean_text": "sTec Board of Directors\u0092",
+      "is_heading": true,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B150",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 150,
+      "start_line": 1792,
+      "end_line": 1792,
+      "raw_text": "Recommendation",
+      "clean_text": "Recommendation",
+      "is_heading": true,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B151",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 151,
+      "start_line": 1794,
+      "end_line": 1796,
+      "raw_text": "After careful consideration, our board of directors, upon the unanimous recommendation the special\ncommittee, adopted resolutions approving and adopting the merger and the merger agreement, determining that the merger agreement and the terms and conditions of the merger are in the best interests of sTec and its shareholders and resolved that the\nmerger agreement be submitted for approval and adoption by the shareholders of sTec.",
+      "clean_text": "After careful consideration, our board of directors, upon the unanimous recommendation the special committee, adopted resolutions approving and adopting the merger and the merger agreement, determining that the merger agreement and the terms and conditions of the merger are in the best interests of sTec and its shareholders and resolved that the merger agreement be submitted for approval and adoption by the shareholders of sTec.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B152",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 152,
+      "start_line": 1798,
+      "end_line": 1799,
+      "raw_text": "Accordingly, our board of directors\nrecommends that all of our shareholders vote:",
+      "clean_text": "Accordingly, our board of directors recommends that all of our shareholders vote:",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B153",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 153,
+      "start_line": 1801,
+      "end_line": 1801,
+      "raw_text": "  FOR the approval and adoption of the merger agreement;  ",
+      "clean_text": "FOR the approval and adoption of the merger agreement;",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B154",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 154,
+      "start_line": 1803,
+      "end_line": 1803,
+      "raw_text": "  FOR the say-on-golden-parachute proposal; and  ",
+      "clean_text": "FOR the say-on-golden-parachute proposal; and",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B155",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 155,
+      "start_line": 1805,
+      "end_line": 1805,
+      "raw_text": "  FOR the adjournment proposal.  ",
+      "clean_text": "FOR the adjournment proposal.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B156",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 156,
+      "start_line": 1807,
+      "end_line": 1807,
+      "raw_text": "Financial Advisor\u0092s Opinion",
+      "clean_text": "Financial Advisor\u0092s Opinion",
+      "is_heading": true,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B157",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 157,
+      "start_line": 1809,
+      "end_line": 1812,
+      "raw_text": "sTec has\nretained BofA Merrill Lynch to act as sTec\u0092s financial advisor in connection with the merger. BofA Merrill Lynch is an internationally recognized investment banking firm which is regularly engaged in the valuation of businesses and securities\nin connection with mergers and acquisitions, negotiated underwritings, secondary distributions of listed and unlisted securities, private placements and valuations for corporate and other purposes. sTec selected BofA Merrill Lynch to act as\nsTec\u0092s financial advisor in connection with the merger on the basis of BofA Merrill Lynch\u0092s experience in transactions similar to the merger, and its reputation in the investment community.",
+      "clean_text": "sTec has retained BofA Merrill Lynch to act as sTec\u0092s financial advisor in connection with the merger. BofA Merrill Lynch is an internationally recognized investment banking firm which is regularly engaged in the valuation of businesses and securities in connection with mergers and acquisitions, negotiated underwritings, secondary distributions of listed and unlisted securities, private placements and valuations for corporate and other purposes. sTec selected BofA Merrill Lynch to act as sTec\u0092s financial advisor in connection with the merger on the basis of BofA Merrill Lynch\u0092s experience in transactions similar to the merger, and its reputation in the investment community.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B158",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 158,
+      "start_line": 1814,
+      "end_line": 1817,
+      "raw_text": "On June 23, 2013, at a meeting of sTec\u0092s board of directors held to evaluate the merger, BofA Merrill Lynch delivered to\nsTec\u0092s board of directors an oral opinion, which was confirmed by delivery of a written opinion dated June 23, 2013, to the effect that, as of the date of the opinion and based on and subject to various assumptions and limitations\ndescribed in its opinion, the merger consideration to be received by holders of sTec common stock (other than sTec, WDC, Merger Sub and their respective affiliates and dissenting shareholders) was fair, from a financial point of view, to such\nholders.",
+      "clean_text": "On June 23, 2013, at a meeting of sTec\u0092s board of directors held to evaluate the merger, BofA Merrill Lynch delivered to sTec\u0092s board of directors an oral opinion, which was confirmed by delivery of a written opinion dated June 23, 2013, to the effect that, as of the date of the opinion and based on and subject to various assumptions and limitations described in its opinion, the merger consideration to be received by holders of sTec common stock (other than sTec, WDC, Merger Sub and their respective affiliates and dissenting shareholders) was fair, from a financial point of view, to such holders.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B159",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 159,
+      "start_line": 1819,
+      "end_line": 1819,
+      "raw_text": "38",
+      "clean_text": "38",
+      "is_heading": true,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B160",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 160,
+      "start_line": 1822,
+      "end_line": 1828,
+      "raw_text": "The full text of BofA Merrill Lynch\u0092s written opinion to sTec\u0092s board of\ndirectors, which describes, among other things, the assumptions made, procedures followed, factors considered and limitations on the review undertaken, is attached as Annex B to this proxy statement and is incorporated by reference herein in its\nentirety. The following summary of BofA Merrill Lynch\u0092s opinion is qualified in its entirety by reference to the full text of the opinion. BofA Merrill Lynch delivered its opinion to sTec\u0092s board of directors for the benefit and use of\nsTec\u0092s board of directors (in its capacity as such) in connection with and for purposes of its evaluation of the merger consideration from a financial point of view. BofA Merrill Lynch\u0092s opinion does not address any other aspect of the\nmerger and no opinion or view was expressed as to the relative merits of the merger in comparison to other strategies or transactions that might be available to sTec or in which sTec might engage or as to the underlying business decision of sTec to\nproceed with or effect the merger. BofA Merrill Lynch\u0092s opinion does not address any other aspect of the merger and does not constitute a recommendation to any shareholder as to how to vote or act in connection with the proposed merger or any\nrelated matter.",
+      "clean_text": "The full text of BofA Merrill Lynch\u0092s written opinion to sTec\u0092s board of directors, which describes, among other things, the assumptions made, procedures followed, factors considered and limitations on the review undertaken, is attached as Annex B to this proxy statement and is incorporated by reference herein in its entirety. The following summary of BofA Merrill Lynch\u0092s opinion is qualified in its entirety by reference to the full text of the opinion. BofA Merrill Lynch delivered its opinion to sTec\u0092s board of directors for the benefit and use of sTec\u0092s board of directors (in its capacity as such) in connection with and for purposes of its evaluation of the merger consideration from a financial point of view. BofA Merrill Lynch\u0092s opinion does not address any other aspect of the merger and no opinion or view was expressed as to the relative merits of the merger in comparison to other strategies or transactions that might be available to sTec or in which sTec might engage or as to the underlying business decision of sTec to proceed with or effect the merger. BofA Merrill Lynch\u0092s opinion does not address any other aspect of the merger and does not constitute a recommendation to any shareholder as to how to vote or act in connection with the proposed merger or any related matter.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B161",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 161,
+      "start_line": 1830,
+      "end_line": 1830,
+      "raw_text": "In connection with rendering its opinion, BofA Merrill Lynch:",
+      "clean_text": "In connection with rendering its opinion, BofA Merrill Lynch:",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B162",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 162,
+      "start_line": 1832,
+      "end_line": 1832,
+      "raw_text": "  (1)      reviewed certain publicly available business and financial information relating to sTec;  ",
+      "clean_text": "(1)      reviewed certain publicly available business and financial information relating to sTec;",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B163",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 163,
+      "start_line": 1834,
+      "end_line": 1834,
+      "raw_text": "  (2)      reviewed certain internal financial and operating information with respect to the business, operations and prospects of sTec furnished to or discussed with BofA Merrill      ",
+      "clean_text": "(2)      reviewed certain internal financial and operating information with respect to the business, operations and prospects of sTec furnished to or discussed with BofA Merrill",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B164",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 164,
+      "start_line": 1836,
+      "end_line": 1836,
+      "raw_text": "  (3)      reviewed certain publicly available financial forecasts relating to sTec, referred to herein as sTec public forecasts;  ",
+      "clean_text": "(3)      reviewed certain publicly available financial forecasts relating to sTec, referred to herein as sTec public forecasts;",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B165",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 165,
+      "start_line": 1838,
+      "end_line": 1838,
+      "raw_text": "  (4)      discussed the past and current business, operations, financial condition and prospects of sTec with members of senior management of sTec;  ",
+      "clean_text": "(4)      discussed the past and current business, operations, financial condition and prospects of sTec with members of senior management of sTec;",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B166",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 166,
+      "start_line": 1840,
+      "end_line": 1840,
+      "raw_text": "  (5)      reviewed the trading history for sTec common stock and a comparison of that trading history with the trading histories of other companies BofA Merrill Lynch deemed  ",
+      "clean_text": "(5)      reviewed the trading history for sTec common stock and a comparison of that trading history with the trading histories of other companies BofA Merrill Lynch deemed",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B167",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 167,
+      "start_line": 1842,
+      "end_line": 1842,
+      "raw_text": "  (6)      compared certain financial and stock market information of sTec with similar information of other companies BofA Merrill Lynch deemed relevant;  ",
+      "clean_text": "(6)      compared certain financial and stock market information of sTec with similar information of other companies BofA Merrill Lynch deemed relevant;",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B168",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 168,
+      "start_line": 1844,
+      "end_line": 1844,
+      "raw_text": "  (7)      compared certain financial terms of the merger to financial terms, to the extent publicly available, of other transactions BofA Merrill Lynch deemed relevant;  ",
+      "clean_text": "(7)      compared certain financial terms of the merger to financial terms, to the extent publicly available, of other transactions BofA Merrill Lynch deemed relevant;",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B169",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 169,
+      "start_line": 1846,
+      "end_line": 1846,
+      "raw_text": "  (8)      considered the results of BofA Merrill Lynch\u0092s efforts to solicit, at the direction of sTec, indications of interest and definitive proposals from third parties  ",
+      "clean_text": "(8)      considered the results of BofA Merrill Lynch\u0092s efforts to solicit, at the direction of sTec, indications of interest and definitive proposals from third parties",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B170",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 170,
+      "start_line": 1848,
+      "end_line": 1848,
+      "raw_text": "  (9)      reviewed a draft dated June 23, 2013 of the merger agreement, referred to herein as the draft agreement; and  ",
+      "clean_text": "(9)      reviewed a draft dated June 23, 2013 of the merger agreement, referred to herein as the draft agreement; and",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B171",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 171,
+      "start_line": 1850,
+      "end_line": 1850,
+      "raw_text": "  (10)      performed such other analyses and studies and considered such other information and factors as BofA Merrill Lynch deemed appropriate.  ",
+      "clean_text": "(10)      performed such other analyses and studies and considered such other information and factors as BofA Merrill Lynch deemed appropriate.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B172",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 172,
+      "start_line": 1852,
+      "end_line": 1856,
+      "raw_text": "In arriving at its opinion, BofA Merrill Lynch assumed and relied upon, without independent verification, the accuracy and completeness\nof the financial and other information and data publicly available or provided to or otherwise reviewed by or discussed with it and relied upon the assurances of the management of sTec that they were not aware of any facts or circumstances that\nwould make such information or data inaccurate or misleading in any material respect. With respect to the sTec management forecasts, BofA Merrill Lynch was advised by sTec, and assumed, that they were reasonably prepared on bases reflecting the best\ncurrently available estimates and good faith judgments of the management of sTec as to the future financial performance of sTec. With respect to the sTec public forecasts, BofA Merrill Lynch was advised by sTec, and assumed, that such forecasts were\na reasonable basis upon which to evaluate the future financial performance of sTec. BofA Merrill Lynch did not make and was not provided with any independent evaluation or appraisal of the assets or liabilities (contingent or",
+      "clean_text": "In arriving at its opinion, BofA Merrill Lynch assumed and relied upon, without independent verification, the accuracy and completeness of the financial and other information and data publicly available or provided to or otherwise reviewed by or discussed with it and relied upon the assurances of the management of sTec that they were not aware of any facts or circumstances that would make such information or data inaccurate or misleading in any material respect. With respect to the sTec management forecasts, BofA Merrill Lynch was advised by sTec, and assumed, that they were reasonably prepared on bases reflecting the best currently available estimates and good faith judgments of the management of sTec as to the future financial performance of sTec. With respect to the sTec public forecasts, BofA Merrill Lynch was advised by sTec, and assumed, that such forecasts were a reasonable basis upon which to evaluate the future financial performance of sTec. BofA Merrill Lynch did not make and was not provided with any independent evaluation or appraisal of the assets or liabilities (contingent or",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B173",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 173,
+      "start_line": 1858,
+      "end_line": 1858,
+      "raw_text": "39",
+      "clean_text": "39",
+      "is_heading": true,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B174",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 174,
+      "start_line": 1861,
+      "end_line": 1867,
+      "raw_text": "otherwise) of sTec, nor did it make any physical inspection of the properties or assets of sTec. BofA Merrill Lynch did not evaluate the solvency or fair value of sTec or WDC or any of their\nrespective affiliates under any state, federal or other laws relating to bankruptcy, insolvency or similar matters. BofA Merrill Lynch assumed, at the direction of sTec, that the merger would be consummated in accordance with its terms, without\nwaiver, modification or amendment of any material term, condition or agreement and that, in the course of obtaining the necessary governmental, regulatory and other approvals, consents, releases and waivers for the merger, no delay, limitation,\nrestriction or condition, including any divestiture requirements or amendments or modifications, would be imposed that would have an adverse effect on sTec or the merger (including the contemplated benefits of the merger). With respect to any\nlitigation in which sTec or any of its affiliates is or may be engaged, BofA Merrill Lynch assumed, with sTec\u0092s consent and without independent verification, that neither any such litigation nor any outcome of any such litigation will affect\nsTec or the merger (including the contemplated benefits of the merger) or its analyses or opinion in any material respect. BofA Merrill Lynch also assumed, at the direction of sTec, that the final executed merger agreement would not differ in any\nmaterial respect from the draft agreement reviewed by BofA Merrill Lynch.",
+      "clean_text": "otherwise) of sTec, nor did it make any physical inspection of the properties or assets of sTec. BofA Merrill Lynch did not evaluate the solvency or fair value of sTec or WDC or any of their respective affiliates under any state, federal or other laws relating to bankruptcy, insolvency or similar matters. BofA Merrill Lynch assumed, at the direction of sTec, that the merger would be consummated in accordance with its terms, without waiver, modification or amendment of any material term, condition or agreement and that, in the course of obtaining the necessary governmental, regulatory and other approvals, consents, releases and waivers for the merger, no delay, limitation, restriction or condition, including any divestiture requirements or amendments or modifications, would be imposed that would have an adverse effect on sTec or the merger (including the contemplated benefits of the merger). With respect to any litigation in which sTec or any of its affiliates is or may be engaged, BofA Merrill Lynch assumed, with sTec\u0092s consent and without independent verification, that neither any such litigation nor any outcome of any such litigation will affect sTec or the merger (including the contemplated benefits of the merger) or its analyses or opinion in any material respect. BofA Merrill Lynch also assumed, at the direction of sTec, that the final executed merger agreement would not differ in any material respect from the draft agreement reviewed by BofA Merrill Lynch.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B175",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 175,
+      "start_line": 1869,
+      "end_line": 1878,
+      "raw_text": "BofA Merrill Lynch expressed no view or opinion as\nto any terms or other aspects or implications of the merger (other than the merger consideration to the extent expressly specified in its opinion), including, without limitation, the form or structure of the merger or any terms, aspects or\nimplications of the voting agreements, the non-competition agreements, the release and covenant not to sue, the technical services and consulting services agreements (each as defined or described in the merger agreement) or any other agreement,\narrangement or understanding entered into in connection or related to the merger or otherwise. BofA Merrill Lynch\u0092s opinion was limited to the fairness, from a financial point of view, of the merger consideration to be received by the holders\nof sTec common stock (other than sTec, WDC, Merger Sub and their respective affiliates and dissenting shareholders) and no opinion or view was expressed with respect to any consideration received in connection with the merger by the holders of any\nother class of securities, creditors or other constituencies of any party. In addition, no opinion or view was expressed with respect to the fairness (financial or otherwise) of the amount, nature or any other aspect of any compensation to any of\nthe officers, directors or employees of any party to the merger, or class of such persons, relative to the merger consideration or otherwise. Furthermore, no opinion or view was expressed as to the relative merits of the merger in comparison to\nother strategies or transactions that might be available to sTec or in which sTec might engage or as to the underlying business decision of sTec to proceed with or effect the merger. In addition, BofA Merrill Lynch expressed no opinion or\nrecommendation as to how any shareholder should vote or act in connection with the merger or any related matter. Except as described above, sTec imposed no other limitations on the investigations made or procedures followed by BofA Merrill Lynch in\nrendering its opinion.",
+      "clean_text": "BofA Merrill Lynch expressed no view or opinion as to any terms or other aspects or implications of the merger (other than the merger consideration to the extent expressly specified in its opinion), including, without limitation, the form or structure of the merger or any terms, aspects or implications of the voting agreements, the non-competition agreements, the release and covenant not to sue, the technical services and consulting services agreements (each as defined or described in the merger agreement) or any other agreement, arrangement or understanding entered into in connection or related to the merger or otherwise. BofA Merrill Lynch\u0092s opinion was limited to the fairness, from a financial point of view, of the merger consideration to be received by the holders of sTec common stock (other than sTec, WDC, Merger Sub and their respective affiliates and dissenting shareholders) and no opinion or view was expressed with respect to any consideration received in connection with the merger by the holders of any other class of securities, creditors or other constituencies of any party. In addition, no opinion or view was expressed with respect to the fairness (financial or otherwise) of the amount, nature or any other aspect of any compensation to any of the officers, directors or employees of any party to the merger, or class of such persons, relative to the merger consideration or otherwise. Furthermore, no opinion or view was expressed as to the relative merits of the merger in comparison to other strategies or transactions that might be available to sTec or in which sTec might engage or as to the underlying business decision of sTec to proceed with or effect the merger. In addition, BofA Merrill Lynch expressed no opinion or recommendation as to how any shareholder should vote or act in connection with the merger or any related matter. Except as described above, sTec imposed no other limitations on the investigations made or procedures followed by BofA Merrill Lynch in rendering its opinion.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B176",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 176,
+      "start_line": 1880,
+      "end_line": 1882,
+      "raw_text": "BofA Merrill Lynch\u0092s opinion was necessarily based on financial, economic, monetary, market and\nother conditions and circumstances as in effect on, and the information made available to BofA Merrill Lynch as of, the date of its opinion. It should be understood that subsequent developments may affect its opinion, and BofA Merrill Lynch does not\nhave any obligation to update, revise or reaffirm its opinion. The issuance of BofA Merrill Lynch\u0092s opinion was approved by BofA Merrill Lynch\u0092s Americas Fairness Opinion Review Committee.",
+      "clean_text": "BofA Merrill Lynch\u0092s opinion was necessarily based on financial, economic, monetary, market and other conditions and circumstances as in effect on, and the information made available to BofA Merrill Lynch as of, the date of its opinion. It should be understood that subsequent developments may affect its opinion, and BofA Merrill Lynch does not have any obligation to update, revise or reaffirm its opinion. The issuance of BofA Merrill Lynch\u0092s opinion was approved by BofA Merrill Lynch\u0092s Americas Fairness Opinion Review Committee.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B177",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 177,
+      "start_line": 1884,
+      "end_line": 1887,
+      "raw_text": "The following represents a brief summary of the material financial analyses presented by BofA Merrill Lynch to sTec\u0092s board of\ndirectors in connection with its opinion. The financial analyses summarized below include information presented in tabular format. In order to fully understand the financial analyses performed by BofA Merrill Lynch, the tables must be read\ntogether with the text of each summary. The tables alone do not constitute a complete description of the financial analyses performed by BofA Merrill Lynch. Considering the data set forth in the tables below without considering the full narrative\ndescription of the financial analyses, including the methodologies and assumptions underlying the analyses, could create a misleading or incomplete view of the financial analyses performed by BofA Merrill Lynch.",
+      "clean_text": "The following represents a brief summary of the material financial analyses presented by BofA Merrill Lynch to sTec\u0092s board of directors in connection with its opinion. The financial analyses summarized below include information presented in tabular format. In order to fully understand the financial analyses performed by BofA Merrill Lynch, the tables must be read together with the text of each summary. The tables alone do not constitute a complete description of the financial analyses performed by BofA Merrill Lynch. Considering the data set forth in the tables below without considering the full narrative description of the financial analyses, including the methodologies and assumptions underlying the analyses, could create a misleading or incomplete view of the financial analyses performed by BofA Merrill Lynch.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B178",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 178,
+      "start_line": 1889,
+      "end_line": 1889,
+      "raw_text": "40",
+      "clean_text": "40",
+      "is_heading": true,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B179",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 179,
+      "start_line": 1892,
+      "end_line": 1892,
+      "raw_text": "sTec Financial Analyses.",
+      "clean_text": "sTec Financial Analyses.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B180",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 180,
+      "start_line": 1894,
+      "end_line": 1894,
+      "raw_text": "Selected Publicly Traded Companies Analysis.",
+      "clean_text": "Selected Publicly Traded Companies Analysis.",
+      "is_heading": true,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B181",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 181,
+      "start_line": 1896,
+      "end_line": 1896,
+      "raw_text": "  Fusion-io, Inc.  ",
+      "clean_text": "Fusion-io, Inc.",
+      "is_heading": true,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B182",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 182,
+      "start_line": 1898,
+      "end_line": 1898,
+      "raw_text": "  Micron Technology, Inc.  ",
+      "clean_text": "Micron Technology, Inc.",
+      "is_heading": true,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B183",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 183,
+      "start_line": 1900,
+      "end_line": 1900,
+      "raw_text": "  OCZ Technology Group, Inc.  ",
+      "clean_text": "OCZ Technology Group, Inc.",
+      "is_heading": true,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B184",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 184,
+      "start_line": 1902,
+      "end_line": 1902,
+      "raw_text": "  SanDisk Corporation  ",
+      "clean_text": "SanDisk Corporation",
+      "is_heading": true,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B185",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 185,
+      "start_line": 1904,
+      "end_line": 1904,
+      "raw_text": "  Seagate Technology plc  ",
+      "clean_text": "Seagate Technology plc",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B186",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 186,
+      "start_line": 1906,
+      "end_line": 1906,
+      "raw_text": "  SK Hynix Inc.  ",
+      "clean_text": "SK Hynix Inc.",
+      "is_heading": true,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B187",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 187,
+      "start_line": 1908,
+      "end_line": 1908,
+      "raw_text": "  Western Digital Corporation  ",
+      "clean_text": "Western Digital Corporation",
+      "is_heading": true,
+      "page_break_before": false,
+      "page_break_after": false
+    }
+  ]
+}

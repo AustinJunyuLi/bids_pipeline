@@ -1,0 +1,136 @@
+{
+  "dropout_classifications": {
+    "evt_014": {
+      "label": "Drop",
+      "basis": "Company F exited the process after Company F declined the invitation to schedule a management presentation, indicating it was only interested in purchasing limited, select assets of sTec.",
+      "source_text": "addition, on April 24, Company F declined the invitation to schedule a management presentation, indicating it was only interested in purchasing limited, select assets of sTec, and Company F had no further communications with BofA Merrill Lynch"
+    },
+    "evt_015": {
+      "label": "Drop",
+      "basis": "Company E exited the process after Company E indicated it was also only interested in purchasing limited, select assets of sTec.",
+      "source_text": "or sTec regarding a possible transaction. Shortly thereafter, Company E indicated it was also only interested in purchasing limited, select assets of sTec, and as a result the special committee decided not to continue discussions with Company E."
+    },
+    "evt_019": {
+      "label": "Drop",
+      "basis": "Company G exited the process after Company G indicated it would not continue in the process.",
+      "source_text": "\u0096 $7.10 per share in cash. Also on May 3, 2013, Company G indicated it would not continue in the process."
+    },
+    "evt_029": {
+      "label": "Drop",
+      "basis": "Western Digital Corporation exited the process after WDC was not prepared to move forward with a transaction with sTec at that time.",
+      "source_text": "On May 31, 2013, a representative of WDC communicated to BofA Merrill Lynch that WDC was reevaluating its interest in acquiring sTec, and that WDC was not prepared to move forward with a transaction with sTec at that time. In addition, WDC discontinued their due diligence efforts with the company at that time. BofA Merrill Lynch then contacted the company\u0092s officers and Dr. Daly to report the communication from WDC."
+    },
+    "evt_030": {
+      "label": "Drop",
+      "basis": "Company D exited the process after Company D would not be in a position to actively conduct due diligence for more than two weeks and was disengaging from the process.",
+      "source_text": "On June 5, 2013 representatives of Company D contacted representatives of BofA Merrill Lynch and indicated that Company D would not be in a position to actively conduct due diligence for more than two weeks and was disengaging from the process. The representatives of BofA Merrill Lynch reported these discussions to our chairman and the company\u0092s officers."
+    }
+  },
+  "bid_classifications": {
+    "evt_016": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_018": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_021": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_022": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_025": {
+      "label": "Formal",
+      "rule_applied": 2.0,
+      "basis": "Observable formal signal from formality_signals."
+    },
+    "evt_028": {
+      "label": "Formal",
+      "rule_applied": 2.5,
+      "basis": "Proposal after final round announcement/deadline with no informal signals."
+    },
+    "evt_031": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_032": {
+      "label": "Formal",
+      "rule_applied": 2.5,
+      "basis": "Proposal after final round announcement/deadline with no informal signals."
+    }
+  },
+  "rounds": [
+    {
+      "announcement_event_id": "evt_023",
+      "deadline_event_id": "evt_024",
+      "round_scope": "formal",
+      "invited_actor_ids": [
+        "bidder_wdc",
+        "bidder_company_d"
+      ],
+      "active_bidders_at_time": 3,
+      "is_selective": true
+    },
+    {
+      "announcement_event_id": "evt_026",
+      "deadline_event_id": "evt_027",
+      "round_scope": "extension",
+      "invited_actor_ids": [
+        "bidder_wdc",
+        "bidder_company_d"
+      ],
+      "active_bidders_at_time": 3,
+      "is_selective": true
+    }
+  ],
+  "cycles": [
+    {
+      "cycle_id": "cycle_1",
+      "start_event_id": "evt_001",
+      "end_event_id": "evt_034",
+      "boundary_basis": "Single cycle -- no termination events"
+    }
+  ],
+  "formal_boundary": {
+    "cycle_1": {
+      "event_id": "evt_025",
+      "basis": "First formal proposal in cycle: evt_025."
+    }
+  },
+  "initiation_judgment": {
+    "type": "target_driven",
+    "basis": "The board decided to undertake a formal review of strategic alternatives and explore a sale because of operating challenges before any bidder approach became the driving force of the process.",
+    "source_text": "potential long-term impacts of the cost reductions, our board of directors determined that it would be beneficial to undertake a formal review of strategic alternatives, including exploring a potential sale of sTec. In particular, our board of",
+    "confidence": "high"
+  },
+  "advisory_verification": {
+    "advisor_bofa_merrill_lynch": {
+      "advised_actor_id": "target_board_stec",
+      "verified": true,
+      "source_text": "special committee, the board approved retaining BofA Merrill Lynch to act as sTec\u0092s financial advisor in connection with the company\u0092s general review of strategic alternatives and defensive preparedness, subject to final engagement"
+    },
+    "advisor_gibson_dunn": {
+      "advised_actor_id": "target_board_stec",
+      "verified": true,
+      "source_text": "areas relevant to the company\u0092s strategy. In addition, a representative from the law firm of Gibson, Dunn & Crutcher LLP (\u0093 Gibson Dunn\u0094), which had been engaged in October 2012 as the company\u0092s outside corporate counsel,"
+    }
+  },
+  "count_reconciliation": [
+    {
+      "assertion": "six non-disclosure/confidentiality agreements related to the exploration of a potential sale of the company",
+      "extracted_count": 6,
+      "classification": null,
+      "note": "The filing count of six non-disclosure/confidentiality agreements matches the six extracted NDA events."
+    }
+  ],
+  "review_flags": []
+}

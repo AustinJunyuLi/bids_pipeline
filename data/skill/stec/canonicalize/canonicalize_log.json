@@ -1,0 +1,15 @@
+{
+  "dedup_log": {},
+  "actor_dedup_log": {},
+  "nda_gate_log": [
+    {
+      "removed_event_id": "evt_004",
+      "reason": "Drop actor(s) {'bidder_company_a'} have no prior NDA."
+    },
+    {
+      "removed_event_id": "evt_008",
+      "reason": "Drop actor(s) {'bidder_company_b'} have no prior NDA."
+    }
+  ],
+  "recovery_log": []
+}

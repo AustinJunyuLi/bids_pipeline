@@ -1,0 +1,316 @@
+{
+  "chunk_id": "chunk_3",
+  "window_block_ids": [
+    "B024",
+    "B025",
+    "B026",
+    "B027",
+    "B028",
+    "B029",
+    "B030",
+    "B031",
+    "B032",
+    "B033",
+    "B034",
+    "B035",
+    "B036"
+  ],
+  "primary_block_ids": [
+    "B026",
+    "B027",
+    "B028",
+    "B029",
+    "B030",
+    "B031",
+    "B032",
+    "B033",
+    "B034",
+    "B035",
+    "B036"
+  ],
+  "incoming_actor_ids": [
+    "target_petsmart_board",
+    "advisor_jp_morgan",
+    "advisor_wachtell_lipton",
+    "activist_jana",
+    "activist_longview",
+    "bidder_buyer_group",
+    "bidder_2",
+    "bidder_3",
+    "bidder_high_range",
+    "bidder_beta",
+    "bidder_gamma"
+  ],
+  "new_actor_ids": [],
+  "all_actor_ids_after_chunk": [
+    "target_petsmart_board",
+    "advisor_jp_morgan",
+    "advisor_wachtell_lipton",
+    "activist_jana",
+    "activist_longview",
+    "bidder_buyer_group",
+    "bidder_2",
+    "bidder_3",
+    "bidder_high_range",
+    "bidder_beta",
+    "bidder_gamma"
+  ],
+  "actors": [],
+  "events": [
+    {
+      "event_id": "evt_017",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "December 10, 2014",
+        "normalized_hint": "2014-12-10"
+      },
+      "actor_ids": [
+        "bidder_buyer_group"
+      ],
+      "summary": "Buyer Group submitted a final bid letter at $80.70 per share in cash.",
+      "evidence_refs": [
+        {
+          "block_id": "B029",
+          "evidence_id": null,
+          "anchor_text": "The Buyer Group offered $80.70 per share, in cash"
+        }
+      ],
+      "terms": {
+        "per_share": 80.7,
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": false,
+        "mentions_preliminary": false,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": true,
+        "includes_marked_up_agreement": true,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": true,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_018",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "December 10, 2014",
+        "normalized_hint": "2014-12-10"
+      },
+      "actor_ids": [
+        "bidder_2"
+      ],
+      "summary": "Bidder 2 submitted a final bid letter at $80.35 per share in cash.",
+      "evidence_refs": [
+        {
+          "block_id": "B029",
+          "evidence_id": null,
+          "anchor_text": "Bidder 2 offered $80.35 per share, in cash"
+        }
+      ],
+      "terms": {
+        "per_share": 80.35,
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": false,
+        "mentions_preliminary": false,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": true,
+        "includes_marked_up_agreement": true,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": true,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_019",
+      "event_type": "drop",
+      "date": {
+        "raw_text": "December 10, 2014",
+        "normalized_hint": "2014-12-10"
+      },
+      "actor_ids": [
+        "bidder_3"
+      ],
+      "summary": "Bidder 3 did not submit a written offer after indicating that its valuation would not exceed the current stock price.",
+      "evidence_refs": [
+        {
+          "block_id": "B029",
+          "evidence_id": null,
+          "anchor_text": "Bidder 3 did not submit a written offer"
+        }
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": "their valuation would not be above the current stock price of approximately $78 per share",
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_020",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "December 12, 2014",
+        "normalized_hint": "2014-12-12"
+      },
+      "actor_ids": [
+        "bidder_2"
+      ],
+      "summary": "Bidder 2 submitted a best and final offer of $81.50 per share in cash.",
+      "evidence_refs": [
+        {
+          "block_id": "B034",
+          "evidence_id": null,
+          "anchor_text": "Bidder 2 submitted an offer of $81.50 per share, in cash"
+        }
+      ],
+      "terms": {
+        "per_share": 81.5,
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": false,
+        "mentions_preliminary": false,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": true,
+        "includes_marked_up_agreement": true,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": true,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_021",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "December 12, 2014",
+        "normalized_hint": "2014-12-12"
+      },
+      "actor_ids": [
+        "bidder_buyer_group"
+      ],
+      "summary": "Buyer Group submitted a best and final offer of $83.00 per share in cash.",
+      "evidence_refs": [
+        {
+          "block_id": "B034",
+          "evidence_id": null,
+          "anchor_text": "the Buyer Group submitted a best and final offer of $83.00 per share, in cash"
+        }
+      ],
+      "terms": {
+        "per_share": 83.0,
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": false,
+        "mentions_preliminary": false,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": true,
+        "includes_marked_up_agreement": true,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": true,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_022",
+      "event_type": "executed",
+      "date": {
+        "raw_text": "December 14, 2014",
+        "normalized_hint": "2014-12-14"
+      },
+      "actor_ids": [
+        "target_petsmart_board",
+        "bidder_buyer_group"
+      ],
+      "summary": "PetSmart and the Buyer Group executed the merger agreement and related transaction agreements.",
+      "evidence_refs": [
+        {
+          "block_id": "B036",
+          "evidence_id": null,
+          "anchor_text": "On December 14, 2014, the parties executed the merger agreement"
+        }
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": "bidder_buyer_group",
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    }
+  ],
+  "count_assertions": [],
+  "unresolved_mentions": []
+}

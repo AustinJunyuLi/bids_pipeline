@@ -11,7 +11,7 @@ from skill_pipeline.config import PROJECT_ROOT
 from skill_pipeline.extract_artifacts import LoadedExtractArtifacts, load_extract_artifacts
 from skill_pipeline.models import CoverageFinding, CoverageFindingsArtifact, CoverageSummary
 from skill_pipeline.paths import build_skill_paths, ensure_output_directories
-from skill_pipeline.pipeline_models.source import ChronologyBlock, EvidenceItem
+from skill_pipeline.pipeline_models.source import ChronologyBlock, EvidenceItem, EvidenceType
 
 
 CRITICAL_CUE_FAMILIES = frozenset(
@@ -21,6 +21,46 @@ CRITICAL_CUE_FAMILIES = frozenset(
         "withdrawal_or_drop",
         "process_initiation",
     }
+)
+
+NDA_TERMS = (
+    "confidentiality agreement",
+    "non-disclosure",
+    "nondisclosure",
+    "standstill",
+)
+NDA_EXECUTION_TERMS = ("entered into", "executed", "signed", "addendum")
+PROPOSAL_PRIMARY_TERMS = ("indication of interest", "offer", "bid", "submitted")
+PROPOSAL_ACTION_TERMS = (
+    "submitted",
+    "received",
+    "sent",
+    "delivered",
+    "requested",
+    "verbally indicated",
+    "written",
+)
+WITHDRAWAL_TERMS = (
+    "declined",
+    "dropped",
+    "withdrew",
+    "withdrawn",
+    "did not submit",
+    "no longer interested",
+)
+ADVISOR_TERMS = ("financial advisor", "legal advisor", "advisor", "adviser", "retained", "engaged")
+ADVISOR_CONTEXT_TERMS = ("advisor", "advisors", "counsel", "financial advisor", "legal advisor", "law firm")
+BIDDER_INTEREST_TERMS = (
+    "expressed interest",
+    "indicated interest",
+    "approached",
+    "contacted",
+    "interested in acquiring",
+)
+PROCESS_INITIATION_TERMS = (
+    "sale process",
+    "strategic alternatives",
+    "explore strategic alternatives",
 )
 
 
@@ -62,13 +102,21 @@ def _build_coverage_cues(
 
     cues: list[CoverageCue] = []
     for item in evidence_items:
+        overlapping_block_ids = _block_ids_for_evidence(
+            item,
+            blocks_by_document.get(item.document_id, []),
+        )
+        # extract-deal only consumes evidence_items scoped to chronology chunks, so
+        # coverage should audit the same chronology-overlapping surface.
+        if not overlapping_block_ids:
+            continue
         cue_family = _classify_cue_family(item)
         if cue_family is None or item.confidence == "low":
             continue
         cues.append(
             CoverageCue(
                 cue_family=cue_family,
-                block_ids=_block_ids_for_evidence(item, blocks_by_document.get(item.document_id, [])),
+                block_ids=overlapping_block_ids,
                 evidence_ids=[item.evidence_id],
                 matched_terms=item.matched_terms,
                 confidence=item.confidence,
@@ -80,20 +128,37 @@ def _build_coverage_cues(
 
 def _classify_cue_family(item: EvidenceItem) -> str | None:
     text = f"{item.raw_text} {' '.join(item.matched_terms)}".lower()
+    if _contains_any(text, NDA_TERMS):
+        # Generic confidentiality language in proxy boilerplate is not an NDA event.
+        if _contains_any(text, NDA_EXECUTION_TERMS):
+            return "nda"
+        return None
 
-    if any(token in text for token in ("confidentiality agreement", "confidentiality", "non-disclosure", "nondisclosure", " nda")):
-        return "nda"
-    if any(token in text for token in ("proposal", "offer", "bid", "indication of interest", "submitted")):
-        return "proposal"
-    if any(token in text for token in ("declined", "dropped", "withdrew", "withdrawn", "did not submit", "no longer interested")):
-        return "withdrawal_or_drop"
-    if any(token in text for token in ("financial advisor", "legal advisor", "advisor", "adviser", "retained", "engaged")):
+    if item.evidence_type in {EvidenceType.DATED_ACTION, EvidenceType.FINANCIAL_TERM}:
+        if _contains_any(text, PROPOSAL_PRIMARY_TERMS):
+            return "proposal"
+        if "proposal" in text and (
+            item.actor_hint
+            or item.value_hint
+            or _contains_any(text, PROPOSAL_ACTION_TERMS)
+        ):
+            return "proposal"
+
+    if item.evidence_type == EvidenceType.DATED_ACTION and _contains_any(text, WITHDRAWAL_TERMS):
+        if not _contains_any(text, ADVISOR_CONTEXT_TERMS):
+            return "withdrawal_or_drop"
+
+    if _contains_any(text, ADVISOR_TERMS):
         return "advisor"
-    if any(token in text for token in ("expressed interest", "indicated interest", "approached", "contacted", "interested in acquiring")):
+    if _contains_any(text, BIDDER_INTEREST_TERMS):
         return "bidder_interest"
-    if any(token in text for token in ("sale process", "strategic alternatives", "initiated", "commenced", "explore strategic alternatives")):
+    if _contains_any(text, PROCESS_INITIATION_TERMS):
         return "process_initiation"
     return None
+
+
+def _contains_any(text: str, needles: tuple[str, ...]) -> bool:
+    return any(needle in text for needle in needles)
 
 
 def _suggested_event_types(cue_family: str) -> list[str]:
@@ -127,6 +192,24 @@ def _cue_is_covered(cue: CoverageCue, artifacts: LoadedExtractArtifacts) -> bool
     if artifacts.mode == "legacy":
         return _cue_is_covered_legacy(cue, artifacts)
     return _cue_is_covered_canonical(cue, artifacts)
+
+
+def _cue_is_excluded(cue: CoverageCue, artifacts: LoadedExtractArtifacts) -> bool:
+    cue_block_ids = set(cue.block_ids)
+    if not cue_block_ids:
+        return False
+
+    if artifacts.mode == "legacy" and artifacts.raw_events is not None:
+        exclusions = artifacts.raw_events.exclusions
+    elif artifacts.events is not None:
+        exclusions = artifacts.events.exclusions
+    else:
+        exclusions = []
+
+    for exclusion in exclusions:
+        if cue_block_ids.intersection(exclusion.block_ids):
+            return True
+    return False
 
 
 def _cue_is_covered_legacy(cue: CoverageCue, artifacts: LoadedExtractArtifacts) -> bool:
@@ -204,6 +287,8 @@ def _severity_for_cue(cue: CoverageCue) -> str | None:
 def _build_findings(cues: list[CoverageCue], artifacts: LoadedExtractArtifacts) -> list[CoverageFinding]:
     findings: list[CoverageFinding] = []
     for cue in cues:
+        if _cue_is_excluded(cue, artifacts):
+            continue
         if _cue_is_covered(cue, artifacts):
             continue
         severity = _severity_for_cue(cue)

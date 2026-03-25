@@ -1,0 +1,3551 @@
+{
+  "chunk_id": "chunk_3",
+  "chunk_number": 3,
+  "source": "fresh_post_phase06_rerun",
+  "chunk_strategy": {
+    "method": "balanced_token_partition_manual_skill_follow",
+    "estimated_token_budget": 3800,
+    "estimated_window_tokens": 3135,
+    "overlap_usable_blocks": 1,
+    "usable_block_count": 34,
+    "full_window_block_count": 38
+  },
+  "primary_window": {
+    "start_block_id": "B046",
+    "end_block_id": "B081",
+    "usable_block_ids": [
+      "B046",
+      "B047",
+      "B048",
+      "B049",
+      "B050",
+      "B051",
+      "B052",
+      "B053",
+      "B054",
+      "B055",
+      "B056",
+      "B057",
+      "B058",
+      "B059",
+      "B060",
+      "B062",
+      "B063",
+      "B064",
+      "B065",
+      "B066",
+      "B067",
+      "B068",
+      "B070",
+      "B071",
+      "B072",
+      "B073",
+      "B074",
+      "B075",
+      "B076",
+      "B077",
+      "B078",
+      "B079",
+      "B081"
+    ]
+  },
+  "context_window": {
+    "start_block_id": "B044",
+    "end_block_id": "B081",
+    "full_block_ids": [
+      "B044",
+      "B045",
+      "B046",
+      "B047",
+      "B048",
+      "B049",
+      "B050",
+      "B051",
+      "B052",
+      "B053",
+      "B054",
+      "B055",
+      "B056",
+      "B057",
+      "B058",
+      "B059",
+      "B060",
+      "B061",
+      "B062",
+      "B063",
+      "B064",
+      "B065",
+      "B066",
+      "B067",
+      "B068",
+      "B069",
+      "B070",
+      "B071",
+      "B072",
+      "B073",
+      "B074",
+      "B075",
+      "B076",
+      "B077",
+      "B078",
+      "B079",
+      "B080",
+      "B081"
+    ],
+    "start_line": 1436,
+    "end_line": 1562,
+    "overlap_prev_block_ids": [
+      "B044"
+    ],
+    "overlap_next_block_ids": [
+      "B081"
+    ]
+  },
+  "scoped_evidence": {
+    "count": 72,
+    "evidence_ids": [
+      "0001193125-13-325730:E0325",
+      "0001193125-13-325730:E0326",
+      "0001193125-13-325730:E0327",
+      "0001193125-13-325730:E0328",
+      "0001193125-13-325730:E0329",
+      "0001193125-13-325730:E0330",
+      "0001193125-13-325730:E0331",
+      "0001193125-13-325730:E0332",
+      "0001193125-13-325730:E0333",
+      "0001193125-13-325730:E0334",
+      "0001193125-13-325730:E0335",
+      "0001193125-13-325730:E0336",
+      "0001193125-13-325730:E0337",
+      "0001193125-13-325730:E0338",
+      "0001193125-13-325730:E0339",
+      "0001193125-13-325730:E0340",
+      "0001193125-13-325730:E0341",
+      "0001193125-13-325730:E0342",
+      "0001193125-13-325730:E0343",
+      "0001193125-13-325730:E0344",
+      "0001193125-13-325730:E0345",
+      "0001193125-13-325730:E0346",
+      "0001193125-13-325730:E0347",
+      "0001193125-13-325730:E0348",
+      "0001193125-13-325730:E0349",
+      "0001193125-13-325730:E0350",
+      "0001193125-13-325730:E0351",
+      "0001193125-13-325730:E0352",
+      "0001193125-13-325730:E0353",
+      "0001193125-13-325730:E0354",
+      "0001193125-13-325730:E0355",
+      "0001193125-13-325730:E0356",
+      "0001193125-13-325730:E0357",
+      "0001193125-13-325730:E0358",
+      "0001193125-13-325730:E0359",
+      "0001193125-13-325730:E0360",
+      "0001193125-13-325730:E0361",
+      "0001193125-13-325730:E0362",
+      "0001193125-13-325730:E0363",
+      "0001193125-13-325730:E0364",
+      "0001193125-13-325730:E0365",
+      "0001193125-13-325730:E0366",
+      "0001193125-13-325730:E0367",
+      "0001193125-13-325730:E0368",
+      "0001193125-13-325730:E0369",
+      "0001193125-13-325730:E0370",
+      "0001193125-13-325730:E0371",
+      "0001193125-13-325730:E0372",
+      "0001193125-13-325730:E0373",
+      "0001193125-13-325730:E0374",
+      "0001193125-13-325730:E0375",
+      "0001193125-13-325730:E0376",
+      "0001193125-13-325730:E0377",
+      "0001193125-13-325730:E0378",
+      "0001193125-13-325730:E0379",
+      "0001193125-13-325730:E0380",
+      "0001193125-13-325730:E0381",
+      "0001193125-13-325730:E0382",
+      "0001193125-13-325730:E0383",
+      "0001193125-13-325730:E0384",
+      "0001193125-13-325730:E0385",
+      "0001193125-13-325730:E0386",
+      "0001193125-13-325730:E0387",
+      "0001193125-13-325730:E0388",
+      "0001193125-13-325730:E0389",
+      "0001193125-13-325730:E0390",
+      "0001193125-13-325730:E0391",
+      "0001193125-13-325730:E0392",
+      "0001193125-13-325730:E0393",
+      "0001193125-13-325730:E0394",
+      "0001193125-13-325730:E0395",
+      "0001193125-13-325730:E0396"
+    ],
+    "items": [
+      {
+        "evidence_id": "0001193125-13-325730:E0325",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1436,
+        "end_line": 1437,
+        "raw_text": "Also on April 26, 2013, at the direction of our chairman on behalf of the special committee, BofA Merrill Lynch sent a process letter to Company G requesting a non-binding indication of interest by\nMay 3, 2013.",
+        "evidence_type": "dated_action",
+        "confidence": "medium",
+        "matched_terms": [
+          "sent"
+        ],
+        "date_text": "April 26, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected dated action: sent"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0326",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1436,
+        "end_line": 1437,
+        "raw_text": "Also on April 26, 2013, at the direction of our chairman on behalf of the special committee, BofA Merrill Lynch sent a process letter to Company G requesting a non-binding indication of interest by\nMay 3, 2013.",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [
+          "special committee"
+        ],
+        "date_text": "April 26, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected actor identification: special committee"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0327",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1436,
+        "end_line": 1437,
+        "raw_text": "Also on April 26, 2013, at the direction of our chairman on behalf of the special committee, BofA Merrill Lynch sent a process letter to Company G requesting a non-binding indication of interest by\nMay 3, 2013.",
+        "evidence_type": "process_signal",
+        "confidence": "medium",
+        "matched_terms": [
+          "process letter"
+        ],
+        "date_text": "April 26, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected process signal: process letter"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0328",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1442,
+        "end_line": 1444,
+        "raw_text": "On May 1, 2013, Company H contacted representatives of BofA Merrill Lynch expressing an\ninterest in a potential transaction with sTec. BofA Merrill Lynch reported that contact to our chairman and management, and, on May 2, 2013, at the direction of our chairman on behalf of the special committee, BofA Merrill Lynch sent a\nnon-disclosure agreement to Company H.",
+        "evidence_type": "dated_action",
+        "confidence": "high",
+        "matched_terms": [
+          "contacted",
+          "sent"
+        ],
+        "date_text": "May 1, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected dated action: contacted, sent"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0329",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1442,
+        "end_line": 1444,
+        "raw_text": "On May 1, 2013, Company H contacted representatives of BofA Merrill Lynch expressing an\ninterest in a potential transaction with sTec. BofA Merrill Lynch reported that contact to our chairman and management, and, on May 2, 2013, at the direction of our chairman on behalf of the special committee, BofA Merrill Lynch sent a\nnon-disclosure agreement to Company H.",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [
+          "special committee"
+        ],
+        "date_text": "May 1, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected actor identification: special committee"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0330",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1442,
+        "end_line": 1444,
+        "raw_text": "On May 1, 2013, Company H contacted representatives of BofA Merrill Lynch expressing an\ninterest in a potential transaction with sTec. BofA Merrill Lynch reported that contact to our chairman and management, and, on May 2, 2013, at the direction of our chairman on behalf of the special committee, BofA Merrill Lynch sent a\nnon-disclosure agreement to Company H.",
+        "evidence_type": "process_signal",
+        "confidence": "low",
+        "matched_terms": [
+          "non-disclosure"
+        ],
+        "date_text": "May 1, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected process signal: non-disclosure"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0331",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1446,
+        "end_line": 1447,
+        "raw_text": "On May 2, 2013, at the direction of the special committee, representatives of\nBofA Merrill Lynch had discussions with representatives of Company D. Company D\u0092s representatives indicated they would need an additional week to confirm their verbal indication of interest in writing.",
+        "evidence_type": "dated_action",
+        "confidence": "medium",
+        "matched_terms": [
+          "sent"
+        ],
+        "date_text": "May 2, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected dated action: sent"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0332",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1446,
+        "end_line": 1447,
+        "raw_text": "On May 2, 2013, at the direction of the special committee, representatives of\nBofA Merrill Lynch had discussions with representatives of Company D. Company D\u0092s representatives indicated they would need an additional week to confirm their verbal indication of interest in writing.",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [
+          "special committee"
+        ],
+        "date_text": "May 2, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected actor identification: special committee"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0333",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1449,
+        "end_line": 1450,
+        "raw_text": "On May 3, 2013, WDC submitted a written indication of interest to acquire the company at a purchase price in the range of $6.60\n\u0096 $7.10 per share in cash. Also on May 3, 2013, Company G indicated it would not continue in the process.",
+        "evidence_type": "dated_action",
+        "confidence": "medium",
+        "matched_terms": [
+          "submitted"
+        ],
+        "date_text": "May 3, 2013",
+        "actor_hint": null,
+        "value_hint": "$6.60",
+        "note": "detected dated action: submitted"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0334",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1449,
+        "end_line": 1450,
+        "raw_text": "On May 3, 2013, WDC submitted a written indication of interest to acquire the company at a purchase price in the range of $6.60\n\u0096 $7.10 per share in cash. Also on May 3, 2013, Company G indicated it would not continue in the process.",
+        "evidence_type": "financial_term",
+        "confidence": "high",
+        "matched_terms": [
+          "$6.60",
+          "$7.10 per share"
+        ],
+        "date_text": "May 3, 2013",
+        "actor_hint": null,
+        "value_hint": "$6.60",
+        "note": "detected financial term: $6.60, $7.10 per share"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0335",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1452,
+        "end_line": 1453,
+        "raw_text": "Thereafter, on May 3, 2013, at the direction of Dr. Daly, BofA Merrill Lynch provided the special committee with an update of\nthe status of discussions with potential acquirers.",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [
+          "special committee"
+        ],
+        "date_text": "May 3, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected actor identification: special committee"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0336",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1455,
+        "end_line": 1456,
+        "raw_text": "On May 6, 2013, our board of directors held a telephonic special\nmeeting, attended only by the independent directors. The independent directors discussed, among other matters, the status of the strategic review process.",
+        "evidence_type": "dated_action",
+        "confidence": "high",
+        "matched_terms": [
+          "discussed",
+          "meeting"
+        ],
+        "date_text": "May 6, 2013",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected dated action: discussed, meeting"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0337",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1458,
+        "end_line": 1458,
+        "raw_text": "On May 8, 2013, sTec announced its results for the first quarter of fiscal year 2013.",
+        "evidence_type": "dated_action",
+        "confidence": "medium",
+        "matched_terms": [
+          "announced"
+        ],
+        "date_text": "May 8, 2013",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected dated action: announced"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0338",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1460,
+        "end_line": 1460,
+        "raw_text": "Also on May 8, 2013, sTec entered into a non-disclosure agreement with Company H.",
+        "evidence_type": "dated_action",
+        "confidence": "medium",
+        "matched_terms": [
+          "entered into"
+        ],
+        "date_text": "May 8, 2013",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected dated action: entered into"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0339",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1460,
+        "end_line": 1460,
+        "raw_text": "Also on May 8, 2013, sTec entered into a non-disclosure agreement with Company H.",
+        "evidence_type": "process_signal",
+        "confidence": "low",
+        "matched_terms": [
+          "non-disclosure"
+        ],
+        "date_text": "May 8, 2013",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected process signal: non-disclosure"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0340",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1462,
+        "end_line": 1465,
+        "raw_text": "Also on May 8, 2013, the special committee held a telephonic meeting. Messrs. Cook, Saman and Morales and representatives from Gibson Dunn were in attendance. The special committee discussed in\ndetail sTec\u0092s standalone financial projections prepared by management and the further review that needed to be undertaken with management on management\u0092s financial model. Gibson Dunn reviewed certain considerations related to the special\ncommittee\u0092s fiduciary duties in connection with the strategic review process. Representatives of BofA Merrill Lynch joined for a portion of the meeting and reported on BofA Merrill Lynch\u0092s interactions to date with potential acquirers and\nthe special committee discussed with the representatives of BofA Merrill Lynch the preliminary proposal received from WDC and a number of financial matters relating to the proposal.",
+        "evidence_type": "dated_action",
+        "confidence": "high",
+        "matched_terms": [
+          "discussed",
+          "meeting",
+          "proposal",
+          "received",
+          "sent"
+        ],
+        "date_text": "May 8, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected dated action: discussed, meeting, proposal, received, sent"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0341",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1462,
+        "end_line": 1465,
+        "raw_text": "Also on May 8, 2013, the special committee held a telephonic meeting. Messrs. Cook, Saman and Morales and representatives from Gibson Dunn were in attendance. The special committee discussed in\ndetail sTec\u0092s standalone financial projections prepared by management and the further review that needed to be undertaken with management on management\u0092s financial model. Gibson Dunn reviewed certain considerations related to the special\ncommittee\u0092s fiduciary duties in connection with the strategic review process. Representatives of BofA Merrill Lynch joined for a portion of the meeting and reported on BofA Merrill Lynch\u0092s interactions to date with potential acquirers and\nthe special committee discussed with the representatives of BofA Merrill Lynch the preliminary proposal received from WDC and a number of financial matters relating to the proposal.",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [
+          "special committee"
+        ],
+        "date_text": "May 8, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected actor identification: special committee"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0342",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1467,
+        "end_line": 1467,
+        "raw_text": "On May 10, 2013, sTec held a management presentation with Company H.",
+        "evidence_type": "dated_action",
+        "confidence": "medium",
+        "matched_terms": [
+          "sent"
+        ],
+        "date_text": "May 10, 2013",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected dated action: sent"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0343",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1467,
+        "end_line": 1467,
+        "raw_text": "On May 10, 2013, sTec held a management presentation with Company H.",
+        "evidence_type": "process_signal",
+        "confidence": "low",
+        "matched_terms": [
+          "management presentation"
+        ],
+        "date_text": "May 10, 2013",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected process signal: management presentation"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0344",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1471,
+        "end_line": 1472,
+        "raw_text": "Also on May 10, 2013, Company D submitted a written non-binding indication of interest to acquire the company at a purchase price of\n$5.75 per share in cash, along with a draft exclusivity agreement.",
+        "evidence_type": "dated_action",
+        "confidence": "medium",
+        "matched_terms": [
+          "submitted"
+        ],
+        "date_text": "May 10, 2013",
+        "actor_hint": null,
+        "value_hint": "$5.75 per share",
+        "note": "detected dated action: submitted"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0345",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1471,
+        "end_line": 1472,
+        "raw_text": "Also on May 10, 2013, Company D submitted a written non-binding indication of interest to acquire the company at a purchase price of\n$5.75 per share in cash, along with a draft exclusivity agreement.",
+        "evidence_type": "financial_term",
+        "confidence": "medium",
+        "matched_terms": [
+          "$5.75 per share"
+        ],
+        "date_text": "May 10, 2013",
+        "actor_hint": null,
+        "value_hint": "$5.75 per share",
+        "note": "detected financial term: $5.75 per share"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0346",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1471,
+        "end_line": 1472,
+        "raw_text": "Also on May 10, 2013, Company D submitted a written non-binding indication of interest to acquire the company at a purchase price of\n$5.75 per share in cash, along with a draft exclusivity agreement.",
+        "evidence_type": "process_signal",
+        "confidence": "low",
+        "matched_terms": [
+          "exclusivity"
+        ],
+        "date_text": "May 10, 2013",
+        "actor_hint": null,
+        "value_hint": "$5.75 per share",
+        "note": "detected process signal: exclusivity"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0347",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1477,
+        "end_line": 1478,
+        "raw_text": "On May 15, 2013, Company H submitted a written non-binding indication of interest to acquire the\ncompany at a purchase price in the range of $5.00 \u0096 $5.75 per share in cash.",
+        "evidence_type": "dated_action",
+        "confidence": "medium",
+        "matched_terms": [
+          "submitted"
+        ],
+        "date_text": "May 15, 2013",
+        "actor_hint": null,
+        "value_hint": "$5.00",
+        "note": "detected dated action: submitted"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0348",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1477,
+        "end_line": 1478,
+        "raw_text": "On May 15, 2013, Company H submitted a written non-binding indication of interest to acquire the\ncompany at a purchase price in the range of $5.00 \u0096 $5.75 per share in cash.",
+        "evidence_type": "financial_term",
+        "confidence": "high",
+        "matched_terms": [
+          "$5.00",
+          "$5.75 per share"
+        ],
+        "date_text": "May 15, 2013",
+        "actor_hint": null,
+        "value_hint": "$5.00",
+        "note": "detected financial term: $5.00, $5.75 per share"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0349",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1480,
+        "end_line": 1482,
+        "raw_text": "Also on May 15, 2013, at the direction\nof our chairman on behalf of the special committee, representatives of BofA Merrill Lynch had a call with representatives of Company D in which they informed Company D\u0092s representatives that Company D would be allowed to continue in the process\nwith the understanding that Company D would need to meaningfully increase its proposal after being provided additional information and access to the management team.",
+        "evidence_type": "dated_action",
+        "confidence": "high",
+        "matched_terms": [
+          "proposal",
+          "sent"
+        ],
+        "date_text": "May 15, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected dated action: proposal, sent"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0350",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1480,
+        "end_line": 1482,
+        "raw_text": "Also on May 15, 2013, at the direction\nof our chairman on behalf of the special committee, representatives of BofA Merrill Lynch had a call with representatives of Company D in which they informed Company D\u0092s representatives that Company D would be allowed to continue in the process\nwith the understanding that Company D would need to meaningfully increase its proposal after being provided additional information and access to the management team.",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [
+          "special committee"
+        ],
+        "date_text": "May 15, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected actor identification: special committee"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0351",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1484,
+        "end_line": 1485,
+        "raw_text": "During the weeks of May 13 and May 20, 2013, sTec, representatives of Latham & Watkins LLP (\u0093 Latham & Watkins\u0094), litigation counsel to sTec and Mr. Manouch\nMoshayedi, held due diligence calls and meetings with WDC and Company D, which representatives of BofA Merrill Lynch also attended.",
+        "evidence_type": "dated_action",
+        "confidence": "high",
+        "matched_terms": [
+          "meeting",
+          "sent"
+        ],
+        "date_text": "May",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected dated action: meeting, sent"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0352",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1484,
+        "end_line": 1485,
+        "raw_text": "During the weeks of May 13 and May 20, 2013, sTec, representatives of Latham & Watkins LLP (\u0093 Latham & Watkins\u0094), litigation counsel to sTec and Mr. Manouch\nMoshayedi, held due diligence calls and meetings with WDC and Company D, which representatives of BofA Merrill Lynch also attended.",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [
+          "counsel"
+        ],
+        "date_text": "May",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected actor identification: counsel"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0353",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1484,
+        "end_line": 1485,
+        "raw_text": "During the weeks of May 13 and May 20, 2013, sTec, representatives of Latham & Watkins LLP (\u0093 Latham & Watkins\u0094), litigation counsel to sTec and Mr. Manouch\nMoshayedi, held due diligence calls and meetings with WDC and Company D, which representatives of BofA Merrill Lynch also attended.",
+        "evidence_type": "process_signal",
+        "confidence": "medium",
+        "matched_terms": [
+          "due diligence"
+        ],
+        "date_text": "May",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected process signal: due diligence"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0354",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1484,
+        "end_line": 1485,
+        "raw_text": "During the weeks of May 13 and May 20, 2013, sTec, representatives of Latham & Watkins LLP (\u0093 Latham & Watkins\u0094), litigation counsel to sTec and Mr. Manouch\nMoshayedi, held due diligence calls and meetings with WDC and Company D, which representatives of BofA Merrill Lynch also attended.",
+        "evidence_type": "outcome_fact",
+        "confidence": "low",
+        "matched_terms": [
+          "litigation"
+        ],
+        "date_text": "May",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected outcome fact: litigation"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0355",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1490,
+        "end_line": 1492,
+        "raw_text": "Also during this time period, at the direction of our chairman on behalf of the special\ncommittee, representatives of BofA Merrill Lynch contacted Company H and indicated that the price range Company H had submitted was not sufficient to move them forward in the process. The Company H representative was told that Company H could submit\na revised indication of interest, which would be considered by the special committee.",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [
+          "special committee"
+        ],
+        "date_text": null,
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected actor identification: special committee"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0356",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1494,
+        "end_line": 1496,
+        "raw_text": "On May 16, 2013, a regularly\nscheduled board meeting was held. Messrs. Cook, Saman and Morales and representatives from BofA Merrill Lynch were in attendance. Our board of directors discussed with representatives of BofA Merrill Lynch the status of the process, preliminary\nvaluation considerations and next steps in the process.",
+        "evidence_type": "dated_action",
+        "confidence": "high",
+        "matched_terms": [
+          "discussed",
+          "meeting",
+          "sent"
+        ],
+        "date_text": "May 16, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected dated action: discussed, meeting, sent"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0357",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1494,
+        "end_line": 1496,
+        "raw_text": "On May 16, 2013, a regularly\nscheduled board meeting was held. Messrs. Cook, Saman and Morales and representatives from BofA Merrill Lynch were in attendance. Our board of directors discussed with representatives of BofA Merrill Lynch the status of the process, preliminary\nvaluation considerations and next steps in the process.",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [],
+        "date_text": "May 16, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": null
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0358",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1498,
+        "end_line": 1499,
+        "raw_text": "After the meeting, at the direction of the board, BofA Merrill\nLynch sent final round process letters and a draft merger agreement to WDC and Company D, requesting a response by May 28, 2013.",
+        "evidence_type": "dated_action",
+        "confidence": "high",
+        "matched_terms": [
+          "meeting",
+          "sent"
+        ],
+        "date_text": "May 28, 2013",
+        "actor_hint": "Merrill\nLynch",
+        "value_hint": null,
+        "note": "detected dated action: meeting, sent"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0359",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1498,
+        "end_line": 1499,
+        "raw_text": "After the meeting, at the direction of the board, BofA Merrill\nLynch sent final round process letters and a draft merger agreement to WDC and Company D, requesting a response by May 28, 2013.",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [],
+        "date_text": "May 28, 2013",
+        "actor_hint": "Merrill\nLynch",
+        "value_hint": null,
+        "note": null
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0360",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1498,
+        "end_line": 1499,
+        "raw_text": "After the meeting, at the direction of the board, BofA Merrill\nLynch sent final round process letters and a draft merger agreement to WDC and Company D, requesting a response by May 28, 2013.",
+        "evidence_type": "process_signal",
+        "confidence": "high",
+        "matched_terms": [
+          "draft merger agreement",
+          "process letter"
+        ],
+        "date_text": "May 28, 2013",
+        "actor_hint": "Merrill\nLynch",
+        "value_hint": null,
+        "note": "detected process signal: draft merger agreement, process letter"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0361",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1498,
+        "end_line": 1499,
+        "raw_text": "After the meeting, at the direction of the board, BofA Merrill\nLynch sent final round process letters and a draft merger agreement to WDC and Company D, requesting a response by May 28, 2013.",
+        "evidence_type": "outcome_fact",
+        "confidence": "low",
+        "matched_terms": [
+          "merger agreement"
+        ],
+        "date_text": "May 28, 2013",
+        "actor_hint": "Merrill\nLynch",
+        "value_hint": null,
+        "note": "detected outcome fact: merger agreement"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0362",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1501,
+        "end_line": 1502,
+        "raw_text": "On May 23, 2013, representatives of Company H contacted a representative of BofA Merrill Lynch and indicated that Company H remained interested in a potential acquisition of the company but that\nCompany H was not able to increase its indicated value range.",
+        "evidence_type": "dated_action",
+        "confidence": "high",
+        "matched_terms": [
+          "contacted",
+          "sent"
+        ],
+        "date_text": "May 23, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected dated action: contacted, sent"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0363",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1501,
+        "end_line": 1502,
+        "raw_text": "On May 23, 2013, representatives of Company H contacted a representative of BofA Merrill Lynch and indicated that Company H remained interested in a potential acquisition of the company but that\nCompany H was not able to increase its indicated value range.",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [],
+        "date_text": "May 23, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": null
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0364",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1504,
+        "end_line": 1508,
+        "raw_text": "On May 28, 2013, WDC submitted a written second-round\nindication of interest at a price per share of $9.15 in cash, with a mark-up of the merger agreement and drafts of ancillary agreements, including a voting agreement to be entered into by each of sTec\u0092s officers and directors, a covenant not to\nsue to be entered into by Mr. Manouch Moshayedi, a technical services agreement to be entered into by Mr. Mark Moshayedi, a non-competition agreement to be entered into by each of Mr. Manouch Moshayedi and Mr. Mark Moshayedi, and\na landlord\u0092s consent to assignment to be entered into by an affiliate of Messrs. Moshayedi. The technical services agreement to be entered into by Mr. Mark Moshayedi did not contain any financial terms. This indication of interest\ncontemplated signing definitive documentation with respect to a transaction by no later than June 3, 2013.",
+        "evidence_type": "dated_action",
+        "confidence": "high",
+        "matched_terms": [
+          "entered into",
+          "sent",
+          "submitted"
+        ],
+        "date_text": "May 28, 2013",
+        "actor_hint": null,
+        "value_hint": "$9.15",
+        "note": "detected dated action: entered into, sent, submitted"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0365",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1504,
+        "end_line": 1508,
+        "raw_text": "On May 28, 2013, WDC submitted a written second-round\nindication of interest at a price per share of $9.15 in cash, with a mark-up of the merger agreement and drafts of ancillary agreements, including a voting agreement to be entered into by each of sTec\u0092s officers and directors, a covenant not to\nsue to be entered into by Mr. Manouch Moshayedi, a technical services agreement to be entered into by Mr. Mark Moshayedi, a non-competition agreement to be entered into by each of Mr. Manouch Moshayedi and Mr. Mark Moshayedi, and\na landlord\u0092s consent to assignment to be entered into by an affiliate of Messrs. Moshayedi. The technical services agreement to be entered into by Mr. Mark Moshayedi did not contain any financial terms. This indication of interest\ncontemplated signing definitive documentation with respect to a transaction by no later than June 3, 2013.",
+        "evidence_type": "financial_term",
+        "confidence": "medium",
+        "matched_terms": [
+          "$9.15"
+        ],
+        "date_text": "May 28, 2013",
+        "actor_hint": null,
+        "value_hint": "$9.15",
+        "note": "detected financial term: $9.15"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0366",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1504,
+        "end_line": 1508,
+        "raw_text": "On May 28, 2013, WDC submitted a written second-round\nindication of interest at a price per share of $9.15 in cash, with a mark-up of the merger agreement and drafts of ancillary agreements, including a voting agreement to be entered into by each of sTec\u0092s officers and directors, a covenant not to\nsue to be entered into by Mr. Manouch Moshayedi, a technical services agreement to be entered into by Mr. Mark Moshayedi, a non-competition agreement to be entered into by each of Mr. Manouch Moshayedi and Mr. Mark Moshayedi, and\na landlord\u0092s consent to assignment to be entered into by an affiliate of Messrs. Moshayedi. The technical services agreement to be entered into by Mr. Mark Moshayedi did not contain any financial terms. This indication of interest\ncontemplated signing definitive documentation with respect to a transaction by no later than June 3, 2013.",
+        "evidence_type": "outcome_fact",
+        "confidence": "low",
+        "matched_terms": [
+          "merger agreement"
+        ],
+        "date_text": "May 28, 2013",
+        "actor_hint": null,
+        "value_hint": "$9.15",
+        "note": "detected outcome fact: merger agreement"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0367",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1510,
+        "end_line": 1512,
+        "raw_text": "Also on\nMay 28, 2013, a representative of Company D contacted representatives of BofA Merrill Lynch and indicated that Company D continued to have an interest in a potential acquisition and understood they needed to move meaningfully on value; however,\nthe representative stated that Company D needed approximately two weeks of additional time to continue its ongoing due diligence review and to submit a written indication of interest and mark-up of the merger agreement.",
+        "evidence_type": "dated_action",
+        "confidence": "high",
+        "matched_terms": [
+          "contacted",
+          "sent"
+        ],
+        "date_text": "May 28, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected dated action: contacted, sent"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0368",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1510,
+        "end_line": 1512,
+        "raw_text": "Also on\nMay 28, 2013, a representative of Company D contacted representatives of BofA Merrill Lynch and indicated that Company D continued to have an interest in a potential acquisition and understood they needed to move meaningfully on value; however,\nthe representative stated that Company D needed approximately two weeks of additional time to continue its ongoing due diligence review and to submit a written indication of interest and mark-up of the merger agreement.",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [],
+        "date_text": "May 28, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": null
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0369",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1510,
+        "end_line": 1512,
+        "raw_text": "Also on\nMay 28, 2013, a representative of Company D contacted representatives of BofA Merrill Lynch and indicated that Company D continued to have an interest in a potential acquisition and understood they needed to move meaningfully on value; however,\nthe representative stated that Company D needed approximately two weeks of additional time to continue its ongoing due diligence review and to submit a written indication of interest and mark-up of the merger agreement.",
+        "evidence_type": "process_signal",
+        "confidence": "medium",
+        "matched_terms": [
+          "due diligence"
+        ],
+        "date_text": "May 28, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected process signal: due diligence"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0370",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1510,
+        "end_line": 1512,
+        "raw_text": "Also on\nMay 28, 2013, a representative of Company D contacted representatives of BofA Merrill Lynch and indicated that Company D continued to have an interest in a potential acquisition and understood they needed to move meaningfully on value; however,\nthe representative stated that Company D needed approximately two weeks of additional time to continue its ongoing due diligence review and to submit a written indication of interest and mark-up of the merger agreement.",
+        "evidence_type": "outcome_fact",
+        "confidence": "low",
+        "matched_terms": [
+          "merger agreement"
+        ],
+        "date_text": "May 28, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected outcome fact: merger agreement"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0371",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1514,
+        "end_line": 1522,
+        "raw_text": "On May 29, 2013, our board of directors held a telephonic special meeting. Messrs. Cook, Saman and Morales, Mr. Mike Higa, our\nSenior Vice President of Finance, and representatives from BofA Merrill Lynch and Gibson Dunn also attended the meeting. The board discussed the company\u0092s updated financial model on a standalone basis. The BofA Merrill Lynch representative\nreported on communications with both Company D and WDC in response to sTec\u0092s request for non-binding proposals on May 28, 2013, and on the most recent communications with Company H. BofA Merrill Lynch reported that WDC had presented an\nindication of interest of $9.15 per share, which the representative of WDC had described as the highest price that WDC was willing to offer and that the WDC representative had also disclosed that there were internal concerns regarding the price at\nWDC. BofA Merrill Lynch further reported that Company D had stated that it continued to be interested in an acquisition but that it needed approximately two weeks to continue its ongoing due diligence review and to submit a proposal. The board of\ndirectors then discussed with BofA Merrill Lynch financial aspects of WDC\u0092s proposal. The board of directors discussed with Messrs. Moshayedi the terms of the ancillary agreements that WDC had requested be executed by Messrs. Moshayedi and\ntheir affiliates. Finally, the board of directors also discussed the legal considerations related to the process with Gibson Dunn. After discussion, our board of directors directed BofA Merrill Lynch to request a \u0093best and final\u0094 proposal\nfrom WDC and a \u0093best and final\u0094 written proposal from Company D by May 30, 2013. Messrs. Moshayedi were also reminded of the direction that had been discussed with them from time-to-time during the strategic review process that they\nshould not negotiate any financial terms relating to their agreements with an acquirer, including WDC, prior to final agreement with the potential acquirer on the price to be paid to the company\u0092s shareholders. Later that day,",
+        "evidence_type": "dated_action",
+        "confidence": "high",
+        "matched_terms": [
+          "discussed",
+          "executed",
+          "meeting",
+          "offer",
+          "proposal",
+          "requested",
+          "sent"
+        ],
+        "date_text": "May 29, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": "$9.15 per share",
+        "note": "detected dated action: discussed, executed, meeting, offer, proposal"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0372",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1514,
+        "end_line": 1522,
+        "raw_text": "On May 29, 2013, our board of directors held a telephonic special meeting. Messrs. Cook, Saman and Morales, Mr. Mike Higa, our\nSenior Vice President of Finance, and representatives from BofA Merrill Lynch and Gibson Dunn also attended the meeting. The board discussed the company\u0092s updated financial model on a standalone basis. The BofA Merrill Lynch representative\nreported on communications with both Company D and WDC in response to sTec\u0092s request for non-binding proposals on May 28, 2013, and on the most recent communications with Company H. BofA Merrill Lynch reported that WDC had presented an\nindication of interest of $9.15 per share, which the representative of WDC had described as the highest price that WDC was willing to offer and that the WDC representative had also disclosed that there were internal concerns regarding the price at\nWDC. BofA Merrill Lynch further reported that Company D had stated that it continued to be interested in an acquisition but that it needed approximately two weeks to continue its ongoing due diligence review and to submit a proposal. The board of\ndirectors then discussed with BofA Merrill Lynch financial aspects of WDC\u0092s proposal. The board of directors discussed with Messrs. Moshayedi the terms of the ancillary agreements that WDC had requested be executed by Messrs. Moshayedi and\ntheir affiliates. Finally, the board of directors also discussed the legal considerations related to the process with Gibson Dunn. After discussion, our board of directors directed BofA Merrill Lynch to request a \u0093best and final\u0094 proposal\nfrom WDC and a \u0093best and final\u0094 written proposal from Company D by May 30, 2013. Messrs. Moshayedi were also reminded of the direction that had been discussed with them from time-to-time during the strategic review process that they\nshould not negotiate any financial terms relating to their agreements with an acquirer, including WDC, prior to final agreement with the potential acquirer on the price to be paid to the company\u0092s shareholders. Later that day,",
+        "evidence_type": "financial_term",
+        "confidence": "medium",
+        "matched_terms": [
+          "$9.15 per share"
+        ],
+        "date_text": "May 29, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": "$9.15 per share",
+        "note": "detected financial term: $9.15 per share"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0373",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1514,
+        "end_line": 1522,
+        "raw_text": "On May 29, 2013, our board of directors held a telephonic special meeting. Messrs. Cook, Saman and Morales, Mr. Mike Higa, our\nSenior Vice President of Finance, and representatives from BofA Merrill Lynch and Gibson Dunn also attended the meeting. The board discussed the company\u0092s updated financial model on a standalone basis. The BofA Merrill Lynch representative\nreported on communications with both Company D and WDC in response to sTec\u0092s request for non-binding proposals on May 28, 2013, and on the most recent communications with Company H. BofA Merrill Lynch reported that WDC had presented an\nindication of interest of $9.15 per share, which the representative of WDC had described as the highest price that WDC was willing to offer and that the WDC representative had also disclosed that there were internal concerns regarding the price at\nWDC. BofA Merrill Lynch further reported that Company D had stated that it continued to be interested in an acquisition but that it needed approximately two weeks to continue its ongoing due diligence review and to submit a proposal. The board of\ndirectors then discussed with BofA Merrill Lynch financial aspects of WDC\u0092s proposal. The board of directors discussed with Messrs. Moshayedi the terms of the ancillary agreements that WDC had requested be executed by Messrs. Moshayedi and\ntheir affiliates. Finally, the board of directors also discussed the legal considerations related to the process with Gibson Dunn. After discussion, our board of directors directed BofA Merrill Lynch to request a \u0093best and final\u0094 proposal\nfrom WDC and a \u0093best and final\u0094 written proposal from Company D by May 30, 2013. Messrs. Moshayedi were also reminded of the direction that had been discussed with them from time-to-time during the strategic review process that they\nshould not negotiate any financial terms relating to their agreements with an acquirer, including WDC, prior to final agreement with the potential acquirer on the price to be paid to the company\u0092s shareholders. Later that day,",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [
+          "shareholder"
+        ],
+        "date_text": "May 29, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": "$9.15 per share",
+        "note": "detected actor identification: shareholder"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0374",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1514,
+        "end_line": 1522,
+        "raw_text": "On May 29, 2013, our board of directors held a telephonic special meeting. Messrs. Cook, Saman and Morales, Mr. Mike Higa, our\nSenior Vice President of Finance, and representatives from BofA Merrill Lynch and Gibson Dunn also attended the meeting. The board discussed the company\u0092s updated financial model on a standalone basis. The BofA Merrill Lynch representative\nreported on communications with both Company D and WDC in response to sTec\u0092s request for non-binding proposals on May 28, 2013, and on the most recent communications with Company H. BofA Merrill Lynch reported that WDC had presented an\nindication of interest of $9.15 per share, which the representative of WDC had described as the highest price that WDC was willing to offer and that the WDC representative had also disclosed that there were internal concerns regarding the price at\nWDC. BofA Merrill Lynch further reported that Company D had stated that it continued to be interested in an acquisition but that it needed approximately two weeks to continue its ongoing due diligence review and to submit a proposal. The board of\ndirectors then discussed with BofA Merrill Lynch financial aspects of WDC\u0092s proposal. The board of directors discussed with Messrs. Moshayedi the terms of the ancillary agreements that WDC had requested be executed by Messrs. Moshayedi and\ntheir affiliates. Finally, the board of directors also discussed the legal considerations related to the process with Gibson Dunn. After discussion, our board of directors directed BofA Merrill Lynch to request a \u0093best and final\u0094 proposal\nfrom WDC and a \u0093best and final\u0094 written proposal from Company D by May 30, 2013. Messrs. Moshayedi were also reminded of the direction that had been discussed with them from time-to-time during the strategic review process that they\nshould not negotiate any financial terms relating to their agreements with an acquirer, including WDC, prior to final agreement with the potential acquirer on the price to be paid to the company\u0092s shareholders. Later that day,",
+        "evidence_type": "process_signal",
+        "confidence": "high",
+        "matched_terms": [
+          "best and final",
+          "due diligence"
+        ],
+        "date_text": "May 29, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": "$9.15 per share",
+        "note": "detected process signal: best and final, due diligence"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0375",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1514,
+        "end_line": 1522,
+        "raw_text": "On May 29, 2013, our board of directors held a telephonic special meeting. Messrs. Cook, Saman and Morales, Mr. Mike Higa, our\nSenior Vice President of Finance, and representatives from BofA Merrill Lynch and Gibson Dunn also attended the meeting. The board discussed the company\u0092s updated financial model on a standalone basis. The BofA Merrill Lynch representative\nreported on communications with both Company D and WDC in response to sTec\u0092s request for non-binding proposals on May 28, 2013, and on the most recent communications with Company H. BofA Merrill Lynch reported that WDC had presented an\nindication of interest of $9.15 per share, which the representative of WDC had described as the highest price that WDC was willing to offer and that the WDC representative had also disclosed that there were internal concerns regarding the price at\nWDC. BofA Merrill Lynch further reported that Company D had stated that it continued to be interested in an acquisition but that it needed approximately two weeks to continue its ongoing due diligence review and to submit a proposal. The board of\ndirectors then discussed with BofA Merrill Lynch financial aspects of WDC\u0092s proposal. The board of directors discussed with Messrs. Moshayedi the terms of the ancillary agreements that WDC had requested be executed by Messrs. Moshayedi and\ntheir affiliates. Finally, the board of directors also discussed the legal considerations related to the process with Gibson Dunn. After discussion, our board of directors directed BofA Merrill Lynch to request a \u0093best and final\u0094 proposal\nfrom WDC and a \u0093best and final\u0094 written proposal from Company D by May 30, 2013. Messrs. Moshayedi were also reminded of the direction that had been discussed with them from time-to-time during the strategic review process that they\nshould not negotiate any financial terms relating to their agreements with an acquirer, including WDC, prior to final agreement with the potential acquirer on the price to be paid to the company\u0092s shareholders. Later that day,",
+        "evidence_type": "outcome_fact",
+        "confidence": "medium",
+        "matched_terms": [
+          "executed"
+        ],
+        "date_text": "May 29, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": "$9.15 per share",
+        "note": "detected outcome fact: executed"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0376",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1527,
+        "end_line": 1527,
+        "raw_text": "as directed by the board of directors, BofA Merrill Lynch requested a \u0093best and final\u0094 proposal from WDC and a \u0093best and final\u0094 written proposal from Company D.",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [],
+        "date_text": null,
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": null
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0377",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1527,
+        "end_line": 1527,
+        "raw_text": "as directed by the board of directors, BofA Merrill Lynch requested a \u0093best and final\u0094 proposal from WDC and a \u0093best and final\u0094 written proposal from Company D.",
+        "evidence_type": "process_signal",
+        "confidence": "low",
+        "matched_terms": [
+          "best and final"
+        ],
+        "date_text": null,
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected process signal: best and final"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0378",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1529,
+        "end_line": 1530,
+        "raw_text": "On May 30, 2013, representatives of WDC verbally indicated that WDC\u0092s indication of interest to acquire the company at a price\nof $9.15 per share was WDC\u0092s best possible price, and reiterated the concern of WDC regarding the price. The WDC representative also stated that WDC continued to be focused on being in a position to announce a transaction on June 3, 2013.",
+        "evidence_type": "dated_action",
+        "confidence": "medium",
+        "matched_terms": [
+          "sent"
+        ],
+        "date_text": "May 30, 2013",
+        "actor_hint": null,
+        "value_hint": "$9.15 per share",
+        "note": "detected dated action: sent"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0379",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1529,
+        "end_line": 1530,
+        "raw_text": "On May 30, 2013, representatives of WDC verbally indicated that WDC\u0092s indication of interest to acquire the company at a price\nof $9.15 per share was WDC\u0092s best possible price, and reiterated the concern of WDC regarding the price. The WDC representative also stated that WDC continued to be focused on being in a position to announce a transaction on June 3, 2013.",
+        "evidence_type": "financial_term",
+        "confidence": "medium",
+        "matched_terms": [
+          "$9.15 per share"
+        ],
+        "date_text": "May 30, 2013",
+        "actor_hint": null,
+        "value_hint": "$9.15 per share",
+        "note": "detected financial term: $9.15 per share"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0380",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1532,
+        "end_line": 1533,
+        "raw_text": "Also on May 30, 2013 representatives of Company D reconfirmed they would require additional time to submit a written\nindication of interest, however, the Company D representatives also indicated they continued to believe they could be competitive on price if given additional time.",
+        "evidence_type": "dated_action",
+        "confidence": "medium",
+        "matched_terms": [
+          "sent"
+        ],
+        "date_text": "May 30, 2013",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected dated action: sent"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0381",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1535,
+        "end_line": 1539,
+        "raw_text": "Also on May 30, 2013, the board of directors held a telephonic special meeting. Messrs. Cook, Saman, Higa and Morales, and representatives from BofA Merrill Lynch, Latham & Watkins and\nGibson Dunn also attended the meeting. The BofA Merrill Lynch representative reported on the communications from both WDC and Company D in response to BofA Merrill Lynch\u0092s communication on May 29, 2013 seeking the \u0093best and\nfinal\u0094 proposals from those companies. The representative from Latham & Watkins discussed the implications of entry into the covenant not to sue that WDC had requested be executed by Mr. Manouch Moshayedi. Mr. Manouch\nMoshayedi indicated that his lawyers were continuing to review the proposed ancillary agreements. Our board of directors unanimously determined to move forward with WDC on their proposed terms, including endeavoring to complete diligence and\nnegotiation of the merger agreement and ancillary agreements to be in a position to announce a transaction on June 3, 2013. The board directed that representatives of BofA Merrill Lynch communicate the board\u0092s decision to WDC.",
+        "evidence_type": "dated_action",
+        "confidence": "high",
+        "matched_terms": [
+          "discussed",
+          "executed",
+          "meeting",
+          "proposal",
+          "proposed",
+          "requested",
+          "sent"
+        ],
+        "date_text": "May 30, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected dated action: discussed, executed, meeting, proposal, proposed"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0382",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1535,
+        "end_line": 1539,
+        "raw_text": "Also on May 30, 2013, the board of directors held a telephonic special meeting. Messrs. Cook, Saman, Higa and Morales, and representatives from BofA Merrill Lynch, Latham & Watkins and\nGibson Dunn also attended the meeting. The BofA Merrill Lynch representative reported on the communications from both WDC and Company D in response to BofA Merrill Lynch\u0092s communication on May 29, 2013 seeking the \u0093best and\nfinal\u0094 proposals from those companies. The representative from Latham & Watkins discussed the implications of entry into the covenant not to sue that WDC had requested be executed by Mr. Manouch Moshayedi. Mr. Manouch\nMoshayedi indicated that his lawyers were continuing to review the proposed ancillary agreements. Our board of directors unanimously determined to move forward with WDC on their proposed terms, including endeavoring to complete diligence and\nnegotiation of the merger agreement and ancillary agreements to be in a position to announce a transaction on June 3, 2013. The board directed that representatives of BofA Merrill Lynch communicate the board\u0092s decision to WDC.",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [],
+        "date_text": "May 30, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": null
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0383",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1535,
+        "end_line": 1539,
+        "raw_text": "Also on May 30, 2013, the board of directors held a telephonic special meeting. Messrs. Cook, Saman, Higa and Morales, and representatives from BofA Merrill Lynch, Latham & Watkins and\nGibson Dunn also attended the meeting. The BofA Merrill Lynch representative reported on the communications from both WDC and Company D in response to BofA Merrill Lynch\u0092s communication on May 29, 2013 seeking the \u0093best and\nfinal\u0094 proposals from those companies. The representative from Latham & Watkins discussed the implications of entry into the covenant not to sue that WDC had requested be executed by Mr. Manouch Moshayedi. Mr. Manouch\nMoshayedi indicated that his lawyers were continuing to review the proposed ancillary agreements. Our board of directors unanimously determined to move forward with WDC on their proposed terms, including endeavoring to complete diligence and\nnegotiation of the merger agreement and ancillary agreements to be in a position to announce a transaction on June 3, 2013. The board directed that representatives of BofA Merrill Lynch communicate the board\u0092s decision to WDC.",
+        "evidence_type": "process_signal",
+        "confidence": "low",
+        "matched_terms": [
+          "best and final"
+        ],
+        "date_text": "May 30, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected process signal: best and final"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0384",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1535,
+        "end_line": 1539,
+        "raw_text": "Also on May 30, 2013, the board of directors held a telephonic special meeting. Messrs. Cook, Saman, Higa and Morales, and representatives from BofA Merrill Lynch, Latham & Watkins and\nGibson Dunn also attended the meeting. The BofA Merrill Lynch representative reported on the communications from both WDC and Company D in response to BofA Merrill Lynch\u0092s communication on May 29, 2013 seeking the \u0093best and\nfinal\u0094 proposals from those companies. The representative from Latham & Watkins discussed the implications of entry into the covenant not to sue that WDC had requested be executed by Mr. Manouch Moshayedi. Mr. Manouch\nMoshayedi indicated that his lawyers were continuing to review the proposed ancillary agreements. Our board of directors unanimously determined to move forward with WDC on their proposed terms, including endeavoring to complete diligence and\nnegotiation of the merger agreement and ancillary agreements to be in a position to announce a transaction on June 3, 2013. The board directed that representatives of BofA Merrill Lynch communicate the board\u0092s decision to WDC.",
+        "evidence_type": "outcome_fact",
+        "confidence": "high",
+        "matched_terms": [
+          "executed",
+          "merger agreement"
+        ],
+        "date_text": "May 30, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected outcome fact: executed, merger agreement"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0385",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1541,
+        "end_line": 1542,
+        "raw_text": "Later, on May 30, 2013, as directed by the board, representatives of BofA Merrill Lynch informed WDC that sTec would move forward to\neffect a transaction at a purchase price of $9.15 per share, subject to satisfactory negotiations of the merger agreement and ancillary agreements.",
+        "evidence_type": "dated_action",
+        "confidence": "medium",
+        "matched_terms": [
+          "sent"
+        ],
+        "date_text": "May 30, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": "$9.15 per share",
+        "note": "detected dated action: sent"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0386",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1541,
+        "end_line": 1542,
+        "raw_text": "Later, on May 30, 2013, as directed by the board, representatives of BofA Merrill Lynch informed WDC that sTec would move forward to\neffect a transaction at a purchase price of $9.15 per share, subject to satisfactory negotiations of the merger agreement and ancillary agreements.",
+        "evidence_type": "financial_term",
+        "confidence": "medium",
+        "matched_terms": [
+          "$9.15 per share"
+        ],
+        "date_text": "May 30, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": "$9.15 per share",
+        "note": "detected financial term: $9.15 per share"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0387",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1541,
+        "end_line": 1542,
+        "raw_text": "Later, on May 30, 2013, as directed by the board, representatives of BofA Merrill Lynch informed WDC that sTec would move forward to\neffect a transaction at a purchase price of $9.15 per share, subject to satisfactory negotiations of the merger agreement and ancillary agreements.",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [],
+        "date_text": "May 30, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": "$9.15 per share",
+        "note": null
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0388",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1541,
+        "end_line": 1542,
+        "raw_text": "Later, on May 30, 2013, as directed by the board, representatives of BofA Merrill Lynch informed WDC that sTec would move forward to\neffect a transaction at a purchase price of $9.15 per share, subject to satisfactory negotiations of the merger agreement and ancillary agreements.",
+        "evidence_type": "outcome_fact",
+        "confidence": "low",
+        "matched_terms": [
+          "merger agreement"
+        ],
+        "date_text": "May 30, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": "$9.15 per share",
+        "note": "detected outcome fact: merger agreement"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0389",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1544,
+        "end_line": 1545,
+        "raw_text": "On May 31, 2013, a representative of WDC communicated to BofA Merrill Lynch that WDC was reevaluating its interest in acquiring sTec, and that WDC was not prepared to move forward with a transaction\nwith sTec at that time. In addition, WDC discontinued their due diligence efforts with the company at that time. BofA Merrill Lynch then contacted the company\u0092s officers and Dr. Daly to report the communication from WDC.",
+        "evidence_type": "dated_action",
+        "confidence": "high",
+        "matched_terms": [
+          "contacted",
+          "sent"
+        ],
+        "date_text": "May 31, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected dated action: contacted, sent"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0390",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1544,
+        "end_line": 1545,
+        "raw_text": "On May 31, 2013, a representative of WDC communicated to BofA Merrill Lynch that WDC was reevaluating its interest in acquiring sTec, and that WDC was not prepared to move forward with a transaction\nwith sTec at that time. In addition, WDC discontinued their due diligence efforts with the company at that time. BofA Merrill Lynch then contacted the company\u0092s officers and Dr. Daly to report the communication from WDC.",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [],
+        "date_text": "May 31, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": null
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0391",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1544,
+        "end_line": 1545,
+        "raw_text": "On May 31, 2013, a representative of WDC communicated to BofA Merrill Lynch that WDC was reevaluating its interest in acquiring sTec, and that WDC was not prepared to move forward with a transaction\nwith sTec at that time. In addition, WDC discontinued their due diligence efforts with the company at that time. BofA Merrill Lynch then contacted the company\u0092s officers and Dr. Daly to report the communication from WDC.",
+        "evidence_type": "process_signal",
+        "confidence": "medium",
+        "matched_terms": [
+          "due diligence"
+        ],
+        "date_text": "May 31, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected process signal: due diligence"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0392",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1547,
+        "end_line": 1549,
+        "raw_text": "On May 31, 2013, our board of directors held a telephonic special meeting, attended by four independent directors, Dr. Daly and\nMessrs. Bahri, Ball and Colpitts. Mr. Saman and a representative from Gibson Dunn were also in attendance. Dr. Daly reported on the communications from WDC that WDC had decided to reconsider its interest in acquiring sTec and that it was\nnot prepared to move forward with a transaction with sTec at that time. Our board of directors then discussed potential next steps. Gibson Dunn reviewed certain legal considerations related to the process.",
+        "evidence_type": "dated_action",
+        "confidence": "high",
+        "matched_terms": [
+          "discussed",
+          "meeting",
+          "sent"
+        ],
+        "date_text": "May 31, 2013",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected dated action: discussed, meeting, sent"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0393",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1551,
+        "end_line": 1552,
+        "raw_text": "At the request of our board of directors, representatives of BofA Merrill Lynch had a call with representatives of Company D on which\nthey informed Company D\u0092s representatives that timing for sTec\u0092s process had been delayed, and that Company D had an opportunity to continue in the process. The Company D representatives indicated that they would consider this opportunity.",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [],
+        "date_text": null,
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": null
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0394",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1556,
+        "end_line": 1557,
+        "raw_text": "Over the period from June 1 to June 10, 2013, at the direction of the board, representatives of BofA Merrill Lynch had several\ndiscussions with representatives of WDC. WDC indicated that a difference of opinion had emerged internally, that WDC\u0092s prior bidding approach to an acquisition of sTec had been rejected, and that they",
+        "evidence_type": "dated_action",
+        "confidence": "medium",
+        "matched_terms": [
+          "sent"
+        ],
+        "date_text": "June",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected dated action: sent"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0395",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1556,
+        "end_line": 1557,
+        "raw_text": "Over the period from June 1 to June 10, 2013, at the direction of the board, representatives of BofA Merrill Lynch had several\ndiscussions with representatives of WDC. WDC indicated that a difference of opinion had emerged internally, that WDC\u0092s prior bidding approach to an acquisition of sTec had been rejected, and that they",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [],
+        "date_text": "June",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": null
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0396",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1562,
+        "end_line": 1562,
+        "raw_text": "were reconsidering their interest in a transaction with sTec. The representatives of BofA Merrill Lynch reported these discussions to our chairman and the company\u0092s officers.",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [],
+        "date_text": null,
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": null
+      }
+    ]
+  },
+  "roster_in": [
+    {
+      "actor_id": "target_stec_board",
+      "display_name": "sTec Board",
+      "canonical_name": "STEC BOARD",
+      "aliases": [
+        "sTec",
+        "our board of directors",
+        "the board of directors",
+        "our management"
+      ],
+      "role": "target_board",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B007",
+          "evidence_id": null,
+          "anchor_text": "our board of directors"
+        }
+      ],
+      "notes": [
+        "Represents the company-side board and management when the filing refers to sTec generically in the sale process."
+      ]
+    },
+    {
+      "actor_id": "target_stec_special_committee",
+      "display_name": "sTec Special Committee",
+      "canonical_name": "STEC SPECIAL COMMITTEE",
+      "aliases": [
+        "special committee"
+      ],
+      "role": "target_board",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B013",
+          "evidence_id": null,
+          "anchor_text": "special committee of the board"
+        }
+      ],
+      "notes": [
+        "Formed on February 13, 2013 to review strategic alternatives, including a possible sale of the company."
+      ]
+    },
+    {
+      "actor_id": "target_stec_independent_directors",
+      "display_name": "sTec Independent Directors",
+      "canonical_name": "STEC INDEPENDENT DIRECTORS",
+      "aliases": [
+        "independent directors",
+        "non-management members of the board"
+      ],
+      "role": "target_board",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": true,
+      "group_size": 5,
+      "group_label": "Independent directors",
+      "evidence_refs": [
+        {
+          "block_id": "B013",
+          "evidence_id": null,
+          "anchor_text": "independent directors"
+        }
+      ],
+      "notes": [
+        "Represents the non-management directors delegated to evaluate responses to Balch Hill and Potomac."
+      ]
+    },
+    {
+      "actor_id": "advisor_gibson_dunn",
+      "display_name": "Gibson Dunn",
+      "canonical_name": "GIBSON, DUNN & CRUTCHER LLP",
+      "aliases": [
+        "Gibson Dunn"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": "target_stec_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B010",
+          "evidence_id": null,
+          "anchor_text": "Gibson, Dunn & Crutcher LLP"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_unnamed_initial_financial_advisors",
+      "display_name": "Two Unnamed Financial Advisors",
+      "canonical_name": "TWO UNNAMED FINANCIAL ADVISORS",
+      "aliases": [],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "target_stec_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": true,
+      "group_size": 2,
+      "group_label": "Two financial advisors contacted in mid-November 2012",
+      "evidence_refs": [
+        {
+          "block_id": "B007",
+          "evidence_id": null,
+          "anchor_text": "management contacted two financial advisors about the prospect of working with the company"
+        }
+      ],
+      "notes": [
+        "Both advisors declined to advise sTec."
+      ]
+    },
+    {
+      "actor_id": "advisor_company_a_financial_advisor",
+      "display_name": "Company A Financial Advisor",
+      "canonical_name": "COMPANY A FINANCIAL ADVISOR",
+      "aliases": [
+        "investment bank representing Company A",
+        "Company A financial advisor"
+      ],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "bidder_company_a",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B008",
+          "evidence_id": null,
+          "anchor_text": "an investment bank representing Company A"
+        }
+      ],
+      "notes": [
+        "The filing does not identify this advisor by name."
+      ]
+    },
+    {
+      "actor_id": "activist_balch_hill",
+      "display_name": "Balch Hill",
+      "canonical_name": "BALCH HILL PARTNERS, L. P.",
+      "aliases": [
+        "Balch Hill"
+      ],
+      "role": "activist",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B011",
+          "evidence_id": null,
+          "anchor_text": "Balch Hill Partners, L. P."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "activist_potomac",
+      "display_name": "Potomac",
+      "canonical_name": "POTOMAC CAPITAL PARTNERS II, L. P.",
+      "aliases": [
+        "Potomac"
+      ],
+      "role": "activist",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B011",
+          "evidence_id": null,
+          "anchor_text": "Potomac Capital Partners II, L. P."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_wdc",
+      "display_name": "WDC",
+      "canonical_name": "WDC",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B005",
+          "evidence_id": null,
+          "anchor_text": "WDC"
+        }
+      ],
+      "notes": [
+        "Pre-process WDC contacts in this chunk are described as general and exploratory and did not include specific transaction terms."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_a",
+      "display_name": "Company A",
+      "canonical_name": "COMPANY A",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B008",
+          "evidence_id": null,
+          "anchor_text": "Company A"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_b",
+      "display_name": "Company B",
+      "canonical_name": "COMPANY B",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B014",
+          "evidence_id": null,
+          "anchor_text": "Company B"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_bofa_merrill_lynch",
+      "display_name": "BofA Merrill Lynch",
+      "canonical_name": "BOFA MERRILL LYNCH",
+      "aliases": [],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "target_stec_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B030",
+          "evidence_id": null,
+          "anchor_text": "BofA Merrill Lynch"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_c",
+      "display_name": "Company C",
+      "canonical_name": "COMPANY C",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B024",
+          "evidence_id": null,
+          "anchor_text": "Company C"
+        }
+      ],
+      "notes": [
+        "Company C expressed interest only in particular or limited, select assets of sTec."
+      ]
+    },
+    {
+      "actor_id": "advisor_mackenzie_partners",
+      "display_name": "MacKenzie Partners",
+      "canonical_name": "MACKENZIE PARTNERS",
+      "aliases": [],
+      "role": "advisor",
+      "advisor_kind": "other",
+      "advised_actor_id": "target_stec_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B025",
+          "evidence_id": null,
+          "anchor_text": "MacKenzie Partners"
+        }
+      ],
+      "notes": [
+        "Served as sTec proxy solicitor in the activist campaign."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_d",
+      "display_name": "Company D",
+      "canonical_name": "COMPANY D",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B028",
+          "evidence_id": null,
+          "anchor_text": "Company D"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_h",
+      "display_name": "Company H",
+      "canonical_name": "COMPANY H",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B032",
+          "evidence_id": null,
+          "anchor_text": "Company H"
+        }
+      ],
+      "notes": [
+        "Company H is named in the outreach summary and NDA aggregate before this chunk provides a standalone dated full-company bid event."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_e",
+      "display_name": "Company E",
+      "canonical_name": "COMPANY E",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B034",
+          "evidence_id": null,
+          "anchor_text": "Company E"
+        }
+      ],
+      "notes": [
+        "Company E later indicated that it was interested only in limited, select assets of sTec."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_f",
+      "display_name": "Company F",
+      "canonical_name": "COMPANY F",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B034",
+          "evidence_id": null,
+          "anchor_text": "Company F"
+        }
+      ],
+      "notes": [
+        "Company F later indicated that it was interested only in limited, select assets of sTec."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_g",
+      "display_name": "Company G",
+      "canonical_name": "COMPANY G",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B044",
+          "evidence_id": null,
+          "anchor_text": "Company G"
+        }
+      ],
+      "notes": []
+    }
+  ],
+  "roster_out": [
+    {
+      "actor_id": "target_stec_board",
+      "display_name": "sTec Board",
+      "canonical_name": "STEC BOARD",
+      "aliases": [
+        "sTec",
+        "our board of directors",
+        "the board of directors",
+        "our management"
+      ],
+      "role": "target_board",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B007",
+          "evidence_id": null,
+          "anchor_text": "our board of directors"
+        }
+      ],
+      "notes": [
+        "Represents the company-side board and management when the filing refers to sTec generically in the sale process."
+      ]
+    },
+    {
+      "actor_id": "target_stec_special_committee",
+      "display_name": "sTec Special Committee",
+      "canonical_name": "STEC SPECIAL COMMITTEE",
+      "aliases": [
+        "special committee"
+      ],
+      "role": "target_board",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B013",
+          "evidence_id": null,
+          "anchor_text": "special committee of the board"
+        }
+      ],
+      "notes": [
+        "Formed on February 13, 2013 to review strategic alternatives, including a possible sale of the company."
+      ]
+    },
+    {
+      "actor_id": "target_stec_independent_directors",
+      "display_name": "sTec Independent Directors",
+      "canonical_name": "STEC INDEPENDENT DIRECTORS",
+      "aliases": [
+        "independent directors",
+        "non-management members of the board"
+      ],
+      "role": "target_board",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": true,
+      "group_size": 5,
+      "group_label": "Independent directors",
+      "evidence_refs": [
+        {
+          "block_id": "B013",
+          "evidence_id": null,
+          "anchor_text": "independent directors"
+        }
+      ],
+      "notes": [
+        "Represents the non-management directors delegated to evaluate responses to Balch Hill and Potomac."
+      ]
+    },
+    {
+      "actor_id": "advisor_gibson_dunn",
+      "display_name": "Gibson Dunn",
+      "canonical_name": "GIBSON, DUNN & CRUTCHER LLP",
+      "aliases": [
+        "Gibson Dunn"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": "target_stec_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B010",
+          "evidence_id": null,
+          "anchor_text": "Gibson, Dunn & Crutcher LLP"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_unnamed_initial_financial_advisors",
+      "display_name": "Two Unnamed Financial Advisors",
+      "canonical_name": "TWO UNNAMED FINANCIAL ADVISORS",
+      "aliases": [],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "target_stec_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": true,
+      "group_size": 2,
+      "group_label": "Two financial advisors contacted in mid-November 2012",
+      "evidence_refs": [
+        {
+          "block_id": "B007",
+          "evidence_id": null,
+          "anchor_text": "management contacted two financial advisors about the prospect of working with the company"
+        }
+      ],
+      "notes": [
+        "Both advisors declined to advise sTec."
+      ]
+    },
+    {
+      "actor_id": "advisor_company_a_financial_advisor",
+      "display_name": "Company A Financial Advisor",
+      "canonical_name": "COMPANY A FINANCIAL ADVISOR",
+      "aliases": [
+        "investment bank representing Company A",
+        "Company A financial advisor"
+      ],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "bidder_company_a",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B008",
+          "evidence_id": null,
+          "anchor_text": "an investment bank representing Company A"
+        }
+      ],
+      "notes": [
+        "The filing does not identify this advisor by name."
+      ]
+    },
+    {
+      "actor_id": "activist_balch_hill",
+      "display_name": "Balch Hill",
+      "canonical_name": "BALCH HILL PARTNERS, L. P.",
+      "aliases": [
+        "Balch Hill"
+      ],
+      "role": "activist",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B011",
+          "evidence_id": null,
+          "anchor_text": "Balch Hill Partners, L. P."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "activist_potomac",
+      "display_name": "Potomac",
+      "canonical_name": "POTOMAC CAPITAL PARTNERS II, L. P.",
+      "aliases": [
+        "Potomac"
+      ],
+      "role": "activist",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B011",
+          "evidence_id": null,
+          "anchor_text": "Potomac Capital Partners II, L. P."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_wdc",
+      "display_name": "WDC",
+      "canonical_name": "WDC",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B005",
+          "evidence_id": null,
+          "anchor_text": "WDC"
+        }
+      ],
+      "notes": [
+        "Pre-process WDC contacts in this chunk are described as general and exploratory and did not include specific transaction terms."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_a",
+      "display_name": "Company A",
+      "canonical_name": "COMPANY A",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B008",
+          "evidence_id": null,
+          "anchor_text": "Company A"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_b",
+      "display_name": "Company B",
+      "canonical_name": "COMPANY B",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B014",
+          "evidence_id": null,
+          "anchor_text": "Company B"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_bofa_merrill_lynch",
+      "display_name": "BofA Merrill Lynch",
+      "canonical_name": "BOFA MERRILL LYNCH",
+      "aliases": [],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "target_stec_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B030",
+          "evidence_id": null,
+          "anchor_text": "BofA Merrill Lynch"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_c",
+      "display_name": "Company C",
+      "canonical_name": "COMPANY C",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B024",
+          "evidence_id": null,
+          "anchor_text": "Company C"
+        }
+      ],
+      "notes": [
+        "Company C expressed interest only in particular or limited, select assets of sTec."
+      ]
+    },
+    {
+      "actor_id": "advisor_mackenzie_partners",
+      "display_name": "MacKenzie Partners",
+      "canonical_name": "MACKENZIE PARTNERS",
+      "aliases": [],
+      "role": "advisor",
+      "advisor_kind": "other",
+      "advised_actor_id": "target_stec_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B025",
+          "evidence_id": null,
+          "anchor_text": "MacKenzie Partners"
+        }
+      ],
+      "notes": [
+        "Served as sTec proxy solicitor in the activist campaign."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_d",
+      "display_name": "Company D",
+      "canonical_name": "COMPANY D",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B028",
+          "evidence_id": null,
+          "anchor_text": "Company D"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_h",
+      "display_name": "Company H",
+      "canonical_name": "COMPANY H",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B032",
+          "evidence_id": null,
+          "anchor_text": "Company H"
+        }
+      ],
+      "notes": [
+        "Company H is named in the outreach summary and NDA aggregate before this chunk provides a standalone dated full-company bid event."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_e",
+      "display_name": "Company E",
+      "canonical_name": "COMPANY E",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B034",
+          "evidence_id": null,
+          "anchor_text": "Company E"
+        }
+      ],
+      "notes": [
+        "Company E later indicated that it was interested only in limited, select assets of sTec."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_f",
+      "display_name": "Company F",
+      "canonical_name": "COMPANY F",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B034",
+          "evidence_id": null,
+          "anchor_text": "Company F"
+        }
+      ],
+      "notes": [
+        "Company F later indicated that it was interested only in limited, select assets of sTec."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_g",
+      "display_name": "Company G",
+      "canonical_name": "COMPANY G",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B044",
+          "evidence_id": null,
+          "anchor_text": "Company G"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_latham_watkins",
+      "display_name": "Latham & Watkins",
+      "canonical_name": "LATHAM & WATKINS LLP",
+      "aliases": [
+        "Latham & Watkins"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B060",
+          "evidence_id": null,
+          "anchor_text": "Latham & Watkins LLP"
+        }
+      ],
+      "notes": [
+        "The filing describes Latham & Watkins as litigation counsel to sTec and Mr. Manouch Moshayedi, so the schema leaves advised_actor_id null."
+      ]
+    }
+  ],
+  "chunk_output": {
+    "actors": [
+      {
+        "actor_id": "advisor_latham_watkins",
+        "display_name": "Latham & Watkins",
+        "canonical_name": "LATHAM & WATKINS LLP",
+        "aliases": [
+          "Latham & Watkins"
+        ],
+        "role": "advisor",
+        "advisor_kind": "legal",
+        "advised_actor_id": null,
+        "bidder_kind": null,
+        "listing_status": null,
+        "geography": null,
+        "is_grouped": false,
+        "group_size": null,
+        "group_label": null,
+        "evidence_refs": [
+          {
+            "block_id": "B060",
+            "evidence_id": null,
+            "anchor_text": "Latham & Watkins LLP"
+          }
+        ],
+        "notes": [
+          "The filing describes Latham & Watkins as litigation counsel to sTec and Mr. Manouch Moshayedi, so the schema leaves advised_actor_id null."
+        ]
+      }
+    ],
+    "count_assertions": [],
+    "events": [
+      {
+        "event_id": "c3_evt_001",
+        "event_type": "bidder_interest",
+        "date": {
+          "raw_text": "May 1, 2013",
+          "normalized_hint": "2013-05-01"
+        },
+        "actor_ids": [
+          "bidder_company_h"
+        ],
+        "summary": "Company H contacted BofA Merrill Lynch to express interest in a potential transaction with sTec.",
+        "evidence_refs": [
+          {
+            "block_id": "B046",
+            "evidence_id": null,
+            "anchor_text": "Company H contacted representatives of BofA Merrill Lynch expressing an\ninterest in a potential transaction with sTec."
+          }
+        ],
+        "terms": null,
+        "formality_signals": null,
+        "whole_company_scope": null,
+        "drop_reason_text": null,
+        "round_scope": null,
+        "invited_actor_ids": [],
+        "deadline_date": null,
+        "executed_with_actor_id": null,
+        "boundary_note": null,
+        "nda_signed": null,
+        "notes": []
+      },
+      {
+        "event_id": "c3_evt_002",
+        "event_type": "proposal",
+        "date": {
+          "raw_text": "May 3, 2013",
+          "normalized_hint": "2013-05-03"
+        },
+        "actor_ids": [
+          "bidder_wdc"
+        ],
+        "summary": "WDC submitted a written indication of interest at $6.60 to $7.10 per share in cash.",
+        "evidence_refs": [
+          {
+            "block_id": "B048",
+            "evidence_id": null,
+            "anchor_text": "WDC submitted a written indication of interest to acquire the company at a purchase price in the range of $6.60\n\u0096 $7.10 per share in cash."
+          }
+        ],
+        "terms": {
+          "per_share": null,
+          "range_low": 6.6,
+          "range_high": 7.1,
+          "enterprise_value": null,
+          "consideration_type": "cash"
+        },
+        "formality_signals": {
+          "contains_range": true,
+          "mentions_indication_of_interest": true,
+          "mentions_preliminary": false,
+          "mentions_non_binding": false,
+          "mentions_binding_offer": false,
+          "includes_draft_merger_agreement": false,
+          "includes_marked_up_agreement": false,
+          "requested_binding_offer_via_process_letter": false,
+          "after_final_round_announcement": false,
+          "after_final_round_deadline": false,
+          "is_subject_to_financing": null
+        },
+        "whole_company_scope": true,
+        "drop_reason_text": null,
+        "round_scope": null,
+        "invited_actor_ids": [],
+        "deadline_date": null,
+        "executed_with_actor_id": null,
+        "boundary_note": null,
+        "nda_signed": null,
+        "notes": []
+      },
+      {
+        "event_id": "c3_evt_003",
+        "event_type": "drop",
+        "date": {
+          "raw_text": "May 3, 2013",
+          "normalized_hint": "2013-05-03"
+        },
+        "actor_ids": [
+          "bidder_company_g"
+        ],
+        "summary": "Company G indicated that it would not continue in the process.",
+        "evidence_refs": [
+          {
+            "block_id": "B048",
+            "evidence_id": null,
+            "anchor_text": "Company G indicated it would not continue in the process."
+          }
+        ],
+        "terms": null,
+        "formality_signals": null,
+        "whole_company_scope": null,
+        "drop_reason_text": "indicated it would not continue in the process.",
+        "round_scope": null,
+        "invited_actor_ids": [],
+        "deadline_date": null,
+        "executed_with_actor_id": null,
+        "boundary_note": null,
+        "nda_signed": null,
+        "notes": []
+      },
+      {
+        "event_id": "c3_evt_004",
+        "event_type": "nda",
+        "date": {
+          "raw_text": "May 8, 2013",
+          "normalized_hint": "2013-05-08"
+        },
+        "actor_ids": [
+          "bidder_company_h"
+        ],
+        "summary": "sTec entered into a non-disclosure agreement with Company H.",
+        "evidence_refs": [
+          {
+            "block_id": "B052",
+            "evidence_id": null,
+            "anchor_text": "sTec entered into a non-disclosure agreement with Company H."
+          },
+          {
+            "block_id": "B036",
+            "evidence_id": null,
+            "anchor_text": "Company H, included a term prohibiting the counterparty from asking sTec to waive the standstill provision in the agreement"
+          }
+        ],
+        "terms": null,
+        "formality_signals": null,
+        "whole_company_scope": null,
+        "drop_reason_text": null,
+        "round_scope": null,
+        "invited_actor_ids": [],
+        "deadline_date": null,
+        "executed_with_actor_id": null,
+        "boundary_note": null,
+        "nda_signed": true,
+        "notes": [
+          "The agreement included a don't ask, don't waive provision."
+        ]
+      },
+      {
+        "event_id": "c3_evt_005",
+        "event_type": "proposal",
+        "date": {
+          "raw_text": "May 10, 2013",
+          "normalized_hint": "2013-05-10"
+        },
+        "actor_ids": [
+          "bidder_company_d"
+        ],
+        "summary": "Company D submitted a written non-binding indication of interest at $5.75 per share in cash and sent a draft exclusivity agreement.",
+        "evidence_refs": [
+          {
+            "block_id": "B056",
+            "evidence_id": null,
+            "anchor_text": "Company D submitted a written non-binding indication of interest to acquire the company at a purchase price of\n$5.75 per share in cash"
+          },
+          {
+            "block_id": "B056",
+            "evidence_id": null,
+            "anchor_text": "along with a draft exclusivity agreement."
+          }
+        ],
+        "terms": {
+          "per_share": 5.75,
+          "range_low": null,
+          "range_high": null,
+          "enterprise_value": null,
+          "consideration_type": "cash"
+        },
+        "formality_signals": {
+          "contains_range": false,
+          "mentions_indication_of_interest": true,
+          "mentions_preliminary": false,
+          "mentions_non_binding": true,
+          "mentions_binding_offer": false,
+          "includes_draft_merger_agreement": false,
+          "includes_marked_up_agreement": false,
+          "requested_binding_offer_via_process_letter": false,
+          "after_final_round_announcement": false,
+          "after_final_round_deadline": false,
+          "is_subject_to_financing": null
+        },
+        "whole_company_scope": true,
+        "drop_reason_text": null,
+        "round_scope": null,
+        "invited_actor_ids": [],
+        "deadline_date": null,
+        "executed_with_actor_id": null,
+        "boundary_note": null,
+        "nda_signed": null,
+        "notes": [
+          "The proposal was accompanied by a draft exclusivity agreement."
+        ]
+      },
+      {
+        "event_id": "c3_evt_006",
+        "event_type": "proposal",
+        "date": {
+          "raw_text": "May 15, 2013",
+          "normalized_hint": "2013-05-15"
+        },
+        "actor_ids": [
+          "bidder_company_h"
+        ],
+        "summary": "Company H submitted a written non-binding indication of interest at $5.00 to $5.75 per share in cash.",
+        "evidence_refs": [
+          {
+            "block_id": "B058",
+            "evidence_id": null,
+            "anchor_text": "Company H submitted a written non-binding indication of interest to acquire the\ncompany at a purchase price in the range of $5.00 \u0096 $5.75 per share in cash."
+          }
+        ],
+        "terms": {
+          "per_share": null,
+          "range_low": 5.0,
+          "range_high": 5.75,
+          "enterprise_value": null,
+          "consideration_type": "cash"
+        },
+        "formality_signals": {
+          "contains_range": true,
+          "mentions_indication_of_interest": true,
+          "mentions_preliminary": false,
+          "mentions_non_binding": true,
+          "mentions_binding_offer": false,
+          "includes_draft_merger_agreement": false,
+          "includes_marked_up_agreement": false,
+          "requested_binding_offer_via_process_letter": false,
+          "after_final_round_announcement": false,
+          "after_final_round_deadline": false,
+          "is_subject_to_financing": null
+        },
+        "whole_company_scope": true,
+        "drop_reason_text": null,
+        "round_scope": null,
+        "invited_actor_ids": [],
+        "deadline_date": null,
+        "executed_with_actor_id": null,
+        "boundary_note": null,
+        "nda_signed": null,
+        "notes": []
+      },
+      {
+        "event_id": "c3_evt_007",
+        "event_type": "final_round_ann",
+        "date": {
+          "raw_text": "May 16, 2013",
+          "normalized_hint": "2013-05-16"
+        },
+        "actor_ids": [],
+        "summary": "BofA Merrill Lynch sent final round process letters and a draft merger agreement to WDC and Company D, requesting responses by May 28, 2013.",
+        "evidence_refs": [
+          {
+            "block_id": "B064",
+            "evidence_id": null,
+            "anchor_text": "BofA Merrill\nLynch sent final round process letters and a draft merger agreement to WDC and Company D"
+          },
+          {
+            "block_id": "B064",
+            "evidence_id": null,
+            "anchor_text": "requesting a response by May 28, 2013."
+          }
+        ],
+        "terms": null,
+        "formality_signals": null,
+        "whole_company_scope": null,
+        "drop_reason_text": null,
+        "round_scope": "formal",
+        "invited_actor_ids": [
+          "bidder_wdc",
+          "bidder_company_d"
+        ],
+        "deadline_date": {
+          "raw_text": "May 28, 2013",
+          "normalized_hint": "2013-05-28"
+        },
+        "executed_with_actor_id": null,
+        "boundary_note": null,
+        "nda_signed": null,
+        "notes": []
+      },
+      {
+        "event_id": "c3_evt_008",
+        "event_type": "drop",
+        "date": {
+          "raw_text": "May 23, 2013",
+          "normalized_hint": "2013-05-23"
+        },
+        "actor_ids": [
+          "bidder_company_h"
+        ],
+        "summary": "Company H remained interested in an acquisition but could not increase its indicated value range after being told the submitted range was insufficient to advance.",
+        "evidence_refs": [
+          {
+            "block_id": "B062",
+            "evidence_id": null,
+            "anchor_text": "the price range Company H had submitted was not sufficient to move them forward in the process."
+          },
+          {
+            "block_id": "B065",
+            "evidence_id": null,
+            "anchor_text": "Company H remained interested in a potential acquisition of the company but that\nCompany H was not able to increase its indicated value range."
+          }
+        ],
+        "terms": null,
+        "formality_signals": null,
+        "whole_company_scope": null,
+        "drop_reason_text": "Company H remained interested in a potential acquisition of the company but that\nCompany H was not able to increase its indicated value range.",
+        "round_scope": null,
+        "invited_actor_ids": [],
+        "deadline_date": null,
+        "executed_with_actor_id": null,
+        "boundary_note": null,
+        "nda_signed": null,
+        "notes": [
+          "The special committee had earlier indicated that Company H's submitted range was not sufficient to move it forward."
+        ]
+      },
+      {
+        "event_id": "c3_evt_009",
+        "event_type": "proposal",
+        "date": {
+          "raw_text": "May 28, 2013",
+          "normalized_hint": "2013-05-28"
+        },
+        "actor_ids": [
+          "bidder_wdc"
+        ],
+        "summary": "WDC submitted a written second-round indication of interest at $9.15 per share in cash with a marked-up merger agreement and ancillary drafts.",
+        "evidence_refs": [
+          {
+            "block_id": "B066",
+            "evidence_id": null,
+            "anchor_text": "WDC submitted a written second-round\nindication of interest at a price per share of $9.15 in cash"
+          },
+          {
+            "block_id": "B066",
+            "evidence_id": null,
+            "anchor_text": "with a mark-up of the merger agreement and drafts of ancillary agreements"
+          }
+        ],
+        "terms": {
+          "per_share": 9.15,
+          "range_low": null,
+          "range_high": null,
+          "enterprise_value": null,
+          "consideration_type": "cash"
+        },
+        "formality_signals": {
+          "contains_range": false,
+          "mentions_indication_of_interest": true,
+          "mentions_preliminary": false,
+          "mentions_non_binding": false,
+          "mentions_binding_offer": false,
+          "includes_draft_merger_agreement": true,
+          "includes_marked_up_agreement": true,
+          "requested_binding_offer_via_process_letter": false,
+          "after_final_round_announcement": false,
+          "after_final_round_deadline": false,
+          "is_subject_to_financing": null
+        },
+        "whole_company_scope": true,
+        "drop_reason_text": null,
+        "round_scope": null,
+        "invited_actor_ids": [],
+        "deadline_date": null,
+        "executed_with_actor_id": null,
+        "boundary_note": null,
+        "nda_signed": null,
+        "notes": [
+          "The indication contemplated signing definitive documentation no later than June 3, 2013."
+        ]
+      },
+      {
+        "event_id": "c3_evt_010",
+        "event_type": "final_round_ext_ann",
+        "date": {
+          "raw_text": "May 29, 2013",
+          "normalized_hint": "2013-05-29"
+        },
+        "actor_ids": [],
+        "summary": "The board requested best and final proposals from WDC and Company D by May 30, 2013.",
+        "evidence_refs": [
+          {
+            "block_id": "B068",
+            "evidence_id": null,
+            "anchor_text": "our board of directors directed BofA Merrill Lynch to request a \u0093best and final\u0094 proposal\nfrom WDC and a \u0093best and final\u0094 written proposal from Company D by May 30, 2013."
+          },
+          {
+            "block_id": "B070",
+            "evidence_id": null,
+            "anchor_text": "requested a \u0093best and final\u0094 proposal from WDC and a \u0093best and final\u0094 written proposal from Company D."
+          }
+        ],
+        "terms": null,
+        "formality_signals": null,
+        "whole_company_scope": null,
+        "drop_reason_text": null,
+        "round_scope": "formal",
+        "invited_actor_ids": [
+          "bidder_wdc",
+          "bidder_company_d"
+        ],
+        "deadline_date": {
+          "raw_text": "May 30, 2013",
+          "normalized_hint": "2013-05-30"
+        },
+        "executed_with_actor_id": null,
+        "boundary_note": null,
+        "nda_signed": null,
+        "notes": []
+      },
+      {
+        "event_id": "c3_evt_011",
+        "event_type": "proposal",
+        "date": {
+          "raw_text": "May 30, 2013",
+          "normalized_hint": "2013-05-30"
+        },
+        "actor_ids": [
+          "bidder_wdc"
+        ],
+        "summary": "WDC confirmed that $9.15 per share was its best possible price and that it remained focused on announcing a transaction on June 3, 2013.",
+        "evidence_refs": [
+          {
+            "block_id": "B071",
+            "evidence_id": null,
+            "anchor_text": "WDC\u0092s indication of interest to acquire the company at a price\nof $9.15 per share was WDC\u0092s best possible price"
+          },
+          {
+            "block_id": "B071",
+            "evidence_id": null,
+            "anchor_text": "WDC continued to be focused on being in a position to announce a transaction on June 3, 2013."
+          }
+        ],
+        "terms": {
+          "per_share": 9.15,
+          "range_low": null,
+          "range_high": null,
+          "enterprise_value": null,
+          "consideration_type": "cash"
+        },
+        "formality_signals": {
+          "contains_range": false,
+          "mentions_indication_of_interest": true,
+          "mentions_preliminary": false,
+          "mentions_non_binding": false,
+          "mentions_binding_offer": false,
+          "includes_draft_merger_agreement": false,
+          "includes_marked_up_agreement": false,
+          "requested_binding_offer_via_process_letter": false,
+          "after_final_round_announcement": false,
+          "after_final_round_deadline": false,
+          "is_subject_to_financing": null
+        },
+        "whole_company_scope": true,
+        "drop_reason_text": null,
+        "round_scope": null,
+        "invited_actor_ids": [],
+        "deadline_date": null,
+        "executed_with_actor_id": null,
+        "boundary_note": null,
+        "nda_signed": null,
+        "notes": [
+          "This was WDC's best-and-final price confirmation after the board's May 29 request."
+        ]
+      },
+      {
+        "event_id": "c3_evt_012",
+        "event_type": "drop",
+        "date": {
+          "raw_text": "May 31, 2013",
+          "normalized_hint": "2013-05-31"
+        },
+        "actor_ids": [
+          "bidder_wdc"
+        ],
+        "summary": "WDC said it was not prepared to move forward with a transaction and stopped its due diligence efforts.",
+        "evidence_refs": [
+          {
+            "block_id": "B075",
+            "evidence_id": null,
+            "anchor_text": "WDC was reevaluating its interest in acquiring sTec"
+          },
+          {
+            "block_id": "B075",
+            "evidence_id": null,
+            "anchor_text": "WDC was not prepared to move forward with a transaction\nwith sTec at that time."
+          },
+          {
+            "block_id": "B075",
+            "evidence_id": null,
+            "anchor_text": "WDC discontinued their due diligence efforts with the company at that time."
+          }
+        ],
+        "terms": null,
+        "formality_signals": null,
+        "whole_company_scope": null,
+        "drop_reason_text": "WDC was not prepared to move forward with a transaction\nwith sTec at that time. In addition, WDC discontinued their due diligence efforts with the company at that time.",
+        "round_scope": null,
+        "invited_actor_ids": [],
+        "deadline_date": null,
+        "executed_with_actor_id": null,
+        "boundary_note": null,
+        "nda_signed": null,
+        "notes": []
+      }
+    ],
+    "exclusions": [
+      {
+        "category": "unsigned_nda",
+        "block_ids": [
+          "B046"
+        ],
+        "explanation": "BofA Merrill Lynch sent a non-disclosure agreement to Company H on May 2, 2013, but the filing does not state that the NDA was executed until May 8, 2013."
+      },
+      {
+        "category": "non_event_context",
+        "block_ids": [
+          "B051"
+        ],
+        "explanation": "The May 8, 2013 quarterly-results announcement is not a sale-process or bid press release."
+      },
+      {
+        "category": "non_event_context",
+        "block_ids": [
+          "B054",
+          "B055",
+          "B057",
+          "B060"
+        ],
+        "explanation": "Management presentations, data-room access, and diligence calls are supporting process steps but not standalone events in the 20-type taxonomy."
+      },
+      {
+        "category": "non_event_context",
+        "block_ids": [
+          "B062"
+        ],
+        "explanation": "The special committee's message that Company H's range was insufficient is treated as process feedback leading into the dated May 23 Company H drop rather than as a separate earlier drop event."
+      },
+      {
+        "category": "duplicate_mention",
+        "block_ids": [
+          "B073",
+          "B074"
+        ],
+        "explanation": "The board's decision to move forward with WDC and BofA Merrill Lynch's communication of that decision are target-side negotiation steps that do not create a separate proposal or execution event beyond the existing WDC proposal timeline."
+      }
+    ],
+    "unresolved_mentions": [
+      "Latham & Watkins is described as litigation counsel to both sTec and Mr. Manouch Moshayedi, but the raw actor schema cannot represent multiple advised parties.",
+      "The filing does not identify the individual WDC, Company D, and Company H representatives who communicated the offers and process updates in this chunk."
+    ],
+    "coverage_notes": [
+      "target_sale: NOT FOUND -- chunk 3 manages an ongoing sale process but does not launch a new strategic review",
+      "target_sale_public: NOT FOUND -- the May 8 earnings announcement is not a public strategic-review announcement",
+      "bidder_sale: NOT FOUND -- no acquirer-launched sale process appears in chunk 3",
+      "bidder_interest: extracted (c3_evt_001)",
+      "activist_sale: NOT FOUND -- activists do not initiate a new sale-process event in chunk 3",
+      "sale_press_release: NOT FOUND -- no press release announcing strategic alternatives appears in chunk 3",
+      "bid_press_release: NOT FOUND -- no deal or public bid press release appears in chunk 3",
+      "ib_retention: NOT FOUND -- no new advisor retention occurs in chunk 3",
+      "nda: extracted (c3_evt_004)",
+      "proposal: extracted (c3_evt_002, c3_evt_005, c3_evt_006, c3_evt_009, c3_evt_011)",
+      "drop: extracted (c3_evt_003, c3_evt_008, c3_evt_012)",
+      "final_round_inf_ann: NOT FOUND -- no informal final-round announcement appears in chunk 3",
+      "final_round_inf: NOT FOUND -- no informal final-round deadline appears in chunk 3",
+      "final_round_ann: extracted (c3_evt_007)",
+      "final_round: NOT FOUND -- the May 28 deadline is captured as deadline_date on c3_evt_007 rather than as a separate deadline event",
+      "final_round_ext_ann: extracted (c3_evt_010)",
+      "final_round_ext: NOT FOUND -- the May 30 best-and-final deadline is captured as deadline_date on c3_evt_010 rather than as a separate deadline event",
+      "executed: NOT FOUND -- no merger agreement is signed in chunk 3",
+      "terminated: NOT FOUND -- the sale process is not terminated in chunk 3",
+      "restarted: NOT FOUND -- no restarted sale process appears in chunk 3"
+    ]
+  },
+  "source_blocks": [
+    {
+      "block_id": "B044",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 44,
+      "start_line": 1436,
+      "end_line": 1437,
+      "raw_text": "Also on April 26, 2013, at the direction of our chairman on behalf of the special committee, BofA Merrill Lynch sent a process letter to Company G requesting a non-binding indication of interest by\nMay 3, 2013.",
+      "clean_text": "Also on April 26, 2013, at the direction of our chairman on behalf of the special committee, BofA Merrill Lynch sent a process letter to Company G requesting a non-binding indication of interest by May 3, 2013.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B045",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 45,
+      "start_line": 1439,
+      "end_line": 1439,
+      "raw_text": "28",
+      "clean_text": "28",
+      "is_heading": true,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B046",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 46,
+      "start_line": 1442,
+      "end_line": 1444,
+      "raw_text": "On May 1, 2013, Company H contacted representatives of BofA Merrill Lynch expressing an\ninterest in a potential transaction with sTec. BofA Merrill Lynch reported that contact to our chairman and management, and, on May 2, 2013, at the direction of our chairman on behalf of the special committee, BofA Merrill Lynch sent a\nnon-disclosure agreement to Company H.",
+      "clean_text": "On May 1, 2013, Company H contacted representatives of BofA Merrill Lynch expressing an interest in a potential transaction with sTec. BofA Merrill Lynch reported that contact to our chairman and management, and, on May 2, 2013, at the direction of our chairman on behalf of the special committee, BofA Merrill Lynch sent a non-disclosure agreement to Company H.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B047",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 47,
+      "start_line": 1446,
+      "end_line": 1447,
+      "raw_text": "On May 2, 2013, at the direction of the special committee, representatives of\nBofA Merrill Lynch had discussions with representatives of Company D. Company D\u0092s representatives indicated they would need an additional week to confirm their verbal indication of interest in writing.",
+      "clean_text": "On May 2, 2013, at the direction of the special committee, representatives of BofA Merrill Lynch had discussions with representatives of Company D. Company D\u0092s representatives indicated they would need an additional week to confirm their verbal indication of interest in writing.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B048",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 48,
+      "start_line": 1449,
+      "end_line": 1450,
+      "raw_text": "On May 3, 2013, WDC submitted a written indication of interest to acquire the company at a purchase price in the range of $6.60\n\u0096 $7.10 per share in cash. Also on May 3, 2013, Company G indicated it would not continue in the process.",
+      "clean_text": "On May 3, 2013, WDC submitted a written indication of interest to acquire the company at a purchase price in the range of $6.60 \u0096 $7.10 per share in cash. Also on May 3, 2013, Company G indicated it would not continue in the process.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B049",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 49,
+      "start_line": 1452,
+      "end_line": 1453,
+      "raw_text": "Thereafter, on May 3, 2013, at the direction of Dr. Daly, BofA Merrill Lynch provided the special committee with an update of\nthe status of discussions with potential acquirers.",
+      "clean_text": "Thereafter, on May 3, 2013, at the direction of Dr. Daly, BofA Merrill Lynch provided the special committee with an update of the status of discussions with potential acquirers.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B050",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 50,
+      "start_line": 1455,
+      "end_line": 1456,
+      "raw_text": "On May 6, 2013, our board of directors held a telephonic special\nmeeting, attended only by the independent directors. The independent directors discussed, among other matters, the status of the strategic review process.",
+      "clean_text": "On May 6, 2013, our board of directors held a telephonic special meeting, attended only by the independent directors. The independent directors discussed, among other matters, the status of the strategic review process.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B051",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 51,
+      "start_line": 1458,
+      "end_line": 1458,
+      "raw_text": "On May 8, 2013, sTec announced its results for the first quarter of fiscal year 2013.",
+      "clean_text": "On May 8, 2013, sTec announced its results for the first quarter of fiscal year 2013.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B052",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 52,
+      "start_line": 1460,
+      "end_line": 1460,
+      "raw_text": "Also on May 8, 2013, sTec entered into a non-disclosure agreement with Company H.",
+      "clean_text": "Also on May 8, 2013, sTec entered into a non-disclosure agreement with Company H.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B053",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 53,
+      "start_line": 1462,
+      "end_line": 1465,
+      "raw_text": "Also on May 8, 2013, the special committee held a telephonic meeting. Messrs. Cook, Saman and Morales and representatives from Gibson Dunn were in attendance. The special committee discussed in\ndetail sTec\u0092s standalone financial projections prepared by management and the further review that needed to be undertaken with management on management\u0092s financial model. Gibson Dunn reviewed certain considerations related to the special\ncommittee\u0092s fiduciary duties in connection with the strategic review process. Representatives of BofA Merrill Lynch joined for a portion of the meeting and reported on BofA Merrill Lynch\u0092s interactions to date with potential acquirers and\nthe special committee discussed with the representatives of BofA Merrill Lynch the preliminary proposal received from WDC and a number of financial matters relating to the proposal.",
+      "clean_text": "Also on May 8, 2013, the special committee held a telephonic meeting. Messrs. Cook, Saman and Morales and representatives from Gibson Dunn were in attendance. The special committee discussed in detail sTec\u0092s standalone financial projections prepared by management and the further review that needed to be undertaken with management on management\u0092s financial model. Gibson Dunn reviewed certain considerations related to the special committee\u0092s fiduciary duties in connection with the strategic review process. Representatives of BofA Merrill Lynch joined for a portion of the meeting and reported on BofA Merrill Lynch\u0092s interactions to date with potential acquirers and the special committee discussed with the representatives of BofA Merrill Lynch the preliminary proposal received from WDC and a number of financial matters relating to the proposal.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B054",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 54,
+      "start_line": 1467,
+      "end_line": 1467,
+      "raw_text": "On May 10, 2013, sTec held a management presentation with Company H.",
+      "clean_text": "On May 10, 2013, sTec held a management presentation with Company H.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B055",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 55,
+      "start_line": 1469,
+      "end_line": 1469,
+      "raw_text": "Also on May 10, 2013, sTec granted access to WDC to the virtual data room.",
+      "clean_text": "Also on May 10, 2013, sTec granted access to WDC to the virtual data room.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B056",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 56,
+      "start_line": 1471,
+      "end_line": 1472,
+      "raw_text": "Also on May 10, 2013, Company D submitted a written non-binding indication of interest to acquire the company at a purchase price of\n$5.75 per share in cash, along with a draft exclusivity agreement.",
+      "clean_text": "Also on May 10, 2013, Company D submitted a written non-binding indication of interest to acquire the company at a purchase price of $5.75 per share in cash, along with a draft exclusivity agreement.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B057",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 57,
+      "start_line": 1474,
+      "end_line": 1475,
+      "raw_text": "On May 14, 2013, sTec granted access to Company D to\nthe virtual data room.",
+      "clean_text": "On May 14, 2013, sTec granted access to Company D to the virtual data room.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B058",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 58,
+      "start_line": 1477,
+      "end_line": 1478,
+      "raw_text": "On May 15, 2013, Company H submitted a written non-binding indication of interest to acquire the\ncompany at a purchase price in the range of $5.00 \u0096 $5.75 per share in cash.",
+      "clean_text": "On May 15, 2013, Company H submitted a written non-binding indication of interest to acquire the company at a purchase price in the range of $5.00 \u0096 $5.75 per share in cash.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B059",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 59,
+      "start_line": 1480,
+      "end_line": 1482,
+      "raw_text": "Also on May 15, 2013, at the direction\nof our chairman on behalf of the special committee, representatives of BofA Merrill Lynch had a call with representatives of Company D in which they informed Company D\u0092s representatives that Company D would be allowed to continue in the process\nwith the understanding that Company D would need to meaningfully increase its proposal after being provided additional information and access to the management team.",
+      "clean_text": "Also on May 15, 2013, at the direction of our chairman on behalf of the special committee, representatives of BofA Merrill Lynch had a call with representatives of Company D in which they informed Company D\u0092s representatives that Company D would be allowed to continue in the process with the understanding that Company D would need to meaningfully increase its proposal after being provided additional information and access to the management team.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B060",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 60,
+      "start_line": 1484,
+      "end_line": 1485,
+      "raw_text": "During the weeks of May 13 and May 20, 2013, sTec, representatives of Latham & Watkins LLP (\u0093 Latham & Watkins\u0094), litigation counsel to sTec and Mr. Manouch\nMoshayedi, held due diligence calls and meetings with WDC and Company D, which representatives of BofA Merrill Lynch also attended.",
+      "clean_text": "During the weeks of May 13 and May 20, 2013, sTec, representatives of Latham & Watkins LLP (\u0093 Latham & Watkins\u0094), litigation counsel to sTec and Mr. Manouch Moshayedi, held due diligence calls and meetings with WDC and Company D, which representatives of BofA Merrill Lynch also attended.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B061",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 61,
+      "start_line": 1487,
+      "end_line": 1487,
+      "raw_text": "29",
+      "clean_text": "29",
+      "is_heading": true,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B062",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 62,
+      "start_line": 1490,
+      "end_line": 1492,
+      "raw_text": "Also during this time period, at the direction of our chairman on behalf of the special\ncommittee, representatives of BofA Merrill Lynch contacted Company H and indicated that the price range Company H had submitted was not sufficient to move them forward in the process. The Company H representative was told that Company H could submit\na revised indication of interest, which would be considered by the special committee.",
+      "clean_text": "Also during this time period, at the direction of our chairman on behalf of the special committee, representatives of BofA Merrill Lynch contacted Company H and indicated that the price range Company H had submitted was not sufficient to move them forward in the process. The Company H representative was told that Company H could submit a revised indication of interest, which would be considered by the special committee.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B063",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 63,
+      "start_line": 1494,
+      "end_line": 1496,
+      "raw_text": "On May 16, 2013, a regularly\nscheduled board meeting was held. Messrs. Cook, Saman and Morales and representatives from BofA Merrill Lynch were in attendance. Our board of directors discussed with representatives of BofA Merrill Lynch the status of the process, preliminary\nvaluation considerations and next steps in the process.",
+      "clean_text": "On May 16, 2013, a regularly scheduled board meeting was held. Messrs. Cook, Saman and Morales and representatives from BofA Merrill Lynch were in attendance. Our board of directors discussed with representatives of BofA Merrill Lynch the status of the process, preliminary valuation considerations and next steps in the process.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B064",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 64,
+      "start_line": 1498,
+      "end_line": 1499,
+      "raw_text": "After the meeting, at the direction of the board, BofA Merrill\nLynch sent final round process letters and a draft merger agreement to WDC and Company D, requesting a response by May 28, 2013.",
+      "clean_text": "After the meeting, at the direction of the board, BofA Merrill Lynch sent final round process letters and a draft merger agreement to WDC and Company D, requesting a response by May 28, 2013.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B065",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 65,
+      "start_line": 1501,
+      "end_line": 1502,
+      "raw_text": "On May 23, 2013, representatives of Company H contacted a representative of BofA Merrill Lynch and indicated that Company H remained interested in a potential acquisition of the company but that\nCompany H was not able to increase its indicated value range.",
+      "clean_text": "On May 23, 2013, representatives of Company H contacted a representative of BofA Merrill Lynch and indicated that Company H remained interested in a potential acquisition of the company but that Company H was not able to increase its indicated value range.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B066",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 66,
+      "start_line": 1504,
+      "end_line": 1508,
+      "raw_text": "On May 28, 2013, WDC submitted a written second-round\nindication of interest at a price per share of $9.15 in cash, with a mark-up of the merger agreement and drafts of ancillary agreements, including a voting agreement to be entered into by each of sTec\u0092s officers and directors, a covenant not to\nsue to be entered into by Mr. Manouch Moshayedi, a technical services agreement to be entered into by Mr. Mark Moshayedi, a non-competition agreement to be entered into by each of Mr. Manouch Moshayedi and Mr. Mark Moshayedi, and\na landlord\u0092s consent to assignment to be entered into by an affiliate of Messrs. Moshayedi. The technical services agreement to be entered into by Mr. Mark Moshayedi did not contain any financial terms. This indication of interest\ncontemplated signing definitive documentation with respect to a transaction by no later than June 3, 2013.",
+      "clean_text": "On May 28, 2013, WDC submitted a written second-round indication of interest at a price per share of $9.15 in cash, with a mark-up of the merger agreement and drafts of ancillary agreements, including a voting agreement to be entered into by each of sTec\u0092s officers and directors, a covenant not to sue to be entered into by Mr. Manouch Moshayedi, a technical services agreement to be entered into by Mr. Mark Moshayedi, a non-competition agreement to be entered into by each of Mr. Manouch Moshayedi and Mr. Mark Moshayedi, and a landlord\u0092s consent to assignment to be entered into by an affiliate of Messrs. Moshayedi. The technical services agreement to be entered into by Mr. Mark Moshayedi did not contain any financial terms. This indication of interest contemplated signing definitive documentation with respect to a transaction by no later than June 3, 2013.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B067",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 67,
+      "start_line": 1510,
+      "end_line": 1512,
+      "raw_text": "Also on\nMay 28, 2013, a representative of Company D contacted representatives of BofA Merrill Lynch and indicated that Company D continued to have an interest in a potential acquisition and understood they needed to move meaningfully on value; however,\nthe representative stated that Company D needed approximately two weeks of additional time to continue its ongoing due diligence review and to submit a written indication of interest and mark-up of the merger agreement.",
+      "clean_text": "Also on May 28, 2013, a representative of Company D contacted representatives of BofA Merrill Lynch and indicated that Company D continued to have an interest in a potential acquisition and understood they needed to move meaningfully on value; however, the representative stated that Company D needed approximately two weeks of additional time to continue its ongoing due diligence review and to submit a written indication of interest and mark-up of the merger agreement.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B068",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 68,
+      "start_line": 1514,
+      "end_line": 1522,
+      "raw_text": "On May 29, 2013, our board of directors held a telephonic special meeting. Messrs. Cook, Saman and Morales, Mr. Mike Higa, our\nSenior Vice President of Finance, and representatives from BofA Merrill Lynch and Gibson Dunn also attended the meeting. The board discussed the company\u0092s updated financial model on a standalone basis. The BofA Merrill Lynch representative\nreported on communications with both Company D and WDC in response to sTec\u0092s request for non-binding proposals on May 28, 2013, and on the most recent communications with Company H. BofA Merrill Lynch reported that WDC had presented an\nindication of interest of $9.15 per share, which the representative of WDC had described as the highest price that WDC was willing to offer and that the WDC representative had also disclosed that there were internal concerns regarding the price at\nWDC. BofA Merrill Lynch further reported that Company D had stated that it continued to be interested in an acquisition but that it needed approximately two weeks to continue its ongoing due diligence review and to submit a proposal. The board of\ndirectors then discussed with BofA Merrill Lynch financial aspects of WDC\u0092s proposal. The board of directors discussed with Messrs. Moshayedi the terms of the ancillary agreements that WDC had requested be executed by Messrs. Moshayedi and\ntheir affiliates. Finally, the board of directors also discussed the legal considerations related to the process with Gibson Dunn. After discussion, our board of directors directed BofA Merrill Lynch to request a \u0093best and final\u0094 proposal\nfrom WDC and a \u0093best and final\u0094 written proposal from Company D by May 30, 2013. Messrs. Moshayedi were also reminded of the direction that had been discussed with them from time-to-time during the strategic review process that they\nshould not negotiate any financial terms relating to their agreements with an acquirer, including WDC, prior to final agreement with the potential acquirer on the price to be paid to the company\u0092s shareholders. Later that day,",
+      "clean_text": "On May 29, 2013, our board of directors held a telephonic special meeting. Messrs. Cook, Saman and Morales, Mr. Mike Higa, our Senior Vice President of Finance, and representatives from BofA Merrill Lynch and Gibson Dunn also attended the meeting. The board discussed the company\u0092s updated financial model on a standalone basis. The BofA Merrill Lynch representative reported on communications with both Company D and WDC in response to sTec\u0092s request for non-binding proposals on May 28, 2013, and on the most recent communications with Company H. BofA Merrill Lynch reported that WDC had presented an indication of interest of $9.15 per share, which the representative of WDC had described as the highest price that WDC was willing to offer and that the WDC representative had also disclosed that there were internal concerns regarding the price at WDC. BofA Merrill Lynch further reported that Company D had stated that it continued to be interested in an acquisition but that it needed approximately two weeks to continue its ongoing due diligence review and to submit a proposal. The board of directors then discussed with BofA Merrill Lynch financial aspects of WDC\u0092s proposal. The board of directors discussed with Messrs. Moshayedi the terms of the ancillary agreements that WDC had requested be executed by Messrs. Moshayedi and their affiliates. Finally, the board of directors also discussed the legal considerations related to the process with Gibson Dunn. After discussion, our board of directors directed BofA Merrill Lynch to request a \u0093best and final\u0094 proposal from WDC and a \u0093best and final\u0094 written proposal from Company D by May 30, 2013. Messrs. Moshayedi were also reminded of the direction that had been discussed with them from time-to-time during the strategic review process that they should not negotiate any financial terms relating to their agreements with an acquirer, including WDC, prior to final agreement with the potential acquirer on the price to be paid to the company\u0092s shareholders. Later that day,",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B069",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 69,
+      "start_line": 1524,
+      "end_line": 1524,
+      "raw_text": "30",
+      "clean_text": "30",
+      "is_heading": true,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B070",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 70,
+      "start_line": 1527,
+      "end_line": 1527,
+      "raw_text": "as directed by the board of directors, BofA Merrill Lynch requested a \u0093best and final\u0094 proposal from WDC and a \u0093best and final\u0094 written proposal from Company D.",
+      "clean_text": "as directed by the board of directors, BofA Merrill Lynch requested a \u0093best and final\u0094 proposal from WDC and a \u0093best and final\u0094 written proposal from Company D.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B071",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 71,
+      "start_line": 1529,
+      "end_line": 1530,
+      "raw_text": "On May 30, 2013, representatives of WDC verbally indicated that WDC\u0092s indication of interest to acquire the company at a price\nof $9.15 per share was WDC\u0092s best possible price, and reiterated the concern of WDC regarding the price. The WDC representative also stated that WDC continued to be focused on being in a position to announce a transaction on June 3, 2013.",
+      "clean_text": "On May 30, 2013, representatives of WDC verbally indicated that WDC\u0092s indication of interest to acquire the company at a price of $9.15 per share was WDC\u0092s best possible price, and reiterated the concern of WDC regarding the price. The WDC representative also stated that WDC continued to be focused on being in a position to announce a transaction on June 3, 2013.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B072",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 72,
+      "start_line": 1532,
+      "end_line": 1533,
+      "raw_text": "Also on May 30, 2013 representatives of Company D reconfirmed they would require additional time to submit a written\nindication of interest, however, the Company D representatives also indicated they continued to believe they could be competitive on price if given additional time.",
+      "clean_text": "Also on May 30, 2013 representatives of Company D reconfirmed they would require additional time to submit a written indication of interest, however, the Company D representatives also indicated they continued to believe they could be competitive on price if given additional time.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B073",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 73,
+      "start_line": 1535,
+      "end_line": 1539,
+      "raw_text": "Also on May 30, 2013, the board of directors held a telephonic special meeting. Messrs. Cook, Saman, Higa and Morales, and representatives from BofA Merrill Lynch, Latham & Watkins and\nGibson Dunn also attended the meeting. The BofA Merrill Lynch representative reported on the communications from both WDC and Company D in response to BofA Merrill Lynch\u0092s communication on May 29, 2013 seeking the \u0093best and\nfinal\u0094 proposals from those companies. The representative from Latham & Watkins discussed the implications of entry into the covenant not to sue that WDC had requested be executed by Mr. Manouch Moshayedi. Mr. Manouch\nMoshayedi indicated that his lawyers were continuing to review the proposed ancillary agreements. Our board of directors unanimously determined to move forward with WDC on their proposed terms, including endeavoring to complete diligence and\nnegotiation of the merger agreement and ancillary agreements to be in a position to announce a transaction on June 3, 2013. The board directed that representatives of BofA Merrill Lynch communicate the board\u0092s decision to WDC.",
+      "clean_text": "Also on May 30, 2013, the board of directors held a telephonic special meeting. Messrs. Cook, Saman, Higa and Morales, and representatives from BofA Merrill Lynch, Latham & Watkins and Gibson Dunn also attended the meeting. The BofA Merrill Lynch representative reported on the communications from both WDC and Company D in response to BofA Merrill Lynch\u0092s communication on May 29, 2013 seeking the \u0093best and final\u0094 proposals from those companies. The representative from Latham & Watkins discussed the implications of entry into the covenant not to sue that WDC had requested be executed by Mr. Manouch Moshayedi. Mr. Manouch Moshayedi indicated that his lawyers were continuing to review the proposed ancillary agreements. Our board of directors unanimously determined to move forward with WDC on their proposed terms, including endeavoring to complete diligence and negotiation of the merger agreement and ancillary agreements to be in a position to announce a transaction on June 3, 2013. The board directed that representatives of BofA Merrill Lynch communicate the board\u0092s decision to WDC.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B074",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 74,
+      "start_line": 1541,
+      "end_line": 1542,
+      "raw_text": "Later, on May 30, 2013, as directed by the board, representatives of BofA Merrill Lynch informed WDC that sTec would move forward to\neffect a transaction at a purchase price of $9.15 per share, subject to satisfactory negotiations of the merger agreement and ancillary agreements.",
+      "clean_text": "Later, on May 30, 2013, as directed by the board, representatives of BofA Merrill Lynch informed WDC that sTec would move forward to effect a transaction at a purchase price of $9.15 per share, subject to satisfactory negotiations of the merger agreement and ancillary agreements.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B075",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 75,
+      "start_line": 1544,
+      "end_line": 1545,
+      "raw_text": "On May 31, 2013, a representative of WDC communicated to BofA Merrill Lynch that WDC was reevaluating its interest in acquiring sTec, and that WDC was not prepared to move forward with a transaction\nwith sTec at that time. In addition, WDC discontinued their due diligence efforts with the company at that time. BofA Merrill Lynch then contacted the company\u0092s officers and Dr. Daly to report the communication from WDC.",
+      "clean_text": "On May 31, 2013, a representative of WDC communicated to BofA Merrill Lynch that WDC was reevaluating its interest in acquiring sTec, and that WDC was not prepared to move forward with a transaction with sTec at that time. In addition, WDC discontinued their due diligence efforts with the company at that time. BofA Merrill Lynch then contacted the company\u0092s officers and Dr. Daly to report the communication from WDC.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B076",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 76,
+      "start_line": 1547,
+      "end_line": 1549,
+      "raw_text": "On May 31, 2013, our board of directors held a telephonic special meeting, attended by four independent directors, Dr. Daly and\nMessrs. Bahri, Ball and Colpitts. Mr. Saman and a representative from Gibson Dunn were also in attendance. Dr. Daly reported on the communications from WDC that WDC had decided to reconsider its interest in acquiring sTec and that it was\nnot prepared to move forward with a transaction with sTec at that time. Our board of directors then discussed potential next steps. Gibson Dunn reviewed certain legal considerations related to the process.",
+      "clean_text": "On May 31, 2013, our board of directors held a telephonic special meeting, attended by four independent directors, Dr. Daly and Messrs. Bahri, Ball and Colpitts. Mr. Saman and a representative from Gibson Dunn were also in attendance. Dr. Daly reported on the communications from WDC that WDC had decided to reconsider its interest in acquiring sTec and that it was not prepared to move forward with a transaction with sTec at that time. Our board of directors then discussed potential next steps. Gibson Dunn reviewed certain legal considerations related to the process.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B077",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 77,
+      "start_line": 1551,
+      "end_line": 1552,
+      "raw_text": "At the request of our board of directors, representatives of BofA Merrill Lynch had a call with representatives of Company D on which\nthey informed Company D\u0092s representatives that timing for sTec\u0092s process had been delayed, and that Company D had an opportunity to continue in the process. The Company D representatives indicated that they would consider this opportunity.",
+      "clean_text": "At the request of our board of directors, representatives of BofA Merrill Lynch had a call with representatives of Company D on which they informed Company D\u0092s representatives that timing for sTec\u0092s process had been delayed, and that Company D had an opportunity to continue in the process. The Company D representatives indicated that they would consider this opportunity.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B078",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 78,
+      "start_line": 1554,
+      "end_line": 1554,
+      "raw_text": "On June 1, 2013, sTec posted materials responsive to the diligence requests of Company D to the data room.",
+      "clean_text": "On June 1, 2013, sTec posted materials responsive to the diligence requests of Company D to the data room.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B079",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 79,
+      "start_line": 1556,
+      "end_line": 1557,
+      "raw_text": "Over the period from June 1 to June 10, 2013, at the direction of the board, representatives of BofA Merrill Lynch had several\ndiscussions with representatives of WDC. WDC indicated that a difference of opinion had emerged internally, that WDC\u0092s prior bidding approach to an acquisition of sTec had been rejected, and that they",
+      "clean_text": "Over the period from June 1 to June 10, 2013, at the direction of the board, representatives of BofA Merrill Lynch had several discussions with representatives of WDC. WDC indicated that a difference of opinion had emerged internally, that WDC\u0092s prior bidding approach to an acquisition of sTec had been rejected, and that they",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B080",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 80,
+      "start_line": 1559,
+      "end_line": 1559,
+      "raw_text": "31",
+      "clean_text": "31",
+      "is_heading": true,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B081",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 81,
+      "start_line": 1562,
+      "end_line": 1562,
+      "raw_text": "were reconsidering their interest in a transaction with sTec. The representatives of BofA Merrill Lynch reported these discussions to our chairman and the company\u0092s officers.",
+      "clean_text": "were reconsidering their interest in a transaction with sTec. The representatives of BofA Merrill Lynch reported these discussions to our chairman and the company\u0092s officers.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    }
+  ]
+}

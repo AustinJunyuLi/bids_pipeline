@@ -180,6 +180,9 @@ BIDS_LLM_REASONING_EFFORT — provider-specific reasoning effort
 BIDS_LLM_STRUCTURED_MODE  — prompted_json|provider_native|auto
 PIPELINE_SEC_IDENTITY  — preferred EDGAR identity for raw-fetch
 SEC_IDENTITY / EDGAR_IDENTITY — fallback EDGAR identity env vars
+
+Default EDGAR identity: "Austin Li junyu.li.24@ucl.ac.uk"
+When running raw-fetch, set EDGAR_IDENTITY to this value if not already configured.
 ```
 
 ## Active Deals

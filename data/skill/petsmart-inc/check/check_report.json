@@ -1,0 +1,26 @@
+{
+  "findings": [
+    {
+      "check_id": "duplicate_canonical_name",
+      "severity": "warning",
+      "description": "Actors ['placeholder_financial_1', 'placeholder_financial_2', 'placeholder_financial_3', 'placeholder_financial_4', 'placeholder_financial_5', 'placeholder_financial_6', 'placeholder_financial_7', 'placeholder_financial_8', 'placeholder_financial_9'] share canonical_name 'ANOTHER FINANCIAL SPONSOR'.",
+      "actor_ids": [
+        "placeholder_financial_1",
+        "placeholder_financial_2",
+        "placeholder_financial_3",
+        "placeholder_financial_4",
+        "placeholder_financial_5",
+        "placeholder_financial_6",
+        "placeholder_financial_7",
+        "placeholder_financial_8",
+        "placeholder_financial_9"
+      ],
+      "event_ids": []
+    }
+  ],
+  "summary": {
+    "blocker_count": 0,
+    "warning_count": 1,
+    "status": "pass"
+  }
+}

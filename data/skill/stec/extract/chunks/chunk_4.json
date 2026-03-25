@@ -1,0 +1,2462 @@
+{
+  "chunk_id": "chunk_4",
+  "chunk_number": 4,
+  "source": "fresh_post_phase06_rerun",
+  "chunk_strategy": {
+    "method": "balanced_token_partition_manual_skill_follow",
+    "estimated_token_budget": 3800,
+    "estimated_window_tokens": 2718,
+    "overlap_usable_blocks": 1,
+    "usable_block_count": 14,
+    "full_window_block_count": 16
+  },
+  "primary_window": {
+    "start_block_id": "B082",
+    "end_block_id": "B096",
+    "usable_block_ids": [
+      "B082",
+      "B083",
+      "B084",
+      "B085",
+      "B086",
+      "B087",
+      "B089",
+      "B090",
+      "B091",
+      "B092",
+      "B093",
+      "B094",
+      "B096"
+    ]
+  },
+  "context_window": {
+    "start_block_id": "B081",
+    "end_block_id": "B096",
+    "full_block_ids": [
+      "B081",
+      "B082",
+      "B083",
+      "B084",
+      "B085",
+      "B086",
+      "B087",
+      "B088",
+      "B089",
+      "B090",
+      "B091",
+      "B092",
+      "B093",
+      "B094",
+      "B095",
+      "B096"
+    ],
+    "start_line": 1562,
+    "end_line": 1639,
+    "overlap_prev_block_ids": [
+      "B081"
+    ],
+    "overlap_next_block_ids": [
+      "B096"
+    ]
+  },
+  "scoped_evidence": {
+    "count": 42,
+    "evidence_ids": [
+      "0001193125-13-325730:E0396",
+      "0001193125-13-325730:E0397",
+      "0001193125-13-325730:E0398",
+      "0001193125-13-325730:E0399",
+      "0001193125-13-325730:E0400",
+      "0001193125-13-325730:E0401",
+      "0001193125-13-325730:E0402",
+      "0001193125-13-325730:E0403",
+      "0001193125-13-325730:E0404",
+      "0001193125-13-325730:E0405",
+      "0001193125-13-325730:E0406",
+      "0001193125-13-325730:E0407",
+      "0001193125-13-325730:E0408",
+      "0001193125-13-325730:E0409",
+      "0001193125-13-325730:E0410",
+      "0001193125-13-325730:E0411",
+      "0001193125-13-325730:E0412",
+      "0001193125-13-325730:E0413",
+      "0001193125-13-325730:E0414",
+      "0001193125-13-325730:E0415",
+      "0001193125-13-325730:E0416",
+      "0001193125-13-325730:E0417",
+      "0001193125-13-325730:E0418",
+      "0001193125-13-325730:E0419",
+      "0001193125-13-325730:E0420",
+      "0001193125-13-325730:E0421",
+      "0001193125-13-325730:E0422",
+      "0001193125-13-325730:E0423",
+      "0001193125-13-325730:E0424",
+      "0001193125-13-325730:E0425",
+      "0001193125-13-325730:E0426",
+      "0001193125-13-325730:E0427",
+      "0001193125-13-325730:E0428",
+      "0001193125-13-325730:E0429",
+      "0001193125-13-325730:E0430",
+      "0001193125-13-325730:E0431",
+      "0001193125-13-325730:E0432",
+      "0001193125-13-325730:E0433",
+      "0001193125-13-325730:E0434",
+      "0001193125-13-325730:E0435",
+      "0001193125-13-325730:E0436",
+      "0001193125-13-325730:E0437"
+    ],
+    "items": [
+      {
+        "evidence_id": "0001193125-13-325730:E0396",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1562,
+        "end_line": 1562,
+        "raw_text": "were reconsidering their interest in a transaction with sTec. The representatives of BofA Merrill Lynch reported these discussions to our chairman and the company\u0092s officers.",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [],
+        "date_text": null,
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": null
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0397",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1564,
+        "end_line": 1565,
+        "raw_text": "On June 5, 2013 representatives of Company D contacted representatives of BofA Merrill Lynch and indicated that Company D would not\nbe in a position to actively conduct due diligence for more than two weeks and was disengaging from the process. The representatives of BofA Merrill Lynch reported these discussions to our chairman and the company\u0092s officers.",
+        "evidence_type": "dated_action",
+        "confidence": "high",
+        "matched_terms": [
+          "contacted",
+          "sent"
+        ],
+        "date_text": "June 5, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected dated action: contacted, sent"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0398",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1564,
+        "end_line": 1565,
+        "raw_text": "On June 5, 2013 representatives of Company D contacted representatives of BofA Merrill Lynch and indicated that Company D would not\nbe in a position to actively conduct due diligence for more than two weeks and was disengaging from the process. The representatives of BofA Merrill Lynch reported these discussions to our chairman and the company\u0092s officers.",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [],
+        "date_text": "June 5, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": null
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0399",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1564,
+        "end_line": 1565,
+        "raw_text": "On June 5, 2013 representatives of Company D contacted representatives of BofA Merrill Lynch and indicated that Company D would not\nbe in a position to actively conduct due diligence for more than two weeks and was disengaging from the process. The representatives of BofA Merrill Lynch reported these discussions to our chairman and the company\u0092s officers.",
+        "evidence_type": "process_signal",
+        "confidence": "medium",
+        "matched_terms": [
+          "due diligence"
+        ],
+        "date_text": "June 5, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": "detected process signal: due diligence"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0400",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1567,
+        "end_line": 1571,
+        "raw_text": "On June 10, 2013, WDC submitted a revised written indication of interest to acquire the company at a price range of $6.60 to $7.10\nper share in cash. The representative from WDC also communicated to BofA Merrill Lynch that WDC had given serious consideration to not proceeding with a transaction, that WDC did not view the acquisition of sTec as essential to its SSD strategy in\nlight of other available alternatives (including internal development efforts), and that according to WDC certain business factors related to the company had also influenced WDC\u0092s decision to lower the price from its May 30, 2013 written\nindication of interest at $9.15 per share in cash, as well as a change in its bidding strategy from the prior approach it had adopted. The representative from WDC also communicated that WDC was otherwise prepared to move forward on the transaction\nterms previously proposed on May 28, 2013.",
+        "evidence_type": "dated_action",
+        "confidence": "high",
+        "matched_terms": [
+          "proposed",
+          "sent",
+          "submitted"
+        ],
+        "date_text": "June 10, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": "$6.60 to $7.10\nper share",
+        "note": "detected dated action: proposed, sent, submitted"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0401",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1567,
+        "end_line": 1571,
+        "raw_text": "On June 10, 2013, WDC submitted a revised written indication of interest to acquire the company at a price range of $6.60 to $7.10\nper share in cash. The representative from WDC also communicated to BofA Merrill Lynch that WDC had given serious consideration to not proceeding with a transaction, that WDC did not view the acquisition of sTec as essential to its SSD strategy in\nlight of other available alternatives (including internal development efforts), and that according to WDC certain business factors related to the company had also influenced WDC\u0092s decision to lower the price from its May 30, 2013 written\nindication of interest at $9.15 per share in cash, as well as a change in its bidding strategy from the prior approach it had adopted. The representative from WDC also communicated that WDC was otherwise prepared to move forward on the transaction\nterms previously proposed on May 28, 2013.",
+        "evidence_type": "financial_term",
+        "confidence": "high",
+        "matched_terms": [
+          "$6.60 to $7.10\nper share",
+          "$9.15 per share"
+        ],
+        "date_text": "June 10, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": "$6.60 to $7.10\nper share",
+        "note": "detected financial term: $6.60 to $7.10\nper share, $9.15 per share"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0402",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1567,
+        "end_line": 1571,
+        "raw_text": "On June 10, 2013, WDC submitted a revised written indication of interest to acquire the company at a price range of $6.60 to $7.10\nper share in cash. The representative from WDC also communicated to BofA Merrill Lynch that WDC had given serious consideration to not proceeding with a transaction, that WDC did not view the acquisition of sTec as essential to its SSD strategy in\nlight of other available alternatives (including internal development efforts), and that according to WDC certain business factors related to the company had also influenced WDC\u0092s decision to lower the price from its May 30, 2013 written\nindication of interest at $9.15 per share in cash, as well as a change in its bidding strategy from the prior approach it had adopted. The representative from WDC also communicated that WDC was otherwise prepared to move forward on the transaction\nterms previously proposed on May 28, 2013.",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [],
+        "date_text": "June 10, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": "$6.60 to $7.10\nper share",
+        "note": null
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0403",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1573,
+        "end_line": 1578,
+        "raw_text": "On June 11, 2013, our board of directors held a telephonic special\nmeeting. Messrs. Saman, Higa and Morales, and representatives from BofA Merrill Lynch and Gibson Dunn also attended the meeting. The board of directors reviewed WDC\u0092s written indication of interest to acquire sTec at a purchase price in the\nrange of $6.60 to $7.10 per share in cash and recent communications with WDC. The board of directors discussed with BofA Merrill Lynch the indication of interest and the related communications with WDC. Our board of directors discussed the\nlegal considerations related to the process with Gibson Dunn. Our board of directors then discussed potential responses to WDC, and the considerations related to each. The board of directors directed BofA Merrill Lynch to communicate to WDC the\nboard of directors\u0092 disappointment in the latest proposal and the significant change from its prior proposal, that the board would not respond to a proposal with a range, and that if WDC desired to proceed, WDC must submit a proposal reflecting\nits best offer, and provide confirmation that such offer was supported by WDC\u0092s senior management.",
+        "evidence_type": "dated_action",
+        "confidence": "high",
+        "matched_terms": [
+          "discussed",
+          "meeting",
+          "offer",
+          "proposal",
+          "sent"
+        ],
+        "date_text": "June 11, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": "$6.60 to $7.10 per share",
+        "note": "detected dated action: discussed, meeting, offer, proposal, sent"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0404",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1573,
+        "end_line": 1578,
+        "raw_text": "On June 11, 2013, our board of directors held a telephonic special\nmeeting. Messrs. Saman, Higa and Morales, and representatives from BofA Merrill Lynch and Gibson Dunn also attended the meeting. The board of directors reviewed WDC\u0092s written indication of interest to acquire sTec at a purchase price in the\nrange of $6.60 to $7.10 per share in cash and recent communications with WDC. The board of directors discussed with BofA Merrill Lynch the indication of interest and the related communications with WDC. Our board of directors discussed the\nlegal considerations related to the process with Gibson Dunn. Our board of directors then discussed potential responses to WDC, and the considerations related to each. The board of directors directed BofA Merrill Lynch to communicate to WDC the\nboard of directors\u0092 disappointment in the latest proposal and the significant change from its prior proposal, that the board would not respond to a proposal with a range, and that if WDC desired to proceed, WDC must submit a proposal reflecting\nits best offer, and provide confirmation that such offer was supported by WDC\u0092s senior management.",
+        "evidence_type": "financial_term",
+        "confidence": "medium",
+        "matched_terms": [
+          "$6.60 to $7.10 per share"
+        ],
+        "date_text": "June 11, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": "$6.60 to $7.10 per share",
+        "note": "detected financial term: $6.60 to $7.10 per share"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0405",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1573,
+        "end_line": 1578,
+        "raw_text": "On June 11, 2013, our board of directors held a telephonic special\nmeeting. Messrs. Saman, Higa and Morales, and representatives from BofA Merrill Lynch and Gibson Dunn also attended the meeting. The board of directors reviewed WDC\u0092s written indication of interest to acquire sTec at a purchase price in the\nrange of $6.60 to $7.10 per share in cash and recent communications with WDC. The board of directors discussed with BofA Merrill Lynch the indication of interest and the related communications with WDC. Our board of directors discussed the\nlegal considerations related to the process with Gibson Dunn. Our board of directors then discussed potential responses to WDC, and the considerations related to each. The board of directors directed BofA Merrill Lynch to communicate to WDC the\nboard of directors\u0092 disappointment in the latest proposal and the significant change from its prior proposal, that the board would not respond to a proposal with a range, and that if WDC desired to proceed, WDC must submit a proposal reflecting\nits best offer, and provide confirmation that such offer was supported by WDC\u0092s senior management.",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [],
+        "date_text": "June 11, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": "$6.60 to $7.10 per share",
+        "note": null
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0406",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1580,
+        "end_line": 1582,
+        "raw_text": "Later that day, as\ndirected by the board of directors, representatives of BofA Merrill Lynch informed WDC that our board of directors would not consider a proposal with a range of value and requested that WDC submit a specific proposal reflecting its best offer and\nprovide confirmation that such offer was supported by WDC\u0092s senior management.",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [],
+        "date_text": null,
+        "actor_hint": "Merrill Lynch",
+        "value_hint": null,
+        "note": null
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0407",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1584,
+        "end_line": 1586,
+        "raw_text": "On June 14, 2013, WDC submitted a\nwritten indication of interest of $6.85 per share in cash and indicated it could be in a position to announce a transaction on June 24, 2013. In communicating the revised proposal to BofA Merrill Lynch, the WDC representative again stated that\nWDC was only interested in proceeding with the transaction at a purchase price of $6.85 per share, WDC\u0092s best and final price, for the reasons previously noted, and otherwise on the transaction terms previously proposed on May 28, 2013.",
+        "evidence_type": "dated_action",
+        "confidence": "high",
+        "matched_terms": [
+          "proposal",
+          "proposed",
+          "sent",
+          "submitted"
+        ],
+        "date_text": "June 14, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": "$6.85 per share",
+        "note": "detected dated action: proposal, proposed, sent, submitted"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0408",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1584,
+        "end_line": 1586,
+        "raw_text": "On June 14, 2013, WDC submitted a\nwritten indication of interest of $6.85 per share in cash and indicated it could be in a position to announce a transaction on June 24, 2013. In communicating the revised proposal to BofA Merrill Lynch, the WDC representative again stated that\nWDC was only interested in proceeding with the transaction at a purchase price of $6.85 per share, WDC\u0092s best and final price, for the reasons previously noted, and otherwise on the transaction terms previously proposed on May 28, 2013.",
+        "evidence_type": "financial_term",
+        "confidence": "medium",
+        "matched_terms": [
+          "$6.85 per share"
+        ],
+        "date_text": "June 14, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": "$6.85 per share",
+        "note": "detected financial term: $6.85 per share"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0409",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1584,
+        "end_line": 1586,
+        "raw_text": "On June 14, 2013, WDC submitted a\nwritten indication of interest of $6.85 per share in cash and indicated it could be in a position to announce a transaction on June 24, 2013. In communicating the revised proposal to BofA Merrill Lynch, the WDC representative again stated that\nWDC was only interested in proceeding with the transaction at a purchase price of $6.85 per share, WDC\u0092s best and final price, for the reasons previously noted, and otherwise on the transaction terms previously proposed on May 28, 2013.",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [],
+        "date_text": "June 14, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": "$6.85 per share",
+        "note": null
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0410",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1584,
+        "end_line": 1586,
+        "raw_text": "On June 14, 2013, WDC submitted a\nwritten indication of interest of $6.85 per share in cash and indicated it could be in a position to announce a transaction on June 24, 2013. In communicating the revised proposal to BofA Merrill Lynch, the WDC representative again stated that\nWDC was only interested in proceeding with the transaction at a purchase price of $6.85 per share, WDC\u0092s best and final price, for the reasons previously noted, and otherwise on the transaction terms previously proposed on May 28, 2013.",
+        "evidence_type": "process_signal",
+        "confidence": "low",
+        "matched_terms": [
+          "best and final"
+        ],
+        "date_text": "June 14, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": "$6.85 per share",
+        "note": "detected process signal: best and final"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0411",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1588,
+        "end_line": 1593,
+        "raw_text": "On June 15, 2013, the special committee of the board of directors held a telephonic meeting. Messrs. Cook, Saman and\nMorales and representatives from BofA Merrill Lynch and Gibson Dunn were in attendance. BofA Merrill Lynch reported on their communications with WDC, including WDC\u0092s indication of interest on June 14, 2013 to acquire the company at a\npurchase price of $6.85 per share in cash. The members of the special committee then discussed sTec\u0092s outlook for the second and third quarters of 2013 and over the next 12 to 24 months, including the timing and impact of sTec\u0092s proposed\ncost reductions on the go-forward operations of the company, and the projected impact on sTec\u0092s cash position if sTec entered into an acquisition agreement with WDC and was contractually unable to make the proposed cost reductions. Gibson Dunn\ndiscussed certain legal considerations related to the process. The members of the special committee discussed with BofA Merrill Lynch certain financial matters relating to WDC\u0092s proposal. The committee continued discussion of sTec\u0092s\nalternative",
+        "evidence_type": "dated_action",
+        "confidence": "high",
+        "matched_terms": [
+          "discussed",
+          "entered into",
+          "meeting",
+          "proposal",
+          "proposed",
+          "sent"
+        ],
+        "date_text": "June 15, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": "$6.85 per share",
+        "note": "detected dated action: discussed, entered into, meeting, proposal, proposed"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0412",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1588,
+        "end_line": 1593,
+        "raw_text": "On June 15, 2013, the special committee of the board of directors held a telephonic meeting. Messrs. Cook, Saman and\nMorales and representatives from BofA Merrill Lynch and Gibson Dunn were in attendance. BofA Merrill Lynch reported on their communications with WDC, including WDC\u0092s indication of interest on June 14, 2013 to acquire the company at a\npurchase price of $6.85 per share in cash. The members of the special committee then discussed sTec\u0092s outlook for the second and third quarters of 2013 and over the next 12 to 24 months, including the timing and impact of sTec\u0092s proposed\ncost reductions on the go-forward operations of the company, and the projected impact on sTec\u0092s cash position if sTec entered into an acquisition agreement with WDC and was contractually unable to make the proposed cost reductions. Gibson Dunn\ndiscussed certain legal considerations related to the process. The members of the special committee discussed with BofA Merrill Lynch certain financial matters relating to WDC\u0092s proposal. The committee continued discussion of sTec\u0092s\nalternative",
+        "evidence_type": "financial_term",
+        "confidence": "medium",
+        "matched_terms": [
+          "$6.85 per share"
+        ],
+        "date_text": "June 15, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": "$6.85 per share",
+        "note": "detected financial term: $6.85 per share"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0413",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1588,
+        "end_line": 1593,
+        "raw_text": "On June 15, 2013, the special committee of the board of directors held a telephonic meeting. Messrs. Cook, Saman and\nMorales and representatives from BofA Merrill Lynch and Gibson Dunn were in attendance. BofA Merrill Lynch reported on their communications with WDC, including WDC\u0092s indication of interest on June 14, 2013 to acquire the company at a\npurchase price of $6.85 per share in cash. The members of the special committee then discussed sTec\u0092s outlook for the second and third quarters of 2013 and over the next 12 to 24 months, including the timing and impact of sTec\u0092s proposed\ncost reductions on the go-forward operations of the company, and the projected impact on sTec\u0092s cash position if sTec entered into an acquisition agreement with WDC and was contractually unable to make the proposed cost reductions. Gibson Dunn\ndiscussed certain legal considerations related to the process. The members of the special committee discussed with BofA Merrill Lynch certain financial matters relating to WDC\u0092s proposal. The committee continued discussion of sTec\u0092s\nalternative",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [
+          "special committee"
+        ],
+        "date_text": "June 15, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": "$6.85 per share",
+        "note": "detected actor identification: special committee"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0414",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1598,
+        "end_line": 1601,
+        "raw_text": "options to accepting WDC\u0092s proposal, including the benefits and risks of such alternatives, and the potential responses to WDC\u0092s proposal, including the possibility of making a\ncounterproposal to WDC. The special committee determined, based on the communications from WDC, that it was unlikely that WDC would raise its price further and there was a significant risk that WDC would withdraw the indication of interest if sTec\nresponded with a counterproposal. After further discussion, the special committee unanimously determined that they believed that it was in the best interests of sTec and its shareholders to move forward with a transaction with WDC on the terms set\nforth in WDC\u0092s indication of interest received on June 14, 2013, subject to negotiating final terms of the merger agreement and ancillary agreements relating to such transaction, and voted to recommend the same to the board of directors.",
+        "evidence_type": "dated_action",
+        "confidence": "high",
+        "matched_terms": [
+          "proposal",
+          "received"
+        ],
+        "date_text": "June 14, 2013",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected dated action: proposal, received"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0415",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1598,
+        "end_line": 1601,
+        "raw_text": "options to accepting WDC\u0092s proposal, including the benefits and risks of such alternatives, and the potential responses to WDC\u0092s proposal, including the possibility of making a\ncounterproposal to WDC. The special committee determined, based on the communications from WDC, that it was unlikely that WDC would raise its price further and there was a significant risk that WDC would withdraw the indication of interest if sTec\nresponded with a counterproposal. After further discussion, the special committee unanimously determined that they believed that it was in the best interests of sTec and its shareholders to move forward with a transaction with WDC on the terms set\nforth in WDC\u0092s indication of interest received on June 14, 2013, subject to negotiating final terms of the merger agreement and ancillary agreements relating to such transaction, and voted to recommend the same to the board of directors.",
+        "evidence_type": "actor_identification",
+        "confidence": "medium",
+        "matched_terms": [
+          "shareholder",
+          "special committee"
+        ],
+        "date_text": "June 14, 2013",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected actor identification: shareholder, special committee"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0416",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1598,
+        "end_line": 1601,
+        "raw_text": "options to accepting WDC\u0092s proposal, including the benefits and risks of such alternatives, and the potential responses to WDC\u0092s proposal, including the possibility of making a\ncounterproposal to WDC. The special committee determined, based on the communications from WDC, that it was unlikely that WDC would raise its price further and there was a significant risk that WDC would withdraw the indication of interest if sTec\nresponded with a counterproposal. After further discussion, the special committee unanimously determined that they believed that it was in the best interests of sTec and its shareholders to move forward with a transaction with WDC on the terms set\nforth in WDC\u0092s indication of interest received on June 14, 2013, subject to negotiating final terms of the merger agreement and ancillary agreements relating to such transaction, and voted to recommend the same to the board of directors.",
+        "evidence_type": "outcome_fact",
+        "confidence": "medium",
+        "matched_terms": [
+          "merger agreement",
+          "vote"
+        ],
+        "date_text": "June 14, 2013",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected outcome fact: merger agreement, vote"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0417",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1603,
+        "end_line": 1610,
+        "raw_text": "Also on June 15, 2013, immediately after the special committee meeting, our board of directors held a telephonic special\nmeeting. Messrs. Cook, Saman, Higa and Morales and representatives from BofA Merrill Lynch and Gibson Dunn were in attendance. Dr. Daly reported on the special committee\u0092s decision. BofA Merrill Lynch reported on their recent\ncommunications with WDC, as shared with the special committee, including that WDC had communicated that $6.85 per share was its best and final price. The board of directors then discussed certain considerations relating to the company\u0092s\nbusiness. The board of directors then discussed certain legal considerations related to the process with the representatives of Gibson Dunn. The board of directors discussed with BofA Merrill Lynch certain financial matters relating to WDC\u0092s\nindication of interest. The board of directors further discussed with Messrs. Mark Moshayedi and Manouch Moshayedi the terms of the ancillary agreements that they were being requested to execute. After further discussion, the board members present\nunanimously determined that they believed that it was in the best interests of sTec and its shareholders to move forward with a transaction with WDC on the terms set forth in WDC\u0092s proposal received on June 14, 2013, subject to negotiating\nfinal terms of the merger agreement and ancillary agreements relating to such transaction, with a goal of announcing a transaction on June 24, 2013 and instructed BofA Merrill Lynch to communicate the board\u0092s authorization to move forward\nto WDC.",
+        "evidence_type": "dated_action",
+        "confidence": "high",
+        "matched_terms": [
+          "discussed",
+          "meeting",
+          "proposal",
+          "received",
+          "requested",
+          "sent"
+        ],
+        "date_text": "June 15, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": "$6.85 per share",
+        "note": "detected dated action: discussed, meeting, proposal, received, requested"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0418",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1603,
+        "end_line": 1610,
+        "raw_text": "Also on June 15, 2013, immediately after the special committee meeting, our board of directors held a telephonic special\nmeeting. Messrs. Cook, Saman, Higa and Morales and representatives from BofA Merrill Lynch and Gibson Dunn were in attendance. Dr. Daly reported on the special committee\u0092s decision. BofA Merrill Lynch reported on their recent\ncommunications with WDC, as shared with the special committee, including that WDC had communicated that $6.85 per share was its best and final price. The board of directors then discussed certain considerations relating to the company\u0092s\nbusiness. The board of directors then discussed certain legal considerations related to the process with the representatives of Gibson Dunn. The board of directors discussed with BofA Merrill Lynch certain financial matters relating to WDC\u0092s\nindication of interest. The board of directors further discussed with Messrs. Mark Moshayedi and Manouch Moshayedi the terms of the ancillary agreements that they were being requested to execute. After further discussion, the board members present\nunanimously determined that they believed that it was in the best interests of sTec and its shareholders to move forward with a transaction with WDC on the terms set forth in WDC\u0092s proposal received on June 14, 2013, subject to negotiating\nfinal terms of the merger agreement and ancillary agreements relating to such transaction, with a goal of announcing a transaction on June 24, 2013 and instructed BofA Merrill Lynch to communicate the board\u0092s authorization to move forward\nto WDC.",
+        "evidence_type": "financial_term",
+        "confidence": "medium",
+        "matched_terms": [
+          "$6.85 per share"
+        ],
+        "date_text": "June 15, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": "$6.85 per share",
+        "note": "detected financial term: $6.85 per share"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0419",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1603,
+        "end_line": 1610,
+        "raw_text": "Also on June 15, 2013, immediately after the special committee meeting, our board of directors held a telephonic special\nmeeting. Messrs. Cook, Saman, Higa and Morales and representatives from BofA Merrill Lynch and Gibson Dunn were in attendance. Dr. Daly reported on the special committee\u0092s decision. BofA Merrill Lynch reported on their recent\ncommunications with WDC, as shared with the special committee, including that WDC had communicated that $6.85 per share was its best and final price. The board of directors then discussed certain considerations relating to the company\u0092s\nbusiness. The board of directors then discussed certain legal considerations related to the process with the representatives of Gibson Dunn. The board of directors discussed with BofA Merrill Lynch certain financial matters relating to WDC\u0092s\nindication of interest. The board of directors further discussed with Messrs. Mark Moshayedi and Manouch Moshayedi the terms of the ancillary agreements that they were being requested to execute. After further discussion, the board members present\nunanimously determined that they believed that it was in the best interests of sTec and its shareholders to move forward with a transaction with WDC on the terms set forth in WDC\u0092s proposal received on June 14, 2013, subject to negotiating\nfinal terms of the merger agreement and ancillary agreements relating to such transaction, with a goal of announcing a transaction on June 24, 2013 and instructed BofA Merrill Lynch to communicate the board\u0092s authorization to move forward\nto WDC.",
+        "evidence_type": "actor_identification",
+        "confidence": "medium",
+        "matched_terms": [
+          "shareholder",
+          "special committee"
+        ],
+        "date_text": "June 15, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": "$6.85 per share",
+        "note": "detected actor identification: shareholder, special committee"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0420",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1603,
+        "end_line": 1610,
+        "raw_text": "Also on June 15, 2013, immediately after the special committee meeting, our board of directors held a telephonic special\nmeeting. Messrs. Cook, Saman, Higa and Morales and representatives from BofA Merrill Lynch and Gibson Dunn were in attendance. Dr. Daly reported on the special committee\u0092s decision. BofA Merrill Lynch reported on their recent\ncommunications with WDC, as shared with the special committee, including that WDC had communicated that $6.85 per share was its best and final price. The board of directors then discussed certain considerations relating to the company\u0092s\nbusiness. The board of directors then discussed certain legal considerations related to the process with the representatives of Gibson Dunn. The board of directors discussed with BofA Merrill Lynch certain financial matters relating to WDC\u0092s\nindication of interest. The board of directors further discussed with Messrs. Mark Moshayedi and Manouch Moshayedi the terms of the ancillary agreements that they were being requested to execute. After further discussion, the board members present\nunanimously determined that they believed that it was in the best interests of sTec and its shareholders to move forward with a transaction with WDC on the terms set forth in WDC\u0092s proposal received on June 14, 2013, subject to negotiating\nfinal terms of the merger agreement and ancillary agreements relating to such transaction, with a goal of announcing a transaction on June 24, 2013 and instructed BofA Merrill Lynch to communicate the board\u0092s authorization to move forward\nto WDC.",
+        "evidence_type": "process_signal",
+        "confidence": "low",
+        "matched_terms": [
+          "best and final"
+        ],
+        "date_text": "June 15, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": "$6.85 per share",
+        "note": "detected process signal: best and final"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0421",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1603,
+        "end_line": 1610,
+        "raw_text": "Also on June 15, 2013, immediately after the special committee meeting, our board of directors held a telephonic special\nmeeting. Messrs. Cook, Saman, Higa and Morales and representatives from BofA Merrill Lynch and Gibson Dunn were in attendance. Dr. Daly reported on the special committee\u0092s decision. BofA Merrill Lynch reported on their recent\ncommunications with WDC, as shared with the special committee, including that WDC had communicated that $6.85 per share was its best and final price. The board of directors then discussed certain considerations relating to the company\u0092s\nbusiness. The board of directors then discussed certain legal considerations related to the process with the representatives of Gibson Dunn. The board of directors discussed with BofA Merrill Lynch certain financial matters relating to WDC\u0092s\nindication of interest. The board of directors further discussed with Messrs. Mark Moshayedi and Manouch Moshayedi the terms of the ancillary agreements that they were being requested to execute. After further discussion, the board members present\nunanimously determined that they believed that it was in the best interests of sTec and its shareholders to move forward with a transaction with WDC on the terms set forth in WDC\u0092s proposal received on June 14, 2013, subject to negotiating\nfinal terms of the merger agreement and ancillary agreements relating to such transaction, with a goal of announcing a transaction on June 24, 2013 and instructed BofA Merrill Lynch to communicate the board\u0092s authorization to move forward\nto WDC.",
+        "evidence_type": "outcome_fact",
+        "confidence": "low",
+        "matched_terms": [
+          "merger agreement"
+        ],
+        "date_text": "June 15, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": "$6.85 per share",
+        "note": "detected outcome fact: merger agreement"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0422",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1612,
+        "end_line": 1614,
+        "raw_text": "On June 16, 2013, as directed by our board of directors, representatives of BofA Merrill Lynch informed WDC that\nour board of directors had authorized moving forward with a transaction with WDC on the terms set forth in WDC\u0092s proposal received June 14, 2013, at a price of $6.85 per share, subject to negotiating final terms of the merger agreement and\nancillary agreements relating to such transaction.",
+        "evidence_type": "dated_action",
+        "confidence": "high",
+        "matched_terms": [
+          "authorized",
+          "proposal",
+          "received",
+          "sent"
+        ],
+        "date_text": "June 16, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": "$6.85 per share",
+        "note": "detected dated action: authorized, proposal, received, sent"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0423",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1612,
+        "end_line": 1614,
+        "raw_text": "On June 16, 2013, as directed by our board of directors, representatives of BofA Merrill Lynch informed WDC that\nour board of directors had authorized moving forward with a transaction with WDC on the terms set forth in WDC\u0092s proposal received June 14, 2013, at a price of $6.85 per share, subject to negotiating final terms of the merger agreement and\nancillary agreements relating to such transaction.",
+        "evidence_type": "financial_term",
+        "confidence": "medium",
+        "matched_terms": [
+          "$6.85 per share"
+        ],
+        "date_text": "June 16, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": "$6.85 per share",
+        "note": "detected financial term: $6.85 per share"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0424",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1612,
+        "end_line": 1614,
+        "raw_text": "On June 16, 2013, as directed by our board of directors, representatives of BofA Merrill Lynch informed WDC that\nour board of directors had authorized moving forward with a transaction with WDC on the terms set forth in WDC\u0092s proposal received June 14, 2013, at a price of $6.85 per share, subject to negotiating final terms of the merger agreement and\nancillary agreements relating to such transaction.",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [],
+        "date_text": "June 16, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": "$6.85 per share",
+        "note": null
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0425",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1612,
+        "end_line": 1614,
+        "raw_text": "On June 16, 2013, as directed by our board of directors, representatives of BofA Merrill Lynch informed WDC that\nour board of directors had authorized moving forward with a transaction with WDC on the terms set forth in WDC\u0092s proposal received June 14, 2013, at a price of $6.85 per share, subject to negotiating final terms of the merger agreement and\nancillary agreements relating to such transaction.",
+        "evidence_type": "outcome_fact",
+        "confidence": "low",
+        "matched_terms": [
+          "merger agreement"
+        ],
+        "date_text": "June 16, 2013",
+        "actor_hint": "Merrill Lynch",
+        "value_hint": "$6.85 per share",
+        "note": "detected outcome fact: merger agreement"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0426",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1616,
+        "end_line": 1617,
+        "raw_text": "From June 16 to June 22, 2013, WDC conducted additional due\ndiligence, including confirmatory due diligence calls. Also, on June 18, 2013, sTec and WDC entered into a \u0093clean team agreement\u0094 to allow certain representatives of WDC access to further information in the data room.",
+        "evidence_type": "dated_action",
+        "confidence": "high",
+        "matched_terms": [
+          "entered into",
+          "sent"
+        ],
+        "date_text": "June",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected dated action: entered into, sent"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0427",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1616,
+        "end_line": 1617,
+        "raw_text": "From June 16 to June 22, 2013, WDC conducted additional due\ndiligence, including confirmatory due diligence calls. Also, on June 18, 2013, sTec and WDC entered into a \u0093clean team agreement\u0094 to allow certain representatives of WDC access to further information in the data room.",
+        "evidence_type": "process_signal",
+        "confidence": "medium",
+        "matched_terms": [
+          "due diligence"
+        ],
+        "date_text": "June",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected process signal: due diligence"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0428",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1619,
+        "end_line": 1625,
+        "raw_text": "On June 17, 2013, representatives from Paul Hastings LLP (\u0093 Paul Hastings\u0094), counsel to Messrs. Moshayedi, and\nShearman & Sterling LLP (\u0093 Shearman\u0094), counsel to WDC, commenced negotiating the terms of the covenant not to sue, and the other agreements that Messrs. Moshayedi were being asked to execute. Negotiations of such agreements\ncontinued through June 23, 2013. The draft covenant not to sue provided by WDC required Mr. Manouch Moshayedi to relinquish all rights to indemnification under his existing arrangements with the company, but also provided that WDC would\ncontinue to pay Mr. Moshayedi\u0092s legal fees in connection with the civil action filed against Mr. Moshayedi by the SEC on July 29, 2012 and release him from any obligation to reimburse the company for such legal fees under his indemnification\nagreement with sTec. Among other matters, in the negotiations that commenced on June 17, 2013, Paul Hastings negotiated for the continued right of indemnification for Mr. Moshayedi, subject to a cap of $20 million with respect to indemnification\n(other than for defense costs) related to the SEC\u0092s civil action. Thereafter, Messrs. Moshayedi proposed that the company enter into letter agreements to conform their existing severance and change in control agreements to the arrangements\nnegotiated with WDC.",
+        "evidence_type": "dated_action",
+        "confidence": "high",
+        "matched_terms": [
+          "proposed",
+          "sent"
+        ],
+        "date_text": "June 17, 2013",
+        "actor_hint": null,
+        "value_hint": "$20",
+        "note": "detected dated action: proposed, sent"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0429",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1619,
+        "end_line": 1625,
+        "raw_text": "On June 17, 2013, representatives from Paul Hastings LLP (\u0093 Paul Hastings\u0094), counsel to Messrs. Moshayedi, and\nShearman & Sterling LLP (\u0093 Shearman\u0094), counsel to WDC, commenced negotiating the terms of the covenant not to sue, and the other agreements that Messrs. Moshayedi were being asked to execute. Negotiations of such agreements\ncontinued through June 23, 2013. The draft covenant not to sue provided by WDC required Mr. Manouch Moshayedi to relinquish all rights to indemnification under his existing arrangements with the company, but also provided that WDC would\ncontinue to pay Mr. Moshayedi\u0092s legal fees in connection with the civil action filed against Mr. Moshayedi by the SEC on July 29, 2012 and release him from any obligation to reimburse the company for such legal fees under his indemnification\nagreement with sTec. Among other matters, in the negotiations that commenced on June 17, 2013, Paul Hastings negotiated for the continued right of indemnification for Mr. Moshayedi, subject to a cap of $20 million with respect to indemnification\n(other than for defense costs) related to the SEC\u0092s civil action. Thereafter, Messrs. Moshayedi proposed that the company enter into letter agreements to conform their existing severance and change in control agreements to the arrangements\nnegotiated with WDC.",
+        "evidence_type": "financial_term",
+        "confidence": "low",
+        "matched_terms": [
+          "$20"
+        ],
+        "date_text": "June 17, 2013",
+        "actor_hint": null,
+        "value_hint": "$20",
+        "note": "detected financial term: $20"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0430",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1619,
+        "end_line": 1625,
+        "raw_text": "On June 17, 2013, representatives from Paul Hastings LLP (\u0093 Paul Hastings\u0094), counsel to Messrs. Moshayedi, and\nShearman & Sterling LLP (\u0093 Shearman\u0094), counsel to WDC, commenced negotiating the terms of the covenant not to sue, and the other agreements that Messrs. Moshayedi were being asked to execute. Negotiations of such agreements\ncontinued through June 23, 2013. The draft covenant not to sue provided by WDC required Mr. Manouch Moshayedi to relinquish all rights to indemnification under his existing arrangements with the company, but also provided that WDC would\ncontinue to pay Mr. Moshayedi\u0092s legal fees in connection with the civil action filed against Mr. Moshayedi by the SEC on July 29, 2012 and release him from any obligation to reimburse the company for such legal fees under his indemnification\nagreement with sTec. Among other matters, in the negotiations that commenced on June 17, 2013, Paul Hastings negotiated for the continued right of indemnification for Mr. Moshayedi, subject to a cap of $20 million with respect to indemnification\n(other than for defense costs) related to the SEC\u0092s civil action. Thereafter, Messrs. Moshayedi proposed that the company enter into letter agreements to conform their existing severance and change in control agreements to the arrangements\nnegotiated with WDC.",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [
+          "counsel"
+        ],
+        "date_text": "June 17, 2013",
+        "actor_hint": null,
+        "value_hint": "$20",
+        "note": "detected actor identification: counsel"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0431",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1627,
+        "end_line": 1628,
+        "raw_text": "On June 19, 2013, Gibson Dunn submitted to Shearman proposed revisions to the merger agreement\nmarkup received from Shearman on May 28, 2013. On June 20, 2013, Shearman circulated a revised draft of the merger agreement to Gibson Dunn, indicating that WDC was not willing to further negotiate the terms of the merger",
+        "evidence_type": "dated_action",
+        "confidence": "high",
+        "matched_terms": [
+          "proposed",
+          "received",
+          "submitted"
+        ],
+        "date_text": "June 19, 2013",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected dated action: proposed, received, submitted"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0432",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1627,
+        "end_line": 1628,
+        "raw_text": "On June 19, 2013, Gibson Dunn submitted to Shearman proposed revisions to the merger agreement\nmarkup received from Shearman on May 28, 2013. On June 20, 2013, Shearman circulated a revised draft of the merger agreement to Gibson Dunn, indicating that WDC was not willing to further negotiate the terms of the merger",
+        "evidence_type": "outcome_fact",
+        "confidence": "low",
+        "matched_terms": [
+          "merger agreement"
+        ],
+        "date_text": "June 19, 2013",
+        "actor_hint": null,
+        "value_hint": null,
+        "note": "detected outcome fact: merger agreement"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0433",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1633,
+        "end_line": 1639,
+        "raw_text": "agreement. Among other matters, Gibson Dunn communicated to Shearman sTec\u0092s desire to include in the merger agreement a general waiver of all \u0093don\u0092t ask don\u0092t waive\u0094\nprovisions in its non-disclosure agreements with potential bidders. Shearman communicated that WDC would not agree to this waiver, and in addition, WDC would view it as improper if sTec unilaterally waived these provisions, indicating that WDC may\nnot move forward with the transaction if sTec unilaterally waived these provisions. Gibson Dunn discussed this communication from WDC and other proposed changes to the merger agreement with Dr. Daly and Mr. Saman. Based on the history of\nthe discussions with the potential bidders with \u0093don\u0092t ask don\u0092t waive\u0094 provisions in their non-disclosure agreements that would continue in effect after sTec entered into an acquisition agreement, Dr. Daly, on behalf of the\nspecial committee, believed the possibility that any of these potential bidders would be willing and able to make a superior proposal was remote. Specifically, Company E and Company F had expressed an interest solely in purchasing certain assets of\nsTec, and Company H had repeatedly stated it could not increase its price above the range of $5.00 to $5.75 per share. Based upon direction from Dr. Daly in view of WDC\u0092s indication that it was not willing to negotiate further, and may not\nproceed with the transaction if sTec did not agree to certain terms, Gibson Dunn focused on a limited number of issues in the merger agreement in its continued discussions with Shearman through June 23, 2013.",
+        "evidence_type": "dated_action",
+        "confidence": "high",
+        "matched_terms": [
+          "discussed",
+          "entered into",
+          "proposal",
+          "proposed"
+        ],
+        "date_text": "may",
+        "actor_hint": null,
+        "value_hint": "$5.00 to $5.75 per share",
+        "note": "detected dated action: discussed, entered into, proposal, proposed"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0434",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1633,
+        "end_line": 1639,
+        "raw_text": "agreement. Among other matters, Gibson Dunn communicated to Shearman sTec\u0092s desire to include in the merger agreement a general waiver of all \u0093don\u0092t ask don\u0092t waive\u0094\nprovisions in its non-disclosure agreements with potential bidders. Shearman communicated that WDC would not agree to this waiver, and in addition, WDC would view it as improper if sTec unilaterally waived these provisions, indicating that WDC may\nnot move forward with the transaction if sTec unilaterally waived these provisions. Gibson Dunn discussed this communication from WDC and other proposed changes to the merger agreement with Dr. Daly and Mr. Saman. Based on the history of\nthe discussions with the potential bidders with \u0093don\u0092t ask don\u0092t waive\u0094 provisions in their non-disclosure agreements that would continue in effect after sTec entered into an acquisition agreement, Dr. Daly, on behalf of the\nspecial committee, believed the possibility that any of these potential bidders would be willing and able to make a superior proposal was remote. Specifically, Company E and Company F had expressed an interest solely in purchasing certain assets of\nsTec, and Company H had repeatedly stated it could not increase its price above the range of $5.00 to $5.75 per share. Based upon direction from Dr. Daly in view of WDC\u0092s indication that it was not willing to negotiate further, and may not\nproceed with the transaction if sTec did not agree to certain terms, Gibson Dunn focused on a limited number of issues in the merger agreement in its continued discussions with Shearman through June 23, 2013.",
+        "evidence_type": "financial_term",
+        "confidence": "medium",
+        "matched_terms": [
+          "$5.00 to $5.75 per share"
+        ],
+        "date_text": "may",
+        "actor_hint": null,
+        "value_hint": "$5.00 to $5.75 per share",
+        "note": "detected financial term: $5.00 to $5.75 per share"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0435",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1633,
+        "end_line": 1639,
+        "raw_text": "agreement. Among other matters, Gibson Dunn communicated to Shearman sTec\u0092s desire to include in the merger agreement a general waiver of all \u0093don\u0092t ask don\u0092t waive\u0094\nprovisions in its non-disclosure agreements with potential bidders. Shearman communicated that WDC would not agree to this waiver, and in addition, WDC would view it as improper if sTec unilaterally waived these provisions, indicating that WDC may\nnot move forward with the transaction if sTec unilaterally waived these provisions. Gibson Dunn discussed this communication from WDC and other proposed changes to the merger agreement with Dr. Daly and Mr. Saman. Based on the history of\nthe discussions with the potential bidders with \u0093don\u0092t ask don\u0092t waive\u0094 provisions in their non-disclosure agreements that would continue in effect after sTec entered into an acquisition agreement, Dr. Daly, on behalf of the\nspecial committee, believed the possibility that any of these potential bidders would be willing and able to make a superior proposal was remote. Specifically, Company E and Company F had expressed an interest solely in purchasing certain assets of\nsTec, and Company H had repeatedly stated it could not increase its price above the range of $5.00 to $5.75 per share. Based upon direction from Dr. Daly in view of WDC\u0092s indication that it was not willing to negotiate further, and may not\nproceed with the transaction if sTec did not agree to certain terms, Gibson Dunn focused on a limited number of issues in the merger agreement in its continued discussions with Shearman through June 23, 2013.",
+        "evidence_type": "actor_identification",
+        "confidence": "low",
+        "matched_terms": [
+          "special committee"
+        ],
+        "date_text": "may",
+        "actor_hint": null,
+        "value_hint": "$5.00 to $5.75 per share",
+        "note": "detected actor identification: special committee"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0436",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1633,
+        "end_line": 1639,
+        "raw_text": "agreement. Among other matters, Gibson Dunn communicated to Shearman sTec\u0092s desire to include in the merger agreement a general waiver of all \u0093don\u0092t ask don\u0092t waive\u0094\nprovisions in its non-disclosure agreements with potential bidders. Shearman communicated that WDC would not agree to this waiver, and in addition, WDC would view it as improper if sTec unilaterally waived these provisions, indicating that WDC may\nnot move forward with the transaction if sTec unilaterally waived these provisions. Gibson Dunn discussed this communication from WDC and other proposed changes to the merger agreement with Dr. Daly and Mr. Saman. Based on the history of\nthe discussions with the potential bidders with \u0093don\u0092t ask don\u0092t waive\u0094 provisions in their non-disclosure agreements that would continue in effect after sTec entered into an acquisition agreement, Dr. Daly, on behalf of the\nspecial committee, believed the possibility that any of these potential bidders would be willing and able to make a superior proposal was remote. Specifically, Company E and Company F had expressed an interest solely in purchasing certain assets of\nsTec, and Company H had repeatedly stated it could not increase its price above the range of $5.00 to $5.75 per share. Based upon direction from Dr. Daly in view of WDC\u0092s indication that it was not willing to negotiate further, and may not\nproceed with the transaction if sTec did not agree to certain terms, Gibson Dunn focused on a limited number of issues in the merger agreement in its continued discussions with Shearman through June 23, 2013.",
+        "evidence_type": "process_signal",
+        "confidence": "medium",
+        "matched_terms": [
+          "non-disclosure",
+          "superior proposal"
+        ],
+        "date_text": "may",
+        "actor_hint": null,
+        "value_hint": "$5.00 to $5.75 per share",
+        "note": "detected process signal: non-disclosure, superior proposal"
+      },
+      {
+        "evidence_id": "0001193125-13-325730:E0437",
+        "document_id": "0001193125-13-325730",
+        "accession_number": "0001193125-13-325730",
+        "filing_type": "UNKNOWN",
+        "start_line": 1633,
+        "end_line": 1639,
+        "raw_text": "agreement. Among other matters, Gibson Dunn communicated to Shearman sTec\u0092s desire to include in the merger agreement a general waiver of all \u0093don\u0092t ask don\u0092t waive\u0094\nprovisions in its non-disclosure agreements with potential bidders. Shearman communicated that WDC would not agree to this waiver, and in addition, WDC would view it as improper if sTec unilaterally waived these provisions, indicating that WDC may\nnot move forward with the transaction if sTec unilaterally waived these provisions. Gibson Dunn discussed this communication from WDC and other proposed changes to the merger agreement with Dr. Daly and Mr. Saman. Based on the history of\nthe discussions with the potential bidders with \u0093don\u0092t ask don\u0092t waive\u0094 provisions in their non-disclosure agreements that would continue in effect after sTec entered into an acquisition agreement, Dr. Daly, on behalf of the\nspecial committee, believed the possibility that any of these potential bidders would be willing and able to make a superior proposal was remote. Specifically, Company E and Company F had expressed an interest solely in purchasing certain assets of\nsTec, and Company H had repeatedly stated it could not increase its price above the range of $5.00 to $5.75 per share. Based upon direction from Dr. Daly in view of WDC\u0092s indication that it was not willing to negotiate further, and may not\nproceed with the transaction if sTec did not agree to certain terms, Gibson Dunn focused on a limited number of issues in the merger agreement in its continued discussions with Shearman through June 23, 2013.",
+        "evidence_type": "outcome_fact",
+        "confidence": "low",
+        "matched_terms": [
+          "merger agreement"
+        ],
+        "date_text": "may",
+        "actor_hint": null,
+        "value_hint": "$5.00 to $5.75 per share",
+        "note": "detected outcome fact: merger agreement"
+      }
+    ]
+  },
+  "roster_in": [
+    {
+      "actor_id": "target_stec_board",
+      "display_name": "sTec Board",
+      "canonical_name": "STEC BOARD",
+      "aliases": [
+        "sTec",
+        "our board of directors",
+        "the board of directors",
+        "our management"
+      ],
+      "role": "target_board",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B007",
+          "evidence_id": null,
+          "anchor_text": "our board of directors"
+        }
+      ],
+      "notes": [
+        "Represents the company-side board and management when the filing refers to sTec generically in the sale process."
+      ]
+    },
+    {
+      "actor_id": "target_stec_special_committee",
+      "display_name": "sTec Special Committee",
+      "canonical_name": "STEC SPECIAL COMMITTEE",
+      "aliases": [
+        "special committee"
+      ],
+      "role": "target_board",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B013",
+          "evidence_id": null,
+          "anchor_text": "special committee of the board"
+        }
+      ],
+      "notes": [
+        "Formed on February 13, 2013 to review strategic alternatives, including a possible sale of the company."
+      ]
+    },
+    {
+      "actor_id": "target_stec_independent_directors",
+      "display_name": "sTec Independent Directors",
+      "canonical_name": "STEC INDEPENDENT DIRECTORS",
+      "aliases": [
+        "independent directors",
+        "non-management members of the board"
+      ],
+      "role": "target_board",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": true,
+      "group_size": 5,
+      "group_label": "Independent directors",
+      "evidence_refs": [
+        {
+          "block_id": "B013",
+          "evidence_id": null,
+          "anchor_text": "independent directors"
+        }
+      ],
+      "notes": [
+        "Represents the non-management directors delegated to evaluate responses to Balch Hill and Potomac."
+      ]
+    },
+    {
+      "actor_id": "advisor_gibson_dunn",
+      "display_name": "Gibson Dunn",
+      "canonical_name": "GIBSON, DUNN & CRUTCHER LLP",
+      "aliases": [
+        "Gibson Dunn"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": "target_stec_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B010",
+          "evidence_id": null,
+          "anchor_text": "Gibson, Dunn & Crutcher LLP"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_unnamed_initial_financial_advisors",
+      "display_name": "Two Unnamed Financial Advisors",
+      "canonical_name": "TWO UNNAMED FINANCIAL ADVISORS",
+      "aliases": [],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "target_stec_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": true,
+      "group_size": 2,
+      "group_label": "Two financial advisors contacted in mid-November 2012",
+      "evidence_refs": [
+        {
+          "block_id": "B007",
+          "evidence_id": null,
+          "anchor_text": "management contacted two financial advisors about the prospect of working with the company"
+        }
+      ],
+      "notes": [
+        "Both advisors declined to advise sTec."
+      ]
+    },
+    {
+      "actor_id": "advisor_company_a_financial_advisor",
+      "display_name": "Company A Financial Advisor",
+      "canonical_name": "COMPANY A FINANCIAL ADVISOR",
+      "aliases": [
+        "investment bank representing Company A",
+        "Company A financial advisor"
+      ],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "bidder_company_a",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B008",
+          "evidence_id": null,
+          "anchor_text": "an investment bank representing Company A"
+        }
+      ],
+      "notes": [
+        "The filing does not identify this advisor by name."
+      ]
+    },
+    {
+      "actor_id": "activist_balch_hill",
+      "display_name": "Balch Hill",
+      "canonical_name": "BALCH HILL PARTNERS, L. P.",
+      "aliases": [
+        "Balch Hill"
+      ],
+      "role": "activist",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B011",
+          "evidence_id": null,
+          "anchor_text": "Balch Hill Partners, L. P."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "activist_potomac",
+      "display_name": "Potomac",
+      "canonical_name": "POTOMAC CAPITAL PARTNERS II, L. P.",
+      "aliases": [
+        "Potomac"
+      ],
+      "role": "activist",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B011",
+          "evidence_id": null,
+          "anchor_text": "Potomac Capital Partners II, L. P."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_wdc",
+      "display_name": "WDC",
+      "canonical_name": "WDC",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B005",
+          "evidence_id": null,
+          "anchor_text": "WDC"
+        }
+      ],
+      "notes": [
+        "Pre-process WDC contacts in this chunk are described as general and exploratory and did not include specific transaction terms."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_a",
+      "display_name": "Company A",
+      "canonical_name": "COMPANY A",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B008",
+          "evidence_id": null,
+          "anchor_text": "Company A"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_b",
+      "display_name": "Company B",
+      "canonical_name": "COMPANY B",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B014",
+          "evidence_id": null,
+          "anchor_text": "Company B"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_bofa_merrill_lynch",
+      "display_name": "BofA Merrill Lynch",
+      "canonical_name": "BOFA MERRILL LYNCH",
+      "aliases": [],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "target_stec_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B030",
+          "evidence_id": null,
+          "anchor_text": "BofA Merrill Lynch"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_c",
+      "display_name": "Company C",
+      "canonical_name": "COMPANY C",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B024",
+          "evidence_id": null,
+          "anchor_text": "Company C"
+        }
+      ],
+      "notes": [
+        "Company C expressed interest only in particular or limited, select assets of sTec."
+      ]
+    },
+    {
+      "actor_id": "advisor_mackenzie_partners",
+      "display_name": "MacKenzie Partners",
+      "canonical_name": "MACKENZIE PARTNERS",
+      "aliases": [],
+      "role": "advisor",
+      "advisor_kind": "other",
+      "advised_actor_id": "target_stec_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B025",
+          "evidence_id": null,
+          "anchor_text": "MacKenzie Partners"
+        }
+      ],
+      "notes": [
+        "Served as sTec proxy solicitor in the activist campaign."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_d",
+      "display_name": "Company D",
+      "canonical_name": "COMPANY D",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B028",
+          "evidence_id": null,
+          "anchor_text": "Company D"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_h",
+      "display_name": "Company H",
+      "canonical_name": "COMPANY H",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B032",
+          "evidence_id": null,
+          "anchor_text": "Company H"
+        }
+      ],
+      "notes": [
+        "Company H is named in the outreach summary and NDA aggregate before this chunk provides a standalone dated full-company bid event."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_e",
+      "display_name": "Company E",
+      "canonical_name": "COMPANY E",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B034",
+          "evidence_id": null,
+          "anchor_text": "Company E"
+        }
+      ],
+      "notes": [
+        "Company E later indicated that it was interested only in limited, select assets of sTec."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_f",
+      "display_name": "Company F",
+      "canonical_name": "COMPANY F",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B034",
+          "evidence_id": null,
+          "anchor_text": "Company F"
+        }
+      ],
+      "notes": [
+        "Company F later indicated that it was interested only in limited, select assets of sTec."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_g",
+      "display_name": "Company G",
+      "canonical_name": "COMPANY G",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B044",
+          "evidence_id": null,
+          "anchor_text": "Company G"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_latham_watkins",
+      "display_name": "Latham & Watkins",
+      "canonical_name": "LATHAM & WATKINS LLP",
+      "aliases": [
+        "Latham & Watkins"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B060",
+          "evidence_id": null,
+          "anchor_text": "Latham & Watkins LLP"
+        }
+      ],
+      "notes": [
+        "The filing describes Latham & Watkins as litigation counsel to sTec and Mr. Manouch Moshayedi, so the schema leaves advised_actor_id null."
+      ]
+    }
+  ],
+  "roster_out": [
+    {
+      "actor_id": "target_stec_board",
+      "display_name": "sTec Board",
+      "canonical_name": "STEC BOARD",
+      "aliases": [
+        "sTec",
+        "our board of directors",
+        "the board of directors",
+        "our management"
+      ],
+      "role": "target_board",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B007",
+          "evidence_id": null,
+          "anchor_text": "our board of directors"
+        }
+      ],
+      "notes": [
+        "Represents the company-side board and management when the filing refers to sTec generically in the sale process."
+      ]
+    },
+    {
+      "actor_id": "target_stec_special_committee",
+      "display_name": "sTec Special Committee",
+      "canonical_name": "STEC SPECIAL COMMITTEE",
+      "aliases": [
+        "special committee"
+      ],
+      "role": "target_board",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B013",
+          "evidence_id": null,
+          "anchor_text": "special committee of the board"
+        }
+      ],
+      "notes": [
+        "Formed on February 13, 2013 to review strategic alternatives, including a possible sale of the company."
+      ]
+    },
+    {
+      "actor_id": "target_stec_independent_directors",
+      "display_name": "sTec Independent Directors",
+      "canonical_name": "STEC INDEPENDENT DIRECTORS",
+      "aliases": [
+        "independent directors",
+        "non-management members of the board"
+      ],
+      "role": "target_board",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": true,
+      "group_size": 5,
+      "group_label": "Independent directors",
+      "evidence_refs": [
+        {
+          "block_id": "B013",
+          "evidence_id": null,
+          "anchor_text": "independent directors"
+        }
+      ],
+      "notes": [
+        "Represents the non-management directors delegated to evaluate responses to Balch Hill and Potomac."
+      ]
+    },
+    {
+      "actor_id": "advisor_gibson_dunn",
+      "display_name": "Gibson Dunn",
+      "canonical_name": "GIBSON, DUNN & CRUTCHER LLP",
+      "aliases": [
+        "Gibson Dunn"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": "target_stec_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B010",
+          "evidence_id": null,
+          "anchor_text": "Gibson, Dunn & Crutcher LLP"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_unnamed_initial_financial_advisors",
+      "display_name": "Two Unnamed Financial Advisors",
+      "canonical_name": "TWO UNNAMED FINANCIAL ADVISORS",
+      "aliases": [],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "target_stec_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": true,
+      "group_size": 2,
+      "group_label": "Two financial advisors contacted in mid-November 2012",
+      "evidence_refs": [
+        {
+          "block_id": "B007",
+          "evidence_id": null,
+          "anchor_text": "management contacted two financial advisors about the prospect of working with the company"
+        }
+      ],
+      "notes": [
+        "Both advisors declined to advise sTec."
+      ]
+    },
+    {
+      "actor_id": "advisor_company_a_financial_advisor",
+      "display_name": "Company A Financial Advisor",
+      "canonical_name": "COMPANY A FINANCIAL ADVISOR",
+      "aliases": [
+        "investment bank representing Company A",
+        "Company A financial advisor"
+      ],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "bidder_company_a",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B008",
+          "evidence_id": null,
+          "anchor_text": "an investment bank representing Company A"
+        }
+      ],
+      "notes": [
+        "The filing does not identify this advisor by name."
+      ]
+    },
+    {
+      "actor_id": "activist_balch_hill",
+      "display_name": "Balch Hill",
+      "canonical_name": "BALCH HILL PARTNERS, L. P.",
+      "aliases": [
+        "Balch Hill"
+      ],
+      "role": "activist",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B011",
+          "evidence_id": null,
+          "anchor_text": "Balch Hill Partners, L. P."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "activist_potomac",
+      "display_name": "Potomac",
+      "canonical_name": "POTOMAC CAPITAL PARTNERS II, L. P.",
+      "aliases": [
+        "Potomac"
+      ],
+      "role": "activist",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B011",
+          "evidence_id": null,
+          "anchor_text": "Potomac Capital Partners II, L. P."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_wdc",
+      "display_name": "WDC",
+      "canonical_name": "WDC",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B005",
+          "evidence_id": null,
+          "anchor_text": "WDC"
+        }
+      ],
+      "notes": [
+        "Pre-process WDC contacts in this chunk are described as general and exploratory and did not include specific transaction terms."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_a",
+      "display_name": "Company A",
+      "canonical_name": "COMPANY A",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B008",
+          "evidence_id": null,
+          "anchor_text": "Company A"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_b",
+      "display_name": "Company B",
+      "canonical_name": "COMPANY B",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B014",
+          "evidence_id": null,
+          "anchor_text": "Company B"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_bofa_merrill_lynch",
+      "display_name": "BofA Merrill Lynch",
+      "canonical_name": "BOFA MERRILL LYNCH",
+      "aliases": [],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "target_stec_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B030",
+          "evidence_id": null,
+          "anchor_text": "BofA Merrill Lynch"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_c",
+      "display_name": "Company C",
+      "canonical_name": "COMPANY C",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B024",
+          "evidence_id": null,
+          "anchor_text": "Company C"
+        }
+      ],
+      "notes": [
+        "Company C expressed interest only in particular or limited, select assets of sTec."
+      ]
+    },
+    {
+      "actor_id": "advisor_mackenzie_partners",
+      "display_name": "MacKenzie Partners",
+      "canonical_name": "MACKENZIE PARTNERS",
+      "aliases": [],
+      "role": "advisor",
+      "advisor_kind": "other",
+      "advised_actor_id": "target_stec_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B025",
+          "evidence_id": null,
+          "anchor_text": "MacKenzie Partners"
+        }
+      ],
+      "notes": [
+        "Served as sTec proxy solicitor in the activist campaign."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_d",
+      "display_name": "Company D",
+      "canonical_name": "COMPANY D",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B028",
+          "evidence_id": null,
+          "anchor_text": "Company D"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_h",
+      "display_name": "Company H",
+      "canonical_name": "COMPANY H",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B032",
+          "evidence_id": null,
+          "anchor_text": "Company H"
+        }
+      ],
+      "notes": [
+        "Company H is named in the outreach summary and NDA aggregate before this chunk provides a standalone dated full-company bid event."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_e",
+      "display_name": "Company E",
+      "canonical_name": "COMPANY E",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B034",
+          "evidence_id": null,
+          "anchor_text": "Company E"
+        }
+      ],
+      "notes": [
+        "Company E later indicated that it was interested only in limited, select assets of sTec."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_f",
+      "display_name": "Company F",
+      "canonical_name": "COMPANY F",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B034",
+          "evidence_id": null,
+          "anchor_text": "Company F"
+        }
+      ],
+      "notes": [
+        "Company F later indicated that it was interested only in limited, select assets of sTec."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_g",
+      "display_name": "Company G",
+      "canonical_name": "COMPANY G",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B044",
+          "evidence_id": null,
+          "anchor_text": "Company G"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_latham_watkins",
+      "display_name": "Latham & Watkins",
+      "canonical_name": "LATHAM & WATKINS LLP",
+      "aliases": [
+        "Latham & Watkins"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B060",
+          "evidence_id": null,
+          "anchor_text": "Latham & Watkins LLP"
+        }
+      ],
+      "notes": [
+        "The filing describes Latham & Watkins as litigation counsel to sTec and Mr. Manouch Moshayedi, so the schema leaves advised_actor_id null."
+      ]
+    },
+    {
+      "actor_id": "advisor_paul_hastings",
+      "display_name": "Paul Hastings",
+      "canonical_name": "PAUL HASTINGS LLP",
+      "aliases": [
+        "Paul Hastings"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B093",
+          "evidence_id": null,
+          "anchor_text": "Paul Hastings LLP"
+        }
+      ],
+      "notes": [
+        "The filing identifies Paul Hastings as counsel to Messrs. Moshayedi, who are not represented as separate actors in the raw schema."
+      ]
+    },
+    {
+      "actor_id": "advisor_shearman_sterling",
+      "display_name": "Shearman & Sterling",
+      "canonical_name": "SHEARMAN & STERLING LLP",
+      "aliases": [
+        "Shearman"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": "bidder_wdc",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_refs": [
+        {
+          "block_id": "B093",
+          "evidence_id": null,
+          "anchor_text": "Shearman & Sterling LLP"
+        }
+      ],
+      "notes": []
+    }
+  ],
+  "chunk_output": {
+    "actors": [
+      {
+        "actor_id": "advisor_paul_hastings",
+        "display_name": "Paul Hastings",
+        "canonical_name": "PAUL HASTINGS LLP",
+        "aliases": [
+          "Paul Hastings"
+        ],
+        "role": "advisor",
+        "advisor_kind": "legal",
+        "advised_actor_id": null,
+        "bidder_kind": null,
+        "listing_status": null,
+        "geography": null,
+        "is_grouped": false,
+        "group_size": null,
+        "group_label": null,
+        "evidence_refs": [
+          {
+            "block_id": "B093",
+            "evidence_id": null,
+            "anchor_text": "Paul Hastings LLP"
+          }
+        ],
+        "notes": [
+          "The filing identifies Paul Hastings as counsel to Messrs. Moshayedi, who are not represented as separate actors in the raw schema."
+        ]
+      },
+      {
+        "actor_id": "advisor_shearman_sterling",
+        "display_name": "Shearman & Sterling",
+        "canonical_name": "SHEARMAN & STERLING LLP",
+        "aliases": [
+          "Shearman"
+        ],
+        "role": "advisor",
+        "advisor_kind": "legal",
+        "advised_actor_id": "bidder_wdc",
+        "bidder_kind": null,
+        "listing_status": null,
+        "geography": null,
+        "is_grouped": false,
+        "group_size": null,
+        "group_label": null,
+        "evidence_refs": [
+          {
+            "block_id": "B093",
+            "evidence_id": null,
+            "anchor_text": "Shearman & Sterling LLP"
+          }
+        ],
+        "notes": []
+      }
+    ],
+    "count_assertions": [],
+    "events": [
+      {
+        "event_id": "c4_evt_001",
+        "event_type": "drop",
+        "date": {
+          "raw_text": "June 5, 2013",
+          "normalized_hint": "2013-06-05"
+        },
+        "actor_ids": [
+          "bidder_company_d"
+        ],
+        "summary": "Company D said it was disengaging from the process because it could not actively conduct due diligence for more than two weeks.",
+        "evidence_refs": [
+          {
+            "block_id": "B082",
+            "evidence_id": null,
+            "anchor_text": "Company D would not\nbe in a position to actively conduct due diligence for more than two weeks and was disengaging from the process."
+          }
+        ],
+        "terms": null,
+        "formality_signals": null,
+        "whole_company_scope": null,
+        "drop_reason_text": "Company D would not\nbe in a position to actively conduct due diligence for more than two weeks and was disengaging from the process.",
+        "round_scope": null,
+        "invited_actor_ids": [],
+        "deadline_date": null,
+        "executed_with_actor_id": null,
+        "boundary_note": null,
+        "nda_signed": null,
+        "notes": []
+      },
+      {
+        "event_id": "c4_evt_002",
+        "event_type": "proposal",
+        "date": {
+          "raw_text": "June 10, 2013",
+          "normalized_hint": "2013-06-10"
+        },
+        "actor_ids": [
+          "bidder_wdc"
+        ],
+        "summary": "WDC submitted a revised written indication of interest at $6.60 to $7.10 per share in cash.",
+        "evidence_refs": [
+          {
+            "block_id": "B083",
+            "evidence_id": null,
+            "anchor_text": "WDC submitted a revised written indication of interest to acquire the company at a price range of $6.60 to $7.10\nper share in cash."
+          },
+          {
+            "block_id": "B083",
+            "evidence_id": null,
+            "anchor_text": "WDC was otherwise prepared to move forward on the transaction\nterms previously proposed on May 28, 2013."
+          }
+        ],
+        "terms": {
+          "per_share": null,
+          "range_low": 6.6,
+          "range_high": 7.1,
+          "enterprise_value": null,
+          "consideration_type": "cash"
+        },
+        "formality_signals": {
+          "contains_range": true,
+          "mentions_indication_of_interest": true,
+          "mentions_preliminary": false,
+          "mentions_non_binding": false,
+          "mentions_binding_offer": false,
+          "includes_draft_merger_agreement": false,
+          "includes_marked_up_agreement": false,
+          "requested_binding_offer_via_process_letter": false,
+          "after_final_round_announcement": false,
+          "after_final_round_deadline": false,
+          "is_subject_to_financing": null
+        },
+        "whole_company_scope": true,
+        "drop_reason_text": null,
+        "round_scope": null,
+        "invited_actor_ids": [],
+        "deadline_date": null,
+        "executed_with_actor_id": null,
+        "boundary_note": null,
+        "nda_signed": null,
+        "notes": [
+          "WDC said it was otherwise prepared to move forward on the transaction terms previously proposed on May 28, 2013."
+        ]
+      },
+      {
+        "event_id": "c4_evt_003",
+        "event_type": "final_round_ext_ann",
+        "date": {
+          "raw_text": "June 11, 2013",
+          "normalized_hint": "2013-06-11"
+        },
+        "actor_ids": [],
+        "summary": "The board told WDC to submit a specific best offer supported by senior management instead of a range proposal.",
+        "evidence_refs": [
+          {
+            "block_id": "B084",
+            "evidence_id": null,
+            "anchor_text": "WDC must submit a proposal reflecting\nits best offer, and provide confirmation that such offer was supported by WDC\u0092s senior management."
+          },
+          {
+            "block_id": "B085",
+            "evidence_id": null,
+            "anchor_text": "requested that WDC submit a specific proposal reflecting its best offer and\nprovide confirmation that such offer was supported by WDC\u0092s senior management."
+          }
+        ],
+        "terms": null,
+        "formality_signals": null,
+        "whole_company_scope": null,
+        "drop_reason_text": null,
+        "round_scope": "formal",
+        "invited_actor_ids": [
+          "bidder_wdc"
+        ],
+        "deadline_date": null,
+        "executed_with_actor_id": null,
+        "boundary_note": null,
+        "nda_signed": null,
+        "notes": []
+      },
+      {
+        "event_id": "c4_evt_004",
+        "event_type": "proposal",
+        "date": {
+          "raw_text": "June 14, 2013",
+          "normalized_hint": "2013-06-14"
+        },
+        "actor_ids": [
+          "bidder_wdc"
+        ],
+        "summary": "WDC submitted a written indication of interest at $6.85 per share in cash as its best and final price.",
+        "evidence_refs": [
+          {
+            "block_id": "B086",
+            "evidence_id": null,
+            "anchor_text": "WDC submitted a\nwritten indication of interest of $6.85 per share in cash"
+          },
+          {
+            "block_id": "B086",
+            "evidence_id": null,
+            "anchor_text": "WDC\u0092s best and final price"
+          }
+        ],
+        "terms": {
+          "per_share": 6.85,
+          "range_low": null,
+          "range_high": null,
+          "enterprise_value": null,
+          "consideration_type": "cash"
+        },
+        "formality_signals": {
+          "contains_range": false,
+          "mentions_indication_of_interest": true,
+          "mentions_preliminary": false,
+          "mentions_non_binding": false,
+          "mentions_binding_offer": false,
+          "includes_draft_merger_agreement": false,
+          "includes_marked_up_agreement": false,
+          "requested_binding_offer_via_process_letter": false,
+          "after_final_round_announcement": false,
+          "after_final_round_deadline": false,
+          "is_subject_to_financing": null
+        },
+        "whole_company_scope": true,
+        "drop_reason_text": null,
+        "round_scope": null,
+        "invited_actor_ids": [],
+        "deadline_date": null,
+        "executed_with_actor_id": null,
+        "boundary_note": null,
+        "nda_signed": null,
+        "notes": [
+          "WDC said it would otherwise proceed on the transaction terms previously proposed on May 28, 2013."
+        ]
+      },
+      {
+        "event_id": "c4_evt_005",
+        "event_type": "nda",
+        "date": {
+          "raw_text": "June 18, 2013",
+          "normalized_hint": "2013-06-18"
+        },
+        "actor_ids": [
+          "bidder_wdc"
+        ],
+        "summary": "sTec and WDC entered into a clean team agreement to allow additional data-room access.",
+        "evidence_refs": [
+          {
+            "block_id": "B092",
+            "evidence_id": null,
+            "anchor_text": "sTec and WDC entered into a \u0093clean team agreement\u0094 to allow certain representatives of WDC access to further information in the data room."
+          }
+        ],
+        "terms": null,
+        "formality_signals": null,
+        "whole_company_scope": null,
+        "drop_reason_text": null,
+        "round_scope": null,
+        "invited_actor_ids": [],
+        "deadline_date": null,
+        "executed_with_actor_id": null,
+        "boundary_note": null,
+        "nda_signed": true,
+        "notes": [
+          "This was a clean team agreement layered on top of the parties' existing confidentiality arrangements."
+        ]
+      }
+    ],
+    "exclusions": [
+      {
+        "category": "non_event_context",
+        "block_ids": [
+          "B087",
+          "B089",
+          "B090",
+          "B091"
+        ],
+        "explanation": "The special committee recommendation, board authorization, and communication to WDC to move forward on the June 14 proposal are internal target-side selection and negotiation steps rather than separate taxonomy events."
+      },
+      {
+        "category": "non_event_context",
+        "block_ids": [
+          "B093",
+          "B094",
+          "B096"
+        ],
+        "explanation": "Negotiations over ancillary agreements, merger-agreement markup, and don't-ask-don't-waive provisions are transaction-document drafting context rather than separate taxonomy events."
+      }
+    ],
+    "unresolved_mentions": [
+      "Messrs. Moshayedi are counterparties to ancillary agreement negotiations, but the raw actor schema does not represent them as separate target-side individuals.",
+      "The specific Company D and WDC representatives who communicated the June process updates and proposals are not named in the filing."
+    ],
+    "coverage_notes": [
+      "target_sale: NOT FOUND -- chunk 4 contains continued negotiation within the existing sale process rather than a new launch or restart",
+      "target_sale_public: NOT FOUND -- chunk 4 has no public announcement of strategic alternatives",
+      "bidder_sale: NOT FOUND -- no acquirer-initiated sale process appears in chunk 4",
+      "bidder_interest: NOT FOUND -- no new undifferentiated expression of interest appears in chunk 4",
+      "activist_sale: NOT FOUND -- activists do not initiate a new sale-process event in chunk 4",
+      "sale_press_release: NOT FOUND -- no press release announcing strategic alternatives appears in chunk 4",
+      "bid_press_release: NOT FOUND -- no deal or public bid press release appears in chunk 4",
+      "ib_retention: NOT FOUND -- no new advisor retention occurs in chunk 4",
+      "nda: extracted (c4_evt_005)",
+      "proposal: extracted (c4_evt_002, c4_evt_004)",
+      "drop: extracted (c4_evt_001)",
+      "final_round_inf_ann: NOT FOUND -- no informal final-round announcement appears in chunk 4",
+      "final_round_inf: NOT FOUND -- no informal final-round deadline appears in chunk 4",
+      "final_round_ann: NOT FOUND -- no new initial final-round announcement appears in chunk 4",
+      "final_round: NOT FOUND -- chunk 4 does not state a separate formal final-round deadline event",
+      "final_round_ext_ann: extracted (c4_evt_003)",
+      "final_round_ext: NOT FOUND -- the June 11 request for WDC's best offer did not specify a separate extension deadline",
+      "executed: NOT FOUND -- no merger agreement is signed in chunk 4",
+      "terminated: NOT FOUND -- the sale process is not terminated in chunk 4",
+      "restarted: NOT FOUND -- no restarted sale process appears in chunk 4"
+    ]
+  },
+  "source_blocks": [
+    {
+      "block_id": "B081",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 81,
+      "start_line": 1562,
+      "end_line": 1562,
+      "raw_text": "were reconsidering their interest in a transaction with sTec. The representatives of BofA Merrill Lynch reported these discussions to our chairman and the company\u0092s officers.",
+      "clean_text": "were reconsidering their interest in a transaction with sTec. The representatives of BofA Merrill Lynch reported these discussions to our chairman and the company\u0092s officers.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B082",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 82,
+      "start_line": 1564,
+      "end_line": 1565,
+      "raw_text": "On June 5, 2013 representatives of Company D contacted representatives of BofA Merrill Lynch and indicated that Company D would not\nbe in a position to actively conduct due diligence for more than two weeks and was disengaging from the process. The representatives of BofA Merrill Lynch reported these discussions to our chairman and the company\u0092s officers.",
+      "clean_text": "On June 5, 2013 representatives of Company D contacted representatives of BofA Merrill Lynch and indicated that Company D would not be in a position to actively conduct due diligence for more than two weeks and was disengaging from the process. The representatives of BofA Merrill Lynch reported these discussions to our chairman and the company\u0092s officers.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B083",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 83,
+      "start_line": 1567,
+      "end_line": 1571,
+      "raw_text": "On June 10, 2013, WDC submitted a revised written indication of interest to acquire the company at a price range of $6.60 to $7.10\nper share in cash. The representative from WDC also communicated to BofA Merrill Lynch that WDC had given serious consideration to not proceeding with a transaction, that WDC did not view the acquisition of sTec as essential to its SSD strategy in\nlight of other available alternatives (including internal development efforts), and that according to WDC certain business factors related to the company had also influenced WDC\u0092s decision to lower the price from its May 30, 2013 written\nindication of interest at $9.15 per share in cash, as well as a change in its bidding strategy from the prior approach it had adopted. The representative from WDC also communicated that WDC was otherwise prepared to move forward on the transaction\nterms previously proposed on May 28, 2013.",
+      "clean_text": "On June 10, 2013, WDC submitted a revised written indication of interest to acquire the company at a price range of $6.60 to $7.10 per share in cash. The representative from WDC also communicated to BofA Merrill Lynch that WDC had given serious consideration to not proceeding with a transaction, that WDC did not view the acquisition of sTec as essential to its SSD strategy in light of other available alternatives (including internal development efforts), and that according to WDC certain business factors related to the company had also influenced WDC\u0092s decision to lower the price from its May 30, 2013 written indication of interest at $9.15 per share in cash, as well as a change in its bidding strategy from the prior approach it had adopted. The representative from WDC also communicated that WDC was otherwise prepared to move forward on the transaction terms previously proposed on May 28, 2013.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B084",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 84,
+      "start_line": 1573,
+      "end_line": 1578,
+      "raw_text": "On June 11, 2013, our board of directors held a telephonic special\nmeeting. Messrs. Saman, Higa and Morales, and representatives from BofA Merrill Lynch and Gibson Dunn also attended the meeting. The board of directors reviewed WDC\u0092s written indication of interest to acquire sTec at a purchase price in the\nrange of $6.60 to $7.10 per share in cash and recent communications with WDC. The board of directors discussed with BofA Merrill Lynch the indication of interest and the related communications with WDC. Our board of directors discussed the\nlegal considerations related to the process with Gibson Dunn. Our board of directors then discussed potential responses to WDC, and the considerations related to each. The board of directors directed BofA Merrill Lynch to communicate to WDC the\nboard of directors\u0092 disappointment in the latest proposal and the significant change from its prior proposal, that the board would not respond to a proposal with a range, and that if WDC desired to proceed, WDC must submit a proposal reflecting\nits best offer, and provide confirmation that such offer was supported by WDC\u0092s senior management.",
+      "clean_text": "On June 11, 2013, our board of directors held a telephonic special meeting. Messrs. Saman, Higa and Morales, and representatives from BofA Merrill Lynch and Gibson Dunn also attended the meeting. The board of directors reviewed WDC\u0092s written indication of interest to acquire sTec at a purchase price in the range of $6.60 to $7.10 per share in cash and recent communications with WDC. The board of directors discussed with BofA Merrill Lynch the indication of interest and the related communications with WDC. Our board of directors discussed the legal considerations related to the process with Gibson Dunn. Our board of directors then discussed potential responses to WDC, and the considerations related to each. The board of directors directed BofA Merrill Lynch to communicate to WDC the board of directors\u0092 disappointment in the latest proposal and the significant change from its prior proposal, that the board would not respond to a proposal with a range, and that if WDC desired to proceed, WDC must submit a proposal reflecting its best offer, and provide confirmation that such offer was supported by WDC\u0092s senior management.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B085",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 85,
+      "start_line": 1580,
+      "end_line": 1582,
+      "raw_text": "Later that day, as\ndirected by the board of directors, representatives of BofA Merrill Lynch informed WDC that our board of directors would not consider a proposal with a range of value and requested that WDC submit a specific proposal reflecting its best offer and\nprovide confirmation that such offer was supported by WDC\u0092s senior management.",
+      "clean_text": "Later that day, as directed by the board of directors, representatives of BofA Merrill Lynch informed WDC that our board of directors would not consider a proposal with a range of value and requested that WDC submit a specific proposal reflecting its best offer and provide confirmation that such offer was supported by WDC\u0092s senior management.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B086",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 86,
+      "start_line": 1584,
+      "end_line": 1586,
+      "raw_text": "On June 14, 2013, WDC submitted a\nwritten indication of interest of $6.85 per share in cash and indicated it could be in a position to announce a transaction on June 24, 2013. In communicating the revised proposal to BofA Merrill Lynch, the WDC representative again stated that\nWDC was only interested in proceeding with the transaction at a purchase price of $6.85 per share, WDC\u0092s best and final price, for the reasons previously noted, and otherwise on the transaction terms previously proposed on May 28, 2013.",
+      "clean_text": "On June 14, 2013, WDC submitted a written indication of interest of $6.85 per share in cash and indicated it could be in a position to announce a transaction on June 24, 2013. In communicating the revised proposal to BofA Merrill Lynch, the WDC representative again stated that WDC was only interested in proceeding with the transaction at a purchase price of $6.85 per share, WDC\u0092s best and final price, for the reasons previously noted, and otherwise on the transaction terms previously proposed on May 28, 2013.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B087",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 87,
+      "start_line": 1588,
+      "end_line": 1593,
+      "raw_text": "On June 15, 2013, the special committee of the board of directors held a telephonic meeting. Messrs. Cook, Saman and\nMorales and representatives from BofA Merrill Lynch and Gibson Dunn were in attendance. BofA Merrill Lynch reported on their communications with WDC, including WDC\u0092s indication of interest on June 14, 2013 to acquire the company at a\npurchase price of $6.85 per share in cash. The members of the special committee then discussed sTec\u0092s outlook for the second and third quarters of 2013 and over the next 12 to 24 months, including the timing and impact of sTec\u0092s proposed\ncost reductions on the go-forward operations of the company, and the projected impact on sTec\u0092s cash position if sTec entered into an acquisition agreement with WDC and was contractually unable to make the proposed cost reductions. Gibson Dunn\ndiscussed certain legal considerations related to the process. The members of the special committee discussed with BofA Merrill Lynch certain financial matters relating to WDC\u0092s proposal. The committee continued discussion of sTec\u0092s\nalternative",
+      "clean_text": "On June 15, 2013, the special committee of the board of directors held a telephonic meeting. Messrs. Cook, Saman and Morales and representatives from BofA Merrill Lynch and Gibson Dunn were in attendance. BofA Merrill Lynch reported on their communications with WDC, including WDC\u0092s indication of interest on June 14, 2013 to acquire the company at a purchase price of $6.85 per share in cash. The members of the special committee then discussed sTec\u0092s outlook for the second and third quarters of 2013 and over the next 12 to 24 months, including the timing and impact of sTec\u0092s proposed cost reductions on the go-forward operations of the company, and the projected impact on sTec\u0092s cash position if sTec entered into an acquisition agreement with WDC and was contractually unable to make the proposed cost reductions. Gibson Dunn discussed certain legal considerations related to the process. The members of the special committee discussed with BofA Merrill Lynch certain financial matters relating to WDC\u0092s proposal. The committee continued discussion of sTec\u0092s alternative",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B088",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 88,
+      "start_line": 1595,
+      "end_line": 1595,
+      "raw_text": "32",
+      "clean_text": "32",
+      "is_heading": true,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B089",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 89,
+      "start_line": 1598,
+      "end_line": 1601,
+      "raw_text": "options to accepting WDC\u0092s proposal, including the benefits and risks of such alternatives, and the potential responses to WDC\u0092s proposal, including the possibility of making a\ncounterproposal to WDC. The special committee determined, based on the communications from WDC, that it was unlikely that WDC would raise its price further and there was a significant risk that WDC would withdraw the indication of interest if sTec\nresponded with a counterproposal. After further discussion, the special committee unanimously determined that they believed that it was in the best interests of sTec and its shareholders to move forward with a transaction with WDC on the terms set\nforth in WDC\u0092s indication of interest received on June 14, 2013, subject to negotiating final terms of the merger agreement and ancillary agreements relating to such transaction, and voted to recommend the same to the board of directors.",
+      "clean_text": "options to accepting WDC\u0092s proposal, including the benefits and risks of such alternatives, and the potential responses to WDC\u0092s proposal, including the possibility of making a counterproposal to WDC. The special committee determined, based on the communications from WDC, that it was unlikely that WDC would raise its price further and there was a significant risk that WDC would withdraw the indication of interest if sTec responded with a counterproposal. After further discussion, the special committee unanimously determined that they believed that it was in the best interests of sTec and its shareholders to move forward with a transaction with WDC on the terms set forth in WDC\u0092s indication of interest received on June 14, 2013, subject to negotiating final terms of the merger agreement and ancillary agreements relating to such transaction, and voted to recommend the same to the board of directors.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B090",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 90,
+      "start_line": 1603,
+      "end_line": 1610,
+      "raw_text": "Also on June 15, 2013, immediately after the special committee meeting, our board of directors held a telephonic special\nmeeting. Messrs. Cook, Saman, Higa and Morales and representatives from BofA Merrill Lynch and Gibson Dunn were in attendance. Dr. Daly reported on the special committee\u0092s decision. BofA Merrill Lynch reported on their recent\ncommunications with WDC, as shared with the special committee, including that WDC had communicated that $6.85 per share was its best and final price. The board of directors then discussed certain considerations relating to the company\u0092s\nbusiness. The board of directors then discussed certain legal considerations related to the process with the representatives of Gibson Dunn. The board of directors discussed with BofA Merrill Lynch certain financial matters relating to WDC\u0092s\nindication of interest. The board of directors further discussed with Messrs. Mark Moshayedi and Manouch Moshayedi the terms of the ancillary agreements that they were being requested to execute. After further discussion, the board members present\nunanimously determined that they believed that it was in the best interests of sTec and its shareholders to move forward with a transaction with WDC on the terms set forth in WDC\u0092s proposal received on June 14, 2013, subject to negotiating\nfinal terms of the merger agreement and ancillary agreements relating to such transaction, with a goal of announcing a transaction on June 24, 2013 and instructed BofA Merrill Lynch to communicate the board\u0092s authorization to move forward\nto WDC.",
+      "clean_text": "Also on June 15, 2013, immediately after the special committee meeting, our board of directors held a telephonic special meeting. Messrs. Cook, Saman, Higa and Morales and representatives from BofA Merrill Lynch and Gibson Dunn were in attendance. Dr. Daly reported on the special committee\u0092s decision. BofA Merrill Lynch reported on their recent communications with WDC, as shared with the special committee, including that WDC had communicated that $6.85 per share was its best and final price. The board of directors then discussed certain considerations relating to the company\u0092s business. The board of directors then discussed certain legal considerations related to the process with the representatives of Gibson Dunn. The board of directors discussed with BofA Merrill Lynch certain financial matters relating to WDC\u0092s indication of interest. The board of directors further discussed with Messrs. Mark Moshayedi and Manouch Moshayedi the terms of the ancillary agreements that they were being requested to execute. After further discussion, the board members present unanimously determined that they believed that it was in the best interests of sTec and its shareholders to move forward with a transaction with WDC on the terms set forth in WDC\u0092s proposal received on June 14, 2013, subject to negotiating final terms of the merger agreement and ancillary agreements relating to such transaction, with a goal of announcing a transaction on June 24, 2013 and instructed BofA Merrill Lynch to communicate the board\u0092s authorization to move forward to WDC.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B091",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 91,
+      "start_line": 1612,
+      "end_line": 1614,
+      "raw_text": "On June 16, 2013, as directed by our board of directors, representatives of BofA Merrill Lynch informed WDC that\nour board of directors had authorized moving forward with a transaction with WDC on the terms set forth in WDC\u0092s proposal received June 14, 2013, at a price of $6.85 per share, subject to negotiating final terms of the merger agreement and\nancillary agreements relating to such transaction.",
+      "clean_text": "On June 16, 2013, as directed by our board of directors, representatives of BofA Merrill Lynch informed WDC that our board of directors had authorized moving forward with a transaction with WDC on the terms set forth in WDC\u0092s proposal received June 14, 2013, at a price of $6.85 per share, subject to negotiating final terms of the merger agreement and ancillary agreements relating to such transaction.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B092",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 92,
+      "start_line": 1616,
+      "end_line": 1617,
+      "raw_text": "From June 16 to June 22, 2013, WDC conducted additional due\ndiligence, including confirmatory due diligence calls. Also, on June 18, 2013, sTec and WDC entered into a \u0093clean team agreement\u0094 to allow certain representatives of WDC access to further information in the data room.",
+      "clean_text": "From June 16 to June 22, 2013, WDC conducted additional due diligence, including confirmatory due diligence calls. Also, on June 18, 2013, sTec and WDC entered into a \u0093clean team agreement\u0094 to allow certain representatives of WDC access to further information in the data room.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B093",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 93,
+      "start_line": 1619,
+      "end_line": 1625,
+      "raw_text": "On June 17, 2013, representatives from Paul Hastings LLP (\u0093 Paul Hastings\u0094), counsel to Messrs. Moshayedi, and\nShearman & Sterling LLP (\u0093 Shearman\u0094), counsel to WDC, commenced negotiating the terms of the covenant not to sue, and the other agreements that Messrs. Moshayedi were being asked to execute. Negotiations of such agreements\ncontinued through June 23, 2013. The draft covenant not to sue provided by WDC required Mr. Manouch Moshayedi to relinquish all rights to indemnification under his existing arrangements with the company, but also provided that WDC would\ncontinue to pay Mr. Moshayedi\u0092s legal fees in connection with the civil action filed against Mr. Moshayedi by the SEC on July 29, 2012 and release him from any obligation to reimburse the company for such legal fees under his indemnification\nagreement with sTec. Among other matters, in the negotiations that commenced on June 17, 2013, Paul Hastings negotiated for the continued right of indemnification for Mr. Moshayedi, subject to a cap of $20 million with respect to indemnification\n(other than for defense costs) related to the SEC\u0092s civil action. Thereafter, Messrs. Moshayedi proposed that the company enter into letter agreements to conform their existing severance and change in control agreements to the arrangements\nnegotiated with WDC.",
+      "clean_text": "On June 17, 2013, representatives from Paul Hastings LLP (\u0093 Paul Hastings\u0094), counsel to Messrs. Moshayedi, and Shearman & Sterling LLP (\u0093 Shearman\u0094), counsel to WDC, commenced negotiating the terms of the covenant not to sue, and the other agreements that Messrs. Moshayedi were being asked to execute. Negotiations of such agreements continued through June 23, 2013. The draft covenant not to sue provided by WDC required Mr. Manouch Moshayedi to relinquish all rights to indemnification under his existing arrangements with the company, but also provided that WDC would continue to pay Mr. Moshayedi\u0092s legal fees in connection with the civil action filed against Mr. Moshayedi by the SEC on July 29, 2012 and release him from any obligation to reimburse the company for such legal fees under his indemnification agreement with sTec. Among other matters, in the negotiations that commenced on June 17, 2013, Paul Hastings negotiated for the continued right of indemnification for Mr. Moshayedi, subject to a cap of $20 million with respect to indemnification (other than for defense costs) related to the SEC\u0092s civil action. Thereafter, Messrs. Moshayedi proposed that the company enter into letter agreements to conform their existing severance and change in control agreements to the arrangements negotiated with WDC.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B094",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 94,
+      "start_line": 1627,
+      "end_line": 1628,
+      "raw_text": "On June 19, 2013, Gibson Dunn submitted to Shearman proposed revisions to the merger agreement\nmarkup received from Shearman on May 28, 2013. On June 20, 2013, Shearman circulated a revised draft of the merger agreement to Gibson Dunn, indicating that WDC was not willing to further negotiate the terms of the merger",
+      "clean_text": "On June 19, 2013, Gibson Dunn submitted to Shearman proposed revisions to the merger agreement markup received from Shearman on May 28, 2013. On June 20, 2013, Shearman circulated a revised draft of the merger agreement to Gibson Dunn, indicating that WDC was not willing to further negotiate the terms of the merger",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B095",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 95,
+      "start_line": 1630,
+      "end_line": 1630,
+      "raw_text": "33",
+      "clean_text": "33",
+      "is_heading": true,
+      "page_break_before": false,
+      "page_break_after": false
+    },
+    {
+      "block_id": "B096",
+      "document_id": "0001193125-13-325730",
+      "ordinal": 96,
+      "start_line": 1633,
+      "end_line": 1639,
+      "raw_text": "agreement. Among other matters, Gibson Dunn communicated to Shearman sTec\u0092s desire to include in the merger agreement a general waiver of all \u0093don\u0092t ask don\u0092t waive\u0094\nprovisions in its non-disclosure agreements with potential bidders. Shearman communicated that WDC would not agree to this waiver, and in addition, WDC would view it as improper if sTec unilaterally waived these provisions, indicating that WDC may\nnot move forward with the transaction if sTec unilaterally waived these provisions. Gibson Dunn discussed this communication from WDC and other proposed changes to the merger agreement with Dr. Daly and Mr. Saman. Based on the history of\nthe discussions with the potential bidders with \u0093don\u0092t ask don\u0092t waive\u0094 provisions in their non-disclosure agreements that would continue in effect after sTec entered into an acquisition agreement, Dr. Daly, on behalf of the\nspecial committee, believed the possibility that any of these potential bidders would be willing and able to make a superior proposal was remote. Specifically, Company E and Company F had expressed an interest solely in purchasing certain assets of\nsTec, and Company H had repeatedly stated it could not increase its price above the range of $5.00 to $5.75 per share. Based upon direction from Dr. Daly in view of WDC\u0092s indication that it was not willing to negotiate further, and may not\nproceed with the transaction if sTec did not agree to certain terms, Gibson Dunn focused on a limited number of issues in the merger agreement in its continued discussions with Shearman through June 23, 2013.",
+      "clean_text": "agreement. Among other matters, Gibson Dunn communicated to Shearman sTec\u0092s desire to include in the merger agreement a general waiver of all \u0093don\u0092t ask don\u0092t waive\u0094 provisions in its non-disclosure agreements with potential bidders. Shearman communicated that WDC would not agree to this waiver, and in addition, WDC would view it as improper if sTec unilaterally waived these provisions, indicating that WDC may not move forward with the transaction if sTec unilaterally waived these provisions. Gibson Dunn discussed this communication from WDC and other proposed changes to the merger agreement with Dr. Daly and Mr. Saman. Based on the history of the discussions with the potential bidders with \u0093don\u0092t ask don\u0092t waive\u0094 provisions in their non-disclosure agreements that would continue in effect after sTec entered into an acquisition agreement, Dr. Daly, on behalf of the special committee, believed the possibility that any of these potential bidders would be willing and able to make a superior proposal was remote. Specifically, Company E and Company F had expressed an interest solely in purchasing certain assets of sTec, and Company H had repeatedly stated it could not increase its price above the range of $5.00 to $5.75 per share. Based upon direction from Dr. Daly in view of WDC\u0092s indication that it was not willing to negotiate further, and may not proceed with the transaction if sTec did not agree to certain terms, Gibson Dunn focused on a limited number of issues in the merger agreement in its continued discussions with Shearman through June 23, 2013.",
+      "is_heading": false,
+      "page_break_before": false,
+      "page_break_after": false
+    }
+  ]
+}

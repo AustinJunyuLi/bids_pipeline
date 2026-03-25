@@ -1,0 +1,1183 @@
+{
+  "events": [
+    {
+      "event_id": "evt_001",
+      "event_type": "ib_retention",
+      "date": {
+        "raw_text": "July 2014",
+        "normalized_start": "2014-07-01",
+        "normalized_end": "2014-07-31",
+        "sort_date": "2014-07-01",
+        "precision": "month",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "target_petsmart_board",
+        "advisor_jp_morgan"
+      ],
+      "summary": "PetSmart retained J. P. Morgan as financial advisor for the alternatives review.",
+      "evidence_span_ids": [
+        "span_0012"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_002",
+      "event_type": "activist_sale",
+      "date": {
+        "raw_text": "July 10, 2014",
+        "normalized_start": "2014-07-10",
+        "normalized_end": "2014-07-10",
+        "sort_date": "2014-07-10",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "activist_jana",
+        "activist_longview"
+      ],
+      "summary": "JANA and Longview pressed PetSmart to consider a sale of the Company.",
+      "evidence_span_ids": [
+        "span_0013",
+        "span_0014"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_003",
+      "event_type": "target_sale",
+      "date": {
+        "raw_text": "August 13, 2014",
+        "normalized_start": "2014-08-13",
+        "normalized_end": "2014-08-13",
+        "sort_date": "2014-08-13",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "target_petsmart_board"
+      ],
+      "summary": "The board decided to explore strategic alternatives, including a possible sale of PetSmart.",
+      "evidence_span_ids": [
+        "span_0015"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_004",
+      "event_type": "sale_press_release",
+      "date": {
+        "raw_text": "August 19, 2014",
+        "normalized_start": "2014-08-19",
+        "normalized_end": "2014-08-19",
+        "sort_date": "2014-08-19",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "target_petsmart_board"
+      ],
+      "summary": "PetSmart publicly announced that it would explore strategic alternatives, including a possible sale.",
+      "evidence_span_ids": [
+        "span_0016"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_005",
+      "event_type": "nda",
+      "date": {
+        "raw_text": "October 2014",
+        "normalized_start": "2014-10-01",
+        "normalized_end": "2014-10-31",
+        "sort_date": "2014-10-01",
+        "precision": "month",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_buyer_group"
+      ],
+      "summary": "Buyer Group was part of the October NDA and diligence cohort.",
+      "evidence_span_ids": [
+        "span_0011"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": []
+    },
+    {
+      "event_id": "evt_006",
+      "event_type": "nda",
+      "date": {
+        "raw_text": "October 2014",
+        "normalized_start": "2014-10-01",
+        "normalized_end": "2014-10-31",
+        "sort_date": "2014-10-01",
+        "precision": "month",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_2"
+      ],
+      "summary": "Bidder 2 was part of the October NDA and diligence cohort.",
+      "evidence_span_ids": [
+        "span_0011"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": []
+    },
+    {
+      "event_id": "evt_007",
+      "event_type": "nda",
+      "date": {
+        "raw_text": "October 2014",
+        "normalized_start": "2014-10-01",
+        "normalized_end": "2014-10-31",
+        "sort_date": "2014-10-01",
+        "precision": "month",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_3"
+      ],
+      "summary": "Bidder 3 traced back to the October NDA and diligence cohort.",
+      "evidence_span_ids": [
+        "span_0011"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": []
+    },
+    {
+      "event_id": "evt_008",
+      "event_type": "nda",
+      "date": {
+        "raw_text": "October 2014",
+        "normalized_start": "2014-10-01",
+        "normalized_end": "2014-10-31",
+        "sort_date": "2014-10-01",
+        "precision": "month",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_high_range"
+      ],
+      "summary": "An unnamed high-range bidder was part of the October NDA and diligence cohort.",
+      "evidence_span_ids": [
+        "span_0011"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": []
+    },
+    {
+      "event_id": "evt_009",
+      "event_type": "nda",
+      "date": {
+        "raw_text": "October 2014",
+        "normalized_start": "2014-10-01",
+        "normalized_end": "2014-10-31",
+        "sort_date": "2014-10-01",
+        "precision": "month",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_beta"
+      ],
+      "summary": "An unnamed indication bidder was part of the October NDA and diligence cohort.",
+      "evidence_span_ids": [
+        "span_0011"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": []
+    },
+    {
+      "event_id": "evt_010",
+      "event_type": "nda",
+      "date": {
+        "raw_text": "October 2014",
+        "normalized_start": "2014-10-01",
+        "normalized_end": "2014-10-31",
+        "sort_date": "2014-10-01",
+        "precision": "month",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_gamma"
+      ],
+      "summary": "A second unnamed indication bidder was part of the October NDA and diligence cohort.",
+      "evidence_span_ids": [
+        "span_0011"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": []
+    },
+    {
+      "event_id": "evt_011",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "October 30, 2014",
+        "normalized_start": "2014-10-30",
+        "normalized_end": "2014-10-30",
+        "sort_date": "2014-10-30",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_buyer_group"
+      ],
+      "summary": "Buyer Group submitted a non-binding preliminary indication of interest at $81.00 to $83.00 per share.",
+      "evidence_span_ids": [
+        "span_0006"
+      ],
+      "terms": {
+        "per_share": null,
+        "range_low": "81.0",
+        "range_high": "83.0",
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": true,
+        "mentions_indication_of_interest": true,
+        "mentions_preliminary": true,
+        "mentions_non_binding": true,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": false,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_012",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "October 30, 2014",
+        "normalized_start": "2014-10-30",
+        "normalized_end": "2014-10-30",
+        "sort_date": "2014-10-30",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_high_range"
+      ],
+      "summary": "An unnamed bidder suggested $80.00 to $85.00 per share in its preliminary indication.",
+      "evidence_span_ids": [
+        "span_0009"
+      ],
+      "terms": {
+        "per_share": null,
+        "range_low": "80.0",
+        "range_high": "85.0",
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": true,
+        "mentions_indication_of_interest": true,
+        "mentions_preliminary": true,
+        "mentions_non_binding": true,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": false,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_013",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "October 30 to November 2, 2014",
+        "normalized_start": "2014-10-30",
+        "normalized_end": "2014-11-02",
+        "sort_date": "2014-10-30",
+        "precision": "range",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_2"
+      ],
+      "summary": "Bidder 2 improved its preliminary indication to $81.00 to $84.00 per share after follow-up discussions.",
+      "evidence_span_ids": [
+        "span_0007"
+      ],
+      "terms": {
+        "per_share": null,
+        "range_low": "81.0",
+        "range_high": "84.0",
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": true,
+        "mentions_indication_of_interest": true,
+        "mentions_preliminary": true,
+        "mentions_non_binding": true,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": false,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_014",
+      "event_type": "final_round_ann",
+      "date": {
+        "raw_text": "November 3, 2014",
+        "normalized_start": "2014-11-03",
+        "normalized_end": "2014-11-03",
+        "sort_date": "2014-11-03",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [],
+      "summary": "The board advanced four bidders at or above $80.00 per share to the final round.",
+      "evidence_span_ids": [
+        "span_0017"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": "formal",
+      "invited_actor_ids": [
+        "bidder_buyer_group",
+        "bidder_2",
+        "bidder_high_range",
+        "bidder_3"
+      ],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_015",
+      "event_type": "drop",
+      "date": {
+        "raw_text": "November 3, 2014",
+        "normalized_start": "2014-11-03",
+        "normalized_end": "2014-11-03",
+        "sort_date": "2014-11-03",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_beta"
+      ],
+      "summary": "One unnamed bidder was eliminated after failing to indicate willingness to stay in the process above its initial price.",
+      "evidence_span_ids": [
+        "span_0018"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": "none of which indicated any interest or ability to remain in the process at price levels above their respective initial indications",
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_016",
+      "event_type": "drop",
+      "date": {
+        "raw_text": "November 3, 2014",
+        "normalized_start": "2014-11-03",
+        "normalized_end": "2014-11-03",
+        "sort_date": "2014-11-03",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_gamma"
+      ],
+      "summary": "A second unnamed bidder was eliminated after failing to indicate willingness to stay in the process above its initial price.",
+      "evidence_span_ids": [
+        "span_0018"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": "none of which indicated any interest or ability to remain in the process at price levels above their respective initial indications",
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_017",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "December 10, 2014",
+        "normalized_start": "2014-12-10",
+        "normalized_end": "2014-12-10",
+        "sort_date": "2014-12-10",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_buyer_group"
+      ],
+      "summary": "Buyer Group submitted a final bid letter at $80.70 per share in cash.",
+      "evidence_span_ids": [
+        "span_0019"
+      ],
+      "terms": {
+        "per_share": "80.7",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": false,
+        "mentions_preliminary": false,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": true,
+        "includes_marked_up_agreement": true,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": true,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_018",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "December 10, 2014",
+        "normalized_start": "2014-12-10",
+        "normalized_end": "2014-12-10",
+        "sort_date": "2014-12-10",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_2"
+      ],
+      "summary": "Bidder 2 submitted a final bid letter at $80.35 per share in cash.",
+      "evidence_span_ids": [
+        "span_0020"
+      ],
+      "terms": {
+        "per_share": "80.35",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": false,
+        "mentions_preliminary": false,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": true,
+        "includes_marked_up_agreement": true,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": true,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_019",
+      "event_type": "drop",
+      "date": {
+        "raw_text": "December 10, 2014",
+        "normalized_start": "2014-12-10",
+        "normalized_end": "2014-12-10",
+        "sort_date": "2014-12-10",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_3"
+      ],
+      "summary": "Bidder 3 did not submit a written offer after indicating that its valuation would not exceed the current stock price.",
+      "evidence_span_ids": [
+        "span_0021"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": "their valuation would not be above the current stock price of approximately $78 per share",
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_020",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "December 12, 2014",
+        "normalized_start": "2014-12-12",
+        "normalized_end": "2014-12-12",
+        "sort_date": "2014-12-12",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_2"
+      ],
+      "summary": "Bidder 2 submitted a best and final offer of $81.50 per share in cash.",
+      "evidence_span_ids": [
+        "span_0022"
+      ],
+      "terms": {
+        "per_share": "81.5",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": false,
+        "mentions_preliminary": false,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": true,
+        "includes_marked_up_agreement": true,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": true,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_021",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "December 12, 2014",
+        "normalized_start": "2014-12-12",
+        "normalized_end": "2014-12-12",
+        "sort_date": "2014-12-12",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_buyer_group"
+      ],
+      "summary": "Buyer Group submitted a best and final offer of $83.00 per share in cash.",
+      "evidence_span_ids": [
+        "span_0023"
+      ],
+      "terms": {
+        "per_share": "83.0",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": false,
+        "mentions_preliminary": false,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": true,
+        "includes_marked_up_agreement": true,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": true,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_022",
+      "event_type": "executed",
+      "date": {
+        "raw_text": "December 14, 2014",
+        "normalized_start": "2014-12-14",
+        "normalized_end": "2014-12-14",
+        "sort_date": "2014-12-14",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "target_petsmart_board",
+        "bidder_buyer_group"
+      ],
+      "summary": "PetSmart and the Buyer Group executed the merger agreement and related transaction agreements.",
+      "evidence_span_ids": [
+        "span_0024"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": "bidder_buyer_group",
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "placeholder_financial_1_nda",
+      "event_type": "nda",
+      "date": {
+        "raw_text": "unknown",
+        "normalized_start": null,
+        "normalized_end": null,
+        "sort_date": null,
+        "precision": "unknown",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "placeholder_financial_1"
+      ],
+      "summary": "Placeholder NDA for placeholder_financial_1.",
+      "evidence_span_ids": [],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": [
+        "Synthesized from count_assertion gap."
+      ]
+    },
+    {
+      "event_id": "placeholder_financial_2_nda",
+      "event_type": "nda",
+      "date": {
+        "raw_text": "unknown",
+        "normalized_start": null,
+        "normalized_end": null,
+        "sort_date": null,
+        "precision": "unknown",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "placeholder_financial_2"
+      ],
+      "summary": "Placeholder NDA for placeholder_financial_2.",
+      "evidence_span_ids": [],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": [
+        "Synthesized from count_assertion gap."
+      ]
+    },
+    {
+      "event_id": "placeholder_financial_3_nda",
+      "event_type": "nda",
+      "date": {
+        "raw_text": "unknown",
+        "normalized_start": null,
+        "normalized_end": null,
+        "sort_date": null,
+        "precision": "unknown",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "placeholder_financial_3"
+      ],
+      "summary": "Placeholder NDA for placeholder_financial_3.",
+      "evidence_span_ids": [],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": [
+        "Synthesized from count_assertion gap."
+      ]
+    },
+    {
+      "event_id": "placeholder_financial_4_nda",
+      "event_type": "nda",
+      "date": {
+        "raw_text": "unknown",
+        "normalized_start": null,
+        "normalized_end": null,
+        "sort_date": null,
+        "precision": "unknown",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "placeholder_financial_4"
+      ],
+      "summary": "Placeholder NDA for placeholder_financial_4.",
+      "evidence_span_ids": [],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": [
+        "Synthesized from count_assertion gap."
+      ]
+    },
+    {
+      "event_id": "placeholder_financial_5_nda",
+      "event_type": "nda",
+      "date": {
+        "raw_text": "unknown",
+        "normalized_start": null,
+        "normalized_end": null,
+        "sort_date": null,
+        "precision": "unknown",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "placeholder_financial_5"
+      ],
+      "summary": "Placeholder NDA for placeholder_financial_5.",
+      "evidence_span_ids": [],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": [
+        "Synthesized from count_assertion gap."
+      ]
+    },
+    {
+      "event_id": "placeholder_financial_6_nda",
+      "event_type": "nda",
+      "date": {
+        "raw_text": "unknown",
+        "normalized_start": null,
+        "normalized_end": null,
+        "sort_date": null,
+        "precision": "unknown",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "placeholder_financial_6"
+      ],
+      "summary": "Placeholder NDA for placeholder_financial_6.",
+      "evidence_span_ids": [],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": [
+        "Synthesized from count_assertion gap."
+      ]
+    },
+    {
+      "event_id": "placeholder_financial_7_nda",
+      "event_type": "nda",
+      "date": {
+        "raw_text": "unknown",
+        "normalized_start": null,
+        "normalized_end": null,
+        "sort_date": null,
+        "precision": "unknown",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "placeholder_financial_7"
+      ],
+      "summary": "Placeholder NDA for placeholder_financial_7.",
+      "evidence_span_ids": [],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": [
+        "Synthesized from count_assertion gap."
+      ]
+    },
+    {
+      "event_id": "placeholder_financial_8_nda",
+      "event_type": "nda",
+      "date": {
+        "raw_text": "unknown",
+        "normalized_start": null,
+        "normalized_end": null,
+        "sort_date": null,
+        "precision": "unknown",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "placeholder_financial_8"
+      ],
+      "summary": "Placeholder NDA for placeholder_financial_8.",
+      "evidence_span_ids": [],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": [
+        "Synthesized from count_assertion gap."
+      ]
+    },
+    {
+      "event_id": "placeholder_financial_9_nda",
+      "event_type": "nda",
+      "date": {
+        "raw_text": "unknown",
+        "normalized_start": null,
+        "normalized_end": null,
+        "sort_date": null,
+        "precision": "unknown",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "placeholder_financial_9"
+      ],
+      "summary": "Placeholder NDA for placeholder_financial_9.",
+      "evidence_span_ids": [],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": [
+        "Synthesized from count_assertion gap."
+      ]
+    }
+  ],
+  "exclusions": [],
+  "coverage_notes": [
+    "target_sale: extracted (evt_003)",
+    "target_sale_public: NOT FOUND -- public announcement was captured as sale_press_release on August 19, 2014.",
+    "bidder_sale: NOT FOUND -- no acquirer-initiated sale process was described.",
+    "bidder_interest: NOT FOUND -- Industry Participant interest was noted but not carried as a priced bid event here.",
+    "activist_sale: extracted (evt_002)",
+    "sale_press_release: extracted (evt_004)",
+    "bid_press_release: NOT FOUND -- the deal announcement press release was left inside the executed event.",
+    "ib_retention: extracted (evt_001)",
+    "nda: extracted (evt_005, evt_006, evt_007, evt_008, evt_009, evt_010)",
+    "proposal: extracted (evt_011, evt_012, evt_013, evt_017, evt_018, evt_020, evt_021)",
+    "drop: extracted (evt_015, evt_016, evt_019)",
+    "final_round_inf_ann: NOT FOUND -- no informal final round announcement was described.",
+    "final_round_inf: NOT FOUND -- no informal final round deadline was described.",
+    "final_round_ann: extracted (evt_014)",
+    "final_round: NOT FOUND -- the formal final-round deadline was not separately extracted.",
+    "final_round_ext_ann: NOT FOUND -- no extension round announcement was described.",
+    "final_round_ext: NOT FOUND -- no extension round deadline was described.",
+    "executed: extracted (evt_022)",
+    "terminated: NOT FOUND -- the sale process ended in a signed merger.",
+    "restarted: NOT FOUND -- no restarted sale process was described."
+  ]
+}
