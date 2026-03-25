@@ -79,34 +79,43 @@ python scripts/sync_skill_mirrors.py --check
 
 ## Architecture
 
-The active runtime is the `skill_pipeline` hybrid workflow. The deterministic stages are intended to run after seed-only source preparation and agent-produced extract artifacts.
+The active runtime is the `skill_pipeline` hybrid workflow: deterministic CLI stages surround LLM-driven skills. For the detailed stage inventory, artifact contracts, and gate boundaries, see [`docs/workflow-contract.md`](docs/workflow-contract.md).
 
 ``` text
 data/seeds.csv
-  -> skill-pipeline raw-fetch --deal <slug>
+  -> skill-pipeline raw-fetch --deal <slug>          (deterministic)
   -> raw/<slug>/filings/*.txt + raw/<slug>/{discovery,document_registry}.json
-  -> skill-pipeline preprocess-source --deal <slug>
+  -> skill-pipeline preprocess-source --deal <slug>   (deterministic)
   -> data/deals/<slug>/source/{chronology_blocks,evidence_items}.jsonl
-  -> /extract-deal <slug>
+  -> /extract-deal <slug>                             (LLM skill)
   -> data/skill/<slug>/extract/{actors_raw,events_raw}.json
-  -> skill-pipeline canonicalize --deal <slug>
-  -> skill-pipeline check --deal <slug>
-  -> skill-pipeline verify --deal <slug>
-  -> skill-pipeline coverage --deal <slug>
-  -> /verify-extraction <slug> (if deterministic findings are repairable)
-  -> skill-pipeline enrich-core --deal <slug>
-  -> /enrich-deal <slug>
-  -> /export-csv <slug>
-  -> /reconcile-alex <slug> (optional post-export diagnostic)
+  -> skill-pipeline canonicalize --deal <slug>        (deterministic)
+  -> skill-pipeline check --deal <slug>               (deterministic)
+  -> skill-pipeline verify --deal <slug>              (deterministic)
+  -> skill-pipeline coverage --deal <slug>            (deterministic)
+  -> /verify-extraction <slug>                        (hybrid repair)
+  -> skill-pipeline enrich-core --deal <slug>         (deterministic)
+  -> /enrich-deal <slug>                              (LLM skill)
+  -> /export-csv <slug>                               (LLM skill)
+  -> /reconcile-alex <slug>                           (optional, post-export)
 ```
 
 Important distinctions:
 
 - `skill-pipeline raw-fetch` and `skill-pipeline preprocess-source` are **seed-only**. They use the filing URL from `data/seeds.csv` and do not preserve supplementary filings.
-- `skill-pipeline deal-agent --deal <slug>` is **summary/preflight only**. It does not run extraction, repair, enrichment, or export.
+- `skill-pipeline deal-agent --deal <slug>` is **summary/preflight only**. It does not run extraction, repair, enrichment, or export. Use `/deal-agent <slug>` for end-to-end orchestration (see below).
 - `skill-pipeline canonicalize`, `check`, `verify`, `coverage`, and `enrich-core` are fail-fast deterministic gates. Do not add fallback logic to keep them running on missing or contradictory inputs.
 - `skill-pipeline enrich-core` now requires passing `check`, `verify`, and `coverage` artifacts before it will write `data/skill/<slug>/enrich/deterministic_enrichment.json`.
 - `data/skill/<slug>/extract/spans.json` is required once extract artifacts are canonicalized. Missing sidecars are an error, not a cue to fabricate an empty registry.
+
+### deal-agent: Two Surfaces, Two Jobs
+
+The name "deal-agent" refers to two distinct entrypoints:
+
+- **`skill-pipeline deal-agent --deal <slug>`** (CLI summary): Deterministic preflight that checks prerequisites, ensures output directories exist, and summarizes stage artifact status. It does not run extraction, repair, enrichment, or export.
+- **`/deal-agent <slug>`** (skill orchestrator): Runs the full end-to-end skill workflow -- `/extract-deal` through deterministic gates through `/verify-extraction` through deterministic enrichment through `/enrich-deal` through `/export-csv`. Use this for end-to-end deal processing after `raw-fetch` and `preprocess-source` have completed.
+
+These are not interchangeable. The CLI command summarizes; the skill command orchestrates.
 
 ### Benchmark Separation
 
@@ -122,7 +131,7 @@ rewrites generation artifacts.
 
 ### Stage Responsibilities
 
-- `/extract-deal <slug>` writes legacy extract artifacts with `evidence_refs` into `data/skill/<slug>/extract/`.
+- `/extract-deal <slug>` uses chunked sequential extraction followed by consolidation to write `actors_raw.json` and `events_raw.json` into `data/skill/<slug>/extract/`.
 - `skill-pipeline canonicalize --deal <slug>` upgrades those artifacts into canonical span-backed form, normalizes dates, deduplicates only semantically equivalent events, removes drops without prior NDA support, and recovers unnamed parties when the deterministic rules allow it.
 - `skill-pipeline check --deal <slug>` is the structural blocker gate.
 - `skill-pipeline verify --deal <slug>` enforces referential integrity and strict quote resolution. `EXACT` and `NORMALIZED` pass; `FUZZY` does not.
