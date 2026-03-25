@@ -2,15 +2,27 @@
 .~lock.*#
 ~$*
 
-# Python caches and bytecode
+# Python environments, caches, and bytecode
+.venv/
 __pycache__/
 *.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
 
-# Common local temp/editor files
+# Local secrets and temp files
+.env.local
 *.swp
 *.swo
 *.tmp
 .DS_Store
 
-# Local git worktrees
+# Local editor/workspace files
+.idea/
+.vscode/
 .worktrees/
+
+# Local agent scratch space
+.agents/

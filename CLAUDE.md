@@ -64,6 +64,10 @@ skill-pipeline check --deal imprivata
 skill-pipeline verify --deal imprivata
 skill-pipeline coverage --deal imprivata
 skill-pipeline enrich-core --deal imprivata
+
+# Sync and verify mirrored tool skill trees
+python scripts/sync_skill_mirrors.py
+python scripts/sync_skill_mirrors.py --check
 ```
 
 ## Architecture
@@ -143,6 +147,8 @@ rewrites generation artifacts.
 -   `skill-pipeline deal-agent` is only a preflight / summary command. It may summarize deterministic enrichment from `deterministic_enrichment.json` even when the later interpretive `enrichment.json` does not exist yet.
 -   Benchmark materials are forbidden until `/export-csv` completes. `example/`, `diagnosis/`, and `/reconcile-alex` are post-export only.
 -   `edgartools>=5.23` is currently allowed in `pyproject.toml`, but the live fetch path emits v6 deprecation warnings. Treat pinning or capping before a breaking v6 release as a follow-up dependency risk.
+-   `.claude/skills/` is the canonical skill tree. `.codex/skills/` and `.cursor/skills/` are derived mirrors that must be synced from `.claude/skills/` via `python scripts/sync_skill_mirrors.py`.
+-   `.gitattributes` is the source of truth for tracked line endings. Use `LF` for tracked text files across Windows and Linux checkouts.
 
 ## Coding Style & Naming Conventions
 
@@ -175,7 +181,7 @@ SEC_IDENTITY / EDGAR_IDENTITY — fallback EDGAR identity env vars
 
 ## Security & Configuration Tips
 
-Do not commit API keys or provider secrets. Use environment variables such as `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, `BIDS_LLM_PROVIDER`, and `BIDS_LLM_MODEL`. Treat canonical pipeline artifacts under `data/deals/` and skill workflow artifacts under `data/skill/` as generated outputs; only edit them intentionally and document why.
+Do not commit API keys or provider secrets. Use environment variables such as `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, `BIDS_LLM_PROVIDER`, and `BIDS_LLM_MODEL`. Treat canonical pipeline artifacts under `data/deals/` and skill workflow artifacts under `data/skill/` as generated outputs; only edit them intentionally and document why. `.venv/`, `.env.local`, and `.agents/` are local-only paths and should stay ignored. On Windows worktrees, prefer `git config --local core.autocrlf false` and let `.gitattributes` enforce `LF`.
 
 You are my local Python agent.
 

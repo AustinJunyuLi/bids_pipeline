@@ -26,7 +26,9 @@ GENERATION_DOCS = [
 ]
 
 SUPPORT_DOCS = [
+    PROJECT_ROOT / ".claude/skills/README.md",
     PROJECT_ROOT / ".codex/skills/README.md",
+    PROJECT_ROOT / ".cursor/skills/README.md",
     PROJECT_ROOT / "docs/HOME_COMPUTER_SETUP.md",
 ]
 
