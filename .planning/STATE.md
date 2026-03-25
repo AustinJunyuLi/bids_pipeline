@@ -54,6 +54,16 @@ Plan: 3 of 3
 
 ## Accumulated Context
 
+### Phase 1 Baseline
+
+Phase 1 planning is complete. The committed workflow contract surface includes:
+
+- **Workflow contract:** `docs/workflow-contract.md` is the single canonical stage inventory (11 stages + 1 optional post-export diagnostic), protected by 9 regression assertions in `tests/test_workflow_contract_surface.py`
+- **Deterministic vs LLM classification:** 7 deterministic CLI stages, 3 LLM skill stages, 1 hybrid repair, 1 optional post-export diagnostic
+- **deal-agent disambiguation:** CLI summary (`skill-pipeline deal-agent`) vs skill orchestrator (`/deal-agent`) documented in CLAUDE.md and the workflow contract
+- **Tracked drifts resolved:** `supplementary_snippets.jsonl` removed from skill reads; legacy `data/deals/<slug>/{extract,qa}` labeled as historical; historical design docs labeled as non-authoritative
+- **Phase context:** `.planning/phases/01-workflow-contract-surface/01-CONTEXT.md` preserves the accepted baseline and drift register for later phases
+
 ### Decisions
 
 Decisions are logged in `PROJECT.md`.
@@ -71,6 +81,8 @@ Recent decisions affecting current work:
 - [Phase 01]: Stage count: 7 deterministic, 3 LLM skill, 1 hybrid repair, 1 optional post-export diagnostic
 - [Phase 01]: Add deal-agent disambiguation section to CLAUDE.md rather than duplicating full workflow-contract.md
 - [Phase 01]: Remove stale supplementary_snippets.jsonl from enrich-deal Reads since preprocess-source actively deletes it
+- [Phase 01]: Publish hybrid deterministic/skill baseline in .planning/ project memory so later phases start from committed artifacts
+- [Phase 01]: Record supplementary_snippets drift, legacy data paths, and deal-agent collision in codebase CONCERNS.md
 
 ### Pending Todos
 
@@ -79,6 +91,7 @@ None yet.
 ### Blockers/Concerns
 
 - No explicit next feature milestone was provided during initialization, so the first roadmap focuses on operational hardening of the existing hybrid workflow.
+- `supplementary_snippets.jsonl` drift is resolved (removed from skill docs) but the underlying question of whether cross-filing hints will be needed in future multi-filing support remains open
 
 ## Session Continuity
 
