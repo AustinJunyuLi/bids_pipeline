@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: Ready to execute
-stopped_at: Completed 06-02-PLAN.md
-last_updated: "2026-03-25T16:03:06.256Z"
+stopped_at: Completed 06-03-PLAN.md
+last_updated: "2026-03-25T16:08:02.624Z"
 progress:
   total_phases: 6
   completed_phases: 0
   total_plans: 7
-  completed_plans: 2
+  completed_plans: 3
 ---
 
 # Project State
@@ -24,7 +24,7 @@ See: `.planning/PROJECT.md` (updated 2026-03-25)
 ## Current Position
 
 Phase: 06 (chunked-extraction-architecture) — EXECUTING
-Plan: 3 of 4
+Plan: 4 of 4
 
 ## Performance Metrics
 
@@ -47,6 +47,7 @@ Plan: 3 of 4
 
 | Phase 06-chunked-extraction-architecture P01 | 1 min | 2 tasks | 7 files |
 | Phase 06-chunked-extraction-architecture P02 | 7 min | 2 tasks | 8 files |
+| Phase 06 P03 | 110 | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -61,6 +62,8 @@ Recent decisions affecting current work:
 - [Phase 06]: Correct the extraction skill reads contract to match the repo's seed-only single-document source artifacts
 - [Phase 06-chunked-extraction-architecture]: Deduplicate actors by normalized canonical name, role, and bidder kind before NDA gating so later stages operate on survivor actor IDs
 - [Phase 06-chunked-extraction-architecture]: Surface actor audit residuals as warnings instead of blockers because they are QA signals rather than structural contract failures
+- [Phase 06]: Keep rounds, bid classifications, cycles, and formal boundary explicitly owned by skill-pipeline enrich-core.
+- [Phase 06]: Scope LLM enrichment rereads from event-linked block windows instead of full chronology context.
 
 ### Pending Todos
 
@@ -72,6 +75,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-25T16:03:06.254Z
-Stopped at: Completed 06-02-PLAN.md
+Last session: 2026-03-25T16:08:02.621Z
+Stopped at: Completed 06-03-PLAN.md
 Resume file: None
