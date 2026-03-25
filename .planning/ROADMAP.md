@@ -15,7 +15,7 @@ This is a brownfield roadmap for an existing hybrid SEC-filing extraction pipeli
 - [ ] **Phase 3: Regression and Policy Checks** - make verification and boundary checks easier to run and extend
 - [ ] **Phase 4: Cross-Platform Contributor Operations** - keep Windows and Linux development quiet and reproducible
 - [ ] **Phase 5: Dependency Risk Management** - track and mitigate external breakpoints before they block active work
-- [ ] **Phase 6: Chunked Extraction Architecture** - redesign extraction from two-pass single-shot to all-chunked sequential with consolidation
+- [x] **Phase 6: Chunked Extraction Architecture** - redesign extraction from two-pass single-shot to all-chunked sequential with consolidation
 
 ## Phase Details
 
@@ -111,7 +111,7 @@ Plans:
 - [x] 06-01-PLAN.md — Rewrite extract-deal SKILL.md for all-chunked sequential extraction with consolidation
 - [x] 06-02-PLAN.md — Add _dedup_actors to canonicalize and _check_actor_audit to check with regression tests
 - [x] 06-03-PLAN.md — Refactor enrich-deal SKILL.md to event-targeted re-reads
-- [ ] 06-04-PLAN.md — End-to-end validation on stec (largest) and petsmart (silent NDA test case)
+- [x] 06-04-PLAN.md — End-to-end validation on stec (largest) and petsmart (silent NDA test case)
 
 ## Progress
 
@@ -125,4 +125,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 3. Regression and Policy Checks | 0/3 | Not started | - |
 | 4. Cross-Platform Contributor Operations | 0/3 | Not started | - |
 | 5. Dependency Risk Management | 0/3 | Not started | - |
-| 6. Chunked Extraction Architecture | 0/4 | Planned | - |
+| 6. Chunked Extraction Architecture | 4/4 | Complete | 2026-03-25 |

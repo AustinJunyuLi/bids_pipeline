@@ -19,6 +19,9 @@ Produce filing-grounded deal data that remains auditable back to SEC source text
 - [validated] Operator can derive deterministic rounds, bid classifications, cycles, and formal-boundary artifacts only after QA passes - existing
 - [validated] Contributors can keep `.claude/skills` canonical and verify `.codex/.cursor` mirrors with `scripts/sync_skill_mirrors.py` - existing
 - [validated] Benchmark materials are fenced off until post-export reconciliation by committed docs and regression tests - existing
+- [validated] `extract-deal` now uses sequential chunk extraction with consolidation as the only documented extraction path while preserving the `actors_raw.json` and `events_raw.json` contract - validated in Phase 06: Chunked Extraction Architecture
+- [validated] `canonicalize` and `check` now absorb chunk-boundary actor duplication with deterministic dedup plus warning-level actor audit coverage - validated in Phase 06: Chunked Extraction Architecture
+- [validated] `enrich-deal` now scopes interpretive rereads to event-linked chronology windows while keeping rounds, bid classifications, cycles, and formal boundary in deterministic `enrich-core` - validated in Phase 06: Chunked Extraction Architecture
 
 ### Active
 
@@ -42,6 +45,7 @@ Produce filing-grounded deal data that remains auditable back to SEC source text
 - `raw/` and tracked `data/` artifacts are part of the working dataset, not disposable scratch output
 - Development happens on both Windows and Linux, with GitHub as the synchronization point
 - `CLAUDE.md` remains the authoritative repository instruction source even after adopting GSD planning in `.planning/`
+- Phase 06 completed the chunked extraction architecture shift: `petsmart-inc` is locally auditable through chunked extraction and unnamed-party recovery, while `stec` is approved through the Phase 06 validation summary's reported fresh rerun caveat
 
 ## Constraints
 
@@ -59,6 +63,7 @@ Produce filing-grounded deal data that remains auditable back to SEC source text
 | Treat the current deterministic pipeline as the validated baseline | Brownfield planning should start from what already works, not from a rewrite fantasy | Good |
 | Use committed planning docs with standard granularity on the current branch | This repo needs durable shared memory, but not micro-phases for every small change | Pending |
 | Skip external ecosystem research during initialization | The immediate goal is to frame the existing brownfield codebase, and the repo already contains enough local context for that | Pending |
+| Treat chunk debug artifacts as the primary runtime proof for a specific extraction run | Final raw JSON artifacts keep the same contract before and after the chunked redesign, so run-specific validation needs direct chunk evidence | Good |
 
 ## Evolution
 
@@ -78,4 +83,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-25 after GSD initialization*
+*Last updated: 2026-03-25 after Phase 06 completion*
