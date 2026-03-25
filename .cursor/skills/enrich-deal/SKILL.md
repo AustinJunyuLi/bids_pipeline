@@ -61,12 +61,34 @@ though it appears third in the output schema.
 
 **Execution order: 3 -> 4 -> 5 -> 1 -> 2 -> 6 -> 7 -> 8.**
 
+### Context Scoping Protocol
+
+Each enrichment subtask below uses event-targeted re-reads instead of loading
+the full chronology. For each subtask:
+
+1. Identify the events or actors the subtask needs to analyze.
+2. For each event, find its evidence_refs -> extract block_ids.
+3. Load only those blocks from chronology_blocks.jsonl, plus 1-2 surrounding
+   blocks for narrative context.
+4. Pass only this scoped block window (~2-3K tokens) to the LLM call.
+
+This keeps each subtask focused and prevents context dilution from unrelated
+narrative.
+
 ---
 
 ### Task 1: Dropout Classification
 
 For each `drop` event in events_raw.json, read `drop_reason_text` and the full
 event history for that actor. Classify into exactly one of 5 labels:
+
+**Scoped context:** For each drop event, load:
+- The blocks referenced in the drop event's evidence_refs
+- 1-2 blocks before and after for narrative flow
+- The blocks from the most recent round announcement event (for round context)
+- Prior proposal events for this actor (for DropBelowInf/DropAtInf comparison)
+
+One LLM call per drop event. Each call receives ~2-3K tokens of scoped context.
 
 | Label | Condition |
 |---|---|
@@ -108,6 +130,9 @@ For each `proposal` event in events_raw.json, apply classification rules in
 strict priority order. First matching rule wins. Do not skip to a later rule
 if an earlier rule matches.
 
+**Note:** This task is computed deterministically by `skill-pipeline enrich-core`.
+The skill reads the deterministic output. No LLM call needed.
+
 | Priority | Rule | Label | Basis |
 |---|---|---|---|
 | 1 | Range bid (`contains_range=true`) OR explicit informal language: `mentions_indication_of_interest=true`, `mentions_preliminary=true`, or `mentions_non_binding=true` | `Informal` | Observable text signal from formality_signals |
@@ -138,6 +163,9 @@ evidence. Apply the Formal label but add
 **This task must be computed BEFORE Tasks 1 and 2** because dropout
 classification and bid classification depend on round context.
 
+**Note:** This task is computed deterministically by `skill-pipeline enrich-core`.
+The skill reads the deterministic output. No LLM call needed.
+
 Pair each round announcement event with its corresponding deadline event.
 Round announcement types and their paired deadline types:
 
@@ -167,6 +195,9 @@ For each paired round, record:
 
 Identify process cycles from `terminated` and `restarted` events:
 
+**Note:** This task is computed deterministically by `skill-pipeline enrich-core`.
+The skill reads the deterministic output. No LLM call needed.
+
 - **Single cycle:** No `terminated` or `restarted` events exist. The entire
   event timeline is one cycle.
 - **Multi-cycle:** Each `terminated` event followed by a `restarted` event
@@ -189,6 +220,9 @@ For each cycle, record:
 For each cycle, identify the first formal proposal. This is the event where the
 deal shifted from exploratory to serious.
 
+**Note:** This task is computed deterministically by `skill-pipeline enrich-core`.
+The skill reads the deterministic output. No LLM call needed.
+
 A proposal is formal if its bid classification (Task 2) is `Formal`.
 
 Record:
@@ -204,8 +238,15 @@ If a cycle has no formal proposals, record `event_id: null` and
 
 ### Task 6: Initiation Judgment
 
-Determine who started the sale process. Read the earliest events in the
-timeline and the surrounding filing narrative.
+Determine who started the sale process.
+
+**Scoped context:** Load the first 10-15 blocks of chronology_blocks.jsonl only.
+The initiation judgment depends on the earliest events in the timeline; later
+narrative is not needed.
+
+One LLM call for initiation judgment.
+
+Read the earliest events in the timeline and the surrounding filing narrative.
 
 Four possible types:
 
@@ -231,6 +272,13 @@ filing is ambiguous or contradictory and you are making an inference.
 ### Task 7: Advisory Attribution Verification
 
 For each actor with `role: "advisor"` in actors_raw.json:
+
+**Scoped context:** For each advisor, load:
+- The blocks referenced in the advisor's evidence_refs
+- 1-2 surrounding blocks for the passage establishing the advisory relationship
+
+One LLM call per advisor actor.
+
 1. Read the `advised_actor_id` field.
 2. Search the filing text for the passage that establishes the advisory
    relationship.
@@ -249,6 +297,12 @@ For each actor with `role: "advisor"` in actors_raw.json:
 ### Task 8: Count Reconciliation (Diagnostic Only)
 
 **This output is diagnostic. It never alters data. It informs review_flags.**
+
+**Scoped context:** Load:
+- Blocks referenced in each count_assertion's evidence_refs
+- The full actor roster (structured JSON, not filing text)
+
+One LLM call for all count reconciliation together.
 
 Compare each `count_assertion` from actors_raw.json against the actual
 extracted counts. For example, if the filing asserts "15 parties signed
