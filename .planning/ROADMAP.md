@@ -105,12 +105,13 @@ Plans:
 4. Petsmart's silent NDA signers (9 unnamed parties) are captured via improved count_assertion extraction feeding existing unnamed-party recovery.
 5. `enrich-deal` uses event-targeted re-reads (~2-3K context per task) instead of full-context calls.
 6. All existing tests pass. New regression tests cover chunked extraction, actor dedup, and actor audit.
+**Plans**: 4 plans
 
 Plans:
-- [ ] 06-01: Implement chunked extraction in extract-deal skill (routing, chunk construction, sequential execution, consolidation)
-- [ ] 06-02: Add _dedup_actors to canonicalize and _check_actor_audit to check with regression tests
-- [ ] 06-03: Refactor enrich-deal to event-targeted re-reads
-- [ ] 06-04: End-to-end validation on stec (largest) and petsmart (silent NDA test case)
+- [ ] 06-01-PLAN.md — Rewrite extract-deal SKILL.md for all-chunked sequential extraction with consolidation
+- [ ] 06-02-PLAN.md — Add _dedup_actors to canonicalize and _check_actor_audit to check with regression tests
+- [ ] 06-03-PLAN.md — Refactor enrich-deal SKILL.md to event-targeted re-reads
+- [ ] 06-04-PLAN.md — End-to-end validation on stec (largest) and petsmart (silent NDA test case)
 
 ## Progress
 
@@ -124,4 +125,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 3. Regression and Policy Checks | 0/3 | Not started | - |
 | 4. Cross-Platform Contributor Operations | 0/3 | Not started | - |
 | 5. Dependency Risk Management | 0/3 | Not started | - |
-| 6. Chunked Extraction Architecture | 0/4 | Context ready | - |
+| 6. Chunked Extraction Architecture | 0/4 | Planned | - |
