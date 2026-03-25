@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from pydantic import ValidationError
+
 from skill_pipeline.config import PROJECT_ROOT
 from skill_pipeline.extract_artifacts import load_extract_artifacts
 from skill_pipeline.models import (
@@ -10,6 +12,7 @@ from skill_pipeline.models import (
     CoverageStageSummary,
     CoverageSummary,
     DealAgentSummary,
+    DeterministicEnrichmentArtifact,
     EnrichStageSummary,
     ExportStageSummary,
     ExtractStageSummary,
@@ -18,6 +21,12 @@ from skill_pipeline.models import (
     SkillVerificationLog,
     StageStatus,
     VerifyStageSummary,
+)
+from skill_pipeline.source_validation import (
+    load_chronology_blocks,
+    load_document_registry,
+    load_evidence_items,
+    validate_frozen_document,
 )
 from skill_pipeline.paths import build_skill_paths, ensure_output_directories, missing_required_inputs
 from skill_pipeline.seeds import load_seed_entry
@@ -31,6 +40,7 @@ def run_deal_agent(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> Deal
     if missing_inputs:
         missing_text = ", ".join(str(path) for path in missing_inputs)
         raise FileNotFoundError(f"Missing required skill inputs: {missing_text}")
+    _validate_shared_inputs(paths)
 
     ensure_output_directories(paths)
 
@@ -51,7 +61,10 @@ def _summarize_extract(paths) -> ExtractStageSummary:
     if not paths.actors_raw_path.exists() or not paths.events_raw_path.exists():
         return ExtractStageSummary(status=StageStatus.MISSING)
 
-    artifacts = load_extract_artifacts(paths)
+    try:
+        artifacts = load_extract_artifacts(paths)
+    except (FileNotFoundError, ValidationError, ValueError, json.JSONDecodeError):
+        return ExtractStageSummary(status=StageStatus.FAIL)
     actors = artifacts.raw_actors.actors if artifacts.mode == "legacy" else artifacts.actors.actors
     events = artifacts.raw_events.events if artifacts.mode == "legacy" else artifacts.events.events
     actor_count = len(actors)
@@ -70,7 +83,10 @@ def _summarize_check(paths) -> CheckStageSummary:
     if not paths.check_report_path.exists():
         return CheckStageSummary(status=StageStatus.MISSING)
 
-    report = SkillCheckReport.model_validate(_read_json(paths.check_report_path))
+    try:
+        report = SkillCheckReport.model_validate(_read_json(paths.check_report_path))
+    except (ValidationError, json.JSONDecodeError):
+        return CheckStageSummary(status=StageStatus.FAIL)
     status = StageStatus.PASS if report.summary.status == "pass" else StageStatus.FAIL
     return CheckStageSummary(
         status=status,
@@ -83,7 +99,10 @@ def _summarize_coverage(paths) -> CoverageStageSummary:
     if not paths.coverage_summary_path.exists():
         return CoverageStageSummary(status=StageStatus.MISSING)
 
-    summary = CoverageSummary.model_validate(_read_json(paths.coverage_summary_path))
+    try:
+        summary = CoverageSummary.model_validate(_read_json(paths.coverage_summary_path))
+    except (ValidationError, json.JSONDecodeError):
+        return CoverageStageSummary(status=StageStatus.FAIL)
     status = StageStatus.PASS if summary.status == "pass" else StageStatus.FAIL
     return CoverageStageSummary(
         status=status,
@@ -96,7 +115,10 @@ def _summarize_verify(paths) -> VerifyStageSummary:
     if not paths.verification_log_path.exists():
         return VerifyStageSummary(status=StageStatus.MISSING)
 
-    log = SkillVerificationLog.model_validate(_read_json(paths.verification_log_path))
+    try:
+        log = SkillVerificationLog.model_validate(_read_json(paths.verification_log_path))
+    except (ValidationError, json.JSONDecodeError):
+        return VerifyStageSummary(status=StageStatus.FAIL)
     status = StageStatus.PASS if log.summary.status == "pass" else StageStatus.FAIL
     return VerifyStageSummary(
         status=status,
@@ -108,7 +130,10 @@ def _summarize_verify(paths) -> VerifyStageSummary:
 
 def _summarize_enrich(paths) -> EnrichStageSummary:
     if paths.enrichment_path.exists():
-        enrichment = SkillEnrichmentArtifact.model_validate(_read_json(paths.enrichment_path))
+        try:
+            enrichment = SkillEnrichmentArtifact.model_validate(_read_json(paths.enrichment_path))
+        except (ValidationError, json.JSONDecodeError):
+            return EnrichStageSummary(status=StageStatus.FAIL)
         formal_bid_count = sum(
             classification.label == "Formal"
             for classification in enrichment.bid_classifications.values()
@@ -127,21 +152,23 @@ def _summarize_enrich(paths) -> EnrichStageSummary:
         )
 
     if paths.deterministic_enrichment_path.exists():
-        enrichment = _read_json(paths.deterministic_enrichment_path)
-        bid_classifications = enrichment.get("bid_classifications", {})
+        try:
+            enrichment = DeterministicEnrichmentArtifact.model_validate(
+                _read_json(paths.deterministic_enrichment_path)
+            )
+        except (ValidationError, json.JSONDecodeError):
+            return EnrichStageSummary(status=StageStatus.FAIL)
         formal_bid_count = sum(
-            classification.get("label") == "Formal"
-            for classification in bid_classifications.values()
-            if isinstance(classification, dict)
+            classification.label == "Formal"
+            for classification in enrichment.bid_classifications.values()
         )
         informal_bid_count = sum(
-            classification.get("label") == "Informal"
-            for classification in bid_classifications.values()
-            if isinstance(classification, dict)
+            classification.label == "Informal"
+            for classification in enrichment.bid_classifications.values()
         )
         return EnrichStageSummary(
             status=StageStatus.PASS,
-            cycle_count=len(enrichment.get("cycles", [])),
+            cycle_count=len(enrichment.cycles),
             formal_bid_count=formal_bid_count,
             informal_bid_count=informal_bid_count,
             initiation_judgment_type=None,
@@ -154,10 +181,27 @@ def _summarize_enrich(paths) -> EnrichStageSummary:
 def _summarize_export(paths) -> ExportStageSummary:
     if not paths.deal_events_path.exists():
         return ExportStageSummary(status=StageStatus.MISSING, output_path=paths.deal_events_path)
-    if paths.deal_events_path.stat().st_size == 0:
+    lines = [
+        line
+        for line in paths.deal_events_path.read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+    if len(lines) <= 1:
         return ExportStageSummary(status=StageStatus.FAIL, output_path=paths.deal_events_path)
     return ExportStageSummary(status=StageStatus.PASS, output_path=paths.deal_events_path)
 
 
 def _read_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _validate_shared_inputs(paths) -> None:
+    load_chronology_blocks(paths.chronology_blocks_path)
+    load_evidence_items(paths.evidence_items_path)
+    registry = load_document_registry(paths.document_registry_path)
+    for document in registry.documents:
+        validate_frozen_document(
+            document,
+            project_root=paths.project_root,
+            deal_slug=paths.deal_slug,
+        )

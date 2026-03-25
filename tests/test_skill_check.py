@@ -392,3 +392,106 @@ def test_actor_audit_clean(tmp_path: Path) -> None:
 
     assert exit_code == 0
     assert report["findings"] == []
+
+
+def test_run_check_fails_on_missing_canonical_provenance(tmp_path: Path) -> None:
+    _write_check_fixture(tmp_path)
+    extract_dir = tmp_path / "data" / "skill" / "imprivata" / "extract"
+    (extract_dir / "actors_raw.json").write_text(
+        json.dumps(
+            {
+                "actors": [
+                    {
+                        "actor_id": "party_a",
+                        "display_name": "Party A",
+                        "canonical_name": "PARTY A",
+                        "aliases": [],
+                        "role": "bidder",
+                        "advisor_kind": None,
+                        "advised_actor_id": None,
+                        "bidder_kind": "financial",
+                        "listing_status": "private",
+                        "geography": "domestic",
+                        "is_grouped": False,
+                        "group_size": None,
+                        "group_label": None,
+                        "evidence_span_ids": [],
+                        "notes": [],
+                    }
+                ],
+                "count_assertions": [],
+                "unresolved_mentions": [],
+            }
+        ),
+        encoding="utf-8",
+    )
+    (extract_dir / "events_raw.json").write_text(
+        json.dumps(
+            {
+                "events": [
+                    {
+                        "event_id": "evt_001",
+                        "event_type": "proposal",
+                        "date": {
+                            "raw_text": "July 5, 2016",
+                            "normalized_start": "2016-07-05",
+                            "normalized_end": "2016-07-05",
+                            "sort_date": "2016-07-05",
+                            "precision": "exact_day",
+                            "anchor_event_id": None,
+                            "anchor_span_id": None,
+                            "resolution_note": None,
+                            "is_inferred": False,
+                        },
+                        "actor_ids": ["party_a"],
+                        "summary": "Party A submitted an indication of interest.",
+                        "evidence_span_ids": [],
+                        "terms": {
+                            "per_share": 25.0,
+                            "range_low": None,
+                            "range_high": None,
+                            "enterprise_value": None,
+                            "consideration_type": "cash",
+                        },
+                        "formality_signals": {
+                            "contains_range": False,
+                            "mentions_indication_of_interest": True,
+                            "mentions_preliminary": False,
+                            "mentions_non_binding": False,
+                            "mentions_binding_offer": False,
+                            "includes_draft_merger_agreement": False,
+                            "includes_marked_up_agreement": False,
+                            "requested_binding_offer_via_process_letter": False,
+                            "after_final_round_announcement": False,
+                            "after_final_round_deadline": False,
+                            "is_subject_to_financing": None,
+                        },
+                        "whole_company_scope": True,
+                        "drop_reason_text": None,
+                        "round_scope": None,
+                        "invited_actor_ids": [],
+                        "deadline_date": None,
+                        "executed_with_actor_id": None,
+                        "boundary_note": None,
+                        "nda_signed": None,
+                        "notes": [],
+                    }
+                ],
+                "exclusions": [],
+                "coverage_notes": [],
+            }
+        ),
+        encoding="utf-8",
+    )
+    (extract_dir / "spans.json").write_text(json.dumps({"spans": []}), encoding="utf-8")
+
+    exit_code = run_check("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    report = json.loads(paths.check_report_path.read_text(encoding="utf-8"))
+
+    assert exit_code == 1
+    assert report["summary"]["status"] == "fail"
+    assert any(
+        finding["check_id"] == "missing_canonical_provenance"
+        for finding in report["findings"]
+    )

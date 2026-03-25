@@ -480,6 +480,58 @@ def test_rule_1_overrides_rule_2_5_when_non_binding(tmp_path: Path) -> None:
     assert classification["rule_applied"] == 1
 
 
+def test_rule_3_requires_proposal_bidder_to_have_been_invited(tmp_path: Path) -> None:
+    formality_signals = {
+        "contains_range": False,
+        "mentions_indication_of_interest": False,
+        "mentions_preliminary": False,
+        "mentions_non_binding": False,
+        "mentions_binding_offer": False,
+        "includes_draft_merger_agreement": False,
+        "includes_marked_up_agreement": False,
+        "requested_binding_offer_via_process_letter": False,
+        "after_final_round_announcement": False,
+        "after_final_round_deadline": False,
+        "is_subject_to_financing": None,
+    }
+    events = [
+        _base_event("evt_001", "target_sale"),
+        _base_event("evt_002", "nda", actor_ids=["party_a"]),
+        _base_event("evt_003", "nda", actor_ids=["party_b"]),
+        _base_event("evt_004", "final_round_ann", invited_actor_ids=["party_b"]),
+        _base_event("evt_005", "proposal", actor_ids=["party_a"], formality_signals=formality_signals),
+        _base_event("evt_006", "executed", actor_ids=["party_a"], executed_with_actor_id="party_a"),
+    ]
+    _write_enrich_core_fixture(tmp_path, events_override=events)
+    _write_gate_artifacts(tmp_path)
+    run_enrich_core("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    artifact = json.loads(paths.deterministic_enrichment_path.read_text(encoding="utf-8"))
+
+    classification = artifact["bid_classifications"]["evt_005"]
+    assert classification["label"] == "Uncertain"
+    assert classification["rule_applied"] is None
+
+
+def test_round_pairing_stops_at_restarted_boundary(tmp_path: Path) -> None:
+    events = [
+        _base_event("evt_001", "target_sale"),
+        _base_event("evt_002", "nda", actor_ids=["party_a"]),
+        _base_event("evt_003", "final_round_ann", invited_actor_ids=["party_a"]),
+        _base_event("evt_004", "restarted"),
+        _base_event("evt_005", "final_round"),
+        _base_event("evt_006", "executed", actor_ids=["party_a"], executed_with_actor_id="party_a"),
+    ]
+    _write_enrich_core_fixture(tmp_path, events_override=events)
+    _write_gate_artifacts(tmp_path)
+    run_enrich_core("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    artifact = json.loads(paths.deterministic_enrichment_path.read_text(encoding="utf-8"))
+
+    assert artifact["rounds"][0]["announcement_event_id"] == "evt_003"
+    assert artifact["rounds"][0]["deadline_event_id"] is None
+
+
 def test_formal_boundary_when_formal_proposal_in_cycle(tmp_path: Path) -> None:
     """First Formal proposal in a cycle sets formal_boundary for that cycle."""
     formal_signals = {

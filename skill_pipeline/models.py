@@ -431,6 +431,13 @@ class SkillEnrichmentArtifact(SkillModel):
     review_flags: list[str]
 
 
+class DeterministicEnrichmentArtifact(SkillModel):
+    rounds: list[RoundRecord]
+    bid_classifications: dict[str, BidClassification]
+    cycles: list[CycleRecord]
+    formal_boundary: dict[str, FormalBoundaryRecord]
+
+
 class CheckFinding(SkillModel):
     check_id: str
     severity: Literal["blocker", "warning"]

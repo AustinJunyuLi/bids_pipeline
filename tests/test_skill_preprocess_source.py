@@ -6,6 +6,7 @@ from pathlib import Path
 import pytest
 
 from skill_pipeline.preprocess.source import preprocess_source_deal
+from skill_pipeline.raw.fetch import text_sha256
 from skill_pipeline.source.locate import select_chronology
 
 
@@ -34,13 +35,24 @@ def _write_seed_only_raw_fixture(
         "source_origin": "seed_accession",
         "ranking_features": {},
     }
+    filing_text = "\n".join(
+        [
+            "Background of the Merger",
+            "",
+            "On July 1, 2016, Party A signed a confidentiality agreement.",
+            "",
+            "On July 5, 2016, Party A submitted an indication of interest.",
+            "",
+            "Opinion of Financial Advisor",
+        ]
+    )
     registry_document = {
         "document_id": "0001193125-16-677939",
         "accession_number": "0001193125-16-677939",
         "filing_type": "UNKNOWN",
         "txt_path": "raw/imprivata/filings/0001193125-16-677939.txt",
-        "sha256_txt": "x",
-        "byte_count_txt": 1,
+        "sha256_txt": text_sha256(filing_text),
+        "byte_count_txt": len(filing_text.encode("utf-8")),
         "fetched_at": "2026-03-20T00:00:00Z",
     }
 
@@ -70,22 +82,25 @@ def _write_seed_only_raw_fixture(
 
     (raw_deal_dir / "discovery.json").write_text(json.dumps(discovery), encoding="utf-8")
     (raw_deal_dir / "document_registry.json").write_text(json.dumps(registry), encoding="utf-8")
-    (filings_dir / "0001193125-16-677939.txt").write_text(
-        "\n".join(
-            [
-                "Background of the Merger",
-                "",
-                "On July 1, 2016, Party A signed a confidentiality agreement.",
-                "",
-                "On July 5, 2016, Party A submitted an indication of interest.",
-                "",
-                "Opinion of Financial Advisor",
-            ]
-        ),
-        encoding="utf-8",
-    )
+    (filings_dir / "0001193125-16-677939.txt").write_text(filing_text, encoding="utf-8")
 
     return raw_deal_dir, deals_dir
+
+
+def _refresh_registry_metadata(
+    raw_deal_dir: Path,
+    *,
+    document_id: str = "0001193125-16-677939",
+) -> None:
+    registry_path = raw_deal_dir / "document_registry.json"
+    registry = json.loads(registry_path.read_text(encoding="utf-8"))
+    filing_text = (raw_deal_dir / "filings" / f"{document_id}.txt").read_text(encoding="utf-8")
+    for document in registry["documents"]:
+        if document["document_id"] != document_id:
+            continue
+        document["sha256_txt"] = text_sha256(filing_text)
+        document["byte_count_txt"] = len(filing_text.encode("utf-8"))
+    registry_path.write_text(json.dumps(registry), encoding="utf-8")
 
 
 def test_preprocess_source_scans_only_the_single_seed_document_and_cleans_stale_artifacts(
@@ -281,6 +296,7 @@ def test_preprocess_source_fails_when_no_chronology_candidate_is_found(
         ),
         encoding="utf-8",
     )
+    _refresh_registry_metadata(raw_deal_dir)
 
     with pytest.raises(ValueError, match="No acceptable background-style chronology candidates"):
         preprocess_source_deal(
@@ -315,6 +331,7 @@ def test_preprocess_source_invalidates_existing_outputs_when_rerun_fails(
         ),
         encoding="utf-8",
     )
+    _refresh_registry_metadata(raw_deal_dir)
 
     with pytest.raises(ValueError, match="No acceptable background-style chronology candidates"):
         preprocess_source_deal(
@@ -329,3 +346,36 @@ def test_preprocess_source_invalidates_existing_outputs_when_rerun_fails(
     assert not (source_dir / "evidence_items.jsonl").exists()
     assert not (source_dir / "chronology.json").exists()
     assert not (source_dir / "filings" / "0001193125-16-677939.txt").exists()
+
+
+def test_preprocess_source_rejects_registry_path_outside_seed_filings(tmp_path: Path) -> None:
+    raw_deal_dir, deals_dir = _write_seed_only_raw_fixture(tmp_path)
+    registry_path = raw_deal_dir / "document_registry.json"
+    registry = json.loads(registry_path.read_text(encoding="utf-8"))
+    registry["documents"][0]["txt_path"] = "raw/imprivata/../outside.txt"
+    registry_path.write_text(json.dumps(registry), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="Frozen document path must stay under"):
+        preprocess_source_deal(
+            "imprivata",
+            run_id="run-1",
+            raw_dir=raw_deal_dir.parent,
+            deals_dir=deals_dir,
+        )
+
+
+def test_preprocess_source_rejects_tampered_raw_filing_text(tmp_path: Path) -> None:
+    raw_deal_dir, deals_dir = _write_seed_only_raw_fixture(tmp_path)
+    filing_path = raw_deal_dir / "filings" / "0001193125-16-677939.txt"
+    filing_path.write_text(
+        filing_path.read_text(encoding="utf-8") + "\nTampered line.\n",
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="sha256_txt mismatch|byte_count_txt mismatch"):
+        preprocess_source_deal(
+            "imprivata",
+            run_id="run-1",
+            raw_dir=raw_deal_dir.parent,
+            deals_dir=deals_dir,
+        )

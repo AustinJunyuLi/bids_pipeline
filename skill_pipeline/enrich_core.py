@@ -76,6 +76,8 @@ def _pair_rounds(events: list[SkillEventRecord], actors) -> list[dict]:
                 continue
             deadline_id = None
             for j in range(i + 1, len(events)):
+                if events[j].event_type == "restarted":
+                    break
                 if events[j].event_type == deadline_type:
                     deadline_id = events[j].event_id
                     break
@@ -162,11 +164,17 @@ def _classify_proposal(
     evt_idx = event_order.index(evt.event_id) if evt.event_id in event_order else -1
     for r in reversed(rounds):
         ann_idx = event_order.index(r["announcement_event_id"]) if r["announcement_event_id"] in event_order else -1
-        if ann_idx >= 0 and evt_idx > ann_idx and r.get("is_selective"):
+        invited_actor_ids = set(r.get("invited_actor_ids", []))
+        if (
+            ann_idx >= 0
+            and evt_idx > ann_idx
+            and r.get("is_selective")
+            and invited_actor_ids.intersection(evt.actor_ids)
+        ):
             return BidClassification(
                 label="Formal",
                 rule_applied=3,
-                basis="Proposal after selective final round.",
+                basis="Proposal after selective final round for an invited bidder.",
             )
 
     # Rule 4: Residual -> Uncertain

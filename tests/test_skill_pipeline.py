@@ -7,14 +7,16 @@ import pytest
 
 from skill_pipeline import cli
 from skill_pipeline.deal_agent import run_deal_agent
+from skill_pipeline.raw.fetch import text_sha256
 
 
 def _write_shared_inputs(tmp_path: Path, *, slug: str = "imprivata") -> None:
     data_dir = tmp_path / "data"
     deals_source_dir = data_dir / "deals" / slug / "source"
     raw_dir = tmp_path / "raw" / slug
+    filings_dir = raw_dir / "filings"
     deals_source_dir.mkdir(parents=True, exist_ok=True)
-    raw_dir.mkdir(parents=True, exist_ok=True)
+    filings_dir.mkdir(parents=True, exist_ok=True)
 
     (data_dir / "seeds.csv").write_text(
         (
@@ -23,9 +25,115 @@ def _write_shared_inputs(tmp_path: Path, *, slug: str = "imprivata") -> None:
         ),
         encoding="utf-8",
     )
-    (deals_source_dir / "chronology_blocks.jsonl").write_text("{}\n", encoding="utf-8")
-    (deals_source_dir / "evidence_items.jsonl").write_text("{}\n", encoding="utf-8")
-    (raw_dir / "document_registry.json").write_text("{}", encoding="utf-8")
+    filing_text = "\n".join(
+        [
+            "Background of the Merger",
+            "Party A signed a confidentiality agreement.",
+            "Party A submitted an indication of interest.",
+        ]
+    )
+    (filings_dir / "DOC001.txt").write_text(filing_text, encoding="utf-8")
+    (deals_source_dir / "chronology_blocks.jsonl").write_text(
+        "\n".join(
+            [
+                json.dumps(
+                    {
+                        "block_id": "B001",
+                        "document_id": "DOC001",
+                        "ordinal": 1,
+                        "start_line": 1,
+                        "end_line": 2,
+                        "raw_text": "Background of the Merger\nParty A signed a confidentiality agreement.",
+                        "clean_text": "Background of the Merger Party A signed a confidentiality agreement.",
+                        "is_heading": False,
+                        "page_break_before": False,
+                        "page_break_after": False,
+                    }
+                ),
+                json.dumps(
+                    {
+                        "block_id": "B002",
+                        "document_id": "DOC001",
+                        "ordinal": 2,
+                        "start_line": 3,
+                        "end_line": 3,
+                        "raw_text": "Party A submitted an indication of interest.",
+                        "clean_text": "Party A submitted an indication of interest.",
+                        "is_heading": False,
+                        "page_break_before": False,
+                        "page_break_after": False,
+                    }
+                ),
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    (deals_source_dir / "evidence_items.jsonl").write_text(
+        "\n".join(
+            [
+                json.dumps(
+                    {
+                        "evidence_id": "DOC001:E0001",
+                        "document_id": "DOC001",
+                        "accession_number": "DOC001",
+                        "filing_type": "DEFM14A",
+                        "start_line": 2,
+                        "end_line": 2,
+                        "raw_text": "Party A signed a confidentiality agreement.",
+                        "evidence_type": "dated_action",
+                        "confidence": "high",
+                        "matched_terms": ["confidentiality agreement"],
+                        "date_text": None,
+                        "actor_hint": "Party A",
+                        "value_hint": None,
+                        "note": None,
+                    }
+                ),
+                json.dumps(
+                    {
+                        "evidence_id": "DOC001:E0002",
+                        "document_id": "DOC001",
+                        "accession_number": "DOC001",
+                        "filing_type": "DEFM14A",
+                        "start_line": 3,
+                        "end_line": 3,
+                        "raw_text": "Party A submitted an indication of interest.",
+                        "evidence_type": "dated_action",
+                        "confidence": "high",
+                        "matched_terms": ["submitted", "indication of interest"],
+                        "date_text": None,
+                        "actor_hint": "Party A",
+                        "value_hint": None,
+                        "note": None,
+                    }
+                ),
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    (raw_dir / "document_registry.json").write_text(
+        json.dumps(
+            {
+                "artifact_type": "raw_document_registry",
+                "run_id": "run-1",
+                "deal_slug": slug,
+                "documents": [
+                    {
+                        "document_id": "DOC001",
+                        "accession_number": "DOC001",
+                        "filing_type": "DEFM14A",
+                        "txt_path": f"raw/{slug}/filings/DOC001.txt",
+                        "sha256_txt": text_sha256(filing_text),
+                        "byte_count_txt": len(filing_text.encode("utf-8")),
+                        "fetched_at": "2026-03-20T00:00:00Z",
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
 
 
 def _write_skill_outputs(tmp_path: Path, *, slug: str = "imprivata") -> Path:
@@ -359,3 +467,25 @@ def test_run_deal_agent_reports_deterministic_enrichment_when_interpretive_artif
     assert summary.enrich.informal_bid_count == 0
     assert summary.enrich.initiation_judgment_type is None
     assert summary.enrich.review_flags_count == 0
+
+
+def test_run_deal_agent_fails_on_invalid_deterministic_enrichment_artifact(tmp_path: Path) -> None:
+    _write_shared_inputs(tmp_path)
+    skill_root = _write_skill_outputs(tmp_path)
+    enrich_dir = skill_root / "enrich"
+    (enrich_dir / "enrichment.json").unlink()
+    (enrich_dir / "deterministic_enrichment.json").write_text("{}", encoding="utf-8")
+
+    summary = run_deal_agent("imprivata", project_root=tmp_path)
+
+    assert summary.enrich.status == "fail"
+
+
+def test_run_deal_agent_fails_on_header_only_export(tmp_path: Path) -> None:
+    _write_shared_inputs(tmp_path)
+    skill_root = _write_skill_outputs(tmp_path)
+    (skill_root / "export" / "deal_events.csv").write_text("header\n", encoding="utf-8")
+
+    summary = run_deal_agent("imprivata", project_root=tmp_path)
+
+    assert summary.export.status == "fail"

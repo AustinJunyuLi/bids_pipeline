@@ -109,6 +109,34 @@ def _check_empty_anchor_text(artifacts: LoadedExtractArtifacts) -> list[CheckFin
     return findings
 
 
+def _check_missing_canonical_provenance(artifacts: LoadedExtractArtifacts) -> list[CheckFinding]:
+    if artifacts.mode != "canonical":
+        return []
+
+    actor_ids_missing = sorted(
+        actor.actor_id
+        for actor in artifacts.actors.actors
+        if not actor.evidence_span_ids
+    )
+    event_ids_missing = sorted(
+        event.event_id
+        for event in artifacts.events.events
+        if not event.evidence_span_ids
+    )
+    if not actor_ids_missing and not event_ids_missing:
+        return []
+
+    return [
+        CheckFinding(
+            check_id="missing_canonical_provenance",
+            severity="blocker",
+            description="Canonical actors and events must have non-empty evidence_span_ids.",
+            actor_ids=actor_ids_missing,
+            event_ids=event_ids_missing,
+        )
+    ]
+
+
 def _check_actor_audit(artifacts: LoadedExtractArtifacts) -> list[CheckFinding]:
     """Audit actor roster for residual issues from chunked extraction."""
     findings: list[CheckFinding] = []
@@ -213,6 +241,7 @@ def run_check(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> int:
     findings.extend(_check_proposal_terms(artifacts))
     findings.extend(_check_bidder_kind(artifacts))
     findings.extend(_check_empty_anchor_text(artifacts))
+    findings.extend(_check_missing_canonical_provenance(artifacts))
     findings.extend(_check_actor_audit(artifacts))
 
     report = _build_report(findings)

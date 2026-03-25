@@ -126,17 +126,20 @@ def _check_quote_verification_legacy(
         total_checks += 1
         raw_lines: list[str] = []
         start_line, end_line = 0, 0
+        used_fallback_lines = False
         if ref.block_id and ref.block_id in blocks_by_id:
             block = blocks_by_id[ref.block_id]
             raw_lines = document_lines.get(block.document_id, [])
             if not raw_lines and block.raw_text:
                 raw_lines = block.raw_text.splitlines()
+                used_fallback_lines = True
             start_line, end_line = block.start_line, block.end_line
         elif ref.evidence_id and ref.evidence_id in evidence_by_id:
             item = evidence_by_id[ref.evidence_id]
             raw_lines = document_lines.get(item.document_id, [])
             if not raw_lines and item.raw_text:
                 raw_lines = item.raw_text.splitlines()
+                used_fallback_lines = True
             start_line, end_line = item.start_line, item.end_line
         else:
             findings.append(
@@ -165,6 +168,10 @@ def _check_quote_verification_legacy(
                 )
             )
             return
+
+        if used_fallback_lines:
+            start_line = 1
+            end_line = len(raw_lines)
 
         segment_lines = raw_lines[start_line - 1 : end_line] if start_line and end_line else raw_lines
         raw_segment = "\n".join(segment_lines)

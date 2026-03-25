@@ -80,6 +80,30 @@ def _canonical_unknown_date() -> dict:
     ).model_dump(mode="json")
 
 
+_RELATIVE_DATE_TEXTS = frozenset(
+    {
+        "later that day",
+        "that day",
+        "same day",
+        "the following day",
+        "the next day",
+        "next day",
+        "one day later",
+        "two days later",
+        "three days later",
+        "the following week",
+        "the next week",
+        "one week later",
+    }
+)
+
+
+def _is_relative_date_text(raw_text: str | None) -> bool:
+    if raw_text is None:
+        return False
+    return raw_text.strip().lower() in _RELATIVE_DATE_TEXTS
+
+
 def _convert_raw_date(
     date_payload: dict | None,
     *,
@@ -93,11 +117,16 @@ def _convert_raw_date(
     source_text = raw_text
     if not source_text or source_text == "unknown":
         source_text = normalized_hint or raw_text
-    return parse_resolved_date(
+    resolved = parse_resolved_date(
         source_text,
         anchor_date=anchor_date,
         anchor_event_id=anchor_event_id,
-    ).model_dump(mode="json")
+    )
+    if _is_relative_date_text(source_text) and resolved.precision != DatePrecision.RELATIVE:
+        raise ValueError(
+            f"Relative date {source_text!r} could not be resolved without a chronology anchor."
+        )
+    return resolved.model_dump(mode="json")
 
 
 def _resolve_ref_to_span_id(
@@ -231,10 +260,13 @@ def _upgrade_raw_events(
     document_meta: dict[str, dict],
     span_id_by_key: dict[tuple[str | None, str | None, str], str],
     spans: list[dict],
-) -> dict:
+) -> tuple[dict, dict[str, tuple]]:
     events_payload = events_artifact.model_dump(mode="json")
-    previous_resolved_date: ResolvedDate | None = None
-    previous_event_id: str | None = None
+    event_chronology_keys = _event_chronology_keys(
+        events_artifact.events,
+        blocks_by_id=blocks_by_id,
+        evidence_by_id=evidence_by_id,
+    )
 
     for event in events_payload["events"]:
         event["evidence_span_ids"] = [
@@ -249,6 +281,11 @@ def _upgrade_raw_events(
             )
             for ref in event.pop("evidence_refs", [])
         ]
+
+    previous_resolved_date: ResolvedDate | None = None
+    previous_event_id: str | None = None
+    for event_index in _sorted_event_indices_by_chronology(event_chronology_keys):
+        event = events_payload["events"][event_index]
         event["date"] = _convert_raw_date(
             event.get("date"),
             anchor_date=previous_resolved_date,
@@ -266,7 +303,75 @@ def _upgrade_raw_events(
                 previous_resolved_date = resolved
                 previous_event_id = event["event_id"]
 
-    return events_payload
+    return events_payload, {
+        event["event_id"]: event_chronology_keys[index]
+        for index, event in enumerate(events_payload["events"])
+    }
+
+
+def _event_chronology_keys(
+    events: list,
+    *,
+    blocks_by_id: dict[str, ChronologyBlock],
+    evidence_by_id: dict[str, EvidenceItem],
+) -> list[tuple]:
+    return [
+        _event_chronology_key(
+            event.event_id,
+            event.evidence_refs,
+            blocks_by_id=blocks_by_id,
+            evidence_by_id=evidence_by_id,
+        )
+        for event in events
+    ]
+
+
+def _event_chronology_key(
+    event_id: str,
+    refs: list,
+    *,
+    blocks_by_id: dict[str, ChronologyBlock],
+    evidence_by_id: dict[str, EvidenceItem],
+) -> tuple:
+    if not refs:
+        raise ValueError(f"Event {event_id!r} has no evidence_refs; cannot derive chronology.")
+
+    positions = [
+        _reference_chronology_key(ref, blocks_by_id=blocks_by_id, evidence_by_id=evidence_by_id)
+        for ref in refs
+    ]
+    return min(positions)
+
+
+def _reference_chronology_key(
+    ref,
+    *,
+    blocks_by_id: dict[str, ChronologyBlock],
+    evidence_by_id: dict[str, EvidenceItem],
+) -> tuple:
+    evidence_id = getattr(ref, "evidence_id", None)
+    block_id = getattr(ref, "block_id", None)
+
+    if evidence_id:
+        item = evidence_by_id.get(evidence_id)
+        if item is None:
+            raise ValueError(f"Unknown evidence_id in evidence reference: {evidence_id!r}")
+        return (item.document_id, item.start_line, item.end_line, 0, evidence_id)
+
+    if block_id:
+        block = blocks_by_id.get(block_id)
+        if block is None:
+            raise ValueError(f"Unknown block_id in evidence reference: {block_id!r}")
+        return (block.document_id, block.start_line, block.end_line, 1, block_id)
+
+    raise ValueError("Evidence reference must include block_id or evidence_id.")
+
+
+def _sorted_event_indices_by_chronology(event_chronology_keys: list[tuple]) -> list[int]:
+    return sorted(
+        range(len(event_chronology_keys)),
+        key=lambda index: (event_chronology_keys[index], index),
+    )
 
 
 def _dedup_events(events: list[dict]) -> tuple[list[dict], dict[str, str]]:
@@ -428,11 +533,20 @@ def _event_semantics_key(event: dict) -> str:
     return json.dumps(semantics, sort_keys=True)
 
 
-def _gate_drops_by_nda(events: list[dict]) -> tuple[list[dict], list[dict]]:
+def _gate_drops_by_nda(
+    events: list[dict],
+    *,
+    event_chronology_keys: dict[str, tuple],
+) -> tuple[list[dict], list[dict]]:
     nda_actors_seen: set[str] = set()
-    kept: list[dict] = []
+    removed_event_ids: set[str] = set()
     gate_log: list[dict] = []
-    for event in events:
+    for event in sorted(
+        events,
+        key=lambda event: (
+            event_chronology_keys.get(event["event_id"], (chr(0x10FFFF), float("inf"), float("inf"), 99, event["event_id"])),
+        ),
+    ):
         if event["event_type"] == "drop":
             drop_actors = set(event.get("actor_ids", []))
             if not drop_actors or not drop_actors.issubset(nda_actors_seen):
@@ -443,10 +557,11 @@ def _gate_drops_by_nda(events: list[dict]) -> tuple[list[dict], list[dict]]:
                         "reason": f"Drop actor(s) {missing} have no prior NDA.",
                     }
                 )
+                removed_event_ids.add(event["event_id"])
                 continue
-        kept.append(event)
         if event["event_type"] == "nda":
             nda_actors_seen.update(event.get("actor_ids", []))
+    kept = [event for event in events if event["event_id"] not in removed_event_ids]
     return kept, gate_log
 
 
@@ -475,7 +590,13 @@ def _recover_unnamed_parties(
         ]
         if not assertions:
             continue
-        asserted_count = assertions[0]["count"]
+        assertion = assertions[0]
+        assertion_span_ids = list(assertion.get("evidence_span_ids", []))
+        if not assertion_span_ids:
+            raise ValueError(
+                f"Count assertion {subject!r} is missing evidence_span_ids; cannot recover unnamed bidders."
+            )
+        asserted_count = assertion["count"]
         actual_count = sum(
             1
             for actor in actors_dict["actors"]
@@ -515,7 +636,7 @@ def _recover_unnamed_parties(
                 "is_grouped": False,
                 "group_size": None,
                 "group_label": None,
-                "evidence_span_ids": [],
+                "evidence_span_ids": list(assertion_span_ids),
                 "notes": [f"Synthesized from unresolved_mention: {mention}"],
             }
             actors_dict["actors"].append(placeholder_actor)
@@ -526,7 +647,7 @@ def _recover_unnamed_parties(
                 "date": _canonical_unknown_date(),
                 "actor_ids": [placeholder_id],
                 "summary": f"Placeholder NDA for {placeholder_id}.",
-                "evidence_span_ids": [],
+                "evidence_span_ids": list(assertion_span_ids),
                 "terms": None,
                 "formality_signals": None,
                 "whole_company_scope": None,
@@ -543,27 +664,17 @@ def _recover_unnamed_parties(
 
             created_event_ids = [nda_event["event_id"]]
             if has_drop:
-                drop_event = {
-                    "event_id": f"{placeholder_id}_drop",
-                    "event_type": "drop",
-                    "date": _canonical_unknown_date(),
-                    "actor_ids": [placeholder_id],
-                    "summary": f"Placeholder drop: {mention}",
-                    "evidence_span_ids": [],
-                    "terms": None,
-                    "formality_signals": None,
-                    "whole_company_scope": None,
-                    "drop_reason_text": mention,
-                    "round_scope": None,
-                    "invited_actor_ids": [],
-                    "deadline_date": None,
-                    "executed_with_actor_id": None,
-                    "boundary_note": None,
-                    "nda_signed": None,
-                    "notes": ["Synthesized from count_assertion gap."],
-                }
-                new_events.append(drop_event)
-                created_event_ids.append(drop_event["event_id"])
+                recovery_log.append(
+                    {
+                        "placeholder_id": placeholder_id,
+                        "kind": kind,
+                        "source_mention": mention,
+                        "events_created": created_event_ids,
+                        "drop_event_skipped": True,
+                        "drop_skip_reason": "Unresolved mention implied dropout but no span-backed evidence exists for a canonical drop event.",
+                    }
+                )
+                continue
 
             recovery_log.append(
                 {
@@ -575,6 +686,39 @@ def _recover_unnamed_parties(
             )
 
     return actors_dict, new_events, recovery_log
+
+
+def _ensure_canonical_provenance(actors_dict: dict, events: list[dict]) -> None:
+    actor_ids_missing = sorted(
+        actor["actor_id"]
+        for actor in actors_dict.get("actors", [])
+        if not actor.get("evidence_span_ids")
+    )
+    if actor_ids_missing:
+        raise ValueError(
+            f"Canonical actors missing evidence_span_ids: {', '.join(actor_ids_missing)}"
+        )
+
+    event_ids_missing = sorted(
+        event["event_id"]
+        for event in events
+        if not event.get("evidence_span_ids")
+    )
+    if event_ids_missing:
+        raise ValueError(
+            f"Canonical events missing evidence_span_ids: {', '.join(event_ids_missing)}"
+        )
+
+    assertion_subjects_missing = sorted(
+        assertion["subject"]
+        for assertion in actors_dict.get("count_assertions", [])
+        if not assertion.get("evidence_span_ids")
+    )
+    if assertion_subjects_missing:
+        raise ValueError(
+            "Canonical count assertions missing evidence_span_ids: "
+            + ", ".join(assertion_subjects_missing)
+        )
 
 
 def run_canonicalize(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> int:
@@ -617,7 +761,7 @@ def run_canonicalize(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> in
         span_id_by_key=span_id_by_key,
         spans=spans,
     )
-    events_dict = _upgrade_raw_events(
+    events_dict, event_chronology_keys = _upgrade_raw_events(
         raw_events,
         blocks_by_id=blocks_by_id,
         evidence_by_id=evidence_by_id,
@@ -636,12 +780,16 @@ def run_canonicalize(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> in
     actors_dict, events, actor_dedup_log = _dedup_actors(actors_dict, events)
     log["actor_dedup_log"] = actor_dedup_log
 
-    events, nda_gate_log = _gate_drops_by_nda(events)
+    events, nda_gate_log = _gate_drops_by_nda(
+        events,
+        event_chronology_keys=event_chronology_keys,
+    )
     log["nda_gate_log"] = nda_gate_log
 
     actors_dict, new_events, recovery_log = _recover_unnamed_parties(actors_dict, events)
     events.extend(new_events)
     log["recovery_log"] = recovery_log
+    _ensure_canonical_provenance(actors_dict, events)
 
     canonical_actors = SkillActorsArtifact.model_validate(actors_dict)
     canonical_events = SkillEventsArtifact.model_validate(
