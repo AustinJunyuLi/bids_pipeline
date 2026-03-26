@@ -3,10 +3,10 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: Ready to plan
-stopped_at: Completed 01-03-PLAN.md
-last_updated: "2026-03-25T23:31:48.018Z"
+stopped_at: Repo-memory refresh completed after full codebase audit
+last_updated: "2026-03-26T00:46:24Z"
 progress:
-  total_phases: 6
+  total_phases: 7
   completed_phases: 2
   total_plans: 7
   completed_plans: 7
@@ -16,42 +16,42 @@ progress:
 
 ## Project Reference
 
-See: `.planning/PROJECT.md` (updated 2026-03-25)
+See: `.planning/PROJECT.md` (updated 2026-03-26)
 
 **Core value:** Produce filing-grounded deal data that remains auditable back to SEC source text and reproducible across machines.
-**Current focus:** Phase 01 — workflow-contract-surface
+**Current focus:** Repository-memory sync after Phase 06 completion and Phase 07 research capture
 
 ## Current Position
 
-Phase: 02
-Plan: Not started
+Phase: No active implementation phase
+Plan: Next planning choice pending between Phase 02 and Phase 07
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 4
+- Total plans completed: 7
+- Completed phases: Phase 01 (3 plans), Phase 06 (4 plans)
 - Average duration: mixed (automation + human verification)
 - Total execution time: n/a
 
 **By Phase:**
 
-| Phase | Plans | Total | Avg/Plan |
-|-------|-------|-------|----------|
-| - | - | - | - |
+| Phase | Completed Plans | Status |
+|-------|-----------------|--------|
+| 01 | 3 | Complete |
+| 02 | 0 | Ready to plan |
+| 03 | 0 | Not started |
+| 04 | 0 | Not started |
+| 05 | 0 | Not started |
+| 06 | 4 | Complete |
+| 07 | 0 | Research complete, planning not started |
 
 **Recent Trend:**
 
-- Last 5 plans: 06-01, 06-02, 06-03, 06-04
-- Trend: Phase 06 complete
-
-| Phase 06-chunked-extraction-architecture P01 | 1 min | 2 tasks | 7 files |
-| Phase 06-chunked-extraction-architecture P02 | 7 min | 2 tasks | 8 files |
-| Phase 06-chunked-extraction-architecture P03 | 2 min | 2 tasks | 6 files |
-| Phase 06-chunked-extraction-architecture P04 | human verification | 2 tasks | 2 files |
-| Phase 01 P01 | 2min | 3 tasks | 3 files |
-| Phase 01 P02 | 3min | 3 tasks | 8 files |
-| Phase 01 P03 | 3min | 3 tasks | 5 files |
+- Last completed plans: 01-01, 01-02, 01-03, 06-01, 06-02, 06-03, 06-04
+- Trend: implementation paused after Phase 06 closeout while repo memory and Phase 07 research were refreshed
+- Verification snapshot (2026-03-26): `pytest -q` -> `117 passed, 3 warnings`; `python scripts/sync_skill_mirrors.py --check` -> pass
 
 ## Accumulated Context
 
@@ -64,6 +64,27 @@ Phase 1 planning is complete. The committed workflow contract surface includes:
 - **deal-agent disambiguation:** CLI summary (`skill-pipeline deal-agent`) vs skill orchestrator (`/deal-agent`) documented in CLAUDE.md and the workflow contract
 - **Tracked drifts resolved:** `supplementary_snippets.jsonl` removed from skill reads; legacy `data/deals/<slug>/{extract,qa}` labeled as historical; historical design docs labeled as non-authoritative
 - **Phase context:** `.planning/phases/01-workflow-contract-surface/01-CONTEXT.md` preserves the accepted baseline and drift register for later phases
+
+### Phase 6 Baseline
+
+Phase 6 is complete and remains the latest implemented architecture shift:
+
+- **Chunked extraction contract:** `.claude/skills/extract-deal/SKILL.md` documents chunk-only extraction with consolidation and no single-shot fallback
+- **Deterministic handoff hardening:** `skill_pipeline/canonicalize.py` performs actor dedup before NDA gating, and `skill_pipeline/check.py` surfaces actor-audit residuals as warnings
+- **Targeted enrichment rereads:** `.claude/skills/enrich-deal/SKILL.md` scopes later LLM work to event-linked windows while `skill-pipeline enrich-core` owns deterministic rounds, bid classifications, cycles, and formal boundary
+- **Verification anchor:** `.planning/phases/06-chunked-extraction-architecture/06-VERIFICATION.md` is the approved closeout record
+
+### Phase 7 Research Status
+
+- `.planning/phases/07-parallel-chunked-extraction/07-RESEARCH.md` recommends a two-phase extraction design: sequential actor discovery followed by parallel event extraction
+- No Phase 07 plan has been committed yet, and no implementation work has started
+
+### Repo Audit 2026-03-26
+
+- `.planning/codebase/` was refreshed through a parallel mapper-agent scan of the current repository
+- `CLAUDE.md`, `.planning/PROJECT.md`, `.planning/ROADMAP.md`, `.planning/REQUIREMENTS.md`, and `docs/design.md` were reconciled against the live codebase
+- Full local verification is currently green: `pytest -q` passes with 117 tests, and the only warnings are `edgartools` deprecations already called out as a dependency risk
+- Skill mirrors are currently in sync according to `python scripts/sync_skill_mirrors.py --check`
 
 ### Decisions
 
@@ -84,12 +105,11 @@ Recent decisions affecting current work:
 - [Phase 01]: Remove stale supplementary_snippets.jsonl from enrich-deal Reads since preprocess-source actively deletes it
 - [Phase 01]: Publish hybrid deterministic/skill baseline in .planning/ project memory so later phases start from committed artifacts
 - [Phase 01]: Record supplementary_snippets drift, legacy data paths, and deal-agent collision in codebase CONCERNS.md
-- [Phase 01]: Publish hybrid deterministic/skill baseline in .planning/ project memory so later phases start from committed artifacts
-- [Phase 01]: Record supplementary_snippets drift, legacy data paths, and deal-agent collision in codebase CONCERNS.md
 
 ### Roadmap Evolution
 
 - Phase 7 added: Parallel Chunked Extraction — break the sequential roster carry-forward bottleneck so multiple chunks can extract concurrently, reducing single-deal extraction time
+- Repository memory refreshed on 2026-03-26 to reflect current code, tests, and planning status after the Phase 07 research commit
 
 ### Pending Todos
 
@@ -97,11 +117,12 @@ None yet.
 
 ### Blockers/Concerns
 
-- No explicit next feature milestone was provided during initialization, so the first roadmap focuses on operational hardening of the existing hybrid workflow.
-- `supplementary_snippets.jsonl` drift is resolved (removed from skill docs) but the underlying question of whether cross-filing hints will be needed in future multi-filing support remains open
+- The roadmap now needs an explicit prioritization decision: resume numeric work at Phase 02 or plan Phase 07 early because of its runtime payoff
+- `edgartools` emits v6 deprecation warnings in the current full test run, so dependency migration remains a live operational risk
+- No CI workflow exists in `.github/`, so merge safety still depends on local execution of `pytest -q` and `python scripts/sync_skill_mirrors.py --check`
 
 ## Session Continuity
 
-Last session: 2026-03-25T23:27:48.237Z
-Stopped at: Completed 01-03-PLAN.md
+Last session: 2026-03-26T00:46:24Z
+Stopped at: Repo-memory refresh completed after full codebase audit
 Resume file: None

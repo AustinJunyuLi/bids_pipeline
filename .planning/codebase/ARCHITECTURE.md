@@ -1,143 +1,171 @@
 # Architecture
 
-**Analysis Date:** 2026-03-25
+**Analysis Date:** 2026-03-26
 
 ## Pattern Overview
 
-**Overall:** Hybrid deterministic/skill sandwich pipeline -- deterministic CLI stages surround LLM-driven skill stages
+**Overall:** File-backed hybrid pipeline with deterministic Python CLI stages in `skill_pipeline/` and LLM skill stages in `.claude/skills/`
 
 **Key Characteristics:**
-- One installed package, `skill_pipeline/`, with a single console entrypoint in `skill_pipeline/cli.py`
-- File-based artifact flow instead of service-to-service communication
-- 7 deterministic stages own artifact validity and fail-fast gating; 3 LLM skill stages own extraction, interpretation, and export formatting; 1 hybrid repair stage; 1 optional post-export diagnostic
-- Deterministic stages wrap around LLM stages in a sandwich pattern: deterministic ingress -> LLM extraction -> deterministic canonicalize/check/verify/coverage -> hybrid repair -> deterministic enrich-core -> LLM enrich-deal -> LLM export-csv
-- Fail-fast behavior on missing inputs, schema mismatches, and boundary violations
-- Canonical stage inventory lives in `docs/workflow-contract.md` (published in Phase 01)
+- The only installed runtime surface is the `skill_pipeline` package declared in `pyproject.toml`, with the `skill-pipeline` console entrypoint bound to `skill_pipeline/cli.py`.
+- Stage boundaries are artifact boundaries. Deterministic code reads and writes JSON, JSONL, CSV, and frozen filing text under `raw/`, `data/deals/`, and `data/skill/` instead of using a service bus or database.
+- Deal-specific filesystem layout is centralized in `skill_pipeline/paths.py` via `build_skill_paths()` and the `SkillPathSet` model in `skill_pipeline/models.py`.
+- The active deterministic chain is `raw-fetch` -> `preprocess-source` -> `canonicalize` -> `check` -> `verify` -> `coverage` -> `enrich-core`, dispatched from `skill_pipeline/cli.py`.
+- The active LLM skill surface is external to the package: `.claude/skills/extract-deal/SKILL.md`, `.claude/skills/verify-extraction/SKILL.md`, `.claude/skills/enrich-deal/SKILL.md`, `.claude/skills/export-csv/SKILL.md`, `.claude/skills/reconcile-alex/SKILL.md`, with mirrors under `.codex/skills/` and `.cursor/skills/`.
+- Runtime validation is fail-fast. The code raises on missing inputs, malformed schemas, unresolved provenance, and failed gate prerequisites rather than degrading into partial output.
+- `docs/workflow-contract.md` is the detailed stage inventory, and `tests/test_workflow_contract_surface.py` guards that contract at the repository level.
 
 ## Layers
 
-**Contract and schema layer:**
-- Purpose: define artifact shapes, path conventions, and shared constants
-- Contains: `skill_pipeline/models.py`, `skill_pipeline/pipeline_models/`, `skill_pipeline/config.py`, `skill_pipeline/paths.py`
-- Depends on: Pydantic and `pathlib`
-- Used by: every deterministic stage
+**CLI Dispatch Layer:**
+- Purpose: expose deterministic commands and translate CLI arguments into stage function calls.
+- Location: `skill_pipeline/cli.py`
+- Contains: `argparse` parser construction, `--deal` argument handling, lazy imports for raw/preprocess commands, JSON printing for ingress commands, integer exit codes for gate stages.
+- Depends on: `skill_pipeline/config.py`, `skill_pipeline/seeds.py`, `skill_pipeline/deal_agent.py`, `skill_pipeline/canonicalize.py`, `skill_pipeline/check.py`, `skill_pipeline/verify.py`, `skill_pipeline/coverage.py`, `skill_pipeline/enrich_core.py`.
+- Used by: the `skill-pipeline` executable declared in `pyproject.toml`.
 
-**Ingress layer:**
-- Purpose: turn a deal seed into frozen raw filing artifacts
-- Contains: `skill_pipeline/cli.py`, `skill_pipeline/seeds.py`, `skill_pipeline/raw/discover.py`, `skill_pipeline/raw/fetch.py`, `skill_pipeline/raw/stage.py`
-- Depends on: the contract layer plus `edgartools`
-- Used by: operators running `skill-pipeline raw-fetch` or `skill-pipeline source-discover`
+**Contract and Path Layer:**
+- Purpose: define shared constants, schema models, and filesystem path conventions.
+- Location: `skill_pipeline/config.py`, `skill_pipeline/models.py`, `skill_pipeline/pipeline_models/common.py`, `skill_pipeline/pipeline_models/raw.py`, `skill_pipeline/pipeline_models/source.py`, `skill_pipeline/paths.py`
+- Contains: artifact envelopes, actor/event schemas, verification and coverage schemas, `SkillPathSet`, primary filing preferences, repo root constants.
+- Depends on: `pydantic`, `pathlib`, standard library enums and dates.
+- Used by: every deterministic stage and summary surface.
 
-**Source preparation layer:**
-- Purpose: localize the chronology section and derive evidence items from the frozen filing
-- Contains: `skill_pipeline/preprocess/source.py`, `skill_pipeline/source/locate.py`, `skill_pipeline/source/blocks.py`, `skill_pipeline/source/evidence.py`
-- Depends on: raw artifacts plus source models
-- Used by: `skill-pipeline preprocess-source`
+**Seed and Raw Ingress Layer:**
+- Purpose: resolve a deal seed, derive a discovery manifest, fetch SEC filing text, and freeze immutable raw artifacts.
+- Location: `skill_pipeline/seeds.py`, `skill_pipeline/raw/discover.py`, `skill_pipeline/raw/fetch.py`, `skill_pipeline/raw/stage.py`, `skill_pipeline/source/ranking.py`
+- Contains: `load_seed_entry()`, seed-to-manifest translation, accession parsing, EDGAR identity setup, immutable raw file writes, raw manifest and registry creation.
+- Depends on: `data/seeds.csv`, `edgartools` at runtime, raw/source pipeline models.
+- Used by: `skill-pipeline raw-fetch --deal <slug>` and `skill-pipeline source-discover --deal <slug>`.
 
-**Deterministic transform and QA layer:**
-- Purpose: canonicalize extract artifacts and enforce structural, referential, quote, and coverage constraints
-- Contains: `skill_pipeline/canonicalize.py`, `skill_pipeline/check.py`, `skill_pipeline/verify.py`, `skill_pipeline/coverage.py`, `skill_pipeline/provenance.py`, `skill_pipeline/normalize/`
-- Depends on: source artifacts and extract artifacts
-- Used by: operators after `/extract-deal` has written extract files
+**Source Preparation Layer:**
+- Purpose: validate frozen raw documents, localize the chronology section, split it into blocks, and scan evidence cues.
+- Location: `skill_pipeline/preprocess/source.py`, `skill_pipeline/source/locate.py`, `skill_pipeline/source/blocks.py`, `skill_pipeline/source/evidence.py`, `skill_pipeline/source_validation.py`
+- Contains: chronology candidate scoring, section selection confidence, block generation, evidence scanning, raw-file checksum and path validation, source artifact materialization.
+- Depends on: `raw/<slug>/document_registry.json`, `raw/<slug>/filings/*.txt`, source models in `skill_pipeline/pipeline_models/source.py`.
+- Used by: `skill-pipeline preprocess-source --deal <slug>` and `skill_pipeline/deal_agent.py` shared-input validation.
 
-**Deterministic enrichment layer:**
-- Purpose: derive rounds, bid classifications, cycles, and formal boundary from validated extract artifacts
-- Contains: `skill_pipeline/enrich_core.py` and `skill_pipeline/extract_artifacts.py`
-- Depends on: passing check, verify, and coverage outputs
-- Used by: `skill-pipeline enrich-core`
+**Extract Artifact Adapter and Provenance Layer:**
+- Purpose: load extract outputs in either raw or canonical mode and resolve evidence to span-backed provenance.
+- Location: `skill_pipeline/extract_artifacts.py`, `skill_pipeline/provenance.py`, `skill_pipeline/normalize/dates.py`, `skill_pipeline/normalize/quotes.py`
+- Contains: `LoadedExtractArtifacts`, raw-versus-canonical detection, `spans.json` sidecar enforcement, quote normalization, relative-date parsing, span resolution against raw filing lines.
+- Depends on: `data/skill/<slug>/extract/`, `data/deals/<slug>/source/`, raw filing text under `raw/<slug>/filings/`.
+- Used by: `skill_pipeline/canonicalize.py`, `skill_pipeline/check.py`, `skill_pipeline/verify.py`, `skill_pipeline/coverage.py`, `skill_pipeline/enrich_core.py`, `skill_pipeline/deal_agent.py`.
 
-**Agent orchestration and policy layer:**
-- Purpose: document the non-CLI stages and the repo operating contract
-- Contains: `CLAUDE.md`, `AGENTS.md`, `.claude/skills/`, `.codex/skills/`, `.cursor/skills/`, `scripts/sync_skill_mirrors.py`
-- Depends on: repository conventions rather than Python imports
-- Used by: humans and agents running `/extract-deal`, `/verify-extraction`, `/enrich-deal`, `/export-csv`, and `/reconcile-alex`
+**Deterministic Gate Layer:**
+- Purpose: upgrade extract schema and enforce structural, referential, quote, and coverage constraints before enrichment.
+- Location: `skill_pipeline/canonicalize.py`, `skill_pipeline/check.py`, `skill_pipeline/verify.py`, `skill_pipeline/coverage.py`
+- Contains: raw-to-canonical upgrade, span registry creation, event and actor deduplication, NDA gating, unnamed-party recovery, structural checks, quote verification, coverage cue auditing.
+- Depends on: extract artifacts in `data/skill/<slug>/extract/`, source artifacts in `data/deals/<slug>/source/`, raw filings and document registry under `raw/<slug>/`.
+- Used by: `skill-pipeline canonicalize`, `skill-pipeline check`, `skill-pipeline verify`, `skill-pipeline coverage`, and the external `/verify-extraction` skill.
+
+**Deterministic Enrichment and Summary Layer:**
+- Purpose: derive deterministic process structure after gates pass and summarize artifact status for orchestration.
+- Location: `skill_pipeline/enrich_core.py`, `skill_pipeline/deal_agent.py`
+- Contains: round pairing, proposal classification, cycle segmentation, formal boundary computation, deal-stage status summaries, preflight validation.
+- Depends on: canonical extract artifacts plus passing `check`, `verify`, and `coverage` outputs.
+- Used by: `skill-pipeline enrich-core --deal <slug>` and `skill-pipeline deal-agent --deal <slug>`.
+
+**Skill Orchestration and Mirror Layer:**
+- Purpose: host the LLM-operated workflow stages and keep agent-specific skill trees aligned.
+- Location: `.claude/skills/`, `.codex/skills/`, `.cursor/skills/`, `scripts/sync_skill_mirrors.py`
+- Contains: the canonical skill instructions in `.claude/skills/*/SKILL.md`, mirrored copies for other agents, and the sync/check utility.
+- Depends on: deterministic artifacts produced by `skill_pipeline/` and repository policy in `CLAUDE.md`.
+- Used by: human operators and coding agents invoking `/deal-agent`, `/extract-deal`, `/verify-extraction`, `/enrich-deal`, `/export-csv`, and `/reconcile-alex`.
 
 ## Data Flow
 
-**Hybrid deal workflow:**
+**Deterministic and Skill Deal Flow:**
 
-1. Operator selects a deal from `data/seeds.csv`
-2. `skill-pipeline raw-fetch --deal <slug>` freezes one approved SEC filing into `raw/<slug>/`
-3. `skill-pipeline preprocess-source --deal <slug>` writes chronology and evidence artifacts into `data/deals/<slug>/source/`
-4. `/extract-deal <slug>` writes raw extract artifacts into `data/skill/<slug>/extract/`
-5. `skill-pipeline canonicalize/check/verify/coverage` upgrades and audits those artifacts
-6. `/verify-extraction <slug>` may repair deterministic findings when the findings are repairable
-7. `skill-pipeline enrich-core --deal <slug>` writes deterministic enrichment outputs
-8. `/enrich-deal <slug>` and `/export-csv <slug>` add later interpretive and export layers
-9. `/reconcile-alex <slug>` is optional post-export QA only
+1. `skill_pipeline/cli.py` receives `skill-pipeline raw-fetch --deal <slug>` or `skill-pipeline source-discover --deal <slug>`.
+2. `skill_pipeline/seeds.py` loads the requested seed row from `data/seeds.csv`.
+3. `skill_pipeline/raw/discover.py` turns the seed URL into a `RawDiscoveryManifest`, and `skill_pipeline/raw/stage.py` calls `skill_pipeline/raw/fetch.py` to freeze filing text into `raw/<slug>/filings/` and write `raw/<slug>/discovery.json` plus `raw/<slug>/document_registry.json`.
+4. `skill_pipeline/preprocess/source.py` validates `raw/<slug>/document_registry.json`, loads the frozen `.txt` filing from `raw/<slug>/filings/`, calls `skill_pipeline/source/locate.py` to select the chronology section, then writes `data/deals/<slug>/source/chronology_selection.json`, `data/deals/<slug>/source/chronology_blocks.jsonl`, `data/deals/<slug>/source/evidence_items.jsonl`, `data/deals/<slug>/source/chronology.json`, and copied filing snapshots under `data/deals/<slug>/source/filings/`.
+5. `.claude/skills/extract-deal/SKILL.md` consumes the source artifacts and writes `data/skill/<slug>/extract/actors_raw.json` and `data/skill/<slug>/extract/events_raw.json`. The current tree also contains per-chunk artifacts under `data/skill/<slug>/extract/chunks/` for `petsmart-inc` and `stec`.
+6. `skill_pipeline/canonicalize.py` reads those raw extract files plus source artifacts, upgrades evidence references into span-backed provenance, overwrites `data/skill/<slug>/extract/actors_raw.json` and `data/skill/<slug>/extract/events_raw.json` with canonical schema, writes `data/skill/<slug>/extract/spans.json`, and writes `data/skill/<slug>/canonicalize/canonicalize_log.json`.
+7. `skill_pipeline/check.py` writes `data/skill/<slug>/check/check_report.json`; `skill_pipeline/verify.py` writes `data/skill/<slug>/verify/verification_findings.json` and `data/skill/<slug>/verify/verification_log.json`; `skill_pipeline/coverage.py` writes `data/skill/<slug>/coverage/coverage_findings.json` and `data/skill/<slug>/coverage/coverage_summary.json`.
+8. `.claude/skills/verify-extraction/SKILL.md` may repair the canonical extract files when the deterministic findings are repairable.
+9. `skill_pipeline/enrich_core.py` reads the gate artifacts, refuses to proceed unless they all pass, and writes `data/skill/<slug>/enrich/deterministic_enrichment.json`.
+10. `.claude/skills/enrich-deal/SKILL.md` may add `data/skill/<slug>/enrich/enrichment.json`, `.claude/skills/export-csv/SKILL.md` may add `data/skill/<slug>/export/deal_events.csv`, and `.claude/skills/reconcile-alex/SKILL.md` may add `data/skill/<slug>/reconcile/` outputs after export completes.
 
-**State management:**
-- The system is file-based; no database-backed application state exists
-- Raw inputs, intermediate artifacts, and downstream outputs live in explicit repository directories
-- Reruns rely on the presence and correctness of those files rather than in-memory state
+**State Management:**
+- Repository files are the runtime state. The codebase does not define a database, queue, or long-lived service process.
+- `skill_pipeline/extract_artifacts.py` determines whether extract artifacts are in `legacy` or `canonical` mode by inspecting payload shape, then requires `data/skill/<slug>/extract/spans.json` when canonical evidence is present.
+- `skill_pipeline/deal_agent.py` summarizes stage state by inspecting the presence and schema validity of artifact files rather than by calling live services.
 
 ## Key Abstractions
 
-**Artifact models:**
-- Purpose: enforce schema correctness at every stage boundary
-- Examples: `RawDiscoveryManifest`, `FrozenDocument`, `ChronologySelection`, `SkillActorsArtifact`, `SkillVerificationLog`
-- Pattern: Pydantic models validated at read and write boundaries
+**Artifact Families:**
+- Purpose: carry typed data across every stage boundary.
+- Examples: `RawDiscoveryManifest` and `RawDocumentRegistry` in `skill_pipeline/pipeline_models/raw.py`; `ChronologySelection`, `ChronologyBlock`, `EvidenceItem`, and `FrozenDocument` in `skill_pipeline/pipeline_models/source.py`; `SkillActorsArtifact`, `SkillEventsArtifact`, `SpanRegistryArtifact`, `SkillCheckReport`, `SkillVerificationLog`, and `DeterministicEnrichmentArtifact` in `skill_pipeline/models.py`.
+- Pattern: validate at read time with `model_validate()` and serialize to explicit artifact files.
 
-**Path set:**
-- Purpose: centralize all deal-specific file locations
-- Examples: `build_skill_paths()` and `SkillPathSet` in `skill_pipeline/paths.py` and `skill_pipeline/models.py`
-- Pattern: derive paths once, reuse across stages
+**Deal Path Set:**
+- Purpose: make every deterministic stage derive the same file layout from a deal slug.
+- Examples: `build_skill_paths()` in `skill_pipeline/paths.py`, `SkillPathSet` in `skill_pipeline/models.py`.
+- Pattern: compute all stage input and output paths once, then pass the resulting `SkillPathSet` through the stage.
 
-**Span-backed provenance:**
-- Purpose: connect canonical extract evidence back to exact filing text spans
-- Examples: `resolve_text_span()` in `skill_pipeline/provenance.py` and `spans.json`
-- Pattern: canonical sidecar registry plus deterministic validation
+**Mode-Aware Extract Loader:**
+- Purpose: let downstream stages operate on either raw extract payloads or canonical span-backed payloads.
+- Examples: `LoadedExtractArtifacts` and `load_extract_artifacts()` in `skill_pipeline/extract_artifacts.py`.
+- Pattern: detect canonical mode by `evidence_span_ids`, then require `spans.json` and expose a `span_index` for downstream checks.
+
+**Span-Backed Provenance:**
+- Purpose: preserve a deterministic link from extracted actors and events back to exact filing text ranges.
+- Examples: `resolve_text_span()` in `skill_pipeline/provenance.py`, `SpanRecord` and `SpanRegistryArtifact` in `skill_pipeline/models.py`.
+- Pattern: convert block/evidence references into explicit span IDs, store them in `data/skill/<slug>/extract/spans.json`, and reject fuzzy or unresolved matches in verification.
+
+**Chronology Selection Contract:**
+- Purpose: isolate the filing subsection that downstream extraction is allowed to consume.
+- Examples: `ChronologyCandidate` and `ChronologySelection` in `skill_pipeline/pipeline_models/source.py`, `select_chronology()` in `skill_pipeline/source/locate.py`.
+- Pattern: score candidate headings and section context, emit a selected candidate with confidence metadata, and treat missing or ambiguous chronology as a hard failure.
 
 ## Entry Points
 
-**CLI entrypoint:**
+**Deterministic CLI:**
 - Location: `skill_pipeline/cli.py`
-- Triggers: `skill-pipeline <command>`
-- Responsibilities: parse subcommands, load seeds, dispatch to stage functions, print JSON or return an exit code
+- Triggers: `skill-pipeline deal-agent`, `skill-pipeline raw-fetch`, `skill-pipeline preprocess-source`, `skill-pipeline source-discover`, `skill-pipeline canonicalize`, `skill-pipeline check`, `skill-pipeline verify`, `skill-pipeline coverage`, `skill-pipeline enrich-core`
+- Responsibilities: parse arguments, load seeds when needed, dispatch to stage functions, print JSON for discovery/fetch/preprocess/summary commands, and return exit codes for gate commands.
 
-**Preflight summary entrypoint:**
+**Preflight Summary Command:**
 - Location: `skill_pipeline/deal_agent.py`
 - Triggers: `skill-pipeline deal-agent --deal <slug>`
-- Responsibilities: summarize artifact state; it is not the end-to-end runner
+- Responsibilities: validate shared inputs, ensure output directories exist, and summarize extract/check/coverage/verify/enrich/export status.
 
-**Skill entrypoints:**
-- Location: `.claude/skills/*/SKILL.md`
-- Triggers: explicit skill invocation by a human or agent
-- Responsibilities: run LLM-assisted extraction, repair, enrichment, export, and reconciliation work around the deterministic CLI
+**Skill Workflow Surface:**
+- Location: `.claude/skills/deal-agent/SKILL.md`, `.claude/skills/extract-deal/SKILL.md`, `.claude/skills/verify-extraction/SKILL.md`, `.claude/skills/enrich-deal/SKILL.md`, `.claude/skills/export-csv/SKILL.md`, `.claude/skills/reconcile-alex/SKILL.md`
+- Triggers: explicit skill invocation by a human or agent.
+- Responsibilities: run the LLM-owned extraction, repair, interpretive enrichment, export, and reconciliation stages around the deterministic artifact contracts.
+
+**Skill Mirror Maintenance:**
+- Location: `scripts/sync_skill_mirrors.py`
+- Triggers: `python scripts/sync_skill_mirrors.py` and `python scripts/sync_skill_mirrors.py --check`
+- Responsibilities: copy the canonical `.claude/skills/` tree into `.codex/skills/` and `.cursor/skills/`, normalize line endings, and fail on drift when run in check mode.
 
 ## Error Handling
 
-**Strategy:** raise precise exceptions and invalidate partial outputs when a stage cannot produce trustworthy artifacts
+**Strategy:** deterministic stages reject untrusted state early and remove incomplete success artifacts when a stage cannot finish coherently.
 
 **Patterns:**
-- Missing required inputs raise `FileNotFoundError` early
-- Invalid invariants raise `ValueError` or `RuntimeError`
-- `preprocess_source_deal()` and `run_enrich_core()` remove or invalidate partial outputs on failure
-- No silent fallback exists for missing source files, missing spans, or benchmark-boundary violations
+- Required inputs are checked before work begins. Examples: `run_canonicalize()` in `skill_pipeline/canonicalize.py`, `run_verify()` in `skill_pipeline/verify.py`, `run_coverage()` in `skill_pipeline/coverage.py`, and `run_enrich_core()` in `skill_pipeline/enrich_core.py` all raise `FileNotFoundError` for missing stage inputs.
+- Source-file integrity is validated against registry metadata. `validate_frozen_document()` in `skill_pipeline/source_validation.py` checks path confinement, byte counts, and SHA-256 hashes.
+- Partial source outputs are invalidated on failure. `preprocess_source_deal()` in `skill_pipeline/preprocess/source.py` deletes generated source files and copied filings if an exception occurs after work starts.
+- Partial deterministic enrichment is invalidated on failure. `run_enrich_core()` in `skill_pipeline/enrich_core.py` removes `data/skill/<slug>/enrich/deterministic_enrichment.json` if the stage raises.
+- `check`, `verify`, and `coverage` write machine-readable reports even when they fail, then return a non-zero exit code based on blocker or error findings.
+- Canonical provenance is mandatory. `load_extract_artifacts()` in `skill_pipeline/extract_artifacts.py` raises if canonical evidence is detected without `data/skill/<slug>/extract/spans.json`.
 
 ## Cross-Cutting Concerns
 
-**Validation:**
-- Pydantic models validate both inputs and outputs across stages
+**Logging:** No dedicated logging framework is configured. Deterministic commands primarily communicate through artifact files and JSON printed by `skill_pipeline/cli.py`.
 
-**Provenance:**
-- Canonicalization and verification resolve evidence back to filing text and reject unresolved or fuzzy provenance
+**Validation:** Pydantic models in `skill_pipeline/models.py` and `skill_pipeline/pipeline_models/` define the contract for every artifact family. Deterministic stages validate on both load and save paths.
 
-**Repo policy:**
-- `CLAUDE.md` defines benchmark separation, canonical skill-tree ownership, and cross-platform line-ending rules
+**Authentication:** `skill_pipeline/raw/stage.py` sets the EDGAR identity from `PIPELINE_SEC_IDENTITY`, `SEC_IDENTITY`, or `EDGAR_IDENTITY` and raises when no identity is available for live SEC access.
 
-**Cross-platform hygiene:**
-- `.gitattributes` enforces `LF` text files
-- `.claude/skills` is canonical, while `.codex/skills` and `.cursor/skills` are derived mirrors
+**Boundary Policy:** `CLAUDE.md`, `docs/workflow-contract.md`, `example/README.md`, `diagnosis/README.md`, and `tests/test_benchmark_separation_policy.py` define a hard separation between filing-grounded generation artifacts and benchmark materials under `example/` and `diagnosis/`.
 
-## Accepted Hybrid Baseline (Phase 01)
-
-The deterministic/skill sandwich is the accepted brownfield baseline for all subsequent phases. The stage classification and ordering are locked by `docs/workflow-contract.md` and protected by regression assertions in `tests/test_workflow_contract_surface.py`. The deal-agent disambiguation (CLI summary vs skill orchestrator) is documented in both `CLAUDE.md` and the workflow contract.
-
-Later phases should treat this architecture as stable ground truth rather than re-deriving it from code inspection.
+**Skill Tree Ownership:** `.claude/skills/` is the canonical skill source. `.codex/skills/` and `.cursor/skills/` are mirrors maintained by `scripts/sync_skill_mirrors.py`.
 
 ---
 
-*Architecture analysis: 2026-03-25*
-*Updated: 2026-03-25 after Phase 01 plan 03*
-*Update when major patterns change*
+*Architecture analysis: 2026-03-26*

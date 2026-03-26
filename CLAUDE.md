@@ -13,13 +13,16 @@ The only Python package and installed CLI in this worktree is [`skill_pipeline/`
 Core modules:
 
 - `skill_pipeline/cli.py` - command routing for the deterministic stages
+- `skill_pipeline/config.py` and `skill_pipeline/paths.py` - repository constants and active artifact path conventions
 - `skill_pipeline/raw/` - seed-only raw fetch, immutable filing freeze, discovery manifest
 - `skill_pipeline/preprocess/` and `skill_pipeline/source/` - chronology selection, block building, evidence scanning
+- `skill_pipeline/source_validation.py` - raw filing integrity checks shared by preprocess and deal-agent
+- `skill_pipeline/extract_artifacts.py` - raw-versus-canonical extract loading and `spans.json` enforcement
 - `skill_pipeline/canonicalize.py` - raw-to-canonical upgrade, span resolution, dedup, NDA gating, unnamed-party recovery
 - `skill_pipeline/check.py`, `skill_pipeline/verify.py`, `skill_pipeline/coverage.py` - deterministic gates
 - `skill_pipeline/enrich_core.py` - deterministic rounds, bid classifications, cycles, formal boundary
 - `skill_pipeline/deal_agent.py` - preflight and artifact summary only
-- `skill_pipeline/models.py` and `skill_pipeline/paths.py` - artifact schemas and path conventions
+- `skill_pipeline/models.py` - artifact schemas, span registry models, and stage summaries
 
 Artifacts:
 
@@ -48,9 +51,11 @@ pytest -q
 
 # Run focused stage suites
 pytest -q tests/test_skill_raw_stage.py tests/test_skill_preprocess_source.py
-pytest -q tests/test_skill_verify.py tests/test_skill_coverage.py
+pytest -q tests/test_skill_check.py tests/test_skill_verify.py tests/test_skill_coverage.py
 pytest -q tests/test_skill_canonicalize.py
 pytest -q tests/test_skill_enrich_core.py tests/test_skill_pipeline.py
+pytest -q tests/test_skill_provenance.py
+pytest -q tests/test_benchmark_separation_policy.py tests/test_skill_mirror_sync.py tests/test_workflow_contract_surface.py
 
 # Run a single test file
 pytest -q tests/test_skill_pipeline.py
@@ -59,6 +64,7 @@ pytest -q tests/test_skill_pipeline.py
 pytest -q tests/test_skill_pipeline.py::test_name -v
 
 # Seed-only upstream stages
+skill-pipeline source-discover --deal imprivata
 skill-pipeline raw-fetch --deal imprivata
 skill-pipeline preprocess-source --deal imprivata
 
@@ -102,6 +108,7 @@ data/seeds.csv
 
 Important distinctions:
 
+- `skill-pipeline source-discover --deal <slug>` is a no-fetch helper. It emits a discovery manifest from the seed URL and does not write `raw/<slug>/` artifacts.
 - `skill-pipeline raw-fetch` and `skill-pipeline preprocess-source` are **seed-only**. They use the filing URL from `data/seeds.csv` and do not preserve supplementary filings.
 - `skill-pipeline deal-agent --deal <slug>` is **summary/preflight only**. It does not run extraction, repair, enrichment, or export. Use `/deal-agent <slug>` for end-to-end orchestration (see below).
 - `skill-pipeline canonicalize`, `check`, `verify`, `coverage`, and `enrich-core` are fail-fast deterministic gates. Do not add fallback logic to keep them running on missing or contradictory inputs.
@@ -144,9 +151,10 @@ rewrites generation artifacts.
 
 ### Key Files
 
-- `skill_pipeline/raw/fetch.py` and `skill_pipeline/raw/stage.py` - immutable filing freeze and seed-only ingress
-- `skill_pipeline/preprocess/source.py` and `skill_pipeline/source/locate.py` - chronology discovery and fail-closed preprocessing
-- `skill_pipeline/provenance.py` and `skill_pipeline/canonicalize.py` - span resolution and canonical schema upgrade
+- `skill_pipeline/config.py` and `skill_pipeline/paths.py` - repository constants and active deal artifact layout
+- `skill_pipeline/raw/discover.py`, `skill_pipeline/raw/fetch.py`, and `skill_pipeline/raw/stage.py` - seed-derived discovery manifest and immutable filing freeze
+- `skill_pipeline/preprocess/source.py`, `skill_pipeline/source/locate.py`, and `skill_pipeline/source_validation.py` - chronology discovery, shared raw-file validation, and fail-closed preprocessing
+- `skill_pipeline/extract_artifacts.py`, `skill_pipeline/provenance.py`, and `skill_pipeline/canonicalize.py` - raw/canonical extract loading, span resolution, and canonical schema upgrade
 - `skill_pipeline/check.py`, `skill_pipeline/verify.py`, `skill_pipeline/coverage.py` - deterministic gates
 - `skill_pipeline/enrich_core.py` - downstream deterministic enrichment
 - `skill_pipeline/deal_agent.py` - artifact summary that recognizes both `deterministic_enrichment.json` and `enrichment.json`

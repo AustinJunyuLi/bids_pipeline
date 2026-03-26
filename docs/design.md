@@ -14,6 +14,9 @@ raw-fetch -> preprocess-source -> /extract-deal -> canonicalize
 -> enrich-core -> /enrich-deal -> /export-csv
 ```
 
+`skill-pipeline source-discover --deal <slug>` is an auxiliary no-fetch helper
+and is not part of the main generation chain.
+
 `/reconcile-alex` is optional and post-export only.
 
 Key artifact roots:
@@ -41,7 +44,5 @@ this worktree:
 
 - [`docs/plans/2026-03-16-pipeline-design-v3.md`](plans/2026-03-16-pipeline-design-v3.md)
 - [`docs/plans/2026-03-16-prompt-engineering-spec.md`](plans/2026-03-16-prompt-engineering-spec.md)
-- [`docs/plans/2026-03-17-llm-rewrite-adoption-design.md`](plans/2026-03-17-llm-rewrite-adoption-design.md)
-- [`docs/plans/2026-03-17-llm-rewrite-adoption-implementation.md`](plans/2026-03-17-llm-rewrite-adoption-implementation.md)
 
 Active external review rounds are retained under `diagnosis/deepthink/`.
