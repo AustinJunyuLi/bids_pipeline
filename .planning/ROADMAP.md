@@ -126,14 +126,21 @@ Completed work is non-linear: Phase 1 and Phase 6 are complete, while Phase 2 re
 | 4. Cross-Platform Contributor Operations | 0/3 | Not started | - |
 | 5. Dependency Risk Management | 0/3 | Not started | - |
 | 6. Chunked Extraction Architecture | 4/4 | Complete | 2026-03-25 |
-| 7. Parallel Chunked Extraction | 0/0 | Research complete, planning not started | - |
+| 7. Parallel Extraction & Enrichment | 0/0 | Research revised (v3), planning not started | - |
 
-### Phase 7: Parallel Chunked Extraction
+### Phase 7: Parallel Extraction & Enrichment
 
-**Goal:** Break the sequential actor-roster carry-forward bottleneck in `/extract-deal` without changing downstream artifact contracts.
-**Requirements**: TBD (research captured in `.planning/phases/07-parallel-chunked-extraction/07-RESEARCH.md`)
+**Goal:** Parallelize independent LLM work in extraction and enrichment via Claude Code subagents, reducing single-deal pipeline time by ~28% without changing downstream artifact contracts or adding Python LLM client code.
+**Requirements**: TBD (research revised in `.planning/phases/07-parallel-chunked-extraction/07-RESEARCH.md` v3)
 **Depends on:** Phase 6
 **Plans:** 0 plans
+
+Key architectural decisions from research:
+- Primary target: enrich-deal parallelism (9-15 independent subagent tasks per deal)
+- Secondary target: two-phase extraction (sequential actor discovery + subagent event-only tail)
+- Tertiary target: consolidation re-read parallelism via subagents
+- Mechanism: Claude Code subagents (zero new Python code, SKILL.md changes only)
+- Escalation path: prompt consolidation -> Python async executor (if subagent overhead unacceptable)
 
 Plans:
 - [ ] TBD (run /gsd:plan-phase 7 to break down)

@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: Ready to plan
-stopped_at: Repo-memory refresh completed after full codebase audit
-last_updated: "2026-03-26T00:46:24Z"
+stopped_at: Phase 07 research revised (v3) with corrected empirical data and subagent architecture
+last_updated: "2026-03-26T12:00:00Z"
 progress:
   total_phases: 7
   completed_phases: 2
@@ -19,7 +19,7 @@ progress:
 See: `.planning/PROJECT.md` (updated 2026-03-26)
 
 **Core value:** Produce filing-grounded deal data that remains auditable back to SEC source text and reproducible across machines.
-**Current focus:** Repository-memory sync after Phase 06 completion and Phase 07 research capture
+**Current focus:** Phase 07 research revised and ready for planning
 
 ## Current Position
 
@@ -45,12 +45,12 @@ Plan: Next planning choice pending between Phase 02 and Phase 07
 | 04 | 0 | Not started |
 | 05 | 0 | Not started |
 | 06 | 4 | Complete |
-| 07 | 0 | Research complete, planning not started |
+| 07 | 0 | Research revised (v3), planning not started |
 
 **Recent Trend:**
 
 - Last completed plans: 01-01, 01-02, 01-03, 06-01, 06-02, 06-03, 06-04
-- Trend: implementation paused after Phase 06 closeout while repo memory and Phase 07 research were refreshed
+- Trend: Phase 07 research revised with empirical corrections; ready for /gsd:plan-phase 7
 - Verification snapshot (2026-03-26): `pytest -q` -> `117 passed, 3 warnings`; `python scripts/sync_skill_mirrors.py --check` -> pass
 
 ## Accumulated Context
@@ -74,9 +74,16 @@ Phase 6 is complete and remains the latest implemented architecture shift:
 - **Targeted enrichment rereads:** `.claude/skills/enrich-deal/SKILL.md` scopes later LLM work to event-linked windows while `skill-pipeline enrich-core` owns deterministic rounds, bid classifications, cycles, and formal boundary
 - **Verification anchor:** `.planning/phases/06-chunked-extraction-architecture/06-VERIFICATION.md` is the approved closeout record
 
-### Phase 7 Research Status
+### Phase 7 Research Status (Revised 2026-03-26)
 
-- `.planning/phases/07-parallel-chunked-extraction/07-RESEARCH.md` recommends a two-phase extraction design: sequential actor discovery followed by parallel event extraction
+- `.planning/phases/07-parallel-chunked-extraction/07-RESEARCH.md` is now at **v3**, consolidating and correcting two earlier research documents
+- **Key corrections from v1/v2:**
+  - STEC actual extraction produced 7 chunks (not 22 simulated); event density is 95% front-loaded in chunks 1-4; tail chunks (5-7) are near-empty
+  - Agent concurrency resolved: Claude Code subagents provide true parallelism with zero new Python code (neither "agent-native parallel calls" from v2 nor Python async executor from v1 needed)
+  - Primary parallelization target is enrichment (9-15 independent tasks), not extraction tail chunks
+- **Recommended architecture:** Subagent parallelism for enrich-deal + optional two-phase extraction with subagent tail + subagent consolidation re-reads
+- **Expected savings:** ~17 min per deal (~28% reduction), primarily from enrichment parallelism
+- `.planning/phases/07-single-deal-parallelization/07-RESEARCH.md` (v1) is superseded but preserved for audit trail
 - No Phase 07 plan has been committed yet, and no implementation work has started
 
 ### Repo Audit 2026-03-26
@@ -110,6 +117,7 @@ Recent decisions affecting current work:
 
 - Phase 7 added: Parallel Chunked Extraction — break the sequential roster carry-forward bottleneck so multiple chunks can extract concurrently, reducing single-deal extraction time
 - Repository memory refreshed on 2026-03-26 to reflect current code, tests, and planning status after the Phase 07 research commit
+- Phase 7 research revised (v3) on 2026-03-26: corrected empirical data, resolved agent concurrency via subagents, reframed primary target as enrichment parallelism
 
 ### Pending Todos
 
@@ -123,6 +131,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-26T00:46:24Z
-Stopped at: Repo-memory refresh completed after full codebase audit
+Last session: 2026-03-26T12:00:00Z
+Stopped at: Phase 07 research revised (v3) with corrected empirical data and subagent architecture. Next step: /gsd:plan-phase 7
 Resume file: None
