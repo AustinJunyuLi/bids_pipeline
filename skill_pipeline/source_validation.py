@@ -58,8 +58,13 @@ def validate_frozen_document(
             f"registry={document.byte_count_txt} actual={len(txt_bytes)}"
         )
 
-    txt_text = txt_path.read_text(encoding="utf-8")
-    actual_sha256 = text_sha256(txt_text)
+    # Use text_sha256 (CRLF-normalizing) intentionally: the registry records
+    # a hash of LF-normalized bytes written by write_immutable_text, so on a
+    # Windows checkout where git may convert LF→CRLF the byte_count check
+    # above catches the size change while the text hash still verifies the
+    # semantic content matches.  Switching to a raw-bytes hash would produce
+    # a confusing double failure on CRLF-converted files.
+    actual_sha256 = text_sha256(txt_bytes.decode("utf-8"))
     if actual_sha256 != document.sha256_txt:
         raise ValueError(
             f"Raw filing sha256_txt mismatch for {document.document_id}: "
