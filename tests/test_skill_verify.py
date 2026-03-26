@@ -469,3 +469,15 @@ def test_verify_reports_structural_failure_for_empty_proposal_actor_ids(tmp_path
         and finding["description"] == "Proposal events must have non-empty actor_ids."
         for finding in findings
     )
+
+
+def test_verify_uses_block_raw_text_fallback_when_filing_txt_is_missing(tmp_path: Path) -> None:
+    _write_verify_fixture_for_clean_pass(tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    (tmp_path / "raw" / "imprivata" / "filings" / "DOC002.txt").unlink()
+
+    exit_code = run_verify("imprivata", project_root=tmp_path)
+    findings = _read_findings_list(paths.verification_findings_path)
+
+    assert exit_code == 0
+    assert findings == []

@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a brownfield roadmap for an existing hybrid SEC-filing extraction pipeline. The current deterministic stages already work, but the project needs stronger workflow contracts, cleaner cross-stage verification, better cross-platform contributor hygiene, and explicit management of external dependency risk. The phases below treat the current runtime as the baseline and focus on making future work easier to plan, verify, and execute safely.
+This is a brownfield roadmap for an existing hybrid SEC-filing extraction pipeline. The current deterministic stages already work, but the project needs stronger workflow contracts, cleaner cross-stage verification, better cross-platform contributor hygiene, and explicit management of external dependency risk. The phases below treat the current runtime as the baseline and focus on making future work easier to plan, verify, and execute safely. As of 2026-03-26, Phase 1 and Phase 6 are complete, and Phase 7 has research committed but no execution plan yet.
 
 ## Phases
 
@@ -10,7 +10,7 @@ This is a brownfield roadmap for an existing hybrid SEC-filing extraction pipeli
 - Integer phases (1, 2, 3): planned milestone work
 - Decimal phases (2.1, 2.2): urgent insertions if needed later
 
-- [ ] **Phase 1: Workflow Contract Surface** - make the hybrid pipeline and project memory explicit
+- [x] **Phase 1: Workflow Contract Surface** - make the hybrid pipeline and project memory explicit
 - [ ] **Phase 2: Deterministic Stage Interfaces** - harden the handoffs between skill outputs and deterministic stages
 - [ ] **Phase 3: Regression and Policy Checks** - make verification and boundary checks easier to run and extend
 - [ ] **Phase 4: Cross-Platform Contributor Operations** - keep Windows and Linux development quiet and reproducible
@@ -30,9 +30,9 @@ This is a brownfield roadmap for an existing hybrid SEC-filing extraction pipeli
 **Plans**: 3 plans
 
 Plans:
-- [ ] 01-01-PLAN.md — Publish the contributor-facing workflow contract and lock it with a doc regression test
-- [ ] 01-02-PLAN.md — Align `CLAUDE.md` and the canonical skills index with the hybrid deterministic vs LLM split
-- [ ] 01-03-PLAN.md — Capture the stabilized brownfield workflow in `.planning/` for later phases
+- [x] 01-01-PLAN.md — Publish the contributor-facing workflow contract and lock it with a doc regression test
+- [x] 01-02-PLAN.md — Align `CLAUDE.md` and the canonical skills index with the hybrid deterministic vs LLM split
+- [x] 01-03-PLAN.md — Capture the stabilized brownfield workflow in `.planning/` for later phases
 
 ### Phase 2: Deterministic Stage Interfaces
 **Goal**: Keep the deterministic stages independently runnable and make skill-to-CLI handoff failures precise.
@@ -116,13 +116,24 @@ Plans:
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
+Completed work is non-linear: Phase 1 and Phase 6 are complete, while Phase 2 remains the next unresolved roadmap phase and Phase 7 currently exists as research only.
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Workflow Contract Surface | 0/3 | Not started | - |
-| 2. Deterministic Stage Interfaces | 0/3 | Not started | - |
+| 1. Workflow Contract Surface | 3/3 | Complete | 2026-03-25 |
+| 2. Deterministic Stage Interfaces | 0/3 | Ready to plan | - |
 | 3. Regression and Policy Checks | 0/3 | Not started | - |
 | 4. Cross-Platform Contributor Operations | 0/3 | Not started | - |
 | 5. Dependency Risk Management | 0/3 | Not started | - |
 | 6. Chunked Extraction Architecture | 4/4 | Complete | 2026-03-25 |
+| 7. Parallel Chunked Extraction | 0/0 | Research complete, planning not started | - |
+
+### Phase 7: Parallel Chunked Extraction
+
+**Goal:** Break the sequential actor-roster carry-forward bottleneck in `/extract-deal` without changing downstream artifact contracts.
+**Requirements**: TBD (research captured in `.planning/phases/07-parallel-chunked-extraction/07-RESEARCH.md`)
+**Depends on:** Phase 6
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 7 to break down)

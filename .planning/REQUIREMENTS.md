@@ -7,14 +7,14 @@
 
 ### Workflow Contracts
 
-- [ ] **WFLO-01**: Contributor can identify the entrypoint, required inputs, outputs, and fail-fast prerequisites for every active stage from `raw-fetch` through `/export-csv`.
+- [x] **WFLO-01**: Contributor can identify the entrypoint, required inputs, outputs, and fail-fast prerequisites for every active stage from `raw-fetch` through `/export-csv`.
 - [ ] **WFLO-02**: Contributor can run each deterministic CLI stage against documented artifact paths without manual file surgery.
 - [x] **WFLO-03**: Skill-driven stages write artifacts that deterministic stages can consume without manual schema edits or ad hoc file renaming.
 
 ### Quality and Verification
 
 - [x] **QUAL-01**: Contributor can run targeted regression tests for raw, preprocess, canonicalize, verify, coverage, enrich-core, and repo policy boundaries from committed commands.
-- [ ] **QUAL-02**: Contributor can detect benchmark-boundary drift and skill-mirror drift with automated checks before merging.
+- [x] **QUAL-02**: Contributor can detect benchmark-boundary drift and skill-mirror drift with automated checks before merging.
 - [ ] **QUAL-03**: Contributor can trace workflow failures to the stage and artifact that violated the contract rather than debug from scratch.
 
 ### Operations
@@ -25,7 +25,7 @@
 ### Risk Management
 
 - [ ] **RISK-01**: Contributor can identify external dependency risks that could break live SEC fetches before they interrupt active deal work.
-- [ ] **RISK-02**: Contributor can recover project context and next steps from committed planning docs without relying on private local notes.
+- [x] **RISK-02**: Contributor can recover project context and next steps from committed planning docs without relying on private local notes.
 
 ## v2 Requirements
 
@@ -51,13 +51,13 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| WFLO-01 | Phase 1 | Pending |
-| RISK-02 | Phase 1 | Pending |
+| WFLO-01 | Phase 1 | Complete |
+| RISK-02 | Phase 1 | Complete |
 | WFLO-02 | Phase 2 | Pending |
 | WFLO-03 | Phase 2 | Complete |
 | QUAL-03 | Phase 2 | Pending |
 | QUAL-01 | Phase 3 | Complete |
-| QUAL-02 | Phase 3 | Pending |
+| QUAL-02 | Phase 3 | Complete |
 | OPS-01 | Phase 4 | Pending |
 | OPS-02 | Phase 4 | Pending |
 | RISK-01 | Phase 5 | Pending |
@@ -69,4 +69,4 @@
 
 ---
 *Requirements defined: 2026-03-25*
-*Last updated: 2026-03-25 after initial definition*
+*Last updated: 2026-03-26 after repo audit and command refresh*

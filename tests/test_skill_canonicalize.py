@@ -454,17 +454,20 @@ def test_recover_unnamed_party_from_count_gap(tmp_path: Path) -> None:
     placeholder = [a for a in actors_result["actors"] if a["actor_id"].startswith("placeholder_")]
     assert len(placeholder) == 1
     assert placeholder[0]["bidder_kind"] == "financial"
+    assert placeholder[0]["evidence_span_ids"] == ["span_0002"]
 
-    # Synthetic NDA and Drop events created
-    assert any(
-        e["event_type"] == "nda" and placeholder[0]["actor_id"] in e["actor_ids"]
+    placeholder_nda = next(
+        e
         for e in events_result["events"]
+        if e["event_type"] == "nda" and placeholder[0]["actor_id"] in e["actor_ids"]
     )
-    assert any(
+    assert placeholder_nda["evidence_span_ids"] == ["span_0002"]
+    assert not any(
         e["event_type"] == "drop" and placeholder[0]["actor_id"] in e["actor_ids"]
         for e in events_result["events"]
     )
     assert len(log["recovery_log"]) == 1
+    assert log["recovery_log"][0]["drop_event_skipped"] is True
 
 
 def test_recover_unnamed_party_fail_closed_no_unresolved_mention(tmp_path: Path) -> None:
@@ -696,3 +699,84 @@ def test_load_extract_artifacts_requires_spans_for_canonical_payloads(tmp_path: 
 
     with pytest.raises(FileNotFoundError, match="spans"):
         load_extract_artifacts(paths)
+
+
+def test_relative_dates_anchor_using_chronology_order_not_input_order(tmp_path: Path) -> None:
+    absolute = _evt(
+        "evt_001",
+        "nda",
+        actor_ids=["bidder_a"],
+        block_id="B001",
+        date="2016-07-01",
+        summary="Bidder A signed an NDA.",
+    )
+    relative = _evt(
+        "evt_002",
+        "proposal",
+        actor_ids=["bidder_a"],
+        block_id="B002",
+        date="two days later",
+        summary="Bidder A submitted a proposal.",
+    )
+
+    _write_canon_fixture(tmp_path, events=[relative, absolute])
+    run_canonicalize("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    result = json.loads(paths.events_raw_path.read_text(encoding="utf-8"))
+
+    by_id = {event["event_id"]: event for event in result["events"]}
+    assert by_id["evt_002"]["date"]["sort_date"] == "2016-07-03"
+    assert by_id["evt_002"]["date"]["anchor_event_id"] == "evt_001"
+
+
+def test_relative_date_without_chronology_anchor_fails(tmp_path: Path) -> None:
+    _write_canon_fixture(
+        tmp_path,
+        events=[
+            _evt(
+                "evt_001",
+                "proposal",
+                actor_ids=["bidder_a"],
+                block_id="B001",
+                date="two days later",
+                summary="Bidder A submitted a proposal.",
+            )
+        ],
+    )
+
+    with pytest.raises(ValueError, match="Relative date"):
+        run_canonicalize("imprivata", project_root=tmp_path)
+
+
+def test_nda_gate_uses_chronology_order_not_input_order(tmp_path: Path) -> None:
+    nda = _evt(
+        "evt_001",
+        "nda",
+        actor_ids=["bidder_a"],
+        block_id="B001",
+        date="2016-06-02",
+        summary="Bidder A signed an NDA.",
+    )
+    drop = _evt(
+        "evt_002",
+        "drop",
+        actor_ids=["bidder_a"],
+        block_id="B002",
+        date="2016-06-03",
+        summary="Bidder A dropped out.",
+    )
+    executed = _evt(
+        "evt_003",
+        "executed",
+        actor_ids=["bidder_a"],
+        block_id="B003",
+        date="2016-07-13",
+        summary="Deal executed.",
+    )
+
+    _write_canon_fixture(tmp_path, events=[drop, nda, executed])
+    run_canonicalize("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    result = json.loads(paths.events_raw_path.read_text(encoding="utf-8"))
+
+    assert any(event["event_id"] == "evt_002" for event in result["events"])

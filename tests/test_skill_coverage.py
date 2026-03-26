@@ -542,6 +542,125 @@ def test_coverage_respects_explicit_block_exclusions(tmp_path: Path) -> None:
     assert summary["status"] == "pass"
 
 
+def test_partial_company_bid_exclusion_does_not_hide_unrelated_cue_in_same_block(
+    tmp_path: Path,
+) -> None:
+    chronology_blocks = [
+        {
+            "block_id": "B001",
+            "document_id": "DOC001",
+            "ordinal": 1,
+            "start_line": 1,
+            "end_line": 2,
+            "raw_text": (
+                "Party A submitted a proposal to acquire selected assets.\n"
+                "The Company retained Goldman Sachs as financial advisor."
+            ),
+            "clean_text": (
+                "Party A submitted a proposal to acquire selected assets. "
+                "The Company retained Goldman Sachs as financial advisor."
+            ),
+            "is_heading": False,
+            "page_break_before": False,
+            "page_break_after": False,
+        }
+    ]
+    evidence_items = [
+        {
+            "evidence_id": "DOC001:E0001",
+            "document_id": "DOC001",
+            "accession_number": "DOC001",
+            "filing_type": "DEFM14A",
+            "start_line": 1,
+            "end_line": 1,
+            "raw_text": "Party A submitted a proposal to acquire selected assets.",
+            "evidence_type": "dated_action",
+            "confidence": "high",
+            "matched_terms": ["proposal", "submitted"],
+            "date_text": "July 5, 2016",
+            "actor_hint": "Party A",
+            "value_hint": None,
+            "note": None,
+        },
+        {
+            "evidence_id": "DOC001:E0002",
+            "document_id": "DOC001",
+            "accession_number": "DOC001",
+            "filing_type": "DEFM14A",
+            "start_line": 2,
+            "end_line": 2,
+            "raw_text": "The Company retained Goldman Sachs as financial advisor.",
+            "evidence_type": "actor_identification",
+            "confidence": "high",
+            "matched_terms": ["retained", "financial advisor"],
+            "date_text": None,
+            "actor_hint": "Goldman Sachs",
+            "value_hint": None,
+            "note": None,
+        },
+    ]
+    events_payload = {
+        "events": [],
+        "exclusions": [
+            {
+                "category": "partial_company_bid",
+                "block_ids": ["B001"],
+                "explanation": "Asset-only interest should not create a whole-company proposal event.",
+            }
+        ],
+        "coverage_notes": [],
+    }
+    _write_coverage_fixture(
+        tmp_path,
+        evidence_items=evidence_items,
+        chronology_blocks=chronology_blocks,
+        events_payload=events_payload,
+    )
+
+    exit_code = run_coverage("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    findings = json.loads(paths.coverage_findings_path.read_text(encoding="utf-8"))
+    summary = json.loads(paths.coverage_summary_path.read_text(encoding="utf-8"))
+
+    assert exit_code == 0
+    assert summary["status"] == "pass"
+    assert summary["warning_count"] == 1
+    assert findings["findings"][0]["cue_family"] == "advisor"
+
+
+def test_coverage_warns_on_uncovered_high_confidence_bidder_interest(tmp_path: Path) -> None:
+    evidence_items = [
+        {
+            "evidence_id": "DOC001:E0001",
+            "document_id": "DOC001",
+            "accession_number": "DOC001",
+            "filing_type": "DEFM14A",
+            "start_line": 1,
+            "end_line": 1,
+            "raw_text": "Party A expressed interest in acquiring the Company.",
+            "evidence_type": "dated_action",
+            "confidence": "high",
+            "matched_terms": ["expressed interest"],
+            "date_text": "July 5, 2016",
+            "actor_hint": "Party A",
+            "value_hint": None,
+            "note": None,
+        }
+    ]
+    _write_coverage_fixture(tmp_path, evidence_items=evidence_items)
+
+    exit_code = run_coverage("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    findings = json.loads(paths.coverage_findings_path.read_text(encoding="utf-8"))
+    summary = json.loads(paths.coverage_summary_path.read_text(encoding="utf-8"))
+
+    assert exit_code == 0
+    assert summary["status"] == "pass"
+    assert summary["warning_count"] == 1
+    assert findings["findings"][0]["cue_family"] == "bidder_interest"
+    assert findings["findings"][0]["severity"] == "warning"
+
+
 def test_coverage_treats_advisor_declination_as_advisor_warning_not_drop(tmp_path: Path) -> None:
     evidence_items = [
         {

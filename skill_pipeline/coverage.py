@@ -62,6 +62,14 @@ PROCESS_INITIATION_TERMS = (
     "strategic alternatives",
     "explore strategic alternatives",
 )
+EXCLUSION_CUE_FAMILIES: dict[str, frozenset[str] | None] = {
+    "partial_company_bid": frozenset({"proposal", "bidder_interest"}),
+    "unsigned_nda": frozenset({"nda"}),
+    "stale_process_reference": frozenset({"process_initiation"}),
+    "duplicate_mention": None,
+    "non_event_context": None,
+    "other": None,
+}
 
 
 @dataclass
@@ -207,6 +215,9 @@ def _cue_is_excluded(cue: CoverageCue, artifacts: LoadedExtractArtifacts) -> boo
         exclusions = []
 
     for exclusion in exclusions:
+        allowed_families = EXCLUSION_CUE_FAMILIES.get(exclusion.category)
+        if allowed_families is not None and cue.cue_family not in allowed_families:
+            continue
         if cue_block_ids.intersection(exclusion.block_ids):
             return True
     return False
@@ -277,6 +288,8 @@ def _span_ids_overlap(cue: CoverageCue, span_ids: list[str], span_index: dict) -
 def _severity_for_cue(cue: CoverageCue) -> str | None:
     if cue.cue_family == "advisor":
         return "warning" if cue.confidence in {"high", "medium"} else None
+    if cue.cue_family == "bidder_interest" and cue.confidence == "high":
+        return "warning"
     if cue.cue_family in CRITICAL_CUE_FAMILIES and cue.confidence == "high":
         return "error"
     if cue.confidence == "medium":

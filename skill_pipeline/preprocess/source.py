@@ -12,6 +12,11 @@ from skill_pipeline.pipeline_models.source import ChronologySelection, EvidenceI
 from skill_pipeline.source.blocks import build_chronology_blocks
 from skill_pipeline.source.evidence import scan_document_evidence
 from skill_pipeline.source.locate import select_chronology
+from skill_pipeline.source_validation import (
+    ResolvedFrozenDocumentPaths,
+    load_document_registry,
+    validate_frozen_document,
+)
 
 
 def preprocess_source_deal(
@@ -26,9 +31,7 @@ def preprocess_source_deal(
     discovery = RawDiscoveryManifest.model_validate_json(
         (raw_deal_dir / "discovery.json").read_text(encoding="utf-8")
     )
-    registry = RawDocumentRegistry.model_validate_json(
-        (raw_deal_dir / "document_registry.json").read_text(encoding="utf-8")
-    )
+    registry = load_document_registry(raw_deal_dir / "document_registry.json")
 
     project_root = raw_dir.parent
     documents = {
@@ -50,7 +53,15 @@ def preprocess_source_deal(
     if document is None:
         raise ValueError("discovery candidate is missing from document_registry.json")
 
-    lines = _load_lines(project_root, document)
+    resolved_documents = {
+        doc.document_id: validate_frozen_document(
+            doc,
+            project_root=project_root,
+            deal_slug=deal_slug,
+        )
+        for doc in registry.documents
+    }
+    lines = _load_lines(resolved_documents[document.document_id])
     if not lines:
         raise FileNotFoundError(f"No local raw primary filings available for {deal_slug}")
 
@@ -83,7 +94,11 @@ def preprocess_source_deal(
 
         source_dir.mkdir(parents=True, exist_ok=True)
         _remove_stale_source_artifacts(source_dir, registry.documents)
-        _materialize_source_filings(project_root, source_dir, registry.documents)
+        _materialize_source_filings(
+            source_dir,
+            registry.documents,
+            resolved_documents,
+        )
         _atomic_write_json(source_dir / "chronology_selection.json", selection.model_dump(mode="json"))
         _atomic_write_jsonl(
             source_dir / "chronology_blocks.jsonl",
@@ -124,10 +139,9 @@ def _lookup_document(
 
 
 def _load_lines(
-    project_root: Path,
-    document: FrozenDocument,
+    resolved_paths: ResolvedFrozenDocumentPaths,
 ) -> list[str]:
-    path = project_root / document.txt_path
+    path = resolved_paths.txt_path
     if path.exists():
         return path.read_text(encoding="utf-8").splitlines()
     return []
@@ -214,28 +228,25 @@ def _invalidate_source_artifacts(source_dir: Path) -> None:
 
 
 def _materialize_source_filings(
-    project_root: Path,
     source_dir: Path,
     documents: list[FrozenDocument],
+    resolved_documents: dict[str, ResolvedFrozenDocumentPaths],
 ) -> None:
     filings_dir = source_dir / "filings"
     filings_dir.mkdir(parents=True, exist_ok=True)
     for document in documents:
+        resolved_paths = resolved_documents[document.document_id]
         aliases = {document.document_id}
         if document.accession_number:
             aliases.add(document.accession_number)
         for alias in aliases:
-            _copy_if_present(project_root, document.txt_path, filings_dir / f"{alias}.txt")
-            if document.html_path:
-                _copy_if_present(project_root, document.html_path, filings_dir / f"{alias}.html")
-            if document.md_path:
-                _copy_if_present(project_root, document.md_path, filings_dir / f"{alias}.md")
+            _copy_if_present(resolved_paths.txt_path, filings_dir / f"{alias}.txt")
+            if resolved_paths.html_path and resolved_paths.html_path.exists():
+                _copy_if_present(resolved_paths.html_path, filings_dir / f"{alias}.html")
+            if resolved_paths.md_path and resolved_paths.md_path.exists():
+                _copy_if_present(resolved_paths.md_path, filings_dir / f"{alias}.md")
 
-
-def _copy_if_present(project_root: Path, relative_path: str, destination: Path) -> None:
-    source = project_root / relative_path
-    if not source.exists():
-        return
+def _copy_if_present(source: Path, destination: Path) -> None:
     destination.parent.mkdir(parents=True, exist_ok=True)
     if destination.exists() and destination.read_bytes() == source.read_bytes():
         return

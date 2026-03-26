@@ -1,80 +1,86 @@
 # Technology Stack
 
-**Analysis Date:** 2026-03-25
+**Analysis Date:** 2026-03-26
 
 ## Languages
 
 **Primary:**
-- Python 3.11+ - all tracked runtime code in `skill_pipeline/` and the main test suite in `tests/`
+- Python `>=3.11` is the only application language declared in `pyproject.toml`, and the installed package surface is the `skill_pipeline/` package exposed by `skill-pipeline = "skill_pipeline.cli:main"` in `pyproject.toml`.
 
 **Secondary:**
-- Markdown - repository instructions and design notes in `CLAUDE.md`, `docs/`, and `.claude/skills/`
-- JSON/JSONL/CSV - pipeline artifacts and seed inputs under `data/` and `raw/`
-- TOML/INI - project metadata and test configuration in `pyproject.toml` and `pytest.ini`
+- Markdown documents the workflow and agent surfaces in `CLAUDE.md`, `docs/design.md`, `docs/workflow-contract.md`, and `.claude/skills/*.md`.
+- JSON, JSONL, and CSV are first-class artifact formats in `skill_pipeline/paths.py`, with concrete outputs such as `raw/<slug>/discovery.json`, `data/deals/<slug>/source/chronology_blocks.jsonl`, and `data/skill/<slug>/export/deal_events.csv`.
+- TOML and INI configure packaging and tests in `pyproject.toml` and `pytest.ini`.
+- Plain SEC filing text is frozen under `raw/<slug>/filings/*.txt` by `skill_pipeline/raw/fetch.py`.
 
 ## Runtime
 
 **Environment:**
-- Local Python CLI runtime - invoked through the `skill-pipeline` console script defined in `pyproject.toml`
-- No web server, database server, or background worker is tracked in this repository
-- The runtime is file-based and operates against repository paths such as `raw/`, `data/deals/`, and `data/skill/`
+- The active runtime is a local filesystem-backed CLI, not a service process. Command routing lives in `skill_pipeline/cli.py`.
+- The repo pins only a minimum interpreter version, `requires-python = ">=3.11"`, in `pyproject.toml`; no `.python-version` is tracked at repo root.
+- The pipeline version constant is `SKILL_PIPELINE_VERSION = "0.1.0"` in `skill_pipeline/config.py`.
+- Deterministic stages run inside the Python package via `skill-pipeline` subcommands in `skill_pipeline/cli.py`; LLM stages are defined separately in `.claude/skills/README.md` and `.claude/skills/*.md`, then mirrored to `.codex/skills/` and `.cursor/skills/` by `scripts/sync_skill_mirrors.py`.
 
 **Package Manager:**
-- `pip` / editable installs - the repo expects `pip install -e .`
-- Build backend: `setuptools.build_meta` from `pyproject.toml`
-- Lockfile: none tracked
+- Editable installation via `pip install -e .` is the documented setup path in `CLAUDE.md`.
+- Packaging uses `setuptools.build_meta` with build requirements `setuptools>=69` and `wheel` in `pyproject.toml`.
+- Runtime dependency declarations are duplicated in `pyproject.toml` and `requirements.txt`.
+- Lockfile: not tracked. No `poetry.lock`, `uv.lock`, or `Pipfile.lock` was found beside `pyproject.toml`.
 
 ## Frameworks
 
 **Core:**
-- Standard library `argparse` - command routing in `skill_pipeline/cli.py`
-- Pydantic 2 - artifact schemas and validation in `skill_pipeline/models.py` and `skill_pipeline/pipeline_models/`
-- `edgartools` - live SEC filing access in `skill_pipeline/raw/fetch.py` and `skill_pipeline/raw/stage.py`
+- `argparse` drives the CLI surface in `skill_pipeline/cli.py`.
+- `pydantic>=2.0` defines and validates raw, canonical, verification, coverage, and enrichment schemas in `skill_pipeline/models.py` and `skill_pipeline/pipeline_models/*.py`.
+- `edgartools>=5.23` provides SEC identity and accession-based filing retrieval in `skill_pipeline/raw/stage.py` and `skill_pipeline/raw/fetch.py`.
+- The repo’s LLM workflow layer is skill-driven rather than implemented as Python commands: the active skill inventory is documented in `.claude/skills/README.md`, with stage contracts in `.claude/skills/deal-agent/SKILL.md`, `.claude/skills/extract-deal/SKILL.md`, `.claude/skills/verify-extraction/SKILL.md`, `.claude/skills/enrich-deal/SKILL.md`, `.claude/skills/export-csv/SKILL.md`, and `.claude/skills/reconcile-alex/SKILL.md`.
 
 **Testing:**
-- `pytest` - all tracked tests under `tests/`
-- `pytest` fixtures such as `tmp_path` and `monkeypatch` are the dominant testing style
+- `pytest>=8.0` is the only tracked test runner in `pyproject.toml`.
+- Test discovery is configured in `pytest.ini`, and the suite lives under `tests/`.
 
 **Build/Dev:**
-- `setuptools` - packaging and editable installs from `pyproject.toml`
-- No formatter or linter configuration is tracked in the repository
+- `setuptools` is the only tracked packaging tool in `pyproject.toml`.
+- Skill mirror maintenance is implemented by `scripts/sync_skill_mirrors.py`.
+- No formatter or linter config files are tracked alongside `pyproject.toml` and `pytest.ini`.
 
 ## Key Dependencies
 
 **Critical:**
-- `pydantic>=2.0` - validates raw, canonical, verification, coverage, and enrichment artifacts
-- `edgartools>=5.23` - fetches approved SEC filings by accession number
-- `pytest>=8.0` - regression tests for stage contracts and repo policy checks
+- `pydantic>=2.0` in `pyproject.toml` underpins strict artifact schemas in `skill_pipeline/models.py` and `skill_pipeline/pipeline_models/source.py`.
+- `edgartools>=5.23` in `pyproject.toml` is required for live SEC access in `skill_pipeline/raw/stage.py` and `skill_pipeline/raw/fetch.py`.
+- `pytest>=8.0` in `pyproject.toml` backs regression coverage in `tests/test_skill_raw_stage.py`, `tests/test_skill_preprocess_source.py`, `tests/test_skill_verify.py`, and related stage tests.
 
-**Supporting:**
-- `anthropic>=0.49` - declared for adjacent skill-driven LLM workflows referenced in `CLAUDE.md`
-- `openpyxl>=3.1` - declared for workbook-adjacent tasks and benchmark-era utilities, not the deterministic CLI core
+**Infrastructure:**
+- `anthropic>=0.49` is declared in `pyproject.toml`, matching the Anthropic provider surface documented in `CLAUDE.md`; no in-repo Anthropic client calls are present under `skill_pipeline/`.
+- `openpyxl>=3.1` is declared in `pyproject.toml` and is referenced in the post-export benchmark workflow in `.claude/skills/reconcile-alex/SKILL.md` to read `example/deal_details_Alex_2026.xlsx`.
+- An `openai` Python dependency is not tracked in `pyproject.toml` or `requirements.txt`; OpenAI appears only as an operational provider option in `CLAUDE.md`.
 
 ## Configuration
 
 **Environment:**
-- LLM provider variables are documented in `CLAUDE.md`: `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, `BIDS_LLM_PROVIDER`, `BIDS_LLM_MODEL`, and related overrides
-- Live SEC access uses `PIPELINE_SEC_IDENTITY`, then `SEC_IDENTITY`, then `EDGAR_IDENTITY`
-- Local-only secrets live in `.env.local`, which is gitignored by `.gitignore`
+- Live SEC access requires an identity string. `skill_pipeline/raw/stage.py` checks `PIPELINE_SEC_IDENTITY`, then `SEC_IDENTITY`, then `EDGAR_IDENTITY`, and raises if none is set.
+- Repo-level LLM configuration is documented in `CLAUDE.md`: `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, `BIDS_LLM_PROVIDER`, `BIDS_LLM_MODEL`, `BIDS_LLM_REASONING_EFFORT`, and `BIDS_LLM_STRUCTURED_MODE`.
+- Local secret material is expected through environment variables or the ignored `.env.local` path listed in `.gitignore`; no tracked secret template file is present.
 
-**Build and Repo Policy:**
-- `pyproject.toml` - package metadata and console entrypoint
-- `pytest.ini` - pytest root and default options
-- `.gitattributes` - tracked text files use `LF`
-- `.gitignore` - ignores local environments, caches, editor state, and `.agents/`
+**Build:**
+- `pyproject.toml` is the authoritative package manifest.
+- `requirements.txt` duplicates the runtime dependency list.
+- `pytest.ini` configures the test root and default `pytest` options.
+- `.gitattributes` enforces `LF` for tracked text files and marks `*.sqlite` as binary.
+- `docs/workflow-contract.md` is the canonical stage inventory for the hybrid deterministic/skill runtime described in `CLAUDE.md`.
 
 ## Platform Requirements
 
 **Development:**
-- Windows and Linux are both active development environments for this repo
-- Python 3.11+ is required
-- GitHub is the synchronization point between machines
+- Python `>=3.11` is required by `pyproject.toml`.
+- Network access to SEC EDGAR is required for `skill-pipeline raw-fetch` in `skill_pipeline/cli.py` and `skill_pipeline/raw/stage.py`.
+- Write access to the working tree is required because artifact locations are hard-coded in `skill_pipeline/paths.py` under `raw/`, `data/deals/`, and `data/skill/`.
 
-**Production / Execution Target:**
-- This is a local research pipeline, not a deployed service
-- Artifacts are written into the repository working tree under `raw/` and `data/`
+**Production:**
+- No deployed production target is tracked in the repo. There is no `Dockerfile`, `.github/workflows/`, or server entrypoint beside `skill_pipeline/cli.py`.
+- The execution target is the local repository filesystem, with outputs persisted under `raw/<slug>/`, `data/deals/<slug>/`, and `data/skill/<slug>/`.
 
 ---
 
-*Stack analysis: 2026-03-25*
-*Update after major dependency or runtime changes*
+*Stack analysis: 2026-03-26*

@@ -50,7 +50,6 @@ Benchmark comparison is post-export only and read-only.
 | `data/skill/<slug>/extract/events_raw.json` | Verified event timeline with evidence_refs, terms, formality_signals |
 | `data/deals/<slug>/source/chronology_blocks.jsonl` | Narrative blocks for rereading filing context |
 | `data/deals/<slug>/source/evidence_items.jsonl` | Pre-tagged evidence anchors |
-| `data/deals/<slug>/source/supplementary_snippets.jsonl` | Cross-filing hints |
 | `raw/<slug>/filings/*.txt` | Frozen filing text for verbatim citation |
 
 ## Enrichment Tasks

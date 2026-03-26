@@ -19,16 +19,17 @@ Produce filing-grounded deal data that remains auditable back to SEC source text
 - [validated] Operator can derive deterministic rounds, bid classifications, cycles, and formal-boundary artifacts only after QA passes - existing
 - [validated] Contributors can keep `.claude/skills` canonical and verify `.codex/.cursor` mirrors with `scripts/sync_skill_mirrors.py` - existing
 - [validated] Benchmark materials are fenced off until post-export reconciliation by committed docs and regression tests - existing
+- [validated] Repo-local automated checks catch benchmark-boundary drift and skill-mirror drift via `pytest -q` plus `python scripts/sync_skill_mirrors.py --check` - verified in 2026-03-26 repo audit
 - [validated] `extract-deal` now uses sequential chunk extraction with consolidation as the only documented extraction path while preserving the `actors_raw.json` and `events_raw.json` contract - validated in Phase 06: Chunked Extraction Architecture
 - [validated] `canonicalize` and `check` now absorb chunk-boundary actor duplication with deterministic dedup plus warning-level actor audit coverage - validated in Phase 06: Chunked Extraction Architecture
 - [validated] `enrich-deal` now scopes interpretive rereads to event-linked chronology windows while keeping rounds, bid classifications, cycles, and formal boundary in deterministic `enrich-core` - validated in Phase 06: Chunked Extraction Architecture
 
 ### Active
 
-- [ ] Document and stabilize the full hybrid workflow from raw fetch through export so stage ownership and artifact contracts are unambiguous
-- [ ] Increase regression coverage around cross-stage handoffs, especially between skill-produced extract artifacts and deterministic CLI stages
+- [ ] Plan and implement Phase 02 deterministic stage interface hardening so reruns and skill-to-CLI handoffs stay explicit
+- [ ] Decide whether researched Phase 07 work should advance before the still-open roadmap phases 2-5
 - [ ] Reduce operational risk from external dependencies and local environment drift across Windows and Linux development
-- [ ] Keep benchmark separation and post-export reconciliation boundaries explicit as new stages and docs are added
+- [ ] Preserve benchmark separation, mirror-sync discipline, and local verification commands until CI exists
 
 ### Out of Scope
 
@@ -40,12 +41,18 @@ Produce filing-grounded deal data that remains auditable back to SEC source text
 ## Context
 
 - The tracked runtime is the `skill_pipeline` package with `skill-pipeline` as the only installed console entrypoint
-- The operative workflow is hybrid: deterministic CLI stages surround LLM-driven skills such as `/extract-deal`, `/verify-extraction`, `/enrich-deal`, and `/export-csv`
+- `skill-pipeline source-discover` exists as a no-fetch helper alongside the main stage chain
+- The operative workflow is a hybrid deterministic/skill sandwich: 7 deterministic CLI stages surround 3 LLM skill stages, 1 hybrid repair stage, and 1 optional post-export diagnostic (see [`docs/workflow-contract.md`](../docs/workflow-contract.md) for the canonical stage inventory)
 - The repository carries 9 active deal slugs, with `data/seeds.csv` as the entrypoint for raw fetch
 - `raw/` and tracked `data/` artifacts are part of the working dataset, not disposable scratch output
 - Development happens on both Windows and Linux, with GitHub as the synchronization point
 - `CLAUDE.md` remains the authoritative repository instruction source even after adopting GSD planning in `.planning/`
+- As of 2026-03-26, `pytest -q` passes locally with `117 passed` and only `edgartools` deprecation warnings, and `python scripts/sync_skill_mirrors.py --check` passes
+- No CI workflow is tracked under `.github/`; merge safety still depends on local verification commands
 - Phase 06 completed the chunked extraction architecture shift: `petsmart-inc` is locally auditable through chunked extraction and unnamed-party recovery, while `stec` is approved through the Phase 06 validation summary's reported fresh rerun caveat
+- Phase 01 published the workflow contract surface: `docs/workflow-contract.md` is the single canonical stage inventory, `CLAUDE.md` carries the deal-agent disambiguation, and `.planning/phases/01-workflow-contract-surface/01-CONTEXT.md` preserves the accepted baseline and tracked drifts
+- Phase 07 has research committed in `.planning/phases/07-parallel-chunked-extraction/07-RESEARCH.md`, but implementation planning has not started
+- Roadmap execution is currently non-linear: Phase 01 and Phase 06 are complete, Phases 02-05 remain open, and Phase 07 exists at the research stage
 
 ## Constraints
 
@@ -64,6 +71,9 @@ Produce filing-grounded deal data that remains auditable back to SEC source text
 | Use committed planning docs with standard granularity on the current branch | This repo needs durable shared memory, but not micro-phases for every small change | Pending |
 | Skip external ecosystem research during initialization | The immediate goal is to frame the existing brownfield codebase, and the repo already contains enough local context for that | Pending |
 | Treat chunk debug artifacts as the primary runtime proof for a specific extraction run | Final raw JSON artifacts keep the same contract before and after the chunked redesign, so run-specific validation needs direct chunk evidence | Good |
+| Publish `docs/workflow-contract.md` as the single canonical stage inventory | Contributors need one document that names every stage, classification, artifact root, and gate boundary rather than cross-reading code and skill docs | Good |
+| Record the hybrid deterministic/skill baseline in `.planning/` project memory | Later phases can start from committed artifacts instead of rediscovering the workflow split | Good |
+| Remove stale `supplementary_snippets.jsonl` from skill reads rather than marking optional | Current `preprocess-source` actively deletes the file; keeping it in skill docs creates false expectations | Good |
 
 ## Evolution
 
@@ -83,4 +93,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-25 after Phase 06 completion*
+*Last updated: 2026-03-26 after repo audit and codebase-map refresh*
