@@ -126,3 +126,13 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 4. Cross-Platform Contributor Operations | 0/3 | Not started | - |
 | 5. Dependency Risk Management | 0/3 | Not started | - |
 | 6. Chunked Extraction Architecture | 4/4 | Complete | 2026-03-25 |
+
+### Phase 7: Parallel Chunked Extraction
+
+**Goal:** [To be planned]
+**Requirements**: TBD
+**Depends on:** Phase 6
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 7 to break down)

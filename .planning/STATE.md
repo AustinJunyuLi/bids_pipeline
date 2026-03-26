@@ -87,6 +87,10 @@ Recent decisions affecting current work:
 - [Phase 01]: Publish hybrid deterministic/skill baseline in .planning/ project memory so later phases start from committed artifacts
 - [Phase 01]: Record supplementary_snippets drift, legacy data paths, and deal-agent collision in codebase CONCERNS.md
 
+### Roadmap Evolution
+
+- Phase 7 added: Parallel Chunked Extraction — break the sequential roster carry-forward bottleneck so multiple chunks can extract concurrently, reducing single-deal extraction time
+
 ### Pending Todos
 
 None yet.
