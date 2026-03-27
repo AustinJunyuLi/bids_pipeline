@@ -517,10 +517,18 @@ class ExportStageSummary(SkillModel):
     output_path: Path
 
 
+class PromptStageSummary(SkillModel):
+    status: StageStatus
+    packet_count: int = 0
+    actor_packet_count: int = 0
+    event_packet_count: int = 0
+
+
 class DealAgentSummary(SkillModel):
     deal_slug: str
     seed: SeedEntry
     paths: SkillPathSet
+    prompt: PromptStageSummary
     extract: ExtractStageSummary
     check: CheckStageSummary
     coverage: CoverageStageSummary

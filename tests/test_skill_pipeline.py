@@ -466,3 +466,74 @@ def test_compose_prompts_creates_prompt_directories(tmp_path: Path) -> None:
     paths = build_skill_paths("imprivata", project_root=tmp_path)
     assert paths.prompt_dir.is_dir()
     assert paths.prompt_packets_dir.is_dir()
+
+
+# --- Prompt-stage status in deal-agent ---
+
+
+def test_deal_agent_prompt_stage_missing_when_no_manifest(tmp_path: Path) -> None:
+    """deal-agent reports prompt stage as missing when manifest does not exist."""
+    _write_shared_inputs(tmp_path)
+    summary = run_deal_agent("imprivata", project_root=tmp_path)
+    assert summary.prompt.status == "missing"
+    assert summary.prompt.packet_count == 0
+
+
+def test_deal_agent_prompt_stage_pass_after_compose(tmp_path: Path) -> None:
+    """deal-agent reports prompt stage as pass with packet counts after compose."""
+    _write_shared_inputs(tmp_path)
+    run_compose_prompts("imprivata", project_root=tmp_path, mode="actors")
+    summary = run_deal_agent("imprivata", project_root=tmp_path)
+    assert summary.prompt.status == "pass"
+    assert summary.prompt.packet_count > 0
+    assert summary.prompt.actor_packet_count > 0
+    assert summary.prompt.event_packet_count == 0
+
+
+# --- Prompt packet validator tests ---
+
+
+def test_validate_prompt_packets_passes_on_valid_manifest(tmp_path: Path) -> None:
+    """Validator returns no errors on well-formed prompt packets."""
+    from scripts.validate_prompt_packets import validate_manifest
+
+    _write_shared_inputs(tmp_path)
+    run_compose_prompts("imprivata", project_root=tmp_path, mode="actors")
+    errors = validate_manifest("imprivata", project_root=tmp_path, expect_sections=True)
+    assert errors == []
+
+
+def test_validate_prompt_packets_fails_when_manifest_missing(tmp_path: Path) -> None:
+    """Validator returns an error when manifest.json does not exist."""
+    from scripts.validate_prompt_packets import validate_manifest
+
+    errors = validate_manifest("imprivata", project_root=tmp_path)
+    assert len(errors) == 1
+    assert "Manifest not found" in errors[0]
+
+
+def test_validate_prompt_packets_detects_missing_rendered_file(tmp_path: Path) -> None:
+    """Validator detects a missing rendered.md file referenced by the manifest."""
+    from scripts.validate_prompt_packets import validate_manifest
+
+    _write_shared_inputs(tmp_path)
+    manifest = run_compose_prompts("imprivata", project_root=tmp_path, mode="actors")
+    # Remove the rendered file for the first packet
+    first_rendered = Path(manifest.packets[0].rendered_path)
+    first_rendered.unlink()
+    errors = validate_manifest("imprivata", project_root=tmp_path, expect_sections=True)
+    assert any("rendered file missing" in e for e in errors)
+
+
+def test_validate_prompt_packets_cli_help_mentions_expect_sections() -> None:
+    """CLI --help output includes the --expect-sections flag."""
+    from scripts.validate_prompt_packets import parse_args
+
+    import io
+    import contextlib
+
+    buf = io.StringIO()
+    with pytest.raises(SystemExit):
+        with contextlib.redirect_stdout(buf):
+            parse_args(["--help"])
+    assert "--expect-sections" in buf.getvalue()

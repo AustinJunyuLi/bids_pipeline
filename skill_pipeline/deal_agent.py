@@ -13,6 +13,7 @@ from skill_pipeline.models import (
     EnrichStageSummary,
     ExportStageSummary,
     ExtractStageSummary,
+    PromptStageSummary,
     SkillCheckReport,
     SkillEnrichmentArtifact,
     SkillVerificationLog,
@@ -38,12 +39,36 @@ def run_deal_agent(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> Deal
         deal_slug=deal_slug,
         seed=seed,
         paths=paths,
+        prompt=_summarize_prompt(paths),
         extract=_summarize_extract(paths),
         check=_summarize_check(paths),
         coverage=_summarize_coverage(paths),
         verify=_summarize_verify(paths),
         enrich=_summarize_enrich(paths),
         export=_summarize_export(paths),
+    )
+
+
+def _summarize_prompt(paths) -> PromptStageSummary:
+    if not paths.prompt_manifest_path.exists():
+        return PromptStageSummary(status=StageStatus.MISSING)
+
+    try:
+        from skill_pipeline.pipeline_models.prompt import PromptPacketManifest
+
+        manifest = PromptPacketManifest.model_validate(_read_json(paths.prompt_manifest_path))
+    except Exception:
+        return PromptStageSummary(status=StageStatus.FAIL)
+
+    packet_count = len(manifest.packets)
+    actor_packet_count = sum(1 for p in manifest.packets if p.packet_family == "actors")
+    event_packet_count = sum(1 for p in manifest.packets if p.packet_family == "events")
+    status = StageStatus.PASS if packet_count > 0 else StageStatus.FAIL
+    return PromptStageSummary(
+        status=status,
+        packet_count=packet_count,
+        actor_packet_count=actor_packet_count,
+        event_packet_count=event_packet_count,
     )
 
 
