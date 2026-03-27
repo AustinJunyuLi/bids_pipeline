@@ -1,11 +1,11 @@
 # Project State
 
 ## Current Phase
-Phase 1: Foundation + Annotation — planned, ready for execution
+Phase 1: Foundation + Annotation — executing (plan 01 of 03 complete)
 
 ## Last Session
-- **Stopped at:** Phase 1 planned
-- **Resume file:** `.planning/phases/01-foundation-annotation/01-01-PLAN.md`
+- **Stopped at:** Completed 01-01-PLAN.md (annotated block schema)
+- **Resume file:** `.planning/phases/01-foundation-annotation/01-02-PLAN.md`
 - **Date:** 2026-03-27
 
 ## Progress
@@ -16,7 +16,9 @@ Phase 1: Foundation + Annotation — planned, ready for execution
 - [x] Research completed (5 documents)
 - [x] Phase 1 context gathered (13 decisions)
 - [x] Phase 1 planned
-- [ ] Phase 1 executed
+- [x] Phase 1 Plan 01: Annotated block schema and preprocess integration (3/3 tasks)
+- [ ] Phase 1 Plan 02
+- [ ] Phase 1 Plan 03
 - [ ] Phase 1 verified
 
 ## Key Decisions This Session
@@ -24,8 +26,11 @@ Phase 1: Foundation + Annotation — planned, ready for execution
 - INFRA-01/02 moved from Phase 1 to Phase 2 (skill-level changes)
 - Annotation extends preprocess-source, not a separate command
 - Block metadata: parsed dates, seed-based entities, evidence density, hybrid temporal phase
+- Annotation fields are required on ChronologyBlock (no defaults, no optionals)
+- Block builder creates placeholder annotations that annotate_chronology_blocks replaces
+- Temporal phase priority: outcome > bidding > initiation from evidence types with ordinal fallback
 
 ## Session Continuity
-- **Last session:** 2026-03-27 16:08:00 +00:00
-- **Stopped at:** Phase 1 plan set created with research, validation, and three execution plans
-- **Resume file:** `.planning/phases/01-foundation-annotation/01-01-PLAN.md`
+- **Last session:** 2026-03-27T16:30:21Z
+- **Stopped at:** Completed 01-01-PLAN.md
+- **Resume file:** `.planning/phases/01-foundation-annotation/01-02-PLAN.md`
