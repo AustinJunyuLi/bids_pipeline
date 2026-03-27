@@ -148,8 +148,7 @@ The correct validation stack for Phase 2 is:
 - one `stec` extraction run through the new packets before Phase 2 closes
 
 That final extraction-quality check is necessary because the roadmap exit
-criteria require equal or better quality versus baseline, not just pretty packet
-files.
+criteria require passing deterministic gates, not just pretty packet files.
 
 ## Risks To Watch
 
@@ -218,7 +217,7 @@ It should:
 - confirm chunked packets, if any, clearly distinguish `<overlap_context>` from
   primary extraction blocks
 - before closing the phase, run `/extract-deal stec` using the generated prompt
-  packets and compare downstream gate quality to the pre-Phase-2 baseline
+  packets and confirm deterministic gates pass
 
 ## Files To Read First During Execution
 

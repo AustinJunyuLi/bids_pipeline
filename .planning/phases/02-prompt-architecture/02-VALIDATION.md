@@ -67,7 +67,7 @@ created: 2026-03-27
 | Behavior | Requirement | Why Manual | Test Instructions |
 |----------|-------------|------------|-------------------|
 | `stec` prompt packets are visibly chronology-first and human-auditable | PROMPT-01, PROMPT-03, PROMPT-04 | Ordering and readability matter beyond schema validity | Generate `stec` packets, open one actor packet and one event packet, confirm chronology text appears before instructions, checklist is concise, and `<overlap_context>` is clearly separated from primary extraction blocks. |
-| `stec` extraction through composed packets is equal or better than baseline | INFRA-01, INFRA-05 | Roadmap exit criterion requires real extraction quality, not only render correctness | Run `skill-pipeline compose-prompts --deal stec --mode all`, then execute `/extract-deal stec` against those packets and compare downstream gate results to the pre-Phase-2 baseline recorded before the change. |
+| `stec` extraction through composed packets passes deterministic gates | INFRA-01, INFRA-05 | Roadmap exit criterion requires real extraction quality, not only render correctness | Run `skill-pipeline compose-prompts --deal stec --mode actors`, extract actors, then `--mode events`, extract events, then run check/verify/coverage gates and confirm passing. |
 
 ---
 

@@ -61,8 +61,8 @@ PROMPT-02, PROMPT-03, PROMPT-04
 
 **Exit criteria:**
 - Composition engine is deterministic and testable without LLM calls
-- stec extraction through new prompt packets produces equal or better quality vs
-  baseline
+- stec extraction through new prompt packets passes deterministic gates (check,
+  verify, coverage)
 - Prompt packets clearly separate stable prefix content from chunk-specific
   content without adding a Python-side provider wrapper
 
