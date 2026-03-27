@@ -44,6 +44,17 @@ def fetch_raw_deal(
         txt_text=txt_text,
     )
 
+    _SMALL_FILING_THRESHOLD = 50_000
+    if document.byte_count_txt < _SMALL_FILING_THRESHOLD:
+        import sys
+        print(
+            f"WARNING: {seed.deal_slug} filing {document.document_id} is only "
+            f"{document.byte_count_txt} bytes — may be a cover sheet rather than "
+            f"the substantive proxy/recommendation statement. "
+            f"Verify the seed URL in seeds.csv.",
+            file=sys.stderr,
+        )
+
     registry = RawDocumentRegistry(run_id=run_id, deal_slug=seed.deal_slug, documents=[document])
     raw_deal_dir.mkdir(parents=True, exist_ok=True)
     atomic_write_json(raw_deal_dir / "discovery.json", discovery.model_dump(mode="json"))

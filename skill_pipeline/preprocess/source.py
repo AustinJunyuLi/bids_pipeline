@@ -66,7 +66,15 @@ def preprocess_source_deal(
             deal_slug=deal_slug,
         )
         if selection.selected_candidate is None:
-            raise ValueError(selection.adjudication_basis)
+            line_count = len(lines)
+            byte_count = document.byte_count_txt
+            raise ValueError(
+                f"{selection.adjudication_basis} "
+                f"The fetched filing ({document.document_id}) is {line_count} lines "
+                f"/ {byte_count} bytes — if this is unexpectedly short, the seed URL "
+                f"in seeds.csv may point to a cover sheet or schedule rather than the "
+                f"substantive proxy/recommendation statement."
+            )
 
         blocks = build_chronology_blocks(lines, selection=selection)
         if not blocks:

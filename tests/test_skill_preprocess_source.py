@@ -299,6 +299,30 @@ def test_preprocess_source_fails_when_no_chronology_candidate_is_found(
         )
 
 
+def test_preprocess_source_no_chronology_error_includes_seed_quality_diagnostic(
+    tmp_path: Path,
+) -> None:
+    """Medivation-style bad seed: filing is too short / wrong document type."""
+    raw_deal_dir, deals_dir = _write_seed_only_raw_fixture(tmp_path)
+    short_content = "Item 3. Identity and Background of Filing Person.\n" * 5
+    (raw_deal_dir / "filings" / "0001193125-16-677939.txt").write_text(
+        short_content, encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="seed URL.*may point to a cover sheet") as exc_info:
+        preprocess_source_deal(
+            "imprivata",
+            run_id="run-1",
+            raw_dir=raw_deal_dir.parent,
+            deals_dir=deals_dir,
+        )
+    # Error must include filing ID and size diagnostics
+    msg = str(exc_info.value)
+    assert "0001193125-16-677939" in msg
+    assert "lines" in msg
+    assert "bytes" in msg
+
+
 def test_preprocess_source_invalidates_existing_outputs_when_rerun_fails(
     tmp_path: Path,
 ) -> None:
