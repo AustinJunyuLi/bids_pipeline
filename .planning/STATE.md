@@ -1,14 +1,31 @@
+---
+gsd_state_version: 1.0
+milestone: v1.0
+milestone_name: milestone
+status: unknown
+stopped_at: Phase 2 Plan 03 complete (integration, stec validation, runtime contract update)
+last_updated: "2026-03-27T23:58:29.874Z"
+progress:
+  total_phases: 5
+  completed_phases: 2
+  total_plans: 6
+  completed_plans: 6
+---
+
 # Project State
 
 ## Current Phase
+
 Phase 2: Prompt Architecture — complete (plan 03 of 03 complete)
 
 ## Last Session
+
 - **Stopped at:** Phase 2 Plan 03 complete (integration, stec validation, runtime contract update)
 - **Resume file:** `.planning/phases/02-prompt-architecture/02-03-PLAN.md`
 - **Date:** 2026-03-27
 
 ## Progress
+
 - [x] PROJECT.md initialized
 - [x] REQUIREMENTS.md defined (20 requirements, 4 categories)
 - [x] ROADMAP.md created (5 phases)
@@ -28,6 +45,7 @@ Phase 2: Prompt Architecture — complete (plan 03 of 03 complete)
 - [x] Phase 2 Plan 03: Integration, stec validation, runtime contract update (3/3 tasks)
 
 ## Key Decisions This Session
+
 - No Python LLM wrapper — all LLM calls remain in .claude/skills/
 - INFRA-01/02 moved from Phase 1 to Phase 2 (skill-level changes)
 - Annotation extends preprocess-source, not a separate command
@@ -57,10 +75,13 @@ Phase 2: Prompt Architecture — complete (plan 03 of 03 complete)
 - compose-prompts documented between preprocess-source and /extract-deal in all runtime docs
 
 ## Session Continuity
+
 - **Last session:** 2026-03-27T23:45:03Z
 - **Stopped at:** Completed 02-03-PLAN.md
 - **Resume file:** `.planning/phases/02-prompt-architecture/02-03-PLAN.md`
 
 ## Accumulated Context
+
 ### Pending Todos
+
 - Claude follow-up: investigate seed-quality guard for Medivation-style bad accession in `.planning/todos/pending/2026-03-27-investigate-seed-quality-guard-for-medivation-style-bad-accession.md`

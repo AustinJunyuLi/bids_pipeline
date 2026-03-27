@@ -10,14 +10,14 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Prompt Architecture
 
-- [ ] **PROMPT-01**: Extraction prompts place chronology text first and
+- [x] **PROMPT-01**: Extraction prompts place chronology text first and
   instructions/query last, exploiting primacy + recency bias
-- [ ] **PROMPT-02**: Chunk boundaries align with chronology block boundaries;
+- [x] **PROMPT-02**: Chunk boundaries align with chronology block boundaries;
   never split mid-block
-- [ ] **PROMPT-03**: Chunked extraction includes 2-block overlap with explicit
+- [x] **PROMPT-03**: Chunked extraction includes 2-block overlap with explicit
   `<overlap_context>` XML tags distinguishing context from primary extraction
   targets
-- [ ] **PROMPT-04**: Pre-computed evidence items are formatted as an active
+- [x] **PROMPT-04**: Pre-computed evidence items are formatted as an active
   checklist the LLM must address, not a passive appendix
 - [ ] **PROMPT-05**: Quote-before-extract protocol forces the LLM to cite
   verbatim passages before emitting structured events
@@ -27,18 +27,18 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Extraction Infrastructure
 
-- [ ] **INFRA-01**: Local-agent extraction flows can enforce schema-constrained
+- [x] **INFRA-01**: Local-agent extraction flows can enforce schema-constrained
   structured outputs without introducing a Python-side provider wrapper in
   `skill_pipeline`
-- [ ] **INFRA-02**: Repo-level extraction and orchestration contracts remain
+- [x] **INFRA-02**: Repo-level extraction and orchestration contracts remain
   agent- and provider-agnostic; provider-specific calling details stay outside
   `skill_pipeline` and repo-truth docs
-- [ ] **INFRA-03**: Prompt composition exposes a reusable static prefix
+- [x] **INFRA-03**: Prompt composition exposes a reusable static prefix
   (system guidance, actor roster, examples) separate from chunk-specific
   content so local-agent tooling can reuse repeated context where supported
 - [ ] **INFRA-04**: Each chronology block carries deterministic metadata: date
   mentions, entity mentions, evidence density score, temporal phase hint
-- [ ] **INFRA-05**: A deterministic prompt composition engine assembles
+- [x] **INFRA-05**: A deterministic prompt composition engine assembles
   extraction prompt packets from annotated blocks, evidence checklist, actor
   roster, and few-shot examples
 - [x] **INFRA-06**: Deterministic runtime dependencies and planning docs are
