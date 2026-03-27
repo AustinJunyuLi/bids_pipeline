@@ -4,6 +4,11 @@ from skill_pipeline.pipeline_models.common import (
     QuoteMatchType,
     SCHEMA_VERSION,
 )
+from skill_pipeline.pipeline_models.prompt import (
+    PromptChunkWindow,
+    PromptPacketArtifact,
+    PromptPacketManifest,
+)
 from skill_pipeline.pipeline_models.raw import RawDiscoveryManifest, RawDocumentRegistry
 from skill_pipeline.pipeline_models.source import (
     ChronologyBlock,
@@ -29,6 +34,9 @@ __all__ = [
     "FilingDiscoveryReport",
     "FrozenDocument",
     "PipelineModel",
+    "PromptChunkWindow",
+    "PromptPacketArtifact",
+    "PromptPacketManifest",
     "QuoteMatchType",
     "RawDiscoveryManifest",
     "RawDocumentRegistry",
