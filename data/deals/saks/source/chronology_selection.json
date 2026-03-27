@@ -1,0 +1,39 @@
+{
+  "schema_version": "2.0.0",
+  "artifact_type": "chronology_selection",
+  "created_at": "2026-03-27T17:50:18.369642Z",
+  "pipeline_version": "0.1.0",
+  "run_id": "skill-b6f57015",
+  "deal_slug": "saks",
+  "document_id": "0001193125-13-390275",
+  "accession_number": "0001193125-13-390275",
+  "filing_type": "UNKNOWN",
+  "selected_candidate": {
+    "document_id": "0001193125-13-390275",
+    "heading_text": "Background of the Merger",
+    "heading_normalized": "Background of the Merger",
+    "start_line": 1109,
+    "end_line": 1348,
+    "score": 4033,
+    "source_methods": [
+      "txt_heading",
+      "txt_search"
+    ],
+    "is_standalone_background": false,
+    "diagnostics": {
+      "line_count": 240,
+      "raw_start_idx": 1108,
+      "raw_end_idx": 1347
+    }
+  },
+  "confidence": "high",
+  "adjudication_basis": "Selected heading on line 1109 using normalized heading matching and narrative scoring; considered 1 viable background-like candidate(s).",
+  "alternative_candidates": [],
+  "review_required": false,
+  "confidence_factors": {
+    "section_length": 240,
+    "score_gap": 4033,
+    "ambiguity_risk": "low",
+    "coverage_assessment": "full"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "schema_version": "2.0.0",
+  "artifact_type": "chronology_selection",
+  "created_at": "2026-03-27T17:56:28.862913Z",
+  "pipeline_version": "0.1.0",
+  "run_id": "skill-f672b989",
+  "deal_slug": "medivation",
+  "document_id": "0001193125-16-696911",
+  "accession_number": "0001193125-16-696911",
+  "filing_type": "UNKNOWN",
+  "selected_candidate": {
+    "document_id": "0001193125-16-696911",
+    "heading_text": "(i)      Background of Offer and Merger",
+    "heading_normalized": "Background of Offer and Merger",
+    "start_line": 640,
+    "end_line": 1201,
+    "score": 4744,
+    "source_methods": [
+      "txt_heading",
+      "txt_search"
+    ],
+    "is_standalone_background": false,
+    "diagnostics": {
+      "line_count": 562,
+      "raw_start_idx": 639,
+      "raw_end_idx": 1200
+    }
+  },
+  "confidence": "high",
+  "adjudication_basis": "Selected heading on line 640 using normalized heading matching and narrative scoring; considered 1 viable background-like candidate(s).",
+  "alternative_candidates": [],
+  "review_required": false,
+  "confidence_factors": {
+    "section_length": 562,
+    "score_gap": 4744,
+    "ambiguity_risk": "low",
+    "coverage_assessment": "full"
+  }
+}

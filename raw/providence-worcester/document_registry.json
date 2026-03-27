@@ -1,0 +1,23 @@
+{
+  "schema_version": "2.0.0",
+  "artifact_type": "raw_document_registry",
+  "created_at": "2026-03-27T17:49:56.171241Z",
+  "pipeline_version": "0.1.0",
+  "run_id": "skill-2b97c3b8",
+  "deal_slug": "providence-worcester",
+  "documents": [
+    {
+      "document_id": "0001193125-16-713780",
+      "accession_number": "0001193125-16-713780",
+      "filing_type": "UNKNOWN",
+      "filing_date": null,
+      "html_path": "raw/providence-worcester/filings/0001193125-16-713780.html",
+      "txt_path": "raw/providence-worcester/filings/0001193125-16-713780.txt",
+      "md_path": null,
+      "sha256_txt": "e9b57608bd204675b1d50b068371b9260a03a59a665e7c49e38806cc90b0b372",
+      "sha256_html": "7ad51f0c410ee699caa0f6acce67a2b9fb703e94069c603cbf27284aee3ce0de",
+      "byte_count_txt": 603914,
+      "fetched_at": "2026-03-27T17:49:56.171211Z"
+    }
+  ]
+}

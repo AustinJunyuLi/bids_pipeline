@@ -1,0 +1,23 @@
+{
+  "schema_version": "2.0.0",
+  "artifact_type": "raw_document_registry",
+  "created_at": "2026-03-27T17:49:31.288523Z",
+  "pipeline_version": "0.1.0",
+  "run_id": "skill-b5a99054",
+  "deal_slug": "imprivata",
+  "documents": [
+    {
+      "document_id": "0001193125-16-677939",
+      "accession_number": "0001193125-16-677939",
+      "filing_type": "UNKNOWN",
+      "filing_date": null,
+      "html_path": "raw/imprivata/filings/0001193125-16-677939.html",
+      "txt_path": "raw/imprivata/filings/0001193125-16-677939.txt",
+      "md_path": null,
+      "sha256_txt": "72efeeb7a83e556d13e09235ce01a009f9704d93f938918059555018f98b29c3",
+      "sha256_html": "2f1802ffb8d265cbe674264edfcd62d841ef0044397483e0be70ac8220473f65",
+      "byte_count_txt": 687327,
+      "fetched_at": "2026-03-27T17:49:31.288496Z"
+    }
+  ]
+}
