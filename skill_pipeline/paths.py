@@ -20,6 +20,7 @@ def build_skill_paths(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> S
     enrich_dir = skill_root / "enrich"
     export_dir = skill_root / "export"
     canonicalize_dir = skill_root / "canonicalize"
+    prompt_dir = skill_root / "prompt"
     return SkillPathSet(
         project_root=project_root,
         data_dir=data_dir,
@@ -52,6 +53,9 @@ def build_skill_paths(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> S
         deal_events_path=export_dir / "deal_events.csv",
         canonicalize_dir=canonicalize_dir,
         canonicalize_log_path=canonicalize_dir / "canonicalize_log.json",
+        prompt_dir=prompt_dir,
+        prompt_packets_dir=prompt_dir / "packets",
+        prompt_manifest_path=prompt_dir / "manifest.json",
     )
 
 
@@ -63,6 +67,8 @@ def ensure_output_directories(paths: SkillPathSet) -> None:
     paths.enrich_dir.mkdir(parents=True, exist_ok=True)
     paths.export_dir.mkdir(parents=True, exist_ok=True)
     paths.canonicalize_dir.mkdir(parents=True, exist_ok=True)
+    paths.prompt_dir.mkdir(parents=True, exist_ok=True)
+    paths.prompt_packets_dir.mkdir(parents=True, exist_ok=True)
 
 
 def missing_required_inputs(paths: SkillPathSet) -> list[Path]:

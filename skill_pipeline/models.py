@@ -53,6 +53,9 @@ class SkillPathSet(SkillModel):
     deal_events_path: Path
     canonicalize_dir: Path
     canonicalize_log_path: Path
+    prompt_dir: Path
+    prompt_packets_dir: Path
+    prompt_manifest_path: Path
 
 
 class SeedEntry(SkillModel):

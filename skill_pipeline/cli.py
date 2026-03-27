@@ -8,6 +8,7 @@ from typing import Sequence
 from uuid import uuid4
 
 from skill_pipeline.canonicalize import run_canonicalize
+from skill_pipeline.compose_prompts import run_compose_prompts
 from skill_pipeline.check import run_check
 from skill_pipeline.config import PROJECT_ROOT, RAW_DIR, SKILL_PIPELINE_VERSION
 from skill_pipeline.coverage import run_coverage
@@ -159,6 +160,30 @@ def build_parser() -> argparse.ArgumentParser:
         help=argparse.SUPPRESS,
     )
 
+    compose_prompts_parser = subparsers.add_parser(
+        "compose-prompts",
+        help="Compose deterministic prompt packets from source artifacts.",
+    )
+    compose_prompts_parser.add_argument("--deal", required=True)
+    compose_prompts_parser.add_argument(
+        "--mode",
+        choices=["actors", "events", "all"],
+        default="all",
+        help="Which packet families to compose (default: all).",
+    )
+    compose_prompts_parser.add_argument(
+        "--chunk-budget",
+        type=int,
+        default=6000,
+        help="Target token budget per chunk window (default: 6000).",
+    )
+    compose_prompts_parser.add_argument(
+        "--project-root",
+        type=Path,
+        default=PROJECT_ROOT,
+        help=argparse.SUPPRESS,
+    )
+
     return parser
 
 
@@ -216,6 +241,15 @@ def main(argv: Sequence[str] | None = None) -> int:
         return run_enrich_core(args.deal, project_root=args.project_root)
     if args.command == "canonicalize":
         return run_canonicalize(args.deal, project_root=args.project_root)
+    if args.command == "compose-prompts":
+        manifest = run_compose_prompts(
+            args.deal,
+            project_root=args.project_root,
+            mode=args.mode,
+            chunk_budget=args.chunk_budget,
+        )
+        print(manifest.model_dump_json(indent=2))
+        return 0
     parser.print_help()
     return 1
 
