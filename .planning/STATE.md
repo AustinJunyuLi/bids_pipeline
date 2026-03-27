@@ -1,11 +1,11 @@
 # Project State
 
 ## Current Phase
-Phase 1: Foundation + Annotation — planned, ready for execution
+Phase 1: Foundation + Annotation — executing (plan 02 of 03 complete)
 
 ## Last Session
-- **Stopped at:** Phase 1 planned
-- **Resume file:** `.planning/phases/01-foundation-annotation/01-01-PLAN.md`
+- **Stopped at:** Completed 01-02-PLAN.md (runtime contract hardening)
+- **Resume file:** `.planning/phases/01-foundation-annotation/01-03-PLAN.md`
 - **Date:** 2026-03-27
 
 ## Progress
@@ -24,8 +24,11 @@ Phase 1: Foundation + Annotation — planned, ready for execution
 - INFRA-01/02 moved from Phase 1 to Phase 2 (skill-level changes)
 - Annotation extends preprocess-source, not a separate command
 - Block metadata: parsed dates, seed-based entities, evidence density, hybrid temporal phase
+- Removed anthropic>=0.49 from manifests -- no live import in skill_pipeline or tests
+- Capped edgartools below 6.0 to guard against breaking API changes
+- Kept openpyxl>=3.1 -- live workflow audit not performed
 
 ## Session Continuity
-- **Last session:** 2026-03-27 16:08:00 +00:00
-- **Stopped at:** Phase 1 plan set created with research, validation, and three execution plans
-- **Resume file:** `.planning/phases/01-foundation-annotation/01-01-PLAN.md`
+- **Last session:** 2026-03-27T16:27:02Z
+- **Stopped at:** Completed 01-02-PLAN.md (runtime contract hardening)
+- **Resume file:** `.planning/phases/01-foundation-annotation/01-03-PLAN.md`
