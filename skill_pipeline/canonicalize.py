@@ -1,4 +1,4 @@
-"""Deterministic canonicalization: schema upgrade, dedup, NDA-gate, unnamed-party recovery."""
+"""Deterministic canonicalization: schema upgrade, dedup, NDA-gate, count-gap audit."""
 
 from __future__ import annotations
 
@@ -7,9 +7,8 @@ from collections import defaultdict
 from pathlib import Path
 
 from skill_pipeline.config import PROJECT_ROOT
+from skill_pipeline.extract_artifacts import load_extract_artifacts
 from skill_pipeline.models import (
-    RawSkillActorsArtifact,
-    RawSkillEventsArtifact,
     ResolvedDate,
     SkillActorsArtifact,
     SkillEventsArtifact,
@@ -17,7 +16,6 @@ from skill_pipeline.models import (
 )
 from skill_pipeline.normalize.dates import parse_resolved_date
 from skill_pipeline.paths import build_skill_paths, ensure_output_directories
-from skill_pipeline.pipeline_models.common import DatePrecision
 from skill_pipeline.pipeline_models.source import ChronologyBlock, EvidenceItem
 from skill_pipeline.provenance import resolve_text_span
 
@@ -71,13 +69,6 @@ def _normalize_date(date_payload: dict) -> str:
         if value:
             return str(value)
     return ""
-
-
-def _canonical_unknown_date() -> dict:
-    return ResolvedDate(
-        raw_text="unknown",
-        precision=DatePrecision.UNKNOWN,
-    ).model_dump(mode="json")
 
 
 def _convert_raw_date(
@@ -359,25 +350,35 @@ def _event_semantics_key(event: dict) -> str:
 
 
 def _gate_drops_by_nda(events: list[dict]) -> tuple[list[dict], list[dict]]:
-    nda_actors: set[str] = set()
-    for event in events:
-        if event["event_type"] == "nda":
-            nda_actors.update(event.get("actor_ids", []))
-
     kept: list[dict] = []
     gate_log: list[dict] = []
+    bidder_states: dict[str, str] = {}
     for event in events:
+        if event["event_type"] == "restarted":
+            bidder_states.clear()
+            kept.append(event)
+            continue
+        if event["event_type"] == "nda":
+            for actor_id in event.get("actor_ids", []):
+                bidder_states[actor_id] = "nda"
+            kept.append(event)
+            continue
         if event["event_type"] == "drop":
             drop_actors = set(event.get("actor_ids", []))
-            if not drop_actors or not drop_actors.issubset(nda_actors):
-                missing = drop_actors - nda_actors if drop_actors else {"(empty)"}
+            invalid = {
+                actor_id for actor_id in drop_actors if bidder_states.get(actor_id) != "nda"
+            }
+            if not drop_actors or invalid:
+                missing = invalid if drop_actors else {"(empty)"}
                 gate_log.append(
                     {
                         "removed_event_id": event["event_id"],
-                        "reason": f"Drop actor(s) {missing} have no prior NDA.",
+                        "reason": f"Drop actor(s) {missing} have no prior NDA in the current cycle.",
                     }
                 )
                 continue
+            for actor_id in drop_actors:
+                bidder_states[actor_id] = "drop"
         kept.append(event)
     return kept, gate_log
 
@@ -393,11 +394,10 @@ def _recover_unnamed_parties(
     events: list[dict],
 ) -> tuple[dict, list[dict], list[dict]]:
     recovery_log: list[dict] = []
-    new_events: list[dict] = []
 
     nda_actor_ids: set[str] = set()
     for event in events:
-        if event["event_type"] == "nda":
+        if event["event_type"] == "nda" and event.get("evidence_span_ids"):
             nda_actors = event.get("actor_ids", [])
             nda_actor_ids.update(nda_actors)
 
@@ -413,6 +413,7 @@ def _recover_unnamed_parties(
             for actor in actors_dict["actors"]
             if actor.get("bidder_kind") == kind
             and actor["role"] == "bidder"
+            and actor.get("evidence_span_ids")
             and actor["actor_id"] in nda_actor_ids
         )
         gap = asserted_count - actual_count
@@ -425,88 +426,19 @@ def _recover_unnamed_parties(
             if kind in mention.lower()
             and ("sponsor" in mention.lower() or "buyer" in mention.lower() or "bidder" in mention.lower())
         ]
-        if not matching_mentions:
-            continue
-
-        for index in range(min(gap, len(matching_mentions))):
-            placeholder_id = f"placeholder_{kind}_{index + 1}"
-            mention = matching_mentions[index]
-            has_drop = "declined" in mention.lower() or "dropped" in mention.lower()
-
-            placeholder_actor = {
-                "actor_id": placeholder_id,
-                "display_name": f"Another {kind} sponsor",
-                "canonical_name": f"ANOTHER {kind.upper()} SPONSOR",
-                "aliases": [],
-                "role": "bidder",
-                "advisor_kind": None,
-                "advised_actor_id": None,
-                "bidder_kind": kind,
-                "listing_status": "private",
-                "geography": "domestic",
-                "is_grouped": False,
-                "group_size": None,
-                "group_label": None,
-                "evidence_span_ids": [],
-                "notes": [f"Synthesized from unresolved_mention: {mention}"],
+        recovery_log.append(
+            {
+                "kind": kind,
+                "subject": subject,
+                "asserted_count": asserted_count,
+                "grounded_count": actual_count,
+                "gap": gap,
+                "status": "blocked_unresolved_gap",
+                "candidate_mentions": matching_mentions,
             }
-            actors_dict["actors"].append(placeholder_actor)
+        )
 
-            nda_event = {
-                "event_id": f"{placeholder_id}_nda",
-                "event_type": "nda",
-                "date": _canonical_unknown_date(),
-                "actor_ids": [placeholder_id],
-                "summary": f"Placeholder NDA for {placeholder_id}.",
-                "evidence_span_ids": [],
-                "terms": None,
-                "formality_signals": None,
-                "whole_company_scope": None,
-                "drop_reason_text": None,
-                "round_scope": None,
-                "invited_actor_ids": [],
-                "deadline_date": None,
-                "executed_with_actor_id": None,
-                "boundary_note": None,
-                "nda_signed": True,
-                "notes": ["Synthesized from count_assertion gap."],
-            }
-            new_events.append(nda_event)
-
-            created_event_ids = [nda_event["event_id"]]
-            if has_drop:
-                drop_event = {
-                    "event_id": f"{placeholder_id}_drop",
-                    "event_type": "drop",
-                    "date": _canonical_unknown_date(),
-                    "actor_ids": [placeholder_id],
-                    "summary": f"Placeholder drop: {mention}",
-                    "evidence_span_ids": [],
-                    "terms": None,
-                    "formality_signals": None,
-                    "whole_company_scope": None,
-                    "drop_reason_text": mention,
-                    "round_scope": None,
-                    "invited_actor_ids": [],
-                    "deadline_date": None,
-                    "executed_with_actor_id": None,
-                    "boundary_note": None,
-                    "nda_signed": None,
-                    "notes": ["Synthesized from count_assertion gap."],
-                }
-                new_events.append(drop_event)
-                created_event_ids.append(drop_event["event_id"])
-
-            recovery_log.append(
-                {
-                    "placeholder_id": placeholder_id,
-                    "kind": kind,
-                    "source_mention": mention,
-                    "events_created": created_event_ids,
-                }
-            )
-
-    return actors_dict, new_events, recovery_log
+    return actors_dict, [], recovery_log
 
 
 def run_canonicalize(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> int:
@@ -524,40 +456,39 @@ def run_canonicalize(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> in
     if not paths.document_registry_path.exists():
         raise FileNotFoundError(f"Missing required input: {paths.document_registry_path}")
 
-    raw_actors = RawSkillActorsArtifact.model_validate(
-        json.loads(paths.actors_raw_path.read_text(encoding="utf-8"))
-    )
-    raw_events = RawSkillEventsArtifact.model_validate(
-        json.loads(paths.events_raw_path.read_text(encoding="utf-8"))
-    )
+    loaded = load_extract_artifacts(paths)
+    if loaded.mode == "legacy":
+        blocks = _load_chronology_blocks(paths.chronology_blocks_path)
+        evidence_items = _load_evidence_items(paths.evidence_items_path)
+        document_lines = _load_document_lines(paths.raw_root / deal_slug / "filings")
+        document_meta = _load_document_registry(paths.document_registry_path)
+        blocks_by_id = {block.block_id: block for block in blocks}
+        evidence_by_id = {item.evidence_id: item for item in evidence_items}
 
-    blocks = _load_chronology_blocks(paths.chronology_blocks_path)
-    evidence_items = _load_evidence_items(paths.evidence_items_path)
-    document_lines = _load_document_lines(paths.raw_root / deal_slug / "filings")
-    document_meta = _load_document_registry(paths.document_registry_path)
-    blocks_by_id = {block.block_id: block for block in blocks}
-    evidence_by_id = {item.evidence_id: item for item in evidence_items}
-
-    spans: list[dict] = []
-    span_id_by_key: dict[tuple[str | None, str | None, str], str] = {}
-    actors_dict = _upgrade_raw_actors(
-        raw_actors,
-        blocks_by_id=blocks_by_id,
-        evidence_by_id=evidence_by_id,
-        document_lines=document_lines,
-        document_meta=document_meta,
-        span_id_by_key=span_id_by_key,
-        spans=spans,
-    )
-    events_dict = _upgrade_raw_events(
-        raw_events,
-        blocks_by_id=blocks_by_id,
-        evidence_by_id=evidence_by_id,
-        document_lines=document_lines,
-        document_meta=document_meta,
-        span_id_by_key=span_id_by_key,
-        spans=spans,
-    )
+        spans: list[dict] = []
+        span_id_by_key: dict[tuple[str | None, str | None, str], str] = {}
+        actors_dict = _upgrade_raw_actors(
+            loaded.raw_actors,
+            blocks_by_id=blocks_by_id,
+            evidence_by_id=evidence_by_id,
+            document_lines=document_lines,
+            document_meta=document_meta,
+            span_id_by_key=span_id_by_key,
+            spans=spans,
+        )
+        events_dict = _upgrade_raw_events(
+            loaded.raw_events,
+            blocks_by_id=blocks_by_id,
+            evidence_by_id=evidence_by_id,
+            document_lines=document_lines,
+            document_meta=document_meta,
+            span_id_by_key=span_id_by_key,
+            spans=spans,
+        )
+    else:
+        actors_dict = loaded.actors.model_dump(mode="json")
+        events_dict = loaded.events.model_dump(mode="json")
+        spans = loaded.spans.model_dump(mode="json")["spans"]
 
     events = events_dict["events"]
     log: dict = {"dedup_log": {}, "nda_gate_log": [], "recovery_log": []}

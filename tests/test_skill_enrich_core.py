@@ -520,6 +520,68 @@ def test_formal_boundary_when_formal_proposal_in_cycle(tmp_path: Path) -> None:
     assert "evt_003" in artifact["formal_boundary"]["cycle_1"]["basis"]
 
 
+def test_round_pairing_does_not_cross_restart_boundary(tmp_path: Path) -> None:
+    events = [
+        _base_event("evt_001", "target_sale", evidence_refs=[{"block_id": "B001", "evidence_id": None, "anchor_text": "sale"}]),
+        _base_event("evt_002", "nda", actor_ids=["party_a"], evidence_refs=[{"block_id": "B002", "evidence_id": None, "anchor_text": "NDA"}]),
+        _base_event("evt_003", "final_round_ann", evidence_refs=[{"block_id": "B010", "evidence_id": None, "anchor_text": "final round"}]),
+        _base_event("evt_004", "restarted", evidence_refs=[{"block_id": "B011", "evidence_id": None, "anchor_text": "restarted"}]),
+        _base_event("evt_005", "final_round", evidence_refs=[{"block_id": "B012", "evidence_id": None, "anchor_text": "deadline"}]),
+    ]
+    _write_enrich_core_fixture(tmp_path, events_override=events)
+    _write_gate_artifacts(tmp_path)
+    run_enrich_core("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    artifact = json.loads(paths.deterministic_enrichment_path.read_text(encoding="utf-8"))
+
+    rounds_by_ann = {round_record["announcement_event_id"]: round_record for round_record in artifact["rounds"]}
+    assert rounds_by_ann["evt_003"]["deadline_event_id"] is None
+
+
+def test_round_pairing_stops_at_next_same_family_announcement(tmp_path: Path) -> None:
+    events = [
+        _base_event("evt_001", "target_sale", evidence_refs=[{"block_id": "B001", "evidence_id": None, "anchor_text": "sale"}]),
+        _base_event("evt_002", "nda", actor_ids=["party_a"], evidence_refs=[{"block_id": "B002", "evidence_id": None, "anchor_text": "NDA"}]),
+        _base_event("evt_003", "final_round_ann", evidence_refs=[{"block_id": "B010", "evidence_id": None, "anchor_text": "first announcement"}]),
+        _base_event("evt_004", "final_round_ann", evidence_refs=[{"block_id": "B020", "evidence_id": None, "anchor_text": "second announcement"}]),
+        _base_event("evt_005", "final_round", evidence_refs=[{"block_id": "B030", "evidence_id": None, "anchor_text": "deadline one"}]),
+        _base_event("evt_006", "final_round", evidence_refs=[{"block_id": "B040", "evidence_id": None, "anchor_text": "deadline two"}]),
+    ]
+    _write_enrich_core_fixture(tmp_path, events_override=events)
+    _write_gate_artifacts(tmp_path)
+    run_enrich_core("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    artifact = json.loads(paths.deterministic_enrichment_path.read_text(encoding="utf-8"))
+
+    rounds_by_ann = {round_record["announcement_event_id"]: round_record for round_record in artifact["rounds"]}
+    assert rounds_by_ann["evt_003"]["deadline_event_id"] is None
+    assert rounds_by_ann["evt_004"]["deadline_event_id"] == "evt_005"
+
+
+def test_active_bidders_use_cycle_local_state_and_restart_resets(tmp_path: Path) -> None:
+    events = [
+        _base_event("evt_001", "target_sale", evidence_refs=[{"block_id": "B001", "evidence_id": None, "anchor_text": "sale"}]),
+        _base_event("evt_002", "nda", actor_ids=["party_a"], evidence_refs=[{"block_id": "B002", "evidence_id": None, "anchor_text": "NDA"}]),
+        _base_event("evt_003", "drop", actor_ids=["party_a"], evidence_refs=[{"block_id": "B003", "evidence_id": None, "anchor_text": "drop"}]),
+        _base_event("evt_004", "final_round_ann", evidence_refs=[{"block_id": "B010", "evidence_id": None, "anchor_text": "round one"}]),
+        _base_event("evt_005", "nda", actor_ids=["party_a"], evidence_refs=[{"block_id": "B011", "evidence_id": None, "anchor_text": "NDA again"}]),
+        _base_event("evt_006", "final_round_ann", evidence_refs=[{"block_id": "B012", "evidence_id": None, "anchor_text": "round two"}]),
+        _base_event("evt_007", "restarted", evidence_refs=[{"block_id": "B020", "evidence_id": None, "anchor_text": "restarted"}]),
+        _base_event("evt_008", "final_round_ann", evidence_refs=[{"block_id": "B021", "evidence_id": None, "anchor_text": "round three"}]),
+        _base_event("evt_009", "final_round", evidence_refs=[{"block_id": "B022", "evidence_id": None, "anchor_text": "deadline"}]),
+    ]
+    _write_enrich_core_fixture(tmp_path, events_override=events)
+    _write_gate_artifacts(tmp_path)
+    run_enrich_core("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    artifact = json.loads(paths.deterministic_enrichment_path.read_text(encoding="utf-8"))
+
+    rounds_by_ann = {round_record["announcement_event_id"]: round_record for round_record in artifact["rounds"]}
+    assert rounds_by_ann["evt_004"]["active_bidders_at_time"] == 0
+    assert rounds_by_ann["evt_006"]["active_bidders_at_time"] == 1
+    assert rounds_by_ann["evt_008"]["active_bidders_at_time"] == 0
+
+
 def test_invited_actor_ids_populated_from_count_assertions(tmp_path: Path) -> None:
     """count_assertion with final_round_invitees populates invited_actor_ids on round ann."""
     slug = "imprivata"
@@ -619,13 +681,13 @@ def test_invited_actor_ids_populated_from_count_assertions(tmp_path: Path) -> No
     }
 
     events = [
-        _base_event("evt_001", "target_sale"),
-        _base_event("evt_002", "nda", actor_ids=["bidder_a"]),
-        _base_event("evt_003", "nda", actor_ids=["bidder_b"]),
-        _base_event("evt_004", "nda", actor_ids=["bidder_c"]),
-        _base_event("evt_005", "final_round_ann", invited_actor_ids=[]),
-        _base_event("evt_006", "final_round"),
-        _base_event("evt_007", "executed", executed_with_actor_id="bidder_c"),
+        _base_event("evt_001", "target_sale", evidence_refs=[{"block_id": "B010", "evidence_id": None, "anchor_text": "sale"}]),
+        _base_event("evt_002", "nda", actor_ids=["bidder_a"], evidence_refs=[{"block_id": "B020", "evidence_id": None, "anchor_text": "nda a"}]),
+        _base_event("evt_003", "nda", actor_ids=["bidder_b"], evidence_refs=[{"block_id": "B030", "evidence_id": None, "anchor_text": "nda b"}]),
+        _base_event("evt_004", "nda", actor_ids=["bidder_c"], evidence_refs=[{"block_id": "B040", "evidence_id": None, "anchor_text": "nda c"}]),
+        _base_event("evt_005", "final_round_ann", invited_actor_ids=[], evidence_refs=[{"block_id": "B075", "evidence_id": None, "anchor_text": "final round announcement"}]),
+        _base_event("evt_006", "final_round", evidence_refs=[{"block_id": "B080", "evidence_id": None, "anchor_text": "final round deadline"}]),
+        _base_event("evt_007", "executed", executed_with_actor_id="bidder_c", evidence_refs=[{"block_id": "B090", "evidence_id": None, "anchor_text": "executed"}]),
     ]
     events_payload = {"events": events, "exclusions": [], "coverage_notes": []}
 
@@ -641,6 +703,162 @@ def test_invited_actor_ids_populated_from_count_assertions(tmp_path: Path) -> No
     formal_round = artifact["rounds"][0]
     assert set(formal_round["invited_actor_ids"]) == {"bidder_b", "bidder_c"}
     assert formal_round["is_selective"] is True
+
+
+def test_invited_actor_ids_attach_to_nearest_round_announcement_in_cycle_by_evidence_position(
+    tmp_path: Path,
+) -> None:
+    slug = "imprivata"
+    data_dir = tmp_path / "data"
+    deals_source_dir = data_dir / "deals" / slug / "source"
+    extract_dir = data_dir / "skill" / slug / "extract"
+    deals_source_dir.mkdir(parents=True, exist_ok=True)
+    extract_dir.mkdir(parents=True, exist_ok=True)
+
+    (data_dir / "seeds.csv").write_text(
+        "deal_slug,target_name,acquirer,date_announced,primary_url,is_reference\n"
+        f"{slug},IMPRIVATA INC,THOMA BRAVO LLC,2016-07-13,https://example.com,false\n",
+        encoding="utf-8",
+    )
+    (deals_source_dir / "chronology_blocks.jsonl").write_text(
+        json.dumps({
+            "block_id": "B001", "document_id": "DOC001", "ordinal": 1,
+            "start_line": 1, "end_line": 1, "raw_text": "x", "clean_text": "x",
+            "is_heading": False, "page_break_before": False, "page_break_after": False,
+            "date_mentions": [], "entity_mentions": [], "evidence_density": 0,
+            "temporal_phase": "other",
+        }) + "\n",
+        encoding="utf-8",
+    )
+    (deals_source_dir / "evidence_items.jsonl").write_text("", encoding="utf-8")
+    (tmp_path / "raw" / slug).mkdir(parents=True, exist_ok=True)
+    (tmp_path / "raw" / slug / "document_registry.json").write_text("{}", encoding="utf-8")
+
+    actors_payload = {
+        "actors": [
+            {
+                "actor_id": "bidder_a",
+                "display_name": "Sponsor A",
+                "canonical_name": "SPONSOR A",
+                "aliases": [],
+                "role": "bidder",
+                "advisor_kind": None,
+                "advised_actor_id": None,
+                "bidder_kind": "financial",
+                "listing_status": "private",
+                "geography": "domestic",
+                "is_grouped": False,
+                "group_size": None,
+                "group_label": None,
+                "evidence_refs": [{"block_id": "B001", "evidence_id": None, "anchor_text": "x"}],
+                "notes": [],
+            },
+            {
+                "actor_id": "bidder_b",
+                "display_name": "Sponsor B",
+                "canonical_name": "SPONSOR B",
+                "aliases": [],
+                "role": "bidder",
+                "advisor_kind": None,
+                "advised_actor_id": None,
+                "bidder_kind": "financial",
+                "listing_status": "private",
+                "geography": "domestic",
+                "is_grouped": False,
+                "group_size": None,
+                "group_label": None,
+                "evidence_refs": [{"block_id": "B001", "evidence_id": None, "anchor_text": "x"}],
+                "notes": [],
+            },
+            {
+                "actor_id": "bidder_c",
+                "display_name": "Thoma Bravo",
+                "canonical_name": "THOMA BRAVO",
+                "aliases": ["TB"],
+                "role": "bidder",
+                "advisor_kind": None,
+                "advised_actor_id": None,
+                "bidder_kind": "financial",
+                "listing_status": "private",
+                "geography": "domestic",
+                "is_grouped": False,
+                "group_size": None,
+                "group_label": None,
+                "evidence_refs": [{"block_id": "B001", "evidence_id": None, "anchor_text": "x"}],
+                "notes": [],
+            },
+        ],
+        "count_assertions": [
+            {
+                "subject": "final_round_invitees",
+                "count": 2,
+                "evidence_refs": [
+                    {
+                        "block_id": "B018",
+                        "evidence_id": None,
+                        "anchor_text": "Sponsor B and Thoma Bravo were invited to submit final bids",
+                    }
+                ],
+            },
+            {
+                "subject": "final_round_invitees",
+                "count": 2,
+                "evidence_refs": [
+                    {
+                        "block_id": "B011",
+                        "evidence_id": None,
+                        "anchor_text": "Unknown Corp and Mystery LLC were invited",
+                    }
+                ],
+            },
+        ],
+        "unresolved_mentions": [],
+    }
+
+    events = [
+        _base_event(
+            "evt_001",
+            "target_sale",
+            evidence_refs=[{"block_id": "B001", "evidence_id": None, "anchor_text": "sale"}],
+        ),
+        _base_event(
+            "evt_002",
+            "nda",
+            actor_ids=["bidder_a", "bidder_b", "bidder_c"],
+            evidence_refs=[{"block_id": "B005", "evidence_id": None, "anchor_text": "NDA"}],
+        ),
+        _base_event(
+            "evt_003",
+            "final_round_ann",
+            invited_actor_ids=[],
+            evidence_refs=[{"block_id": "B010", "evidence_id": None, "anchor_text": "announcement one"}],
+        ),
+        _base_event(
+            "evt_004",
+            "final_round_ann",
+            invited_actor_ids=[],
+            evidence_refs=[{"block_id": "B020", "evidence_id": None, "anchor_text": "announcement two"}],
+        ),
+        _base_event(
+            "evt_005",
+            "final_round",
+            evidence_refs=[{"block_id": "B030", "evidence_id": None, "anchor_text": "deadline"}],
+        ),
+    ]
+    events_payload = {"events": events, "exclusions": [], "coverage_notes": []}
+
+    (extract_dir / "actors_raw.json").write_text(json.dumps(actors_payload), encoding="utf-8")
+    (extract_dir / "events_raw.json").write_text(json.dumps(events_payload), encoding="utf-8")
+
+    _write_gate_artifacts(tmp_path, slug=slug)
+    run_enrich_core(slug, project_root=tmp_path)
+    paths = build_skill_paths(slug, project_root=tmp_path)
+    artifact = json.loads(paths.deterministic_enrichment_path.read_text(encoding="utf-8"))
+
+    rounds_by_ann = {round_record["announcement_event_id"]: round_record for round_record in artifact["rounds"]}
+    assert rounds_by_ann["evt_003"]["invited_actor_ids"] == []
+    assert set(rounds_by_ann["evt_004"]["invited_actor_ids"]) == {"bidder_b", "bidder_c"}
+    assert rounds_by_ann["evt_004"]["is_selective"] is True
 
 
 def test_invited_population_graceful_on_unmatched_names(tmp_path: Path) -> None:

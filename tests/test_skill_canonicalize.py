@@ -193,10 +193,10 @@ def test_dedup_preserves_different_actors(tmp_path: Path) -> None:
     assert len(result["events"]) == 2
 
 
-def test_nda_gate_removes_drop_without_prior_nda(tmp_path: Path) -> None:
+def test_nda_gate_removes_drop_before_later_nda(tmp_path: Path) -> None:
     events = [
-        _evt("evt_001", "nda", actor_ids=["bidder_a"]),
-        _evt("evt_002", "drop", actor_ids=["bidder_b"], date="2016-06-03"),
+        _evt("evt_001", "drop", actor_ids=["bidder_b"], date="2016-06-03"),
+        _evt("evt_002", "nda", actor_ids=["bidder_b"]),
         _evt("evt_003", "executed", actor_ids=["bidder_a"], date="2016-07-13"),
     ]
     _write_canon_fixture(tmp_path, events=events)
@@ -205,7 +205,26 @@ def test_nda_gate_removes_drop_without_prior_nda(tmp_path: Path) -> None:
     result = json.loads(paths.events_raw_path.read_text(encoding="utf-8"))
 
     assert len(result["events"]) == 2
-    assert not any(e["event_id"] == "evt_002" for e in result["events"])
+    assert not any(e["event_id"] == "evt_001" for e in result["events"])
+
+
+def test_nda_gate_resets_on_restarted(tmp_path: Path) -> None:
+    events = [
+        _evt("evt_001", "nda", actor_ids=["bidder_a"], date="2016-06-01"),
+        _evt("evt_002", "restarted", actor_ids=["bidder_a"], date="2016-06-02"),
+        _evt("evt_003", "drop", actor_ids=["bidder_a"], date="2016-06-03"),
+        _evt("evt_004", "nda", actor_ids=["bidder_a"], date="2016-06-04"),
+        _evt("evt_005", "drop", actor_ids=["bidder_a"], date="2016-06-05"),
+        _evt("evt_006", "executed", actor_ids=["bidder_a"], date="2016-07-13"),
+    ]
+    _write_canon_fixture(tmp_path, events=events)
+    run_canonicalize("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    result = json.loads(paths.events_raw_path.read_text(encoding="utf-8"))
+
+    assert len(result["events"]) == 5
+    assert not any(e["event_id"] == "evt_003" for e in result["events"])
+    assert any(e["event_id"] == "evt_005" for e in result["events"])
 
 
 def test_nda_gate_preserves_drop_with_prior_nda(tmp_path: Path) -> None:
@@ -266,22 +285,17 @@ def test_recover_unnamed_party_from_count_gap(tmp_path: Path) -> None:
     events_result = json.loads(paths.events_raw_path.read_text(encoding="utf-8"))
     log = json.loads(paths.canonicalize_log_path.read_text(encoding="utf-8"))
 
-    # Placeholder actor created
-    assert len(actors_result["actors"]) == 2
-    placeholder = [a for a in actors_result["actors"] if a["actor_id"].startswith("placeholder_")]
-    assert len(placeholder) == 1
-    assert placeholder[0]["bidder_kind"] == "financial"
-
-    # Synthetic NDA and Drop events created
-    assert any(
-        e["event_type"] == "nda" and placeholder[0]["actor_id"] in e["actor_ids"]
-        for e in events_result["events"]
-    )
-    assert any(
-        e["event_type"] == "drop" and placeholder[0]["actor_id"] in e["actor_ids"]
-        for e in events_result["events"]
-    )
+    assert len(actors_result["actors"]) == 1
+    assert not any(a["actor_id"].startswith("placeholder_") for a in actors_result["actors"])
+    assert len(events_result["events"]) == 2
+    assert not any(e["event_id"].startswith("placeholder_") for e in events_result["events"])
     assert len(log["recovery_log"]) == 1
+    gap_entry = log["recovery_log"][0]
+    assert gap_entry["status"] == "blocked_unresolved_gap"
+    assert gap_entry["gap"] == 1
+    assert gap_entry["candidate_mentions"] == [
+        "One financial sponsor executed a confidentiality agreement but declined interest shortly thereafter."
+    ]
 
 
 def test_recover_unnamed_party_fail_closed_no_unresolved_mention(tmp_path: Path) -> None:
@@ -521,3 +535,42 @@ def test_load_extract_artifacts_requires_spans_for_canonical_payloads(tmp_path: 
 
     with pytest.raises(FileNotFoundError, match="spans"):
         load_extract_artifacts(paths)
+
+
+def test_canonicalize_is_idempotent_on_existing_canonical_extract(tmp_path: Path) -> None:
+    events = [
+        _evt("evt_001", "drop", actor_ids=["bidder_a"], block_id="B064"),
+        _evt("evt_002", "nda", actor_ids=["bidder_a"], block_id="B065"),
+        _evt("evt_003", "executed", actor_ids=["bidder_a"], date="2016-07-13", block_id="B066"),
+    ]
+    actors_payload = {
+        "actors": [
+            {
+                "actor_id": "bidder_a",
+                "display_name": "Bidder A",
+                "canonical_name": "BIDDER A",
+                "aliases": [],
+                "role": "bidder",
+                "advisor_kind": None,
+                "advised_actor_id": None,
+                "bidder_kind": "financial",
+                "listing_status": "private",
+                "geography": "domestic",
+                "is_grouped": False,
+                "group_size": None,
+                "group_label": None,
+                "evidence_refs": [{"block_id": "B064", "evidence_id": None, "anchor_text": "Bidder A"}],
+                "notes": [],
+            },
+        ],
+        "count_assertions": [],
+        "unresolved_mentions": [],
+    }
+    _write_canon_fixture(tmp_path, actors_payload=actors_payload, events=events)
+
+    run_canonicalize("imprivata", project_root=tmp_path)
+    run_canonicalize("imprivata", project_root=tmp_path)
+
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    result = json.loads(paths.events_raw_path.read_text(encoding="utf-8"))
+    assert [event["event_id"] for event in result["events"]] == ["evt_002", "evt_003"]

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 
 from skill_pipeline.config import PROJECT_ROOT
@@ -65,48 +66,146 @@ def _require_gate_artifacts(paths) -> None:
         )
 
 
+def _cycle_ranges(events: list[SkillEventRecord]) -> list[tuple[int, int]]:
+    """Return inclusive index ranges for restart-delimited cycles."""
+    if not events:
+        return []
+
+    ranges: list[tuple[int, int]] = []
+    start_idx = 0
+    for idx, evt in enumerate(events):
+        if evt.event_type == "restarted" and idx > 0:
+            ranges.append((start_idx, idx - 1))
+            start_idx = idx
+
+    ranges.append((start_idx, len(events) - 1))
+    return ranges
+
+
+def _event_position_key_from_refs(evidence_refs) -> tuple[str, int] | None:
+    positions: list[tuple[str, int]] = []
+    for ref in evidence_refs or []:
+        for candidate in (ref.block_id, ref.evidence_id):
+            if not candidate:
+                continue
+            match = re.search(r"(\d+)", candidate)
+            if match:
+                positions.append(("legacy", int(match.group(1))))
+                break
+    return min(positions, key=lambda item: item[1]) if positions else None
+
+
+def _event_position_key(evt: SkillEventRecord, artifacts: LoadedExtractArtifacts) -> tuple[str, int] | None:
+    if artifacts.mode == "canonical" and getattr(evt, "evidence_span_ids", None):
+        positions: list[tuple[str, int]] = []
+        for span_id in evt.evidence_span_ids:
+            span = artifacts.span_index.get(span_id)
+            if span is None:
+                continue
+            positions.append((span.document_id, (span.start_line * 1000) + (span.start_char or 0)))
+        return min(positions, key=lambda item: item[1]) if positions else None
+    return _event_position_key_from_refs(getattr(evt, "evidence_refs", None))
+
+
+def _assertion_position_key(ca, artifacts: LoadedExtractArtifacts) -> tuple[str, int] | None:
+    if artifacts.mode == "canonical":
+        positions: list[tuple[str, int]] = []
+        for span_id in ca.evidence_span_ids:
+            span = artifacts.span_index.get(span_id)
+            if span is None:
+                continue
+            positions.append((span.document_id, (span.start_line * 1000) + (span.start_char or 0)))
+        return min(positions, key=lambda item: item[1]) if positions else None
+    return _event_position_key_from_refs(getattr(ca, "evidence_refs", None))
+
+
+def _cycle_position_bounds(
+    events: list[SkillEventRecord],
+    cycle_start: int,
+    cycle_end: int,
+    positions_by_index: dict[int, tuple[str, int] | None],
+    doc_key: str,
+) -> tuple[int, int] | None:
+    positions = [
+        pos[1]
+        for idx, pos in positions_by_index.items()
+        if cycle_start <= idx <= cycle_end and pos is not None and pos[0] == doc_key
+    ]
+    if not positions:
+        return None
+    return min(positions), max(positions)
+
+
+def _active_counts_for_cycle(
+    events: list[SkillEventRecord],
+    cycle_start: int,
+    cycle_end: int,
+    bidder_ids: set[str],
+) -> dict[int, int]:
+    """Track bidder state within one cycle; restart starts a fresh inactive state."""
+    counts: dict[int, int] = {}
+    active_by_bidder = {bid: False for bid in bidder_ids}
+
+    for idx in range(cycle_start, cycle_end + 1):
+        counts[idx] = sum(active_by_bidder.values())
+        evt = events[idx]
+
+        if evt.event_type == "restarted":
+            active_by_bidder = {bid: False for bid in bidder_ids}
+            continue
+
+        actor_ids = set(evt.actor_ids)
+        if evt.event_type == "nda":
+            for bid in bidder_ids.intersection(actor_ids):
+                active_by_bidder[bid] = True
+        elif evt.event_type == "drop":
+            for bid in bidder_ids.intersection(actor_ids):
+                active_by_bidder[bid] = False
+
+    return counts
+
+
 def _pair_rounds(events: list[SkillEventRecord], actors) -> list[dict]:
-    """Pair round announcements with deadlines. Preserve extension rounds as round_scope='extension'."""
+    """Pair round announcements with deadlines within restart-delimited cycles."""
     rounds: list[dict] = []
     bidder_ids = {a.actor_id for a in actors.actors if a.role == "bidder"}
+    cycle_ranges = _cycle_ranges(events)
+
+    active_counts_by_index: dict[int, int] = {}
+    for cycle_start, cycle_end in cycle_ranges:
+        active_counts_by_index.update(
+            _active_counts_for_cycle(events, cycle_start, cycle_end, bidder_ids)
+        )
 
     for ann_type, deadline_type, scope_override in ROUND_PAIRS:
-        for i, evt in enumerate(events):
-            if evt.event_type != ann_type:
-                continue
-            deadline_id = None
-            for j in range(i + 1, len(events)):
-                if events[j].event_type == deadline_type:
-                    deadline_id = events[j].event_id
-                    break
+        for cycle_start, cycle_end in cycle_ranges:
+            ann_indices = [
+                idx
+                for idx in range(cycle_start, cycle_end + 1)
+                if events[idx].event_type == ann_type
+            ]
+            for pos, idx in enumerate(ann_indices):
+                next_same_family_idx = (
+                    ann_indices[pos + 1] if pos + 1 < len(ann_indices) else cycle_end + 1
+                )
+                deadline_id = None
+                for j in range(idx + 1, next_same_family_idx):
+                    if events[j].event_type == deadline_type:
+                        deadline_id = events[j].event_id
+                        break
 
-            # active_bidders_at_time: actors with NDA and no prior drop before this announcement
-            active = 0
-            for bid in bidder_ids:
-                has_nda = False
-                has_drop = False
-                for k in range(i):
-                    e = events[k]
-                    if e.event_type == "nda" and bid in e.actor_ids:
-                        has_nda = True
-                    if e.event_type == "drop" and bid in e.actor_ids:
-                        has_drop = True
-                if has_nda and not has_drop:
-                    active += 1
+                active = active_counts_by_index.get(idx, 0)
+                invited = events[idx].invited_actor_ids or []
+                is_selective = len(invited) < active and len(invited) > 0
 
-            invited = evt.invited_actor_ids or []
-            is_selective = (
-                len(invited) < active and len(invited) > 0
-            )
-
-            rounds.append({
-                "announcement_event_id": evt.event_id,
-                "deadline_event_id": deadline_id,
-                "round_scope": scope_override,
-                "invited_actor_ids": invited,
-                "active_bidders_at_time": active,
-                "is_selective": is_selective,
-            })
+                rounds.append({
+                    "announcement_event_id": events[idx].event_id,
+                    "deadline_event_id": deadline_id,
+                    "round_scope": scope_override,
+                    "invited_actor_ids": invited,
+                    "active_bidders_at_time": active,
+                    "is_selective": is_selective,
+                })
 
     return rounds
 
@@ -196,8 +295,9 @@ def _segment_cycles(events: list[SkillEventRecord]) -> list[dict]:
     if not events:
         return []
 
+    cycle_ranges = _cycle_ranges(events)
     has_restarted = any(e.event_type == "restarted" for e in events)
-    if not has_restarted:
+    if len(cycle_ranges) == 1 and not has_restarted:
         has_terminated = any(e.event_type == "terminated" for e in events)
         boundary_basis = (
             "Single cycle -- terminated but no restart."
@@ -212,27 +312,13 @@ def _segment_cycles(events: list[SkillEventRecord]) -> list[dict]:
         }]
 
     cycles: list[dict] = []
-    cycle_num = 1
-    start_idx = 0
-
-    for i, evt in enumerate(events):
-        if evt.event_type == "restarted":
-            if i > 0:
-                cycles.append({
-                    "cycle_id": f"cycle_{cycle_num}",
-                    "start_event_id": events[start_idx].event_id,
-                    "end_event_id": events[i - 1].event_id,
-                    "boundary_basis": "Restarted event.",
-                })
-                cycle_num += 1
-            start_idx = i
-
-    if start_idx < len(events):
+    for cycle_num, (start_idx, end_idx) in enumerate(cycle_ranges, start=1):
+        boundary_basis = "Restarted event." if cycle_num < len(cycle_ranges) else "Final cycle."
         cycles.append({
             "cycle_id": f"cycle_{cycle_num}",
             "start_event_id": events[start_idx].event_id,
-            "end_event_id": events[-1].event_id,
-            "boundary_basis": "Final cycle.",
+            "end_event_id": events[end_idx].event_id,
+            "boundary_basis": boundary_basis,
         })
 
     return cycles
@@ -313,6 +399,8 @@ def _populate_invited_from_count_assertions(
 
     # Round announcement event types
     ann_types = {"final_round_ann", "final_round_inf_ann", "final_round_ext_ann"}
+    cycle_ranges = _cycle_ranges(events)
+    event_positions = {idx: _event_position_key(evt, artifacts) for idx, evt in enumerate(events)}
 
     for ca in invitee_assertions:
         # Try to match actor names from anchor text
@@ -335,11 +423,52 @@ def _populate_invited_from_count_assertions(
         if not matched_ids:
             continue
 
-        # Find the best matching round announcement event (with empty invited_actor_ids)
-        for evt in events:
-            if evt.event_type in ann_types and not evt.invited_actor_ids:
-                evt.invited_actor_ids = matched_ids
-                break  # Only populate the first matching empty announcement
+        assertion_position = _assertion_position_key(ca, artifacts)
+        if assertion_position is None:
+            continue
+
+        best_choice: tuple[int, int] | None = None
+        best_idx: int | None = None
+
+        for cycle_start, cycle_end in cycle_ranges:
+            cycle_bounds = _cycle_position_bounds(
+                events,
+                cycle_start,
+                cycle_end,
+                event_positions,
+                assertion_position[0],
+            )
+            if cycle_bounds is None:
+                continue
+
+            cycle_min, cycle_max = cycle_bounds
+            if assertion_position[1] < cycle_min or assertion_position[1] > cycle_max:
+                continue
+
+            candidate_indices: list[tuple[int, int]] = []
+            for idx in range(cycle_start, cycle_end + 1):
+                evt = events[idx]
+                if evt.event_type not in ann_types or evt.invited_actor_ids:
+                    continue
+                evt_position = event_positions.get(idx)
+                if evt_position is None or evt_position[0] != assertion_position[0]:
+                    continue
+                candidate_indices.append((idx, abs(assertion_position[1] - evt_position[1])))
+
+            if not candidate_indices:
+                continue
+
+            candidate_idx, candidate_distance = min(
+                candidate_indices,
+                key=lambda item: (item[1], -item[0]),
+            )
+            choice = (candidate_distance, -candidate_idx)
+            if best_choice is None or choice < best_choice:
+                best_choice = choice
+                best_idx = candidate_idx
+
+        if best_idx is not None:
+            events[best_idx].invited_actor_ids = matched_ids
 
 
 def run_enrich_core(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> int:

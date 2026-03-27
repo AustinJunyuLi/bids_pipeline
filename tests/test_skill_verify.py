@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from skill_pipeline.canonicalize import run_canonicalize
 from skill_pipeline.pipeline_models.common import QuoteMatchType
 from skill_pipeline.paths import build_skill_paths
 from skill_pipeline.verify import _resolve_quote_match, run_verify
@@ -394,6 +395,30 @@ def test_verify_writes_compatible_pass_log_without_llm_repair(tmp_path: Path) ->
     assert log["summary"]["total_checks"] == 9
     assert "round_1" in log
     assert "round_2" in log
+
+
+def test_verify_blocks_canonical_empty_evidence_spans(tmp_path: Path) -> None:
+    _write_verify_fixture_for_clean_pass(tmp_path)
+    run_canonicalize("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+
+    actors_payload = json.loads(paths.actors_raw_path.read_text(encoding="utf-8"))
+    events_payload = json.loads(paths.events_raw_path.read_text(encoding="utf-8"))
+    actors_payload["actors"][0]["evidence_span_ids"] = []
+    events_payload["events"][0]["evidence_span_ids"] = []
+    paths.actors_raw_path.write_text(json.dumps(actors_payload), encoding="utf-8")
+    paths.events_raw_path.write_text(json.dumps(events_payload), encoding="utf-8")
+
+    exit_code = run_verify("imprivata", project_root=tmp_path)
+    findings = _read_findings_list(paths.verification_findings_path)
+
+    assert exit_code == 1
+    assert any(
+        finding["check_type"] == "canonical_evidence_required"
+        and finding["actor_ids"] == ["party_a"]
+        and finding["event_ids"] == ["evt_001"]
+        for finding in findings
+    )
 
 
 def test_verify_reports_missing_actor_reference(tmp_path: Path) -> None:

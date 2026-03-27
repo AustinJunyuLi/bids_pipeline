@@ -27,9 +27,27 @@ def _write_json(path: Path, report: SkillCheckReport) -> None:
     path.write_text(report.model_dump_json(indent=2), encoding="utf-8")
 
 
+def _get_actor_event_records(artifacts: LoadedExtractArtifacts) -> tuple[list, list]:
+    if artifacts.mode == "legacy":
+        return artifacts.raw_actors.actors, artifacts.raw_events.events
+    return artifacts.actors.actors, artifacts.events.events
+
+
+def _actor_has_evidence(artifacts: LoadedExtractArtifacts, actor) -> bool:
+    if artifacts.mode == "legacy":
+        return bool(actor.evidence_refs)
+    return bool(actor.evidence_span_ids)
+
+
+def _event_has_evidence(artifacts: LoadedExtractArtifacts, event) -> bool:
+    if artifacts.mode == "legacy":
+        return bool(event.evidence_refs)
+    return bool(event.evidence_span_ids)
+
+
 def _check_proposal_terms(artifacts: LoadedExtractArtifacts) -> list[CheckFinding]:
     findings: list[CheckFinding] = []
-    events = artifacts.raw_events.events if artifacts.mode == "legacy" else artifacts.events.events
+    _, events = _get_actor_event_records(artifacts)
     for evt in events:
         if evt.event_type != "proposal":
             continue
@@ -47,7 +65,7 @@ def _check_proposal_terms(artifacts: LoadedExtractArtifacts) -> list[CheckFindin
 
 def _check_bidder_kind(artifacts: LoadedExtractArtifacts) -> list[CheckFinding]:
     findings: list[CheckFinding] = []
-    actors = artifacts.raw_actors.actors if artifacts.mode == "legacy" else artifacts.actors.actors
+    actors, _ = _get_actor_event_records(artifacts)
     for actor in actors:
         if actor.role == "bidder" and actor.bidder_kind is None:
             findings.append(
@@ -108,6 +126,80 @@ def _check_empty_anchor_text(artifacts: LoadedExtractArtifacts) -> list[CheckFin
     return findings
 
 
+def _check_canonical_evidence_presence(artifacts: LoadedExtractArtifacts) -> list[CheckFinding]:
+    if artifacts.mode != "canonical":
+        return []
+
+    actor_ids_affected: list[str] = []
+    event_ids_affected: list[str] = []
+
+    for actor in artifacts.actors.actors:
+        if not actor.evidence_span_ids:
+            actor_ids_affected.append(actor.actor_id)
+
+    for evt in artifacts.events.events:
+        if not evt.evidence_span_ids:
+            event_ids_affected.append(evt.event_id)
+
+    if not actor_ids_affected and not event_ids_affected:
+        return []
+
+    return [
+        CheckFinding(
+            check_id="canonical_evidence_required",
+            severity="blocker",
+            description="Canonical actors and events must carry at least one evidence span.",
+            actor_ids=sorted(actor_ids_affected),
+            event_ids=sorted(event_ids_affected),
+        )
+    ]
+
+
+def _check_nda_count_gaps(artifacts: LoadedExtractArtifacts) -> list[CheckFinding]:
+    findings: list[CheckFinding] = []
+    actor_records, event_records = _get_actor_event_records(artifacts)
+    actor_artifact = artifacts.raw_actors if artifacts.mode == "legacy" else artifacts.actors
+
+    nda_actor_ids: set[str] = set()
+    for evt in event_records:
+        if evt.event_type == "nda" and _event_has_evidence(artifacts, evt):
+            nda_actor_ids.update(evt.actor_ids)
+
+    subject_to_kind = {
+        "nda_signed_financial_buyers": "financial",
+        "nda_signed_strategic_buyers": "strategic",
+    }
+    for subject, kind in subject_to_kind.items():
+        assertions = [assertion for assertion in actor_artifact.count_assertions if assertion.subject == subject]
+        if not assertions:
+            continue
+        asserted_count = assertions[0].count
+        grounded_actor_ids = sorted(
+            actor.actor_id
+            for actor in actor_records
+            if actor.role == "bidder"
+            and actor.bidder_kind == kind
+            and _actor_has_evidence(artifacts, actor)
+            and actor.actor_id in nda_actor_ids
+        )
+        if asserted_count <= len(grounded_actor_ids):
+            continue
+
+        findings.append(
+            CheckFinding(
+                check_id="nda_count_assertion_gap",
+                severity="blocker",
+                description=(
+                    f"Count assertion {subject}={asserted_count} exceeds grounded bidder actors "
+                    f"with NDA evidence ({len(grounded_actor_ids)})."
+                ),
+                actor_ids=grounded_actor_ids,
+            )
+        )
+
+    return findings
+
+
 def _build_report(findings: list[CheckFinding]) -> SkillCheckReport:
     blocker_count = sum(1 for f in findings if f.severity == "blocker")
     warning_count = sum(1 for f in findings if f.severity == "warning")
@@ -134,6 +226,8 @@ def run_check(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> int:
     findings: list[CheckFinding] = []
     findings.extend(_check_proposal_terms(artifacts))
     findings.extend(_check_bidder_kind(artifacts))
+    findings.extend(_check_canonical_evidence_presence(artifacts))
+    findings.extend(_check_nda_count_gaps(artifacts))
     findings.extend(_check_empty_anchor_text(artifacts))
 
     report = _build_report(findings)

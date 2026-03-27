@@ -420,6 +420,40 @@ def _check_quote_verification_canonical(
     return findings, total_checks
 
 
+def _check_canonical_evidence_presence(artifacts: LoadedExtractArtifacts) -> tuple[list[VerificationFinding], int]:
+    if artifacts.mode != "canonical":
+        return [], 0
+
+    findings: list[VerificationFinding] = []
+    total_checks = 0
+    actor_ids_affected: list[str] = []
+    event_ids_affected: list[str] = []
+
+    for actor in artifacts.actors.actors:
+        total_checks += 1
+        if not actor.evidence_span_ids:
+            actor_ids_affected.append(actor.actor_id)
+
+    for evt in artifacts.events.events:
+        total_checks += 1
+        if not evt.evidence_span_ids:
+            event_ids_affected.append(evt.event_id)
+
+    if actor_ids_affected or event_ids_affected:
+        findings.append(
+            VerificationFinding(
+                check_type="canonical_evidence_required",
+                severity="error",
+                repairability="repairable",
+                description="Canonical actors and events must carry at least one evidence span.",
+                actor_ids=sorted(actor_ids_affected),
+                event_ids=sorted(event_ids_affected),
+            )
+        )
+
+    return findings, total_checks
+
+
 def _collect_verification_findings(paths: SkillPathSet) -> tuple[list[VerificationFinding], int]:
     """Run all checks and return findings."""
     blocks = _load_chronology_blocks(paths.chronology_blocks_path)
@@ -442,6 +476,9 @@ def _collect_verification_findings(paths: SkillPathSet) -> tuple[list[Verificati
         )
     findings.extend(quote_findings)
     total_checks += quote_checks
+    evidence_findings, evidence_checks = _check_canonical_evidence_presence(artifacts)
+    findings.extend(evidence_findings)
+    total_checks += evidence_checks
     referential_findings, referential_checks = _check_referential_integrity(actors, events)
     findings.extend(referential_findings)
     total_checks += referential_checks
