@@ -5,12 +5,24 @@
 # Python caches and bytecode
 __pycache__/
 *.py[cod]
+*.egg-info/
 
 # Common local temp/editor files
 *.swp
 *.swo
 *.tmp
 .DS_Store
+
+# Local environments and credentials
+.env
+.env.*
+.env.local
+.venv/
+.venv.linux-backup-*/
+
+# Local agent state
+.agents/
+.claude/settings.json
 
 # Local git worktrees
 .worktrees/

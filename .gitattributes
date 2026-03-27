@@ -1,0 +1,15 @@
+# Force LF for tracked text files to prevent Windows/Fedora drift.
+* text=auto eol=lf
+
+# Common binary formats.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.xlsx binary
+*.xls binary
+*.zip binary
+*.tar.gz binary
+*.gz binary

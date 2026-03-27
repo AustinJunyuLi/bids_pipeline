@@ -29,6 +29,8 @@ Artifacts:
 - `data/skill/<slug>/{check,verify,coverage,enrich,export}/` - downstream deterministic outputs
 - `tests/` - focused regression tests for each stage
 - `docs/` - design notes and implementation plans
+- `.claude/skills/` - canonical skill tree
+- `.codex/skills/` and `.cursor/skills/` - derived mirrors synced from `.claude/skills/`
 
 ## Build, Test, and Development Commands
 
@@ -64,6 +66,16 @@ skill-pipeline check --deal imprivata
 skill-pipeline verify --deal imprivata
 skill-pipeline coverage --deal imprivata
 skill-pipeline enrich-core --deal imprivata
+
+# Sync derived skill mirrors after editing .claude/skills
+python scripts/sync_skill_mirrors.py
+python scripts/sync_skill_mirrors.py --check
+
+# Cross-OS bootstrap and audit
+powershell -ExecutionPolicy Bypass -File scripts/dev/bootstrap_windows.ps1
+bash scripts/dev/bootstrap_linux.sh
+python scripts/dev/codex_doctor.py
+python scripts/dev/codex_doctor.py --strict
 ```
 
 ## Architecture
@@ -143,6 +155,7 @@ rewrites generation artifacts.
 -   `skill-pipeline deal-agent` is only a preflight / summary command. It may summarize deterministic enrichment from `deterministic_enrichment.json` even when the later interpretive `enrichment.json` does not exist yet.
 -   Benchmark materials are forbidden until `/export-csv` completes. `example/`, `diagnosis/`, and `/reconcile-alex` are post-export only.
 -   `edgartools>=5.23` is currently allowed in `pyproject.toml`, but the live fetch path emits v6 deprecation warnings. Treat pinning or capping before a breaking v6 release as a follow-up dependency risk.
+-   `.claude/skills/` is the canonical skill tree. Sync `.codex/skills/` and `.cursor/skills/` with `python scripts/sync_skill_mirrors.py`.
 
 ## Coding Style & Naming Conventions
 
@@ -175,7 +188,15 @@ SEC_IDENTITY / EDGAR_IDENTITY — fallback EDGAR identity env vars
 
 ## Security & Configuration Tips
 
-Do not commit API keys or provider secrets. Use environment variables such as `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, `BIDS_LLM_PROVIDER`, and `BIDS_LLM_MODEL`. Treat canonical pipeline artifacts under `data/deals/` and skill workflow artifacts under `data/skill/` as generated outputs; only edit them intentionally and document why.
+Do not commit API keys or provider secrets. Use environment variables such as `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, `BIDS_LLM_PROVIDER`, and `BIDS_LLM_MODEL`. Treat canonical pipeline artifacts under `data/deals/` and skill workflow artifacts under `data/skill/` as generated outputs; only edit them intentionally and document why. `.venv/`, `.env*`, `.agents/`, and `.claude/settings.json` are local-only paths and should remain ignored.
+
+## Cross-OS Codex Notes
+
+This repo supports native Windows and Linux Codex workflows through tracked bootstrap scripts plus machine-local Codex configuration.
+
+- Track cross-OS invariants in the repo: `.gitattributes`, `scripts/dev/bootstrap_windows.ps1`, `scripts/dev/bootstrap_linux.sh`, and `scripts/dev/codex_doctor.py`.
+- Keep machine-local Codex state out of Git: `~/.codex/config.toml`, `~/.codex/auth.json`, MCP auth state, integrated-terminal preferences, `.venv/`, `.env*`, `.agents/`, and `.claude/settings.json`.
+- `skill-pipeline` is env-local. Use the repo `.venv` on each machine instead of trying to expose one global command across Windows and Linux.
 
 You are my local Python agent.
 

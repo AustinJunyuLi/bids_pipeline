@@ -1,15 +1,14 @@
 # Skills
 
-6 active skills for the deal extraction quick workflow:
+Derived mirror of `.claude/skills/` for Codex.
 
-| Skill | Purpose |
+| Skill | Description |
 |---|---|
-| `deal-agent` | Orchestrator — runs all 4 skills in sequence |
-| `extract-deal` | Actor + event extraction from SEC filing text |
-| `verify-extraction` | Fact-check extraction, 2-round fix loop |
-| `enrich-deal` | Classify bids, segment cycles, judge initiation |
-| `export-csv` | Format to the repo review CSV |
-| `reconcile-alex` | Post-export benchmark QA against Alex's spreadsheet |
+| `deal-agent` | Use when orchestrating the repo's end-to-end skill workflow for a deal after raw fetch and source preprocessing already ran. |
+| `enrich-deal` | Use when enriching verified skill extraction artifacts with bid classification, cycle structure, initiation judgment, and advisory or count review. |
+| `export-csv` | Use when flattening skill extraction and enrichment artifacts into the repo review CSV for a deal. |
+| `extract-deal` | Use when extracting skill-workflow actor and event artifacts from preprocessed SEC filing source for a specific deal. |
+| `reconcile-alex` | Use when a deal has completed the skill-native pipeline and you need benchmark reconciliation against Alex's spreadsheet, especially for row mismatches, aggregate spreadsheet rows, or disagreements that require filing-text arbitration. |
+| `verify-extraction` | Use when checking and repairing skill-workflow extraction artifacts against filing text before enrichment. |
 
-Usage: `/deal-agent <slug>` for end-to-end generation, or invoke individual
-skills. Use `/reconcile-alex <slug>` only after `/export-csv` completes.
+Refresh this mirror with `python scripts/sync_skill_mirrors.py`.
