@@ -1,7 +1,7 @@
 # Project State
 
 ## Current Phase
-Phase 2: Prompt Architecture — context gathered, ready for planning
+Phase 2: Prompt Architecture — planned, ready for execution
 
 ## Last Session
 - **Stopped at:** Phase 1 corpus validation is complete on all 9 active deals; seed-quality hardening was split into a scoped Claude todo so Phase 2 can begin cleanly
@@ -22,7 +22,7 @@ Phase 2: Prompt Architecture — context gathered, ready for planning
 - [x] Phase 1 Plan 03: full 9-deal corpus validation across `imprivata`, `mac-gray`, `medivation`, `penford`, `petsmart-inc`, `providence-worcester`, `saks`, `stec`, `zep`
 - [x] Phase 1 verified
 - [x] Phase 2 context gathered
-- [ ] Phase 2 planned
+- [x] Phase 2 planned
 
 ## Key Decisions This Session
 - No Python LLM wrapper — all LLM calls remain in .claude/skills/
@@ -40,11 +40,12 @@ Phase 2: Prompt Architecture — context gathered, ready for planning
 - `canonicalize` must be idempotent on already-canonical extracts so downstream reruns work against current artifacts
 - Local validation must follow actual on-disk corpus availability, not the stale 9-deal assumption in the plan
 - Medivation seed was corrected from `0001193125-16-696889` to `0001193125-16-696911`; seed-quality hardening is delegated as a non-blocking todo
+- Phase 2 will add a deterministic `compose-prompts` stage, provider-neutral prompt artifacts under `data/skill/<slug>/prompt/`, and extract-skill consumption of those artifacts
 
 ## Session Continuity
 - **Last session:** 2026-03-27T18:00:22.674Z
-- **Stopped at:** Phase 2 context gathered with auto-selected defaults; ready for planning
-- **Resume file:** `.planning/phases/02-prompt-architecture/02-CONTEXT.md`
+- **Stopped at:** Phase 2 planned; ready to execute wave 1
+- **Resume file:** `.planning/phases/02-prompt-architecture/02-01-PLAN.md`
 
 ## Accumulated Context
 ### Pending Todos
