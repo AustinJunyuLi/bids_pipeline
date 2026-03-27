@@ -143,3 +143,50 @@ class TestPromptPacketManifest:
                 deal_slug="stec",
                 extra_bad_field="nope",
             )
+
+    def test_manifest_round_trips_through_json(self) -> None:
+        manifest = PromptPacketManifest(
+            run_id="rt-001",
+            deal_slug="imprivata",
+            source_accession_number="0001193125-16-696911",
+            packets=[
+                PromptPacketArtifact(
+                    packet_id="pkt_actors_w0",
+                    packet_family="actors",
+                    chunk_mode="single_pass",
+                    window_id="w0",
+                    prefix_path="prompt/packets/pkt_actors_w0/prefix.md",
+                    body_path="prompt/packets/pkt_actors_w0/body.md",
+                    rendered_path="prompt/packets/pkt_actors_w0/rendered.md",
+                    evidence_ids=["EV001"],
+                ),
+                PromptPacketArtifact(
+                    packet_id="pkt_events_w0",
+                    packet_family="events",
+                    chunk_mode="chunked",
+                    window_id="w0",
+                    prefix_path="prompt/packets/pkt_events_w0/prefix.md",
+                    body_path="prompt/packets/pkt_events_w0/body.md",
+                    rendered_path="prompt/packets/pkt_events_w0/rendered.md",
+                    actor_roster_source_path="extract/actors_raw.json",
+                ),
+            ],
+            notes=["test round trip"],
+        )
+        json_str = manifest.model_dump_json()
+        reloaded = PromptPacketManifest.model_validate_json(json_str)
+        assert reloaded.deal_slug == "imprivata"
+        assert len(reloaded.packets) == 2
+        assert reloaded.packets[0].packet_family == "actors"
+        assert reloaded.packets[1].packet_family == "events"
+        assert reloaded.packets[1].actor_roster_source_path == "extract/actors_raw.json"
+
+    def test_manifest_inherits_artifact_envelope_fields(self) -> None:
+        manifest = PromptPacketManifest(
+            run_id="env-001",
+            deal_slug="stec",
+        )
+        assert manifest.schema_version is not None
+        assert manifest.pipeline_version is not None
+        assert manifest.created_at is not None
+        assert manifest.artifact_type == "prompt_packet_manifest"

@@ -6,7 +6,9 @@ from pathlib import Path
 import pytest
 
 from skill_pipeline import cli
+from skill_pipeline.compose_prompts import run_compose_prompts
 from skill_pipeline.deal_agent import run_deal_agent
+from skill_pipeline.paths import build_skill_paths, ensure_output_directories
 
 
 def _write_shared_inputs(tmp_path: Path, *, slug: str = "imprivata") -> None:
@@ -368,3 +370,99 @@ def test_run_deal_agent_reports_deterministic_enrichment_when_interpretive_artif
     assert summary.enrich.informal_bid_count == 0
     assert summary.enrich.initiation_judgment_type is None
     assert summary.enrich.review_flags_count == 0
+
+
+# --- Prompt path and compose-prompts tests ---
+
+
+def test_prompt_paths_exposed_by_build_skill_paths(tmp_path: Path) -> None:
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    skill_root = tmp_path / "data" / "skill" / "imprivata"
+    assert paths.prompt_dir == skill_root / "prompt"
+    assert paths.prompt_packets_dir == skill_root / "prompt" / "packets"
+    assert paths.prompt_manifest_path == skill_root / "prompt" / "manifest.json"
+
+
+def test_ensure_output_directories_creates_prompt_dirs(tmp_path: Path) -> None:
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    ensure_output_directories(paths)
+    assert paths.prompt_dir.is_dir()
+    assert paths.prompt_packets_dir.is_dir()
+
+
+def test_compose_prompts_cli_subcommand_parses() -> None:
+    parser = cli.build_parser()
+    args = parser.parse_args(["compose-prompts", "--deal", "stec"])
+    assert args.command == "compose-prompts"
+    assert args.deal == "stec"
+    assert args.mode == "all"
+    assert args.chunk_budget == 6000
+
+
+def test_compose_prompts_cli_custom_args() -> None:
+    parser = cli.build_parser()
+    args = parser.parse_args([
+        "compose-prompts", "--deal", "imprivata",
+        "--mode", "actors", "--chunk-budget", "4000",
+    ])
+    assert args.mode == "actors"
+    assert args.chunk_budget == 4000
+
+
+def test_compose_prompts_fails_when_chronology_blocks_missing(tmp_path: Path) -> None:
+    data_dir = tmp_path / "data"
+    source_dir = data_dir / "deals" / "imprivata" / "source"
+    source_dir.mkdir(parents=True, exist_ok=True)
+    # Write evidence_items but NOT chronology_blocks
+    (source_dir / "evidence_items.jsonl").write_text("", encoding="utf-8")
+
+    with pytest.raises(FileNotFoundError, match="chronology_blocks"):
+        run_compose_prompts("imprivata", project_root=tmp_path)
+
+
+def test_compose_prompts_fails_when_evidence_items_missing(tmp_path: Path) -> None:
+    data_dir = tmp_path / "data"
+    source_dir = data_dir / "deals" / "imprivata" / "source"
+    source_dir.mkdir(parents=True, exist_ok=True)
+    # Write chronology_blocks but NOT evidence_items
+    (source_dir / "chronology_blocks.jsonl").write_text(
+        json.dumps({
+            "block_id": "B001", "document_id": "DOC001", "ordinal": 1,
+            "start_line": 1, "end_line": 1, "raw_text": "x", "clean_text": "x",
+            "is_heading": False, "page_break_before": False, "page_break_after": False,
+            "date_mentions": [], "entity_mentions": [], "evidence_density": 0,
+            "temporal_phase": "other",
+        }) + "\n",
+        encoding="utf-8",
+    )
+
+    with pytest.raises(FileNotFoundError, match="evidence_items"):
+        run_compose_prompts("imprivata", project_root=tmp_path)
+
+
+def test_compose_prompts_writes_valid_manifest(tmp_path: Path) -> None:
+    _write_shared_inputs(tmp_path)
+    manifest = run_compose_prompts("imprivata", project_root=tmp_path)
+    assert manifest.deal_slug == "imprivata"
+    assert manifest.artifact_type == "prompt_packet_manifest"
+
+    # Verify manifest file was written to disk
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    assert paths.prompt_manifest_path.exists()
+
+    # Verify manifest can be re-loaded from disk
+    from skill_pipeline.pipeline_models.prompt import PromptPacketManifest
+
+    loaded = PromptPacketManifest.model_validate_json(
+        paths.prompt_manifest_path.read_text(encoding="utf-8")
+    )
+    assert loaded.deal_slug == "imprivata"
+    assert loaded.run_id == manifest.run_id
+
+
+def test_compose_prompts_creates_prompt_directories(tmp_path: Path) -> None:
+    _write_shared_inputs(tmp_path)
+    run_compose_prompts("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    assert paths.prompt_dir.is_dir()
+    assert paths.prompt_packets_dir.is_dir()
