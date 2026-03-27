@@ -9,6 +9,8 @@ from typing import Any
 from skill_pipeline.config import DEALS_DIR, RAW_DIR
 from skill_pipeline.pipeline_models.raw import RawDiscoveryManifest, RawDocumentRegistry
 from skill_pipeline.pipeline_models.source import ChronologySelection, EvidenceItem, FilingCandidate, FrozenDocument
+from skill_pipeline.seeds import load_seed_entry
+from skill_pipeline.source.annotate import annotate_chronology_blocks
 from skill_pipeline.source.blocks import build_chronology_blocks
 from skill_pipeline.source.evidence import scan_document_evidence
 from skill_pipeline.source.locate import select_chronology
@@ -80,6 +82,9 @@ def preprocess_source_deal(
                 filing_type=document.filing_type,
             )
         )
+
+        seed = load_seed_entry(deal_slug, seeds_path=project_root / "data" / "seeds.csv")
+        blocks = annotate_chronology_blocks(blocks, evidence_items, seed)
 
         source_dir.mkdir(parents=True, exist_ok=True)
         _remove_stale_source_artifacts(source_dir, registry.documents)

@@ -36,6 +36,10 @@ def build_chronology_blocks(
                 raw_text=raw_text,
                 clean_text=clean_text,
                 is_heading=is_heading,
+                date_mentions=[],
+                entity_mentions=[],
+                evidence_density=0,
+                temporal_phase="other",
             )
         )
         ordinal += 1

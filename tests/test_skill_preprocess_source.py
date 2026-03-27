@@ -23,6 +23,14 @@ def _write_seed_only_raw_fixture(
     filings_dir.mkdir(parents=True, exist_ok=True)
     source_dir.mkdir(parents=True, exist_ok=True)
 
+    seeds_path = tmp_path / "data" / "seeds.csv"
+    seeds_path.parent.mkdir(parents=True, exist_ok=True)
+    seeds_path.write_text(
+        "deal_slug,target_name,acquirer,date_announced,primary_url,is_reference\n"
+        "imprivata,IMPRIVATA INC,THOMA BRAVO LLC,2016-07-13,https://example.com,false\n",
+        encoding="utf-8",
+    )
+
     primary_candidate = {
         "document_id": "0001193125-16-677939",
         "accession_number": "0001193125-16-677939",
