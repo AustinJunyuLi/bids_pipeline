@@ -436,3 +436,201 @@ class TestRenderEventPacket:
         )
         assert "<evidence_checklist>" in rendered
         assert "E099" in rendered
+
+
+# ---------------------------------------------------------------------------
+# Integration: run_compose_prompts end-to-end
+# ---------------------------------------------------------------------------
+
+class TestRunComposePrompts:
+    """Integration tests using tmp_path fixtures to simulate a deal layout."""
+
+    @staticmethod
+    def _setup_deal(tmp_path: Path, *, with_actors: bool = False) -> None:
+        """Create minimal source artifacts and seed registry for a test deal."""
+        # Seed CSV
+        seeds_csv = tmp_path / "data" / "seeds.csv"
+        seeds_csv.parent.mkdir(parents=True, exist_ok=True)
+        seeds_csv.write_text(
+            "deal_slug,target_name,acquirer,date_announced,primary_url,is_reference\n"
+            "test-deal,TestCo Inc,AcquireCo,2025-01-15,,false\n",
+            encoding="utf-8",
+        )
+
+        # Source directory with blocks + evidence
+        source_dir = tmp_path / "data" / "deals" / "test-deal" / "source"
+        source_dir.mkdir(parents=True, exist_ok=True)
+
+        # 5 blocks of moderate size
+        blocks_lines = []
+        for i in range(5):
+            block = ChronologyBlock(
+                block_id=f"B{i:03d}",
+                document_id="doc-1",
+                ordinal=i,
+                start_line=i * 10,
+                end_line=i * 10 + 8,
+                raw_text=f"Block {i} raw text " + "word " * 20,
+                clean_text=f"Block {i} clean text " + "word " * 20,
+                is_heading=(i == 0),
+                date_mentions=[],
+                entity_mentions=[],
+                evidence_density=2,
+                temporal_phase="bidding",
+            )
+            blocks_lines.append(block.model_dump_json())
+        (source_dir / "chronology_blocks.jsonl").write_text(
+            "\n".join(blocks_lines), encoding="utf-8",
+        )
+
+        # Evidence items
+        ev_lines = []
+        for j in range(3):
+            ev = EvidenceItem(
+                evidence_id=f"E{j:03d}",
+                document_id="doc-1",
+                accession_number="0001-test",
+                filing_type="SC 14D9",
+                start_line=j * 5,
+                end_line=j * 5 + 3,
+                raw_text=f"evidence text {j}",
+                evidence_type=EvidenceType.DATED_ACTION,
+                confidence="high",
+                date_text=f"2025-0{j+1}-15",
+            )
+            ev_lines.append(ev.model_dump_json())
+        (source_dir / "evidence_items.jsonl").write_text(
+            "\n".join(ev_lines), encoding="utf-8",
+        )
+
+        # Chronology selection (for accession number)
+        import json as _json
+        (source_dir / "chronology_selection.json").write_text(
+            _json.dumps({
+                "schema_version": "2.0.0",
+                "artifact_type": "chronology_selection",
+                "run_id": "test",
+                "accession_number": "0001-test",
+                "filing_type": "SC 14D9",
+                "document_id": "doc-1",
+                "confidence": "high",
+                "adjudication_basis": "test",
+                "review_required": False,
+            }),
+            encoding="utf-8",
+        )
+
+        # Document registry (needed by paths validation)
+        raw_dir = tmp_path / "raw" / "test-deal"
+        raw_dir.mkdir(parents=True, exist_ok=True)
+        (raw_dir / "document_registry.json").write_text("{}", encoding="utf-8")
+
+        if with_actors:
+            extract_dir = tmp_path / "data" / "skill" / "test-deal" / "extract"
+            extract_dir.mkdir(parents=True, exist_ok=True)
+            (extract_dir / "actors_raw.json").write_text(
+                '{"actors": [{"actor_id": "a1", "display_name": "Bidder A"}]}',
+                encoding="utf-8",
+            )
+
+    def test_actor_mode_writes_manifest_and_packets(self, tmp_path: Path):
+        self._setup_deal(tmp_path)
+        from skill_pipeline.compose_prompts import run_compose_prompts
+
+        manifest = run_compose_prompts(
+            "test-deal", tmp_path, mode="actors", chunk_budget=99999,
+        )
+        assert len(manifest.packets) >= 1
+        assert all(p.packet_family == "actors" for p in manifest.packets)
+
+        # Verify files exist at declared paths
+        for p in manifest.packets:
+            assert Path(p.prefix_path).exists()
+            assert Path(p.body_path).exists()
+            assert Path(p.rendered_path).exists()
+
+        # Verify manifest.json was written
+        manifest_path = tmp_path / "data" / "skill" / "test-deal" / "prompt" / "manifest.json"
+        assert manifest_path.exists()
+
+    def test_chronology_precedes_task_instructions(self, tmp_path: Path):
+        self._setup_deal(tmp_path)
+        from skill_pipeline.compose_prompts import run_compose_prompts
+
+        manifest = run_compose_prompts(
+            "test-deal", tmp_path, mode="actors", chunk_budget=99999,
+        )
+        rendered = Path(manifest.packets[0].rendered_path).read_text(encoding="utf-8")
+        chron_pos = rendered.index("<chronology_blocks>")
+        task_pos = rendered.index("<task_instructions>")
+        assert chron_pos < task_pos
+
+    def test_evidence_ids_in_rendered(self, tmp_path: Path):
+        self._setup_deal(tmp_path)
+        from skill_pipeline.compose_prompts import run_compose_prompts
+
+        manifest = run_compose_prompts(
+            "test-deal", tmp_path, mode="actors", chunk_budget=99999,
+        )
+        rendered = Path(manifest.packets[0].rendered_path).read_text(encoding="utf-8")
+        assert "<evidence_checklist>" in rendered
+        assert "E000" in rendered
+
+    def test_chunked_windows_produce_overlap(self, tmp_path: Path):
+        self._setup_deal(tmp_path)
+        from skill_pipeline.compose_prompts import run_compose_prompts
+
+        # Use a very small budget to force chunking
+        manifest = run_compose_prompts(
+            "test-deal", tmp_path, mode="actors", chunk_budget=10,
+        )
+        assert len(manifest.packets) > 1
+        # At least one interior packet should have overlap
+        has_overlap = False
+        for p in manifest.packets[1:]:
+            rendered = Path(p.rendered_path).read_text(encoding="utf-8")
+            if "<overlap_context>" in rendered:
+                has_overlap = True
+                break
+        assert has_overlap, "No chunked packet contained <overlap_context>"
+
+    def test_events_mode_fails_without_actors_raw(self, tmp_path: Path):
+        self._setup_deal(tmp_path, with_actors=False)
+        from skill_pipeline.compose_prompts import run_compose_prompts
+
+        with pytest.raises(FileNotFoundError, match="Actor roster not found"):
+            run_compose_prompts("test-deal", tmp_path, mode="events")
+
+    def test_events_mode_succeeds_with_actors_raw(self, tmp_path: Path):
+        self._setup_deal(tmp_path, with_actors=True)
+        from skill_pipeline.compose_prompts import run_compose_prompts
+
+        manifest = run_compose_prompts(
+            "test-deal", tmp_path, mode="events", chunk_budget=99999,
+        )
+        assert len(manifest.packets) >= 1
+        assert all(p.packet_family == "events" for p in manifest.packets)
+        # Event packets must include actor roster
+        rendered = Path(manifest.packets[0].rendered_path).read_text(encoding="utf-8")
+        assert "<actor_roster>" in rendered
+
+    def test_all_mode_generates_actors_only(self, tmp_path: Path):
+        """--mode all generates actor packets only, not event packets."""
+        self._setup_deal(tmp_path)
+        from skill_pipeline.compose_prompts import run_compose_prompts
+
+        manifest = run_compose_prompts(
+            "test-deal", tmp_path, mode="all", chunk_budget=99999,
+        )
+        assert all(p.packet_family == "actors" for p in manifest.packets)
+
+    def test_manifest_notes_contain_mode_and_budget(self, tmp_path: Path):
+        self._setup_deal(tmp_path)
+        from skill_pipeline.compose_prompts import run_compose_prompts
+
+        manifest = run_compose_prompts(
+            "test-deal", tmp_path, mode="actors", chunk_budget=5000,
+        )
+        notes_str = " ".join(manifest.notes)
+        assert "mode=actors" in notes_str
+        assert "chunk_budget=5000" in notes_str
