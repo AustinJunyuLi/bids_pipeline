@@ -5,9 +5,12 @@ Ensures that:
 - edgartools is capped below 6.0 in both manifests
 - neither manifest declares anthropic or openai
 - historical plan docs carry disclaimers marking them non-authoritative
+- compose-prompts appears in runtime docs before /extract-deal
+- prompt packet validator can run on a temporary fixture manifest
 """
 from __future__ import annotations
 
+import json
 import re
 from pathlib import Path
 
@@ -139,3 +142,77 @@ def test_claude_md_compose_prompts_before_extract_deal() -> None:
     assert compose_pos < extract_pos, (
         "compose-prompts must appear before /extract-deal in CLAUDE.md"
     )
+
+
+# ---------------------------------------------------------------------------
+# Prompt packet validator on fixture manifest
+# ---------------------------------------------------------------------------
+
+
+def _build_fixture_manifest(tmp_path: Path) -> Path:
+    """Build a minimal valid prompt packet manifest with rendered files."""
+    prompt_dir = tmp_path / "data" / "skill" / "fixture" / "prompt"
+    packets_dir = prompt_dir / "packets" / "actors-w0"
+    packets_dir.mkdir(parents=True, exist_ok=True)
+
+    rendered_text = (
+        "# Prompt\n\n"
+        "<chronology_blocks>\nBlock text\n</chronology_blocks>\n\n"
+        "<evidence_checklist>\n- item\n</evidence_checklist>\n\n"
+        "<task_instructions>\nExtract actors.\n</task_instructions>\n"
+    )
+    rendered_path = packets_dir / "rendered.md"
+    rendered_path.write_text(rendered_text, encoding="utf-8")
+    (packets_dir / "prefix.md").write_text("prefix\n", encoding="utf-8")
+    (packets_dir / "body.md").write_text("body\n", encoding="utf-8")
+
+    manifest = {
+        "schema_version": "2.0.0",
+        "artifact_type": "prompt_packet_manifest",
+        "created_at": "2026-03-27T00:00:00Z",
+        "pipeline_version": "0.1.0",
+        "run_id": "test-fixture",
+        "deal_slug": "fixture",
+        "source_accession_number": None,
+        "packets": [
+            {
+                "packet_id": "actors-w0",
+                "packet_family": "actors",
+                "chunk_mode": "single_pass",
+                "window_id": "w0",
+                "prefix_path": str(packets_dir / "prefix.md"),
+                "body_path": str(packets_dir / "body.md"),
+                "rendered_path": str(rendered_path),
+                "evidence_ids": [],
+                "actor_roster_source_path": None,
+            }
+        ],
+        "asset_files": [],
+        "notes": [],
+    }
+    manifest_path = prompt_dir / "manifest.json"
+    manifest_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+    return tmp_path
+
+
+def test_validator_passes_on_fixture_manifest(tmp_path: Path) -> None:
+    """The prompt packet validator runs successfully on a temp fixture manifest."""
+    from scripts.validate_prompt_packets import validate_manifest
+
+    _build_fixture_manifest(tmp_path)
+    errors = validate_manifest("fixture", project_root=tmp_path, expect_sections=True)
+    assert errors == [], f"Fixture validation failed: {errors}"
+
+
+def test_validator_detects_missing_tag_on_fixture(tmp_path: Path) -> None:
+    """The validator catches a missing tag in a fixture rendered packet."""
+    from scripts.validate_prompt_packets import validate_manifest
+
+    _build_fixture_manifest(tmp_path)
+    # Remove <task_instructions> tag from rendered file
+    rendered_path = tmp_path / "data" / "skill" / "fixture" / "prompt" / "packets" / "actors-w0" / "rendered.md"
+    text = rendered_path.read_text(encoding="utf-8")
+    rendered_path.write_text(text.replace("<task_instructions>", ""), encoding="utf-8")
+
+    errors = validate_manifest("fixture", project_root=tmp_path, expect_sections=True)
+    assert any("<task_instructions>" in e for e in errors)
