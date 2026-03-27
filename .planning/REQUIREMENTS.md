@@ -41,7 +41,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **INFRA-05**: A deterministic prompt composition engine assembles
   extraction prompt packets from annotated blocks, evidence checklist, actor
   roster, and few-shot examples
-- [ ] **INFRA-06**: Deterministic runtime dependencies and planning docs are
+- [x] **INFRA-06**: Deterministic runtime dependencies and planning docs are
   hardened around the live Python path only; no new Python-side LLM SDK
   requirement is introduced as part of v1
 - [ ] **INFRA-07**: Few-shot examples expanded to 4-5 covering NDA groups,
