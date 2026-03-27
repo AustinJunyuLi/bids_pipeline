@@ -258,6 +258,117 @@ def test_coverage_warns_on_uncovered_medium_confidence_advisor_cue(tmp_path: Pat
     assert findings["findings"][0]["severity"] == "warning"
 
 
+def test_coverage_ignores_evidence_outside_chronology_blocks(tmp_path: Path) -> None:
+    evidence_items = [
+        {
+            "evidence_id": "DOC001:E0001",
+            "document_id": "DOC001",
+            "accession_number": "DOC001",
+            "filing_type": "DEFM14A",
+            "start_line": 50,
+            "end_line": 50,
+            "raw_text": "The merger agreement is subject to shareholder approval.",
+            "evidence_type": "outcome_fact",
+            "confidence": "high",
+            "matched_terms": ["merger agreement", "vote"],
+            "date_text": None,
+            "actor_hint": None,
+            "value_hint": None,
+            "note": None,
+        }
+    ]
+    chronology_blocks = [
+        {
+            "block_id": "B001",
+            "document_id": "DOC001",
+            "ordinal": 1,
+            "start_line": 1,
+            "end_line": 5,
+            "raw_text": "Background of the merger.",
+            "clean_text": "Background of the merger.",
+            "is_heading": False,
+            "page_break_before": False,
+            "page_break_after": False,
+        }
+    ]
+    _write_coverage_fixture(
+        tmp_path,
+        evidence_items=evidence_items,
+        chronology_blocks=chronology_blocks,
+    )
+
+    exit_code = run_coverage("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    findings = json.loads(paths.coverage_findings_path.read_text(encoding="utf-8"))
+    summary = json.loads(paths.coverage_summary_path.read_text(encoding="utf-8"))
+
+    assert exit_code == 0
+    assert findings["findings"] == []
+    assert summary["status"] == "pass"
+
+
+def test_coverage_does_not_treat_draft_nda_as_signed_nda_cue(tmp_path: Path) -> None:
+    evidence_items = [
+        {
+            "evidence_id": "DOC001:E0001",
+            "document_id": "DOC001",
+            "accession_number": "DOC001",
+            "filing_type": "DEFM14A",
+            "start_line": 1,
+            "end_line": 1,
+            "raw_text": "Company A sent a draft non-disclosure agreement for a possible transaction.",
+            "evidence_type": "dated_action",
+            "confidence": "high",
+            "matched_terms": ["sent", "proposed"],
+            "date_text": "July 5, 2016",
+            "actor_hint": "Company A",
+            "value_hint": None,
+            "note": None,
+        }
+    ]
+    _write_coverage_fixture(tmp_path, evidence_items=evidence_items)
+
+    exit_code = run_coverage("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    findings = json.loads(paths.coverage_findings_path.read_text(encoding="utf-8"))
+    summary = json.loads(paths.coverage_summary_path.read_text(encoding="utf-8"))
+
+    assert exit_code == 0
+    assert findings["findings"] == []
+    assert summary["status"] == "pass"
+
+
+def test_coverage_does_not_treat_outcome_fact_as_proposal_cue(tmp_path: Path) -> None:
+    evidence_items = [
+        {
+            "evidence_id": "DOC001:E0001",
+            "document_id": "DOC001",
+            "accession_number": "DOC001",
+            "filing_type": "DEFM14A",
+            "start_line": 1,
+            "end_line": 1,
+            "raw_text": "The merger agreement requires shareholder approval at the special meeting.",
+            "evidence_type": "outcome_fact",
+            "confidence": "high",
+            "matched_terms": ["merger agreement", "vote"],
+            "date_text": None,
+            "actor_hint": None,
+            "value_hint": None,
+            "note": None,
+        }
+    ]
+    _write_coverage_fixture(tmp_path, evidence_items=evidence_items)
+
+    exit_code = run_coverage("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    findings = json.loads(paths.coverage_findings_path.read_text(encoding="utf-8"))
+    summary = json.loads(paths.coverage_summary_path.read_text(encoding="utf-8"))
+
+    assert exit_code == 0
+    assert findings["findings"] == []
+    assert summary["status"] == "pass"
+
+
 def test_coverage_reports_uncovered_second_proposal_cue_in_same_block(
     tmp_path: Path,
 ) -> None:

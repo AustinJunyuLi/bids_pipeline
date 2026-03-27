@@ -1,0 +1,780 @@
+ ▐▛███▜▌   Claude Code v2.1.84
+▝▜█████▛▘  Opus 4.6 (1M context) · Claude Max
+  ▘▘ ▝▝    ~/Projects/bids_data-9310471
+
+❯ /model                                                                        
+  ⎿  Set model to Opus 4.6 (1M context) (default) with max effort
+
+❯ /gsd:new-project                                                              
+
+  Read 4 files (ctrl+o to expand)
+  ⎿  Interrupted · What should Claude do instead?
+
+❯ onboad this project with /gsd:new-project                                     
+
+  Read 1 file (ctrl+o to expand)
+
+● Now I have the full workflow. Let me start with Step 1 — the mandatory init
+  check.
+
+● Bash(INIT=$(node "$HOME/.claude/get-shit-done/bin/gsd-tools.cjs" init
+      new-project) && if [[ "$INIT" == @file:* ]]; then INIT=$(cat
+      "${INIT#@file:}"); fi && echo "$IN…)
+  ⎿  {
+       "researcher_model": "sonnet",
+       "synthesizer_model": "sonnet",
+     … +16 lines (ctrl+o to expand)
+
+● The project is already initialized — .planning/PROJECT.md and the planning
+  directory already exist.
+
+  Read 2 files (ctrl+o to expand)
+
+● This project is already fully initialized with GSD. The .planning/ directory
+  contains:
+
+  - PROJECT.md — project context
+  - config.json — workflow preferences
+  - REQUIREMENTS.md — scoped requirements
+  - ROADMAP.md — phase structure
+  - STATE.md — project memory
+  - research/ — domain research
+  - codebase/ — codebase map
+  - phases/ — phase artifacts
+
+  Use /gsd:progress to see current status and next steps, or /gsd:discuss-phase 
+  <N> to advance a specific phase.
+
+✻ Cooked for 41s
+
+❯ scan through the project meticulously. break me down the archetecture of the  
+pipeline                                                                        
+
+● Explore(Deep codebase architecture scan)
+  ⎿  Done (30 tool uses · 129.6k tokens · 2m 7s)
+  (ctrl+o to expand)
+
+● Pipeline Architecture
+
+  What It Does
+
+  Extracts structured M&A deal data from SEC filings. SEC filing text goes in,
+  structured actors/events/evidence come out — every claim traceable back to a
+  specific line in the source document.
+
+  The Pipeline DAG
+
+  data/seeds.csv (deal slug + SEC URL)
+      │
+      ▼
+  ┌─────────────────────────────────────────────────────────┐
+  │  STAGE 1: raw-fetch                                     │
+  │  Freeze immutable filing .txt/.html from SEC EDGAR      │
+  │  → raw/{deal}/filings/*.txt                             │
+  │  → raw/{deal}/document_registry.json (SHA256 checksums) │
+  │  → raw/{deal}/discovery.json                            │
+  └─────────────────┬───────────────────────────────────────┘
+                    │
+                    ▼
+  ┌─────────────────────────────────────────────────────────┐
+  │  STAGE 2: preprocess-source                             │
+  │  Locate "Background of the Merger" section via regex    │
+  │  scoring, segment into blocks, scan for evidence cues   │
+  │  → source/chronology_selection.json                     │
+  │  → source/chronology_blocks.jsonl                       │
+  │  → source/evidence_items.jsonl                          │
+  └─────────────────┬───────────────────────────────────────┘
+                    │
+                    ▼
+  ┌─────────────────────────────────────────────────────────┐
+  │  STAGE 3: /extract-deal  (LLM — external to package)   │
+  │  Claude/GPT reads chronology + evidence, outputs        │
+  │  structured actors and events with evidence_refs        │
+  │  → data/skill/{deal}/extract/actors_raw.json            │
+  │  → data/skill/{deal}/extract/events_raw.json            │
+  └─────────────────┬───────────────────────────────────────┘
+                    │
+                    ▼
+  ┌─────────────────────────────────────────────────────────┐
+  │  STAGE 4: canonicalize                                  │
+  │  Schema upgrade: EvidenceRef → SpanRecord               │
+  │  + dedup events + NDA-gated drop removal                │
+  │  + unnamed party recovery from count assertions         │
+  │  → extract/spans.json (provenance registry)             │
+  │  → canonicalize/canonicalize_log.json                   │
+  │  → overwrites actors_raw.json, events_raw.json in-place │
+  └─────────────────┬───────────────────────────────────────┘
+                    │
+            ┌───────┼───────┐
+            ▼       ▼       ▼
+  ┌────────────┐ ┌────────────┐ ┌────────────┐
+  │   check    │ │   verify   │ │  coverage   │
+  │ Structural │ │ Quote +    │ │ Evidence    │
+  │ blocker    │ │ referential│ │ cue audit   │
+  │ gate       │ │ integrity  │ │             │
+  └─────┬──────┘ └─────┬──────┘ └─────┬──────┘
+        │              │              │
+        └──────────────┼──────────────┘
+                       │ ALL THREE MUST PASS
+                       ▼
+  ┌─────────────────────────────────────────────────────────┐
+  │  STAGE 8: enrich-core                                   │
+  │  Deterministic: round pairing, bid classification,      │
+  │  cycle segmentation, formal boundary detection          │
+  │  → enrich/deterministic_enrichment.json                 │
+  └─────────────────┬───────────────────────────────────────┘
+                    │
+                    ▼
+          /enrich-deal → /export-csv → /reconcile-alex
+          (interpretive)  (flatten)    (optional benchmark QA)
+
+  Module Map
+
+  skill_pipeline/
+  ├── cli.py                  ← All subcommand routing
+  ├── models.py               ← Pydantic schemas (actors, events, spans,
+  findings)
+  ├── paths.py                ← SkillPathSet: centralized path management per
+  deal
+  ├── seeds.py                ← CSV loading from data/seeds.csv
+  ├── config.py               ← Constants (filing types, version)
+  ├── extract_artifacts.py    ← Smart loader: auto-detects legacy vs canonical
+  mode
+  ├── provenance.py           ← SpanRecord resolution (text → line/char
+  positions)
+  │
+  ├── raw/
+  │   ├── stage.py            ← Orchestrator: fetch_raw_deal()
+  │   ├── discover.py         ← Parse accession numbers from SEC URLs
+  │   └── fetch.py            ← HTTP fetch + SHA256 freeze to disk
+  │
+  ├── preprocess/
+  │   └── source.py           ← Orchestrator: chronology locate → blocks →
+  evidence
+  │
+  ├── source/
+  │   ├── locate.py           ← Regex heading detection + paragraph scoring
+  │   ├── blocks.py           ← Split chronology into B001, B002, ... blocks
+  │   ├── evidence.py         ← 5 regex cue families → confidence-scored items
+  │   ├── ranking.py          ← CIK extraction from URLs
+  │   └── supplementary.py    ← (not used in seed-only path)
+  │
+  ├── normalize/
+  │   ├── dates.py            ← Deterministic date parsing
+  (exact/month/quarter/relative)
+  │   └── quotes.py           ← Multi-level matching: EXACT → NORMALIZED → FUZZY
+   → UNRESOLVED
+  │
+  ├── pipeline_models/
+  │   ├── common.py           ← Enums (ActorRole, EventType, DatePrecision, ...)
+  │   ├── raw.py              ← RawDiscoveryManifest, FrozenDocument
+  │   └── source.py           ← ChronologyBlock, EvidenceItem,
+  ChronologySelection
+  │
+  ├── check.py                ← Structural gate (proposal terms, bidder kind,
+  anchor text)
+  ├── verify.py               ← Quote resolution + referential + structural
+  integrity
+  ├── coverage.py             ← Cue-family audit (nda, proposal, withdrawal,
+  advisor, ...)
+  ├── enrich_core.py          ← Round pairing, bid classification, cycles,
+  formal boundary
+  ├── canonicalize.py         ← EvidenceRef→Span upgrade, dedup, NDA gate,
+  recovery
+  └── deal_agent.py           ← Preflight/summary aggregator (no mutations)
+
+  Two Data Modes
+
+  The pipeline has a legacy → canonical upgrade path:
+
+  ┌──────────────┬────────────────────────────────┬─────────────────────────┐
+  │              │             Legacy             │        Canonical        │
+  ├──────────────┼────────────────────────────────┼─────────────────────────┤
+  │ Evidence     │ evidence_refs                  │ evidence_span_ids       │
+  │ pointers     │ (block_id/evidence_id +        │ (span_NNNN refs)        │
+  │              │ anchor_text)                   │                         │
+  ├──────────────┼────────────────────────────────┼─────────────────────────┤
+  │ Provenance   │ No resolved positions          │ Full line/char          │
+  │              │                                │ positions + match_type  │
+  ├──────────────┼────────────────────────────────┼─────────────────────────┤
+  │ Side         │ None                           │ spans.json required     │
+  │ artifact     │                                │                         │
+  ├──────────────┼────────────────────────────────┼─────────────────────────┤
+  │ Upgrade via  │ —                              │ canonicalize (one-way,  │
+  │              │                                │ in-place)               │
+  └──────────────┴────────────────────────────────┴─────────────────────────┘
+
+  extract_artifacts.py auto-detects which mode by inspecting field names.
+
+  The Three Quality Gates
+
+  These run in parallel after canonicalization and all must pass before
+  enrichment:
+
+  check — Structural blockers:
+  - Proposals must have terms + formality_signals
+  - Bidders must have bidder_kind
+  - All evidence refs must have non-empty anchor_text
+
+  verify — Filing fidelity:
+  - Quote verification: anchor text must resolve to EXACT or NORMALIZED match in
+   source text (FUZZY fails)
+  - Referential integrity: all actor_ids in events must exist in actor roster
+  - Structural integrity: at least one initiation + one outcome event
+
+  coverage — Evidence completeness:
+  - Scans evidence items for 6 cue families (nda, proposal, withdrawal,
+  bidder_interest, process_initiation, advisor)
+  - Checks if each high-confidence cue is "covered" by a matching extracted
+  event
+  - Uncovered critical cues = error
+
+  Enrichment (Deterministic)
+
+  Given passing gates, enrich-core applies four rule-based enrichments:
+
+  1. Round pairing — matches announcement events with deadline events, counts
+  active bidders, detects selective rounds
+  2. Bid classification — rules cascade: informal signals → INFORMAL, formal
+  signals → FORMAL, post-round with no informal → FORMAL, else UNCERTAIN
+  3. Cycle segmentation — "restarted" events create cycle boundaries
+  4. Formal boundary — first FORMAL proposal per cycle
+
+  Design Principles
+
+  - Immutable raw filings — once fetched, raw/*.txt never changes (SHA256
+  verified)
+  - Fail-fast — no fallbacks, no retries, no silent defaults. Missing inputs
+  crash, not degrade
+  - Atomic file I/O — write to temp, rename; no partial artifacts
+  - Deterministic everything — no LLM calls inside the package; extraction is
+  the only external/probabilistic step
+  - Gating as data validation — enrichment literally cannot run on unchecked
+  data
+  - Provenance all the way down — every claim links to a SpanRecord with line
+  numbers in the filing
+
+✻ Cooked for 3m 2s
+
+❯ /gsd:research-phase This is a good design, but one concern I have about this  
+design is that the agent will need to read lots of texts at once and handle a   
+really large context. I want to explore methods for better attention. we can    
+discuss via two pathways: 1. context management 2. attention mechanism          
+
+● Bash(INIT=$(node "$HOME/.claude/get-shit-done/bin/gsd-tools.cjs" init phase-op
+       "1") && if [[ "$INIT" == @file:* ]]; then INIT=$(cat "${INIT#@file:}");
+      fi && echo "$I…)
+  ⎿  {
+       "commit_docs": true,
+       "brave_search": false,
+     … +24 lines (ctrl+o to expand)
+
+● Bash(RESEARCHER_MODEL=$(node "$HOME/.claude/get-shit-done/bin/gsd-tools.cjs"
+      resolve-model gsd-phase-researcher --raw) && echo "$RESEARCHER_MODEL")
+  ⎿  sonnet
+
+● Your input is a research question, not a phase number. Let me check the
+  roadmap for relevant phases, then spawn research on your actual concern.
+
+● Bash(PHASE_INFO=$(node "$HOME/.claude/get-shit-done/bin/gsd-tools.cjs" roadmap
+       get-phase all 2>/dev/null) && echo "$PHASE_INFO" | head -80)
+  ⎿  {
+       "found": false,
+       "phase_number": "all"
+     }
+
+  Read 1 file (ctrl+o to expand)
+
+● Your concern doesn't map to an existing roadmap phase — it's a cross-cutting
+  research question about extraction quality under large context. Phase 6
+  partially addressed this (chunking to ~3-4K per chunk), but you want deeper
+  investigation.
+
+  Let me spawn a researcher focused on your two pathways.
+● Bash(mkdir -p /home/austinli/Projects/bids_data/.planning/research)
+  ⎿  Done
+
+● gsd-phase-researcher(Research context & attention for LLM extraction) Opus 4.6
+  ⎿  Done (42 tool uses · 117.8k tokens · 7m 34s)
+  (ctrl+o to expand)
+
+● Research complete. Let me read the output to give you the summary.
+
+  Read 1 file (ctrl+o to expand)
+
+● ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   RESEARCH COMPLETE
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Written to .planning/research/CONTEXT_AND_ATTENTION.md
+
+  Key Findings
+
+  Axis 1: Context Management
+
+  The "lost in the middle" effect is the primary failure mechanism. Liu et al.
+  (2023) documented a 30%+ accuracy drop when relevant information sits in
+  mid-context positions. The attention curve is U-shaped — models attend
+  strongly to the beginning and end, with a trough in the middle. This directly
+  explains missed events in mid-chronology blocks.
+
+  Your evidence items are an underutilized asset. The deterministic evidence
+  scanner already does what a "coarse LLM pass" would do — no need for RAG or a
+  separate LLM scan. The pipeline should promote evidence items from a passive
+  appendix to active attention anchors (a checklist the model must address).
+
+  Context compression is NOT recommended — filing text is legally precise; lossy
+   compression risks anchor text corruption.
+
+  Axis 2: Attention Mechanisms
+
+  Quote-before-extract is the highest-impact technique. Anthropic explicitly
+  recommends it for long documents. Force the model to cite relevant passages
+  before emitting structured events, counteracting attention decay and making
+  hallucinated anchor text structurally impossible.
+
+  Extended thinking is the easiest win. A 16K thinking budget gives the model
+  reasoning space for actor disambiguation, relative date resolution, and
+  formality signal assessment — all known pain points.
+
+  Prompt ordering matters enormously. Placing chronology text first (primacy
+  bias) and extraction instructions last (recency bias) can improve quality
+  10-30% at zero token cost.
+
+  Priority Recommendations
+
+  ┌─────┬────────────────────────┬────────┬────────┬────────────┬───────────┐
+  │  #  │       Technique        │ Effort │  Gain  │ Confidence │   Cost    │
+  ├─────┼────────────────────────┼────────┼────────┼────────────┼───────────┤
+  │ 1   │ Prompt ordering (data  │ Low    │ 10-30% │ HIGH       │ None      │
+  │     │ first, query last)     │        │        │            │           │
+  ├─────┼────────────────────────┼────────┼────────┼────────────┼───────────┤
+  │ 2   │ Quote-before-extract   │ Medium │ 15-25% │ HIGH       │ +30-50%   │
+  │     │                        │        │        │            │ tokens    │
+  ├─────┼────────────────────────┼────────┼────────┼────────────┼───────────┤
+  │ 3   │ Extended thinking (16K │ Low    │ 10-20% │ HIGH       │ +30-100%  │
+  │     │  budget)               │        │        │            │ tokens    │
+  ├─────┼────────────────────────┼────────┼────────┼────────────┼───────────┤
+  │ 4   │ 2-block overlap with   │ Low    │ 5-10%  │ HIGH       │ +10%      │
+  │     │ XML tags               │        │        │            │ tokens    │
+  ├─────┼────────────────────────┼────────┼────────┼────────────┼───────────┤
+  │ 5   │ Evidence items as      │ Medium │ 10-15% │ MEDIUM     │ +10-20%   │
+  │     │ active anchors         │        │        │            │ tokens    │
+  ├─────┼────────────────────────┼────────┼────────┼────────────┼───────────┤
+  │ 6   │ Block-aligned chunk    │ Low    │ 5-10%  │ HIGH       │ None      │
+  │     │ boundaries             │        │        │            │           │
+  ├─────┼────────────────────────┼────────┼────────┼────────────┼───────────┤
+  │ 7   │ Expand few-shot        │ Low    │ 5-10%  │ MEDIUM     │ +500-1K   │
+  │     │ examples to 4-5        │        │        │            │ tokens    │
+  └─────┴────────────────────────┴────────┴────────┴────────────┴───────────┘
+
+  Batch 1 (immediate, no new infrastructure): items 1, 3, 4, 6 + prompt caching
+  Batch 2 (next iteration): items 2, 5, 7
+  Batch 3 (complex deals only): separate audit pass architecture
+
+  The research also identifies 5 pitfalls to watch for (over-chunking simple
+  deals, hallucinated anchor text, actor confusion across chunks, thinking token
+   explosion, evidence-guided extraction becoming a crutch) and 4 open questions
+   about the current implementation.
+
+✻ Cogitated for 9m 42s
+
+❯   Your evidence items are an underutilized asset. The deterministic evidence  
+scanner already does what a "coarse LLM pass" would do — no need                
+  for RAG or a separate LLM scan. The pipeline should promote evidence items    
+from a passive appendix to active attention anchors (a checklist                
+  the model must address).  What is RAG                                         
+
+● RAG = Retrieval-Augmented Generation.
+
+  Instead of stuffing the entire document into the LLM's context, you:
+
+  1. Index your text (embed chunks into a vector database)
+  2. Retrieve only the chunks most relevant to your query
+  3. Generate the answer using only those retrieved chunks as context
+
+  Why the research says you don't need it: Your pipeline already has a
+  deterministic equivalent. The evidence_items.jsonl stage (regex-based cue
+  scanning) identifies which blocks contain dates, financial terms, actor
+  mentions, and process signals — that's the "retrieval" step, done without
+  embeddings or a vector DB. The recommendation is to use those pre-tagged
+  evidence items more aggressively as attention anchors in the extraction
+  prompt, rather than bolting on a separate retrieval system.
+
+❯ I want to explore the possibility of RAG and i am willing to fundamentally    
+reconstruct things. explore the possiblity of establishing a RAG framework for  
+this pipeline (you don't have to follow the procedure of this current pipeline, 
+ you only need to know I want to pull the txt for edgar as the input of the     
+system, and have the json files and csv the output)                             
+
+● gsd-phase-researcher(Research RAG architecture for SEC extraction) Opus 4.6
+  ⎿  Done (45 tool uses · 107.5k tokens · 8m 23s)
+  (ctrl+o to expand)
+
+  Read 1 file (ctrl+o to expand)
+
+● Research written to .planning/research/RAG_ARCHITECTURE.md.
+
+  The Honest Answer
+
+  RAG is not the right primary architecture for this problem. Here's why:
+
+  The Fundamental Mismatch
+
+  ┌─────────────┬─────────────────────────────┬─────────────────────────────┐
+  │             │     RAG (designed for)      │    Your pipeline (needs)    │
+  ├─────────────┼─────────────────────────────┼─────────────────────────────┤
+  │ Goal        │ Find relevant passages from │ Extract EVERY event from a  │
+  │             │  a corpus                   │ document                    │
+  ├─────────────┼─────────────────────────────┼─────────────────────────────┤
+  │ Optimizes   │ Precision (relevant         │ Recall (miss nothing)       │
+  │ for         │ results)                    │                             │
+  ├─────────────┼─────────────────────────────┼─────────────────────────────┤
+  │ Corpus      │ Millions of documents       │ 1 document per deal         │
+  ├─────────────┼─────────────────────────────┼─────────────────────────────┤
+  │ Filtering   │ The point (reduces what the │ The enemy (filtering =      │
+  │             │  LLM reads)                 │ missed events)              │
+  └─────────────┴─────────────────────────────┴─────────────────────────────┘
+
+  Your largest filing (stec) is ~21K tokens. Claude Sonnet 4.6 has a 1M-token
+  context window. The whole thing fits with room to spare. RAG's value
+  proposition — "the document is too big to read" — doesn't apply.
+
+  The Completeness Problem Is the Dealbreaker
+
+  Published retrieval failure rates are 35-67% depending on technique. Your
+  pipeline needs to find ALL events — a missed counter-proposal changes the deal
+   narrative. RAG ADDS a failure mode (retrieval misses) that the current
+  full-context approach avoids.
+
+  To guarantee completeness with RAG, you'd need a full-context sweep after
+  retrieval anyway — making the retrieval step redundant.
+
+  Four Architecture Options Were Evaluated
+
+  ┌──────────────────────┬───────────────┬───────────────┬──────────────────┐
+  │        Option        │   Cost/Deal   │ Completeness  │     Verdict      │
+  ├──────────────────────┼───────────────┼───────────────┼──────────────────┤
+  │ A: Classic RAG       │ ~$2.20, 40-60 │ Worse         │                  │
+  │ (query per event     │  LLM calls    │ (retrieval    │ Not recommended  │
+  │ type)                │               │ misses)       │                  │
+  ├──────────────────────┼───────────────┼───────────────┼──────────────────┤
+  │ B: Agentic RAG       │ ~$1.25, 5-15  │ Variable      │ Interesting but  │
+  │ (self-correcting     │ calls         │ (agent        │ risky            │
+  │ agent loop)          │               │ dependent)    │                  │
+  ├──────────────────────┼───────────────┼───────────────┼──────────────────┤
+  │                      │               │ Good if       │ Overkill — your  │
+  │ C: Graph RAG         │ ~$3.60,       │ extraction    │ Pydantic schema  │
+  │ (knowledge graph)    │ 50-100+ calls │ works         │ IS already a     │
+  │                      │               │               │ knowledge graph  │
+  ├──────────────────────┼───────────────┼───────────────┼──────────────────┤
+  │ D: Hybrid (current   │ ~$0.60-2.40,  │               │                  │
+  │ pipeline + targeted  │ 4-11 calls    │ Best          │ Recommended      │
+  │ retrieval recovery)  │               │               │                  │
+  └──────────────────────┴───────────────┴───────────────┴──────────────────┘
+
+  What Actually Makes Sense: Option D (Hybrid)
+
+  Keep your current pipeline. Add retrieval ONLY for targeted recovery when the
+  coverage stage identifies gaps:
+
+  Current pipeline runs → coverage finds gaps →
+    gap findings generate retrieval queries →
+    retrieve relevant blocks (ChromaDB + Voyage embeddings) →
+    focused LLM call extracts missed events →
+    re-run deterministic gates
+
+  But even this should wait. The context management improvements from the prior
+  research (prompt ordering, extended thinking, evidence anchoring) are higher
+  ROI, require no new infrastructure, and may make retrieval recovery
+  unnecessary. Implement those first, measure, then decide.
+
+  When RAG Would Become Worth It
+
+  - 50+ deals with cross-deal queries ("find all deals where Party X was
+  advisor")
+  - 200K+ token filings that don't fit in context
+  - Real-time processing where latency matters
+  - Continuous ingestion of new filings
+
+  None of these apply to the current 9-deal batch pipeline.
+
+✻ Crunched for 10m 21s
+
+❯ let's go back to the prior research then. one thing I can already tell you is 
+ that extended thinking is enabled. so we need to find ways elsewhere           
+
+● Good — that eliminates item 3. Here's what's left, re-ranked:
+
+  Remaining Improvements (Extended Thinking Already Done)
+
+  Batch 1 — Zero infrastructure, prompt-only changes:
+
+  #: 1
+  Technique: Prompt ordering
+  Effort: Low
+  Expected Gain: 10-30%
+  Key Idea: Chronology text first, instructions last. Exploits primacy + recency
+
+    bias.
+  ────────────────────────────────────────
+  #: 4
+  Technique: 2-block overlap with XML tags
+  Effort: Low
+  Expected Gain: 5-10%
+  Key Idea: Overlap blocks tagged <overlap_context> so the model knows they're
+    context, not primary targets.
+  ────────────────────────────────────────
+  #: 6
+  Technique: Block-aligned chunk boundaries
+  Effort: Low
+  Expected Gain: 5-10%
+  Key Idea: Never split mid-block. Group consecutive blocks to budget.
+  ────────────────────────────────────────
+  #: 10
+  Technique: Prompt caching
+  Effort: Low
+  Expected Gain: -60% cost
+  Key Idea: System prompt + actor roster are identical across chunk calls —
+  cache
+    them.
+
+  Batch 2 — Prompt architecture changes:
+
+  #: 2
+  Technique: Quote-before-extract
+  Effort: Medium
+  Expected Gain: 15-25%
+  Key Idea: Force the model to cite passages first, then extract from its own
+    citations. Prevents hallucinated anchor text.
+  ────────────────────────────────────────
+  #: 5
+  Technique: Evidence items as active anchors
+  Effort: Medium
+  Expected Gain: 10-15%
+  Key Idea: Turn pre-computed evidence items into a checklist the model must
+    address, not a passive appendix.
+  ────────────────────────────────────────
+  #: 7
+  Technique: Expand few-shot examples
+  Effort: Low
+  Expected Gain: 5-10%
+  Key Idea: Add 2-3 more examples covering NDA groups, ambiguous drops, cycle
+    boundaries.
+
+  Batch 3 — Complex deals only:
+
+  ┌─────┬───────────┬────────┬──────────┬──────────────────────────────────┐
+  │  #  │ Technique │ Effort │ Expected │             Key Idea             │
+  │     │           │        │   Gain   │                                  │
+  ├─────┼───────────┼────────┼──────────┼──────────────────────────────────┤
+  │     │ Separate  │        │          │ Extract → audit → targeted       │
+  │ 8   │ audit     │ High   │ 10-25%   │ recovery as separate API calls   │
+  │     │ pass      │        │          │ (only for                        │
+  │     │           │        │          │ stec/medivation/petsmart).       │
+  └─────┴───────────┴────────┴──────────┴──────────────────────────────────┘
+
+  The single highest-ROI item is prompt ordering (#1) — it's a template change
+  that costs zero extra tokens. The most impactful overall is
+  quote-before-extract (#2) — it structurally prevents hallucinated anchor text,
+   which is the failure mode your verify stage catches most often.
+
+  What do you want to dig into first?
+
+❯ anything we can or should do on the deterministic componenet?                 
+
+● Good question. The deterministic stages serve three roles relative to
+  extraction quality — let me break down what each could do better.
+
+  1. Pre-Extraction (Shaping What the LLM Sees)
+
+  This is the highest leverage. Better preprocessing = better LLM input = fewer
+  errors to catch.
+
+  Block-level metadata enrichment. Right now blocks carry block_id, start_line,
+  end_line, raw_text, clean_text, is_heading. The preprocessing could
+  deterministically annotate each block with:
+  - Date mentions extracted via regex (you already have DATE_FRAGMENT_RE in
+  evidence scanning — apply it per-block)
+  - Entity mentions — simple pattern matching for "Party A/B/C", company names
+  from the seed, known advisor patterns
+  - Evidence density score — count of evidence items overlapping this block
+  - Temporal phase hint — "initiation" / "bidding" / "closing" based on position
+   + content signals
+
+  This metadata costs zero LLM tokens and directly enables the prompt-side
+  improvements (temporal phase tags, evidence density markers, block importance
+  hints).
+
+  Evidence scanning expansion. The current 5 cue families (dated_action,
+  financial_term, actor_identification, process_signal, outcome_fact) are good.
+  But the coverage stage later finds gaps that the scanner missed — those gap
+  patterns could feed back into the scanner's regex vocabulary. Essentially:
+  mine your coverage failures for new patterns.
+
+  2. Post-Extraction (Catching LLM Errors Better)
+
+  Temporal consistency check. Not currently a gate. Events should be
+  chronologically ordered relative to their evidence positions in the filing. If
+   event A's evidence appears at line 1500 but event B's appears at line 1200,
+  and A's date is after B's, that's fine. But if A's evidence is at line 1200,
+  B's at line 1500, and A is dated AFTER B — the LLM may have confused which
+  passage maps to which event. This is a pure deterministic check.
+
+  Attention decay diagnostics. The verify stage knows WHERE quote resolution
+  fails (which blocks). Aggregate that: if all failures cluster in blocks
+  B080-B140, that's direct evidence of mid-document attention decay. This
+  diagnostic could automatically trigger the targeted recovery strategy — and
+  it's purely deterministic analysis of existing verification findings.
+
+  Per-actor coverage. Coverage currently checks event-type coverage against
+  evidence cues. It doesn't check whether every actor who signed an NDA
+  eventually appears in a proposal, drop, or outcome event. An actor who signs
+  an NDA then vanishes is either a missed drop or a missed event — detectable
+  deterministically from the actor roster + event timeline.
+
+  Cross-event logic validation. Deterministic rules like:
+  - No proposal event after an executed event (in the same cycle)
+  - No NDA event after a drop for the same actor (without a restart)
+  - Every bidder who reaches "executed" must have at least one prior proposal
+  - Round announcements should precede round deadlines
+
+  These are domain invariants that the LLM might violate. Currently no gate
+  checks them.
+
+  3. Enrichment (Already Strong, One Gap)
+
+  Timeline reconstruction. enrich-core does rounds, bid classifications, cycles,
+   and formal boundary. But it doesn't produce a validated chronological
+  timeline — an ordered sequence of (date, actor, event_type) tuples that could
+  be compared against the raw chronology for sanity. This would catch date
+  resolution errors that verify doesn't flag (correct quote, wrong date).
+
+  Priority Ranking
+
+  ┌───────────────────┬───────────────────────┬────────┬────────────────────┐
+  │    Improvement    │         Where         │ Effort │       Impact       │
+  ├───────────────────┼───────────────────────┼────────┼────────────────────┤
+  │ Block-level       │                       │        │ High — directly    │
+  │ metadata (dates,  │ source/blocks.py +    │ Medium │ enables prompt     │
+  │ entities,         │ source/evidence.py    │        │ improvements       │
+  │ density)          │                       │        │                    │
+  ├───────────────────┼───────────────────────┼────────┼────────────────────┤
+  │ Temporal          │ New gate or extend    │        │ Medium — catches a │
+  │ consistency check │ check.py              │ Low    │  class of errors   │
+  │                   │                       │        │ nothing else does  │
+  ├───────────────────┼───────────────────────┼────────┼────────────────────┤
+  │ Cross-event logic │ Extend check.py       │ Low    │ Medium — cheap     │
+  │  validation       │                       │        │ domain invariants  │
+  ├───────────────────┼───────────────────────┼────────┼────────────────────┤
+  │ Per-actor         │                       │        │ Medium — catches   │
+  │ coverage          │ Extend coverage.py    │ Medium │ "vanishing actor"  │
+  │                   │                       │        │ gaps               │
+  ├───────────────────┼───────────────────────┼────────┼────────────────────┤
+  │ Attention decay   │ Extend verify.py      │        │ Low-Medium —       │
+  │ diagnostics       │ reporting             │ Low    │ diagnostic, not    │
+  │                   │                       │        │ corrective         │
+  ├───────────────────┼───────────────────────┼────────┼────────────────────┤
+  │ Evidence scanner  │ source/evidence.py    │ Low    │ Low — incremental  │
+  │ expansion         │                       │        │ recall improvement │
+  └───────────────────┴───────────────────────┴────────┴────────────────────┘
+
+  The block-level metadata enrichment is the clear winner — it's the bridge
+  between the deterministic preprocessing and all the prompt-side improvements
+  from the prior research. Without it, techniques like temporal phase tags and
+  evidence density markers have nowhere to source their data.
+
+  Want to start with that, or dig into the post-extraction gates first?
+
+✻ Cogitated for 55s
+
+❯ i m down to make serious changes as long as they are systematic and rigorous. 
+ give me a thorough pass and give me a structural redesign                      
+
+● Entered plan mode
+  Claude is now exploring and designing an implementation approach.
+
+● 3 Explore agents finished (ctrl+o to expand)
+   ├─ Explore preprocessing and evidence modules · 12 tool uses · 68.6k tokens
+   │  ⎿  Done
+   ├─ Explore verification and coverage gates · 7 tool uses · 41.1k tokens
+   │  ⎿  Done
+   └─ Explore extraction skill and prompt architecture · 37 tool uses · 86.2k
+      tokens
+      ⎿  Done
+
+❯ proceed                                                                       
+
+● 3 Explore agents finished (ctrl+o to expand)
+   ├─ Explore preprocessing and evidence modules · 13 tool uses · 73.8k tokens
+   │  ⎿  Done
+   ├─ Explore verification and coverage gates · 7 tool uses · 41.1k tokens
+   │  ⎿  Done
+   └─ Explore extraction skill and prompt architecture · 33 tool uses · 83.6k
+      tokens
+      ⎿  Done
+
+● Good — all three explorations complete. Now let me design the structural
+  redesign.
+● Plan(Design deterministic pipeline redesign)
+  ⎿  Done (38 tool uses · 131.0k tokens · 4m 23s)
+  (ctrl+o to expand)
+
+● Now let me verify a few critical assumptions before finalizing.
+
+  Read 4 files (ctrl+o to expand)
+
+● Good — I've confirmed the key structures. ChronologyBlock is a PipelineModel,
+  SkillPathSet is constructed in build_skill_paths (not deserialized from disk),
+   and cli.py uses a clean subparser pattern. The plan is sound. Let me write it
+   up.
+
+● Updated plan
+  ⎿  /plan to preview
+  ⎿  Tool use rejected
+
+● Got it — you want the full picture: deterministic + prompt engineering +
+  extraction skill. Let me explore the LLM-facing side thoroughly.
+  ⎿  Loaded ../../.claude/rules/verification-protocol.md
+
+  Searched for 1 pattern, read 3 files (ctrl+o to expand)
+
+● Now I have the full picture. Let me update the plan to be comprehensive —
+  covering the deterministic redesign, the prompt engineering overhaul, AND the
+  skill updates.
+
+  Read 1 file (ctrl+o to expand)
+
+● Now let me rewrite the plan to cover the complete overhaul — deterministic +
+  prompt architecture + skill updates.
+
+● Updated plan
+  ⎿  /plan to preview
+
+● Plan updated to cover the full overhaul. Here's a summary of the three layers:
+
+  Part A (Deterministic): 2 new stages (annotate, compose) + enhanced gates
+  across all 4 existing quality stages. The annotate stage pre-digests blocks
+  with dates, entities, evidence density, and temporal phase. The compose stage
+  builds extraction prompts with cognitive-bias-aware ordering.
+
+  Part B (Prompt Architecture): 6 changes to how the LLM sees the data:
+  1. Prompt ordering (chronology first, instructions last) — zero cost
+  2. Evidence items as active checklist — converts coverage from post-hoc audit
+  to pre-extraction guide
+  3. Block-level annotation XML tags — dates, entities, density markers
+  4. Chunk overlap with context tags — prevents double-extraction
+  5. Quote-before-extract pattern — forces LLM to cite before concluding
+  6. Prompt caching — 90% discount on repeated system prompt tokens
+
+  Part C (Skill Updates): Update extract-deal to consume compose output and
+  evidence checklist. Update verify-extraction to use attention decay
+  diagnostics for targeted repair. Update prompt spec to reflect new templates
+  and budgets.
+
+  Implementation waves: Foundation → Annotate → Compose + Gates → Prompt +
+  Skills → Validation on all 9 deals.
+
+  Want me to refine any area, or are you ready to approve and start executing?
+
+✻ Sautéed for 12m 45s

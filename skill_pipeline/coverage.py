@@ -65,10 +65,13 @@ def _build_coverage_cues(
         cue_family = _classify_cue_family(item)
         if cue_family is None or item.confidence == "low":
             continue
+        block_ids = _block_ids_for_evidence(item, blocks_by_document.get(item.document_id, []))
+        if not block_ids:
+            continue
         cues.append(
             CoverageCue(
                 cue_family=cue_family,
-                block_ids=_block_ids_for_evidence(item, blocks_by_document.get(item.document_id, [])),
+                block_ids=block_ids,
                 evidence_ids=[item.evidence_id],
                 matched_terms=item.matched_terms,
                 confidence=item.confidence,
@@ -79,20 +82,117 @@ def _build_coverage_cues(
 
 
 def _classify_cue_family(item: EvidenceItem) -> str | None:
-    text = f"{item.raw_text} {' '.join(item.matched_terms)}".lower()
+    text = item.raw_text.lower()
+    evidence_type = item.evidence_type.value
 
-    if any(token in text for token in ("confidentiality agreement", "confidentiality", "non-disclosure", "nondisclosure", " nda")):
-        return "nda"
-    if any(token in text for token in ("proposal", "offer", "bid", "indication of interest", "submitted")):
-        return "proposal"
-    if any(token in text for token in ("declined", "dropped", "withdrew", "withdrawn", "did not submit", "no longer interested")):
-        return "withdrawal_or_drop"
-    if any(token in text for token in ("financial advisor", "legal advisor", "advisor", "adviser", "retained", "engaged")):
-        return "advisor"
-    if any(token in text for token in ("expressed interest", "indicated interest", "approached", "contacted", "interested in acquiring")):
-        return "bidder_interest"
-    if any(token in text for token in ("sale process", "strategic alternatives", "initiated", "commenced", "explore strategic alternatives")):
-        return "process_initiation"
+    has_nda_language = any(
+        token in text
+        for token in (
+            "non-disclosure agreement",
+            "nondisclosure agreement",
+            "confidentiality agreement",
+            "confidentiality and standstill",
+            "standstill agreement",
+        )
+    )
+    has_executed_nda_language = any(
+        phrase in text
+        for phrase in (
+            "entered into a non-disclosure agreement",
+            "entered into an addendum to its existing non-disclosure agreement",
+            "executed six non-disclosure agreements",
+            "executed a non-disclosure agreement",
+            "signed a non-disclosure agreement",
+            "entered into a confidentiality agreement",
+            "executed a confidentiality agreement",
+            "signed a confidentiality agreement",
+        )
+    )
+    has_proposal_language = any(
+        phrase in text
+        for phrase in (
+            "submitted an indication of interest",
+            "provided a verbal indication of its interest to pursue a transaction",
+            "submitted a written indication of interest",
+            "submitted a written non-binding indication of interest",
+            "submitted a written second-round indication of interest",
+            "submitted a revised written indication of interest",
+            "submitted a written indication of interest of $",
+        )
+    )
+    has_drop_language = any(
+        token in text
+        for token in (
+            "would not continue in the process",
+            "disengaging from the process",
+            "not prepared to move forward",
+            "reevaluating its interest",
+            "withdrew",
+            "withdrawn",
+            "no longer interested",
+        )
+    )
+    has_advisor_language = any(
+        token in text
+        for token in (
+            "financial advisor",
+            "legal advisor",
+            "outside corporate counsel",
+            "counsel to",
+            "law firm",
+            "engagement letter",
+            "retaining ",
+            "retained ",
+        )
+    )
+    has_bidder_interest_language = any(
+        token in text
+        for token in (
+            "express the interest of",
+            "expressed an interest",
+            "interest in exploring a potential acquisition",
+            "request a preliminary meeting",
+            "possible acquisition target",
+            "interested in a potential transaction",
+        )
+    )
+    has_process_initiation_language = any(
+        phrase in text
+        for phrase in (
+            "exploring a potential sale",
+            "possible sale of the company",
+            "explore strategic alternatives",
+            "confidentially approach strategic buyers",
+        )
+    )
+
+    if evidence_type == "process_signal":
+        if has_executed_nda_language:
+            return "nda"
+        if has_process_initiation_language:
+            return "process_initiation"
+        return None
+
+    if evidence_type == "dated_action":
+        if has_executed_nda_language:
+            return "nda"
+        if has_drop_language:
+            return "withdrawal_or_drop"
+        if has_proposal_language:
+            return "proposal"
+        if has_bidder_interest_language:
+            return "bidder_interest"
+        if has_process_initiation_language:
+            return "process_initiation"
+        if has_advisor_language:
+            return "advisor"
+        return None
+
+    if evidence_type == "actor_identification":
+        if has_advisor_language:
+            return "advisor"
+        return None
+
     return None
 
 

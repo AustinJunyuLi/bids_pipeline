@@ -1,0 +1,133 @@
+{
+  "dropout_classifications": {
+    "evt_012": {
+      "label": "Drop",
+      "basis": "Company G stated that it would not continue in the process.",
+      "source_text": "Company G indicated it would not continue in the process"
+    },
+    "evt_017": {
+      "label": "DropAtInf",
+      "basis": "Company H said it could not increase its indicated value range after previously bidding $5.00 to $5.75 per share.",
+      "source_text": "Company H was not able to increase its indicated value range"
+    },
+    "evt_022": {
+      "label": "Drop",
+      "basis": "WDC reevaluated its interest and said it was not prepared to move forward at that time.",
+      "source_text": "WDC had decided to reconsider its interest in acquiring sTec and that it was not prepared to move forward with a transaction with sTec at that time"
+    },
+    "evt_023": {
+      "label": "Drop",
+      "basis": "Company D said it could not conduct due diligence on the required timetable and was disengaging from the process.",
+      "source_text": "Company D would not be in a position to actively conduct due diligence for more than two weeks and was disengaging from the process"
+    }
+  },
+  "bid_classifications": {
+    "evt_010": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_011": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_014": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_015": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_019": {
+      "label": "Formal",
+      "rule_applied": 2.0,
+      "basis": "Observable formal signal from formality_signals."
+    },
+    "evt_024": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_025": {
+      "label": "Formal",
+      "rule_applied": 2.5,
+      "basis": "Proposal after final round announcement/deadline with no informal signals."
+    }
+  },
+  "rounds": [
+    {
+      "announcement_event_id": "evt_016",
+      "deadline_event_id": "evt_018",
+      "round_scope": "formal",
+      "invited_actor_ids": [
+        "bidder_wdc",
+        "bidder_company_d"
+      ],
+      "active_bidders_at_time": 5,
+      "is_selective": true
+    },
+    {
+      "announcement_event_id": "evt_020",
+      "deadline_event_id": "evt_021",
+      "round_scope": "extension",
+      "invited_actor_ids": [
+        "bidder_wdc",
+        "bidder_company_d"
+      ],
+      "active_bidders_at_time": 4,
+      "is_selective": true
+    }
+  ],
+  "cycles": [
+    {
+      "cycle_id": "cycle_1",
+      "start_event_id": "evt_001",
+      "end_event_id": "evt_026",
+      "boundary_basis": "Single cycle -- no termination events"
+    }
+  ],
+  "formal_boundary": {
+    "cycle_1": {
+      "event_id": "evt_019",
+      "basis": "First formal proposal in cycle: evt_019."
+    }
+  },
+  "initiation_judgment": {
+    "type": "mixed",
+    "basis": "The board was already reviewing strategic alternatives because of operating pressure, while Balch Hill separately pressed the board to explore alternatives.",
+    "source_text": "our board of directors determined that it would be beneficial to undertake a formal review of strategic alternatives, including exploring a potential sale of sTec",
+    "confidence": "medium"
+  },
+  "advisory_verification": {
+    "advisor_bofa_merrill_lynch": {
+      "advised_actor_id": "target_board_stec",
+      "verified": true,
+      "source_text": "the board approved retaining BofA Merrill Lynch to act as sTec's financial advisor"
+    },
+    "advisor_gibson_dunn": {
+      "advised_actor_id": "target_board_stec",
+      "verified": true,
+      "source_text": "Gibson, Dunn & Crutcher LLP, which had been engaged in October 2012 as the company's outside corporate counsel"
+    },
+    "advisor_latham_watkins": {
+      "advised_actor_id": "target_board_stec",
+      "verified": false,
+      "source_text": "Latham & Watkins LLP, litigation counsel to sTec and Mr. Manouch Moshayedi"
+    }
+  },
+  "count_reconciliation": [
+    {
+      "assertion": "In total sTec executed six non-disclosure agreements related to the exploration of a potential sale of the company.",
+      "extracted_count": 6,
+      "classification": null,
+      "note": "Counts match exactly: six bidder NDA events were extracted."
+    }
+  ],
+  "review_flags": [
+    "advisory_mismatch:advisor_latham_watkins"
+  ]
+}
