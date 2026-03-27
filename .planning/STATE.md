@@ -1,11 +1,11 @@
 # Project State
 
 ## Current Phase
-Phase 2: Prompt Architecture — planned, ready for execution
+Phase 2: Prompt Architecture — executing (plan 01 of 03 complete)
 
 ## Last Session
-- **Stopped at:** Phase 1 corpus validation is complete on all 9 active deals; seed-quality hardening was split into a scoped Claude todo so Phase 2 can begin cleanly
-- **Resume file:** `.planning/phases/02-prompt-architecture/02-CONTEXT.md`
+- **Stopped at:** Phase 2 Plan 01 complete (prompt packet contract: models, paths, CLI, tests)
+- **Resume file:** `.planning/phases/02-prompt-architecture/02-02-PLAN.md`
 - **Date:** 2026-03-27
 
 ## Progress
@@ -23,6 +23,7 @@ Phase 2: Prompt Architecture — planned, ready for execution
 - [x] Phase 1 verified
 - [x] Phase 2 context gathered
 - [x] Phase 2 planned
+- [x] Phase 2 Plan 01: Prompt packet contract — models, paths, CLI, tests (3/3 tasks)
 
 ## Key Decisions This Session
 - No Python LLM wrapper — all LLM calls remain in .claude/skills/
@@ -41,11 +42,14 @@ Phase 2: Prompt Architecture — planned, ready for execution
 - Local validation must follow actual on-disk corpus availability, not the stale 9-deal assumption in the plan
 - Medivation seed was corrected from `0001193125-16-696889` to `0001193125-16-696911`; seed-quality hardening is delegated as a non-blocking todo
 - Phase 2 will add a deterministic `compose-prompts` stage, provider-neutral prompt artifacts under `data/skill/<slug>/prompt/`, and extract-skill consumption of those artifacts
+- Prompt packet models inherit ArtifactEnvelope for manifest-level metadata consistency
+- Prompt artifacts live under data/skill/<slug>/prompt/ separate from extract/
+- compose-prompts writes a manifest stub; packet rendering deferred to plan 02
 
 ## Session Continuity
-- **Last session:** 2026-03-27T18:00:22.674Z
-- **Stopped at:** Phase 2 planned; ready to execute wave 1
-- **Resume file:** `.planning/phases/02-prompt-architecture/02-01-PLAN.md`
+- **Last session:** 2026-03-27T23:22:08Z
+- **Stopped at:** Completed 02-01-PLAN.md
+- **Resume file:** `.planning/phases/02-prompt-architecture/02-02-PLAN.md`
 
 ## Accumulated Context
 ### Pending Todos
