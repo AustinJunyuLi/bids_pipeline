@@ -35,9 +35,11 @@ Current design constraints:
 
 ## Notes
 
-The v3 evidence-first rewrite plans remain useful historical background, but
-they are not the authoritative description of the current runtime surface in
-this worktree:
+> **Historical background -- not the authoritative description of the live
+> runtime.** The documents below are from earlier design iterations that
+> referenced a `pipeline/` package, provider-specific backends, and model-pinned
+> guidance. The live implementation authority is `skill_pipeline/` plus
+> `.claude/skills/`. Consult `CLAUDE.md` for the current artifact contract.
 
 - [`docs/plans/2026-03-16-pipeline-design-v3.md`](plans/2026-03-16-pipeline-design-v3.md)
 - [`docs/plans/2026-03-16-prompt-engineering-spec.md`](plans/2026-03-16-prompt-engineering-spec.md)
