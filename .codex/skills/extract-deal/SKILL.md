@@ -43,7 +43,6 @@ comparison is post-export only and read-only.
 | `data/deals/<slug>/source/chronology_selection.json` | Selected filing and section |
 | `data/deals/<slug>/source/chronology_blocks.jsonl` | Chronology narrative blocks |
 | `data/deals/<slug>/source/evidence_items.jsonl` | Pre-tagged anchors for dates, actors, values, and process signals |
-| `data/deals/<slug>/source/supplementary_snippets.jsonl` | Cross-filing hints from non-primary filings |
 | `raw/<slug>/document_registry.json` | Filing metadata and paths |
 | `raw/<slug>/filings/*.txt` | Frozen text for verbatim anchors |
 
