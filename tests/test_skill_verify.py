@@ -61,6 +61,10 @@ def _write_verify_fixture_for_fuzzy_only_match(tmp_path: Path, *, slug: str = "i
             "is_heading": False,
             "page_break_before": False,
             "page_break_after": False,
+            "date_mentions": [],
+            "entity_mentions": [],
+            "evidence_density": 0,
+            "temporal_phase": "other",
         }
     ]
     (deals_source_dir / "chronology_blocks.jsonl").write_text(
@@ -226,6 +230,10 @@ def _write_verify_fixture_for_clean_pass(tmp_path: Path, *, slug: str = "impriva
             "is_heading": False,
             "page_break_before": False,
             "page_break_after": False,
+            "date_mentions": [],
+            "entity_mentions": [],
+            "evidence_density": 0,
+            "temporal_phase": "other",
         }
     ]
     (deals_source_dir / "chronology_blocks.jsonl").write_text(

@@ -97,6 +97,10 @@ def test_canonicalize_upgrades_legacy_extract_to_span_backed_schema(tmp_path: Pa
             "is_heading": False,
             "page_break_before": False,
             "page_break_after": False,
+            "date_mentions": [],
+            "entity_mentions": [],
+            "evidence_density": 0,
+            "temporal_phase": "other",
         }
     ]
     (source_dir / "chronology_blocks.jsonl").write_text(

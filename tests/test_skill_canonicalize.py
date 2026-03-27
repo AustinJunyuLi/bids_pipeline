@@ -92,6 +92,10 @@ def _write_canon_fixture(
                 "is_heading": False,
                 "page_break_before": False,
                 "page_break_after": False,
+                "date_mentions": [],
+                "entity_mentions": [],
+                "evidence_density": 0,
+                "temporal_phase": "other",
             }
         )
         filing_lines.append(line_text)
@@ -366,6 +370,10 @@ def test_canonicalize_rejects_mismatched_block_and_evidence_refs(tmp_path: Path)
             "is_heading": False,
             "page_break_before": False,
             "page_break_after": False,
+            "date_mentions": [],
+            "entity_mentions": [],
+            "evidence_density": 0,
+            "temporal_phase": "other",
         },
         {
             "block_id": "B002",
@@ -378,6 +386,10 @@ def test_canonicalize_rejects_mismatched_block_and_evidence_refs(tmp_path: Path)
             "is_heading": False,
             "page_break_before": False,
             "page_break_after": False,
+            "date_mentions": [],
+            "entity_mentions": [],
+            "evidence_density": 0,
+            "temporal_phase": "other",
         },
     ]
     evidence_items = [

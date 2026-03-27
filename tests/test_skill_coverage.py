@@ -39,6 +39,10 @@ def _write_coverage_fixture(
                 "is_heading": False,
                 "page_break_before": False,
                 "page_break_after": False,
+                "date_mentions": [],
+                "entity_mentions": [],
+                "evidence_density": 0,
+                "temporal_phase": "other",
             }
         ]
 
@@ -289,6 +293,10 @@ def test_coverage_ignores_evidence_outside_chronology_blocks(tmp_path: Path) -> 
             "is_heading": False,
             "page_break_before": False,
             "page_break_after": False,
+            "date_mentions": [],
+            "entity_mentions": [],
+            "evidence_density": 0,
+            "temporal_phase": "other",
         }
     ]
     _write_coverage_fixture(
@@ -384,6 +392,10 @@ def test_coverage_reports_uncovered_second_proposal_cue_in_same_block(
             "is_heading": False,
             "page_break_before": False,
             "page_break_after": False,
+            "date_mentions": [],
+            "entity_mentions": [],
+            "evidence_density": 0,
+            "temporal_phase": "other",
         }
     ]
     evidence_items = [

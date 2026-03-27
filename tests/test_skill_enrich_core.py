@@ -65,8 +65,17 @@ def _write_enrich_core_fixture(
         ),
         encoding="utf-8",
     )
-    (deals_source_dir / "chronology_blocks.jsonl").write_text("{}\n", encoding="utf-8")
-    (deals_source_dir / "evidence_items.jsonl").write_text("{}\n", encoding="utf-8")
+    (deals_source_dir / "chronology_blocks.jsonl").write_text(
+        json.dumps({
+            "block_id": "B001", "document_id": "DOC001", "ordinal": 1,
+            "start_line": 1, "end_line": 1, "raw_text": "x", "clean_text": "x",
+            "is_heading": False, "page_break_before": False, "page_break_after": False,
+            "date_mentions": [], "entity_mentions": [], "evidence_density": 0,
+            "temporal_phase": "other",
+        }) + "\n",
+        encoding="utf-8",
+    )
+    (deals_source_dir / "evidence_items.jsonl").write_text("", encoding="utf-8")
     (tmp_path / "raw" / slug).mkdir(parents=True, exist_ok=True)
     (tmp_path / "raw" / slug / "document_registry.json").write_text("{}", encoding="utf-8")
 
@@ -525,8 +534,17 @@ def test_invited_actor_ids_populated_from_count_assertions(tmp_path: Path) -> No
         f"{slug},IMPRIVATA INC,THOMA BRAVO LLC,2016-07-13,https://example.com,false\n",
         encoding="utf-8",
     )
-    (deals_source_dir / "chronology_blocks.jsonl").write_text("{}\n", encoding="utf-8")
-    (deals_source_dir / "evidence_items.jsonl").write_text("{}\n", encoding="utf-8")
+    (deals_source_dir / "chronology_blocks.jsonl").write_text(
+        json.dumps({
+            "block_id": "B001", "document_id": "DOC001", "ordinal": 1,
+            "start_line": 1, "end_line": 1, "raw_text": "x", "clean_text": "x",
+            "is_heading": False, "page_break_before": False, "page_break_after": False,
+            "date_mentions": [], "entity_mentions": [], "evidence_density": 0,
+            "temporal_phase": "other",
+        }) + "\n",
+        encoding="utf-8",
+    )
+    (deals_source_dir / "evidence_items.jsonl").write_text("", encoding="utf-8")
     (tmp_path / "raw" / slug).mkdir(parents=True, exist_ok=True)
     (tmp_path / "raw" / slug / "document_registry.json").write_text("{}", encoding="utf-8")
 
@@ -639,8 +657,17 @@ def test_invited_population_graceful_on_unmatched_names(tmp_path: Path) -> None:
         f"{slug},IMPRIVATA INC,THOMA BRAVO LLC,2016-07-13,https://example.com,false\n",
         encoding="utf-8",
     )
-    (deals_source_dir / "chronology_blocks.jsonl").write_text("{}\n", encoding="utf-8")
-    (deals_source_dir / "evidence_items.jsonl").write_text("{}\n", encoding="utf-8")
+    (deals_source_dir / "chronology_blocks.jsonl").write_text(
+        json.dumps({
+            "block_id": "B001", "document_id": "DOC001", "ordinal": 1,
+            "start_line": 1, "end_line": 1, "raw_text": "x", "clean_text": "x",
+            "is_heading": False, "page_break_before": False, "page_break_after": False,
+            "date_mentions": [], "entity_mentions": [], "evidence_density": 0,
+            "temporal_phase": "other",
+        }) + "\n",
+        encoding="utf-8",
+    )
+    (deals_source_dir / "evidence_items.jsonl").write_text("", encoding="utf-8")
     (tmp_path / "raw" / slug).mkdir(parents=True, exist_ok=True)
     (tmp_path / "raw" / slug / "document_registry.json").write_text("{}", encoding="utf-8")
 

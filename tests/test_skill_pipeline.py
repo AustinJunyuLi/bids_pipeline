@@ -23,8 +23,17 @@ def _write_shared_inputs(tmp_path: Path, *, slug: str = "imprivata") -> None:
         ),
         encoding="utf-8",
     )
-    (deals_source_dir / "chronology_blocks.jsonl").write_text("{}\n", encoding="utf-8")
-    (deals_source_dir / "evidence_items.jsonl").write_text("{}\n", encoding="utf-8")
+    (deals_source_dir / "chronology_blocks.jsonl").write_text(
+        json.dumps({
+            "block_id": "B001", "document_id": "DOC001", "ordinal": 1,
+            "start_line": 1, "end_line": 1, "raw_text": "x", "clean_text": "x",
+            "is_heading": False, "page_break_before": False, "page_break_after": False,
+            "date_mentions": [], "entity_mentions": [], "evidence_density": 0,
+            "temporal_phase": "other",
+        }) + "\n",
+        encoding="utf-8",
+    )
+    (deals_source_dir / "evidence_items.jsonl").write_text("", encoding="utf-8")
     (raw_dir / "document_registry.json").write_text("{}", encoding="utf-8")
 
 

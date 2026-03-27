@@ -337,3 +337,57 @@ def test_preprocess_source_invalidates_existing_outputs_when_rerun_fails(
     assert not (source_dir / "evidence_items.jsonl").exists()
     assert not (source_dir / "chronology.json").exists()
     assert not (source_dir / "filings" / "0001193125-16-677939.txt").exists()
+
+
+def test_preprocess_source_annotates_blocks_with_date_entity_density_phase(
+    tmp_path: Path,
+) -> None:
+    raw_deal_dir, deals_dir = _write_seed_only_raw_fixture(tmp_path)
+
+    preprocess_source_deal(
+        "imprivata",
+        run_id="run-1",
+        raw_dir=raw_deal_dir.parent,
+        deals_dir=deals_dir,
+    )
+
+    source_dir = deals_dir / "imprivata" / "source"
+    blocks_path = source_dir / "chronology_blocks.jsonl"
+    blocks = [
+        json.loads(line)
+        for line in blocks_path.read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+
+    # The fixture filing has:
+    #   "Background of the Merger" (heading)
+    #   "On July 1, 2016, Party A signed a confidentiality agreement."
+    #   "On July 5, 2016, Party A submitted an indication of interest."
+    #   "Opinion of Financial Advisor" (heading)
+
+    # Find the block containing "July 1, 2016" (the confidentiality agreement block)
+    july1_blocks = [b for b in blocks if "July 1, 2016" in b["clean_text"]]
+    assert len(july1_blocks) == 1
+    july1 = july1_blocks[0]
+
+    # Date mention assertions
+    date_raws = [d["raw_text"] for d in july1["date_mentions"]]
+    assert "July 1, 2016" in date_raws
+
+    # Entity mention assertions
+    entity_raws = [e["raw_text"] for e in july1["entity_mentions"]]
+    assert "Party A" in entity_raws
+
+    # Evidence density: should be > 0 since evidence items overlap
+    assert july1["evidence_density"] > 0
+
+    # Temporal phase: process_signal cues ("confidentiality agreement") -> bidding
+    assert july1["temporal_phase"] == "bidding"
+
+    # All blocks must have the required annotation keys
+    for block in blocks:
+        assert "date_mentions" in block
+        assert "entity_mentions" in block
+        assert "evidence_density" in block
+        assert "temporal_phase" in block
+        assert block["temporal_phase"] in {"initiation", "bidding", "outcome", "other"}
