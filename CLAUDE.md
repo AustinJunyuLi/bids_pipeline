@@ -35,23 +35,28 @@ Artifacts:
 ## Build, Test, and Development Commands
 
 ``` bash
+# Create and activate a local virtual environment backed by uv-managed CPython
+uv python install 3.13
+uv venv --python 3.13 --managed-python --seed .venv
+.\.venv\Scripts\Activate.ps1
+
 # Install the single CLI entrypoint in editable mode
-pip install -e .
+python -m pip install -e .
 
 # Run all tests
-pytest -q
+python -m pytest -q
 
 # Run focused stage suites
-pytest -q tests/test_skill_raw_stage.py tests/test_skill_preprocess_source.py
-pytest -q tests/test_skill_verify.py tests/test_skill_coverage.py
-pytest -q tests/test_skill_canonicalize.py
-pytest -q tests/test_skill_enrich_core.py tests/test_skill_pipeline.py
+python -m pytest -q tests/test_skill_raw_stage.py tests/test_skill_preprocess_source.py
+python -m pytest -q tests/test_skill_verify.py tests/test_skill_coverage.py
+python -m pytest -q tests/test_skill_canonicalize.py
+python -m pytest -q tests/test_skill_enrich_core.py tests/test_skill_pipeline.py
 
 # Run a single test file
-pytest -q tests/test_skill_pipeline.py
+python -m pytest -q tests/test_skill_pipeline.py
 
 # Run a single test
-pytest -q tests/test_skill_pipeline.py::test_name -v
+python -m pytest -q tests/test_skill_pipeline.py::test_name -v
 
 # Seed-only upstream stages
 skill-pipeline raw-fetch --deal imprivata
