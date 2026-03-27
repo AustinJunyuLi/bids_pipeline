@@ -5,7 +5,9 @@
 
 ## Recommended Architecture
 
-The pipeline follows a **deterministic-shell / LLM-kernel** pattern: an immutable document layer feeds into deterministic preprocessing, which structures input for a non-deterministic LLM extraction kernel, whose outputs are then validated and enriched through a chain of deterministic gates before export. The architecture is already well-established in this codebase. The redesign deepens it by adding annotation, prompt composition, and quote-before-extract stages between preprocessing and extraction.
+This document is research guidance, not the execution contract. `.planning/ROADMAP.md` and the current phase context file are authoritative for scope and sequencing. The architecture below is aligned to that adopted roadmap.
+
+The pipeline follows a **deterministic-shell / LLM-kernel** pattern: an immutable document layer feeds into deterministic preprocessing, which structures input for a non-deterministic LLM extraction kernel, whose outputs are then validated and enriched through a chain of deterministic gates before export. The active roadmap keeps Phase 1 annotation inside `preprocess-source`, then adds prompt-composition responsibilities around extraction in later phases.
 
 ### Architecture Diagram
 
@@ -20,54 +22,44 @@ seeds.csv ---------> raw-fetch -----------> raw/<slug>/filings/*.txt
                     ===========================
 raw filings -------> preprocess-source ----> chronology_blocks.jsonl
                                             evidence_items.jsonl
+                                            (Phase 1 adds required block metadata
+                                             directly to chronology_blocks.jsonl)
 
-                  + [NEW] annotate --------> annotated_blocks.jsonl
-                                            (dates, entities, evidence density,
-                                             temporal phase per block)
-
-                    PROMPT COMPOSITION (NEW)
-                    ========================
-annotated blocks --> chunk-plan ------------> chunk_plan.json
-+ evidence items     (block-aligned boundaries, 2-block overlap,
-+ actor roster       complexity routing)
-                  -> compose-prompt --------> per-chunk prompt payloads
-                     (data-first ordering, XML tags, evidence checklist,
-                      few-shot examples, quote-before-extract instructions)
+                    PLANNED PROMPT COMPOSITION
+                    ==========================
+annotated blocks --> chunk planning / prompt composition helpers
++ evidence items     (block-aligned boundaries, overlap tags,
++ actor roster       evidence checklist, data-first ordering)
+                  -> optional helper artifacts such as chunk plans
+                     or prompt payload snapshots if Phase 2 chooses
+                     to serialize them
 
                     LLM EXTRACTION KERNEL
                     =====================
-prompt payloads ---> extract ----------------> per-chunk quote+extract responses
-                     (quote-before-extract protocol:
-                      1. cite relevant passages
-                      2. extract structured actors/events from citations)
-                  -> merge-chunks -----------> actors_raw.json, events_raw.json
-                     (cross-chunk dedup, overlap reconciliation)
+prompt inputs -----> extract ----------------> actors_raw.json, events_raw.json
+                     (later phases add quote-before-extract and
+                      provider-native structured outputs)
 
                     SCHEMA UPGRADE
                     ==============
-raw artifacts -----> canonicalize -----------> actors.json, events.json, spans.json
-                     (span resolution, date normalization,
-                      semantic dedup, NDA gating, unnamed recovery)
+extract artifacts -> canonicalize -----------> actors_raw.json, events_raw.json, spans.json
+                     (schema upgraded in place; filenames stay stable)
 
                     DETERMINISTIC GATE CHAIN
                     ========================
 canonical ---------> check ------------------> check_report.json
-                     (structural: proposal terms, bidder kind, anchor text)
                   -> verify -----------------> verification_log.json
-                     (quote resolution: EXACT/NORMALIZED only)
-                  -> coverage ----------------> coverage_findings.json
-                     (source cue audit against extracted artifacts)
-              [NEW]-> temporal-consistency ----> temporal_report.json
-              [NEW]-> cross-event-logic ------> logic_report.json
-              [NEW]-> per-actor-coverage -----> actor_coverage.json
-              [NEW]-> attention-decay --------> decay_diagnostics.json
-                  -> [optional] verify-extraction (LLM repair if repairable)
+                  -> coverage ---------------> coverage_findings.json
+              [NEW]-> temporal-consistency --> temporal_report.json
+              [NEW]-> cross-event-logic ----> logic_report.json
+              [NEW]-> per-actor-coverage ---> actor_coverage.json
+              [NEW]-> attention-decay ------> decay_diagnostics.json
+                  -> [optional] verify-extraction
 
                     DETERMINISTIC ENRICHMENT
                     ========================
 gates pass --------> enrich-core ------------> deterministic_enrichment.json
-                     (rounds, bid classification, cycles, formal boundary)
-                  -> [optional] enrich-deal --> enrichment.json
+                  -> [optional] enrich-deal -> enrichment.json
 
                     EXPORT
                     ======
@@ -80,39 +72,32 @@ enriched ----------> export-csv -------------> deal_events.csv
 | Component | Responsibility | Inputs | Outputs | Communicates With |
 |-----------|---------------|--------|---------|-------------------|
 | **raw-fetch** | Discover and freeze SEC filings immutably | seeds.csv, SEC EDGAR | Immutable .txt files, discovery.json, document_registry.json | preprocess-source (downstream) |
-| **preprocess-source** | Parse frozen filings into chronology blocks and evidence items | Frozen .txt files, document registry | chronology_blocks.jsonl, evidence_items.jsonl | annotate (downstream) |
-| **annotate** (NEW) | Enrich blocks with metadata: dates, entities, evidence density, temporal phase | chronology_blocks.jsonl, evidence_items.jsonl | annotated_blocks.jsonl | chunk-plan, compose-prompt (downstream) |
-| **chunk-plan** (NEW) | Decide chunk boundaries (block-aligned), overlap, complexity routing | annotated_blocks.jsonl | chunk_plan.json | compose-prompt (downstream) |
-| **compose-prompt** (NEW) | Build per-chunk prompt payloads with data-first ordering, XML tags, evidence checklist, few-shot examples | chunk_plan.json, annotated_blocks.jsonl, evidence_items.jsonl, actor roster (if multi-pass) | Prompt payloads (in-memory or serialized) | extract (downstream) |
-| **extract** | LLM calls with quote-before-extract protocol | Prompt payloads | Per-chunk quote + structured responses | merge-chunks (downstream) |
-| **merge-chunks** (NEW) | Cross-chunk deduplication, overlap reconciliation, actor roster merging | Per-chunk responses | actors_raw.json, events_raw.json | canonicalize (downstream) |
-| **canonicalize** | Schema upgrade: span resolution, date normalization, semantic dedup, NDA gating | Raw extract artifacts, frozen filings, chronology blocks, evidence items | Canonical actors.json, events.json, spans.json | check (downstream) |
-| **check** | Structural blocker gate | Canonical extract artifacts | check_report.json | verify (downstream, gated) |
-| **verify** | Quote resolution and referential integrity | Canonical artifacts, frozen filings, blocks, evidence | verification_log.json, verification_findings.json | coverage (downstream, gated) |
-| **coverage** | Source evidence coverage audit | Canonical artifacts, evidence items, blocks | coverage_findings.json, coverage_summary.json | enrich-core (downstream, gated) |
-| **temporal-consistency** (NEW) | Cross-event date ordering validation | Canonical events | temporal_report.json | Parallel with other enhanced gates |
-| **cross-event-logic** (NEW) | Logical consistency (drop after NDA, proposal after NDA, etc.) | Canonical actors + events | logic_report.json | Parallel with other enhanced gates |
-| **per-actor-coverage** (NEW) | Per-actor event trajectory completeness | Canonical actors + events, evidence items | actor_coverage.json | Parallel with other enhanced gates |
-| **attention-decay** (NEW) | Detect position-correlated extraction gaps | Canonical events, chunk_plan.json, annotated_blocks.jsonl | decay_diagnostics.json | Diagnostic only |
-| **enrich-core** | Deterministic rounds, bid classification, cycles, formal boundary | Canonical artifacts, gate reports | deterministic_enrichment.json | export (downstream) |
-| **export-csv** | Filing-grounded CSV from extract + enrich artifacts | Canonical artifacts, enrichment | deal_events.csv | reconcile-alex (post-export) |
+| **preprocess-source** | Parse frozen filings into chronology blocks and evidence items; Phase 1 extends it with block metadata | Frozen .txt files, document registry | `chronology_blocks.jsonl`, `evidence_items.jsonl` | later prompt-composition work |
+| **prompt composition helpers** (planned) | Decide chunk boundaries, overlaps, evidence presentation, and prompt layout | Annotated chronology blocks, evidence items, actor roster | Deterministic prompt inputs, optionally serialized helper artifacts | extract (downstream) |
+| **extract** | LLM calls that produce actor/event artifacts | Prompt inputs | `actors_raw.json`, `events_raw.json` | canonicalize (downstream) |
+| **canonicalize** | Schema upgrade: span resolution, date normalization, semantic dedup, NDA gating | Raw extract artifacts, frozen filings, chronology blocks, evidence items | Canonical span-backed payloads written back to `actors_raw.json` and `events_raw.json`, plus `spans.json` | check (downstream) |
+| **check** | Structural blocker gate | Canonical extract artifacts | `check_report.json` | verify (downstream, gated) |
+| **verify** | Quote resolution and referential integrity | Canonical artifacts, frozen filings, blocks, evidence | `verification_log.json`, `verification_findings.json` | coverage (downstream, gated) |
+| **coverage** | Source evidence coverage audit | Canonical artifacts, evidence items, blocks | `coverage_findings.json`, `coverage_summary.json` | enrich-core (downstream, gated) |
+| **enhanced gates** (planned) | Temporal consistency, cross-event logic, per-actor coverage, attention diagnostics | Canonical artifacts plus source artifacts | Additive reports | Parallel with existing gates |
+| **enrich-core** | Deterministic rounds, bid classification, cycles, formal boundary | Canonical artifacts, gate reports | `deterministic_enrichment.json` | export (downstream) |
+| **export-csv** | Filing-grounded CSV from extract + enrich artifacts | Canonical artifacts, enrichment | `deal_events.csv` | reconcile-alex (post-export) |
 
 ### Data Flow
 
-**Forward flow is strictly linear and artifact-mediated.** Each component reads from upstream artifacts on the filesystem and writes its own artifacts. There are no in-process callbacks or bidirectional data flow between stages (except the optional LLM repair loop between gate findings and extraction).
+**Forward flow is strictly linear and artifact-mediated.** Each component reads from upstream artifacts on the filesystem and writes its own artifacts. There are no in-process callbacks or bidirectional data flow between stages except the optional LLM repair loop.
 
-1. **Immutable truth**: Filing .txt files frozen by raw-fetch are never modified. All downstream processing reads from these.
-2. **Source artifacts**: chronology_blocks.jsonl and evidence_items.jsonl are deterministic derivations of the frozen text.
-3. **Annotated artifacts** (NEW): annotated_blocks.jsonl adds computed metadata to blocks without modifying them -- purely additive enrichment.
-4. **Prompt payloads**: Ephemeral or serialized prompt structures composed from annotated blocks, evidence items, actor rosters, and few-shot examples.
-5. **LLM responses**: Raw structured output from the extraction kernel, one per chunk.
-6. **Merged raw artifacts**: actors_raw.json, events_raw.json after cross-chunk reconciliation.
-7. **Canonical artifacts**: Span-backed actors.json, events.json, spans.json after schema upgrade.
-8. **Gate reports**: Each gate writes a report with status (pass/fail), findings, and diagnostics. Gates are sequential: check must pass before verify, verify before coverage.
-9. **Enrichment**: Deterministic derivations (rounds, bids, cycles) from canonical artifacts and passing gate reports.
-10. **Export**: Final structured output from enrichment + canonical artifacts.
+1. **Immutable truth**: Filing `.txt` files frozen by raw-fetch are never modified. All downstream processing reads from these.
+2. **Source artifacts**: `chronology_blocks.jsonl` and `evidence_items.jsonl` are deterministic derivations of the frozen text.
+3. **Phase 1 annotation**: Block metadata is added directly onto `chronology_blocks.jsonl`; the active roadmap does not adopt a separate `annotated_blocks.jsonl` artifact.
+4. **Prompt inputs**: Later phases may compute chunk plans or composed prompt payloads deterministically from annotated blocks, evidence items, and actor rosters.
+5. **LLM responses**: Extraction writes `actors_raw.json` and `events_raw.json`.
+6. **Canonical artifacts**: Canonicalization upgrades those extract files in place and adds `spans.json`.
+7. **Gate reports**: Each gate writes a report with status, findings, and diagnostics. Gates are sequential: check must pass before verify, verify before coverage.
+8. **Enrichment**: Deterministic derivations (rounds, bids, cycles) flow from canonical artifacts and passing gate reports.
+9. **Export**: Final structured output comes from the filing-grounded canonical/enrichment layer.
 
-**Key data flow principle**: Information only flows forward. No downstream stage modifies upstream artifacts. The only exception is the optional LLM repair loop, which rewrites extract artifacts based on gate findings -- but this is an explicit re-entry into the extraction stage, not a gate modifying its own inputs.
+**Key data flow principle**: Information only flows forward. No downstream stage silently mutates upstream truth artifacts. The only exception is the explicit repair loop, which re-enters extraction by design rather than letting gates rewrite their own inputs.
 
 ## Patterns to Follow
 
@@ -336,85 +321,77 @@ The bottleneck is always the LLM extraction kernel. All other stages are fast de
 
 Components have strict dependency ordering that determines the build sequence:
 
-### Layer 1: Foundation (No Changes Needed)
+### Layer 1: Foundation (Existing Baseline)
 Already implemented and working:
 - **raw-fetch**: Immutable filing freeze
 - **preprocess-source**: Chronology blocks and evidence items
 
-These are stable. Do not modify during redesign unless fixing bugs.
+These are stable. Redesign work should extend them carefully rather than replacing them.
 
-### Layer 2: Annotation (New, Prerequisite for Improved Extraction)
-- **annotate**: Block-level metadata enrichment
+### Layer 2: Annotation (Phase 1)
+- **preprocess-source extension**: Block-level metadata enrichment
   - Depends on: preprocess-source outputs
-  - No downstream dependency until chunk-plan is built
-  - Can be implemented and tested independently
+  - Writes back into `chronology_blocks.jsonl`
+  - Can be implemented and tested independently of any LLM changes
 
-### Layer 3: Prompt Architecture (New, Prerequisite for Extraction Improvement)
-- **chunk-plan**: Block-aligned chunk boundary computation
-  - Depends on: annotated blocks
-- **compose-prompt**: Prompt payload assembly with data-first ordering
-  - Depends on: chunk-plan, annotated blocks, evidence items, actor roster (from previous extraction or empty for actors-first pass)
-  - This is where quote-before-extract, evidence checklist, and few-shot examples are wired in
+### Layer 3: Prompt Architecture (Phase 2)
+- **chunk planning / prompt composition helpers**
+  - Depend on: annotated blocks, evidence items, actor roster when applicable
+  - This is where data-first ordering, evidence checklists, overlap tags, and prompt caching structure are wired in
 
-### Layer 4: Extraction Improvement (Modified)
-- **extract**: LLM calls with new prompt payloads
-  - Depends on: compose-prompt outputs
-  - Prompt caching configuration
-  - Quote-before-extract response parsing
-- **merge-chunks**: Cross-chunk reconciliation
-  - Depends on: per-chunk extraction responses
+### Layer 4: Extraction Improvement (Phase 3)
+- **extract**: LLM calls with quote-before-extract and provider-native structured outputs
+  - Depends on: prompt-composition outputs
+  - Requires prompt caching and response-parsing decisions
 
 ### Layer 5: Schema Upgrade (Existing, May Need Updates)
-- **canonicalize**: Span resolution for quote-before-extract output format
-  - May need updates to handle new evidence reference format from quote-before-extract
+- **canonicalize**: Span resolution for the evolved extraction output format
+  - May need updates to handle quote-before-extract outputs while keeping stable filenames
 
-### Layer 6: Enhanced Gates (New, Additive)
-These can be built in parallel with each other after core gates exist:
+### Layer 6: Enhanced Gates (Phase 4, Additive)
+These can be built in parallel with each other after the improved extraction path exists:
 - **temporal-consistency**: Date ordering validation
 - **cross-event-logic**: Logical consistency checks
 - **per-actor-coverage**: Actor trajectory completeness
 - **attention-decay**: Position-correlated gap detection
 
-### Layer 7: Existing Deterministic Chain (Minimal Changes)
-- **check**, **verify**, **coverage**: May need schema updates for new enhanced gate integration
-- **enrich-core**: May need to check enhanced gate results before running
-- **export-csv**: No changes expected
+### Layer 7: Integration (Phase 5)
+- **database/orchestration**: Canonical store, end-to-end wiring, calibration
+- **existing deterministic chain**: `check`, `verify`, `coverage`, `enrich-core`, `export-csv`
 
 ### Recommended Build Sequence
 
 ```
-Phase 1: annotate (Layer 2) + compose-prompt skeleton (Layer 3)
+Phase 1: preprocess-source metadata extension (Layer 2)
   - Independent, testable, no LLM cost
-  - Validates block metadata and prompt structure
+  - Validates block metadata and source-artifact contract
 
-Phase 2: chunk-plan (Layer 3) + compose-prompt full (Layer 3)
-  - Block-aligned chunking logic
-  - Full prompt payload assembly with data-first ordering
+Phase 2: prompt architecture helpers (Layer 3)
+  - Block-aligned chunking logic if needed
+  - Deterministic prompt assembly with data-first ordering
   - Testable with fixture data
 
-Phase 3: extract with quote-before-extract (Layer 4) + merge-chunks (Layer 4)
-  - Wire up new prompts to LLM calls
+Phase 3: extract with quote-before-extract (Layer 4)
+  - Wire new prompt architecture into LLM calls
   - Implement quote response parsing
-  - Cross-chunk merge
   - End-to-end test on one deal
 
-Phase 4: canonicalize updates (Layer 5) + enhanced gates (Layer 6)
-  - Update span resolution for new evidence format
-  - Add temporal, logic, coverage, decay gates
+Phase 4: canonicalize updates + enhanced gates (Layers 5-6)
+  - Update span resolution for the new extraction contract
+  - Add temporal, logic, coverage, and decay diagnostics
   - Each gate independently testable
 
-Phase 5: Integration + pipeline orchestration
-  - Wire stages into end-to-end CLI
-  - Complexity routing (single-pass vs multi-chunk)
-  - Prompt caching optimization
+Phase 5: integration + calibration (Layer 7)
+  - Wire stages into end-to-end CLI and canonical store
+  - Complexity routing if Phase 2-3 prove it is needed
   - Run on all 9 deals
 ```
 
 **Rationale for this ordering:**
-1. Annotation and prompt composition are zero-LLM-cost, independently testable improvements
+1. Phase 1 is deterministic prerequisite work with no LLM risk
 2. Extraction improvement depends on prompt composition
-3. Enhanced gates depend on having extraction output to validate
-4. Pipeline orchestration depends on all stages being individually functional
+3. Enhanced gates should validate the improved extraction contract, not the old one
+4. Integration depends on all stages being individually functional
 
 ## Sources
 

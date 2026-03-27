@@ -76,11 +76,12 @@
 
 ## Backward Compatibility (explored in second round)
 
-**Decision:** New metadata fields optional on ChronologyBlock (default None/empty). Re-run preprocess-source for all 9 deals during validation.
+**Option explored:** New metadata fields optional on ChronologyBlock (default None/empty).
+**Final outcome:** Rejected by the final phase context. `01-CONTEXT.md` is authoritative: metadata fields are required and stale blocks fail on load.
 
 ## Restructure Requirements (explored in second round)
 
-**Decision:** INFRA-01/02 move to Phase 2. Phase 1 = INFRA-04 (block metadata) + INFRA-06 (pyproject bumps) + cleanup.
+**Decision:** INFRA-01/02 move to Phase 2. Phase 1 = INFRA-04 (block metadata) + INFRA-06 (deterministic runtime/doc hardening) + cleanup.
 
 ## Testing Strategy (explored in second round)
 
@@ -97,5 +98,5 @@
 
 ## Deferred Ideas
 
-- Provider-native structured outputs (INFRA-01, INFRA-02) — moved to Phase 2
-- BIDS_LLM_STRUCTURED_MODE cleanup — Phase 1 or 2
+- Schema-constrained external extraction flows (INFRA-01, INFRA-02) — moved to Phase 2
+- Cleanup of misleading provider-mode references — Phase 1 or 2

@@ -28,13 +28,20 @@
 - Location: `skill_pipeline/preprocess/`, `skill_pipeline/source/`
 - Contains: `preprocess/source.py` (orchestration), `source/locate.py` (chronology detection), `source/blocks.py` (block building), `source/evidence.py` (evidence scanning)
 - Depends on: raw frozen documents, regex-based chronology candidate scoring, line-level parsing
-- Used by: deterministic gates (check, verify, coverage), canonicalization
-- Output: `data/deals/<slug>/source/chronology_blocks.jsonl`, `data/deals/<slug>/source/evidence_items.jsonl`
+- Used by: deterministic gates (check, verify, coverage), canonicalization,
+  local-agent extraction
+- Output: `data/deals/<slug>/source/chronology_selection.json`,
+  `chronology_blocks.jsonl`, `evidence_items.jsonl`, `chronology.json`, and
+  `source/filings/*`
+- Contract note: current preprocess is seed-only and single-primary-document;
+  stale `supplementary_snippets.jsonl` is explicitly removed rather than
+  produced
 
-**Extract Artifacts Layer (LLM-Generated Structured Output):**
-- Purpose: Store raw and canonical actors/events structures produced by extraction tools (external agent)
+**Extract Artifacts Layer (Local-Agent Structured Output):**
+- Purpose: Store actor/event structures produced by local-agent extraction,
+  first in legacy evidence-ref form and then in canonical span-backed form
 - Location: Loaded by `skill_pipeline/extract_artifacts.py`
-- Contains: `actors_raw.json` (legacy) or canonical `actors.json` with `evidence_span_ids`, `events_raw.json` (legacy) or canonical `events.json`
+- Contains: `actors_raw.json` and `events_raw.json` in both modes; canonicalization upgrades the schema in place and adds `spans.json`
 - Depends on: `/extract-deal` command (external)
 - Used by: all deterministic gates, canonicalize, enrich-core
 - Input: `data/skill/<slug>/extract/actors_raw.json`, `data/skill/<slug>/extract/events_raw.json`
@@ -54,7 +61,7 @@
 - Contains: Span resolution, date normalization, quote matching, NDA gating logic
 - Depends on: raw extract artifacts, frozen filing text, chronology blocks, evidence items
 - Used by: Runs before check/verify/coverage if canonical form is needed
-- Output: Upgraded canonical `actors.json`, `events.json`, `spans.json` in extract directory
+- Output: Canonical span-backed payloads written back to `actors_raw.json` and `events_raw.json`, plus `spans.json`
 
 **Deal Agent Summarizer (Preflight & Status Only):**
 - Purpose: Verify shared inputs exist, summarize artifact counts and stage status without running extraction or repair
@@ -72,7 +79,8 @@
 2. → `skill-pipeline raw-fetch` discovers filing candidates and fetches primary filing
 3. → `raw/<slug>/filings/{doc_id}.txt` (immutable), `discovery.json`, `document_registry.json`
 4. → `skill-pipeline preprocess-source` parses frozen text into chronology and evidence
-5. → `data/deals/<slug>/source/chronology_blocks.jsonl`, `evidence_items.jsonl`
+5. → `data/deals/<slug>/source/chronology_selection.json`,
+   `chronology_blocks.jsonl`, `evidence_items.jsonl`, `chronology.json`
 6. → (**External:** `/extract-deal <slug>` produces extract artifacts)
 
 **Deterministic Verification Path (After Extract):**
@@ -90,13 +98,14 @@
 
 1. Extract artifacts in legacy form
 2. → `skill-pipeline canonicalize` (span resolution, schema upgrade, dedup, NDA-gate)
-3. → Upgraded `actors.json`, `events.json`, `spans.json` in extract directory
+3. → Canonical span-backed payloads written back to `actors_raw.json` and `events_raw.json`, plus `spans.json`
 4. → Then proceed to check/verify/coverage gates
 
 **State Management:**
 
 - **Immutable truth**: Frozen `.txt` files in `raw/<slug>/filings/`
-- **Deterministic inputs**: Chronology blocks, evidence items, document registry (locked by preprocess-source)
+- **Deterministic inputs**: Chronology selection, chronology blocks, evidence
+  items, source filing mirrors, and document registry
 - **Extract artifacts**: Raw or canonical; canonical form requires `spans.json` sidecar
 - **Stage outputs**: Per-stage artifacts in `data/skill/<slug>/{check,verify,coverage,enrich,export,canonicalize}/`
 - **Artifact invalidation**: Missing or failing gate prevents downstream stages (enrich-core requires check/verify/coverage)
@@ -198,7 +207,9 @@
 
 **Authentication:** SEC access via edgartools requires `PIPELINE_SEC_IDENTITY` (or `SEC_IDENTITY`, `EDGAR_IDENTITY`) environment variable set in `skill_pipeline/raw/stage.py` _set_identity().
 
-**Configuration:** No config file; stage behavior controlled by deal slug and artifact presence. Environment variables control provider selection (`BIDS_LLM_PROVIDER`, `BIDS_LLM_MODEL`) but these are external to this package.
+**Configuration:** No config file; stage behavior is controlled by deal slug,
+artifact presence, and EDGAR identity env vars for live fetch. Do not treat
+provider-selection variables as part of the `skill_pipeline` contract.
 
 **Provenance:** Every extract artifact carries filing-aware metadata (document_id, accession_number, filing_type). Span resolution preserves line/character offsets for audit trails.
 

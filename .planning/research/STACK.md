@@ -2,22 +2,30 @@
 
 **Project:** Filing-Grounded Deal Pipeline Redesign
 **Researched:** 2026-03-27
-**Focus:** LLM structured extraction APIs, prompt caching, database options, complementary libraries
+**Focus:** Agent-side structured extraction options, prompt caching, database
+options, complementary libraries
 
 ## Recommended Stack
 
-This is an additive research document. The existing stack (Python 3.11+, Pydantic 2.0+, edgartools, pytest, setuptools) is already chosen and validated. Recommendations below cover the **new capabilities** needed for the redesign: provider-native structured outputs, prompt caching, a canonical database layer, and supporting libraries.
+This is optional external local-agent implementation research. It is not the
+live repo contract. The existing deterministic Python stack (Python 3.11+,
+Pydantic 2.0+, edgartools, pytest, setuptools) is already chosen and validated.
+Nothing in this document by itself authorizes adding Python-side LLM wrappers to
+`skill_pipeline`.
 
-### LLM Provider SDKs
+### External Agent-Side SDK Options
 
 | Technology | Version | Purpose | Why | Confidence |
 |------------|---------|---------|-----|------------|
 | anthropic | >=0.86 | Claude API client with native structured outputs, prompt caching, extended thinking | GA structured outputs via `output_config.format` with `json_schema` type. Native `client.messages.parse()` with Pydantic models. Prompt caching via `cache_control` blocks. Current minimum for `output_config` (replaces deprecated `output_format`). | HIGH |
-| openai | >=2.30 | OpenAI API client with structured outputs via Responses API | GA structured outputs via `response_format` / `text.format` with `json_schema`. Native Pydantic `.parse()` support. Automatic prompt caching (no code changes). GPT-5.x models require Responses API for tool calling. | HIGH |
+| openai | >=2.30 | OpenAI API client with structured outputs via Responses API | Responses API is the planned path for GPT-5.x structured outputs, but exact request field names still need implementation-time verification against official docs or SDK changelog. Automatic prompt caching requires no code changes. | MEDIUM |
 
 **Key version rationale:**
 - `anthropic>=0.86` is required for `output_config.format` (GA path), replacing the deprecated beta header `structured-outputs-2025-11-13` and old `output_format` parameter. The SDK handles Pydantic-to-JSON-Schema transformation internally via `client.messages.parse()`.
-- `openai>=2.30` is required for the Responses API with structured outputs on GPT-5.x models. GPT-4o is retired as of Feb 2026; GPT-5.4 is the current production model. Chat Completions API still works but Responses API is the forward path.
+- `openai>=2.30` is the planned SDK floor for the Responses API path on GPT-5.x models. GPT-4o is retired as of Feb 2026; GPT-5.4 is the current production model. Chat Completions API still works, but exact Responses API request fields still need verification during implementation.
+
+These SDKs would belong to an external runner chosen by a local agent, not to
+the current `skill_pipeline` contract.
 
 ### Structured Output Configuration
 
@@ -86,7 +94,7 @@ client = OpenAI()
 response = client.responses.parse(
     model="gpt-5.4",
     input=[{"role": "user", "content": prompt}],
-    text_format=ActorRecord,
+    text_format=ActorRecord,  # Provisional example: verify exact field name during Phase 2.
 )
 actor = response.output_parsed  # Typed ActorRecord instance
 ```
@@ -233,10 +241,11 @@ PostgreSQL is overkill for a 9-deal batch pipeline with no concurrent write pres
 | gpt-4o / gpt-4o-mini | Retired/retiring. GPT-5.4 is the current OpenAI production model. |
 | Summarization/compression tools | Project explicitly rejects lossy compression of filing text. Legal precision requires verbatim source text. |
 
-## Version Pinning Recommendations
+## Agent-Side Dependency Ideas (Not Adopted `pyproject.toml` Changes)
 
 ```toml
-# pyproject.toml dependencies (proposed additions/updates)
+# Example external-runner dependency set if direct SDK integration is built
+# outside `skill_pipeline`
 dependencies = [
     "anthropic>=0.86",          # Was >=0.49; need >=0.86 for output_config.format GA
     "openai>=2.30",             # NEW: OpenAI Responses API with structured outputs on GPT-5.x
@@ -252,38 +261,30 @@ dependencies = [
 ```
 
 **Version pinning rationale:**
-- `anthropic>=0.86`: Floor bumped from 0.49 to 0.86 because `output_config.format` (the GA structured outputs path) requires SDK versions from late 2025+. The old `output_format` parameter still works but is deprecated.
-- `openai>=2.30`: New dependency. Required for Responses API + structured outputs on GPT-5.x. The Chat Completions API path still works for legacy models but GPT-5.4 requires Responses API for tool calling.
+- `anthropic>=0.86`: If an external runner uses Anthropic structured outputs,
+  this floor supports the researched GA path.
+- `openai>=2.30`: If an external runner uses the Responses API path on GPT-5.x,
+  this is the researched starting point.
 - `edgartools>=5.23,<6.0`: Add upper bound. v6.0 will include breaking changes (deprecated parameter removal, dimension column naming changes). The pipeline currently works on 5.23+; latest is 5.26.1 (released 2026-03-26).
 - `duckdb>=1.5`: New dependency. Latest stable is 1.5.1 (released 2026-03-23). Requires Python >=3.10 (compatible with project's >=3.11 requirement).
 
-## Provider-Specific Configuration
+## External Runner Configuration Ideas (Not Adopted Repo Contract)
 
-### Environment Variables (additions)
+No repo-standard environment variable naming is adopted for external runner
+configuration. If a future local-agent runner needs provider-specific settings,
+define them there rather than projecting them back into `skill_pipeline`.
 
-```bash
-# Existing (unchanged)
-ANTHROPIC_API_KEY
-OPENAI_API_KEY
-BIDS_LLM_PROVIDER          # anthropic|openai
-BIDS_LLM_MODEL             # override model ID
-BIDS_LLM_REASONING_EFFORT  # provider-specific
-BIDS_LLM_STRUCTURED_MODE   # prompted_json|provider_native|auto
+### Provider Abstraction Pattern (Hypothetical External Runner)
 
-# Proposed additions
-BIDS_LLM_CACHE_TTL         # 5m|1h (Anthropic cache TTL; default: 1h for extraction runs)
-BIDS_DB_PATH               # Path to DuckDB database file (default: data/deals.duckdb)
-```
+Earlier notes assumed a repo-level structured-output mode abstraction. The current repo
+does not validate such a contract. If an external runner wants a mode switch,
+one reasonable split is:
 
-### Provider Abstraction Pattern
-
-The pipeline already has `BIDS_LLM_STRUCTURED_MODE` with `prompted_json|provider_native|auto`. With native structured outputs now GA on both providers, the recommended default changes:
-
-- **Previous default:** `prompted_json` (include schema in prompt text, parse JSON from response)
-- **New recommended default:** `provider_native` (use `output_config.format` / `text.format` for guaranteed schema compliance)
-- **Fallback path:** `prompted_json` remains available for models that don't support structured outputs
-
-The `auto` mode should detect model capabilities and select `provider_native` when available.
+- `prompted_json`: include schema in prompt text and parse JSON from response
+- `provider_native`: use provider-native structured output features where
+  available
+- `auto`: select a provider-native path when the chosen external runner supports
+  it
 
 ## Prompt Caching Architecture for Extraction
 

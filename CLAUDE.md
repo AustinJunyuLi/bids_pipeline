@@ -1,212 +1,336 @@
 # CLAUDE.md
 
-This file is the authoritative instruction source for agents working in this repository. If repository memories or action protocols change, update this file.
+This file is the authoritative instruction source for agents working in this
+repository. When repository facts, artifact contracts, or action protocols
+change, update this file.
 
-## What This Is
+## What This Repo Is
 
-Research pipeline that extracts structured M&A deal data from SEC filings using LLM structured output. Reads DEFM14A/PREM14A/SC 14D-9 filings, sends chronology text to Claude Sonnet or GPT-5.4, gets back JSON with actors, events, and evidence references, then verifies every citation against the source text.
+This repository is a filing-grounded M&A extraction pipeline.
 
-## Project Structure & Module Organization
+It has two distinct parts:
 
-The only Python package and installed CLI in this worktree is [`skill_pipeline/`](./skill_pipeline) with the `skill-pipeline` entrypoint from [`pyproject.toml`](./pyproject.toml). There is no active [`pipeline/`](./pipeline) package here; any notes that refer to it are historical and should not be treated as implementation guidance.
+- `skill_pipeline/`: the only active Python package and the only installed CLI
+  in this worktree
+- local-agent workflow documents under `.claude/skills/`: the canonical
+  instructions for extraction, repair, interpretive enrichment, and export
 
-Core modules:
+LLM-driven stages are orchestrated by a local agent working against repository artifacts
+and skill instructions. Keep that orchestration agent-agnostic.
 
-- `skill_pipeline/cli.py` - command routing for the deterministic stages
-- `skill_pipeline/raw/` - seed-only raw fetch, immutable filing freeze, discovery manifest
-- `skill_pipeline/preprocess/` and `skill_pipeline/source/` - chronology selection, block building, evidence scanning
-- `skill_pipeline/canonicalize.py` - raw-to-canonical upgrade, span resolution, dedup, NDA gating, unnamed-party recovery
-- `skill_pipeline/check.py`, `skill_pipeline/verify.py`, `skill_pipeline/coverage.py` - deterministic gates
-- `skill_pipeline/enrich_core.py` - deterministic rounds, bid classifications, cycles, formal boundary
-- `skill_pipeline/deal_agent.py` - preflight and artifact summary only
-- `skill_pipeline/models.py` and `skill_pipeline/paths.py` - artifact schemas and path conventions
+If docs disagree, trust live code and tests over planning notes or historical
+design documents.
 
-Artifacts:
+## Authority And Scope
 
-- `raw/<slug>/` - immutable filing text plus seed-only discovery metadata
-- `data/deals/<slug>/source/` - chronology and evidence artifacts shared by the skill workflow
-- `data/skill/<slug>/extract/` - raw or canonical actors/events plus `spans.json`
-- `data/skill/<slug>/{check,verify,coverage,enrich,export}/` - downstream deterministic outputs
-- `tests/` - focused regression tests for each stage
-- `docs/` - design notes and implementation plans
-- `.claude/skills/` - canonical skill tree
-- `.codex/skills/` and `.cursor/skills/` - derived mirrors synced from `.claude/skills/`
+Authoritative implementation truth lives here:
 
-## Build, Test, and Development Commands
+- `skill_pipeline/`
+- `tests/`
+- `.claude/skills/`
+- artifact path contracts encoded in `skill_pipeline/paths.py`
 
-``` bash
-# Create and activate a local virtual environment backed by uv-managed CPython
-uv python install 3.13
-uv venv --python 3.13 --managed-python --seed .venv
-.\.venv\Scripts\Activate.ps1
+Important non-authorities unless explicitly updated to match the code:
 
-# Install the single CLI entrypoint in editable mode
-python -m pip install -e .
+- historical references to a `pipeline/` package
+- provider-specific LLM infrastructure notes from older design work
+- benchmark materials in `example/`, `diagnosis/`, or spreadsheet workflows
 
-# Run all tests
-python -m pytest -q
+`.claude/skills/` is the canonical workflow tree. `.codex/skills/` and
+`.cursor/skills/` are derived mirrors and should be synced from `.claude/skills/`.
 
-# Run focused stage suites
-python -m pytest -q tests/test_skill_raw_stage.py tests/test_skill_preprocess_source.py
-python -m pytest -q tests/test_skill_verify.py tests/test_skill_coverage.py
-python -m pytest -q tests/test_skill_canonicalize.py
-python -m pytest -q tests/test_skill_enrich_core.py tests/test_skill_pipeline.py
+## Runtime Split
 
-# Run a single test file
-python -m pytest -q tests/test_skill_pipeline.py
+### Deterministic Python Runtime
 
-# Run a single test
-python -m pytest -q tests/test_skill_pipeline.py::test_name -v
+The `skill-pipeline` CLI owns these stages:
 
-# Seed-only upstream stages
-skill-pipeline raw-fetch --deal imprivata
-skill-pipeline preprocess-source --deal imprivata
+- `source-discover`: discover source filing candidates without fetching
+- `raw-fetch`: fetch and freeze the seed-selected SEC filing set
+- `preprocess-source`: build source artifacts from frozen filings
+- `canonicalize`: upgrade extract artifacts into canonical span-backed form
+- `check`: structural blocker gate
+- `verify`: strict deterministic verification
+- `coverage`: deterministic source-coverage audit
+- `enrich-core`: deterministic enrichment
+- `deal-agent`: preflight and artifact summary only
 
-# Preflight / summary only
-skill-pipeline deal-agent --deal imprivata
+### Local-Agent Stages
 
-# Deterministic stages after extract artifacts exist
-skill-pipeline canonicalize --deal imprivata
-skill-pipeline check --deal imprivata
-skill-pipeline verify --deal imprivata
-skill-pipeline coverage --deal imprivata
-skill-pipeline enrich-core --deal imprivata
+These stages are not implemented as Python-side provider wrappers:
 
-# Sync derived skill mirrors after editing .claude/skills
-python scripts/sync_skill_mirrors.py
-python scripts/sync_skill_mirrors.py --check
-```
+- `/extract-deal`
+- `/verify-extraction`
+- `/enrich-deal`
+- `/export-csv`
+- `/reconcile-alex` (optional, post-export only)
 
-## Architecture
+The local agent reads and writes repo artifacts directly, following the
+canonical skill docs.
 
-The active runtime is the `skill_pipeline` hybrid workflow. The deterministic stages are intended to run after seed-only source preparation and agent-produced extract artifacts.
+### Important Name Collision
 
-``` text
+`skill-pipeline deal-agent --deal <slug>` is not the end-to-end orchestrator.
+It only verifies required inputs, ensures output directories exist, and prints a
+status summary.
+
+The thin end-to-end orchestration flow lives in the local-agent skill
+documentation for `/deal-agent`.
+
+## Repository Layout
+
+- `skill_pipeline/`: deterministic runtime package
+- `raw/<slug>/`: frozen filing ingress and manifests
+- `data/deals/<slug>/source/`: shared source artifacts derived from raw filings
+- `data/skill/<slug>/`: extract, QA, enrichment, and export artifacts
+- `tests/`: regression tests for runtime stages
+- `.claude/skills/`: canonical local-agent workflow instructions
+- `docs/`: design notes and specs; useful, but not automatically authoritative
+
+## Artifact Contract
+
+### Seed Input
+
+- `data/seeds.csv`: authoritative deal roster and seed URLs
+
+### Raw Fetch Outputs
+
+`skill-pipeline raw-fetch --deal <slug>` writes:
+
+- `raw/<slug>/discovery.json`
+- `raw/<slug>/document_registry.json`
+- `raw/<slug>/filings/*.txt`
+- raw HTML and markdown mirrors when available
+
+Raw filing text under `raw/` is immutable truth input. Never rewrite it.
+
+### Source Preprocess Outputs
+
+`skill-pipeline preprocess-source --deal <slug>` currently enforces a seed-only,
+single-primary-document contract. It requires:
+
+- exactly one primary candidate
+- zero supplementary candidates
+- exactly one frozen document in `document_registry.json`
+
+It writes:
+
+- `data/deals/<slug>/source/chronology_selection.json`
+- `data/deals/<slug>/source/chronology_blocks.jsonl`
+- `data/deals/<slug>/source/evidence_items.jsonl`
+- `data/deals/<slug>/source/chronology.json`
+- `data/deals/<slug>/source/filings/*`
+
+It also removes stale `source/supplementary_snippets.jsonl`. That file is not a
+current preprocess output in this worktree.
+
+### Extract Outputs
+
+`/extract-deal <slug>` writes:
+
+- `data/skill/<slug>/extract/actors_raw.json`
+- `data/skill/<slug>/extract/events_raw.json`
+
+These start as legacy extraction artifacts using `evidence_refs`.
+
+### Canonical Extract Outputs
+
+`skill-pipeline canonicalize --deal <slug>` upgrades extraction artifacts in
+place. It:
+
+- rewrites `actors_raw.json` and `events_raw.json` into canonical span-backed
+  form
+- writes `data/skill/<slug>/extract/spans.json`
+- writes `data/skill/<slug>/canonicalize/canonicalize_log.json`
+
+Do not document the canonical extract contract as `actors.json` or
+`events.json`. The live filenames are still `actors_raw.json` and
+`events_raw.json`.
+
+### Deterministic QA And Enrichment Outputs
+
+- `data/skill/<slug>/check/check_report.json`
+- `data/skill/<slug>/verify/verification_findings.json`
+- `data/skill/<slug>/verify/verification_log.json`
+- `data/skill/<slug>/coverage/coverage_findings.json`
+- `data/skill/<slug>/coverage/coverage_summary.json`
+- `data/skill/<slug>/enrich/deterministic_enrichment.json`
+
+Optional later-stage artifacts written by local-agent workflows:
+
+- `data/skill/<slug>/enrich/enrichment.json`
+- `data/skill/<slug>/export/deal_events.csv`
+
+## End-To-End Flow
+
+```text
 data/seeds.csv
+  -> skill-pipeline source-discover --deal <slug>     (optional)
   -> skill-pipeline raw-fetch --deal <slug>
-  -> raw/<slug>/filings/*.txt + raw/<slug>/{discovery,document_registry}.json
+  -> raw/<slug>/*
   -> skill-pipeline preprocess-source --deal <slug>
-  -> data/deals/<slug>/source/{chronology_blocks,evidence_items}.jsonl
+  -> data/deals/<slug>/source/*
   -> /extract-deal <slug>
   -> data/skill/<slug>/extract/{actors_raw,events_raw}.json
   -> skill-pipeline canonicalize --deal <slug>
   -> skill-pipeline check --deal <slug>
   -> skill-pipeline verify --deal <slug>
   -> skill-pipeline coverage --deal <slug>
-  -> /verify-extraction <slug> (if deterministic findings are repairable)
+  -> /verify-extraction <slug>        (only if deterministic findings are repairable)
   -> skill-pipeline enrich-core --deal <slug>
-  -> /enrich-deal <slug>
+  -> /enrich-deal <slug>              (optional interpretive layer)
   -> /export-csv <slug>
-  -> /reconcile-alex <slug> (optional post-export diagnostic)
+  -> /reconcile-alex <slug>           (optional post-export diagnostic)
 ```
 
-Important distinctions:
+## Hard Invariants
 
-- `skill-pipeline raw-fetch` and `skill-pipeline preprocess-source` are **seed-only**. They use the filing URL from `data/seeds.csv` and do not preserve supplementary filings.
-- `skill-pipeline deal-agent --deal <slug>` is **summary/preflight only**. It does not run extraction, repair, enrichment, or export.
-- `skill-pipeline canonicalize`, `check`, `verify`, `coverage`, and `enrich-core` are fail-fast deterministic gates. Do not add fallback logic to keep them running on missing or contradictory inputs.
-- `skill-pipeline enrich-core` now requires passing `check`, `verify`, and `coverage` artifacts before it will write `data/skill/<slug>/enrich/deterministic_enrichment.json`.
-- `data/skill/<slug>/extract/spans.json` is required once extract artifacts are canonicalized. Missing sidecars are an error, not a cue to fabricate an empty registry.
+- Filing text is the only factual source of truth.
+- Benchmark materials are forbidden until `/export-csv` completes.
+- `raw-fetch` and `preprocess-source` are seed-only in this worktree.
+- `preprocess-source` is currently single-primary-document and fail-closed on
+  supplementary candidates.
+- `skill-pipeline deal-agent` is summary/preflight only.
+- Canonical extract loading requires `spans.json`; missing sidecars are an
+  error.
+- `check`, `verify`, and `coverage` are blocker gates before `enrich-core`.
+- `verify` only treats `EXACT` and `NORMALIZED` quote matches as passing.
+  `FUZZY` does not pass.
+- Fail fast on missing files, schema drift, contradictory state, and invalid
+  assumptions. Do not add silent fallbacks.
+- Do not infer runtime architecture from stale docs or unused dependency ideas.
+  This repo's LLM-facing behavior is local-agent orchestration, not a Python
+  provider layer.
 
-### Benchmark Separation
+## Benchmark Boundary
 
-Benchmark materials are post-export only. Do not consult `example/`,
-`diagnosis/`, benchmark workbooks, or `/reconcile-alex` before `/export-csv`
-completes.
+Benchmark material is post-export only.
 
-Generation stops at the repository's filing-grounded export contract.
-Extraction, canonicalization, check, verify, coverage, enrichment, and export
-must not use benchmark conventions as hidden requirements. `/reconcile-alex` is
-an optional diagnostic comparison skill that runs only after export and never
-rewrites generation artifacts.
+Do not consult any of the following before `/export-csv` completes:
 
-### Stage Responsibilities
+- `example/`
+- `diagnosis/`
+- benchmark workbooks or benchmark notes
+- `data/skill/<slug>/reconcile/*`
+- `/reconcile-alex`
 
-- `/extract-deal <slug>` writes legacy extract artifacts with `evidence_refs` into `data/skill/<slug>/extract/`.
-- `skill-pipeline canonicalize --deal <slug>` upgrades those artifacts into canonical span-backed form, normalizes dates, deduplicates only semantically equivalent events, removes drops without prior NDA support, and recovers unnamed parties when the deterministic rules allow it.
-- `skill-pipeline check --deal <slug>` is the structural blocker gate.
-- `skill-pipeline verify --deal <slug>` enforces referential integrity and strict quote resolution. `EXACT` and `NORMALIZED` pass; `FUZZY` does not.
-- `skill-pipeline coverage --deal <slug>` audits source cues against extracted actors/events and fails on uncovered high-confidence critical evidence.
-- `/verify-extraction <slug>` consumes deterministic findings and may run a repair loop only when every error-level finding is repairable.
-- `skill-pipeline enrich-core --deal <slug>` writes deterministic rounds, bid classifications, cycles, and formal-boundary outputs.
-- `/enrich-deal <slug>` writes the later interpretive `enrichment.json` layer if used.
-- `/export-csv <slug>` writes the repository review CSV from filing-grounded extract and enrich artifacts only.
-- `/reconcile-alex <slug>` is optional post-export benchmark QA. It must not modify generation artifacts or become a prerequisite for export.
-
-### Key Files
-
-- `skill_pipeline/raw/fetch.py` and `skill_pipeline/raw/stage.py` - immutable filing freeze and seed-only ingress
-- `skill_pipeline/preprocess/source.py` and `skill_pipeline/source/locate.py` - chronology discovery and fail-closed preprocessing
-- `skill_pipeline/provenance.py` and `skill_pipeline/canonicalize.py` - span resolution and canonical schema upgrade
-- `skill_pipeline/check.py`, `skill_pipeline/verify.py`, `skill_pipeline/coverage.py` - deterministic gates
-- `skill_pipeline/enrich_core.py` - downstream deterministic enrichment
-- `skill_pipeline/deal_agent.py` - artifact summary that recognizes both `deterministic_enrichment.json` and `enrichment.json`
-- `skill_pipeline/models.py` - raw/canonical artifact models, `ResolvedDate`, `SpanRecord`, verification and coverage schemas
-
-## Key Invariants
-
--   Filing `.txt` files under `raw/` are immutable truth sources. Never rewrite them.
--   Filing text is the only factual source. Do not use spreadsheets or notes as evidence.
--   `raw-fetch` and `preprocess-source` are single-seed, single-primary-document stages in this worktree.
--   Evidence items use per-filing IDs, so provenance resolution must validate document/line consistency instead of assuming global uniqueness.
--   Canonical extract artifacts must carry `evidence_span_ids`, and canonical loading must fail if `spans.json` is missing.
--   `check`, `verify`, and `coverage` are prerequisites for `enrich-core`; enrichment must not create success artifacts on unchecked extracts.
--   `skill-pipeline deal-agent` is only a preflight / summary command. It may summarize deterministic enrichment from `deterministic_enrichment.json` even when the later interpretive `enrichment.json` does not exist yet.
--   Benchmark materials are forbidden until `/export-csv` completes. `example/`, `diagnosis/`, and `/reconcile-alex` are post-export only.
--   `edgartools>=5.23` is currently allowed in `pyproject.toml`, but the live fetch path emits v6 deprecation warnings. Treat pinning or capping before a breaking v6 release as a follow-up dependency risk.
--   `.claude/skills/` is the canonical skill tree. Sync `.codex/skills/` and `.cursor/skills/` with `python scripts/sync_skill_mirrors.py`.
-
-## Coding Style & Naming Conventions
-
-Target Python 3.11+ with 4-space indentation and type hints on public functions. Follow existing Pydantic-first patterns for schemas and use `snake_case` for functions, modules, and JSON keys. Keep pipeline stages deterministic where possible: prefer stable IDs, explicit budgets, and structured artifacts over ad hoc strings. No formatter is configured in `pyproject.toml`; match the surrounding style and keep imports tidy.
-
-## Testing Guidelines
-
-Pytest is configured via [`pytest.ini`](./pytest.ini) with `tests/` as the test root. Name new tests `test_<behavior>()` and keep fixtures local unless broadly reused. Add targeted regression tests for every extraction, QA, or budgeting bug you fix, especially around span resolution, chunk planning, and provider-specific LLM behavior.
-
-## Commit & Pull Request Guidelines
-
-Recent history uses conventional prefixes such as `feat:`, `fix:`, and `test:`. Keep commit subjects short and imperative, for example `fix: reject mismatched span references in canonicalize`. PRs should include: the affected deal slugs or stages, a brief rationale, commands run (`pytest -q ...`, `skill-pipeline ...`), and before/after artifact notes when outputs change.
+Generation stops at the filing-grounded export contract. Benchmark comparison is
+diagnostic only and must never become a hidden generation requirement.
 
 ## Environment Variables
 
-```         
-ANTHROPIC_API_KEY      — required for Anthropic provider
-OPENAI_API_KEY         — required for OpenAI provider
-BIDS_LLM_PROVIDER      — default: anthropic (anthropic|openai)
-BIDS_LLM_MODEL         — override model ID
-BIDS_LLM_REASONING_EFFORT — provider-specific reasoning effort
-BIDS_LLM_STRUCTURED_MODE  — prompted_json|provider_native|auto
-PIPELINE_SEC_IDENTITY  — preferred EDGAR identity for raw-fetch
-SEC_IDENTITY / EDGAR_IDENTITY — fallback EDGAR identity env vars
+The live Python runtime currently reads only EDGAR identity variables for SEC
+access:
+
+- `PIPELINE_SEC_IDENTITY`
+- `SEC_IDENTITY`
+- `EDGAR_IDENTITY`
+
+Use `PIPELINE_SEC_IDENTITY` as the preferred setting when present.
+
+Do not document provider API keys or provider/model selector variables here as
+repository runtime facts. Agent-specific credentials, editor integrations, and
+external tool setup live outside the Python package contract.
+
+## Build, Test, And Development Commands
+
+```bash
+uv python install 3.13
+uv venv --python 3.13 --managed-python --seed .venv
+.\.venv\Scripts\Activate.ps1
+
+python -m pip install -e .
+python -m pytest -q
+
+skill-pipeline source-discover --deal imprivata
+skill-pipeline raw-fetch --deal imprivata
+skill-pipeline preprocess-source --deal imprivata
+
+skill-pipeline canonicalize --deal imprivata
+skill-pipeline check --deal imprivata
+skill-pipeline verify --deal imprivata
+skill-pipeline coverage --deal imprivata
+skill-pipeline enrich-core --deal imprivata
+
+skill-pipeline deal-agent --deal imprivata
+
+python scripts/sync_skill_mirrors.py
+python scripts/sync_skill_mirrors.py --check
 ```
 
-## Active Deals
+## Editing And Safety Rules For Repo Artifacts
 
-9 deals in scope: imprivata, mac-gray, medivation, penford, petsmart-inc, providence-worcester, saks, stec, zep. All have preprocessed source. Seeds are in `data/seeds.csv`.
+- Treat `raw/`, `data/deals/<slug>/source/`, and `data/skill/<slug>/` as
+  generated artifacts. Edit only intentionally and document why.
+- Never rewrite raw filing text under `raw/<slug>/filings/`.
+- When skill docs change, update `.claude/skills/` first, then sync mirrors.
+- Keep repo documentation factual. Do not write future architecture into this
+  file as if it already exists.
 
-## Security & Configuration Tips
+## Coding Style And Testing
 
-Do not commit API keys or provider secrets. Use environment variables such as `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, `BIDS_LLM_PROVIDER`, and `BIDS_LLM_MODEL`. Treat canonical pipeline artifacts under `data/deals/` and skill workflow artifacts under `data/skill/` as generated outputs; only edit them intentionally and document why. `.venv/`, `.env*`, `.agents/`, and `.claude/settings.json` are local-only paths and should remain ignored.
+Target Python 3.11+ with explicit types on public functions. Follow the
+existing Pydantic-first schema style and use `snake_case` for Python names and
+JSON keys. No formatter is configured in `pyproject.toml`; match surrounding
+style.
 
-You are my local Python agent.
+Add focused regression tests for behavior changes, especially around:
 
-## Core operating rules:
+- source selection and preprocessing
+- canonicalization and span resolution
+- deterministic verification and coverage
+- enrich-core gating
 
-1.  Think from first principles. Do not assume I have perfectly specified the true objective. Start from the underlying need and the actual problem. If the objective, constraints, interfaces, or success criteria are materially unclear, stop and ask focused clarification questions.
+## Commit Guidance
 
-2.  Solve the real problem, not the symptom. Do not give patch-style, workaround-style, or compatibility-first solutions when the correct fix is structural.
+Use concise imperative commit subjects. Conventional prefixes such as `feat:`,
+`fix:`, and `test:` match recent history.
 
-3.  Do not overengineer. Use the shortest correct path. Do not add speculative abstractions, future-proofing, fallback systems, downgrade paths, optional modes, or extra branches unless I explicitly ask for them.
+When behavior changes, document:
 
-4.  Do not expand scope. Only solve the requirement I gave you. Do not invent adjacent features or “helpful” extras.
+- affected deal slug or stage
+- commands run
+- artifact contract changes
+- whether outputs were regenerated
 
-5.  Fail fast. Fail fast on violated assumptions, invalid states, unexpected inputs, schema mismatches, missing required data, and logic inconsistencies. Do not silence errors. Do not swallow exceptions. Do not use broad try/except blocks that hide failures. Do not substitute defaults, empty outputs, partial success, fallback behavior, retries, or log-and-continue behavior unless I explicitly request them. Prefer loud failure over silent corruption. A precise crash is better than an untrustworthy result.
+## Agent Working Rules
 
-6.  Protect logical correctness. Before proposing or writing code, validate the full end-to-end logic: inputs -\> transformations -\> outputs -\> edge cases -\> failure paths -\> side effects.
+1. Think from first principles. Do not assume the user has perfectly specified
+   the true objective. Start from the underlying need and the actual problem.
+   If the objective, constraints, interfaces, or success criteria are
+   materially unclear, ask focused clarification questions.
 
-7.  Python coding rules. Write complete Python code. No pseudocode. No TODOs. No omitted core sections. Prefer explicitness, clear naming, input validation, deterministic behavior, and strong error handling. Use specific exceptions. Preserve original tracebacks when possible. Avoid hidden state and silent failures.
+2. Solve the real problem, not the symptom. Do not give patch-style,
+   workaround-style, or compatibility-first solutions when the correct fix is
+   structural.
 
-8.  Research and pipeline safety. Do not silently alter semantics, schemas, event definitions, sample construction, or output meaning. Do not silently drop malformed data. Do not add fallback logic that can contaminate inference. If a step could change results, surface it explicitly. Default policy: abort on the first materially relevant error.
+3. Do not overengineer. Use the shortest correct path. Do not add speculative
+   abstractions, future-proofing, fallback systems, downgrade paths, optional
+   modes, or extra branches unless explicitly requested.
 
-9.  Design Approch (Very Important) Think step by step about whether there exists a less over-engineered and yet simpler, more elegant, and more robust solution to the problem that accords with KISS and DRY principles. Present it to me with your degree of confidence from 1 to 10 and its rationale, but do not modify code yet. Target minimum viable functionality in all designs of yours.
+4. Do not expand scope. Only solve the requirement that was asked for. Do not
+   invent adjacent features or extras.
+
+5. Fail fast. Fail fast on violated assumptions, invalid states, unexpected
+   inputs, schema mismatches, missing required data, and logic inconsistencies.
+   Do not silence errors. Do not swallow exceptions. Do not use broad
+   `try/except` blocks that hide failures. Do not substitute defaults, empty
+   outputs, partial success, fallback behavior, retries, or log-and-continue
+   behavior unless explicitly requested.
+
+6. Protect logical correctness. Before proposing or writing code, validate the
+   full end-to-end logic: inputs, transformations, outputs, edge cases, failure
+   paths, and side effects.
+
+7. Write complete Python code. No pseudocode. No TODO placeholders for core
+   behavior. Prefer explicitness, clear naming, input validation, deterministic
+   behavior, and strong error handling.
+
+8. Research and pipeline safety. Do not silently alter semantics, schemas,
+   event definitions, sample construction, or output meaning. Do not silently
+   drop malformed data. If a step could change results, surface it explicitly.
+   Default policy: abort on the first materially relevant error.
+
+9. Prefer the simplest robust design that satisfies the requirement. Follow
+   KISS and DRY. If proposing alternatives, state the preferred option, degree
+   of confidence, and rationale before changing code.

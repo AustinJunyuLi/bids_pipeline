@@ -46,11 +46,11 @@
 - Current mitigation: Deal slugs are from `data/seeds.csv` hardcoded list; document paths derived from fixed raw filing directory.
 - Recommendations: Add explicit path validation or assertions that resolved paths stay within expected subtree.
 
-**Environment Variable Secrets Not Protected:**
-- Risk: LLM API keys (`ANTHROPIC_API_KEY`, `OPENAI_API_KEY`) may be logged accidentally or exposed in error traces.
-- Files: `skill_pipeline/config.py` (implicit env var access), CLI error paths
-- Current mitigation: None observed.
-- Recommendations: Mask API keys in error messages and logs; use `getpass`-style secrets where possible.
+**Environment Variable Secrets Need Clear Boundaries:**
+- Risk: EDGAR identity values may leak through shell history or operator error. Any provider credentials used by local-agent tooling are outside the verified `skill_pipeline` code path and should not be mistaken for repo runtime secrets.
+- Files: `skill_pipeline/raw/stage.py`
+- Current mitigation: `skill_pipeline` reads only EDGAR identity env vars on live fetch.
+- Recommendations: Avoid echoing EDGAR identity values, keep local-agent credentials outside repo logs, and do not document external provider secrets as Python runtime requirements.
 
 ## Performance Bottlenecks
 

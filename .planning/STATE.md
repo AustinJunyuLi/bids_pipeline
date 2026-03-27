@@ -10,7 +10,7 @@ Phase 1: Foundation + Annotation — context gathered, ready for planning
 
 ## Progress
 - [x] PROJECT.md initialized
-- [x] REQUIREMENTS.md defined (18 requirements, 4 categories)
+- [x] REQUIREMENTS.md defined (20 requirements, 4 categories)
 - [x] ROADMAP.md created (5 phases)
 - [x] Codebase mapped (7 documents)
 - [x] Research completed (5 documents)

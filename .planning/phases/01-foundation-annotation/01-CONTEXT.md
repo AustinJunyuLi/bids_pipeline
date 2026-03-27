@@ -15,9 +15,9 @@ Enrich chronology block preprocessing with deterministic metadata annotations an
 
 ### SDK + Dependencies
 - **D-01:** No Python LLM wrapper module. All LLM calls live in `.claude/skills/` markdown files. The `skill_pipeline` package remains entirely deterministic.
-- **D-02:** INFRA-01 and INFRA-02 (provider-native structured outputs) move to Phase 2 — they are skill-level changes, not Python code changes.
-- **D-03:** Phase 1 SDK work is limited to `pyproject.toml` version bumps: `anthropic>=0.86`, add `openai>=2.30`, pin `edgartools>=5.23,<6.0`.
-- **D-04:** Clean up misleading references to `BIDS_LLM_STRUCTURED_MODE` and Python-side LLM wrappers in CLAUDE.md and docs if they imply Python code handles LLM calls.
+- **D-02:** INFRA-01 and INFRA-02 (schema-constrained external extraction flows) move to Phase 2 — they are skill-level changes, not Python code changes.
+- **D-03:** Phase 1 dependency hygiene is limited to the live deterministic runtime path, such as pinning `edgartools>=5.23,<6.0` if needed.
+- **D-04:** Clean up misleading references to provider-mode abstractions and Python-side LLM wrappers in CLAUDE.md and docs if they imply Python code handles LLM calls.
 
 ### Block Metadata Design
 - **D-05:** Date mentions: parsed dates using existing `dates.py` logic. Each block carries a list of `{raw_text, normalized, precision}` objects extracted from `clean_text`.
@@ -84,7 +84,7 @@ Enrich chronology block preprocessing with deterministic metadata annotations an
 
 ### Integration Points
 - `preprocess_source_deal()` in `preprocess/source.py` — annotation step added after blocks and evidence are both built
-- `ChronologyBlock` model — new optional fields added here
+- `ChronologyBlock` model — new required metadata fields added here
 - `data/deals/<slug>/source/chronology_blocks.jsonl` — output file, now carries metadata
 
 </code_context>
@@ -100,8 +100,8 @@ Enrich chronology block preprocessing with deterministic metadata annotations an
 <deferred>
 ## Deferred Ideas
 
-- Provider-native structured outputs (INFRA-01, INFRA-02) — moved to Phase 2 (skill-level change)
-- Cleanup of `BIDS_LLM_STRUCTURED_MODE` references — can happen in Phase 1 or 2, not blocking
+- Schema-constrained external extraction flows (INFRA-01, INFRA-02) — moved to Phase 2 (skill-level change)
+- Cleanup of misleading provider-mode references — can happen in Phase 1 or 2, not blocking
 
 </deferred>
 

@@ -5,94 +5,96 @@
 ## Languages
 
 **Primary:**
-- Python 3.11+ - All pipeline code, CLI, data processing, and testing
+- Python 3.11+ for runtime code, CLI, data processing, and tests
 
 ## Runtime
 
 **Environment:**
-- Python 3.11 or later (specified in `pyproject.toml`)
+- Python 3.11 or later (`pyproject.toml`)
 
 **Package Manager:**
-- pip - Installs from `pyproject.toml` with setuptools
-- Lockfile: Not present (uses version ranges)
+- pip installs the project from `pyproject.toml` with setuptools
+- No lockfile is present
 
 ## Frameworks
 
 **Core:**
-- Pydantic 2.0+ - Schema validation, data models, configuration (`skill_pipeline/models.py`, `skill_pipeline/pipeline_models/`)
-  - Used for: `SkillModel`, `SeedEntry`, `RawSkillActorRecord`, `RawSkillEventRecord`, artifact schemas
-  - Config: `ConfigDict(extra="forbid")` enforced across all models
+- Pydantic 2.0+ for schema validation and data models
+  - Used by: `skill_pipeline/models.py`,
+    `skill_pipeline/pipeline_models/`
+  - Pattern: strict model validation with `extra="forbid"`
 
 **Testing:**
-- pytest 8.0+ - Test runner and fixtures
-  - Config: `pytest.ini` with `testpaths = tests`, `pythonpath = .`
-  - Test discovery pattern: `test_*.py` files in `tests/` directory
-  - Command: `pytest -q` for baseline runs
+- pytest 8.0+ for regression tests
+  - Config: `pytest.ini`
+  - Discovery: `tests/test_*.py`
+  - Command: `python -m pytest -q`
 
 **Build/Dev:**
-- setuptools 69+ - Package building and CLI entry point definition
-- wheel - Python distribution packaging
+- setuptools 69+ for packaging and CLI entrypoint
+- wheel for distribution packaging
 
 ## Key Dependencies
 
-**Critical:**
-- anthropic 0.49+ - Anthropic Claude API client for LLM-based extraction (optional at runtime; agents inject results via `/extract-deal` skill)
-  - Environment variables: `ANTHROPIC_API_KEY`, `BIDS_LLM_PROVIDER`, `BIDS_LLM_MODEL`, `BIDS_LLM_REASONING_EFFORT`, `BIDS_LLM_STRUCTURED_MODE`
-  - Used by: External skills (`/extract-deal`, `/verify-extraction`, `/enrich-deal`, `/export-csv`), not by `skill_pipeline` CLI directly
+**Verified deterministic runtime dependencies:**
+- `pydantic>=2.0`
+  - Used by the schema and artifact model layer
+- `edgartools>=5.23`
+  - Used by live SEC discovery and raw fetch
+  - Runtime env vars: `PIPELINE_SEC_IDENTITY`, `SEC_IDENTITY`,
+    `EDGAR_IDENTITY`
+  - Known issue: current fetch path emits v6 deprecation warnings; pinning or
+    capping before a breaking v6 release is a real follow-up risk
+- `pytest>=8.0`
+  - Used by the local test suite
 
-- edgartools 5.23+ - SEC EDGAR filing fetch and search
-  - Entry points: `from edgar import get_by_accession_number`, `from edgar import set_identity`
-  - Used by: `skill_pipeline/raw/fetch.py`, `skill_pipeline/raw/stage.py`, `skill_pipeline/source/fetch.py`
-  - Environment variables: `PIPELINE_SEC_IDENTITY`, `SEC_IDENTITY`, `EDGAR_IDENTITY` (for EDGAR identity)
-  - Known issue: v6 deprecation warnings in live fetch path; pinning/capping before breaking release is a follow-up risk
-
-**Infrastructure:**
-- openpyxl 3.1+ - Excel workbook reading/writing for diagnostic and benchmark reports
-  - Used by: Post-export reconciliation and quality reporting (not core pipeline)
+**Other dependencies currently present in `pyproject.toml`:**
+- `anthropic>=0.49`
+  - Present in the dependency list, but no direct import in `skill_pipeline/`
+    or `tests/` was validated in this audit
+  - Do not treat this as proof of a live Python-side LLM runtime contract
+- `openpyxl>=3.1`
+  - Used for workbook-facing or benchmark-adjacent tasks outside the core
+    deterministic path
 
 ## Configuration
 
-**Environment:**
-SEC identity configuration (required for live EDGAR access):
+**Repo-verified environment variables:**
 - `PIPELINE_SEC_IDENTITY` (preferred)
 - `SEC_IDENTITY` (fallback)
 - `EDGAR_IDENTITY` (fallback)
 
-LLM provider configuration (used by external skills, not CLI):
-- `BIDS_LLM_PROVIDER` - default: `anthropic`, accepts: `anthropic|openai`
-- `BIDS_LLM_MODEL` - override model ID
-- `BIDS_LLM_REASONING_EFFORT` - provider-specific reasoning effort
-- `BIDS_LLM_STRUCTURED_MODE` - prompted_json|provider_native|auto
+**No repo-verified provider-specific LLM env var contract exists.**
 
-API key configuration (used by external skills):
-- `ANTHROPIC_API_KEY` - required for Anthropic provider
-- `OPENAI_API_KEY` - required for OpenAI provider
+Provider-specific local-agent settings, if any, are external to the verified
+Python package contract and should not be documented as core runtime facts.
 
-Local-only paths (should be in `.gitignore`):
-- `.venv/` - Virtual environment
-- `.env*` - Local environment files (never committed)
-- `.agents/` - Skill execution state
-- `.claude/settings.json` - Local IDE settings
+**Local-only paths:**
+- `.venv/`
+- `.env*`
+- `.agents/`
+- `.claude/settings.json`
 
-**Build:**
-- `pyproject.toml` - Package metadata, dependencies, version, CLI entry point
+**Build metadata:**
+- `pyproject.toml`
   - Entrypoint: `skill-pipeline = skill_pipeline.cli:main`
-  - Version: 0.1.0
+  - Version: `0.1.0`
 
 ## Platform Requirements
 
 **Development:**
 - Python 3.11+
 - pip with setuptools 69+
-- bash (Unix shell - Windows users run via WSL or Git Bash)
+- PowerShell or another shell capable of invoking the CLI and pytest
 - No database or external service required for deterministic stages
 
-**Production:**
+**Production / real runs:**
 - Python 3.11+ runtime
-- EDGAR identity configured for live filing fetch (`raw-fetch` stage)
-- API keys for LLM providers (if using agent-based extraction/enrichment)
-- Local filesystem for artifact storage (`data/` and `raw/` directories)
+- EDGAR identity configured for live filing fetch
+- Local filesystem for artifact storage under `raw/` and `data/`
+- A local-agent execution environment if running non-deterministic extraction,
+  repair, or export stages
 
 ---
 
-*Stack analysis: 2026-03-27*
+*Stack analysis: 2026-03-27; hardened to match the current codebase contract*
