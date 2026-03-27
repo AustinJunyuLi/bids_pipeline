@@ -16,7 +16,7 @@
 - Bump `anthropic>=0.86`, add `openai>=2.30`, pin `edgartools>=5.23,<6.0` in `pyproject.toml`
 - Annotate each chronology block with deterministic metadata: parsed date mentions, seed-based entity mentions, evidence density score, temporal phase hint (hybrid: content-signal primary, position fallback)
 - Annotation runs as final step inside `preprocess-source`, not a separate subcommand
-- New metadata fields are optional on `ChronologyBlock` for backward compatibility
+- New metadata fields are required on `ChronologyBlock` — stale blocks without metadata fail on load
 - Re-run `preprocess-source` for all 9 deals to produce annotated blocks
 
 **Exit criteria:**

@@ -27,8 +27,8 @@ Enrich chronology block preprocessing with deterministic metadata annotations an
 
 ### Annotation Integration
 - **D-09:** Annotation runs as a final step inside `preprocess-source`, not as a separate CLI subcommand. One command produces blocks + evidence + annotation.
-- **D-10:** New metadata fields are added directly to the `ChronologyBlock` Pydantic model as optional fields (default `None`/empty list). This ensures backward compatibility — existing blocks without metadata don't crash downstream consumers.
-- **D-11:** Re-run `preprocess-source` for all 9 deals as part of Phase 1 validation to produce annotated blocks.
+- **D-10:** New metadata fields are **required** on the `ChronologyBlock` Pydantic model. No defaults, no optionals. Old blocks without metadata fail on load — this forces re-running `preprocess-source` before any downstream stage works.
+- **D-11:** Re-run `preprocess-source` for all 9 deals as part of Phase 1 to produce annotated blocks. Stale blocks are an error, not a graceful degradation.
 
 ### Testing
 - **D-12:** Unit tests for each annotation function: date extraction per block, entity matching, evidence density counting, temporal phase assignment.
