@@ -69,8 +69,25 @@ Explicitly excluded. Documented to prevent scope creep.
 
 ## Traceability
 
-Filled by roadmap creation.
-
 | Requirement | Phase |
 |-------------|-------|
-| (Populated after ROADMAP.md created) | |
+| INFRA-01 | 1 — Foundation + Annotation |
+| INFRA-02 | 1 — Foundation + Annotation |
+| INFRA-04 | 1 — Foundation + Annotation |
+| INFRA-06 | 1 — Foundation + Annotation |
+| INFRA-03 | 2 — Prompt Architecture |
+| INFRA-05 | 2 — Prompt Architecture |
+| PROMPT-01 | 2 — Prompt Architecture |
+| PROMPT-02 | 2 — Prompt Architecture |
+| PROMPT-03 | 2 — Prompt Architecture |
+| PROMPT-04 | 2 — Prompt Architecture |
+| PROMPT-05 | 3 — Quote-Before-Extract |
+| GATE-01 | 4 — Enhanced Gates |
+| GATE-02 | 4 — Enhanced Gates |
+| GATE-03 | 4 — Enhanced Gates |
+| GATE-04 | 4 — Enhanced Gates |
+| DB-01 | 5 — Integration + Calibration |
+| DB-02 | 5 — Integration + Calibration |
+| DB-03 | 5 — Integration + Calibration |
+| PROMPT-06 | 5 — Integration + Calibration |
+| INFRA-07 | 5 — Integration + Calibration |
