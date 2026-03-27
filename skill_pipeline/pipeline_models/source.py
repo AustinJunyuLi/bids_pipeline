@@ -6,7 +6,18 @@ from typing import Any, Literal
 
 from pydantic import Field
 
-from skill_pipeline.pipeline_models.common import ArtifactEnvelope, PipelineModel
+from skill_pipeline.pipeline_models.common import ArtifactEnvelope, DatePrecision, PipelineModel
+
+
+class BlockDateMention(PipelineModel):
+    raw_text: str
+    normalized: str | None
+    precision: DatePrecision
+
+
+class BlockEntityMention(PipelineModel):
+    raw_text: str
+    entity_type: Literal["target", "acquirer", "party_alias", "committee"]
 
 
 class EvidenceType(StrEnum):
@@ -102,6 +113,10 @@ class ChronologyBlock(PipelineModel):
     is_heading: bool
     page_break_before: bool = False
     page_break_after: bool = False
+    date_mentions: list[BlockDateMention]
+    entity_mentions: list[BlockEntityMention]
+    evidence_density: int
+    temporal_phase: Literal["initiation", "bidding", "outcome", "other"]
 
 
 class EvidenceItem(PipelineModel):
