@@ -39,20 +39,15 @@
 **Verified deterministic runtime dependencies:**
 - `pydantic>=2.0`
   - Used by the schema and artifact model layer
-- `edgartools>=5.23`
+- `edgartools>=5.23,<6.0`
   - Used by live SEC discovery and raw fetch
   - Runtime env vars: `PIPELINE_SEC_IDENTITY`, `SEC_IDENTITY`,
     `EDGAR_IDENTITY`
-  - Known issue: current fetch path emits v6 deprecation warnings; pinning or
-    capping before a breaking v6 release is a real follow-up risk
+  - Capped below 6.0 to guard against breaking API changes
 - `pytest>=8.0`
   - Used by the local test suite
 
 **Other dependencies currently present in `pyproject.toml`:**
-- `anthropic>=0.49`
-  - Present in the dependency list, but no direct import in `skill_pipeline/`
-    or `tests/` was validated in this audit
-  - Do not treat this as proof of a live Python-side LLM runtime contract
 - `openpyxl>=3.1`
   - Used for workbook-facing or benchmark-adjacent tasks outside the core
     deterministic path

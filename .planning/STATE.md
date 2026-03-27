@@ -1,11 +1,11 @@
 # Project State
 
 ## Current Phase
-Phase 1: Foundation + Annotation — executing (plan 01 of 03 complete)
+Phase 1: Foundation + Annotation — executing (plans 01 and 02 of 03 complete)
 
 ## Last Session
-- **Stopped at:** Completed 01-01-PLAN.md (annotated block schema)
-- **Resume file:** `.planning/phases/01-foundation-annotation/01-02-PLAN.md`
+- **Stopped at:** Completed 01-01-PLAN.md and 01-02-PLAN.md (Wave 1)
+- **Resume file:** `.planning/phases/01-foundation-annotation/01-03-PLAN.md`
 - **Date:** 2026-03-27
 
 ## Progress
@@ -17,7 +17,7 @@ Phase 1: Foundation + Annotation — executing (plan 01 of 03 complete)
 - [x] Phase 1 context gathered (13 decisions)
 - [x] Phase 1 planned
 - [x] Phase 1 Plan 01: Annotated block schema and preprocess integration (3/3 tasks)
-- [ ] Phase 1 Plan 02
+- [x] Phase 1 Plan 02: Runtime contract hardening (3/3 tasks)
 - [ ] Phase 1 Plan 03
 - [ ] Phase 1 verified
 
@@ -29,8 +29,11 @@ Phase 1: Foundation + Annotation — executing (plan 01 of 03 complete)
 - Annotation fields are required on ChronologyBlock (no defaults, no optionals)
 - Block builder creates placeholder annotations that annotate_chronology_blocks replaces
 - Temporal phase priority: outcome > bidding > initiation from evidence types with ordinal fallback
+- Removed anthropic>=0.49 from manifests -- no live import in skill_pipeline or tests
+- Capped edgartools below 6.0 to guard against breaking API changes
+- Kept openpyxl>=3.1 -- live workflow audit not performed
 
 ## Session Continuity
-- **Last session:** 2026-03-27T16:30:21Z
-- **Stopped at:** Completed 01-01-PLAN.md
-- **Resume file:** `.planning/phases/01-foundation-annotation/01-02-PLAN.md`
+- **Last session:** 2026-03-27T16:31:00Z
+- **Stopped at:** Wave 1 complete (01-01 + 01-02), proceeding to Wave 2
+- **Resume file:** `.planning/phases/01-foundation-annotation/01-03-PLAN.md`

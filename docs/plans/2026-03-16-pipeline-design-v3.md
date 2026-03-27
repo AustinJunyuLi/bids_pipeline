@@ -1,6 +1,12 @@
+> **Historical document.** This plan predates the current `skill_pipeline` +
+> `.claude/skills/` architecture. References to a `pipeline/` package,
+> provider-specific backends, and model-pinned guidance are superseded by the
+> live implementation described in `CLAUDE.md`. Retained as design background
+> only.
+
 # Pipeline Design v3 — Evidence-First Informal Bids Extraction Pipeline
 
-Date: 2026-03-16  
+Date: 2026-03-16
 Supersedes: `docs/plans/2026-03-16-pipeline-design-v2.md`
 
 ## 1. Purpose

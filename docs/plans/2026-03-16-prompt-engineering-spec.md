@@ -1,3 +1,9 @@
+> **Historical document.** This prompt engineering specification predates the
+> current local-agent workflow under `.claude/skills/`. References to specific
+> provider contracts, model-pinned guidance, and the older `pipeline/` package
+> are superseded by the live `skill_pipeline` implementation and canonical skill
+> docs. Retained as design background only.
+
 # M&A Deal Extraction Pipeline — Prompt Engineering Specification
 
 **Date:** 2026-03-16
