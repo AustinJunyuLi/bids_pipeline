@@ -104,3 +104,38 @@ def test_historical_plan_docs_reference_skill_pipeline() -> None:
         "Historical plan docs do not reference the live implementation:\n"
         + "\n".join(violations)
     )
+
+
+# ---------------------------------------------------------------------------
+# Runtime docs include compose-prompts stage
+# ---------------------------------------------------------------------------
+
+CLAUDE_MD = PROJECT_ROOT / "CLAUDE.md"
+DESIGN_MD = PROJECT_ROOT / "docs" / "design.md"
+
+
+def test_claude_md_includes_compose_prompts_stage() -> None:
+    text = _read(CLAUDE_MD)
+    assert "compose-prompts" in text, (
+        "CLAUDE.md must document the compose-prompts stage in the runtime sequence"
+    )
+
+
+def test_design_md_includes_compose_prompts_stage() -> None:
+    text = _read(DESIGN_MD)
+    assert "compose-prompts" in text, (
+        "docs/design.md must include compose-prompts in the operational sequence"
+    )
+
+
+def test_claude_md_compose_prompts_before_extract_deal() -> None:
+    """compose-prompts must appear before /extract-deal in CLAUDE.md flow."""
+    text = _read(CLAUDE_MD)
+    compose_pos = text.find("compose-prompts")
+    extract_pos = text.find("/extract-deal")
+    assert compose_pos != -1 and extract_pos != -1, (
+        "Both compose-prompts and /extract-deal must appear in CLAUDE.md"
+    )
+    assert compose_pos < extract_pos, (
+        "compose-prompts must appear before /extract-deal in CLAUDE.md"
+    )

@@ -40,19 +40,35 @@ comparison is post-export only and read-only.
 
 | File | What it provides |
 |---|---|
+| `data/skill/<slug>/prompt/manifest.json` | Prompt packet manifest listing all rendered packets |
+| `data/skill/<slug>/prompt/packets/*/rendered.md` | Composed prompt packets with chronology, checklist, and instructions |
 | `data/deals/<slug>/source/chronology_selection.json` | Selected filing and section |
 | `data/deals/<slug>/source/chronology_blocks.jsonl` | Chronology narrative blocks |
 | `data/deals/<slug>/source/evidence_items.jsonl` | Pre-tagged anchors for dates, actors, values, and process signals |
 | `raw/<slug>/document_registry.json` | Filing metadata and paths |
 | `raw/<slug>/filings/*.txt` | Frozen text for verbatim anchors |
 
+## Preflight
+
+Before extraction, run `skill-pipeline compose-prompts --deal <slug> --mode actors`
+(or `--mode events` after actor extraction) to generate prompt packet artifacts.
+Validate them with `python scripts/validate_prompt_packets.py --deal <slug> --expect-sections`.
+
 ## Extraction Method
+
+Use the composed prompt packets from `data/skill/<slug>/prompt/` as the primary
+extraction input. Each packet's `rendered.md` contains the full prompt context:
+deal metadata, chronology blocks, evidence checklist, and task instructions in
+the correct ordering. For chunked deals, each window packet includes overlap
+context from adjacent blocks.
 
 ### Pass 1 — Forward Scan
 
 #### Step 1a: Actor Extraction
 
-Extract every party mentioned in the chronology:
+Load the actor prompt packets from the manifest. For each actor packet, use the
+`rendered.md` content as the extraction context. Extract every party mentioned
+in the chronology:
 
 - Named bidders, advisors, activists, and target-side entities
 - Filing aliases such as `Party A`

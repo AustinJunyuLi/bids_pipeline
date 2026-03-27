@@ -48,6 +48,7 @@ The `skill-pipeline` CLI owns these stages:
 - `source-discover`: discover source filing candidates without fetching
 - `raw-fetch`: fetch and freeze the seed-selected SEC filing set
 - `preprocess-source`: build source artifacts from frozen filings
+- `compose-prompts`: build provider-neutral prompt packet artifacts from source
 - `canonicalize`: upgrade extract artifacts into canonical span-backed form
 - `check`: structural blocker gate
 - `verify`: strict deterministic verification
@@ -124,6 +125,19 @@ It writes:
 It also removes stale `source/supplementary_snippets.jsonl`. That file is not a
 current preprocess output in this worktree.
 
+### Prompt Packet Outputs
+
+`skill-pipeline compose-prompts --deal <slug>` writes:
+
+- `data/skill/<slug>/prompt/manifest.json`
+- `data/skill/<slug>/prompt/packets/<packet-id>/prefix.md`
+- `data/skill/<slug>/prompt/packets/<packet-id>/body.md`
+- `data/skill/<slug>/prompt/packets/<packet-id>/rendered.md`
+
+Use `--mode actors` for actor extraction packets, `--mode events` for event
+extraction packets (requires `actors_raw.json`), or `--mode all` for actor
+packets only (event packets require a separate call after actor extraction).
+
 ### Extract Outputs
 
 `/extract-deal <slug>` writes:
@@ -170,6 +184,8 @@ data/seeds.csv
   -> raw/<slug>/*
   -> skill-pipeline preprocess-source --deal <slug>
   -> data/deals/<slug>/source/*
+  -> skill-pipeline compose-prompts --deal <slug>
+  -> data/skill/<slug>/prompt/*
   -> /extract-deal <slug>
   -> data/skill/<slug>/extract/{actors_raw,events_raw}.json
   -> skill-pipeline canonicalize --deal <slug>
@@ -245,6 +261,8 @@ python -m pytest -q
 skill-pipeline source-discover --deal imprivata
 skill-pipeline raw-fetch --deal imprivata
 skill-pipeline preprocess-source --deal imprivata
+
+skill-pipeline compose-prompts --deal imprivata
 
 skill-pipeline canonicalize --deal imprivata
 skill-pipeline check --deal imprivata

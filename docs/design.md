@@ -9,20 +9,22 @@ Operational sequence:
 
 1. `skill-pipeline raw-fetch --deal <slug>`
 2. `skill-pipeline preprocess-source --deal <slug>`
-3. `/extract-deal <slug>`
-4. `skill-pipeline canonicalize --deal <slug>`
-5. `skill-pipeline check --deal <slug>`
-6. `skill-pipeline verify --deal <slug>`
-7. `skill-pipeline coverage --deal <slug>`
-8. `/verify-extraction <slug>`
-9. `skill-pipeline enrich-core --deal <slug>`
-10. `/enrich-deal <slug>`
-11. `/export-csv <slug>`
+3. `skill-pipeline compose-prompts --deal <slug>`
+4. `/extract-deal <slug>`
+5. `skill-pipeline canonicalize --deal <slug>`
+6. `skill-pipeline check --deal <slug>`
+7. `skill-pipeline verify --deal <slug>`
+8. `skill-pipeline coverage --deal <slug>`
+9. `/verify-extraction <slug>`
+10. `skill-pipeline enrich-core --deal <slug>`
+11. `/enrich-deal <slug>`
+12. `/export-csv <slug>`
 
 Artifact flow:
 
 - `raw/<slug>/` contains immutable frozen filing text plus seed-only discovery metadata.
 - `data/deals/<slug>/source/` contains `chronology_blocks.jsonl` and `evidence_items.jsonl`.
+- `data/skill/<slug>/prompt/` contains composed prompt packet artifacts (`manifest.json` and per-packet `rendered.md`).
 - `data/skill/<slug>/extract/` contains raw or canonical actors/events plus `spans.json`.
 - `data/skill/<slug>/{check,verify,coverage,enrich,export}/` contains downstream deterministic outputs.
 

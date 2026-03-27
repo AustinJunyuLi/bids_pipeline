@@ -4,6 +4,8 @@ from pathlib import Path
 
 from scripts.sync_skill_mirrors import check_target, sync_target
 
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+
 
 def _write_skill(source_dir: Path, skill_name: str, description: str, body: str) -> None:
     skill_dir = source_dir / skill_name
@@ -55,3 +57,35 @@ def test_check_target_reports_missing_and_drifted_files(tmp_path: Path) -> None:
 
     assert any("content drift in alpha/SKILL.md" in issue for issue in issues)
     assert any("unexpected file extra.txt" in issue for issue in issues)
+
+
+# --- Prompt stage visibility in extract-deal skill mirrors ---
+
+
+def test_canonical_extract_skill_references_prompt_manifest() -> None:
+    """The canonical .claude extract skill references the prompt manifest path."""
+    skill_path = PROJECT_ROOT / ".claude" / "skills" / "extract-deal" / "SKILL.md"
+    text = skill_path.read_text(encoding="utf-8")
+    assert "data/skill/<slug>/prompt/manifest.json" in text, (
+        "extract-deal SKILL.md must reference the prompt manifest path"
+    )
+
+
+def test_codex_mirror_matches_canonical_extract_skill() -> None:
+    """The .codex extract skill mirror matches the canonical .claude version."""
+    canonical = PROJECT_ROOT / ".claude" / "skills" / "extract-deal" / "SKILL.md"
+    mirror = PROJECT_ROOT / ".codex" / "skills" / "extract-deal" / "SKILL.md"
+    assert mirror.exists(), ".codex extract-deal mirror must exist"
+    assert canonical.read_bytes() == mirror.read_bytes(), (
+        ".codex extract-deal SKILL.md has drifted from .claude canonical"
+    )
+
+
+def test_cursor_mirror_matches_canonical_extract_skill() -> None:
+    """The .cursor extract skill mirror matches the canonical .claude version."""
+    canonical = PROJECT_ROOT / ".claude" / "skills" / "extract-deal" / "SKILL.md"
+    mirror = PROJECT_ROOT / ".cursor" / "skills" / "extract-deal" / "SKILL.md"
+    assert mirror.exists(), ".cursor extract-deal mirror must exist"
+    assert canonical.read_bytes() == mirror.read_bytes(), (
+        ".cursor extract-deal SKILL.md has drifted from .claude canonical"
+    )
