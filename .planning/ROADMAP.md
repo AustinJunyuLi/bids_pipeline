@@ -8,20 +8,22 @@
 
 ### Phase 1: Foundation + Annotation
 
-**Goal:** Upgrade SDK plumbing and enrich preprocessing — no extraction behavior changes yet.
+**Goal:** Enrich chronology block preprocessing with deterministic metadata and clean up project dependencies. No LLM behavior changes.
 
-**Requirements:** INFRA-01, INFRA-02, INFRA-04, INFRA-06
+**Requirements:** INFRA-04, INFRA-06
 
 **Scope:**
-- Bump `anthropic>=0.86`, `openai>=2.30`, pin `edgartools>=5.23,<6.0`
-- Switch Anthropic extraction to provider-native structured outputs (`output_config.format` + Pydantic)
-- Switch OpenAI extraction to provider-native structured outputs (Responses API + schema)
-- Annotate each chronology block with deterministic metadata: date mentions, entity mentions, evidence density score, temporal phase hint
+- Bump `anthropic>=0.86`, add `openai>=2.30`, pin `edgartools>=5.23,<6.0` in `pyproject.toml`
+- Annotate each chronology block with deterministic metadata: parsed date mentions, seed-based entity mentions, evidence density score, temporal phase hint (hybrid: content-signal primary, position fallback)
+- Annotation runs as final step inside `preprocess-source`, not a separate subcommand
+- New metadata fields are optional on `ChronologyBlock` for backward compatibility
+- Re-run `preprocess-source` for all 9 deals to produce annotated blocks
 
 **Exit criteria:**
 - `python -m pytest -q` passes
-- stec extraction produces identical or better results with provider-native structured outputs
-- Block metadata is written to `chronology_blocks.jsonl` and consumed downstream
+- Unit tests for each annotation function (dates, entities, density, phase)
+- stec annotated blocks spot-checked for correctness
+- All 9 deals have annotated `chronology_blocks.jsonl`
 
 **Depends on:** nothing
 
@@ -31,7 +33,7 @@
 
 **Goal:** Build the deterministic prompt composition engine that assembles extraction prompts from annotated blocks.
 
-**Requirements:** INFRA-03, INFRA-05, PROMPT-01, PROMPT-02, PROMPT-03, PROMPT-04
+**Requirements:** INFRA-01, INFRA-02, INFRA-03, INFRA-05, PROMPT-01, PROMPT-02, PROMPT-03, PROMPT-04
 
 **Scope:**
 - Prompt composition engine: takes annotated blocks, evidence checklist, actor roster, few-shot examples → assembled prompt
@@ -115,10 +117,10 @@
 
 | Requirement | Phase |
 |-------------|-------|
-| INFRA-01 | 1 |
-| INFRA-02 | 1 |
 | INFRA-04 | 1 |
 | INFRA-06 | 1 |
+| INFRA-01 | 2 |
+| INFRA-02 | 2 |
 | INFRA-03 | 2 |
 | INFRA-05 | 2 |
 | PROMPT-01 | 2 |

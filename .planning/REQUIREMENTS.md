@@ -71,10 +71,10 @@ Explicitly excluded. Documented to prevent scope creep.
 
 | Requirement | Phase |
 |-------------|-------|
-| INFRA-01 | 1 — Foundation + Annotation |
-| INFRA-02 | 1 — Foundation + Annotation |
 | INFRA-04 | 1 — Foundation + Annotation |
 | INFRA-06 | 1 — Foundation + Annotation |
+| INFRA-01 | 2 — Prompt Architecture |
+| INFRA-02 | 2 — Prompt Architecture |
 | INFRA-03 | 2 — Prompt Architecture |
 | INFRA-05 | 2 — Prompt Architecture |
 | PROMPT-01 | 2 — Prompt Architecture |
