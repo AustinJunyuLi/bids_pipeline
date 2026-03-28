@@ -18,7 +18,7 @@ from skill_pipeline.models import (
 
 @dataclass
 class LoadedExtractArtifacts:
-    mode: Literal["legacy", "canonical"]
+    mode: Literal["quote_first", "canonical"]
     raw_actors: RawSkillActorsArtifact | None
     raw_events: RawSkillEventsArtifact | None
     actors: SkillActorsArtifact | None
@@ -40,9 +40,8 @@ def load_extract_artifacts(paths: SkillPathSet) -> LoadedExtractArtifacts:
         "count_assertions",
     )
     events_canonical = _payload_has_span_ids(events_payload, "events")
-    canonical = actors_canonical or events_canonical
 
-    if canonical:
+    if actors_canonical or events_canonical:
         if not paths.spans_path.exists():
             raise FileNotFoundError(
                 f"Missing required canonical sidecar: {paths.spans_path}"
@@ -56,13 +55,20 @@ def load_extract_artifacts(paths: SkillPathSet) -> LoadedExtractArtifacts:
             spans=SpanRegistryArtifact.model_validate(_read_json(paths.spans_path)),
         )
 
-    return LoadedExtractArtifacts(
-        mode="legacy",
-        raw_actors=RawSkillActorsArtifact.model_validate(actors_payload),
-        raw_events=RawSkillEventsArtifact.model_validate(events_payload),
-        actors=None,
-        events=None,
-        spans=None,
+    if "quotes" in actors_payload or "quotes" in events_payload:
+        return LoadedExtractArtifacts(
+            mode="quote_first",
+            raw_actors=RawSkillActorsArtifact.model_validate(actors_payload),
+            raw_events=RawSkillEventsArtifact.model_validate(events_payload),
+            actors=None,
+            events=None,
+            spans=None,
+        )
+
+    raise ValueError(
+        "Unrecognized extract artifact format. "
+        "Expected quote-first format (top-level 'quotes' key) or canonical format "
+        "(evidence_span_ids). Legacy evidence_refs format is no longer supported."
     )
 
 
