@@ -205,7 +205,7 @@ def _write_verify_fixture_for_fuzzy_only_match(tmp_path: Path, *, slug: str = "i
 
 
 def _write_verify_fixture_for_clean_pass(tmp_path: Path, *, slug: str = "imprivata") -> None:
-    """Create fixture where all evidence refs resolve EXACT or NORMALIZED."""
+    """Create fixture where all quotes resolve EXACT or NORMALIZED."""
     doc_id = "DOC002"
     data_dir = tmp_path / "data"
     deals_source_dir = data_dir / "deals" / slug / "source"
@@ -373,8 +373,11 @@ def test_verify_treats_fuzzy_match_as_unresolved(tmp_path: Path) -> None:
 
     assert exit_code == 1
     assert len(findings) >= 1
-    assert findings[0]["check_type"] == "quote_verification"
-    assert findings[0]["repairability"] == "repairable"
+    assert any(
+        finding["check_type"] == "quote_validation"
+        and finding["repairability"] == "repairable"
+        for finding in findings
+    )
 
 
 def test_verify_promotes_expanded_exact_match_over_initial_fuzzy_match() -> None:
@@ -403,9 +406,50 @@ def test_verify_writes_compatible_pass_log_without_llm_repair(tmp_path: Path) ->
 
     assert exit_code == 0
     assert log["summary"]["status"] == "pass"
-    assert log["summary"]["total_checks"] == 9
+    assert log["summary"]["total_checks"] == 12
     assert "round_1" in log
     assert "round_2" in log
+
+
+def test_verify_reports_missing_quote_id_reference(tmp_path: Path) -> None:
+    _write_verify_fixture_for_clean_pass(tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    actors_payload = json.loads(paths.actors_raw_path.read_text(encoding="utf-8"))
+    events_payload = json.loads(paths.events_raw_path.read_text(encoding="utf-8"))
+
+    actors_payload["actors"][0]["quote_ids"] = ["Q999"]
+    actors_payload["count_assertions"] = [
+        {
+            "subject": "nda_signed_financial_buyers",
+            "count": 1,
+            "quote_ids": ["Q998"],
+        }
+    ]
+    events_payload["events"][0]["quote_ids"] = ["Q997"]
+    paths.actors_raw_path.write_text(json.dumps(actors_payload), encoding="utf-8")
+    paths.events_raw_path.write_text(json.dumps(events_payload), encoding="utf-8")
+
+    exit_code = run_verify("imprivata", project_root=tmp_path)
+    findings = _read_findings_list(paths.verification_findings_path)
+
+    assert exit_code == 1
+    assert any(
+        finding["check_type"] == "quote_id_integrity"
+        and finding["actor_ids"] == ["party_a"]
+        and "Q999" in finding["description"]
+        for finding in findings
+    )
+    assert any(
+        finding["check_type"] == "quote_id_integrity"
+        and finding["event_ids"] == ["evt_001"]
+        and "Q997" in finding["description"]
+        for finding in findings
+    )
+    assert any(
+        finding["check_type"] == "quote_id_integrity"
+        and "Count assertion 'nda_signed_financial_buyers' references unknown quote_id 'Q998'" == finding["description"]
+        for finding in findings
+    )
 
 
 def test_verify_blocks_canonical_empty_evidence_spans(tmp_path: Path) -> None:

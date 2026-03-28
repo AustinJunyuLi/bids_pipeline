@@ -28,20 +28,20 @@ def _write_json(path: Path, report: SkillCheckReport) -> None:
 
 
 def _get_actor_event_records(artifacts: LoadedExtractArtifacts) -> tuple[list, list]:
-    if artifacts.mode == "legacy":
+    if artifacts.mode == "quote_first":
         return artifacts.raw_actors.actors, artifacts.raw_events.events
     return artifacts.actors.actors, artifacts.events.events
 
 
 def _actor_has_evidence(artifacts: LoadedExtractArtifacts, actor) -> bool:
-    if artifacts.mode == "legacy":
-        return bool(actor.evidence_refs)
+    if artifacts.mode == "quote_first":
+        return bool(actor.quote_ids)
     return bool(actor.evidence_span_ids)
 
 
 def _event_has_evidence(artifacts: LoadedExtractArtifacts, event) -> bool:
-    if artifacts.mode == "legacy":
-        return bool(event.evidence_refs)
+    if artifacts.mode == "quote_first":
+        return bool(event.quote_ids)
     return bool(event.evidence_span_ids)
 
 
@@ -84,16 +84,26 @@ def _check_empty_anchor_text(artifacts: LoadedExtractArtifacts) -> list[CheckFin
     actor_ids_affected: set[str] = set()
     event_ids_affected: set[str] = set()
 
-    if artifacts.mode == "legacy":
+    if artifacts.mode == "quote_first":
+        quotes_by_id: dict[str, object] = {}
+        if artifacts.raw_actors:
+            for quote in artifacts.raw_actors.quotes:
+                quotes_by_id[quote.quote_id] = quote
+        if artifacts.raw_events:
+            for quote in artifacts.raw_events.quotes:
+                quotes_by_id[quote.quote_id] = quote
+
         for actor in artifacts.raw_actors.actors:
-            for ref in actor.evidence_refs:
-                if not ref.anchor_text or not ref.anchor_text.strip():
+            for quote_id in actor.quote_ids:
+                quote = quotes_by_id.get(quote_id)
+                if quote is None or not quote.text or not quote.text.strip():
                     actor_ids_affected.add(actor.actor_id)
                     break
 
         for evt in artifacts.raw_events.events:
-            for ref in evt.evidence_refs:
-                if not ref.anchor_text or not ref.anchor_text.strip():
+            for quote_id in evt.quote_ids:
+                quote = quotes_by_id.get(quote_id)
+                if quote is None or not quote.text or not quote.text.strip():
                     event_ids_affected.add(evt.event_id)
                     break
     else:
@@ -158,7 +168,7 @@ def _check_canonical_evidence_presence(artifacts: LoadedExtractArtifacts) -> lis
 def _check_nda_count_gaps(artifacts: LoadedExtractArtifacts) -> list[CheckFinding]:
     findings: list[CheckFinding] = []
     actor_records, event_records = _get_actor_event_records(artifacts)
-    actor_artifact = artifacts.raw_actors if artifacts.mode == "legacy" else artifacts.actors
+    actor_artifact = artifacts.raw_actors if artifacts.mode == "quote_first" else artifacts.actors
 
     nda_actor_ids: set[str] = set()
     for evt in event_records:
