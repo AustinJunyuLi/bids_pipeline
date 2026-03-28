@@ -7,11 +7,12 @@ from pathlib import Path
 
 from skill_pipeline.extract_artifacts import LoadedExtractArtifacts, load_extract_artifacts
 from skill_pipeline.pipeline_models.common import QuoteMatchType
-from skill_pipeline.pipeline_models.source import ChronologyBlock, EvidenceItem
+from skill_pipeline.pipeline_models.source import ChronologyBlock
 from skill_pipeline.normalize.quotes import find_anchor_in_segment
 
 from skill_pipeline.config import PROJECT_ROOT
 from skill_pipeline.models import (
+    QuoteEntry,
     SkillPathSet,
     SkillVerificationLog,
     VerificationFinding,
@@ -50,15 +51,6 @@ def _load_chronology_blocks(path: Path) -> list[ChronologyBlock]:
     return blocks
 
 
-def _load_evidence_items(path: Path) -> list[EvidenceItem]:
-    items: list[EvidenceItem] = []
-    for line in path.read_text(encoding="utf-8").splitlines():
-        if not line.strip():
-            continue
-        items.append(EvidenceItem.model_validate_json(line))
-    return items
-
-
 def _resolve_quote_match(
     raw_segment: str,
     anchor_text: str,
@@ -83,17 +75,14 @@ def _resolve_quote_match(
     return match_type
 
 
-def _check_quote_verification_legacy(
+def _check_quote_validation(
     artifacts: LoadedExtractArtifacts,
     blocks: list[ChronologyBlock],
-    evidence_items: list[EvidenceItem],
     document_lines: dict[str, list[str]],
 ) -> tuple[list[VerificationFinding], int]:
-    """Verify every evidence_ref. EXACT and NORMALIZED resolve; FUZZY does not."""
+    """Round 1: Validate each quote.text against filing text in the referenced block."""
     findings: list[VerificationFinding] = []
     total_checks = 0
-    actors = artifacts.raw_actors
-    events = artifacts.raw_events
     blocks_by_id: dict[str, ChronologyBlock] = {}
     for b in blocks:
         if b.block_id in blocks_by_id:
@@ -104,90 +93,133 @@ def _check_quote_verification_legacy(
             )
         blocks_by_id[b.block_id] = b
 
-    evidence_by_id: dict[str, EvidenceItem] = {}
-    for e in evidence_items:
-        if e.evidence_id in evidence_by_id:
-            raise ValueError(
-                f"Duplicate evidence_id {e.evidence_id!r} across documents "
-                f"{evidence_by_id[e.evidence_id].document_id!r} and {e.document_id!r}. "
-                "Evidence IDs must be globally unique; prefix with document_id if needed."
-            )
-        evidence_by_id[e.evidence_id] = e
+    all_quotes: list[QuoteEntry] = []
+    if artifacts.raw_actors:
+        all_quotes.extend(artifacts.raw_actors.quotes)
+    if artifacts.raw_events:
+        all_quotes.extend(artifacts.raw_events.quotes)
 
-    def _check_ref(ref, actor_ids: list[str], event_ids: list[str]) -> None:
-        if not ref.anchor_text or not ref.anchor_text.strip():
-            return
-        nonlocal total_checks
-        total_checks += 1
-        raw_lines: list[str] = []
-        start_line, end_line = 0, 0
-        if ref.block_id and ref.block_id in blocks_by_id:
-            block = blocks_by_id[ref.block_id]
-            raw_lines = document_lines.get(block.document_id, [])
-            if not raw_lines and block.raw_text:
-                raw_lines = block.raw_text.splitlines()
-            start_line, end_line = block.start_line, block.end_line
-        elif ref.evidence_id and ref.evidence_id in evidence_by_id:
-            item = evidence_by_id[ref.evidence_id]
-            raw_lines = document_lines.get(item.document_id, [])
-            if not raw_lines and item.raw_text:
-                raw_lines = item.raw_text.splitlines()
-            start_line, end_line = item.start_line, item.end_line
-        else:
+    seen_ids: set[str] = set()
+    for quote in all_quotes:
+        if quote.quote_id in seen_ids:
             findings.append(
                 VerificationFinding(
-                    check_type="quote_verification",
+                    check_type="quote_validation",
                     severity="error",
                     repairability="repairable",
-                    description=f"Unknown block_id or evidence_id: block_id={ref.block_id!r} evidence_id={ref.evidence_id!r}",
-                    actor_ids=actor_ids,
-                    event_ids=event_ids,
-                    anchor_text=ref.anchor_text,
+                    description=f"Duplicate quote_id {quote.quote_id!r} in quotes array",
                 )
             )
-            return
+        seen_ids.add(quote.quote_id)
 
+    for quote in all_quotes:
+        total_checks += 1
+        block = blocks_by_id.get(quote.block_id)
+        if block is None:
+            findings.append(
+                VerificationFinding(
+                    check_type="quote_validation",
+                    severity="error",
+                    repairability="repairable",
+                    description=f"Quote {quote.quote_id!r} references unknown block_id {quote.block_id!r}",
+                    block_ids=[quote.block_id],
+                    anchor_text=quote.text,
+                )
+            )
+            continue
+
+        raw_lines = document_lines.get(block.document_id, [])
         if not raw_lines:
             findings.append(
                 VerificationFinding(
-                    check_type="quote_verification",
+                    check_type="quote_validation",
                     severity="error",
                     repairability="repairable",
-                    description=f"No document lines for block/evidence; cannot verify anchor.",
-                    actor_ids=actor_ids,
-                    event_ids=event_ids,
-                    anchor_text=ref.anchor_text,
+                    description=f"No document lines for quote {quote.quote_id!r} in block {quote.block_id}",
+                    block_ids=[quote.block_id],
+                    anchor_text=quote.text,
                 )
             )
-            return
+            continue
 
-        segment_lines = raw_lines[start_line - 1 : end_line] if start_line and end_line else raw_lines
+        segment_lines = raw_lines[block.start_line - 1 : block.end_line]
         raw_segment = "\n".join(segment_lines)
         match_type = _resolve_quote_match(
-            raw_segment, ref.anchor_text, raw_lines, start_line, end_line
+            raw_segment, quote.text, raw_lines, block.start_line, block.end_line
         )
 
-        if match_type == QuoteMatchType.FUZZY or match_type == QuoteMatchType.UNRESOLVED:
-            block_or_ev = f"block {ref.block_id}" if ref.block_id else f"evidence {ref.evidence_id}"
+        if match_type in {QuoteMatchType.FUZZY, QuoteMatchType.UNRESOLVED}:
             findings.append(
                 VerificationFinding(
-                    check_type="quote_verification",
+                    check_type="quote_validation",
                     severity="error",
                     repairability="repairable",
-                    description=f"anchor_text not found at EXACT/NORMALIZED level within +/-{SPAN_EXPANSION_LINES} lines of {block_or_ev}",
-                    actor_ids=actor_ids,
-                    event_ids=event_ids,
-                    anchor_text=ref.anchor_text,
+                    description=(
+                        f"Quote {quote.quote_id!r} text not found at EXACT/NORMALIZED "
+                        f"level in block {quote.block_id}"
+                    ),
+                    block_ids=[quote.block_id],
+                    anchor_text=quote.text,
                 )
             )
 
-    for actor in actors.actors:
-        for ref in actor.evidence_refs:
-            _check_ref(ref, actor_ids=[actor.actor_id], event_ids=[])
+    return findings, total_checks
 
-    for evt in events.events:
-        for ref in evt.evidence_refs:
-            _check_ref(ref, actor_ids=[], event_ids=[evt.event_id])
+
+def _check_quote_id_integrity(
+    artifacts: LoadedExtractArtifacts,
+) -> tuple[list[VerificationFinding], int]:
+    """Round 2: Check that every actor/event quote_id exists in the quotes array."""
+    findings: list[VerificationFinding] = []
+    total_checks = 0
+
+    known_ids: set[str] = set()
+    if artifacts.raw_actors:
+        known_ids.update(quote.quote_id for quote in artifacts.raw_actors.quotes)
+    if artifacts.raw_events:
+        known_ids.update(quote.quote_id for quote in artifacts.raw_events.quotes)
+
+    if artifacts.raw_actors:
+        for actor in artifacts.raw_actors.actors:
+            for quote_id in actor.quote_ids:
+                total_checks += 1
+                if quote_id not in known_ids:
+                    findings.append(
+                        VerificationFinding(
+                            check_type="quote_id_integrity",
+                            severity="error",
+                            repairability="repairable",
+                            description=f"Actor {actor.actor_id!r} references unknown quote_id {quote_id!r}",
+                            actor_ids=[actor.actor_id],
+                        )
+                    )
+        for assertion in artifacts.raw_actors.count_assertions:
+            for quote_id in assertion.quote_ids:
+                total_checks += 1
+                if quote_id not in known_ids:
+                    findings.append(
+                        VerificationFinding(
+                            check_type="quote_id_integrity",
+                            severity="error",
+                            repairability="repairable",
+                            description=f"Count assertion {assertion.subject!r} references unknown quote_id {quote_id!r}",
+                        )
+                    )
+
+    if artifacts.raw_events:
+        for event in artifacts.raw_events.events:
+            for quote_id in event.quote_ids:
+                total_checks += 1
+                if quote_id not in known_ids:
+                    findings.append(
+                        VerificationFinding(
+                            check_type="quote_id_integrity",
+                            severity="error",
+                            repairability="repairable",
+                            description=f"Event {event.event_id!r} references unknown quote_id {quote_id!r}",
+                            event_ids=[event.event_id],
+                        )
+                    )
 
     return findings, total_checks
 
@@ -452,25 +484,30 @@ def _check_canonical_evidence_presence(artifacts: LoadedExtractArtifacts) -> tup
 def _collect_verification_findings(paths: SkillPathSet) -> tuple[list[VerificationFinding], int]:
     """Run all checks and return findings."""
     blocks = _load_chronology_blocks(paths.chronology_blocks_path)
-    evidence_items = _load_evidence_items(paths.evidence_items_path)
     document_lines = _load_document_lines(paths.raw_root / paths.deal_slug / "filings")
     artifacts = load_extract_artifacts(paths)
-    actors = artifacts.raw_actors if artifacts.mode == "legacy" else artifacts.actors
-    events = artifacts.raw_events if artifacts.mode == "legacy" else artifacts.events
+    actors = artifacts.raw_actors if artifacts.mode == "quote_first" else artifacts.actors
+    events = artifacts.raw_events if artifacts.mode == "quote_first" else artifacts.events
 
     findings: list[VerificationFinding] = []
     total_checks = 0
-    if artifacts.mode == "legacy":
-        quote_findings, quote_checks = _check_quote_verification_legacy(
-            artifacts, blocks, evidence_items, document_lines
+    if artifacts.mode == "quote_first":
+        quote_findings, quote_checks = _check_quote_validation(
+            artifacts,
+            blocks,
+            document_lines,
         )
+        findings.extend(quote_findings)
+        total_checks += quote_checks
+
+        integrity_findings, integrity_checks = _check_quote_id_integrity(artifacts)
+        findings.extend(integrity_findings)
+        total_checks += integrity_checks
     else:
         quote_findings, quote_checks = _check_quote_verification_canonical(
             artifacts,
             document_lines,
         )
-    findings.extend(quote_findings)
-    total_checks += quote_checks
     evidence_findings, evidence_checks = _check_canonical_evidence_presence(artifacts)
     findings.extend(evidence_findings)
     total_checks += evidence_checks
@@ -531,8 +568,6 @@ def run_verify(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> int:
         raise FileNotFoundError(f"Missing required input: {paths.events_raw_path}")
     if not paths.chronology_blocks_path.exists():
         raise FileNotFoundError(f"Missing required input: {paths.chronology_blocks_path}")
-    if not paths.evidence_items_path.exists():
-        raise FileNotFoundError(f"Missing required input: {paths.evidence_items_path}")
 
     findings, total_checks = _collect_verification_findings(paths)
 
