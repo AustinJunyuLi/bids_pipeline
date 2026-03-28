@@ -114,7 +114,7 @@ miss.
 
 Plans:
 - [x] 04-01-PLAN.md — Gate models, paths, gates.py core logic (all 4 gates), unit tests
-- [ ] 04-02-PLAN.md — CLI wiring, deal-agent summary, enrich-core gating, CLAUDE.md, integration tests
+- [x] 04-02-PLAN.md — CLI wiring, deal-agent summary, enrich-core gating, CLAUDE.md, integration tests
 
 **Scope:**
 - Temporal consistency: event dates vs evidence positions in filing
