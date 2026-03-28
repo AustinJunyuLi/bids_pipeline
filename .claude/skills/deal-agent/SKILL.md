@@ -15,8 +15,9 @@ description: Use when orchestrating the repo's end-to-end skill workflow for a d
 
 Thin orchestrator that runs four sub-skills against preprocessed source:
 extract-deal, verify-extraction, enrich-deal, export-csv. Deterministic runtime
-stages (canonicalize, check, verify, coverage, enrich-core) are available via
-`skill-pipeline` CLI.
+stages (canonicalize, check, verify, coverage, enrich-core, db-load,
+db-export) are available via `skill-pipeline` CLI. Deterministic CSV export now
+comes from `db-export`; `/export-csv` remains a legacy/manual workflow.
 
 ## Prerequisite
 
@@ -32,8 +33,11 @@ individual skills when re-running a specific stage.
 
 Benchmark materials are forbidden during generation. Do not consult benchmark
 files, benchmark notes, `example/`, `diagnosis/`,
-`data/skill/<slug>/reconcile/*`, or `/reconcile-alex` before `/export-csv`
-completes.
+`data/skill/<slug>/reconcile/*`, or `/reconcile-alex` before
+`skill-pipeline db-export --deal <slug>` completes.
+
+The legacy/manual `/export-csv` workflow keeps the same blind-generation rule:
+do not consult benchmark materials before `/export-csv`.
 
 Use only filing-grounded inputs through export. Benchmark comparison is
 post-export only and read-only.
@@ -48,8 +52,10 @@ post-export only and read-only.
 | 3 | `verify` + `coverage` (deterministic) | `verify/verification_findings.json`, `verify/verification_log.json`, `coverage/coverage_findings.json`, `coverage/coverage_summary.json` | Fail closed on error status |
 | 4 | `verify-extraction` | updated extraction files + verify/coverage findings consumed | Fail closed (stop on round-2 errors) |
 | 5 | `enrich-core` (deterministic) | `enrich/deterministic_enrichment.json` | Fail closed |
+| 5a | `db-load` (deterministic) | DuckDB `data/pipeline.duckdb` updated | Fail closed |
+| 5b | `db-export` (deterministic) | `export/deal_events.csv` | Fail closed |
 | 6 | `enrich-deal` | `enrich/enrichment.json` | Fail closed |
-| 7 | `export-csv` | `export/deal_events.csv` | Fail closed |
+| 7 | `export-csv` | `export/deal_events.csv` (legacy/manual) | Fail closed |
 
 ## Procedure
 
@@ -100,11 +106,17 @@ post-export only and read-only.
 7. Run `skill-pipeline enrich-core --deal <slug>`
    Gate: deterministic_enrichment.json exists.
 
+7a. Run `skill-pipeline db-load --deal <slug>`
+    Gate: data/pipeline.duckdb exists and contains rows for this deal.
+
+7b. Run `skill-pipeline db-export --deal <slug>`
+    Gate: deal_events.csv exists and is non-empty.
+
 8. Run /enrich-deal <slug>
    Gate: enrichment.json exists.
 
-9. Run /export-csv <slug>
-   Gate: deal_events.csv exists.
+9. Run /export-csv <slug> only for legacy/manual export workflows.
+   Gate: deal_events.csv exists if this step is run.
 
 10. Report summary:
    - Actor count, event count, proposal count
@@ -112,6 +124,8 @@ post-export only and read-only.
    - Coverage: error count, warning count (if coverage_summary exists)
    - Verification: round 1 errors found, fixes applied, round 2 status
    - Enrichment: cycle count, formal/informal split, initiation judgment type
+   - DB load: actor row count, event row count, span row count
+   - DB export: event row count, output path
    - Review flags count
    - Output path: data/skill/<slug>/export/deal_events.csv
 ```
@@ -125,10 +139,12 @@ Each skill is independently callable:
 - `skill-pipeline verify --deal <slug>` -- run deterministic verification
 - `skill-pipeline coverage --deal <slug>` -- run deterministic source-coverage audit
 - `skill-pipeline enrich-core --deal <slug>` -- run deterministic enrich core
+- `skill-pipeline db-load --deal <slug>` -- load canonical extracts + enrichment into DuckDB
+- `skill-pipeline db-export --deal <slug>` -- generate CSV export from DuckDB
 - `/extract-deal <slug>` -- run extraction only
 - `/verify-extraction <slug>` -- run verification only
 - `/enrich-deal <slug>` -- run enrichment only
-- `/export-csv <slug>` -- run export only
+- `/export-csv <slug>` -- run export only for legacy/manual workflows
 
 ## Supersedes
 

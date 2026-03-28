@@ -55,6 +55,8 @@ The `skill-pipeline` CLI owns these stages:
 - `coverage`: deterministic source-coverage audit
 - `gates`: semantic validation (temporal consistency, cross-event logic, actor lifecycle, attention decay)
 - `enrich-core`: deterministic enrichment
+- `db-load`: load canonical extract + enrichment artifacts into DuckDB
+- `db-export`: generate `deal_events.csv` from DuckDB queries
 - `deal-agent`: preflight and artifact summary only
 
 ### Local-Agent Stages
@@ -182,10 +184,24 @@ logic, actor lifecycle coverage) and an optional attention decay diagnostic.
 Gates run after coverage and before enrich-core. Enrich-core refuses to run if
 gates have blocker findings.
 
+### DuckDB Database
+
+`skill-pipeline db-load --deal <slug>` writes deal data into:
+
+- `data/pipeline.duckdb`
+
+Tables: `actors`, `events`, `spans`, `enrichment`, `cycles`, `rounds`. The
+database is a single multi-deal file keyed by `(deal_slug, <entity_id>)`.
+
+`skill-pipeline db-export --deal <slug>` writes:
+
+- `data/skill/<slug>/export/deal_events.csv`
+
+The CSV is generated from DuckDB queries, not from JSON artifacts.
+
 Optional later-stage artifacts written by local-agent workflows:
 
 - `data/skill/<slug>/enrich/enrichment.json`
-- `data/skill/<slug>/export/deal_events.csv`
 
 ## End-To-End Flow
 
@@ -207,15 +223,18 @@ data/seeds.csv
   -> skill-pipeline gates --deal <slug>
   -> /verify-extraction <slug>        (only if deterministic findings are repairable)
   -> skill-pipeline enrich-core --deal <slug>
-  -> /enrich-deal <slug>              (optional interpretive layer)
-  -> /export-csv <slug>
+  -> skill-pipeline db-load --deal <slug>
+  -> skill-pipeline db-export --deal <slug>
+  -> /enrich-deal <slug>              (optional interpretive layer; deterministic export already exists)
+  -> /export-csv <slug>               (legacy/manual export workflow; deterministic export is db-export)
   -> /reconcile-alex <slug>           (optional post-export diagnostic)
 ```
 
 ## Hard Invariants
 
 - Filing text is the only factual source of truth.
-- Benchmark materials are forbidden until `/export-csv` completes.
+- Benchmark materials are forbidden until `skill-pipeline db-export --deal <slug>`
+  completes.
 - `raw-fetch` and `preprocess-source` are seed-only in this worktree.
 - `preprocess-source` is currently single-primary-document and fail-closed on
   supplementary candidates.
@@ -225,6 +244,10 @@ data/seeds.csv
 - `check`, `verify`, and `coverage` are blocker gates before `enrich-core`.
 - `gates` is a blocker gate before `enrich-core`. Semantic findings with
   severity `blocker` prevent enrichment.
+- `db-load` requires canonical extract artifacts with `spans.json` and
+  `deterministic_enrichment.json`. It refuses quote-first or incomplete data.
+- `db-export` generates CSV from DuckDB, not JSON artifacts. It replaces
+  `/export-csv` for deterministic exports.
 - `verify` only treats `EXACT` and `NORMALIZED` quote matches as passing.
   `FUZZY` does not pass.
 - Fail fast on missing files, schema drift, contradictory state, and invalid
@@ -237,7 +260,11 @@ data/seeds.csv
 
 Benchmark material is post-export only.
 
-Do not consult any of the following before `/export-csv` completes:
+Do not consult any of the following before
+`skill-pipeline db-export --deal <slug>` completes:
+
+The legacy/manual `/export-csv` workflow keeps the same blind-generation rule:
+do not consult benchmark materials before `/export-csv`.
 
 - `example/`
 - `diagnosis/`
@@ -285,6 +312,8 @@ skill-pipeline verify --deal imprivata
 skill-pipeline coverage --deal imprivata
 skill-pipeline gates --deal imprivata
 skill-pipeline enrich-core --deal imprivata
+skill-pipeline db-load --deal imprivata
+skill-pipeline db-export --deal imprivata
 
 skill-pipeline deal-agent --deal imprivata
 

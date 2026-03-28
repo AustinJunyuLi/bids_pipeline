@@ -144,6 +144,45 @@ def test_claude_md_compose_prompts_before_extract_deal() -> None:
     )
 
 
+def test_claude_md_documents_db_load_and_db_export_contract() -> None:
+    text = _read(CLAUDE_MD)
+    normalized = " ".join(text.split())
+    assert "db-load" in text, "CLAUDE.md must mention db-load in the runtime contract"
+    assert "db-export" in text, "CLAUDE.md must mention db-export in the runtime contract"
+    assert "skill-pipeline db-load --deal <slug>" in text, (
+        "CLAUDE.md must include the db-load CLI flow entry"
+    )
+    assert "skill-pipeline db-export --deal <slug>" in text, (
+        "CLAUDE.md must include the db-export CLI flow entry"
+    )
+    assert "### DuckDB Database" in text, (
+        "CLAUDE.md must document the DuckDB database artifact contract"
+    )
+    assert "`db-load` requires canonical extract artifacts" in normalized, (
+        "CLAUDE.md must document the db-load hard invariant"
+    )
+
+
+def test_claude_md_db_stages_follow_enrich_core_before_local_agent_export() -> None:
+    text = _read(CLAUDE_MD)
+    flow_start = text.find("## End-To-End Flow")
+    flow_end = text.find("## Hard Invariants", flow_start)
+    assert flow_start != -1 and flow_end != -1, (
+        "CLAUDE.md must include the End-To-End Flow section"
+    )
+    flow_text = text[flow_start:flow_end]
+    enrich_core_pos = flow_text.find("skill-pipeline enrich-core --deal <slug>")
+    db_load_pos = flow_text.find("skill-pipeline db-load --deal <slug>")
+    db_export_pos = flow_text.find("skill-pipeline db-export --deal <slug>")
+    enrich_deal_pos = flow_text.find("/enrich-deal", db_export_pos)
+    assert -1 not in (enrich_core_pos, db_load_pos, db_export_pos, enrich_deal_pos), (
+        "CLAUDE.md must include enrich-core, db-load, db-export, and /enrich-deal"
+    )
+    assert enrich_core_pos < db_load_pos < db_export_pos < enrich_deal_pos, (
+        "CLAUDE.md must place db-load and db-export after enrich-core and before /enrich-deal"
+    )
+
+
 # ---------------------------------------------------------------------------
 # Prompt packet validator on fixture manifest
 # ---------------------------------------------------------------------------
