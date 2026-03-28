@@ -84,7 +84,7 @@ Plans:
 - [x] 03-02-PLAN.md — Canonicalize rewrite: quote-to-span resolution, enrich_core cleanup
 - [x] 03-03-PLAN.md — Verify + Check rewrite: quote validation, quote_id integrity
 - [x] 03-04-PLAN.md — Prompt instructions + extract-deal SKILL.md update
-- [ ] 03-05-PLAN.md — Gap closure: deal_agent and coverage migration to quote_first contract
+- [x] 03-05-PLAN.md — Gap closure: deal_agent and coverage migration to quote_first contract
 
 **Scope:**
 - New extraction response format: quoted passages first, then structured events

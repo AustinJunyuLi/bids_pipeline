@@ -19,7 +19,7 @@ Requirements for initial release. Each maps to roadmap phases.
   targets
 - [x] **PROMPT-04**: Pre-computed evidence items are formatted as an active
   checklist the LLM must address, not a passive appendix
-- [ ] **PROMPT-05**: Quote-before-extract protocol forces the LLM to cite
+- [x] **PROMPT-05**: Quote-before-extract protocol forces the LLM to cite
   verbatim passages before emitting structured events
 - [ ] **PROMPT-06**: Complexity-based routing sends simple deals (`<=150`
   blocks, `<=8` actors) through single-pass extraction and complex deals
