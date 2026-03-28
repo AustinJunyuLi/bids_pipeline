@@ -18,11 +18,13 @@ If a mention cannot be linked confidently to an existing actor_id, place the men
 </actor_roster_rules>
 
 <evidence>
-For every event, provide evidence_refs using block_id and anchor_text.
-anchor_text must be a contiguous verbatim substring from the block, ideally 3 to 12 words.
+For every event, first add verbatim filing quotes to the top-level quotes array.
+Each quote needs: quote_id (Q001, Q002, ...), block_id (matching the source block), and text (exact verbatim substring from the block, ideally 3 to 12 words).
+Then reference those quote_ids in the event record. Do not use evidence_refs or anchor_text.
 Do not paraphrase.
 </evidence>
 
 <output_requirements>
-Return: events, exclusions, coverage_notes.
+Return a single JSON object with: quotes, events, exclusions, coverage_notes.
+The quotes array must appear first in the JSON.
 </output_requirements>

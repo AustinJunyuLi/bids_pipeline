@@ -24,11 +24,13 @@ For grouped actors, keep separate groups distinct unless the text clearly descri
 </what_counts_as_an_actor>
 
 <evidence>
-For every actor, provide evidence_refs using block_id and anchor_text.
-anchor_text must be a contiguous verbatim substring from the block, ideally 3 to 12 words.
+For every actor, first add verbatim filing quotes to the top-level quotes array.
+Each quote needs: quote_id (Q001, Q002, ...), block_id (matching the source block), and text (exact verbatim substring from the block, ideally 3 to 12 words).
+Then reference those quote_ids in the actor record. Do not use evidence_refs or anchor_text.
 Do not paraphrase.
 </evidence>
 
 <output_requirements>
-Return: actors, count_assertions, unresolved_mentions.
+Return a single JSON object with: quotes, actors, count_assertions, unresolved_mentions.
+The quotes array must appear first in the JSON.
 </output_requirements>

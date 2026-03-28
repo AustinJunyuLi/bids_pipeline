@@ -178,9 +178,19 @@ def _compose_actor_packets(
 ) -> list[PromptPacketArtifact]:
     """Compose actor extraction prompt packets for each chunk window."""
     task_instructions = (
-        "Extract every actor (bidder, advisor, activist, target_board) "
-        "from the chronology blocks above. Return actors, count_assertions, "
-        "and unresolved_mentions. Use only facts grounded in the filing text."
+        "IMPORTANT: You MUST follow the quote-before-extract protocol.\n"
+        "\n"
+        "Step 1 - QUOTE: Read the chronology blocks above. For every passage "
+        "that identifies an actor, copy the exact verbatim text into the "
+        "quotes array. Each quote needs a unique quote_id (Q001, Q002, ...), "
+        "the block_id it comes from, and the verbatim text.\n"
+        "\n"
+        "Step 2 - EXTRACT: Build the actors array. Each actor references "
+        "quote_ids from Step 1 instead of inline evidence. Do not include "
+        "anchor_text or evidence_refs.\n"
+        "\n"
+        "Return a single JSON object with: quotes, actors, count_assertions, "
+        "unresolved_mentions. The quotes array MUST appear first."
     )
     packets: list[PromptPacketArtifact] = []
 
@@ -237,9 +247,19 @@ def _compose_event_packets(
     actor_roster_json = _load_actor_roster_json(actors_raw_path)
 
     task_instructions = (
-        "Extract all M&A process events from the chronology blocks above "
-        "using the locked actor roster. Return events, exclusions, and "
-        "coverage_notes. Use only facts grounded in the filing text."
+        "IMPORTANT: You MUST follow the quote-before-extract protocol.\n"
+        "\n"
+        "Step 1 - QUOTE: Read the chronology blocks above. For every passage "
+        "that describes an M&A event, copy the exact verbatim text into the "
+        "quotes array. Each quote needs a unique quote_id (Q001, Q002, ...), "
+        "the block_id it comes from, and the verbatim text.\n"
+        "\n"
+        "Step 2 - EXTRACT: Build the events array using the locked actor "
+        "roster. Each event references quote_ids from Step 1 instead of "
+        "inline evidence. Do not include anchor_text or evidence_refs.\n"
+        "\n"
+        "Return a single JSON object with: quotes, events, exclusions, "
+        "coverage_notes. The quotes array MUST appear first."
     )
     packets: list[PromptPacketArtifact] = []
 

@@ -635,6 +635,18 @@ class TestRunComposePrompts:
         task_pos = rendered.index("<task_instructions>")
         assert chron_pos < task_pos
 
+    def test_actor_mode_rendered_mentions_quote_before_extract_protocol(self, tmp_path: Path):
+        self._setup_deal(tmp_path)
+        from skill_pipeline.compose_prompts import run_compose_prompts
+
+        manifest = run_compose_prompts(
+            "test-deal", tmp_path, mode="actors", chunk_budget=99999,
+        )
+        rendered = Path(manifest.packets[0].rendered_path).read_text(encoding="utf-8")
+        assert "quote-before-extract protocol" in rendered
+        assert "quotes, actors, count_assertions, unresolved_mentions" in rendered
+        assert "quote_ids" in rendered
+
     def test_evidence_ids_in_rendered(self, tmp_path: Path):
         self._setup_deal(tmp_path)
         from skill_pipeline.compose_prompts import run_compose_prompts
@@ -683,6 +695,19 @@ class TestRunComposePrompts:
         # Event packets must include actor roster
         rendered = Path(manifest.packets[0].rendered_path).read_text(encoding="utf-8")
         assert "<actor_roster>" in rendered
+
+    def test_events_mode_rendered_mentions_quote_first_examples(self, tmp_path: Path):
+        self._setup_deal(tmp_path, with_actors=True)
+        from skill_pipeline.compose_prompts import run_compose_prompts
+
+        manifest = run_compose_prompts(
+            "test-deal", tmp_path, mode="events", chunk_budget=99999,
+        )
+        rendered = Path(manifest.packets[0].rendered_path).read_text(encoding="utf-8")
+        assert "quote-before-extract protocol" in rendered
+        assert "quotes, events, exclusions, coverage_notes" in rendered
+        assert 'quotes: [{"quote_id": "Q001"' in rendered
+        assert 'quote_ids=["Q001"]' in rendered
 
     def test_events_mode_rejects_invalid_actor_roster_json(self, tmp_path: Path):
         self._setup_deal(tmp_path, with_actors=False)
