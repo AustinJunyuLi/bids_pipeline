@@ -205,6 +205,43 @@ class TestBuildChunkWindows:
             assert w.window_id == f"w{i}"
             assert w.chunk_index == i
 
+    def test_single_pass_override_returns_one_window(self):
+        blocks = [_make_block(f"B{i:03d}", i, "word " * 200) for i in range(12)]
+        windows = build_chunk_windows(blocks, chunk_budget=30, single_pass=True)
+        assert len(windows) == 1
+        assert windows[0].chunk_count == 1
+        assert windows[0].target_block_ids == [f"B{i:03d}" for i in range(12)]
+        assert windows[0].overlap_block_ids == []
+
+
+# ---------------------------------------------------------------------------
+# Deal complexity
+# ---------------------------------------------------------------------------
+
+class TestDealComplexity:
+    def test_classify_deal_complexity_simple(self):
+        from skill_pipeline.complexity import classify_deal_complexity
+
+        blocks = [_make_block(f"B{i:03d}", i, "word") for i in range(150)]
+        assert classify_deal_complexity(blocks) == "simple"
+
+    def test_classify_deal_complexity_complex(self):
+        from skill_pipeline.complexity import classify_deal_complexity
+
+        blocks = [_make_block(f"B{i:03d}", i, "word") for i in range(151)]
+        assert classify_deal_complexity(blocks) == "complex"
+
+    def test_classify_deal_complexity_one_block(self):
+        from skill_pipeline.complexity import classify_deal_complexity
+
+        assert classify_deal_complexity([_make_block("B000", 0, "word")]) == "simple"
+
+    def test_classify_deal_complexity_custom_threshold(self):
+        from skill_pipeline.complexity import classify_deal_complexity
+
+        blocks = [_make_block(f"B{i:03d}", i, "word") for i in range(50)]
+        assert classify_deal_complexity(blocks, max_blocks=30) == "complex"
+
 
 # ---------------------------------------------------------------------------
 # Evidence checklist
@@ -603,6 +640,93 @@ class TestRunComposePrompts:
                 encoding="utf-8",
             )
 
+    @staticmethod
+    def _setup_routing_deal(
+        tmp_path: Path,
+        *,
+        block_count: int,
+        words_per_block: int,
+        with_actors: bool = False,
+    ) -> None:
+        seeds_csv = tmp_path / "data" / "seeds.csv"
+        seeds_csv.parent.mkdir(parents=True, exist_ok=True)
+        seeds_csv.write_text(
+            "deal_slug,target_name,acquirer,date_announced,primary_url,is_reference\n"
+            "test-deal,TestCo Inc,AcquireCo,2025-01-15,,false\n",
+            encoding="utf-8",
+        )
+
+        source_dir = tmp_path / "data" / "deals" / "test-deal" / "source"
+        source_dir.mkdir(parents=True, exist_ok=True)
+
+        blocks = []
+        evidence_items = []
+        for i in range(block_count):
+            blocks.append(
+                ChronologyBlock(
+                    block_id=f"B{i:03d}",
+                    document_id="doc-1",
+                    ordinal=i,
+                    start_line=i * 10,
+                    end_line=i * 10 + 8,
+                    raw_text=f"Block {i} raw text " + ("word " * words_per_block),
+                    clean_text=f"Block {i} clean text " + ("word " * words_per_block),
+                    is_heading=(i == 0),
+                    date_mentions=[],
+                    entity_mentions=[],
+                    evidence_density=1,
+                    temporal_phase="bidding",
+                )
+            )
+            evidence_items.append(
+                EvidenceItem(
+                    evidence_id=f"E{i:03d}",
+                    document_id="doc-1",
+                    accession_number="0001-test",
+                    filing_type="SC 14D9",
+                    start_line=i * 10,
+                    end_line=i * 10 + 1,
+                    raw_text=f"evidence text {i}",
+                    evidence_type=EvidenceType.DATED_ACTION,
+                    confidence="high",
+                )
+            )
+
+        (source_dir / "chronology_blocks.jsonl").write_text(
+            "\n".join(block.model_dump_json() for block in blocks),
+            encoding="utf-8",
+        )
+        (source_dir / "evidence_items.jsonl").write_text(
+            "\n".join(item.model_dump_json() for item in evidence_items),
+            encoding="utf-8",
+        )
+        (source_dir / "chronology_selection.json").write_text(
+            json.dumps({
+                "schema_version": "2.0.0",
+                "artifact_type": "chronology_selection",
+                "run_id": "test",
+                "accession_number": "0001-test",
+                "filing_type": "SC 14D9",
+                "document_id": "doc-1",
+                "confidence": "high",
+                "adjudication_basis": "test",
+                "review_required": False,
+            }),
+            encoding="utf-8",
+        )
+
+        raw_dir = tmp_path / "raw" / "test-deal"
+        raw_dir.mkdir(parents=True, exist_ok=True)
+        (raw_dir / "document_registry.json").write_text("{}", encoding="utf-8")
+
+        if with_actors:
+            extract_dir = tmp_path / "data" / "skill" / "test-deal" / "extract"
+            extract_dir.mkdir(parents=True, exist_ok=True)
+            (extract_dir / "actors_raw.json").write_text(
+                json.dumps(_valid_actor_roster_payload()),
+                encoding="utf-8",
+            )
+
     def test_actor_mode_writes_manifest_and_packets(self, tmp_path: Path):
         self._setup_deal(tmp_path)
         from skill_pipeline.compose_prompts import run_compose_prompts
@@ -900,3 +1024,60 @@ class TestRunComposePrompts:
         notes_str = " ".join(manifest.notes)
         assert "mode=actors" in notes_str
         assert "chunk_budget=5000" in notes_str
+
+    def test_routing_auto_simple_deal(self, tmp_path: Path):
+        self._setup_routing_deal(tmp_path, block_count=50, words_per_block=120)
+        from skill_pipeline.compose_prompts import run_compose_prompts
+
+        manifest = run_compose_prompts(
+            "test-deal", tmp_path, mode="actors", chunk_budget=6000, routing="auto",
+        )
+        assert len(manifest.packets) == 1
+        assert manifest.packets[0].chunk_mode == "single_pass"
+        assert "routing=auto" in manifest.notes
+        assert "complexity=simple" in manifest.notes
+
+    def test_routing_auto_complex_deal(self, tmp_path: Path):
+        self._setup_routing_deal(tmp_path, block_count=200, words_per_block=40)
+        from skill_pipeline.compose_prompts import run_compose_prompts
+
+        manifest = run_compose_prompts(
+            "test-deal", tmp_path, mode="actors", chunk_budget=6000, routing="auto",
+        )
+        assert len(manifest.packets) > 1
+        assert all(packet.chunk_mode == "chunked" for packet in manifest.packets)
+        assert "routing=auto" in manifest.notes
+        assert "complexity=complex" in manifest.notes
+
+    def test_routing_forced_single_pass(self, tmp_path: Path):
+        self._setup_routing_deal(tmp_path, block_count=200, words_per_block=40)
+        from skill_pipeline.compose_prompts import run_compose_prompts
+
+        manifest = run_compose_prompts(
+            "test-deal", tmp_path, mode="actors", chunk_budget=6000, routing="single-pass",
+        )
+        assert len(manifest.packets) == 1
+        assert manifest.packets[0].chunk_mode == "single_pass"
+        assert "routing=single-pass" in manifest.notes
+
+    def test_routing_forced_chunked(self, tmp_path: Path):
+        self._setup_routing_deal(tmp_path, block_count=10, words_per_block=20)
+        from skill_pipeline.compose_prompts import run_compose_prompts
+
+        manifest = run_compose_prompts(
+            "test-deal", tmp_path, mode="actors", chunk_budget=40, routing="chunked",
+        )
+        assert len(manifest.packets) > 1
+        assert all(packet.chunk_mode == "chunked" for packet in manifest.packets)
+        assert "routing=chunked" in manifest.notes
+
+    def test_cli_routing_flag(self):
+        from skill_pipeline.cli import build_parser
+
+        parser = build_parser()
+        args = parser.parse_args([
+            "compose-prompts",
+            "--deal", "test-deal",
+            "--routing", "single-pass",
+        ])
+        assert args.routing == "single-pass"
