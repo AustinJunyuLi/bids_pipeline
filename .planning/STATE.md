@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: Executing Phase 03
-stopped_at: Completed 03-02-PLAN.md
-last_updated: "2026-03-28T09:53:10Z"
+stopped_at: Completed 03-03-PLAN.md
+last_updated: "2026-03-28T09:54:44Z"
 progress:
   total_phases: 5
   completed_phases: 2
@@ -16,12 +16,12 @@ progress:
 
 ## Current Phase
 
-Phase 3: Quote-Before-Extract — in progress (3 of 4 plans complete: 03-01, 03-02, 03-04)
+Phase 3: Quote-Before-Extract — in progress (3 of 4 plans complete: 03-01, 03-03, 03-04)
 
 ## Last Session
 
-- **Stopped at:** Completed 03-02-PLAN.md
-- **Resume file:** None
+- **Stopped at:** Completed 03-03-PLAN.md
+- **Resume file:** `.planning/phases/03-quote-before-extract/03-02-PLAN.md`
 - **Date:** 2026-03-28
 
 ## Progress
@@ -80,10 +80,9 @@ Phase 3: Quote-Before-Extract — in progress (3 of 4 plans complete: 03-01, 03-
 - Phase 03-01 replaced raw evidence_refs with QuoteEntry-backed quote_ids and top-level quotes arrays
 - Extract artifact loading now distinguishes quote_first from canonical payloads and rejects legacy evidence_refs artifacts
 - PROMPT-05 remains open after 03-01 because only the schema foundation and fixtures shipped; runtime rewrites continue in later plans
+- Quote-first verify now runs a filing-text quote validation pass followed by quote_id integrity checks before shared referential and structural gates
 - compose-prompts task instructions and prompt assets now require quotes-first output with `quote_ids` references
 - extract-deal SKILL.md now documents the quote-first schema; skill mirror sync remains deferred to verification by plan design
-- Canonicalize now reuses one span per repeated identical quote text within a block so downstream dedup keeps stable evidence clustering
-- enrich-core now requires canonical span-backed extract artifacts; quote-first fixtures must be canonicalized before enrichment
 
 - [x] Phase 2 verified (9/9 must-haves passed)
 - [x] Phase 2 GPT 5.4 adversarial audit completed (6 findings: 1 CRITICAL, 3 MAJOR, 2 MINOR)
@@ -91,15 +90,15 @@ Phase 3: Quote-Before-Extract — in progress (3 of 4 plans complete: 03-01, 03-
 - [x] Phase 3 context gathered
 - [x] Phase 3 planned
 - [x] Phase 3 Plan 01: Schema foundation: QuoteEntry model, extract loader, test fixture conversion (3/3 tasks)
-- [x] Phase 3 Plan 02: Canonicalize rewrite: quote-to-span resolution, enrich_core cleanup (2/2 tasks)
+- [x] Phase 3 Plan 03: Verify + Check rewrite: quote validation, quote_id integrity (2/2 tasks)
 - [x] Phase 3 Plan 04: Prompt instructions, prompt assets, and extract-deal skill schema updated for quote-before-extract (2/2 tasks)
 
 ## Session Continuity
 
-- **Last session:** 2026-03-28T09:50:11.731Z
-- **Stopped at:** Completed 03-02-PLAN.md
-- **Resume file:** `.planning/phases/03-quote-before-extract/03-03-PLAN.md`
-- **Next action:** Coordinate the remaining Phase 3 plan completion and verification before closing the phase.
+- **Last session:** 2026-03-28T09:54:44Z
+- **Stopped at:** Completed 03-03-PLAN.md
+- **Resume file:** `.planning/phases/03-quote-before-extract/03-02-PLAN.md`
+- **Next action:** Execute Plan 03-02 to finish the canonicalize-side quote-to-span rewrite; Plans 03-03 and 03-04 are now complete.
 
 ## Accumulated Context
 
