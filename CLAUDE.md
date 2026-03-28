@@ -53,6 +53,7 @@ The `skill-pipeline` CLI owns these stages:
 - `check`: structural blocker gate
 - `verify`: strict deterministic verification
 - `coverage`: deterministic source-coverage audit
+- `gates`: semantic validation (temporal consistency, cross-event logic, actor lifecycle, attention decay)
 - `enrich-core`: deterministic enrichment
 - `deal-agent`: preflight and artifact summary only
 
@@ -170,6 +171,17 @@ Do not document the canonical extract contract as `actors.json` or
 - `data/skill/<slug>/coverage/coverage_summary.json`
 - `data/skill/<slug>/enrich/deterministic_enrichment.json`
 
+### Semantic Gate Outputs
+
+`skill-pipeline gates --deal <slug>` writes:
+
+- `data/skill/<slug>/gates/gates_report.json`
+
+The gate report contains semantic findings (temporal consistency, cross-event
+logic, actor lifecycle coverage) and an optional attention decay diagnostic.
+Gates run after coverage and before enrich-core. Enrich-core refuses to run if
+gates have blocker findings.
+
 Optional later-stage artifacts written by local-agent workflows:
 
 - `data/skill/<slug>/enrich/enrichment.json`
@@ -192,6 +204,7 @@ data/seeds.csv
   -> skill-pipeline check --deal <slug>
   -> skill-pipeline verify --deal <slug>
   -> skill-pipeline coverage --deal <slug>
+  -> skill-pipeline gates --deal <slug>
   -> /verify-extraction <slug>        (only if deterministic findings are repairable)
   -> skill-pipeline enrich-core --deal <slug>
   -> /enrich-deal <slug>              (optional interpretive layer)
@@ -210,6 +223,8 @@ data/seeds.csv
 - Canonical extract loading requires `spans.json`; missing sidecars are an
   error.
 - `check`, `verify`, and `coverage` are blocker gates before `enrich-core`.
+- `gates` is a blocker gate before `enrich-core`. Semantic findings with
+  severity `blocker` prevent enrichment.
 - `verify` only treats `EXACT` and `NORMALIZED` quote matches as passing.
   `FUZZY` does not pass.
 - Fail fast on missing files, schema drift, contradictory state, and invalid
@@ -268,6 +283,7 @@ skill-pipeline canonicalize --deal imprivata
 skill-pipeline check --deal imprivata
 skill-pipeline verify --deal imprivata
 skill-pipeline coverage --deal imprivata
+skill-pipeline gates --deal imprivata
 skill-pipeline enrich-core --deal imprivata
 
 skill-pipeline deal-agent --deal imprivata

@@ -7,8 +7,12 @@ from pathlib import Path
 
 import pytest
 
+from skill_pipeline.cli import build_parser
+from skill_pipeline.config import PROJECT_ROOT
+from skill_pipeline.deal_agent import run_deal_agent
+from skill_pipeline.enrich_core import run_enrich_core
 from skill_pipeline.gates import run_gates
-from skill_pipeline.models import GateReport
+from skill_pipeline.models import GateReport, StageStatus
 from skill_pipeline.paths import build_skill_paths, ensure_output_directories
 
 
@@ -399,6 +403,85 @@ def _write_gates_fixture(
         )
 
 
+def _write_stage_gatekeepers(
+    tmp_path: Path,
+    *,
+    slug: str = "imprivata",
+    check_status: str = "pass",
+    verify_status: str = "pass",
+    coverage_status: str = "pass",
+    gates_status: str = "pass",
+    gate_warning_count: int = 0,
+) -> None:
+    skill_root = tmp_path / "data" / "skill" / slug
+    check_dir = skill_root / "check"
+    verify_dir = skill_root / "verify"
+    coverage_dir = skill_root / "coverage"
+    gates_dir = skill_root / "gates"
+    check_dir.mkdir(parents=True, exist_ok=True)
+    verify_dir.mkdir(parents=True, exist_ok=True)
+    coverage_dir.mkdir(parents=True, exist_ok=True)
+    gates_dir.mkdir(parents=True, exist_ok=True)
+
+    (check_dir / "check_report.json").write_text(
+        json.dumps(
+            {
+                "findings": [],
+                "summary": {
+                    "blocker_count": 1 if check_status == "fail" else 0,
+                    "warning_count": 0,
+                    "status": check_status,
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+    (verify_dir / "verification_log.json").write_text(
+        json.dumps(
+            {
+                "round_1": {"findings": [], "fixes_applied": []},
+                "round_2": {"findings": [], "status": verify_status},
+                "summary": {
+                    "total_checks": 0,
+                    "round_1_errors": 1 if verify_status == "fail" else 0,
+                    "round_1_warnings": 0,
+                    "fixes_applied": 0,
+                    "round_2_errors": 0,
+                    "round_2_warnings": 0,
+                    "status": verify_status,
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+    (coverage_dir / "coverage_summary.json").write_text(
+        json.dumps(
+            {
+                "status": coverage_status,
+                "finding_count": 1 if coverage_status == "fail" else 0,
+                "error_count": 1 if coverage_status == "fail" else 0,
+                "warning_count": 0,
+                "counts_by_cue_family": {},
+            }
+        ),
+        encoding="utf-8",
+    )
+    (gates_dir / "gates_report.json").write_text(
+        json.dumps(
+            {
+                "findings": [],
+                "attention_decay": None,
+                "summary": {
+                    "blocker_count": 1 if gates_status == "fail" else 0,
+                    "warning_count": gate_warning_count,
+                    "status": gates_status,
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+
+
 def test_gate_models_validate_and_forbid_extras() -> None:
     from skill_pipeline.models import (
         GateAttentionDecay,
@@ -453,6 +536,14 @@ def test_build_skill_paths_includes_gates_dir(tmp_path: Path) -> None:
     ensure_output_directories(paths)
 
     assert paths.gates_dir.exists()
+
+
+def test_gates_cli_subcommand() -> None:
+    parser = build_parser()
+    args = parser.parse_args(["gates", "--deal", "stec"])
+
+    assert args.command == "gates"
+    assert args.deal == "stec"
 
 
 def test_temporal_consistency_blocker(tmp_path: Path) -> None:
@@ -890,6 +981,43 @@ def test_run_gates_writes_report(tmp_path: Path) -> None:
     GateReport.model_validate(json.loads(paths.gates_report_path.read_text(encoding="utf-8")))
 
 
+def test_enrich_core_requires_gates_pass(tmp_path: Path) -> None:
+    _write_gates_fixture(tmp_path, canonical=True)
+    _write_stage_gatekeepers(tmp_path, gates_status="fail")
+
+    with pytest.raises(ValueError, match="gates pass"):
+        run_enrich_core("imprivata", project_root=tmp_path)
+
+
+def test_enrich_core_requires_gates_exist(tmp_path: Path) -> None:
+    _write_gates_fixture(tmp_path, canonical=True)
+    _write_stage_gatekeepers(tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    paths.gates_report_path.unlink()
+
+    with pytest.raises(FileNotFoundError, match="gates_report"):
+        run_enrich_core("imprivata", project_root=tmp_path)
+
+
+def test_deal_agent_gates_missing(tmp_path: Path) -> None:
+    _write_gates_fixture(tmp_path)
+
+    summary = run_deal_agent("imprivata", project_root=tmp_path)
+
+    assert summary.gates.status == StageStatus.MISSING
+
+
+def test_deal_agent_gates_pass(tmp_path: Path) -> None:
+    _write_gates_fixture(tmp_path)
+    _write_stage_gatekeepers(tmp_path, gate_warning_count=2)
+
+    summary = run_deal_agent("imprivata", project_root=tmp_path)
+
+    assert summary.gates.status == StageStatus.PASS
+    assert summary.gates.blocker_count == 0
+    assert summary.gates.warning_count == 2
+
+
 def test_gates_canonical_mode(tmp_path: Path) -> None:
     _write_gates_fixture(tmp_path, canonical=True, create_empty_verification_file=True)
 
@@ -901,3 +1029,30 @@ def test_gates_canonical_mode(tmp_path: Path) -> None:
 
     assert exit_code == 0
     assert report["summary"]["status"] == "pass"
+
+
+_STEC_DATA = PROJECT_ROOT / "data" / "skill" / "stec" / "extract" / "actors_raw.json"
+
+
+@pytest.mark.skipif(not _STEC_DATA.exists(), reason="stec data not available")
+def test_stec_gates_pass() -> None:
+    paths = build_skill_paths("stec", project_root=PROJECT_ROOT)
+    original_report = (
+        paths.gates_report_path.read_text(encoding="utf-8")
+        if paths.gates_report_path.exists()
+        else None
+    )
+
+    try:
+        result = run_gates("stec", project_root=PROJECT_ROOT)
+        report = json.loads(paths.gates_report_path.read_text(encoding="utf-8"))
+        assert result == 0, f"stec should pass all semantic gates: {report['findings']}"
+        assert report["summary"]["status"] == "pass"
+    finally:
+        if original_report is None:
+            if paths.gates_report_path.exists():
+                paths.gates_report_path.unlink()
+            if paths.gates_dir.exists() and not any(paths.gates_dir.iterdir()):
+                paths.gates_dir.rmdir()
+        else:
+            paths.gates_report_path.write_text(original_report, encoding="utf-8")
