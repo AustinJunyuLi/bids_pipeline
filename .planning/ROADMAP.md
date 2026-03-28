@@ -80,7 +80,7 @@ structured events.
 **Plans:** 4 plans
 
 Plans:
-- [ ] 03-01-PLAN.md — Schema foundation: QuoteEntry model, extract loader, test fixture conversion
+- [x] 03-01-PLAN.md — Schema foundation: QuoteEntry model, extract loader, test fixture conversion
 - [ ] 03-02-PLAN.md — Canonicalize rewrite: quote-to-span resolution, enrich_core cleanup
 - [ ] 03-03-PLAN.md — Verify + Check rewrite: quote validation, quote_id integrity
 - [ ] 03-04-PLAN.md — Prompt instructions + extract-deal SKILL.md update

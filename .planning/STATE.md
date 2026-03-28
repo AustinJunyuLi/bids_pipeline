@@ -2,26 +2,26 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: unknown
-stopped_at: Phase 3 context gathered
-last_updated: "2026-03-28T00:50:25.683Z"
+status: Executing Phase 03
+stopped_at: Completed 03-01-PLAN.md
+last_updated: "2026-03-28T01:30:58.704Z"
 progress:
   total_phases: 5
   completed_phases: 2
-  total_plans: 6
-  completed_plans: 6
+  total_plans: 10
+  completed_plans: 7
 ---
 
 # Project State
 
 ## Current Phase
 
-Phase 2: Prompt Architecture — complete (plan 03 of 03 complete)
+Phase 3: Quote-Before-Extract — in progress (plan 01 of 04 complete)
 
 ## Last Session
 
-- **Stopped at:** Phase 3 context gathered
-- **Resume file:** .planning/phases/03-quote-before-extract/03-CONTEXT.md
+- **Stopped at:** Completed 03-01-PLAN.md
+- **Resume file:** None
 - **Date:** 2026-03-28
 
 ## Progress
@@ -77,18 +77,23 @@ Phase 2: Prompt Architecture — complete (plan 03 of 03 complete)
 - Event packet composition now validates actor-roster JSON against the actor artifact schema before rendering
 - Prompt composition now fails fast on duplicate source block IDs, missing event examples assets, and unknown requested block IDs
 - Chunk-budget overhead remains deferred to Phase 5 complexity routing per the audit decision
+- Phase 03-01 replaced raw evidence_refs with QuoteEntry-backed quote_ids and top-level quotes arrays
+- Extract artifact loading now distinguishes quote_first from canonical payloads and rejects legacy evidence_refs artifacts
+- PROMPT-05 remains open after 03-01 because only the schema foundation and fixtures shipped; runtime rewrites continue in later plans
 
 - [x] Phase 2 verified (9/9 must-haves passed)
 - [x] Phase 2 GPT 5.4 adversarial audit completed (6 findings: 1 CRITICAL, 3 MAJOR, 2 MINOR)
 - [x] Phase 2 gap closure: fixed audit findings 2-6 (evidence filtering, roster validation, defensive checks)
-- [ ] Phase 3 planning
+- [x] Phase 3 context gathered
+- [x] Phase 3 planned
+- [x] Phase 3 Plan 01: Schema foundation: QuoteEntry model, extract loader, test fixture conversion (3/3 tasks)
 
 ## Session Continuity
 
-- **Last session:** 2026-03-28T00:50:25.681Z
-- **Stopped at:** Phase 2 audit gap closure complete. Findings 2-6 from `02-GPT54-AUDIT.md` were patched and regression-tested.
-- **Resume file:** `.planning/ROADMAP.md`
-- **Next action:** Start Phase 3 context gathering/planning. Audit item 1 (chunk-budget overhead) remains deferred to Phase 5.
+- **Last session:** 2026-03-28T01:30:58.701Z
+- **Stopped at:** Completed 03-01-PLAN.md
+- **Resume file:** `.planning/phases/03-quote-before-extract/03-02-PLAN.md`
+- **Next action:** Execute Plan 03-02 to rewrite canonicalize around quote-to-span resolution and quote-first enrich-core fixtures.
 
 ## Accumulated Context
 
