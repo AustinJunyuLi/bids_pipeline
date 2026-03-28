@@ -67,22 +67,16 @@ class SeedEntry(SkillModel):
     is_reference: bool
 
 
-class EvidenceRef(SkillModel):
-    block_id: str | None = None
-    evidence_id: str | None = None
-    anchor_text: str
-
-    @model_validator(mode="after")
-    def validate_reference_target(self) -> "EvidenceRef":
-        if self.block_id is None and self.evidence_id is None:
-            raise ValueError("At least one of block_id or evidence_id must be present.")
-        return self
+class QuoteEntry(SkillModel):
+    quote_id: str
+    block_id: str
+    text: str
 
 
 class RawCountAssertion(SkillModel):
     subject: str
     count: int
-    evidence_refs: list[EvidenceRef] = Field(default_factory=list)
+    quote_ids: list[str] = Field(default_factory=list)
 
 
 class RawSkillActorRecord(SkillModel):
@@ -99,11 +93,12 @@ class RawSkillActorRecord(SkillModel):
     is_grouped: bool
     group_size: int | None = None
     group_label: str | None = None
-    evidence_refs: list[EvidenceRef]
+    quote_ids: list[str]
     notes: list[str] = Field(default_factory=list)
 
 
 class RawSkillActorsArtifact(SkillModel):
+    quotes: list[QuoteEntry]
     actors: list[RawSkillActorRecord]
     count_assertions: list[RawCountAssertion] = Field(default_factory=list)
     unresolved_mentions: list[str] = Field(default_factory=list)
@@ -197,7 +192,7 @@ class RawSkillEventRecord(SkillModel):
     date: DateHint
     actor_ids: list[str] = Field(default_factory=list)
     summary: str
-    evidence_refs: list[EvidenceRef]
+    quote_ids: list[str]
     terms: MoneyTerms | None = None
     formality_signals: FormalitySignals | None = None
     whole_company_scope: bool | None = None
@@ -296,6 +291,7 @@ class SkillExclusionRecord(SkillModel):
 
 
 class RawSkillEventsArtifact(SkillModel):
+    quotes: list[QuoteEntry]
     events: list[RawSkillEventRecord]
     exclusions: list[SkillExclusionRecord] = Field(default_factory=list)
     coverage_notes: list[str] = Field(default_factory=list)
