@@ -146,7 +146,7 @@ store and a documented local-agent orchestration entrypoint.
 Plans:
 - [x] 05-01-PLAN.md — DuckDB schema, db-load stage, db-export stage, CLI, tests
 - [x] 05-02-PLAN.md — Complexity routing, few-shot example expansion
-- [ ] 05-03-PLAN.md — Orchestration wiring, deal-agent integration, docs, stec validation
+- [x] 05-03-PLAN.md — Orchestration wiring, deal-agent integration, docs, stec validation
 
 **Scope:**
 - DuckDB canonical database: actors, events, spans, enrichment as tables

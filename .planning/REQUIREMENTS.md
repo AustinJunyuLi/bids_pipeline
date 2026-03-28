@@ -64,7 +64,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **DB-01**: DuckDB canonical database stores structured deal data (actors,
   events, spans, enrichment) as the single source driving both queries and CSV
   export
-- [ ] **DB-02**: End-to-end pipeline run is orchestrated through a local-agent
+- [x] **DB-02**: End-to-end pipeline run is orchestrated through a local-agent
   workflow without manual handoffs between core stages
 - [x] **DB-03**: CSV export and any future query interface are generated from
   the DuckDB canonical representation, not from JSON artifacts

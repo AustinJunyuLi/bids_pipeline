@@ -2,26 +2,26 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Executing Phase 05
-stopped_at: Completed 05-01-PLAN.md
-last_updated: "2026-03-28T18:15:05.140Z"
+status: Phase 05 complete
+stopped_at: Completed 05-03-PLAN.md
+last_updated: "2026-03-28T18:37:29Z"
 progress:
   total_phases: 5
-  completed_phases: 4
+  completed_phases: 5
   total_plans: 16
-  completed_plans: 15
+  completed_plans: 16
 ---
 
 # Project State
 
 ## Current Phase
 
-Phase 5: Integration + Calibration — plans 01 and 02 complete; plan 03 remains outstanding
+Phase 5: Integration + Calibration — complete (plans 01-03 complete)
 
 ## Last Session
 
-- **Stopped at:** Completed 05-01-PLAN.md
-- **Resume file:** .planning/phases/05-integration-calibration/05-03-PLAN.md
+- **Stopped at:** Completed 05-03-PLAN.md
+- **Resume file:** None
 - **Date:** 2026-03-28
 
 ## Progress
@@ -44,7 +44,7 @@ Phase 5: Integration + Calibration — plans 01 and 02 complete; plan 03 remains
 - [x] Phase 2 Plan 02: Chunk planner, evidence checklist, packet renderer (3/3 tasks)
 - [x] Phase 2 Plan 03: Integration, stec validation, runtime contract update (3/3 tasks)
 
-## Key Decisions This Session
+## Historical Decisions
 
 - No Python LLM wrapper — all LLM calls remain in .claude/skills/
 - INFRA-01/02 moved from Phase 1 to Phase 2 (skill-level changes)
@@ -113,13 +113,27 @@ Phase 5: Integration + Calibration — plans 01 and 02 complete; plan 03 remains
 - [x] Phase 4 verified (9/9 must-haves passed)
 - [x] Phase 5 Plan 01: DuckDB schema, db-load stage, db-export stage, CLI, tests (2/2 tasks)
 - [x] Phase 5 Plan 02: Complexity routing, few-shot example expansion (2/2 tasks)
+- [x] Phase 5 Plan 03: Orchestration wiring, deal-agent integration, docs, stec validation (2/2 tasks)
+- [x] Phase 5 verified
+
+## Performance Metrics
+
+| Phase | Plan | Duration | Tasks | Files | Date |
+|-------|------|----------|-------|-------|------|
+| 05-integration-calibration | 03 | 19m | 2 | 8 | 2026-03-28 |
+
+## Decisions
+
+- deal-agent now reports db_load and db_export from persisted DuckDB and CSV artifacts rather than invoking stages directly
+- runtime docs treat db-export as the deterministic export contract while preserving explicit pre-/export-csv benchmark-boundary wording for legacy/manual workflows
+- Phase 5 db validation remains scoped to the active 9-deal calibration roster because data/seeds.csv now contains 401 rows outside this phase scope
 
 ## Session Continuity
 
-- **Last session:** 2026-03-28T18:15:05.137Z
-- **Stopped at:** Completed 05-01-PLAN.md
-- **Resume file:** .planning/phases/05-integration-calibration/05-03-PLAN.md
-- **Next action:** Continue Phase 05 execution; 05-03 remains outstanding.
+- **Last session:** 2026-03-28T18:37:29Z
+- **Stopped at:** Completed 05-03-PLAN.md
+- **Resume file:** None
+- **Next action:** Phase 05 complete; ready for milestone wrap-up or downstream verification.
 
 ## Accumulated Context
 
