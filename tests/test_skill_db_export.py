@@ -1,0 +1,379 @@
+from __future__ import annotations
+
+import csv
+from pathlib import Path
+
+import pytest
+
+from skill_pipeline import cli
+from skill_pipeline.db_export import run_db_export
+from skill_pipeline.db_load import run_db_load
+from skill_pipeline.db_schema import open_pipeline_db
+from skill_pipeline.paths import build_skill_paths
+from tests.test_skill_db_load import (
+    _default_actors,
+    _resolved_date,
+    _span,
+    _write_canonical_fixture,
+)
+
+
+def _load_fixture(
+    tmp_path: Path,
+    slug: str = "imprivata",
+    *,
+    actors: list[dict] | None = None,
+    events: list[dict] | None = None,
+    spans: list[dict] | None = None,
+    deterministic_enrichment: dict | None = None,
+    enrichment: dict | None = None,
+) -> Path:
+    _write_canonical_fixture(
+        tmp_path,
+        slug,
+        actors=actors,
+        events=events,
+        spans=spans,
+        deterministic_enrichment=deterministic_enrichment,
+        enrichment=enrichment,
+    )
+    run_db_load(slug, project_root=tmp_path)
+    return build_skill_paths(slug, project_root=tmp_path).deal_events_path
+
+
+def _read_rows(path: Path) -> list[list[str]]:
+    with path.open("r", newline="", encoding="utf-8") as handle:
+        return list(csv.reader(handle))
+
+
+def test_run_db_export_writes_deal_events_csv(tmp_path: Path) -> None:
+    output_path = _load_fixture(tmp_path)
+
+    exit_code = run_db_export("imprivata", project_root=tmp_path)
+
+    assert exit_code == 0
+    assert output_path.exists()
+    assert output_path.stat().st_size > 0
+
+
+def test_run_db_export_writes_deal_header_block_first(tmp_path: Path) -> None:
+    output_path = _load_fixture(tmp_path)
+    run_db_export("imprivata", project_root=tmp_path)
+
+    rows = _read_rows(output_path)
+
+    assert rows[0] == ["TargetName", "Events", "Acquirer", "DateAnnounced", "URL"]
+    assert rows[1] == [
+        "IMPRIVATA INC",
+        "4",
+        "THOMA BRAVO LLC",
+        "2016-07-13 00:00:00",
+        "https://example.com/imprivata",
+    ]
+
+
+def test_run_db_export_writes_fourteen_column_event_rows(tmp_path: Path) -> None:
+    output_path = _load_fixture(tmp_path)
+    run_db_export("imprivata", project_root=tmp_path)
+
+    rows = _read_rows(output_path)
+
+    assert len(rows) == 6
+    assert all(len(row) == 14 for row in rows[2:])
+
+
+def test_run_db_export_assigns_fractional_and_integer_bidder_ids(tmp_path: Path) -> None:
+    actors = _default_actors()
+    spans = [
+        _span("span_evt_001", "B001", 1, "The board initiated a sale process."),
+        _span("span_evt_002", "B002", 2, "Party A expressed interest."),
+        _span("span_evt_003", "B003", 3, "Party A signed a confidentiality agreement."),
+        _span("span_evt_004", "B004", 4, "Party A submitted a proposal."),
+        _span("span_evt_005", "B005", 5, "The company executed a merger agreement with Party A."),
+    ]
+    events = [
+        {
+            "event_id": "evt_001",
+            "event_type": "target_sale",
+            "date": _resolved_date("May 1, 2016", "2016-05-01", "exact_day"),
+            "actor_ids": [],
+            "summary": "The board initiated a sale process.",
+            "evidence_span_ids": ["span_evt_001"],
+            "terms": None,
+            "formality_signals": None,
+            "whole_company_scope": True,
+            "drop_reason_text": None,
+            "round_scope": None,
+            "invited_actor_ids": [],
+            "deadline_date": None,
+            "executed_with_actor_id": None,
+            "boundary_note": None,
+            "nda_signed": None,
+            "notes": [],
+        },
+        {
+            "event_id": "evt_002",
+            "event_type": "bidder_interest",
+            "date": _resolved_date("May 2, 2016", "2016-05-02", "exact_day"),
+            "actor_ids": ["bidder_a"],
+            "summary": "Party A expressed interest.",
+            "evidence_span_ids": ["span_evt_002"],
+            "terms": None,
+            "formality_signals": None,
+            "whole_company_scope": True,
+            "drop_reason_text": None,
+            "round_scope": None,
+            "invited_actor_ids": [],
+            "deadline_date": None,
+            "executed_with_actor_id": None,
+            "boundary_note": None,
+            "nda_signed": None,
+            "notes": [],
+        },
+        {
+            "event_id": "evt_003",
+            "event_type": "nda",
+            "date": _resolved_date("May 3, 2016", "2016-05-03", "exact_day"),
+            "actor_ids": ["bidder_a"],
+            "summary": "Party A signed a confidentiality agreement.",
+            "evidence_span_ids": ["span_evt_003"],
+            "terms": None,
+            "formality_signals": None,
+            "whole_company_scope": True,
+            "drop_reason_text": None,
+            "round_scope": None,
+            "invited_actor_ids": [],
+            "deadline_date": None,
+            "executed_with_actor_id": None,
+            "boundary_note": None,
+            "nda_signed": True,
+            "notes": [],
+        },
+        {
+            "event_id": "evt_004",
+            "event_type": "proposal",
+            "date": _resolved_date("May 4, 2016", "2016-05-04", "exact_day"),
+            "actor_ids": ["bidder_a"],
+            "summary": "Party A submitted a proposal.",
+            "evidence_span_ids": ["span_evt_004"],
+            "terms": {
+                "per_share": 25.0,
+                "range_low": None,
+                "range_high": None,
+                "enterprise_value": None,
+                "consideration_type": "cash",
+            },
+            "formality_signals": None,
+            "whole_company_scope": True,
+            "drop_reason_text": None,
+            "round_scope": None,
+            "invited_actor_ids": [],
+            "deadline_date": None,
+            "executed_with_actor_id": None,
+            "boundary_note": None,
+            "nda_signed": None,
+            "notes": [],
+        },
+        {
+            "event_id": "evt_005",
+            "event_type": "executed",
+            "date": _resolved_date("May 5, 2016", "2016-05-05", "exact_day"),
+            "actor_ids": ["bidder_a"],
+            "summary": "The company executed a merger agreement with Party A.",
+            "evidence_span_ids": ["span_evt_005"],
+            "terms": None,
+            "formality_signals": None,
+            "whole_company_scope": True,
+            "drop_reason_text": None,
+            "round_scope": None,
+            "invited_actor_ids": [],
+            "deadline_date": None,
+            "executed_with_actor_id": "bidder_a",
+            "boundary_note": None,
+            "nda_signed": None,
+            "notes": [],
+        },
+    ]
+    deterministic_enrichment = {
+        "rounds": [],
+        "bid_classifications": {
+            "evt_004": {
+                "label": "Formal",
+                "rule_applied": 2.0,
+                "basis": "Formal proposal",
+            }
+        },
+        "cycles": [
+            {
+                "cycle_id": "cycle_1",
+                "start_event_id": "evt_001",
+                "end_event_id": "evt_005",
+                "boundary_basis": "Single cycle -- no termination events",
+            }
+        ],
+        "formal_boundary": {
+            "cycle_1": {"event_id": "evt_004", "basis": "First formal proposal"}
+        },
+    }
+    output_path = _load_fixture(
+        tmp_path,
+        actors=actors,
+        events=events,
+        spans=spans,
+        deterministic_enrichment=deterministic_enrichment,
+    )
+
+    run_db_export("imprivata", project_root=tmp_path)
+
+    rows = _read_rows(output_path)
+    bidder_ids = [row[0] for row in rows[2:]]
+
+    assert bidder_ids == ["0.3", "0.7", "1", "2", "3"]
+
+
+def test_run_db_export_formats_exact_imprecise_and_unknown_dates(tmp_path: Path) -> None:
+    actors = _default_actors()
+    spans = [
+        _span("span_evt_001", "B001", 1, "Party A signed a confidentiality agreement."),
+        _span("span_evt_002", "B002", 2, "Party A submitted a proposal in mid June."),
+        _span("span_evt_003", "B003", 3, "Party A later withdrew."),
+    ]
+    events = [
+        {
+            "event_id": "evt_001",
+            "event_type": "nda",
+            "date": _resolved_date("June 1, 2016", "2016-06-01", "exact_day"),
+            "actor_ids": ["bidder_a"],
+            "summary": "Party A signed a confidentiality agreement.",
+            "evidence_span_ids": ["span_evt_001"],
+            "terms": None,
+            "formality_signals": None,
+            "whole_company_scope": True,
+            "drop_reason_text": None,
+            "round_scope": None,
+            "invited_actor_ids": [],
+            "deadline_date": None,
+            "executed_with_actor_id": None,
+            "boundary_note": None,
+            "nda_signed": True,
+            "notes": [],
+        },
+        {
+            "event_id": "evt_002",
+            "event_type": "proposal",
+            "date": _resolved_date("mid June 2016", "2016-06-15", "month_mid"),
+            "actor_ids": ["bidder_a"],
+            "summary": "Party A submitted a proposal in mid June.",
+            "evidence_span_ids": ["span_evt_002"],
+            "terms": {
+                "per_share": 25.0,
+                "range_low": None,
+                "range_high": None,
+                "enterprise_value": None,
+                "consideration_type": "cash",
+            },
+            "formality_signals": None,
+            "whole_company_scope": True,
+            "drop_reason_text": None,
+            "round_scope": None,
+            "invited_actor_ids": [],
+            "deadline_date": None,
+            "executed_with_actor_id": None,
+            "boundary_note": None,
+            "nda_signed": None,
+            "notes": [],
+        },
+        {
+            "event_id": "evt_003",
+            "event_type": "drop",
+            "date": _resolved_date(None, None, "unknown"),
+            "actor_ids": ["bidder_a"],
+            "summary": "Party A later withdrew.",
+            "evidence_span_ids": ["span_evt_003"],
+            "terms": None,
+            "formality_signals": None,
+            "whole_company_scope": True,
+            "drop_reason_text": "Party A later withdrew.",
+            "round_scope": None,
+            "invited_actor_ids": [],
+            "deadline_date": None,
+            "executed_with_actor_id": None,
+            "boundary_note": None,
+            "nda_signed": None,
+            "notes": [],
+        },
+    ]
+    deterministic_enrichment = {
+        "rounds": [],
+        "bid_classifications": {
+            "evt_002": {
+                "label": "Formal",
+                "rule_applied": 2.0,
+                "basis": "Formal proposal",
+            }
+        },
+        "cycles": [
+            {
+                "cycle_id": "cycle_1",
+                "start_event_id": "evt_001",
+                "end_event_id": "evt_003",
+                "boundary_basis": "Single cycle -- no termination events",
+            }
+        ],
+        "formal_boundary": {
+            "cycle_1": {"event_id": "evt_002", "basis": "First formal proposal"}
+        },
+    }
+    output_path = _load_fixture(
+        tmp_path,
+        actors=actors,
+        events=events,
+        spans=spans,
+        deterministic_enrichment=deterministic_enrichment,
+    )
+
+    run_db_export("imprivata", project_root=tmp_path)
+
+    rows = _read_rows(output_path)
+
+    assert rows[2][7:9] == ["2016-06-01 00:00:00", "2016-06-01 00:00:00"]
+    assert rows[3][7:9] == ["2016-06-15 00:00:00", "NA"]
+    assert rows[4][7:9] == ["NA", "NA"]
+
+
+def test_run_db_export_renders_null_values_as_na(tmp_path: Path) -> None:
+    output_path = _load_fixture(tmp_path)
+    run_db_export("imprivata", project_root=tmp_path)
+
+    rows = _read_rows(output_path)
+    proposal_row = rows[3]
+    executed_row = rows[5]
+
+    assert proposal_row[1] == "NA"
+    assert proposal_row[3] == "NA"
+    assert executed_row[4] == "NA"
+    assert executed_row[5] == "NA"
+    assert executed_row[13] == "NA"
+
+
+def test_run_db_export_requires_existing_database(tmp_path: Path) -> None:
+    with pytest.raises(FileNotFoundError, match="pipeline.duckdb"):
+        run_db_export("imprivata", project_root=tmp_path)
+
+
+def test_run_db_export_requires_events_for_deal(tmp_path: Path) -> None:
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    open_pipeline_db(paths.database_path).close()
+
+    with pytest.raises(ValueError, match="No events found for deal 'imprivata'"):
+        run_db_export("imprivata", project_root=tmp_path)
+
+
+def test_db_export_cli_subcommand_dispatches(tmp_path: Path) -> None:
+    output_path = _load_fixture(tmp_path)
+
+    exit_code = cli.main(["db-export", "--deal", "imprivata", "--project-root", str(tmp_path)])
+
+    rows = _read_rows(output_path)
+    assert exit_code == 0
+    assert rows[0][0] == "TargetName"
