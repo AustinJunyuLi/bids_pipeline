@@ -173,6 +173,18 @@ def build_parser() -> argparse.ArgumentParser:
         help=argparse.SUPPRESS,
     )
 
+    db_export_parser = subparsers.add_parser(
+        "db-export",
+        help="Export review CSV rows from the pipeline DuckDB store.",
+    )
+    db_export_parser.add_argument("--deal", required=True)
+    db_export_parser.add_argument(
+        "--project-root",
+        type=Path,
+        default=PROJECT_ROOT,
+        help=argparse.SUPPRESS,
+    )
+
     compose_prompts_parser = subparsers.add_parser(
         "compose-prompts",
         help="Compose deterministic prompt packets from source artifacts.",
@@ -278,6 +290,10 @@ def main(argv: Sequence[str] | None = None) -> int:
         from skill_pipeline.db_load import run_db_load
 
         return run_db_load(args.deal, project_root=args.project_root)
+    if args.command == "db-export":
+        from skill_pipeline.db_export import run_db_export
+
+        return run_db_export(args.deal, project_root=args.project_root)
     if args.command == "compose-prompts":
         manifest = run_compose_prompts(
             args.deal,

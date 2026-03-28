@@ -553,6 +553,12 @@ class DbLoadStageSummary(SkillModel):
     span_rows: int = 0
 
 
+class DbExportStageSummary(SkillModel):
+    status: StageStatus
+    event_rows: int = 0
+    output_path: Path
+
+
 class ExportStageSummary(SkillModel):
     status: StageStatus
     output_path: Path
