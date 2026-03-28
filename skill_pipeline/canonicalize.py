@@ -9,6 +9,9 @@ from pathlib import Path
 from skill_pipeline.config import PROJECT_ROOT
 from skill_pipeline.extract_artifacts import load_extract_artifacts
 from skill_pipeline.models import (
+    QuoteEntry,
+    RawSkillActorsArtifact,
+    RawSkillEventsArtifact,
     ResolvedDate,
     SkillActorsArtifact,
     SkillEventsArtifact,
@@ -16,7 +19,7 @@ from skill_pipeline.models import (
 )
 from skill_pipeline.normalize.dates import parse_resolved_date
 from skill_pipeline.paths import build_skill_paths, ensure_output_directories
-from skill_pipeline.pipeline_models.source import ChronologyBlock, EvidenceItem
+from skill_pipeline.pipeline_models.source import ChronologyBlock
 from skill_pipeline.provenance import resolve_text_span
 
 
@@ -39,15 +42,6 @@ def _load_chronology_blocks(path: Path) -> list[ChronologyBlock]:
             continue
         blocks.append(ChronologyBlock.model_validate_json(line))
     return blocks
-
-
-def _load_evidence_items(path: Path) -> list[EvidenceItem]:
-    items: list[EvidenceItem] = []
-    for line in path.read_text(encoding="utf-8").splitlines():
-        if not line.strip():
-            continue
-        items.append(EvidenceItem.model_validate_json(line))
-    return items
 
 
 def _load_document_registry(path: Path) -> dict[str, dict]:
@@ -91,123 +85,83 @@ def _convert_raw_date(
     ).model_dump(mode="json")
 
 
-def _resolve_ref_to_span_id(
-    ref: dict,
+def _resolve_quotes_to_spans(
+    quotes: list[QuoteEntry],
     *,
     blocks_by_id: dict[str, ChronologyBlock],
-    evidence_by_id: dict[str, EvidenceItem],
     document_lines: dict[str, list[str]],
     document_meta: dict[str, dict],
-    span_id_by_key: dict[tuple[str | None, str | None, str], str],
-    spans: list[dict],
-) -> str:
-    key = (ref.get("block_id"), ref.get("evidence_id"), ref["anchor_text"])
-    existing = span_id_by_key.get(key)
-    if existing is not None:
-        return existing
+) -> tuple[list[dict], dict[str, str]]:
+    """Resolve quotes to spans and return the span payload plus quote-to-span index."""
+    spans: list[dict] = []
+    quote_to_span: dict[str, str] = {}
+    span_id_by_key: dict[tuple[str, str], str] = {}
+    seen_ids: set[str] = set()
 
-    block_id = ref.get("block_id")
-    evidence_id = ref.get("evidence_id")
-    block_ids: list[str] = []
-    evidence_ids: list[str] = []
-    if evidence_id:
-        evidence_item = evidence_by_id.get(evidence_id)
-        if evidence_item is None:
-            raise ValueError(f"Unknown evidence_id in evidence reference: {evidence_id!r}")
+    for quote in quotes:
+        if quote.quote_id in seen_ids:
+            raise ValueError(f"Duplicate quote_id {quote.quote_id!r} in quotes array")
+        seen_ids.add(quote.quote_id)
 
-        document_id = evidence_item.document_id
-        accession_number = evidence_item.accession_number
-        filing_type = evidence_item.filing_type
-        start_line = evidence_item.start_line
-        end_line = evidence_item.end_line
-        evidence_ids = [evidence_item.evidence_id]
+    for quote in quotes:
+        existing_span_id = span_id_by_key.get((quote.block_id, quote.text))
+        if existing_span_id is not None:
+            quote_to_span[quote.quote_id] = existing_span_id
+            continue
 
-        if block_id:
-            block = blocks_by_id.get(block_id)
-            if block is None:
-                raise ValueError(
-                    f"Mismatched evidence reference: block_id={block_id!r} evidence_id={evidence_id!r}"
-                )
-            if block.document_id != evidence_item.document_id or not (
-                block.start_line <= evidence_item.start_line <= evidence_item.end_line <= block.end_line
-            ):
-                raise ValueError(
-                    f"Mismatched evidence reference: block_id={block_id!r} evidence_id={evidence_id!r}"
-                )
-            block_ids = [block.block_id]
-    elif block_id and block_id in blocks_by_id:
-        block = blocks_by_id[block_id]
-        document_id = block.document_id
-        meta = document_meta.get(document_id, {})
-        accession_number = meta.get("accession_number")
-        filing_type = meta.get("filing_type", "UNKNOWN")
-        start_line = block.start_line
-        end_line = block.end_line
-        block_ids = [block.block_id]
-    else:
-        raise ValueError(
-            f"Unknown evidence reference: block_id={ref.get('block_id')!r} evidence_id={ref.get('evidence_id')!r}"
+        block = blocks_by_id.get(quote.block_id)
+        if block is None:
+            raise ValueError(
+                f"Quote {quote.quote_id!r} references unknown block_id {quote.block_id!r}"
+            )
+
+        meta = document_meta.get(block.document_id, {})
+        raw_lines = document_lines.get(block.document_id)
+        if raw_lines is None:
+            raise FileNotFoundError(
+                f"Missing filing text for document_id {block.document_id!r}"
+            )
+
+        span_id = f"span_{len(spans) + 1:04d}"
+        span = resolve_text_span(
+            raw_lines,
+            start_line=block.start_line,
+            end_line=block.end_line,
+            block_ids=[block.block_id],
+            evidence_ids=[],
+            anchor_text=quote.text,
+            document_id=block.document_id,
+            accession_number=meta.get("accession_number"),
+            filing_type=meta.get("filing_type", "UNKNOWN"),
+            span_id=span_id,
         )
+        spans.append(span.model_dump(mode="json"))
+        quote_to_span[quote.quote_id] = span_id
+        span_id_by_key[(quote.block_id, quote.text)] = span_id
 
-    raw_lines = document_lines.get(document_id)
-    if raw_lines is None:
-        raise FileNotFoundError(f"Missing filing text for document_id {document_id!r}.")
-
-    span_id = f"span_{len(spans) + 1:04d}"
-    span = resolve_text_span(
-        raw_lines,
-        start_line=start_line,
-        end_line=end_line,
-        block_ids=block_ids,
-        evidence_ids=evidence_ids,
-        anchor_text=ref["anchor_text"],
-        document_id=document_id,
-        accession_number=accession_number,
-        filing_type=filing_type,
-        span_id=span_id,
-    )
-    spans.append(span.model_dump(mode="json"))
-    span_id_by_key[key] = span_id
-    return span_id
+    return spans, quote_to_span
 
 
 def _upgrade_raw_actors(
     actors_artifact: RawSkillActorsArtifact,
     *,
-    blocks_by_id: dict[str, ChronologyBlock],
-    evidence_by_id: dict[str, EvidenceItem],
-    document_lines: dict[str, list[str]],
-    document_meta: dict[str, dict],
-    span_id_by_key: dict[tuple[str | None, str | None, str], str],
-    spans: list[dict],
+    quote_to_span: dict[str, str],
 ) -> dict:
+    """Convert raw actors with quote_ids to canonical actors with evidence_span_ids."""
     actors_payload = actors_artifact.model_dump(mode="json")
+    actors_payload.pop("quotes", None)
     for actor in actors_payload["actors"]:
         actor["evidence_span_ids"] = [
-            _resolve_ref_to_span_id(
-                ref,
-                blocks_by_id=blocks_by_id,
-                evidence_by_id=evidence_by_id,
-                document_lines=document_lines,
-                document_meta=document_meta,
-                span_id_by_key=span_id_by_key,
-                spans=spans,
-            )
-            for ref in actor.pop("evidence_refs", [])
+            quote_to_span[qid]
+            for qid in actor.pop("quote_ids", [])
+            if qid in quote_to_span
         ]
 
     for assertion in actors_payload.get("count_assertions", []):
         assertion["evidence_span_ids"] = [
-            _resolve_ref_to_span_id(
-                ref,
-                blocks_by_id=blocks_by_id,
-                evidence_by_id=evidence_by_id,
-                document_lines=document_lines,
-                document_meta=document_meta,
-                span_id_by_key=span_id_by_key,
-                spans=spans,
-            )
-            for ref in assertion.pop("evidence_refs", [])
+            quote_to_span[qid]
+            for qid in assertion.pop("quote_ids", [])
+            if qid in quote_to_span
         ]
 
     return actors_payload
@@ -216,29 +170,19 @@ def _upgrade_raw_actors(
 def _upgrade_raw_events(
     events_artifact: RawSkillEventsArtifact,
     *,
-    blocks_by_id: dict[str, ChronologyBlock],
-    evidence_by_id: dict[str, EvidenceItem],
-    document_lines: dict[str, list[str]],
-    document_meta: dict[str, dict],
-    span_id_by_key: dict[tuple[str | None, str | None, str], str],
-    spans: list[dict],
+    quote_to_span: dict[str, str],
 ) -> dict:
+    """Convert raw events with quote_ids to canonical events with evidence_span_ids."""
     events_payload = events_artifact.model_dump(mode="json")
+    events_payload.pop("quotes", None)
     previous_resolved_date: ResolvedDate | None = None
     previous_event_id: str | None = None
 
     for event in events_payload["events"]:
         event["evidence_span_ids"] = [
-            _resolve_ref_to_span_id(
-                ref,
-                blocks_by_id=blocks_by_id,
-                evidence_by_id=evidence_by_id,
-                document_lines=document_lines,
-                document_meta=document_meta,
-                span_id_by_key=span_id_by_key,
-                spans=spans,
-            )
-            for ref in event.pop("evidence_refs", [])
+            quote_to_span[qid]
+            for qid in event.pop("quote_ids", [])
+            if qid in quote_to_span
         ]
         event["date"] = _convert_raw_date(
             event.get("date"),
@@ -443,7 +387,7 @@ def _recover_unnamed_parties(
 
 
 def run_canonicalize(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> int:
-    """Upgrade legacy extract artifacts to canonical provenance, then normalize events."""
+    """Upgrade quote-first extract artifacts to canonical provenance, then normalize events."""
     paths = build_skill_paths(deal_slug, project_root=project_root)
 
     if not paths.actors_raw_path.exists():
@@ -452,47 +396,53 @@ def run_canonicalize(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> in
         raise FileNotFoundError(f"Missing required input: {paths.events_raw_path}")
     if not paths.chronology_blocks_path.exists():
         raise FileNotFoundError(f"Missing required input: {paths.chronology_blocks_path}")
-    if not paths.evidence_items_path.exists():
-        raise FileNotFoundError(f"Missing required input: {paths.evidence_items_path}")
     if not paths.document_registry_path.exists():
         raise FileNotFoundError(f"Missing required input: {paths.document_registry_path}")
 
     loaded = load_extract_artifacts(paths)
-    if loaded.mode == "legacy":
+    if loaded.mode == "quote_first":
         blocks = _load_chronology_blocks(paths.chronology_blocks_path)
-        evidence_items = _load_evidence_items(paths.evidence_items_path)
         document_lines = _load_document_lines(paths.raw_root / deal_slug / "filings")
         document_meta = _load_document_registry(paths.document_registry_path)
         blocks_by_id = {block.block_id: block for block in blocks}
-        evidence_by_id = {item.evidence_id: item for item in evidence_items}
-
-        spans: list[dict] = []
-        span_id_by_key: dict[tuple[str | None, str | None, str], str] = {}
-        actors_dict = _upgrade_raw_actors(
-            loaded.raw_actors,
+        all_quotes = list(loaded.raw_actors.quotes) + list(loaded.raw_events.quotes)
+        spans, quote_to_span = _resolve_quotes_to_spans(
+            all_quotes,
             blocks_by_id=blocks_by_id,
-            evidence_by_id=evidence_by_id,
             document_lines=document_lines,
             document_meta=document_meta,
-            span_id_by_key=span_id_by_key,
-            spans=spans,
+        )
+
+        referenced_ids: set[str] = set()
+        for actor in loaded.raw_actors.actors:
+            referenced_ids.update(actor.quote_ids)
+        for assertion in loaded.raw_actors.count_assertions:
+            referenced_ids.update(assertion.quote_ids)
+        for event in loaded.raw_events.events:
+            referenced_ids.update(event.quote_ids)
+        orphaned = [quote.quote_id for quote in all_quotes if quote.quote_id not in referenced_ids]
+
+        actors_dict = _upgrade_raw_actors(
+            loaded.raw_actors,
+            quote_to_span=quote_to_span,
         )
         events_dict = _upgrade_raw_events(
             loaded.raw_events,
-            blocks_by_id=blocks_by_id,
-            evidence_by_id=evidence_by_id,
-            document_lines=document_lines,
-            document_meta=document_meta,
-            span_id_by_key=span_id_by_key,
-            spans=spans,
+            quote_to_span=quote_to_span,
         )
     else:
         actors_dict = loaded.actors.model_dump(mode="json")
         events_dict = loaded.events.model_dump(mode="json")
         spans = loaded.spans.model_dump(mode="json")["spans"]
+        orphaned = []
 
     events = events_dict["events"]
-    log: dict = {"dedup_log": {}, "nda_gate_log": [], "recovery_log": []}
+    log: dict = {
+        "dedup_log": {},
+        "nda_gate_log": [],
+        "recovery_log": [],
+        "orphaned_quotes": orphaned,
+    }
 
     events, dedup_log = _dedup_events(events)
     log["dedup_log"] = dedup_log
