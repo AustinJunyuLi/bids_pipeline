@@ -49,14 +49,14 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Enhanced Deterministic Gates
 
-- [ ] **GATE-01**: Temporal consistency check validates that event dates are
+- [x] **GATE-01**: Temporal consistency check validates that event dates are
   chronologically consistent with their evidence positions in the filing
-- [ ] **GATE-02**: Cross-event logic validation enforces domain invariants (no
+- [x] **GATE-02**: Cross-event logic validation enforces domain invariants (no
   proposal after executed in same cycle, no NDA after drop without restart,
   round announcements precede deadlines)
-- [ ] **GATE-03**: Per-actor lifecycle coverage verifies that every actor who
+- [x] **GATE-03**: Per-actor lifecycle coverage verifies that every actor who
   signs an NDA eventually appears in a proposal, drop, or outcome event
-- [ ] **GATE-04**: Attention decay diagnostics cluster verification failures by
+- [x] **GATE-04**: Attention decay diagnostics cluster verification failures by
   block position to detect mid-document attention loss patterns
 
 ### Database & Integration

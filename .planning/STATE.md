@@ -2,26 +2,26 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Ready to plan
-stopped_at: Phase 04 context gathered
-last_updated: "2026-03-28T15:40:54.535Z"
+status: Executing Phase 04
+stopped_at: Completed 04-01-PLAN.md
+last_updated: "2026-03-28T16:18:01.371Z"
 progress:
   total_phases: 5
   completed_phases: 3
-  total_plans: 11
-  completed_plans: 11
+  total_plans: 13
+  completed_plans: 12
 ---
 
 # Project State
 
 ## Current Phase
 
-Phase 4: Enhanced Gates — ready to plan after Phase 03 completion
+Phase 4: Enhanced Gates — Plan 01 complete, Plan 02 pending
 
 ## Last Session
 
-- **Stopped at:** Phase 04 context gathered
-- **Resume file:** .planning/phases/04-enhanced-gates/04-CONTEXT.md
+- **Stopped at:** Completed 04-01-PLAN.md
+- **Resume file:** None
 - **Date:** 2026-03-28
 
 ## Progress
@@ -85,6 +85,9 @@ Phase 4: Enhanced Gates — ready to plan after Phase 03 completion
 - extract-deal SKILL.md now documents the quote-first schema; skill mirror sync remains deferred to verification by plan design
 - Runtime consumers now dispatch only on `quote_first` and `canonical`, matching `load_extract_artifacts()`
 - Quote-first coverage overlap is now block-based through `quote_id` to `block_id` lookup instead of legacy `evidence_refs`
+- Phase 4 semantic validation now lives in a dedicated `gates.py` stage parallel to `check.py`, `verify.py`, and `coverage.py`
+- Cross-event gate rules sort events by parsed date before evaluating restart-delimited cycles
+- Gates accept wrapped `verification_findings.json` payloads because live artifacts are stored as `{ \"findings\": [...] }`
 
 - [x] Phase 2 verified (9/9 must-haves passed)
 - [x] Phase 2 GPT 5.4 adversarial audit completed (6 findings: 1 CRITICAL, 3 MAJOR, 2 MINOR)
@@ -97,13 +100,14 @@ Phase 4: Enhanced Gates — ready to plan after Phase 03 completion
 - [x] Phase 3 Plan 04: Prompt instructions, prompt assets, and extract-deal skill schema updated for quote-before-extract (2/2 tasks)
 - [x] Phase 3 Plan 05: Gap closure for deal-agent and coverage quote_first consumers (2/2 tasks)
 - [x] Phase 3 verification gaps closed; full pytest suite green (203 passed)
+- [x] Phase 4 Plan 01: gate models, semantic gate stage, and regression tests (2/2 tasks)
 
 ## Session Continuity
 
-- **Last session:** 2026-03-28T15:40:54.532Z
-- **Stopped at:** Completed 03-05-PLAN.md
+- **Last session:** 2026-03-28T16:18:01.335Z
+- **Stopped at:** Completed 04-01-PLAN.md
 - **Resume file:** None
-- **Next action:** Discuss or plan Phase 04 (Enhanced Gates).
+- **Next action:** Execute or discuss 04-02 (CLI wiring, deal-agent summary, enrich-core gating).
 
 ## Accumulated Context
 
