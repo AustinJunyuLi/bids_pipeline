@@ -582,4 +582,6 @@ class DealAgentSummary(SkillModel):
     gates: GatesStageSummary
     verify: VerifyStageSummary
     enrich: EnrichStageSummary
+    db_load: DbLoadStageSummary
+    db_export: DbExportStageSummary
     export: ExportStageSummary

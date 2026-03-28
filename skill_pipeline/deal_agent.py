@@ -1,15 +1,19 @@
 from __future__ import annotations
 
+import csv
 import json
 from pathlib import Path
 
 from skill_pipeline.config import PROJECT_ROOT
+from skill_pipeline.db_schema import open_pipeline_db
 from skill_pipeline.extract_artifacts import load_extract_artifacts
 from skill_pipeline.models import (
     CheckStageSummary,
     CoverageStageSummary,
     CoverageSummary,
     DealAgentSummary,
+    DbExportStageSummary,
+    DbLoadStageSummary,
     EnrichStageSummary,
     ExportStageSummary,
     ExtractStageSummary,
@@ -48,6 +52,8 @@ def run_deal_agent(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> Deal
         gates=_summarize_gates(paths),
         verify=_summarize_verify(paths),
         enrich=_summarize_enrich(paths),
+        db_load=_summarize_db_load(paths),
+        db_export=_summarize_db_export(paths),
         export=_summarize_export(paths),
     )
 
@@ -196,12 +202,74 @@ def _summarize_enrich(paths) -> EnrichStageSummary:
     return EnrichStageSummary(status=StageStatus.MISSING)
 
 
+def _summarize_db_load(paths) -> DbLoadStageSummary:
+    if not paths.database_path.exists():
+        return DbLoadStageSummary(status=StageStatus.MISSING)
+
+    con = open_pipeline_db(paths.database_path, read_only=True)
+    try:
+        actor_rows = _count_deal_rows(con, "actors", paths.deal_slug)
+        event_rows = _count_deal_rows(con, "events", paths.deal_slug)
+        span_rows = _count_deal_rows(con, "spans", paths.deal_slug)
+    finally:
+        con.close()
+
+    if actor_rows == 0 and event_rows == 0 and span_rows == 0:
+        return DbLoadStageSummary(status=StageStatus.MISSING)
+    if actor_rows == 0 or event_rows == 0 or span_rows == 0:
+        return DbLoadStageSummary(
+            status=StageStatus.FAIL,
+            actor_rows=actor_rows,
+            event_rows=event_rows,
+            span_rows=span_rows,
+        )
+    return DbLoadStageSummary(
+        status=StageStatus.PASS,
+        actor_rows=actor_rows,
+        event_rows=event_rows,
+        span_rows=span_rows,
+    )
+
+
+def _summarize_db_export(paths) -> DbExportStageSummary:
+    if not paths.deal_events_path.exists():
+        return DbExportStageSummary(
+            status=StageStatus.MISSING,
+            output_path=paths.deal_events_path,
+        )
+
+    with paths.deal_events_path.open(newline="", encoding="utf-8") as handle:
+        rows = list(csv.reader(handle))
+
+    if len(rows) < 2:
+        return DbExportStageSummary(
+            status=StageStatus.FAIL,
+            event_rows=0,
+            output_path=paths.deal_events_path,
+        )
+
+    event_rows = len(rows) - 2
+    status = StageStatus.PASS if event_rows > 0 else StageStatus.FAIL
+    return DbExportStageSummary(
+        status=status,
+        event_rows=event_rows,
+        output_path=paths.deal_events_path,
+    )
+
+
 def _summarize_export(paths) -> ExportStageSummary:
     if not paths.deal_events_path.exists():
         return ExportStageSummary(status=StageStatus.MISSING, output_path=paths.deal_events_path)
     if paths.deal_events_path.stat().st_size == 0:
         return ExportStageSummary(status=StageStatus.FAIL, output_path=paths.deal_events_path)
     return ExportStageSummary(status=StageStatus.PASS, output_path=paths.deal_events_path)
+
+
+def _count_deal_rows(con, table_name: str, deal_slug: str) -> int:
+    return con.execute(
+        f"SELECT COUNT(*) FROM {table_name} WHERE deal_slug = ?",
+        [deal_slug],
+    ).fetchone()[0]
 
 
 def _read_json(path: Path) -> dict:

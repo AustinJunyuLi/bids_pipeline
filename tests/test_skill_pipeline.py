@@ -7,6 +7,7 @@ import pytest
 
 from skill_pipeline import cli
 from skill_pipeline.compose_prompts import run_compose_prompts
+from skill_pipeline.db_schema import open_pipeline_db
 from skill_pipeline.deal_agent import run_deal_agent
 from skill_pipeline.paths import build_skill_paths, ensure_output_directories
 
@@ -246,7 +247,169 @@ def _write_skill_outputs(tmp_path: Path, *, slug: str = "imprivata") -> Path:
         encoding="utf-8",
     )
     (enrich_dir / "enrichment.json").write_text(json.dumps(enrichment_payload), encoding="utf-8")
-    (export_dir / "deal_events.csv").write_text("header\nrow\n", encoding="utf-8")
+    (export_dir / "deal_events.csv").write_text(
+        (
+            "TargetName,Events,Acquirer,DateAnnounced,URL\n"
+            "IMPRIVATA INC,1,THOMA BRAVO LLC,2016-07-13,https://example.com\n"
+            "Party A,Proposal,THOMA BRAVO LLC,2016-07-05,https://example.com\n"
+        ),
+        encoding="utf-8",
+    )
+
+    database_path = tmp_path / "data" / "pipeline.duckdb"
+    con = open_pipeline_db(database_path)
+    try:
+        con.execute(
+            """
+            INSERT INTO actors (
+                deal_slug,
+                actor_id,
+                display_name,
+                canonical_name,
+                aliases,
+                role,
+                advisor_kind,
+                advised_actor_id,
+                bidder_kind,
+                listing_status,
+                geography,
+                is_grouped,
+                group_size,
+                group_label,
+                evidence_span_ids
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            [
+                slug,
+                "party_a",
+                "Party A",
+                "PARTY A",
+                [],
+                "bidder",
+                None,
+                None,
+                "financial",
+                "private",
+                "domestic",
+                False,
+                None,
+                None,
+                ["span_001"],
+            ],
+        )
+        con.executemany(
+            """
+            INSERT INTO events (
+                deal_slug,
+                event_id,
+                event_type,
+                date_raw_text,
+                date_sort,
+                date_precision,
+                actor_ids,
+                summary,
+                evidence_span_ids,
+                terms_per_share,
+                terms_range_low,
+                terms_range_high,
+                terms_consideration_type,
+                whole_company_scope,
+                drop_reason_text,
+                round_scope,
+                invited_actor_ids,
+                executed_with_actor_id,
+                nda_signed
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            [
+                [
+                    slug,
+                    "evt_001",
+                    "nda",
+                    "July 1, 2016",
+                    "2016-07-01",
+                    "exact",
+                    ["party_a"],
+                    "Party A signed a confidentiality agreement.",
+                    ["span_001"],
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
+                    [],
+                    None,
+                    True,
+                ],
+                [
+                    slug,
+                    "evt_002",
+                    "proposal",
+                    "July 5, 2016",
+                    "2016-07-05",
+                    "exact",
+                    ["party_a"],
+                    "Party A submitted an indication of interest.",
+                    ["span_002"],
+                    25.0,
+                    None,
+                    None,
+                    "cash",
+                    True,
+                    None,
+                    None,
+                    [],
+                    None,
+                    None,
+                ],
+            ],
+        )
+        con.executemany(
+            """
+            INSERT INTO spans (
+                deal_slug,
+                span_id,
+                document_id,
+                filing_type,
+                start_line,
+                end_line,
+                block_ids,
+                quote_text,
+                match_type
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            [
+                [
+                    slug,
+                    "span_001",
+                    "DOC001",
+                    "DEFM14A",
+                    1,
+                    1,
+                    ["B001"],
+                    "signed a confidentiality agreement",
+                    "exact",
+                ],
+                [
+                    slug,
+                    "span_002",
+                    "DOC001",
+                    "DEFM14A",
+                    2,
+                    2,
+                    ["B002"],
+                    "submitted an indication of interest",
+                    "exact",
+                ],
+            ],
+        )
+    finally:
+        con.close()
     return skill_root
 
 
@@ -280,6 +443,8 @@ def test_run_deal_agent_creates_isolated_skill_directories_and_reports_missing_s
     assert summary.coverage.status == "missing"
     assert summary.verify.status == "missing"
     assert summary.enrich.status == "missing"
+    assert summary.db_load.status == "missing"
+    assert summary.db_export.status == "missing"
     assert summary.export.status == "missing"
 
 
@@ -322,6 +487,13 @@ def test_run_deal_agent_summarizes_existing_skill_artifacts(tmp_path: Path):
     assert summary.enrich.informal_bid_count == 0
     assert summary.enrich.initiation_judgment_type == "bidder_driven"
     assert summary.enrich.review_flags_count == 1
+    assert summary.db_load.status == "pass"
+    assert summary.db_load.actor_rows == 1
+    assert summary.db_load.event_rows == 2
+    assert summary.db_load.span_rows == 2
+    assert summary.db_export.status == "pass"
+    assert summary.db_export.event_rows == 1
+    assert summary.db_export.output_path == skill_root / "export" / "deal_events.csv"
     assert summary.export.status == "pass"
     assert summary.export.output_path == skill_root / "export" / "deal_events.csv"
 
