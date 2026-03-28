@@ -43,12 +43,18 @@ elaborate extraction architecture.
   extraction — validated in Phase 3
 - ✓ Enhanced deterministic gates: temporal consistency, cross-event logic,
   per-actor coverage, attention decay diagnostics — validated in Phase 4
+- ✓ Raw filing text now flows through one documented local-agent
+  orchestration contract into DuckDB-backed structured outputs plus review CSV
+  — validated in Phase 5
+- ✓ Complexity-based routing (single-pass for simple deals, multi-pass for
+  complex) — validated in Phase 5
+- ✓ Expanded few-shot examples covering NDA groups, ambiguous drops, cycle
+  boundaries, range proposals, and formal-round signals — validated in Phase 5
+- ✓ Database output and deterministic CSV export now derive from one canonical
+  DuckDB representation — validated in Phase 5
 
 ### Active
 
-- [ ] Raw filing text flows through a single documented local-agent
-  orchestration contract into structured DB + review CSV without ad hoc stage
-  handoffs
 - [ ] Extraction correctness improves on complex deals through better context
   management and attention handling
 - [ ] Block-level metadata enrichment (dates, entities, evidence density,
@@ -61,14 +67,8 @@ elaborate extraction architecture.
 - [ ] Block-aligned semantic chunk boundaries (never split mid-block)
 - [ ] Reusable static prompt prefix separated from chunk-specific content so
   selected local-agent tooling can reuse repeated context where supported
-- [ ] Complexity-based routing (single-pass for simple deals, multi-pass for
-  complex)
-- [ ] Expanded few-shot examples (4-5 covering NDA groups, ambiguous drops,
-  cycle boundaries)
 - [ ] Every extracted actor, event, term, and classification traceable to
   verbatim filing evidence
-- [ ] Database output and CSV export generated from one canonical structured
-  representation
 
 ### Out of Scope
 
@@ -104,13 +104,25 @@ active research packet is split across `.planning/research/SUMMARY.md`,
 `.planning/ROADMAP.md` plus the current phase context file are the execution
 authority for what is actually in scope.
 
-Phases 1-4 are now complete: deterministic block metadata, prompt packet
-composition, quote-before-extract grounding, and enhanced semantic gates all
-ship in the live repository. The extraction stage remains the only
-non-deterministic component. All quality originates there. The deterministic
-gates (`check`, `verify`, `coverage`, `gates`) catch errors after the fact. The
-remaining redesign work focuses on integration, calibration, and end-to-end
-pipeline unification.
+Phases 1-5 are now complete: deterministic block metadata, prompt packet
+composition, quote-before-extract grounding, enhanced semantic gates,
+complexity-based routing, and DuckDB-backed integration/export all ship in the
+live repository. The extraction stage remains the only non-deterministic
+component. All quality originates there. The deterministic gates (`check`,
+`verify`, `coverage`, `gates`) catch errors after the fact, and the new
+`db-load`/`db-export` stages provide the canonical deterministic storage and
+export surface. A full deterministic 9-deal DB rerun still depends on upstream
+canonical extract plus deterministic enrichment artifacts for eight active
+deals.
+
+## Current State
+
+Phase 05 is complete. The live runtime now includes DuckDB-backed `db-load` and
+`db-export` stages, `compose-prompts` complexity routing, expanded quote-first
+few-shot coverage, and a documented `deal-agent` orchestration contract that
+surfaces DB stage health. Remaining work is no longer implementation of the
+Phase 05 surfaces; it is corpus regeneration and extraction-quality
+improvement on complex deals.
 
 ## Constraints
 
@@ -162,4 +174,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-28 after Phase 04 completion*
+*Last updated: 2026-03-28 after Phase 05 completion*
