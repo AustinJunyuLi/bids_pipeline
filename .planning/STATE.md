@@ -3,24 +3,24 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: Executing Phase 03
-stopped_at: Completed 03-01-PLAN.md
-last_updated: "2026-03-28T01:30:58.704Z"
+stopped_at: Completed 03-04-PLAN.md
+last_updated: "2026-03-28T09:45:29Z"
 progress:
   total_phases: 5
   completed_phases: 2
   total_plans: 10
-  completed_plans: 7
+  completed_plans: 8
 ---
 
 # Project State
 
 ## Current Phase
 
-Phase 3: Quote-Before-Extract — in progress (plan 01 of 04 complete)
+Phase 3: Quote-Before-Extract — in progress (2 of 4 plans complete: 03-01, 03-04)
 
 ## Last Session
 
-- **Stopped at:** Completed 03-01-PLAN.md
+- **Stopped at:** Completed 03-04-PLAN.md
 - **Resume file:** None
 - **Date:** 2026-03-28
 
@@ -80,6 +80,8 @@ Phase 3: Quote-Before-Extract — in progress (plan 01 of 04 complete)
 - Phase 03-01 replaced raw evidence_refs with QuoteEntry-backed quote_ids and top-level quotes arrays
 - Extract artifact loading now distinguishes quote_first from canonical payloads and rejects legacy evidence_refs artifacts
 - PROMPT-05 remains open after 03-01 because only the schema foundation and fixtures shipped; runtime rewrites continue in later plans
+- compose-prompts task instructions and prompt assets now require quotes-first output with `quote_ids` references
+- extract-deal SKILL.md now documents the quote-first schema; skill mirror sync remains deferred to verification by plan design
 
 - [x] Phase 2 verified (9/9 must-haves passed)
 - [x] Phase 2 GPT 5.4 adversarial audit completed (6 findings: 1 CRITICAL, 3 MAJOR, 2 MINOR)
@@ -87,13 +89,14 @@ Phase 3: Quote-Before-Extract — in progress (plan 01 of 04 complete)
 - [x] Phase 3 context gathered
 - [x] Phase 3 planned
 - [x] Phase 3 Plan 01: Schema foundation: QuoteEntry model, extract loader, test fixture conversion (3/3 tasks)
+- [x] Phase 3 Plan 04: Prompt instructions, prompt assets, and extract-deal skill schema updated for quote-before-extract (2/2 tasks)
 
 ## Session Continuity
 
-- **Last session:** 2026-03-28T01:30:58.701Z
-- **Stopped at:** Completed 03-01-PLAN.md
+- **Last session:** 2026-03-28T09:45:29Z
+- **Stopped at:** Completed 03-04-PLAN.md
 - **Resume file:** `.planning/phases/03-quote-before-extract/03-02-PLAN.md`
-- **Next action:** Execute Plan 03-02 to rewrite canonicalize around quote-to-span resolution and quote-first enrich-core fixtures.
+- **Next action:** Execute Plan 03-02 to finish the canonicalize-side quote-to-span rewrite; Plan 03-04 prompt and skill docs are now complete.
 
 ## Accumulated Context
 
