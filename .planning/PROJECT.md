@@ -39,6 +39,8 @@ elaborate extraction architecture.
   interpretive enrichment, and export remain outside `skill_pipeline`
 - ✓ Canonical local-agent workflow docs under `.claude/skills/` — current repo
   contract
+- ✓ Quote-before-extract protocol forces evidence citation before structured
+  extraction — validated in Phase 3
 
 ### Active
 
@@ -51,8 +53,6 @@ elaborate extraction architecture.
   temporal phase) in preprocessing
 - [ ] Prompt ordering restructured for cognitive bias exploitation (chronology
   first, instructions last)
-- [ ] Quote-before-extract protocol forces evidence citation before structured
-  extraction
 - [ ] 2-block overlap with explicit XML context tags in chunked extraction
 - [ ] Evidence items promoted from passive appendix to active
   attention-steering checklist
@@ -138,7 +138,7 @@ through prompt architecture, and better error detection through enhanced gates.
 | RAG rejected as primary architecture | Extraction requires exhaustive recall, not selective retrieval; documents fit in context; RAG adds retrieval failure modes | ✓ Good |
 | Correctness over speed/cost | User explicitly prioritized correctness; tradeoffs favor more reliable outputs | — Pending |
 | Prompt ordering is highest-ROI zero-cost change | Data-first chronology packets improve long-document attention handling at effectively zero deterministic cost | — Pending |
-| Quote-before-extract is most impactful structural change | Prevents hallucinated anchor text, the failure mode verify catches most often | — Pending |
+| Quote-before-extract is most impactful structural change | Prevents hallucinated anchor text, the failure mode verify catches most often | ✓ Adopted |
 | Keep local-agent orchestration outside `skill_pipeline` | Live code has no Python LLM wrapper, and canonical skill docs already own extraction/repair/export | ✓ Adopted |
 | Hybrid retrieval only for targeted recovery | If coverage finds gaps, lightweight BM25 could narrow recovery context. Implement context/attention improvements first. | — Pending |
 
@@ -160,4 +160,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-27 after contract hardening*
+*Last updated: 2026-03-28 after Phase 03 completion*
