@@ -47,9 +47,19 @@ def _write_coverage_fixture(
         ]
 
     if actors_payload is None:
-        actors_payload = {"actors": [], "count_assertions": [], "unresolved_mentions": []}
+        actors_payload = {
+            "quotes": [],
+            "actors": [],
+            "count_assertions": [],
+            "unresolved_mentions": [],
+        }
     if events_payload is None:
-        events_payload = {"events": [], "exclusions": [], "coverage_notes": []}
+        events_payload = {
+            "quotes": [],
+            "events": [],
+            "exclusions": [],
+            "coverage_notes": [],
+        }
 
     (data_dir / "seeds.csv").write_text(
         (
@@ -92,6 +102,7 @@ def test_coverage_reports_uncovered_high_confidence_proposal_cue(tmp_path: Path)
         }
     ]
     events_payload = {
+        "quotes": [],
         "events": [],
         "exclusions": [],
         "coverage_notes": [],

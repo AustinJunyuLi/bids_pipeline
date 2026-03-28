@@ -224,23 +224,30 @@ def _block_ids_for_evidence(item: EvidenceItem, blocks: list[ChronologyBlock]) -
 
 
 def _cue_is_covered(cue: CoverageCue, artifacts: LoadedExtractArtifacts) -> bool:
-    if artifacts.mode == "legacy":
-        return _cue_is_covered_legacy(cue, artifacts)
+    if artifacts.mode == "quote_first":
+        return _cue_is_covered_quote_first(cue, artifacts)
     return _cue_is_covered_canonical(cue, artifacts)
 
 
-def _cue_is_covered_legacy(cue: CoverageCue, artifacts: LoadedExtractArtifacts) -> bool:
+def _cue_is_covered_quote_first(cue: CoverageCue, artifacts: LoadedExtractArtifacts) -> bool:
+    cue_block_ids = set(cue.block_ids)
+    quote_index: dict[str, str] = {}
+    for quote in artifacts.raw_actors.quotes:
+        quote_index[quote.quote_id] = quote.block_id
+    for quote in artifacts.raw_events.quotes:
+        quote_index[quote.quote_id] = quote.block_id
+
     if cue.cue_family == "advisor":
         for actor in artifacts.raw_actors.actors:
             if actor.role != "advisor":
                 continue
-            if _refs_overlap(cue, actor.evidence_refs):
+            if _quote_ids_overlap(cue_block_ids, actor.quote_ids, quote_index):
                 return True
 
     for event in artifacts.raw_events.events:
         if cue.suggested_event_types and event.event_type not in cue.suggested_event_types:
             continue
-        if _refs_overlap(cue, event.evidence_refs):
+        if _quote_ids_overlap(cue_block_ids, event.quote_ids, quote_index):
             return True
     return False
 
@@ -262,15 +269,14 @@ def _cue_is_covered_canonical(cue: CoverageCue, artifacts: LoadedExtractArtifact
     return False
 
 
-def _refs_overlap(cue: CoverageCue, refs: list) -> bool:
-    cue_block_ids = set(cue.block_ids)
-    cue_evidence_ids = set(cue.evidence_ids)
-    for ref in refs:
-        if cue_evidence_ids and ref.evidence_id:
-            if ref.evidence_id in cue_evidence_ids:
-                return True
-            continue
-        if ref.block_id and ref.block_id in cue_block_ids:
+def _quote_ids_overlap(
+    cue_block_ids: set[str],
+    quote_ids: list[str],
+    quote_index: dict[str, str],
+) -> bool:
+    for quote_id in quote_ids:
+        block_id = quote_index.get(quote_id)
+        if block_id and block_id in cue_block_ids:
             return True
     return False
 
