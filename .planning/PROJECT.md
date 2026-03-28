@@ -52,23 +52,24 @@ elaborate extraction architecture.
   boundaries, range proposals, and formal-round signals — validated in Phase 5
 - ✓ Database output and deterministic CSV export now derive from one canonical
   DuckDB representation — validated in Phase 5
+- ✓ Block-level metadata enrichment (dates, entities, evidence density,
+  temporal phase) in preprocessing — validated in Phase 1
+- ✓ Prompt ordering restructured for cognitive bias exploitation (chronology
+  first, instructions last) — validated in Phase 2
+- ✓ 2-block overlap with explicit XML context tags in chunked extraction —
+  validated in Phase 2
+- ✓ Evidence items promoted from passive appendix to active
+  attention-steering checklist — validated in Phase 2
+- ✓ Block-aligned semantic chunk boundaries (never split mid-block) —
+  validated in Phase 2
+- ✓ Reusable static prompt prefix separated from chunk-specific content —
+  validated in Phase 2
+- ✓ Every extracted actor, event, term, and classification traceable to
+  verbatim filing evidence — validated in Phase 3
 
 ### Active
 
-- [ ] Extraction correctness improves on complex deals through better context
-  management and attention handling
-- [ ] Block-level metadata enrichment (dates, entities, evidence density,
-  temporal phase) in preprocessing
-- [ ] Prompt ordering restructured for cognitive bias exploitation (chronology
-  first, instructions last)
-- [ ] 2-block overlap with explicit XML context tags in chunked extraction
-- [ ] Evidence items promoted from passive appendix to active
-  attention-steering checklist
-- [ ] Block-aligned semantic chunk boundaries (never split mid-block)
-- [ ] Reusable static prompt prefix separated from chunk-specific content so
-  selected local-agent tooling can reuse repeated context where supported
-- [ ] Every extracted actor, event, term, and classification traceable to
-  verbatim filing evidence
+(No active requirements — next milestone defines new scope via `/gsd:new-milestone`)
 
 ### Out of Scope
 
@@ -117,12 +118,13 @@ deals.
 
 ## Current State
 
-Phase 05 is complete. The live runtime now includes DuckDB-backed `db-load` and
-`db-export` stages, `compose-prompts` complexity routing, expanded quote-first
-few-shot coverage, and a documented `deal-agent` orchestration contract that
-surfaces DB stage health. Remaining work is no longer implementation of the
-Phase 05 surfaces; it is corpus regeneration and extraction-quality
-improvement on complex deals.
+**v1.0 shipped 2026-03-28.** The live runtime includes 12 deterministic CLI
+stages (`source-discover`, `raw-fetch`, `preprocess-source`, `compose-prompts`,
+`canonicalize`, `check`, `verify`, `coverage`, `gates`, `enrich-core`,
+`db-load`, `db-export`) plus 4 local-agent skills (`extract-deal`,
+`verify-extraction`, `enrich-deal`, `export-csv`). 8,967 LOC in
+`skill_pipeline/`, 9,074 LOC in tests (265 passing). stec validated
+end-to-end through DuckDB export. 8 other deals await upstream extraction.
 
 ## Constraints
 
@@ -149,12 +151,15 @@ improvement on complex deals.
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
 | RAG rejected as primary architecture | Extraction requires exhaustive recall, not selective retrieval; documents fit in context; RAG adds retrieval failure modes | ✓ Good |
-| Correctness over speed/cost | User explicitly prioritized correctness; tradeoffs favor more reliable outputs | — Pending |
-| Prompt ordering is highest-ROI zero-cost change | Data-first chronology packets improve long-document attention handling at effectively zero deterministic cost | — Pending |
+| Correctness over speed/cost | User explicitly prioritized correctness; tradeoffs favor more reliable outputs | ✓ Good |
+| Prompt ordering is highest-ROI zero-cost change | Data-first chronology packets improve long-document attention handling at effectively zero deterministic cost | ✓ Adopted |
 | Quote-before-extract is most impactful structural change | Prevents hallucinated anchor text, the failure mode verify catches most often | ✓ Adopted |
 | Semantic gates run as a dedicated deterministic stage after coverage | Keeps structural and semantic validation separate while giving enrich-core a single fail-fast semantic prerequisite | ✓ Adopted |
 | Keep local-agent orchestration outside `skill_pipeline` | Live code has no Python LLM wrapper, and canonical skill docs already own extraction/repair/export | ✓ Adopted |
-| Hybrid retrieval only for targeted recovery | If coverage finds gaps, lightweight BM25 could narrow recovery context. Implement context/attention improvements first. | — Pending |
+| DuckDB as canonical structured store | Embedded, zero-config, native array/JSON types, COPY TO CSV; replaces JSON artifact export | ✓ Adopted |
+| Block-count-only complexity routing | 150-block threshold cleanly separates 6 simple / 3 complex deals; actor count redundant for corpus | ✓ Adopted |
+| Drop-and-reload per deal in DuckDB | Simpler and safer than upsert for full-deal artifact reloads | ✓ Adopted |
+| Hybrid retrieval only for targeted recovery | If coverage finds gaps, lightweight BM25 could narrow recovery context. Implement context/attention improvements first. | — Deferred to v2 |
 
 ## Evolution
 
@@ -174,4 +179,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-28 after Phase 05 completion*
+*Last updated: 2026-03-28 after v1.0 milestone completion*
