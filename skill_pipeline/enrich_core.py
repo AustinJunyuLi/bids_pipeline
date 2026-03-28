@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import json
-import re
 from pathlib import Path
 
 from skill_pipeline.config import PROJECT_ROOT
@@ -82,41 +81,28 @@ def _cycle_ranges(events: list[SkillEventRecord]) -> list[tuple[int, int]]:
     return ranges
 
 
-def _event_position_key_from_refs(evidence_refs) -> tuple[str, int] | None:
+def _event_position_key(evt: SkillEventRecord, artifacts: LoadedExtractArtifacts) -> tuple[str, int] | None:
+    if not evt.evidence_span_ids:
+        return None
     positions: list[tuple[str, int]] = []
-    for ref in evidence_refs or []:
-        for candidate in (ref.block_id, ref.evidence_id):
-            if not candidate:
-                continue
-            match = re.search(r"(\d+)", candidate)
-            if match:
-                positions.append(("legacy", int(match.group(1))))
-                break
+    for span_id in evt.evidence_span_ids:
+        span = artifacts.span_index.get(span_id)
+        if span is None:
+            continue
+        positions.append((span.document_id, (span.start_line * 1000) + (span.start_char or 0)))
     return min(positions, key=lambda item: item[1]) if positions else None
 
 
-def _event_position_key(evt: SkillEventRecord, artifacts: LoadedExtractArtifacts) -> tuple[str, int] | None:
-    if artifacts.mode == "canonical" and getattr(evt, "evidence_span_ids", None):
-        positions: list[tuple[str, int]] = []
-        for span_id in evt.evidence_span_ids:
-            span = artifacts.span_index.get(span_id)
-            if span is None:
-                continue
-            positions.append((span.document_id, (span.start_line * 1000) + (span.start_char or 0)))
-        return min(positions, key=lambda item: item[1]) if positions else None
-    return _event_position_key_from_refs(getattr(evt, "evidence_refs", None))
-
-
 def _assertion_position_key(ca, artifacts: LoadedExtractArtifacts) -> tuple[str, int] | None:
-    if artifacts.mode == "canonical":
-        positions: list[tuple[str, int]] = []
-        for span_id in ca.evidence_span_ids:
-            span = artifacts.span_index.get(span_id)
-            if span is None:
-                continue
-            positions.append((span.document_id, (span.start_line * 1000) + (span.start_char or 0)))
-        return min(positions, key=lambda item: item[1]) if positions else None
-    return _event_position_key_from_refs(getattr(ca, "evidence_refs", None))
+    if not ca.evidence_span_ids:
+        return None
+    positions: list[tuple[str, int]] = []
+    for span_id in ca.evidence_span_ids:
+        span = artifacts.span_index.get(span_id)
+        if span is None:
+            continue
+        positions.append((span.document_id, (span.start_line * 1000) + (span.start_char or 0)))
+    return min(positions, key=lambda item: item[1]) if positions else None
 
 
 def _cycle_position_bounds(
@@ -374,16 +360,10 @@ def _populate_invited_from_count_assertions(
     Mutates events in place. Only acts on assertions with subject 'final_round_invitees'
     whose anchor text can be matched to actors in the roster.
     """
-    if artifacts.mode == "legacy":
-        actors = artifacts.raw_actors
-        invitee_assertions = [
-            ca for ca in actors.count_assertions if ca.subject == "final_round_invitees"
-        ]
-    else:
-        actors = artifacts.actors
-        invitee_assertions = [
-            ca for ca in actors.count_assertions if ca.subject == "final_round_invitees"
-        ]
+    actors = artifacts.actors
+    invitee_assertions = [
+        ca for ca in actors.count_assertions if ca.subject == "final_round_invitees"
+    ]
     if not invitee_assertions:
         return
 
@@ -401,19 +381,16 @@ def _populate_invited_from_count_assertions(
     ann_types = {"final_round_ann", "final_round_inf_ann", "final_round_ext_ann"}
     cycle_ranges = _cycle_ranges(events)
     event_positions = {idx: _event_position_key(evt, artifacts) for idx, evt in enumerate(events)}
+    span_index = artifacts.span_index
 
     for ca in invitee_assertions:
         # Try to match actor names from anchor text
         matched_ids: list[str] = []
-        if artifacts.mode == "legacy":
-            anchors = [ref.anchor_text.lower() for ref in ca.evidence_refs]
-        else:
-            span_index = artifacts.span_index
-            anchors = [
-                span_index[span_id].anchor_text.lower()
-                for span_id in ca.evidence_span_ids
-                if span_id in span_index and span_index[span_id].anchor_text
-            ]
+        anchors = []
+        for span_id in ca.evidence_span_ids:
+            span = span_index.get(span_id)
+            if span and span.anchor_text:
+                anchors.append(span.anchor_text.lower())
 
         for anchor in anchors:
             for name, aid in name_to_id.items():
@@ -486,8 +463,13 @@ def run_enrich_core(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> int
 
         _require_gate_artifacts(paths)
         artifacts = load_extract_artifacts(paths)
-        actors = artifacts.raw_actors if artifacts.mode == "legacy" else artifacts.actors
-        events = artifacts.raw_events.events if artifacts.mode == "legacy" else artifacts.events.events
+        if artifacts.mode != "canonical":
+            raise ValueError(
+                "enrich-core requires canonical extract artifacts with spans.json. "
+                "Run 'skill-pipeline canonicalize --deal <slug>' first."
+            )
+        actors = artifacts.actors
+        events = artifacts.events.events
 
         _populate_invited_from_count_assertions(events, artifacts)
 

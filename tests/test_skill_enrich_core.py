@@ -7,6 +7,7 @@ from pathlib import Path
 
 import pytest
 
+from skill_pipeline.canonicalize import run_canonicalize
 from skill_pipeline.enrich_core import run_enrich_core
 from skill_pipeline.paths import build_skill_paths
 
@@ -54,6 +55,97 @@ def _event_payload(events: list[dict]) -> dict:
     return {"quotes": quotes, "events": materialized_events, "exclusions": [], "coverage_notes": []}
 
 
+def _write_quote_first_extract_fixture(
+    tmp_path: Path,
+    *,
+    slug: str,
+    actors_payload: dict,
+    events: list[dict],
+    canonicalize: bool = True,
+) -> None:
+    data_dir = tmp_path / "data"
+    deals_source_dir = data_dir / "deals" / slug / "source"
+    extract_dir = data_dir / "skill" / slug / "extract"
+    raw_dir = tmp_path / "raw" / slug
+    filings_dir = raw_dir / "filings"
+
+    deals_source_dir.mkdir(parents=True, exist_ok=True)
+    extract_dir.mkdir(parents=True, exist_ok=True)
+    filings_dir.mkdir(parents=True, exist_ok=True)
+
+    (data_dir / "seeds.csv").write_text(
+        (
+            "deal_slug,target_name,acquirer,date_announced,primary_url,is_reference\n"
+            f"{slug},IMPRIVATA INC,THOMA BRAVO LLC,2016-07-13,https://example.com,false\n"
+        ),
+        encoding="utf-8",
+    )
+
+    events_payload = _event_payload(events)
+    block_texts: dict[str, list[str]] = {}
+    for quote in actors_payload.get("quotes", []) + events_payload.get("quotes", []):
+        block_id = quote.get("block_id")
+        anchor_text = quote.get("text") or "placeholder source text"
+        if block_id:
+            block_texts.setdefault(block_id, []).append(anchor_text)
+
+    if not block_texts:
+        block_texts["B001"] = ["placeholder source text"]
+
+    chronology_blocks: list[dict] = []
+    filing_lines: list[str] = []
+    for ordinal, block_id in enumerate(sorted(block_texts), start=1):
+        line_text = " ".join(dict.fromkeys(block_texts[block_id]))
+        chronology_blocks.append(
+            {
+                "block_id": block_id,
+                "document_id": "DOC001",
+                "ordinal": ordinal,
+                "start_line": ordinal,
+                "end_line": ordinal,
+                "raw_text": line_text,
+                "clean_text": line_text,
+                "is_heading": False,
+                "page_break_before": False,
+                "page_break_after": False,
+                "date_mentions": [],
+                "entity_mentions": [],
+                "evidence_density": 0,
+                "temporal_phase": "other",
+            }
+        )
+        filing_lines.append(line_text)
+
+    (deals_source_dir / "chronology_blocks.jsonl").write_text(
+        "\n".join(json.dumps(block) for block in chronology_blocks) + "\n",
+        encoding="utf-8",
+    )
+    (deals_source_dir / "evidence_items.jsonl").write_text("", encoding="utf-8")
+    (raw_dir / "document_registry.json").write_text(
+        json.dumps(
+            {
+                "artifact_type": "raw_document_registry",
+                "documents": [
+                    {
+                        "document_id": "DOC001",
+                        "accession_number": "DOC001",
+                        "filing_type": "DEFM14A",
+                        "txt_path": f"raw/{slug}/filings/DOC001.txt",
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    (filings_dir / "DOC001.txt").write_text("\n".join(filing_lines) + "\n", encoding="utf-8")
+
+    (extract_dir / "actors_raw.json").write_text(json.dumps(actors_payload), encoding="utf-8")
+    (extract_dir / "events_raw.json").write_text(json.dumps(events_payload), encoding="utf-8")
+
+    if canonicalize:
+        run_canonicalize(slug, project_root=tmp_path)
+
+
 def _write_enrich_core_fixture(
     tmp_path: Path,
     *,
@@ -68,35 +160,6 @@ def _write_enrich_core_fixture(
             and no rounds, so it becomes Uncertain and formal_boundary stays null.
         events_override: If provided, use these events instead of the default/residual sets.
     """
-    data_dir = tmp_path / "data"
-    deals_source_dir = data_dir / "deals" / slug / "source"
-    skill_root = data_dir / "skill" / slug
-    extract_dir = skill_root / "extract"
-
-    deals_source_dir.mkdir(parents=True, exist_ok=True)
-    extract_dir.mkdir(parents=True, exist_ok=True)
-
-    (data_dir / "seeds.csv").write_text(
-        (
-            "deal_slug,target_name,acquirer,date_announced,primary_url,is_reference\n"
-            f"{slug},IMPRIVATA INC,THOMA BRAVO LLC,2016-07-13,https://example.com,false\n"
-        ),
-        encoding="utf-8",
-    )
-    (deals_source_dir / "chronology_blocks.jsonl").write_text(
-        json.dumps({
-            "block_id": "B001", "document_id": "DOC001", "ordinal": 1,
-            "start_line": 1, "end_line": 1, "raw_text": "x", "clean_text": "x",
-            "is_heading": False, "page_break_before": False, "page_break_after": False,
-            "date_mentions": [], "entity_mentions": [], "evidence_density": 0,
-            "temporal_phase": "other",
-        }) + "\n",
-        encoding="utf-8",
-    )
-    (deals_source_dir / "evidence_items.jsonl").write_text("", encoding="utf-8")
-    (tmp_path / "raw" / slug).mkdir(parents=True, exist_ok=True)
-    (tmp_path / "raw" / slug / "document_registry.json").write_text("{}", encoding="utf-8")
-
     actors_payload = {
         "quotes": [
             {
@@ -230,10 +293,12 @@ def _write_enrich_core_fixture(
             ),
         ]
 
-    events_payload = _event_payload(events)
-
-    (extract_dir / "actors_raw.json").write_text(json.dumps(actors_payload), encoding="utf-8")
-    (extract_dir / "events_raw.json").write_text(json.dumps(events_payload), encoding="utf-8")
+    _write_quote_first_extract_fixture(
+        tmp_path,
+        slug=slug,
+        actors_payload=actors_payload,
+        events=events,
+    )
 
 
 def _write_gate_artifacts(
@@ -534,31 +599,6 @@ def test_active_bidders_use_cycle_local_state_and_restart_resets(tmp_path: Path)
 def test_invited_actor_ids_populated_from_count_assertions(tmp_path: Path) -> None:
     """count_assertion with final_round_invitees populates invited_actor_ids on round ann."""
     slug = "imprivata"
-    data_dir = tmp_path / "data"
-    deals_source_dir = data_dir / "deals" / slug / "source"
-    extract_dir = data_dir / "skill" / slug / "extract"
-    deals_source_dir.mkdir(parents=True, exist_ok=True)
-    extract_dir.mkdir(parents=True, exist_ok=True)
-
-    (data_dir / "seeds.csv").write_text(
-        "deal_slug,target_name,acquirer,date_announced,primary_url,is_reference\n"
-        f"{slug},IMPRIVATA INC,THOMA BRAVO LLC,2016-07-13,https://example.com,false\n",
-        encoding="utf-8",
-    )
-    (deals_source_dir / "chronology_blocks.jsonl").write_text(
-        json.dumps({
-            "block_id": "B001", "document_id": "DOC001", "ordinal": 1,
-            "start_line": 1, "end_line": 1, "raw_text": "x", "clean_text": "x",
-            "is_heading": False, "page_break_before": False, "page_break_after": False,
-            "date_mentions": [], "entity_mentions": [], "evidence_density": 0,
-            "temporal_phase": "other",
-        }) + "\n",
-        encoding="utf-8",
-    )
-    (deals_source_dir / "evidence_items.jsonl").write_text("", encoding="utf-8")
-    (tmp_path / "raw" / slug).mkdir(parents=True, exist_ok=True)
-    (tmp_path / "raw" / slug / "document_registry.json").write_text("{}", encoding="utf-8")
-
     actors_payload = {
         "quotes": [
             {"quote_id": "Q001", "block_id": "B001", "text": "x"},
@@ -642,10 +682,12 @@ def test_invited_actor_ids_populated_from_count_assertions(tmp_path: Path) -> No
         _base_event("evt_006", "final_round", _quote_source={"quote_id": "Q_evt_006", "block_id": "B080", "text": "final round deadline"}),
         _base_event("evt_007", "executed", executed_with_actor_id="bidder_c", _quote_source={"quote_id": "Q_evt_007", "block_id": "B090", "text": "executed"}),
     ]
-    events_payload = _event_payload(events)
-
-    (extract_dir / "actors_raw.json").write_text(json.dumps(actors_payload), encoding="utf-8")
-    (extract_dir / "events_raw.json").write_text(json.dumps(events_payload), encoding="utf-8")
+    _write_quote_first_extract_fixture(
+        tmp_path,
+        slug=slug,
+        actors_payload=actors_payload,
+        events=events,
+    )
 
     _write_gate_artifacts(tmp_path, slug=slug)
     run_enrich_core(slug, project_root=tmp_path)
@@ -662,31 +704,6 @@ def test_invited_actor_ids_attach_to_nearest_round_announcement_in_cycle_by_evid
     tmp_path: Path,
 ) -> None:
     slug = "imprivata"
-    data_dir = tmp_path / "data"
-    deals_source_dir = data_dir / "deals" / slug / "source"
-    extract_dir = data_dir / "skill" / slug / "extract"
-    deals_source_dir.mkdir(parents=True, exist_ok=True)
-    extract_dir.mkdir(parents=True, exist_ok=True)
-
-    (data_dir / "seeds.csv").write_text(
-        "deal_slug,target_name,acquirer,date_announced,primary_url,is_reference\n"
-        f"{slug},IMPRIVATA INC,THOMA BRAVO LLC,2016-07-13,https://example.com,false\n",
-        encoding="utf-8",
-    )
-    (deals_source_dir / "chronology_blocks.jsonl").write_text(
-        json.dumps({
-            "block_id": "B001", "document_id": "DOC001", "ordinal": 1,
-            "start_line": 1, "end_line": 1, "raw_text": "x", "clean_text": "x",
-            "is_heading": False, "page_break_before": False, "page_break_after": False,
-            "date_mentions": [], "entity_mentions": [], "evidence_density": 0,
-            "temporal_phase": "other",
-        }) + "\n",
-        encoding="utf-8",
-    )
-    (deals_source_dir / "evidence_items.jsonl").write_text("", encoding="utf-8")
-    (tmp_path / "raw" / slug).mkdir(parents=True, exist_ok=True)
-    (tmp_path / "raw" / slug / "document_registry.json").write_text("{}", encoding="utf-8")
-
     actors_payload = {
         "quotes": [
             {"quote_id": "Q001", "block_id": "B001", "text": "x"},
@@ -801,10 +818,12 @@ def test_invited_actor_ids_attach_to_nearest_round_announcement_in_cycle_by_evid
             _quote_source={"quote_id": "Q_evt_005", "block_id": "B030", "text": "deadline"},
         ),
     ]
-    events_payload = _event_payload(events)
-
-    (extract_dir / "actors_raw.json").write_text(json.dumps(actors_payload), encoding="utf-8")
-    (extract_dir / "events_raw.json").write_text(json.dumps(events_payload), encoding="utf-8")
+    _write_quote_first_extract_fixture(
+        tmp_path,
+        slug=slug,
+        actors_payload=actors_payload,
+        events=events,
+    )
 
     _write_gate_artifacts(tmp_path, slug=slug)
     run_enrich_core(slug, project_root=tmp_path)
@@ -820,31 +839,6 @@ def test_invited_actor_ids_attach_to_nearest_round_announcement_in_cycle_by_evid
 def test_invited_population_graceful_on_unmatched_names(tmp_path: Path) -> None:
     """Unmatched actor names in anchor text leave invited_actor_ids empty; no crash."""
     slug = "imprivata"
-    data_dir = tmp_path / "data"
-    deals_source_dir = data_dir / "deals" / slug / "source"
-    extract_dir = data_dir / "skill" / slug / "extract"
-    deals_source_dir.mkdir(parents=True, exist_ok=True)
-    extract_dir.mkdir(parents=True, exist_ok=True)
-
-    (data_dir / "seeds.csv").write_text(
-        "deal_slug,target_name,acquirer,date_announced,primary_url,is_reference\n"
-        f"{slug},IMPRIVATA INC,THOMA BRAVO LLC,2016-07-13,https://example.com,false\n",
-        encoding="utf-8",
-    )
-    (deals_source_dir / "chronology_blocks.jsonl").write_text(
-        json.dumps({
-            "block_id": "B001", "document_id": "DOC001", "ordinal": 1,
-            "start_line": 1, "end_line": 1, "raw_text": "x", "clean_text": "x",
-            "is_heading": False, "page_break_before": False, "page_break_after": False,
-            "date_mentions": [], "entity_mentions": [], "evidence_density": 0,
-            "temporal_phase": "other",
-        }) + "\n",
-        encoding="utf-8",
-    )
-    (deals_source_dir / "evidence_items.jsonl").write_text("", encoding="utf-8")
-    (tmp_path / "raw" / slug).mkdir(parents=True, exist_ok=True)
-    (tmp_path / "raw" / slug / "document_registry.json").write_text("{}", encoding="utf-8")
-
     actors_payload = {
         "quotes": [
             {"quote_id": "Q001", "block_id": "B001", "text": "x"},
@@ -890,10 +884,12 @@ def test_invited_population_graceful_on_unmatched_names(tmp_path: Path) -> None:
         _base_event("evt_004", "final_round"),
         _base_event("evt_005", "executed", executed_with_actor_id="bidder_a"),
     ]
-    events_payload = {"events": events, "exclusions": [], "coverage_notes": []}
-
-    (extract_dir / "actors_raw.json").write_text(json.dumps(actors_payload), encoding="utf-8")
-    (extract_dir / "events_raw.json").write_text(json.dumps(events_payload), encoding="utf-8")
+    _write_quote_first_extract_fixture(
+        tmp_path,
+        slug=slug,
+        actors_payload=actors_payload,
+        events=events,
+    )
 
     _write_gate_artifacts(tmp_path, slug=slug)
     run_enrich_core(slug, project_root=tmp_path)

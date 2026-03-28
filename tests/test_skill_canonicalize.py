@@ -442,7 +442,6 @@ def test_nda_gate_removes_drop_with_empty_actor_ids(tmp_path: Path) -> None:
     assert not any(e["event_id"] == "evt_002" for e in result["events"])
 
 
-@pytest.mark.xfail(reason="awaiting quote-first canonicalize rewrite in Plan 03-02")
 def test_canonicalize_rejects_unknown_quote_block_id(tmp_path: Path) -> None:
     slug = "imprivata"
     data_dir = tmp_path / "data"
@@ -604,6 +603,78 @@ def test_canonicalize_rejects_unknown_quote_block_id(tmp_path: Path) -> None:
 
     with pytest.raises(ValueError, match="block_id"):
         run_canonicalize(slug, project_root=tmp_path)
+
+
+def test_canonicalize_rejects_duplicate_quote_ids(tmp_path: Path) -> None:
+    actors_payload = {
+        "quotes": [
+            {"quote_id": "Q001", "block_id": "B001", "text": "Bidder A"},
+            {"quote_id": "Q001", "block_id": "B002", "text": "Bidder B"},
+        ],
+        "actors": [
+            {
+                "actor_id": "bidder_a",
+                "display_name": "Bidder A",
+                "canonical_name": "BIDDER A",
+                "aliases": [],
+                "role": "bidder",
+                "advisor_kind": None,
+                "advised_actor_id": None,
+                "bidder_kind": "financial",
+                "listing_status": "private",
+                "geography": "domestic",
+                "is_grouped": False,
+                "group_size": None,
+                "group_label": None,
+                "quote_ids": ["Q001"],
+                "notes": [],
+            }
+        ],
+        "count_assertions": [],
+        "unresolved_mentions": [],
+    }
+    events = [_evt("evt_001", "executed", actor_ids=["bidder_a"], date="2016-07-13")]
+    _write_canon_fixture(tmp_path, actors_payload=actors_payload, events=events)
+
+    with pytest.raises(ValueError, match="Duplicate quote_id"):
+        run_canonicalize("imprivata", project_root=tmp_path)
+
+
+def test_canonicalize_logs_orphaned_quotes(tmp_path: Path) -> None:
+    actors_payload = {
+        "quotes": [
+            {"quote_id": "Q001", "block_id": "B001", "text": "Bidder A"},
+            {"quote_id": "Q999", "block_id": "B002", "text": "Unused quote"},
+        ],
+        "actors": [
+            {
+                "actor_id": "bidder_a",
+                "display_name": "Bidder A",
+                "canonical_name": "BIDDER A",
+                "aliases": [],
+                "role": "bidder",
+                "advisor_kind": None,
+                "advised_actor_id": None,
+                "bidder_kind": "financial",
+                "listing_status": "private",
+                "geography": "domestic",
+                "is_grouped": False,
+                "group_size": None,
+                "group_label": None,
+                "quote_ids": ["Q001"],
+                "notes": [],
+            }
+        ],
+        "count_assertions": [],
+        "unresolved_mentions": [],
+    }
+    events = [_evt("evt_001", "executed", actor_ids=["bidder_a"], date="2016-07-13")]
+    _write_canon_fixture(tmp_path, actors_payload=actors_payload, events=events)
+    run_canonicalize("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    log = json.loads(paths.canonicalize_log_path.read_text(encoding="utf-8"))
+
+    assert log["orphaned_quotes"] == ["Q999"]
 
 
 def test_dedup_preserves_events_with_conflicting_structured_fields(tmp_path: Path) -> None:
