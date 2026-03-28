@@ -31,6 +31,7 @@ def build_chunk_windows(
     chunk_budget: int,
     *,
     overlap_blocks: int = 2,
+    single_pass: bool = False,
 ) -> list[PromptChunkWindow]:
     """Plan chunk windows over *blocks* that fit *chunk_budget* tokens each.
 
@@ -39,6 +40,8 @@ def build_chunk_windows(
         chunk_budget: Maximum target-block token budget per window.
         overlap_blocks: Number of adjacent context blocks to include as
             overlap outside each target window.  Fixed at 2.
+        single_pass: When true, emit a single window containing all blocks
+            regardless of token budget.
 
     Returns:
         A list of :class:`PromptChunkWindow` instances.  One
@@ -60,8 +63,8 @@ def build_chunk_windows(
 
     total_tokens = sum(token_map.values())
 
-    # Single-pass when everything fits
-    if total_tokens <= chunk_budget:
+    # Single-pass when explicitly requested or when everything fits
+    if single_pass or total_tokens <= chunk_budget:
         window = PromptChunkWindow(
             window_id="w0",
             chunk_index=0,

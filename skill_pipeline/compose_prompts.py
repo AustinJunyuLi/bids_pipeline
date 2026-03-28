@@ -14,6 +14,7 @@ from uuid import uuid4
 
 from pydantic import ValidationError
 
+from skill_pipeline.complexity import classify_deal_complexity
 from skill_pipeline.config import PROJECT_ROOT
 from skill_pipeline.models import RawSkillActorsArtifact, SkillActorsArtifact
 from skill_pipeline.paths import build_skill_paths, ensure_output_directories
@@ -314,6 +315,7 @@ def run_compose_prompts(
     *,
     mode: Literal["actors", "events", "all"] = "all",
     chunk_budget: int = 6000,
+    routing: Literal["auto", "single-pass", "chunked"] = "auto",
 ) -> PromptPacketManifest:
     """Build prompt packet artifacts for a deal.
 
@@ -333,6 +335,7 @@ def run_compose_prompts(
         project_root: Repository root.
         mode: Which packet families to compose.
         chunk_budget: Target token budget per chunk window.
+        routing: Complexity routing mode for single-pass vs chunked extraction.
 
     Returns:
         The written PromptPacketManifest.
@@ -372,6 +375,16 @@ def run_compose_prompts(
     # Load deal context from seed registry
     seed = load_seed_entry(deal_slug, seeds_path=paths.seeds_path)
 
+    complexity: Literal["simple", "complex"] | None = None
+    if routing == "single-pass":
+        force_single_pass = True
+    elif routing == "chunked":
+        force_single_pass = False
+    else:
+        complexity = classify_deal_complexity(blocks)
+        force_single_pass = complexity == "simple"
+    effective_budget = "single-pass" if force_single_pass else str(chunk_budget)
+
     # Get accession number from chronology selection if available
     accession_number: str | None = None
     filing_type: str | None = None
@@ -382,7 +395,11 @@ def run_compose_prompts(
         filing_type = sel_data.get("filing_type")
 
     # Build chunk windows
-    windows = build_chunk_windows(blocks, chunk_budget)
+    windows = build_chunk_windows(
+        blocks,
+        chunk_budget,
+        single_pass=force_single_pass,
+    )
 
     run_id = f"compose-{uuid4().hex[:8]}"
 
@@ -424,6 +441,18 @@ def run_compose_prompts(
         asset_files.append(str(_EVENT_EXAMPLES))
 
     # Build manifest
+    notes = [
+        f"mode={mode}",
+        f"chunk_budget={chunk_budget}",
+        f"routing={routing}",
+        f"effective_budget={effective_budget}",
+        f"source_blocks={len(blocks)}",
+        f"source_evidence_items={len(evidence_items)}",
+        f"chunk_windows={len(windows)}",
+    ]
+    if complexity is not None:
+        notes.append(f"complexity={complexity}")
+
     manifest = PromptPacketManifest(
         run_id=run_id,
         pipeline_version=PIPELINE_VERSION,
@@ -431,13 +460,7 @@ def run_compose_prompts(
         source_accession_number=accession_number,
         packets=all_packets,
         asset_files=asset_files,
-        notes=[
-            f"mode={mode}",
-            f"chunk_budget={chunk_budget}",
-            f"source_blocks={len(blocks)}",
-            f"source_evidence_items={len(evidence_items)}",
-            f"chunk_windows={len(windows)}",
-        ],
+        notes=notes,
     )
 
     # Write manifest

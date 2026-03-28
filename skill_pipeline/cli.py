@@ -179,6 +179,12 @@ def build_parser() -> argparse.ArgumentParser:
         help="Target token budget per chunk window (default: 6000).",
     )
     compose_prompts_parser.add_argument(
+        "--routing",
+        choices=["auto", "single-pass", "chunked"],
+        default="auto",
+        help="Complexity routing mode (default: auto).",
+    )
+    compose_prompts_parser.add_argument(
         "--project-root",
         type=Path,
         default=PROJECT_ROOT,
@@ -262,6 +268,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             project_root=args.project_root,
             mode=args.mode,
             chunk_budget=args.chunk_budget,
+            routing=args.routing,
         )
         print(manifest.model_dump_json(indent=2))
         return 0

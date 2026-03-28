@@ -788,7 +788,7 @@ class TestRunComposePrompts:
 
         # Use a very small budget to force chunking
         manifest = run_compose_prompts(
-            "test-deal", tmp_path, mode="actors", chunk_budget=10,
+            "test-deal", tmp_path, mode="actors", chunk_budget=10, routing="chunked",
         )
         assert len(manifest.packets) > 1
         # At least one interior packet should have overlap
@@ -950,7 +950,7 @@ class TestRunComposePrompts:
         from skill_pipeline.compose_prompts import run_compose_prompts
 
         manifest = run_compose_prompts(
-            "test-deal", tmp_path, mode=mode, chunk_budget=40,
+            "test-deal", tmp_path, mode=mode, chunk_budget=40, routing="chunked",
         )
         first_packet = manifest.packets[0]
         rendered = Path(first_packet.rendered_path).read_text(encoding="utf-8")
