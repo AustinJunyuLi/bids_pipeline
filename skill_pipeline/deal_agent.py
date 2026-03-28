@@ -77,8 +77,12 @@ def _summarize_extract(paths) -> ExtractStageSummary:
         return ExtractStageSummary(status=StageStatus.MISSING)
 
     artifacts = load_extract_artifacts(paths)
-    actors = artifacts.raw_actors.actors if artifacts.mode == "legacy" else artifacts.actors.actors
-    events = artifacts.raw_events.events if artifacts.mode == "legacy" else artifacts.events.events
+    if artifacts.mode == "quote_first":
+        actors = artifacts.raw_actors.actors
+        events = artifacts.raw_events.events
+    else:
+        actors = artifacts.actors.actors
+        events = artifacts.events.events
     actor_count = len(actors)
     event_count = len(events)
     proposal_count = sum(event.event_type == "proposal" for event in events)
