@@ -833,6 +833,32 @@ def test_attention_decay_uniform(tmp_path: Path) -> None:
     assert report["attention_decay"]["decay_score"] > 0.9
 
 
+def test_attention_decay_reads_wrapped_findings_payload(tmp_path: Path) -> None:
+    _write_gates_fixture(tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    paths.verify_dir.mkdir(parents=True, exist_ok=True)
+    paths.verification_findings_path.write_text(
+        json.dumps(
+            {
+                "findings": [
+                    {
+                        "check_type": "quote_validation",
+                        "severity": "error",
+                        "description": "wrapped payload failure",
+                        "block_ids": ["B001"],
+                    }
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    run_gates("imprivata", project_root=tmp_path)
+    report = json.loads(paths.gates_report_path.read_text(encoding="utf-8"))
+
+    assert report["attention_decay"]["quartile_counts"][0] == 1
+
+
 def test_run_gates_returns_zero_on_pass(tmp_path: Path) -> None:
     _write_gates_fixture(tmp_path)
 
