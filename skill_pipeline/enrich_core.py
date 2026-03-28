@@ -10,6 +10,7 @@ from skill_pipeline.extract_artifacts import LoadedExtractArtifacts, load_extrac
 from skill_pipeline.models import (
     BidClassification,
     CoverageSummary,
+    GateReport,
     SkillEventRecord,
     SkillCheckReport,
     SkillVerificationLog,
@@ -62,6 +63,15 @@ def _require_gate_artifacts(paths) -> None:
     if coverage_summary.status != "pass":
         raise ValueError(
             f"Cannot run enrich-core before coverage passes: {paths.coverage_summary_path}"
+        )
+
+    if not paths.gates_report_path.exists():
+        raise FileNotFoundError(f"Missing required input: {paths.gates_report_path}")
+
+    gates_report = GateReport.model_validate(_read_json(paths.gates_report_path))
+    if gates_report.summary.status != "pass":
+        raise ValueError(
+            f"Cannot run enrich-core before gates pass: {paths.gates_report_path}"
         )
 
 

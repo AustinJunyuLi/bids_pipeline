@@ -308,18 +308,23 @@ def _write_gate_artifacts(
     check_status: str = "pass",
     verify_status: str = "pass",
     coverage_status: str = "pass",
+    gates_status: str = "pass",
+    gate_warning_count: int = 0,
 ) -> None:
     skill_root = tmp_path / "data" / "skill" / slug
     check_dir = skill_root / "check"
     verify_dir = skill_root / "verify"
     coverage_dir = skill_root / "coverage"
+    gates_dir = skill_root / "gates"
     check_dir.mkdir(parents=True, exist_ok=True)
     verify_dir.mkdir(parents=True, exist_ok=True)
     coverage_dir.mkdir(parents=True, exist_ok=True)
+    gates_dir.mkdir(parents=True, exist_ok=True)
 
     blocker_count = 1 if check_status == "fail" else 0
     verify_errors = 1 if verify_status == "fail" else 0
     coverage_errors = 1 if coverage_status == "fail" else 0
+    gates_blockers = 1 if gates_status == "fail" else 0
 
     (check_dir / "check_report.json").write_text(
         json.dumps(
@@ -360,6 +365,20 @@ def _write_gate_artifacts(
                 "error_count": coverage_errors,
                 "warning_count": 0,
                 "counts_by_cue_family": {},
+            }
+        ),
+        encoding="utf-8",
+    )
+    (gates_dir / "gates_report.json").write_text(
+        json.dumps(
+            {
+                "findings": [],
+                "attention_decay": None,
+                "summary": {
+                    "blocker_count": gates_blockers,
+                    "warning_count": gate_warning_count,
+                    "status": gates_status,
+                },
             }
         ),
         encoding="utf-8",

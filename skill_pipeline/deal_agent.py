@@ -13,6 +13,8 @@ from skill_pipeline.models import (
     EnrichStageSummary,
     ExportStageSummary,
     ExtractStageSummary,
+    GateReport,
+    GatesStageSummary,
     PromptStageSummary,
     SkillCheckReport,
     SkillEnrichmentArtifact,
@@ -43,6 +45,7 @@ def run_deal_agent(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> Deal
         extract=_summarize_extract(paths),
         check=_summarize_check(paths),
         coverage=_summarize_coverage(paths),
+        gates=_summarize_gates(paths),
         verify=_summarize_verify(paths),
         enrich=_summarize_enrich(paths),
         export=_summarize_export(paths),
@@ -118,6 +121,19 @@ def _summarize_coverage(paths) -> CoverageStageSummary:
         status=status,
         error_count=summary.error_count,
         warning_count=summary.warning_count,
+    )
+
+
+def _summarize_gates(paths) -> GatesStageSummary:
+    if not paths.gates_report_path.exists():
+        return GatesStageSummary(status=StageStatus.MISSING)
+
+    report = GateReport.model_validate(_read_json(paths.gates_report_path))
+    status = StageStatus.PASS if report.summary.status == "pass" else StageStatus.FAIL
+    return GatesStageSummary(
+        status=status,
+        blocker_count=report.summary.blocker_count,
+        warning_count=report.summary.warning_count,
     )
 
 

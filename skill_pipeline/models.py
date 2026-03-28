@@ -565,6 +565,7 @@ class DealAgentSummary(SkillModel):
     extract: ExtractStageSummary
     check: CheckStageSummary
     coverage: CoverageStageSummary
+    gates: GatesStageSummary
     verify: VerifyStageSummary
     enrich: EnrichStageSummary
     export: ExportStageSummary

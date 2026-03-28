@@ -14,6 +14,7 @@ from skill_pipeline.config import PROJECT_ROOT, RAW_DIR, SKILL_PIPELINE_VERSION
 from skill_pipeline.coverage import run_coverage
 from skill_pipeline.deal_agent import run_deal_agent
 from skill_pipeline.enrich_core import run_enrich_core
+from skill_pipeline.gates import run_gates
 from skill_pipeline.pipeline_models.common import PIPELINE_VERSION
 from skill_pipeline.pipeline_models.source import SeedDeal
 from skill_pipeline.seeds import load_seed_entry
@@ -184,6 +185,18 @@ def build_parser() -> argparse.ArgumentParser:
         help=argparse.SUPPRESS,
     )
 
+    gates_parser = subparsers.add_parser(
+        "gates",
+        help="Run semantic gates on extracted skill artifacts.",
+    )
+    gates_parser.add_argument("--deal", required=True)
+    gates_parser.add_argument(
+        "--project-root",
+        type=Path,
+        default=PROJECT_ROOT,
+        help=argparse.SUPPRESS,
+    )
+
     return parser
 
 
@@ -237,6 +250,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         return run_verify(args.deal, project_root=args.project_root)
     if args.command == "coverage":
         return run_coverage(args.deal, project_root=args.project_root)
+    if args.command == "gates":
+        return run_gates(args.deal, project_root=args.project_root)
     if args.command == "enrich-core":
         return run_enrich_core(args.deal, project_root=args.project_root)
     if args.command == "canonicalize":
