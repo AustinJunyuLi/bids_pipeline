@@ -48,6 +48,8 @@ class SkillPathSet(SkillModel):
     verification_findings_path: Path
     coverage_findings_path: Path
     coverage_summary_path: Path
+    gates_dir: Path
+    gates_report_path: Path
     enrichment_path: Path
     deterministic_enrichment_path: Path
     deal_events_path: Path
@@ -473,6 +475,35 @@ class CoverageSummary(SkillModel):
     counts_by_cue_family: dict[str, int] = Field(default_factory=dict)
 
 
+class GateFinding(SkillModel):
+    gate_id: str
+    rule_id: str
+    severity: Literal["blocker", "warning"]
+    description: str
+    event_ids: list[str] = Field(default_factory=list)
+    actor_ids: list[str] = Field(default_factory=list)
+    block_ids: list[str] = Field(default_factory=list)
+
+
+class GateAttentionDecay(SkillModel):
+    quartile_counts: list[int]
+    hot_spots: list[dict] = Field(default_factory=list)
+    decay_score: float
+    note: str | None = None
+
+
+class GateReportSummary(SkillModel):
+    blocker_count: int
+    warning_count: int
+    status: Literal["pass", "fail"]
+
+
+class GateReport(SkillModel):
+    findings: list[GateFinding] = Field(default_factory=list)
+    attention_decay: GateAttentionDecay | None = None
+    summary: GateReportSummary
+
+
 class ExtractStageSummary(SkillModel):
     status: StageStatus
     actor_count: int = 0
@@ -506,6 +537,12 @@ class EnrichStageSummary(SkillModel):
     informal_bid_count: int = 0
     initiation_judgment_type: str | None = None
     review_flags_count: int = 0
+
+
+class GatesStageSummary(SkillModel):
+    status: StageStatus
+    blocker_count: int = 0
+    warning_count: int = 0
 
 
 class ExportStageSummary(SkillModel):

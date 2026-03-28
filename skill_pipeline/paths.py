@@ -17,6 +17,7 @@ def build_skill_paths(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> S
     check_dir = skill_root / "check"
     verify_dir = skill_root / "verify"
     coverage_dir = skill_root / "coverage"
+    gates_dir = skill_root / "gates"
     enrich_dir = skill_root / "enrich"
     export_dir = skill_root / "export"
     canonicalize_dir = skill_root / "canonicalize"
@@ -48,6 +49,8 @@ def build_skill_paths(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> S
         verification_findings_path=verify_dir / "verification_findings.json",
         coverage_findings_path=coverage_dir / "coverage_findings.json",
         coverage_summary_path=coverage_dir / "coverage_summary.json",
+        gates_dir=gates_dir,
+        gates_report_path=gates_dir / "gates_report.json",
         enrichment_path=enrich_dir / "enrichment.json",
         deterministic_enrichment_path=enrich_dir / "deterministic_enrichment.json",
         deal_events_path=export_dir / "deal_events.csv",
@@ -64,6 +67,7 @@ def ensure_output_directories(paths: SkillPathSet) -> None:
     paths.check_dir.mkdir(parents=True, exist_ok=True)
     paths.verify_dir.mkdir(parents=True, exist_ok=True)
     paths.coverage_dir.mkdir(parents=True, exist_ok=True)
+    paths.gates_dir.mkdir(parents=True, exist_ok=True)
     paths.enrich_dir.mkdir(parents=True, exist_ok=True)
     paths.export_dir.mkdir(parents=True, exist_ok=True)
     paths.canonicalize_dir.mkdir(parents=True, exist_ok=True)
