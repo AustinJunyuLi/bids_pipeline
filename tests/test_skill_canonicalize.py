@@ -298,6 +298,60 @@ def test_recover_unnamed_party_from_count_gap(tmp_path: Path) -> None:
     ]
 
 
+def test_recover_unnamed_party_uses_highest_count_assertion(tmp_path: Path) -> None:
+    actors_payload = {
+        "actors": [
+            {
+                "actor_id": "bidder_a",
+                "display_name": "Sponsor A",
+                "canonical_name": "SPONSOR A",
+                "aliases": [],
+                "role": "bidder",
+                "advisor_kind": None,
+                "advised_actor_id": None,
+                "bidder_kind": "financial",
+                "listing_status": "private",
+                "geography": "domestic",
+                "is_grouped": False,
+                "group_size": None,
+                "group_label": None,
+                "evidence_refs": [{"block_id": "B001", "evidence_id": None, "anchor_text": "x"}],
+                "notes": [],
+            },
+        ],
+        "count_assertions": [
+            {
+                "subject": "nda_signed_financial_buyers",
+                "count": 1,
+                "evidence_refs": [{"block_id": "B029", "evidence_id": None, "anchor_text": "one financial sponsor"}],
+            },
+            {
+                "subject": "nda_signed_financial_buyers",
+                "count": 3,
+                "evidence_refs": [{"block_id": "B030", "evidence_id": None, "anchor_text": "three financial sponsors"}],
+            },
+        ],
+        "unresolved_mentions": [
+            "One financial sponsor executed a confidentiality agreement but declined interest shortly thereafter."
+        ],
+    }
+    events = [
+        _evt("evt_001", "nda", actor_ids=["bidder_a"]),
+        _evt("evt_002", "executed", actor_ids=["bidder_a"], date="2016-07-13"),
+    ]
+    _write_canon_fixture(tmp_path, actors_payload=actors_payload, events=events)
+    run_canonicalize("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+
+    log = json.loads(paths.canonicalize_log_path.read_text(encoding="utf-8"))
+
+    assert len(log["recovery_log"]) == 1
+    gap_entry = log["recovery_log"][0]
+    assert gap_entry["status"] == "blocked_unresolved_gap"
+    assert gap_entry["asserted_count"] == 3
+    assert gap_entry["gap"] == 2
+
+
 def test_recover_unnamed_party_fail_closed_no_unresolved_mention(tmp_path: Path) -> None:
     actors_payload = {
         "actors": [

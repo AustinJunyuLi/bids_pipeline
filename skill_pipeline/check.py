@@ -173,7 +173,8 @@ def _check_nda_count_gaps(artifacts: LoadedExtractArtifacts) -> list[CheckFindin
         assertions = [assertion for assertion in actor_artifact.count_assertions if assertion.subject == subject]
         if not assertions:
             continue
-        asserted_count = assertions[0].count
+        # Use the strongest filing-backed count when the same subject is asserted multiple times.
+        asserted_count = max(assertion.count for assertion in assertions)
         grounded_actor_ids = sorted(
             actor.actor_id
             for actor in actor_records

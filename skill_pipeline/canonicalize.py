@@ -407,7 +407,8 @@ def _recover_unnamed_parties(
         ]
         if not assertions:
             continue
-        asserted_count = assertions[0]["count"]
+        # Use the strongest filing-backed count when the same subject is asserted multiple times.
+        asserted_count = max(assertion["count"] for assertion in assertions)
         actual_count = sum(
             1
             for actor in actors_dict["actors"]

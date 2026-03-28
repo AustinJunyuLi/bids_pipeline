@@ -74,14 +74,21 @@ Phase 2: Prompt Architecture — complete (plan 03 of 03 complete)
 - PromptStageSummary reports packet_count, actor_packet_count, event_packet_count in deal-agent
 - compose-prompts documented between preprocess-source and /extract-deal in all runtime docs
 
+- [x] Phase 2 verified (9/9 must-haves passed)
+- [x] Phase 2 GPT 5.4 adversarial audit completed (6 findings: 1 CRITICAL, 3 MAJOR, 2 MINOR)
+- [ ] Phase 2 gap closure: fix audit findings 2-6 (evidence filtering, roster validation, defensive checks)
+- [ ] Phase 3 planning
+
 ## Session Continuity
 
-- **Last session:** 2026-03-27T23:45:03Z
-- **Stopped at:** Completed 02-03-PLAN.md
-- **Resume file:** `.planning/phases/02-prompt-architecture/02-03-PLAN.md`
+- **Last session:** 2026-03-28T01:30:00Z
+- **Stopped at:** GPT 5.4 audit complete. 6 findings documented in `02-GPT54-AUDIT.md`. Gap closure patch needed before Phase 3.
+- **Resume file:** `.planning/phases/02-prompt-architecture/02-GPT54-AUDIT.md`
+- **Next action:** Fix items 2-6 from audit (low-complexity, ~30 lines each). Item 1 (budget semantics) deferred to Phase 5.
 
 ## Accumulated Context
 
 ### Pending Todos
 
-- Claude follow-up: investigate seed-quality guard for Medivation-style bad accession in `.planning/todos/pending/2026-03-27-investigate-seed-quality-guard-for-medivation-style-bad-accession.md`
+- Phase 2 gap closure: 5 audit findings to fix (see `02-GPT54-AUDIT.md` items 2-6)
+- Item 1 (chunk budget overhead): deferred to Phase 5 complexity routing — document as known constraint

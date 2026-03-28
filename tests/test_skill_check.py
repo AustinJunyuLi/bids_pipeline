@@ -140,6 +140,7 @@ def _write_canonical_check_fixture(
     actor_evidence_span_ids: list[str] | None = None,
     event_evidence_span_ids: list[str] | None = None,
     count_assertion_count: int | None = None,
+    count_assertion_counts: list[int] | None = None,
 ) -> None:
     data_dir = tmp_path / "data"
     extract_dir = data_dir / "skill" / slug / "extract"
@@ -208,7 +209,16 @@ def _write_canonical_check_fixture(
         "count_assertions": [],
         "unresolved_mentions": [],
     }
-    if count_assertion_count is not None:
+    if count_assertion_counts is not None:
+        actors_payload["count_assertions"] = [
+            {
+                "subject": "nda_signed_financial_buyers",
+                "count": count,
+                "evidence_span_ids": [],
+            }
+            for count in count_assertion_counts
+        ]
+    elif count_assertion_count is not None:
         actors_payload["count_assertions"] = [
             {
                 "subject": "nda_signed_financial_buyers",
@@ -349,6 +359,23 @@ def test_run_check_blocks_unresolved_nda_count_gap(tmp_path: Path) -> None:
     finding = report["findings"][0]
     assert finding["check_id"] == "nda_count_assertion_gap"
     assert finding["actor_ids"] == ["party_a"]
+
+
+def test_run_check_uses_highest_nda_count_assertion(tmp_path: Path) -> None:
+    _write_canonical_check_fixture(
+        tmp_path,
+        actor_evidence_span_ids=["span_actor"],
+        event_evidence_span_ids=["span_event"],
+        count_assertion_counts=[1, 3],
+    )
+    exit_code = run_check("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    report = json.loads(paths.check_report_path.read_text(encoding="utf-8"))
+
+    assert exit_code == 1
+    finding = report["findings"][0]
+    assert finding["check_id"] == "nda_count_assertion_gap"
+    assert "nda_signed_financial_buyers=3" in finding["description"]
 
 
 def test_skill_cli_supports_check_subcommand() -> None:
