@@ -22,8 +22,9 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **PROMPT-05**: Quote-before-extract protocol forces the LLM to cite
   verbatim passages before emitting structured events
 - [x] **PROMPT-06**: Complexity-based routing sends simple deals (`<=150`
-  blocks, `<=8` actors) through single-pass extraction and complex deals
-  through multi-chunk
+  blocks) through single-pass extraction and complex deals through multi-chunk.
+  Actor-count threshold dropped after research showed block count alone cleanly
+  separates the 9-deal corpus (all >150-block deals also have >8 actors)
 
 ### Extraction Infrastructure
 
@@ -36,7 +37,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **INFRA-03**: Prompt composition exposes a reusable static prefix
   (system guidance, actor roster, examples) separate from chunk-specific
   content so local-agent tooling can reuse repeated context where supported
-- [ ] **INFRA-04**: Each chronology block carries deterministic metadata: date
+- [x] **INFRA-04**: Each chronology block carries deterministic metadata: date
   mentions, entity mentions, evidence density score, temporal phase hint
 - [x] **INFRA-05**: A deterministic prompt composition engine assembles
   extraction prompt packets from annotated blocks, evidence checklist, actor

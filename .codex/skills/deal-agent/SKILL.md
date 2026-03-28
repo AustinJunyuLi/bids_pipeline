@@ -46,10 +46,12 @@ post-export only and read-only.
 
 | # | Skill | Artifacts | Failure Mode |
 |---|---|---|---|
-| 0 | `extract-deal` | `extract/actors_raw.json`, `extract/events_raw.json` | Fail closed |
+| 0a | `compose-prompts` (deterministic) | `prompt/manifest.json`, `prompt/packets/*/rendered.md` | Fail closed |
+| 0b | `extract-deal` | `extract/actors_raw.json`, `extract/events_raw.json` | Fail closed |
 | 1 | `canonicalize` (deterministic) | `extract/spans.json`, `canonicalize/canonicalize_log.json` | Fail closed |
 | 2 | `check` (deterministic) | `check/check_report.json` | Fail closed on blockers |
 | 3 | `verify` + `coverage` (deterministic) | `verify/verification_findings.json`, `verify/verification_log.json`, `coverage/coverage_findings.json`, `coverage/coverage_summary.json` | Fail closed on error status |
+| 3a | `gates` (deterministic) | `gates/gates_report.json` | Fail closed on blocker findings |
 | 4 | `verify-extraction` | updated extraction files + verify/coverage findings consumed | Fail closed (stop on round-2 errors) |
 | 5 | `enrich-core` (deterministic) | `enrich/deterministic_enrichment.json` | Fail closed |
 | 5a | `db-load` (deterministic) | DuckDB `data/pipeline.duckdb` updated | Fail closed |
@@ -76,6 +78,10 @@ post-export only and read-only.
    - data/skill/<slug>/enrich/
    - data/skill/<slug>/export/
 
+3a. Run `skill-pipeline compose-prompts --deal <slug>`
+   Gate: prompt/manifest.json exists and is non-empty.
+   Generates prompt packets consumed by extract-deal.
+
 4. Run /extract-deal <slug>
    Gate: actors_raw.json and events_raw.json both exist and are non-empty.
    If gate fails: stop.
@@ -98,6 +104,10 @@ post-export only and read-only.
 5a. Run deterministic coverage: `skill-pipeline coverage --deal <slug>`
    Gate: coverage_summary.json exists and summary.status != "fail".
    Writes coverage_findings.json and coverage_summary.json.
+
+5b. Run deterministic gates: `skill-pipeline gates --deal <slug>`
+   Gate: gates_report.json exists and has no blocker-severity findings.
+   Writes gates/gates_report.json. Required by enrich-core.
 
 6. Run /verify-extraction <slug>
    Gate: verification and coverage artifacts exist. May invoke LLM repair when
@@ -134,10 +144,12 @@ post-export only and read-only.
 
 Each skill is independently callable:
 
+- `skill-pipeline compose-prompts --deal <slug>` -- build prompt packets for extraction
 - `skill-pipeline canonicalize --deal <slug>` -- upgrade extraction into canonical span-backed artifacts
 - `skill-pipeline check --deal <slug>` -- run deterministic structural check
 - `skill-pipeline verify --deal <slug>` -- run deterministic verification
 - `skill-pipeline coverage --deal <slug>` -- run deterministic source-coverage audit
+- `skill-pipeline gates --deal <slug>` -- run semantic validation gates (temporal, cross-event, lifecycle, attention)
 - `skill-pipeline enrich-core --deal <slug>` -- run deterministic enrich core
 - `skill-pipeline db-load --deal <slug>` -- load canonical extracts + enrichment into DuckDB
 - `skill-pipeline db-export --deal <slug>` -- generate CSV export from DuckDB
