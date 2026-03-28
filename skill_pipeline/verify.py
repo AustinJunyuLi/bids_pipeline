@@ -12,7 +12,6 @@ from skill_pipeline.normalize.quotes import find_anchor_in_segment
 
 from skill_pipeline.config import PROJECT_ROOT
 from skill_pipeline.models import (
-    EvidenceRef,
     SkillPathSet,
     SkillVerificationLog,
     VerificationFinding,
@@ -115,11 +114,7 @@ def _check_quote_verification_legacy(
             )
         evidence_by_id[e.evidence_id] = e
 
-    def _check_ref(
-        ref: EvidenceRef,
-        actor_ids: list[str],
-        event_ids: list[str],
-    ) -> None:
+    def _check_ref(ref, actor_ids: list[str], event_ids: list[str]) -> None:
         if not ref.anchor_text or not ref.anchor_text.strip():
             return
         nonlocal total_checks

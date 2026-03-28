@@ -48,6 +48,13 @@ def _write_check_fixture(
     (raw_dir / "document_registry.json").write_text("{}", encoding="utf-8")
 
     actors_payload = {
+        "quotes": [
+            {
+                "quote_id": "Q001",
+                "block_id": "B001",
+                "text": "Party A",
+            }
+        ],
         "actors": [
             {
                 "actor_id": "party_a",
@@ -63,9 +70,7 @@ def _write_check_fixture(
                 "is_grouped": False,
                 "group_size": None,
                 "group_label": None,
-                "evidence_refs": [
-                    {"block_id": "B001", "evidence_id": None, "anchor_text": "Party A"}
-                ],
+                "quote_ids": ["Q001"],
                 "notes": [],
             }
         ],
@@ -73,9 +78,7 @@ def _write_check_fixture(
         "unresolved_mentions": [],
     }
 
-    proposal_evidence_refs = [
-        {"block_id": "B002", "evidence_id": None, "anchor_text": anchor_text}
-    ]
+    proposal_quote_ids = ["Q101"]
 
     proposal_event = {
         "event_id": "evt_002",
@@ -83,7 +86,7 @@ def _write_check_fixture(
         "date": {"raw_text": "July 5, 2016", "normalized_hint": "2016-07-05"},
         "actor_ids": ["party_a"],
         "summary": "Party A submitted an indication of interest.",
-        "evidence_refs": proposal_evidence_refs,
+        "quote_ids": proposal_quote_ids,
         "terms": (
             {
                 "per_share": 25.0,
@@ -124,6 +127,13 @@ def _write_check_fixture(
     }
 
     events_payload = {
+        "quotes": [
+            {
+                "quote_id": "Q101",
+                "block_id": "B002",
+                "text": anchor_text,
+            }
+        ],
         "events": [proposal_event],
         "exclusions": [],
         "coverage_notes": [],

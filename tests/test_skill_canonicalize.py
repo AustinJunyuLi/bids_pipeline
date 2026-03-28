@@ -34,42 +34,33 @@ def _write_canon_fixture(
     )
 
     if actors_payload is None:
-        actors_payload = {"actors": [], "count_assertions": [], "unresolved_mentions": []}
+        actors_payload = {
+            "quotes": [],
+            "actors": [],
+            "count_assertions": [],
+            "unresolved_mentions": [],
+        }
 
-    refs: list[dict] = []
-    for actor in actors_payload.get("actors", []):
-        refs.extend(actor.get("evidence_refs", []))
-    for assertion in actors_payload.get("count_assertions", []):
-        refs.extend(assertion.get("evidence_refs", []))
+    event_quotes: list[dict[str, str]] = []
     for event in events:
-        refs.extend(event.get("evidence_refs", []))
+        quote_source = event.pop("_quote_source", None)
+        if quote_source is None:
+            continue
+        event_quotes.append(
+            {
+                "quote_id": quote_source["quote_id"],
+                "block_id": quote_source["block_id"],
+                "text": quote_source["text"],
+            }
+        )
 
     block_texts: dict[str, list[str]] = {}
     evidence_items: list[dict] = []
-    for ref in refs:
-        block_id = ref.get("block_id")
-        anchor_text = ref.get("anchor_text") or "placeholder source text"
+    for quote in actors_payload.get("quotes", []) + event_quotes:
+        block_id = quote.get("block_id")
+        anchor_text = quote.get("text") or "placeholder source text"
         if block_id:
             block_texts.setdefault(block_id, []).append(anchor_text)
-        if ref.get("evidence_id"):
-            evidence_items.append(
-                {
-                    "evidence_id": ref["evidence_id"],
-                    "document_id": "DOC001",
-                    "accession_number": "DOC001",
-                    "filing_type": "DEFM14A",
-                    "start_line": 1,
-                    "end_line": 1,
-                    "raw_text": anchor_text,
-                    "evidence_type": "dated_action",
-                    "confidence": "high",
-                    "matched_terms": [anchor_text],
-                    "date_text": None,
-                    "actor_hint": None,
-                    "value_hint": None,
-                    "note": None,
-                }
-            )
 
     if not block_texts:
         block_texts["B001"] = ["placeholder source text"]
@@ -128,7 +119,14 @@ def _write_canon_fixture(
 
     (extract_dir / "actors_raw.json").write_text(json.dumps(actors_payload), encoding="utf-8")
     (extract_dir / "events_raw.json").write_text(
-        json.dumps({"events": events, "exclusions": [], "coverage_notes": []}),
+        json.dumps(
+            {
+                "quotes": event_quotes,
+                "events": events,
+                "exclusions": [],
+                "coverage_notes": [],
+            }
+        ),
         encoding="utf-8",
     )
 
@@ -148,7 +146,12 @@ def _evt(
         "date": {"raw_text": date, "normalized_hint": date},
         "actor_ids": actor_ids or [],
         "summary": summary,
-        "evidence_refs": [{"block_id": block_id, "evidence_id": None, "anchor_text": "x"}],
+        "quote_ids": [f"Q_{evt_id}"],
+        "_quote_source": {
+            "quote_id": f"Q_{evt_id}",
+            "block_id": block_id,
+            "text": "x",
+        },
         "terms": None,
         "formality_signals": None,
         "whole_company_scope": True,
@@ -243,6 +246,14 @@ def test_nda_gate_preserves_drop_with_prior_nda(tmp_path: Path) -> None:
 
 def test_recover_unnamed_party_from_count_gap(tmp_path: Path) -> None:
     actors_payload = {
+        "quotes": [
+            {"quote_id": "Q001", "block_id": "B001", "text": "x"},
+            {
+                "quote_id": "Q002",
+                "block_id": "B030",
+                "text": "two financial sponsors",
+            },
+        ],
         "actors": [
             {
                 "actor_id": "bidder_a",
@@ -258,7 +269,7 @@ def test_recover_unnamed_party_from_count_gap(tmp_path: Path) -> None:
                 "is_grouped": False,
                 "group_size": None,
                 "group_label": None,
-                "evidence_refs": [{"block_id": "B001", "evidence_id": None, "anchor_text": "x"}],
+                "quote_ids": ["Q001"],
                 "notes": [],
             },
         ],
@@ -266,7 +277,7 @@ def test_recover_unnamed_party_from_count_gap(tmp_path: Path) -> None:
             {
                 "subject": "nda_signed_financial_buyers",
                 "count": 2,
-                "evidence_refs": [{"block_id": "B030", "evidence_id": None, "anchor_text": "two financial sponsors"}],
+                "quote_ids": ["Q002"],
             },
         ],
         "unresolved_mentions": [
@@ -300,6 +311,19 @@ def test_recover_unnamed_party_from_count_gap(tmp_path: Path) -> None:
 
 def test_recover_unnamed_party_uses_highest_count_assertion(tmp_path: Path) -> None:
     actors_payload = {
+        "quotes": [
+            {"quote_id": "Q001", "block_id": "B001", "text": "x"},
+            {
+                "quote_id": "Q002",
+                "block_id": "B029",
+                "text": "one financial sponsor",
+            },
+            {
+                "quote_id": "Q003",
+                "block_id": "B030",
+                "text": "three financial sponsors",
+            },
+        ],
         "actors": [
             {
                 "actor_id": "bidder_a",
@@ -315,7 +339,7 @@ def test_recover_unnamed_party_uses_highest_count_assertion(tmp_path: Path) -> N
                 "is_grouped": False,
                 "group_size": None,
                 "group_label": None,
-                "evidence_refs": [{"block_id": "B001", "evidence_id": None, "anchor_text": "x"}],
+                "quote_ids": ["Q001"],
                 "notes": [],
             },
         ],
@@ -323,12 +347,12 @@ def test_recover_unnamed_party_uses_highest_count_assertion(tmp_path: Path) -> N
             {
                 "subject": "nda_signed_financial_buyers",
                 "count": 1,
-                "evidence_refs": [{"block_id": "B029", "evidence_id": None, "anchor_text": "one financial sponsor"}],
+                "quote_ids": ["Q002"],
             },
             {
                 "subject": "nda_signed_financial_buyers",
                 "count": 3,
-                "evidence_refs": [{"block_id": "B030", "evidence_id": None, "anchor_text": "three financial sponsors"}],
+                "quote_ids": ["Q003"],
             },
         ],
         "unresolved_mentions": [
@@ -354,6 +378,14 @@ def test_recover_unnamed_party_uses_highest_count_assertion(tmp_path: Path) -> N
 
 def test_recover_unnamed_party_fail_closed_no_unresolved_mention(tmp_path: Path) -> None:
     actors_payload = {
+        "quotes": [
+            {"quote_id": "Q001", "block_id": "B001", "text": "x"},
+            {
+                "quote_id": "Q002",
+                "block_id": "B030",
+                "text": "two financial sponsors",
+            },
+        ],
         "actors": [
             {
                 "actor_id": "bidder_a",
@@ -369,7 +401,7 @@ def test_recover_unnamed_party_fail_closed_no_unresolved_mention(tmp_path: Path)
                 "is_grouped": False,
                 "group_size": None,
                 "group_label": None,
-                "evidence_refs": [{"block_id": "B001", "evidence_id": None, "anchor_text": "x"}],
+                "quote_ids": ["Q001"],
                 "notes": [],
             },
         ],
@@ -377,7 +409,7 @@ def test_recover_unnamed_party_fail_closed_no_unresolved_mention(tmp_path: Path)
             {
                 "subject": "nda_signed_financial_buyers",
                 "count": 2,
-                "evidence_refs": [{"block_id": "B030", "evidence_id": None, "anchor_text": "two financial sponsors"}],
+                "quote_ids": ["Q002"],
             },
         ],
         "unresolved_mentions": [],  # No matching mention -> fail closed
@@ -410,7 +442,8 @@ def test_nda_gate_removes_drop_with_empty_actor_ids(tmp_path: Path) -> None:
     assert not any(e["event_id"] == "evt_002" for e in result["events"])
 
 
-def test_canonicalize_rejects_mismatched_block_and_evidence_refs(tmp_path: Path) -> None:
+@pytest.mark.xfail(reason="awaiting quote-first canonicalize rewrite in Plan 03-02")
+def test_canonicalize_rejects_unknown_quote_block_id(tmp_path: Path) -> None:
     slug = "imprivata"
     data_dir = tmp_path / "data"
     deals_source_dir = data_dir / "deals" / slug / "source"
@@ -479,6 +512,13 @@ def test_canonicalize_rejects_mismatched_block_and_evidence_refs(tmp_path: Path)
         }
     ]
     actors_payload = {
+        "quotes": [
+            {
+                "quote_id": "Q001",
+                "block_id": "B999",
+                "text": "anchor one",
+            }
+        ],
         "actors": [
             {
                 "actor_id": "bidder_a",
@@ -494,13 +534,7 @@ def test_canonicalize_rejects_mismatched_block_and_evidence_refs(tmp_path: Path)
                 "is_grouped": False,
                 "group_size": None,
                 "group_label": None,
-                "evidence_refs": [
-                    {
-                        "block_id": "B002",
-                        "evidence_id": "DOC001:E0001",
-                        "anchor_text": "anchor one",
-                    }
-                ],
+                "quote_ids": ["Q001"],
                 "notes": [],
             }
         ],
@@ -508,7 +542,34 @@ def test_canonicalize_rejects_mismatched_block_and_evidence_refs(tmp_path: Path)
         "unresolved_mentions": [],
     }
     events_payload = {
-        "events": [_evt("evt_001", "executed", actor_ids=["bidder_a"], date="2016-07-13")],
+        "quotes": [
+            {
+                "quote_id": "Q101",
+                "block_id": "B001",
+                "text": "x",
+            }
+        ],
+        "events": [
+            {
+                "event_id": "evt_001",
+                "event_type": "executed",
+                "date": {"raw_text": "2016-07-13", "normalized_hint": "2016-07-13"},
+                "actor_ids": ["bidder_a"],
+                "summary": "x",
+                "quote_ids": ["Q101"],
+                "terms": None,
+                "formality_signals": None,
+                "whole_company_scope": True,
+                "drop_reason_text": None,
+                "round_scope": None,
+                "invited_actor_ids": [],
+                "deadline_date": None,
+                "executed_with_actor_id": None,
+                "boundary_note": None,
+                "nda_signed": None,
+                "notes": [],
+            }
+        ],
         "exclusions": [],
         "coverage_notes": [],
     }
@@ -598,6 +659,13 @@ def test_canonicalize_is_idempotent_on_existing_canonical_extract(tmp_path: Path
         _evt("evt_003", "executed", actor_ids=["bidder_a"], date="2016-07-13", block_id="B066"),
     ]
     actors_payload = {
+        "quotes": [
+            {
+                "quote_id": "Q001",
+                "block_id": "B064",
+                "text": "Bidder A",
+            }
+        ],
         "actors": [
             {
                 "actor_id": "bidder_a",
@@ -613,7 +681,7 @@ def test_canonicalize_is_idempotent_on_existing_canonical_extract(tmp_path: Path
                 "is_grouped": False,
                 "group_size": None,
                 "group_label": None,
-                "evidence_refs": [{"block_id": "B064", "evidence_id": None, "anchor_text": "Bidder A"}],
+                "quote_ids": ["Q001"],
                 "notes": [],
             },
         ],

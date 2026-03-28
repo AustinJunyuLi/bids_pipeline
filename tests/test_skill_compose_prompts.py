@@ -75,6 +75,13 @@ def _make_evidence(
 def _valid_actor_roster_payload(*, block_id: str = "B000") -> dict[str, object]:
     """Build a minimally valid raw actor roster artifact."""
     return {
+        "quotes": [
+            {
+                "quote_id": "Q001",
+                "block_id": block_id,
+                "text": "Bidder A",
+            }
+        ],
         "actors": [
             {
                 "actor_id": "a1",
@@ -90,13 +97,7 @@ def _valid_actor_roster_payload(*, block_id: str = "B000") -> dict[str, object]:
                 "is_grouped": False,
                 "group_size": None,
                 "group_label": None,
-                "evidence_refs": [
-                    {
-                        "block_id": block_id,
-                        "evidence_id": None,
-                        "anchor_text": "Bidder A",
-                    }
-                ],
+                "quote_ids": ["Q001"],
                 "notes": [],
             }
         ],

@@ -149,6 +149,13 @@ def test_canonicalize_upgrades_legacy_extract_to_span_backed_schema(tmp_path: Pa
     (filings_dir / "DOC001.txt").write_text(line_text + "\n", encoding="utf-8")
 
     actors_payload = {
+        "quotes": [
+            {
+                "quote_id": "Q001",
+                "block_id": "B001",
+                "text": "Party A",
+            }
+        ],
         "actors": [
             {
                 "actor_id": "party_a",
@@ -164,9 +171,7 @@ def test_canonicalize_upgrades_legacy_extract_to_span_backed_schema(tmp_path: Pa
                 "is_grouped": False,
                 "group_size": None,
                 "group_label": None,
-                "evidence_refs": [
-                    {"block_id": "B001", "evidence_id": None, "anchor_text": "Party A"}
-                ],
+                "quote_ids": ["Q001"],
                 "notes": [],
             }
         ],
@@ -174,6 +179,13 @@ def test_canonicalize_upgrades_legacy_extract_to_span_backed_schema(tmp_path: Pa
         "unresolved_mentions": [],
     }
     events_payload = {
+        "quotes": [
+            {
+                "quote_id": "Q101",
+                "block_id": "B001",
+                "text": "submitted an indication of interest",
+            }
+        ],
         "events": [
             {
                 "event_id": "evt_001",
@@ -181,13 +193,7 @@ def test_canonicalize_upgrades_legacy_extract_to_span_backed_schema(tmp_path: Pa
                 "date": {"raw_text": "July 5, 2016", "normalized_hint": "2016-07-05"},
                 "actor_ids": ["party_a"],
                 "summary": "Party A submitted an indication of interest.",
-                "evidence_refs": [
-                    {
-                        "block_id": "B001",
-                        "evidence_id": "DOC001:E0001",
-                        "anchor_text": "submitted an indication of interest",
-                    }
-                ],
+                "quote_ids": ["Q101"],
                 "terms": {
                     "per_share": 25.0,
                     "range_low": None,
@@ -233,9 +239,9 @@ def test_canonicalize_upgrades_legacy_extract_to_span_backed_schema(tmp_path: Pa
     spans = json.loads(paths.spans_path.read_text(encoding="utf-8"))
 
     assert actors["actors"][0]["evidence_span_ids"] == ["span_0001"]
-    assert "evidence_refs" not in actors["actors"][0]
+    assert "quote_ids" not in actors["actors"][0]
     assert events["events"][0]["evidence_span_ids"] == ["span_0002"]
-    assert "evidence_refs" not in events["events"][0]
+    assert "quote_ids" not in events["events"][0]
     assert events["events"][0]["date"]["normalized_start"] == "2016-07-05"
     assert events["events"][0]["date"]["normalized_end"] == "2016-07-05"
     assert events["events"][0]["date"]["sort_date"] == "2016-07-05"

@@ -53,6 +53,13 @@ def _write_skill_outputs(tmp_path: Path, *, slug: str = "imprivata") -> Path:
     export_dir.mkdir(parents=True, exist_ok=True)
 
     actors_payload = {
+        "quotes": [
+            {
+                "quote_id": "Q001",
+                "block_id": "B001",
+                "text": "Party A",
+            }
+        ],
         "actors": [
             {
                 "actor_id": "party_a",
@@ -68,13 +75,7 @@ def _write_skill_outputs(tmp_path: Path, *, slug: str = "imprivata") -> Path:
                 "is_grouped": False,
                 "group_size": None,
                 "group_label": None,
-                "evidence_refs": [
-                    {
-                        "block_id": "B001",
-                        "evidence_id": None,
-                        "anchor_text": "Party A",
-                    }
-                ],
+                "quote_ids": ["Q001"],
                 "notes": [],
             }
         ],
@@ -82,6 +83,18 @@ def _write_skill_outputs(tmp_path: Path, *, slug: str = "imprivata") -> Path:
         "unresolved_mentions": [],
     }
     events_payload = {
+        "quotes": [
+            {
+                "quote_id": "Q101",
+                "block_id": "B001",
+                "text": "signed a confidentiality agreement",
+            },
+            {
+                "quote_id": "Q102",
+                "block_id": "B002",
+                "text": "indication of interest",
+            },
+        ],
         "events": [
             {
                 "event_id": "evt_001",
@@ -89,13 +102,7 @@ def _write_skill_outputs(tmp_path: Path, *, slug: str = "imprivata") -> Path:
                 "date": {"raw_text": "July 1, 2016", "normalized_hint": "2016-07-01"},
                 "actor_ids": ["party_a"],
                 "summary": "Party A signed a confidentiality agreement.",
-                "evidence_refs": [
-                    {
-                        "block_id": "B001",
-                        "evidence_id": None,
-                        "anchor_text": "signed a confidentiality agreement",
-                    }
-                ],
+                "quote_ids": ["Q101"],
                 "terms": None,
                 "formality_signals": None,
                 "whole_company_scope": None,
@@ -114,13 +121,7 @@ def _write_skill_outputs(tmp_path: Path, *, slug: str = "imprivata") -> Path:
                 "date": {"raw_text": "July 5, 2016", "normalized_hint": "2016-07-05"},
                 "actor_ids": ["party_a"],
                 "summary": "Party A submitted an indication of interest.",
-                "evidence_refs": [
-                    {
-                        "block_id": "B002",
-                        "evidence_id": None,
-                        "anchor_text": "indication of interest",
-                    }
-                ],
+                "quote_ids": ["Q102"],
                 "terms": {
                     "per_share": 25.0,
                     "range_low": None,

@@ -13,13 +13,19 @@ from skill_pipeline.paths import build_skill_paths
 
 def _base_event(evt_id: str, event_type: str, **overrides: object) -> dict:
     """Minimal event template for fixtures."""
+    quote_id = f"Q_{evt_id}"
     evt = {
         "event_id": evt_id,
         "event_type": event_type,
         "date": {"raw_text": "2016-06", "normalized_hint": "2016-06"},
         "actor_ids": [],
         "summary": "",
-        "evidence_refs": [{"block_id": "B001", "evidence_id": "E001", "anchor_text": "x"}],
+        "quote_ids": [quote_id],
+        "_quote_source": {
+            "quote_id": quote_id,
+            "block_id": "B001",
+            "text": "x",
+        },
         "terms": None,
         "formality_signals": None,
         "whole_company_scope": True,
@@ -34,6 +40,18 @@ def _base_event(evt_id: str, event_type: str, **overrides: object) -> dict:
     }
     evt.update(overrides)
     return evt
+
+
+def _event_payload(events: list[dict]) -> dict:
+    quotes: list[dict[str, str]] = []
+    materialized_events: list[dict] = []
+    for event in events:
+        event_payload = dict(event)
+        quote_source = event_payload.pop("_quote_source", None)
+        if quote_source is not None:
+            quotes.append(quote_source)
+        materialized_events.append(event_payload)
+    return {"quotes": quotes, "events": materialized_events, "exclusions": [], "coverage_notes": []}
 
 
 def _write_enrich_core_fixture(
@@ -80,6 +98,13 @@ def _write_enrich_core_fixture(
     (tmp_path / "raw" / slug / "document_registry.json").write_text("{}", encoding="utf-8")
 
     actors_payload = {
+        "quotes": [
+            {
+                "quote_id": "Q001",
+                "block_id": "B001",
+                "text": "Party A",
+            }
+        ],
         "actors": [
             {
                 "actor_id": "party_a",
@@ -95,7 +120,7 @@ def _write_enrich_core_fixture(
                 "is_grouped": False,
                 "group_size": None,
                 "group_label": None,
-                "evidence_refs": [{"block_id": "B001", "evidence_id": None, "anchor_text": "Party A"}],
+                "quote_ids": ["Q001"],
                 "notes": [],
             }
         ],
@@ -123,165 +148,89 @@ def _write_enrich_core_fixture(
     elif residual_only:
         # Single cycle, one residual proposal, no rounds -> Uncertain, formal_boundary null
         events = [
-            {
-                "event_id": "evt_001",
-                "event_type": "target_sale",
-                "date": {"raw_text": "June 2016", "normalized_hint": "2016-06"},
-                "actor_ids": ["party_a"],
-                "summary": "Target initiated sale.",
-                "evidence_refs": [{"block_id": "B001", "evidence_id": None, "anchor_text": "sale"}],
-                "terms": None,
-                "formality_signals": None,
-                "whole_company_scope": True,
-                "drop_reason_text": None,
-                "round_scope": None,
-                "invited_actor_ids": [],
-                "deadline_date": None,
-                "executed_with_actor_id": None,
-                "boundary_note": None,
-                "nda_signed": None,
-                "notes": [],
-            },
-            {
-                "event_id": "evt_002",
-                "event_type": "proposal",
-                "date": {"raw_text": "July 5, 2016", "normalized_hint": "2016-07-05"},
-                "actor_ids": ["party_a"],
-                "summary": "Party A submitted a bid.",
-                "evidence_refs": [{"block_id": "B001", "evidence_id": None, "anchor_text": "bid"}],
-                "terms": {"per_share": 25.0, "range_low": None, "range_high": None, "enterprise_value": None, "consideration_type": "cash"},
-                "formality_signals": residual_formality,
-                "whole_company_scope": True,
-                "drop_reason_text": None,
-                "round_scope": None,
-                "invited_actor_ids": [],
-                "deadline_date": None,
-                "executed_with_actor_id": None,
-                "boundary_note": None,
-                "nda_signed": None,
-                "notes": [],
-            },
-            {
-                "event_id": "evt_003",
-                "event_type": "executed",
-                "date": {"raw_text": "July 13, 2016", "normalized_hint": "2016-07-13"},
-                "actor_ids": ["party_a"],
-                "summary": "Deal executed.",
-                "evidence_refs": [{"block_id": "B001", "evidence_id": None, "anchor_text": "executed"}],
-                "terms": None,
-                "formality_signals": None,
-                "whole_company_scope": True,
-                "drop_reason_text": None,
-                "round_scope": None,
-                "invited_actor_ids": [],
-                "deadline_date": None,
-                "executed_with_actor_id": "party_a",
-                "boundary_note": None,
-                "nda_signed": None,
-                "notes": [],
-            },
+            _base_event(
+                "evt_001",
+                "target_sale",
+                date={"raw_text": "June 2016", "normalized_hint": "2016-06"},
+                actor_ids=["party_a"],
+                summary="Target initiated sale.",
+                _quote_source={"quote_id": "Q_evt_001", "block_id": "B001", "text": "sale"},
+            ),
+            _base_event(
+                "evt_002",
+                "proposal",
+                date={"raw_text": "July 5, 2016", "normalized_hint": "2016-07-05"},
+                actor_ids=["party_a"],
+                summary="Party A submitted a bid.",
+                _quote_source={"quote_id": "Q_evt_002", "block_id": "B001", "text": "bid"},
+                terms={
+                    "per_share": 25.0,
+                    "range_low": None,
+                    "range_high": None,
+                    "enterprise_value": None,
+                    "consideration_type": "cash",
+                },
+                formality_signals=residual_formality,
+            ),
+            _base_event(
+                "evt_003",
+                "executed",
+                date={"raw_text": "July 13, 2016", "normalized_hint": "2016-07-13"},
+                actor_ids=["party_a"],
+                summary="Deal executed.",
+                _quote_source={"quote_id": "Q_evt_003", "block_id": "B001", "text": "executed"},
+                executed_with_actor_id="party_a",
+            ),
         ]
     else:
         # Extension round: final_round_ext_ann -> final_round_ext
         events = [
-            {
-                "event_id": "evt_001",
-                "event_type": "target_sale",
-                "date": {"raw_text": "June 2016", "normalized_hint": "2016-06"},
-                "actor_ids": ["party_a"],
-                "summary": "Target initiated sale.",
-                "evidence_refs": [{"block_id": "B001", "evidence_id": None, "anchor_text": "sale"}],
-                "terms": None,
-                "formality_signals": None,
-                "whole_company_scope": True,
-                "drop_reason_text": None,
-                "round_scope": None,
-                "invited_actor_ids": [],
-                "deadline_date": None,
-                "executed_with_actor_id": None,
-                "boundary_note": None,
-                "nda_signed": None,
-                "notes": [],
-            },
-            {
-                "event_id": "evt_002",
-                "event_type": "nda",
-                "date": {"raw_text": "June 15, 2016", "normalized_hint": "2016-06-15"},
-                "actor_ids": ["party_a"],
-                "summary": "Party A signed NDA.",
-                "evidence_refs": [{"block_id": "B001", "evidence_id": None, "anchor_text": "NDA"}],
-                "terms": None,
-                "formality_signals": None,
-                "whole_company_scope": True,
-                "drop_reason_text": None,
-                "round_scope": None,
-                "invited_actor_ids": [],
-                "deadline_date": None,
-                "executed_with_actor_id": None,
-                "boundary_note": None,
-                "nda_signed": True,
-                "notes": [],
-            },
-            {
-                "event_id": "evt_003",
-                "event_type": "final_round_ext_ann",
-                "date": {"raw_text": "July 1, 2016", "normalized_hint": "2016-07-01"},
-                "actor_ids": [],
-                "summary": "Target announced extension round.",
-                "evidence_refs": [{"block_id": "B001", "evidence_id": None, "anchor_text": "extension"}],
-                "terms": None,
-                "formality_signals": None,
-                "whole_company_scope": True,
-                "drop_reason_text": None,
-                "round_scope": "formal",
-                "invited_actor_ids": ["party_a"],
-                "deadline_date": None,
-                "executed_with_actor_id": None,
-                "boundary_note": None,
-                "nda_signed": None,
-                "notes": [],
-            },
-            {
-                "event_id": "evt_004",
-                "event_type": "final_round_ext",
-                "date": {"raw_text": "July 5, 2016", "normalized_hint": "2016-07-05"},
-                "actor_ids": [],
-                "summary": "Extension round deadline.",
-                "evidence_refs": [{"block_id": "B001", "evidence_id": None, "anchor_text": "deadline"}],
-                "terms": None,
-                "formality_signals": None,
-                "whole_company_scope": True,
-                "drop_reason_text": None,
-                "round_scope": None,
-                "invited_actor_ids": [],
-                "deadline_date": {"raw_text": "July 5, 2016", "normalized_hint": "2016-07-05"},
-                "executed_with_actor_id": None,
-                "boundary_note": None,
-                "nda_signed": None,
-                "notes": [],
-            },
-            {
-                "event_id": "evt_005",
-                "event_type": "executed",
-                "date": {"raw_text": "July 13, 2016", "normalized_hint": "2016-07-13"},
-                "actor_ids": ["party_a"],
-                "summary": "Deal executed.",
-                "evidence_refs": [{"block_id": "B001", "evidence_id": None, "anchor_text": "executed"}],
-                "terms": None,
-                "formality_signals": None,
-                "whole_company_scope": True,
-                "drop_reason_text": None,
-                "round_scope": None,
-                "invited_actor_ids": [],
-                "deadline_date": None,
-                "executed_with_actor_id": "party_a",
-                "boundary_note": None,
-                "nda_signed": None,
-                "notes": [],
-            },
+            _base_event(
+                "evt_001",
+                "target_sale",
+                date={"raw_text": "June 2016", "normalized_hint": "2016-06"},
+                actor_ids=["party_a"],
+                summary="Target initiated sale.",
+                _quote_source={"quote_id": "Q_evt_001", "block_id": "B001", "text": "sale"},
+            ),
+            _base_event(
+                "evt_002",
+                "nda",
+                date={"raw_text": "June 15, 2016", "normalized_hint": "2016-06-15"},
+                actor_ids=["party_a"],
+                summary="Party A signed NDA.",
+                _quote_source={"quote_id": "Q_evt_002", "block_id": "B001", "text": "NDA"},
+                nda_signed=True,
+            ),
+            _base_event(
+                "evt_003",
+                "final_round_ext_ann",
+                date={"raw_text": "July 1, 2016", "normalized_hint": "2016-07-01"},
+                summary="Target announced extension round.",
+                _quote_source={"quote_id": "Q_evt_003", "block_id": "B001", "text": "extension"},
+                round_scope="formal",
+                invited_actor_ids=["party_a"],
+            ),
+            _base_event(
+                "evt_004",
+                "final_round_ext",
+                date={"raw_text": "July 5, 2016", "normalized_hint": "2016-07-05"},
+                summary="Extension round deadline.",
+                _quote_source={"quote_id": "Q_evt_004", "block_id": "B001", "text": "deadline"},
+                deadline_date={"raw_text": "July 5, 2016", "normalized_hint": "2016-07-05"},
+            ),
+            _base_event(
+                "evt_005",
+                "executed",
+                date={"raw_text": "July 13, 2016", "normalized_hint": "2016-07-13"},
+                actor_ids=["party_a"],
+                summary="Deal executed.",
+                _quote_source={"quote_id": "Q_evt_005", "block_id": "B001", "text": "executed"},
+                executed_with_actor_id="party_a",
+            ),
         ]
 
-    events_payload = {"events": events, "exclusions": [], "coverage_notes": []}
+    events_payload = _event_payload(events)
 
     (extract_dir / "actors_raw.json").write_text(json.dumps(actors_payload), encoding="utf-8")
     (extract_dir / "events_raw.json").write_text(json.dumps(events_payload), encoding="utf-8")
@@ -522,11 +471,11 @@ def test_formal_boundary_when_formal_proposal_in_cycle(tmp_path: Path) -> None:
 
 def test_round_pairing_does_not_cross_restart_boundary(tmp_path: Path) -> None:
     events = [
-        _base_event("evt_001", "target_sale", evidence_refs=[{"block_id": "B001", "evidence_id": None, "anchor_text": "sale"}]),
-        _base_event("evt_002", "nda", actor_ids=["party_a"], evidence_refs=[{"block_id": "B002", "evidence_id": None, "anchor_text": "NDA"}]),
-        _base_event("evt_003", "final_round_ann", evidence_refs=[{"block_id": "B010", "evidence_id": None, "anchor_text": "final round"}]),
-        _base_event("evt_004", "restarted", evidence_refs=[{"block_id": "B011", "evidence_id": None, "anchor_text": "restarted"}]),
-        _base_event("evt_005", "final_round", evidence_refs=[{"block_id": "B012", "evidence_id": None, "anchor_text": "deadline"}]),
+        _base_event("evt_001", "target_sale", _quote_source={"quote_id": "Q_evt_001", "block_id": "B001", "text": "sale"}),
+        _base_event("evt_002", "nda", actor_ids=["party_a"], _quote_source={"quote_id": "Q_evt_002", "block_id": "B002", "text": "NDA"}),
+        _base_event("evt_003", "final_round_ann", _quote_source={"quote_id": "Q_evt_003", "block_id": "B010", "text": "final round"}),
+        _base_event("evt_004", "restarted", _quote_source={"quote_id": "Q_evt_004", "block_id": "B011", "text": "restarted"}),
+        _base_event("evt_005", "final_round", _quote_source={"quote_id": "Q_evt_005", "block_id": "B012", "text": "deadline"}),
     ]
     _write_enrich_core_fixture(tmp_path, events_override=events)
     _write_gate_artifacts(tmp_path)
@@ -540,12 +489,12 @@ def test_round_pairing_does_not_cross_restart_boundary(tmp_path: Path) -> None:
 
 def test_round_pairing_stops_at_next_same_family_announcement(tmp_path: Path) -> None:
     events = [
-        _base_event("evt_001", "target_sale", evidence_refs=[{"block_id": "B001", "evidence_id": None, "anchor_text": "sale"}]),
-        _base_event("evt_002", "nda", actor_ids=["party_a"], evidence_refs=[{"block_id": "B002", "evidence_id": None, "anchor_text": "NDA"}]),
-        _base_event("evt_003", "final_round_ann", evidence_refs=[{"block_id": "B010", "evidence_id": None, "anchor_text": "first announcement"}]),
-        _base_event("evt_004", "final_round_ann", evidence_refs=[{"block_id": "B020", "evidence_id": None, "anchor_text": "second announcement"}]),
-        _base_event("evt_005", "final_round", evidence_refs=[{"block_id": "B030", "evidence_id": None, "anchor_text": "deadline one"}]),
-        _base_event("evt_006", "final_round", evidence_refs=[{"block_id": "B040", "evidence_id": None, "anchor_text": "deadline two"}]),
+        _base_event("evt_001", "target_sale", _quote_source={"quote_id": "Q_evt_001", "block_id": "B001", "text": "sale"}),
+        _base_event("evt_002", "nda", actor_ids=["party_a"], _quote_source={"quote_id": "Q_evt_002", "block_id": "B002", "text": "NDA"}),
+        _base_event("evt_003", "final_round_ann", _quote_source={"quote_id": "Q_evt_003", "block_id": "B010", "text": "first announcement"}),
+        _base_event("evt_004", "final_round_ann", _quote_source={"quote_id": "Q_evt_004", "block_id": "B020", "text": "second announcement"}),
+        _base_event("evt_005", "final_round", _quote_source={"quote_id": "Q_evt_005", "block_id": "B030", "text": "deadline one"}),
+        _base_event("evt_006", "final_round", _quote_source={"quote_id": "Q_evt_006", "block_id": "B040", "text": "deadline two"}),
     ]
     _write_enrich_core_fixture(tmp_path, events_override=events)
     _write_gate_artifacts(tmp_path)
@@ -560,15 +509,15 @@ def test_round_pairing_stops_at_next_same_family_announcement(tmp_path: Path) ->
 
 def test_active_bidders_use_cycle_local_state_and_restart_resets(tmp_path: Path) -> None:
     events = [
-        _base_event("evt_001", "target_sale", evidence_refs=[{"block_id": "B001", "evidence_id": None, "anchor_text": "sale"}]),
-        _base_event("evt_002", "nda", actor_ids=["party_a"], evidence_refs=[{"block_id": "B002", "evidence_id": None, "anchor_text": "NDA"}]),
-        _base_event("evt_003", "drop", actor_ids=["party_a"], evidence_refs=[{"block_id": "B003", "evidence_id": None, "anchor_text": "drop"}]),
-        _base_event("evt_004", "final_round_ann", evidence_refs=[{"block_id": "B010", "evidence_id": None, "anchor_text": "round one"}]),
-        _base_event("evt_005", "nda", actor_ids=["party_a"], evidence_refs=[{"block_id": "B011", "evidence_id": None, "anchor_text": "NDA again"}]),
-        _base_event("evt_006", "final_round_ann", evidence_refs=[{"block_id": "B012", "evidence_id": None, "anchor_text": "round two"}]),
-        _base_event("evt_007", "restarted", evidence_refs=[{"block_id": "B020", "evidence_id": None, "anchor_text": "restarted"}]),
-        _base_event("evt_008", "final_round_ann", evidence_refs=[{"block_id": "B021", "evidence_id": None, "anchor_text": "round three"}]),
-        _base_event("evt_009", "final_round", evidence_refs=[{"block_id": "B022", "evidence_id": None, "anchor_text": "deadline"}]),
+        _base_event("evt_001", "target_sale", _quote_source={"quote_id": "Q_evt_001", "block_id": "B001", "text": "sale"}),
+        _base_event("evt_002", "nda", actor_ids=["party_a"], _quote_source={"quote_id": "Q_evt_002", "block_id": "B002", "text": "NDA"}),
+        _base_event("evt_003", "drop", actor_ids=["party_a"], _quote_source={"quote_id": "Q_evt_003", "block_id": "B003", "text": "drop"}),
+        _base_event("evt_004", "final_round_ann", _quote_source={"quote_id": "Q_evt_004", "block_id": "B010", "text": "round one"}),
+        _base_event("evt_005", "nda", actor_ids=["party_a"], _quote_source={"quote_id": "Q_evt_005", "block_id": "B011", "text": "NDA again"}),
+        _base_event("evt_006", "final_round_ann", _quote_source={"quote_id": "Q_evt_006", "block_id": "B012", "text": "round two"}),
+        _base_event("evt_007", "restarted", _quote_source={"quote_id": "Q_evt_007", "block_id": "B020", "text": "restarted"}),
+        _base_event("evt_008", "final_round_ann", _quote_source={"quote_id": "Q_evt_008", "block_id": "B021", "text": "round three"}),
+        _base_event("evt_009", "final_round", _quote_source={"quote_id": "Q_evt_009", "block_id": "B022", "text": "deadline"}),
     ]
     _write_enrich_core_fixture(tmp_path, events_override=events)
     _write_gate_artifacts(tmp_path)
@@ -611,6 +560,16 @@ def test_invited_actor_ids_populated_from_count_assertions(tmp_path: Path) -> No
     (tmp_path / "raw" / slug / "document_registry.json").write_text("{}", encoding="utf-8")
 
     actors_payload = {
+        "quotes": [
+            {"quote_id": "Q001", "block_id": "B001", "text": "x"},
+            {"quote_id": "Q002", "block_id": "B001", "text": "x"},
+            {"quote_id": "Q003", "block_id": "B001", "text": "x"},
+            {
+                "quote_id": "Q004",
+                "block_id": "B078",
+                "text": "Sponsor B and Thoma Bravo had been invited to submit their final bids",
+            },
+        ],
         "actors": [
             {
                 "actor_id": "bidder_a",
@@ -626,7 +585,7 @@ def test_invited_actor_ids_populated_from_count_assertions(tmp_path: Path) -> No
                 "is_grouped": False,
                 "group_size": None,
                 "group_label": None,
-                "evidence_refs": [{"block_id": "B001", "evidence_id": None, "anchor_text": "x"}],
+                "quote_ids": ["Q001"],
                 "notes": [],
             },
             {
@@ -643,7 +602,7 @@ def test_invited_actor_ids_populated_from_count_assertions(tmp_path: Path) -> No
                 "is_grouped": False,
                 "group_size": None,
                 "group_label": None,
-                "evidence_refs": [{"block_id": "B001", "evidence_id": None, "anchor_text": "x"}],
+                "quote_ids": ["Q002"],
                 "notes": [],
             },
             {
@@ -660,7 +619,7 @@ def test_invited_actor_ids_populated_from_count_assertions(tmp_path: Path) -> No
                 "is_grouped": False,
                 "group_size": None,
                 "group_label": None,
-                "evidence_refs": [{"block_id": "B001", "evidence_id": None, "anchor_text": "x"}],
+                "quote_ids": ["Q003"],
                 "notes": [],
             },
         ],
@@ -668,28 +627,22 @@ def test_invited_actor_ids_populated_from_count_assertions(tmp_path: Path) -> No
             {
                 "subject": "final_round_invitees",
                 "count": 2,
-                "evidence_refs": [
-                    {
-                        "block_id": "B078",
-                        "evidence_id": None,
-                        "anchor_text": "Sponsor B and Thoma Bravo had been invited to submit their final bids",
-                    }
-                ],
+                "quote_ids": ["Q004"],
             }
         ],
         "unresolved_mentions": [],
     }
 
     events = [
-        _base_event("evt_001", "target_sale", evidence_refs=[{"block_id": "B010", "evidence_id": None, "anchor_text": "sale"}]),
-        _base_event("evt_002", "nda", actor_ids=["bidder_a"], evidence_refs=[{"block_id": "B020", "evidence_id": None, "anchor_text": "nda a"}]),
-        _base_event("evt_003", "nda", actor_ids=["bidder_b"], evidence_refs=[{"block_id": "B030", "evidence_id": None, "anchor_text": "nda b"}]),
-        _base_event("evt_004", "nda", actor_ids=["bidder_c"], evidence_refs=[{"block_id": "B040", "evidence_id": None, "anchor_text": "nda c"}]),
-        _base_event("evt_005", "final_round_ann", invited_actor_ids=[], evidence_refs=[{"block_id": "B075", "evidence_id": None, "anchor_text": "final round announcement"}]),
-        _base_event("evt_006", "final_round", evidence_refs=[{"block_id": "B080", "evidence_id": None, "anchor_text": "final round deadline"}]),
-        _base_event("evt_007", "executed", executed_with_actor_id="bidder_c", evidence_refs=[{"block_id": "B090", "evidence_id": None, "anchor_text": "executed"}]),
+        _base_event("evt_001", "target_sale", _quote_source={"quote_id": "Q_evt_001", "block_id": "B010", "text": "sale"}),
+        _base_event("evt_002", "nda", actor_ids=["bidder_a"], _quote_source={"quote_id": "Q_evt_002", "block_id": "B020", "text": "nda a"}),
+        _base_event("evt_003", "nda", actor_ids=["bidder_b"], _quote_source={"quote_id": "Q_evt_003", "block_id": "B030", "text": "nda b"}),
+        _base_event("evt_004", "nda", actor_ids=["bidder_c"], _quote_source={"quote_id": "Q_evt_004", "block_id": "B040", "text": "nda c"}),
+        _base_event("evt_005", "final_round_ann", invited_actor_ids=[], _quote_source={"quote_id": "Q_evt_005", "block_id": "B075", "text": "final round announcement"}),
+        _base_event("evt_006", "final_round", _quote_source={"quote_id": "Q_evt_006", "block_id": "B080", "text": "final round deadline"}),
+        _base_event("evt_007", "executed", executed_with_actor_id="bidder_c", _quote_source={"quote_id": "Q_evt_007", "block_id": "B090", "text": "executed"}),
     ]
-    events_payload = {"events": events, "exclusions": [], "coverage_notes": []}
+    events_payload = _event_payload(events)
 
     (extract_dir / "actors_raw.json").write_text(json.dumps(actors_payload), encoding="utf-8")
     (extract_dir / "events_raw.json").write_text(json.dumps(events_payload), encoding="utf-8")
@@ -735,6 +688,21 @@ def test_invited_actor_ids_attach_to_nearest_round_announcement_in_cycle_by_evid
     (tmp_path / "raw" / slug / "document_registry.json").write_text("{}", encoding="utf-8")
 
     actors_payload = {
+        "quotes": [
+            {"quote_id": "Q001", "block_id": "B001", "text": "x"},
+            {"quote_id": "Q002", "block_id": "B001", "text": "x"},
+            {"quote_id": "Q003", "block_id": "B001", "text": "x"},
+            {
+                "quote_id": "Q004",
+                "block_id": "B018",
+                "text": "Sponsor B and Thoma Bravo were invited to submit final bids",
+            },
+            {
+                "quote_id": "Q005",
+                "block_id": "B011",
+                "text": "Unknown Corp and Mystery LLC were invited",
+            },
+        ],
         "actors": [
             {
                 "actor_id": "bidder_a",
@@ -750,7 +718,7 @@ def test_invited_actor_ids_attach_to_nearest_round_announcement_in_cycle_by_evid
                 "is_grouped": False,
                 "group_size": None,
                 "group_label": None,
-                "evidence_refs": [{"block_id": "B001", "evidence_id": None, "anchor_text": "x"}],
+                "quote_ids": ["Q001"],
                 "notes": [],
             },
             {
@@ -767,7 +735,7 @@ def test_invited_actor_ids_attach_to_nearest_round_announcement_in_cycle_by_evid
                 "is_grouped": False,
                 "group_size": None,
                 "group_label": None,
-                "evidence_refs": [{"block_id": "B001", "evidence_id": None, "anchor_text": "x"}],
+                "quote_ids": ["Q002"],
                 "notes": [],
             },
             {
@@ -784,7 +752,7 @@ def test_invited_actor_ids_attach_to_nearest_round_announcement_in_cycle_by_evid
                 "is_grouped": False,
                 "group_size": None,
                 "group_label": None,
-                "evidence_refs": [{"block_id": "B001", "evidence_id": None, "anchor_text": "x"}],
+                "quote_ids": ["Q003"],
                 "notes": [],
             },
         ],
@@ -792,24 +760,12 @@ def test_invited_actor_ids_attach_to_nearest_round_announcement_in_cycle_by_evid
             {
                 "subject": "final_round_invitees",
                 "count": 2,
-                "evidence_refs": [
-                    {
-                        "block_id": "B018",
-                        "evidence_id": None,
-                        "anchor_text": "Sponsor B and Thoma Bravo were invited to submit final bids",
-                    }
-                ],
+                "quote_ids": ["Q004"],
             },
             {
                 "subject": "final_round_invitees",
                 "count": 2,
-                "evidence_refs": [
-                    {
-                        "block_id": "B011",
-                        "evidence_id": None,
-                        "anchor_text": "Unknown Corp and Mystery LLC were invited",
-                    }
-                ],
+                "quote_ids": ["Q005"],
             },
         ],
         "unresolved_mentions": [],
@@ -819,33 +775,33 @@ def test_invited_actor_ids_attach_to_nearest_round_announcement_in_cycle_by_evid
         _base_event(
             "evt_001",
             "target_sale",
-            evidence_refs=[{"block_id": "B001", "evidence_id": None, "anchor_text": "sale"}],
+            _quote_source={"quote_id": "Q_evt_001", "block_id": "B001", "text": "sale"},
         ),
         _base_event(
             "evt_002",
             "nda",
             actor_ids=["bidder_a", "bidder_b", "bidder_c"],
-            evidence_refs=[{"block_id": "B005", "evidence_id": None, "anchor_text": "NDA"}],
+            _quote_source={"quote_id": "Q_evt_002", "block_id": "B005", "text": "NDA"},
         ),
         _base_event(
             "evt_003",
             "final_round_ann",
             invited_actor_ids=[],
-            evidence_refs=[{"block_id": "B010", "evidence_id": None, "anchor_text": "announcement one"}],
+            _quote_source={"quote_id": "Q_evt_003", "block_id": "B010", "text": "announcement one"},
         ),
         _base_event(
             "evt_004",
             "final_round_ann",
             invited_actor_ids=[],
-            evidence_refs=[{"block_id": "B020", "evidence_id": None, "anchor_text": "announcement two"}],
+            _quote_source={"quote_id": "Q_evt_004", "block_id": "B020", "text": "announcement two"},
         ),
         _base_event(
             "evt_005",
             "final_round",
-            evidence_refs=[{"block_id": "B030", "evidence_id": None, "anchor_text": "deadline"}],
+            _quote_source={"quote_id": "Q_evt_005", "block_id": "B030", "text": "deadline"},
         ),
     ]
-    events_payload = {"events": events, "exclusions": [], "coverage_notes": []}
+    events_payload = _event_payload(events)
 
     (extract_dir / "actors_raw.json").write_text(json.dumps(actors_payload), encoding="utf-8")
     (extract_dir / "events_raw.json").write_text(json.dumps(events_payload), encoding="utf-8")
@@ -890,6 +846,14 @@ def test_invited_population_graceful_on_unmatched_names(tmp_path: Path) -> None:
     (tmp_path / "raw" / slug / "document_registry.json").write_text("{}", encoding="utf-8")
 
     actors_payload = {
+        "quotes": [
+            {"quote_id": "Q001", "block_id": "B001", "text": "x"},
+            {
+                "quote_id": "Q002",
+                "block_id": "B078",
+                "text": "Unknown Corp and Mystery LLC were invited",
+            },
+        ],
         "actors": [
             {
                 "actor_id": "bidder_a",
@@ -905,7 +869,7 @@ def test_invited_population_graceful_on_unmatched_names(tmp_path: Path) -> None:
                 "is_grouped": False,
                 "group_size": None,
                 "group_label": None,
-                "evidence_refs": [{"block_id": "B001", "evidence_id": None, "anchor_text": "x"}],
+                "quote_ids": ["Q001"],
                 "notes": [],
             },
         ],
@@ -913,13 +877,7 @@ def test_invited_population_graceful_on_unmatched_names(tmp_path: Path) -> None:
             {
                 "subject": "final_round_invitees",
                 "count": 2,
-                "evidence_refs": [
-                    {
-                        "block_id": "B078",
-                        "evidence_id": None,
-                        "anchor_text": "Unknown Corp and Mystery LLC were invited",
-                    }
-                ],
+                "quote_ids": ["Q002"],
             }
         ],
         "unresolved_mentions": [],

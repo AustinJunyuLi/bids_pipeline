@@ -119,6 +119,13 @@ def _write_verify_fixture_for_fuzzy_only_match(tmp_path: Path, *, slug: str = "i
     anchor_text = "Party A submitted a bid on July 5 (preliminary)"
 
     actors_payload = {
+        "quotes": [
+            {
+                "quote_id": "Q001",
+                "block_id": "B001",
+                "text": anchor_text,
+            }
+        ],
         "actors": [
             {
                 "actor_id": "party_a",
@@ -134,9 +141,7 @@ def _write_verify_fixture_for_fuzzy_only_match(tmp_path: Path, *, slug: str = "i
                 "is_grouped": False,
                 "group_size": None,
                 "group_label": None,
-                "evidence_refs": [
-                    {"block_id": "B001", "evidence_id": None, "anchor_text": anchor_text}
-                ],
+                "quote_ids": ["Q001"],
                 "notes": [],
             }
         ],
@@ -145,6 +150,13 @@ def _write_verify_fixture_for_fuzzy_only_match(tmp_path: Path, *, slug: str = "i
     }
 
     events_payload = {
+        "quotes": [
+            {
+                "quote_id": "Q101",
+                "block_id": "B001",
+                "text": anchor_text,
+            }
+        ],
         "events": [
             {
                 "event_id": "evt_001",
@@ -152,9 +164,7 @@ def _write_verify_fixture_for_fuzzy_only_match(tmp_path: Path, *, slug: str = "i
                 "date": {"raw_text": "July 5, 2016", "normalized_hint": "2016-07-05"},
                 "actor_ids": ["party_a"],
                 "summary": "Party A submitted a bid.",
-                "evidence_refs": [
-                    {"block_id": "B001", "evidence_id": None, "anchor_text": anchor_text}
-                ],
+                "quote_ids": ["Q101"],
                 "terms": {
                     "per_share": 25.0,
                     "range_low": None,
@@ -264,6 +274,13 @@ def _write_verify_fixture_for_clean_pass(tmp_path: Path, *, slug: str = "impriva
     (filings_dir / f"{doc_id}.txt").write_text(block_raw_text + "\n", encoding="utf-8")
 
     actors_payload = {
+        "quotes": [
+            {
+                "quote_id": "Q001",
+                "block_id": "B001",
+                "text": "Party A signed an NDA",
+            }
+        ],
         "actors": [
             {
                 "actor_id": "party_a",
@@ -279,13 +296,7 @@ def _write_verify_fixture_for_clean_pass(tmp_path: Path, *, slug: str = "impriva
                 "is_grouped": False,
                 "group_size": None,
                 "group_label": None,
-                "evidence_refs": [
-                    {
-                        "block_id": "B001",
-                        "evidence_id": None,
-                        "anchor_text": "Party A signed an NDA",
-                    }
-                ],
+                "quote_ids": ["Q001"],
                 "notes": [],
             }
         ],
@@ -294,6 +305,18 @@ def _write_verify_fixture_for_clean_pass(tmp_path: Path, *, slug: str = "impriva
     }
 
     events_payload = {
+        "quotes": [
+            {
+                "quote_id": "Q101",
+                "block_id": "B001",
+                "text": "indication of interest",
+            },
+            {
+                "quote_id": "Q102",
+                "block_id": "B001",
+                "text": "submitted an indication of interest",
+            },
+        ],
         "events": [
             {
                 "event_id": "evt_001",
@@ -301,13 +324,7 @@ def _write_verify_fixture_for_clean_pass(tmp_path: Path, *, slug: str = "impriva
                 "date": {"raw_text": "June 2016", "normalized_hint": "2016-06"},
                 "actor_ids": ["party_a"],
                 "summary": "Target initiated sale process.",
-                "evidence_refs": [
-                    {
-                        "block_id": "B001",
-                        "evidence_id": None,
-                        "anchor_text": "indication of interest",
-                    }
-                ],
+                "quote_ids": ["Q101"],
                 "terms": None,
                 "formality_signals": None,
                 "whole_company_scope": True,
@@ -326,13 +343,7 @@ def _write_verify_fixture_for_clean_pass(tmp_path: Path, *, slug: str = "impriva
                 "date": {"raw_text": "July 13, 2016", "normalized_hint": "2016-07-13"},
                 "actor_ids": ["party_a"],
                 "summary": "Deal executed.",
-                "evidence_refs": [
-                    {
-                        "block_id": "B001",
-                        "evidence_id": None,
-                        "anchor_text": "submitted an indication of interest",
-                    }
-                ],
+                "quote_ids": ["Q102"],
                 "terms": None,
                 "formality_signals": None,
                 "whole_company_scope": True,
@@ -470,13 +481,7 @@ def test_verify_reports_structural_failure_for_empty_proposal_actor_ids(tmp_path
             "date": {"raw_text": "July 5, 2016", "normalized_hint": "2016-07-05"},
             "actor_ids": [],
             "summary": "Proposal with no linked actor.",
-            "evidence_refs": [
-                {
-                    "block_id": "B001",
-                    "evidence_id": None,
-                    "anchor_text": "submitted an indication of interest",
-                }
-            ],
+            "quote_ids": ["Q201"],
             "terms": None,
             "formality_signals": None,
             "whole_company_scope": True,
@@ -488,6 +493,13 @@ def test_verify_reports_structural_failure_for_empty_proposal_actor_ids(tmp_path
             "boundary_note": None,
             "nda_signed": None,
             "notes": [],
+        }
+    ]
+    events_payload["quotes"] = [
+        {
+            "quote_id": "Q201",
+            "block_id": "B001",
+            "text": "submitted an indication of interest",
         }
     ]
     paths.events_raw_path.write_text(json.dumps(events_payload), encoding="utf-8")
