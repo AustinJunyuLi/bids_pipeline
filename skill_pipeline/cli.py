@@ -161,6 +161,18 @@ def build_parser() -> argparse.ArgumentParser:
         help=argparse.SUPPRESS,
     )
 
+    db_load_parser = subparsers.add_parser(
+        "db-load",
+        help="Load canonical extract and enrichment artifacts into the pipeline DuckDB store.",
+    )
+    db_load_parser.add_argument("--deal", required=True)
+    db_load_parser.add_argument(
+        "--project-root",
+        type=Path,
+        default=PROJECT_ROOT,
+        help=argparse.SUPPRESS,
+    )
+
     compose_prompts_parser = subparsers.add_parser(
         "compose-prompts",
         help="Compose deterministic prompt packets from source artifacts.",
@@ -262,6 +274,10 @@ def main(argv: Sequence[str] | None = None) -> int:
         return run_enrich_core(args.deal, project_root=args.project_root)
     if args.command == "canonicalize":
         return run_canonicalize(args.deal, project_root=args.project_root)
+    if args.command == "db-load":
+        from skill_pipeline.db_load import run_db_load
+
+        return run_db_load(args.deal, project_root=args.project_root)
     if args.command == "compose-prompts":
         manifest = run_compose_prompts(
             args.deal,

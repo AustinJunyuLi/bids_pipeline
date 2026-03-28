@@ -3,6 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from skill_pipeline.config import PROJECT_ROOT
+from skill_pipeline.db_schema import DEFAULT_DB_NAME
 from skill_pipeline.models import SkillPathSet
 
 
@@ -25,6 +26,7 @@ def build_skill_paths(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> S
     return SkillPathSet(
         project_root=project_root,
         data_dir=data_dir,
+        database_path=data_dir / DEFAULT_DB_NAME,
         deals_root=deals_root,
         skill_data_root=skill_data_root,
         raw_root=raw_root,

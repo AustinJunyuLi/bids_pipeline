@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from datetime import date
 from pathlib import Path
 
 import pytest
@@ -576,7 +577,7 @@ def test_run_db_load_round_trips_actor_event_and_span_fields(tmp_path: Path) -> 
     con.close()
 
     assert actor_row == ("Party A", "strategic", "public", ["span_actor_bidder"])
-    assert event_row == ("June 10, 2016", "2016-06-10", "exact_day", 25.0, "cash")
+    assert event_row == ("June 10, 2016", date(2016, 6, 10), "exact_day", 25.0, "cash")
     assert span_row == (
         "DOC001",
         ["B011"],

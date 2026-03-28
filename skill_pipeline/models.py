@@ -24,6 +24,7 @@ class StageStatus(StrEnum):
 class SkillPathSet(SkillModel):
     project_root: Path
     data_dir: Path
+    database_path: Path
     deals_root: Path
     skill_data_root: Path
     raw_root: Path
@@ -543,6 +544,13 @@ class GatesStageSummary(SkillModel):
     status: StageStatus
     blocker_count: int = 0
     warning_count: int = 0
+
+
+class DbLoadStageSummary(SkillModel):
+    status: StageStatus
+    actor_rows: int = 0
+    event_rows: int = 0
+    span_rows: int = 0
 
 
 class ExportStageSummary(SkillModel):
