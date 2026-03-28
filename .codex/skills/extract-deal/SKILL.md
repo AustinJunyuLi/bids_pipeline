@@ -62,6 +62,11 @@ deal metadata, chronology blocks, evidence checklist, and task instructions in
 the correct ordering. For chunked deals, each window packet includes overlap
 context from adjacent blocks.
 
+The extraction follows the quote-before-extract protocol: first cite verbatim
+filing passages in the `quotes` array, then build structured actors/events that
+reference those quotes by `quote_id`. This structurally forces the LLM to commit
+to verbatim text before building structured data on top of it.
+
 ### Pass 1 — Forward Scan
 
 #### Step 1a: Actor Extraction
@@ -99,7 +104,7 @@ Extract all events across the 20-type taxonomy below. Every event needs:
 - `date`
 - `actor_ids`
 - `summary`
-- `evidence_refs` with verbatim `anchor_text`
+- `quote_ids` referencing the quotes array
 
 Events with genuinely unknown dates: set `date.raw_text` and
 `date.normalized_hint` both to null. The event is still extracted.
@@ -127,8 +132,9 @@ Additional event rules:
 
 Open-world actor minting is allowed. If an event clearly references a party not
 yet on the roster, add that actor with evidence. When minting new actors during
-event extraction, add a corresponding actor record to actors_raw.json with
-evidence_refs.
+event extraction, add a corresponding actor record to actors_raw.json using the
+quote-first schema (supporting quotes in the top-level `quotes` array plus
+`quote_ids` on the actor).
 
 ### Date and Event Precision Rules
 
@@ -178,24 +184,32 @@ taxonomy sweep, for example:
 ]
 ```
 
-### Evidence Ref Schema
+### Quote-First Evidence Schema
 
-Every evidence_ref in both actors and events uses this shape:
+Every extraction response uses the quote-before-extract protocol. The LLM first
+cites verbatim filing passages in a top-level `quotes` array, then builds
+structured actors/events that reference those quotes by `quote_id`.
+
+Each quote entry:
 
 ```json
 {
+  "quote_id": "Q001",
   "block_id": "B042",
-  "evidence_id": "0001193125-16-677939:E0012",
-  "anchor_text": "representatives of Thoma Bravo informally approached"
+  "text": "representatives of Thoma Bravo informally approached"
 }
 ```
 
-- `block_id`: references a block in chronology_blocks.jsonl. Required for
-  chronology evidence.
-- `evidence_id`: references an item in evidence_items.jsonl. Required for
-  appendix/cross-filing evidence.
-- At least one of `block_id` or `evidence_id` must be present.
-- `anchor_text`: verbatim substring from the filing. Always required.
+- `quote_id`: stable identifier assigned sequentially (Q001, Q002, ...) per
+  extraction response. Must be unique within a single response.
+- `block_id`: references a block in chronology_blocks.jsonl. Required for all
+  quotes.
+- `text`: verbatim substring from the filing. Always required. Ideally 3 to
+  12 words.
+
+Actors and events reference `quote_ids` (list of strings) instead of carrying
+inline `evidence_refs`. The `evidence_refs` field is no longer part of the
+extraction schema.
 
 ### Actor Record Fields
 
@@ -216,7 +230,7 @@ Each actor in the `actors` array:
 | `is_grouped` | boolean | yes | True for unnamed aggregates |
 | `group_size` | integer or null | no | Required when is_grouped=true |
 | `group_label` | string or null | no | Required when is_grouped=true |
-| `evidence_refs` | list[evidence_ref] | yes | At least one |
+| `quote_ids` | list[string] | yes | At least one quote_id from the quotes array |
 | `notes` | list[string] | no | |
 
 ### Event Record Fields
@@ -230,7 +244,7 @@ Each event in the `events` array:
 | `date` | object | yes | `{raw_text, normalized_hint}`. Both may be null for genuinely undated events. |
 | `actor_ids` | list[string] | yes | May be empty for process-level events (round announcements, etc.) |
 | `summary` | string | yes | One-sentence description |
-| `evidence_refs` | list[evidence_ref] | yes | At least one |
+| `quote_ids` | list[string] | yes | At least one quote_id from the quotes array |
 | `terms` | object or null | proposal only | `{per_share, range_low, range_high, enterprise_value, consideration_type}` |
 | `formality_signals` | object or null | proposal only | 11 boolean flags (see Reference: Formality Signals below) |
 | `whole_company_scope` | boolean or null | proposal only | See note below |
@@ -253,12 +267,15 @@ on ambiguity). Partial-company bids with `whole_company_scope=false` go into
 ```json
 // actors_raw.json
 {
-  "actors": [ <actor records> ],
+  "quotes": [
+    {"quote_id": "Q001", "block_id": "B042", "text": "representatives of Thoma Bravo informally approached"}
+  ],
+  "actors": [ <actor records with quote_ids> ],
   "count_assertions": [
     {
       "subject": "confidentiality agreements",
       "count": 15,
-      "evidence_refs": [ <evidence refs> ]
+      "quote_ids": ["Q003", "Q004"]
     }
   ],
   "unresolved_mentions": [ <strings> ]
@@ -266,7 +283,10 @@ on ambiguity). Partial-company bids with `whole_company_scope=false` go into
 
 // events_raw.json
 {
-  "events": [ <event records> ],
+  "quotes": [
+    {"quote_id": "Q001", "block_id": "B050", "text": "Party A submitted an indication of interest"}
+  ],
+  "events": [ <event records with quote_ids> ],
   "exclusions": [
     {
       "category": "partial_company_bid",
