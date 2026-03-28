@@ -21,7 +21,7 @@ Requirements for initial release. Each maps to roadmap phases.
   checklist the LLM must address, not a passive appendix
 - [x] **PROMPT-05**: Quote-before-extract protocol forces the LLM to cite
   verbatim passages before emitting structured events
-- [ ] **PROMPT-06**: Complexity-based routing sends simple deals (`<=150`
+- [x] **PROMPT-06**: Complexity-based routing sends simple deals (`<=150`
   blocks, `<=8` actors) through single-pass extraction and complex deals
   through multi-chunk
 
@@ -44,7 +44,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **INFRA-06**: Deterministic runtime dependencies and planning docs are
   hardened around the live Python path only; no new Python-side LLM SDK
   requirement is introduced as part of v1
-- [ ] **INFRA-07**: Few-shot examples expanded to 4-5 covering NDA groups,
+- [x] **INFRA-07**: Few-shot examples expanded to 4-5 covering NDA groups,
   ambiguous drops, cycle boundaries, range proposals, and formal-round signals
 
 ### Enhanced Deterministic Gates

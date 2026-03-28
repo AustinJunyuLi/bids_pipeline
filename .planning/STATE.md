@@ -2,26 +2,26 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Ready to plan
-stopped_at: Phase 05 context gathered
-last_updated: "2026-03-28T16:55:38.896Z"
+status: Executing Phase 05
+stopped_at: Completed 05-02-PLAN.md
+last_updated: "2026-03-28T18:10:20Z"
 progress:
   total_phases: 5
   completed_phases: 4
-  total_plans: 13
-  completed_plans: 13
+  total_plans: 16
+  completed_plans: 14
 ---
 
 # Project State
 
 ## Current Phase
 
-Phase 5: Integration + Calibration — ready to discuss or plan after Phase 04 completion
+Phase 5: Integration + Calibration — plan 02 complete; plans 01 and 03 remain in flight
 
 ## Last Session
 
-- **Stopped at:** Phase 05 context gathered
-- **Resume file:** .planning/phases/05-integration-calibration/05-CONTEXT.md
+- **Stopped at:** Completed 05-02-PLAN.md
+- **Resume file:** .planning/phases/05-integration-calibration/05-03-PLAN.md
 - **Date:** 2026-03-28
 
 ## Progress
@@ -91,6 +91,8 @@ Phase 5: Integration + Calibration — ready to discuss or plan after Phase 04 c
 - Deal-agent summaries now expose gates as a first-class stage between coverage and verify
 - Enrich-core fixtures synthesize `gates_report.json` by default because semantic gates are now a hard prerequisite
 - stec gate verification restores generated `gates_report.json` after checks so repo artifacts stay clean
+- compose-prompts auto routing now classifies deals at 150 chronology blocks and forces explicit single-pass windows for simple deals
+- Event prompt few-shot coverage now includes NDA groups, ambiguous drops, and terminate/restart cycle boundaries in addition to range proposals and formal-round signals
 
 - [x] Phase 2 verified (9/9 must-haves passed)
 - [x] Phase 2 GPT 5.4 adversarial audit completed (6 findings: 1 CRITICAL, 3 MAJOR, 2 MINOR)
@@ -106,16 +108,17 @@ Phase 5: Integration + Calibration — ready to discuss or plan after Phase 04 c
 - [x] Phase 4 Plan 01: gate models, semantic gate stage, and regression tests (2/2 tasks)
 - [x] Phase 4 Plan 02: CLI gates command, deal-agent summary, enrich-core gating, docs, and integration tests (2/2 tasks)
 - [x] Phase 4 verified (9/9 must-haves passed)
+- [x] Phase 5 Plan 02: Complexity routing, few-shot example expansion (2/2 tasks)
 
 ## Session Continuity
 
-- **Last session:** 2026-03-28T16:55:38.894Z
-- **Stopped at:** Phase 04 marked complete
-- **Resume file:** None
-- **Next action:** Discuss or plan Phase 05 (Integration + Calibration).
+- **Last session:** 2026-03-28T18:10:20Z
+- **Stopped at:** Completed 05-02-PLAN.md
+- **Resume file:** .planning/phases/05-integration-calibration/05-03-PLAN.md
+- **Next action:** Continue Phase 05 execution; 05-01 and 05-03 remain outstanding.
 
 ## Accumulated Context
 
 ### Pending Todos
 
-- Item 1 (chunk budget overhead): deferred to Phase 5 complexity routing — document as known constraint
+- None currently recorded. The prior chunk-budget-overhead todo was resolved in Phase 5 Plan 02 via explicit routing and `single_pass` chunk planning.
