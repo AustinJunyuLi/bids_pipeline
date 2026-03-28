@@ -12,7 +12,10 @@ from pathlib import Path
 from typing import Literal
 from uuid import uuid4
 
+from pydantic import ValidationError
+
 from skill_pipeline.config import PROJECT_ROOT
+from skill_pipeline.models import RawSkillActorsArtifact, SkillActorsArtifact
 from skill_pipeline.paths import build_skill_paths, ensure_output_directories
 from skill_pipeline.pipeline_models.common import PIPELINE_VERSION
 from skill_pipeline.pipeline_models.prompt import (
@@ -48,11 +51,16 @@ def _load_blocks(path: Path) -> list[ChronologyBlock]:
     if not text:
         raise ValueError(f"Empty chronology blocks file: {path}")
     blocks: list[ChronologyBlock] = []
+    seen_ids: set[str] = set()
     for line in text.split("\n"):
         line = line.strip()
         if not line:
             continue
-        blocks.append(ChronologyBlock.model_validate_json(line))
+        block = ChronologyBlock.model_validate_json(line)
+        if block.block_id in seen_ids:
+            raise ValueError(f"Duplicate block_id in chronology blocks: {block.block_id}")
+        seen_ids.add(block.block_id)
+        blocks.append(block)
     if not blocks:
         raise ValueError(f"No valid chronology blocks in: {path}")
     blocks.sort(key=lambda b: b.ordinal)
@@ -74,13 +82,60 @@ def _load_evidence(path: Path) -> list[EvidenceItem]:
 
 
 def _load_actor_roster_json(path: Path) -> str:
-    """Load the actor roster JSON as a raw string.  Fail fast if missing."""
+    """Load and validate the actor roster JSON.  Fail fast if missing or invalid."""
     if not path.exists():
         raise FileNotFoundError(
             f"Actor roster not found: {path}. "
             f"Run actor extraction first (--mode actors), then run --mode events."
         )
-    return path.read_text(encoding="utf-8").strip()
+    raw_text = path.read_text(encoding="utf-8").strip()
+    if not raw_text:
+        raise ValueError(f"Actor roster is empty: {path}")
+
+    try:
+        payload = json.loads(raw_text)
+    except json.JSONDecodeError as exc:
+        raise ValueError(f"Actor roster is not valid JSON: {path}") from exc
+
+    errors: list[str] = []
+    for model_cls in (RawSkillActorsArtifact, SkillActorsArtifact):
+        try:
+            artifact = model_cls.model_validate(payload)
+        except ValidationError as exc:
+            errors.append(str(exc))
+            continue
+        if not artifact.actors:
+            raise ValueError(f"Actor roster contains zero actors: {path}")
+        return raw_text
+
+    raise ValueError(
+        f"Actor roster does not match a valid actor artifact schema: {path}\n"
+        + "\n".join(errors)
+    )
+
+
+def _filter_evidence_for_window(
+    blocks: list[ChronologyBlock],
+    evidence_items: list[EvidenceItem],
+    window: PromptChunkWindow,
+) -> list[EvidenceItem]:
+    """Return only evidence items visible inside the target + overlap block window."""
+    visible_ids = set(window.target_block_ids) | set(window.overlap_block_ids)
+    visible_blocks = [block for block in blocks if block.block_id in visible_ids]
+    if not visible_blocks:
+        raise ValueError(
+            f"Prompt window {window.window_id} references no known chronology blocks."
+        )
+
+    filtered: list[EvidenceItem] = []
+    for item in evidence_items:
+        for block in visible_blocks:
+            if item.document_id != block.document_id:
+                continue
+            if item.start_line <= block.end_line and item.end_line >= block.start_line:
+                filtered.append(item)
+                break
+    return filtered
 
 
 # ---------------------------------------------------------------------------
@@ -134,6 +189,7 @@ def _compose_actor_packets(
         chunk_mode: Literal["single_pass", "chunked"] = (
             "single_pass" if window.chunk_count == 1 else "chunked"
         )
+        window_evidence = _filter_evidence_for_window(blocks, evidence_items, window)
 
         prefix_text, body_text, rendered_text = render_actor_packet(
             deal_slug=deal_slug,
@@ -142,7 +198,7 @@ def _compose_actor_packets(
             filing_type=filing_type,
             window=window,
             blocks=blocks,
-            evidence_items=evidence_items,
+            evidence_items=window_evidence,
             prefix_asset_path=_ACTORS_PREFIX,
             task_instructions=task_instructions,
         )
@@ -160,7 +216,7 @@ def _compose_actor_packets(
             prefix_path=prefix_path,
             body_path=body_path,
             rendered_path=rendered_path,
-            evidence_ids=[ei.evidence_id for ei in evidence_items],
+            evidence_ids=[ei.evidence_id for ei in window_evidence],
         ))
 
     return packets
@@ -192,6 +248,7 @@ def _compose_event_packets(
         chunk_mode: Literal["single_pass", "chunked"] = (
             "single_pass" if window.chunk_count == 1 else "chunked"
         )
+        window_evidence = _filter_evidence_for_window(blocks, evidence_items, window)
 
         prefix_text, body_text, rendered_text = render_event_packet(
             deal_slug=deal_slug,
@@ -200,7 +257,7 @@ def _compose_event_packets(
             filing_type=filing_type,
             window=window,
             blocks=blocks,
-            evidence_items=evidence_items,
+            evidence_items=window_evidence,
             actor_roster_json=actor_roster_json,
             prefix_asset_path=_EVENTS_PREFIX,
             event_examples_asset_path=_EVENT_EXAMPLES,
@@ -220,7 +277,7 @@ def _compose_event_packets(
             prefix_path=prefix_path,
             body_path=body_path,
             rendered_path=rendered_path,
-            evidence_ids=[ei.evidence_id for ei in evidence_items],
+            evidence_ids=[ei.evidence_id for ei in window_evidence],
             actor_roster_source_path=str(actors_raw_path),
         ))
 

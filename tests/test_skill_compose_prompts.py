@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import math
 from pathlib import Path
 
@@ -69,6 +70,39 @@ def _make_evidence(
         evidence_type=evidence_type,
         confidence="high",
     )
+
+
+def _valid_actor_roster_payload(*, block_id: str = "B000") -> dict[str, object]:
+    """Build a minimally valid raw actor roster artifact."""
+    return {
+        "actors": [
+            {
+                "actor_id": "a1",
+                "display_name": "Bidder A",
+                "canonical_name": "BIDDER A",
+                "aliases": [],
+                "role": "bidder",
+                "advisor_kind": None,
+                "advised_actor_id": None,
+                "bidder_kind": "financial",
+                "listing_status": "private",
+                "geography": "domestic",
+                "is_grouped": False,
+                "group_size": None,
+                "group_label": None,
+                "evidence_refs": [
+                    {
+                        "block_id": block_id,
+                        "evidence_id": None,
+                        "anchor_text": "Bidder A",
+                    }
+                ],
+                "notes": [],
+            }
+        ],
+        "count_assertions": [],
+        "unresolved_mentions": [],
+    }
 
 
 # ---------------------------------------------------------------------------
@@ -340,6 +374,22 @@ class TestRenderActorPacket:
         assert "<overlap_context>" in rendered
         assert "</overlap_context>" in rendered
 
+    def test_unknown_block_ids_raise(self):
+        blocks = [_make_block("B000", 0, "text")]
+        window = _single_pass_window(["B999"])
+        with pytest.raises(ValueError, match="Unknown block_ids"):
+            render_actor_packet(
+                deal_slug="test",
+                target_name="T",
+                accession_number=None,
+                filing_type=None,
+                window=window,
+                blocks=blocks,
+                evidence_items=[],
+                prefix_asset_path=ASSETS_DIR / "actors_prefix.md",
+                task_instructions="Do it.",
+            )
+
 
 class TestRenderEventPacket:
     def test_actor_roster_present(self):
@@ -437,6 +487,25 @@ class TestRenderEventPacket:
         assert "<evidence_checklist>" in rendered
         assert "E099" in rendered
 
+    def test_missing_event_examples_asset_raises(self, tmp_path: Path):
+        blocks = [_make_block("B000", 0, "text")]
+        window = _single_pass_window(["B000"])
+        missing_asset = tmp_path / "missing-event-examples.md"
+        with pytest.raises(FileNotFoundError, match="Missing prompt asset"):
+            render_event_packet(
+                deal_slug="test",
+                target_name="T",
+                accession_number=None,
+                filing_type=None,
+                window=window,
+                blocks=blocks,
+                evidence_items=[],
+                actor_roster_json='{"actors": []}',
+                prefix_asset_path=ASSETS_DIR / "events_prefix.md",
+                event_examples_asset_path=missing_asset,
+                task_instructions="Do it.",
+            )
+
 
 # ---------------------------------------------------------------------------
 # Integration: run_compose_prompts end-to-end
@@ -529,7 +598,7 @@ class TestRunComposePrompts:
             extract_dir = tmp_path / "data" / "skill" / "test-deal" / "extract"
             extract_dir.mkdir(parents=True, exist_ok=True)
             (extract_dir / "actors_raw.json").write_text(
-                '{"actors": [{"actor_id": "a1", "display_name": "Bidder A"}]}',
+                json.dumps(_valid_actor_roster_payload()),
                 encoding="utf-8",
             )
 
@@ -613,6 +682,177 @@ class TestRunComposePrompts:
         # Event packets must include actor roster
         rendered = Path(manifest.packets[0].rendered_path).read_text(encoding="utf-8")
         assert "<actor_roster>" in rendered
+
+    def test_events_mode_rejects_invalid_actor_roster_json(self, tmp_path: Path):
+        self._setup_deal(tmp_path, with_actors=False)
+        extract_dir = tmp_path / "data" / "skill" / "test-deal" / "extract"
+        extract_dir.mkdir(parents=True, exist_ok=True)
+        (extract_dir / "actors_raw.json").write_text("{not-valid-json", encoding="utf-8")
+
+        from skill_pipeline.compose_prompts import run_compose_prompts
+
+        with pytest.raises(ValueError, match="Actor roster is not valid JSON"):
+            run_compose_prompts("test-deal", tmp_path, mode="events")
+
+    def test_events_mode_rejects_zero_actor_roster(self, tmp_path: Path):
+        self._setup_deal(tmp_path, with_actors=False)
+        extract_dir = tmp_path / "data" / "skill" / "test-deal" / "extract"
+        extract_dir.mkdir(parents=True, exist_ok=True)
+        (extract_dir / "actors_raw.json").write_text(
+            json.dumps({
+                "actors": [],
+                "count_assertions": [],
+                "unresolved_mentions": [],
+            }),
+            encoding="utf-8",
+        )
+
+        from skill_pipeline.compose_prompts import run_compose_prompts
+
+        with pytest.raises(ValueError, match="Actor roster contains zero actors"):
+            run_compose_prompts("test-deal", tmp_path, mode="events")
+
+    @pytest.mark.parametrize("mode", ["actors", "events"])
+    def test_chunked_packets_filter_evidence_to_visible_blocks(
+        self,
+        tmp_path: Path,
+        mode: str,
+    ):
+        seeds_csv = tmp_path / "data" / "seeds.csv"
+        seeds_csv.parent.mkdir(parents=True, exist_ok=True)
+        seeds_csv.write_text(
+            "deal_slug,target_name,acquirer,date_announced,primary_url,is_reference\n"
+            "test-deal,TestCo Inc,AcquireCo,2025-01-15,,false\n",
+            encoding="utf-8",
+        )
+
+        source_dir = tmp_path / "data" / "deals" / "test-deal" / "source"
+        source_dir.mkdir(parents=True, exist_ok=True)
+        blocks = []
+        for i in range(6):
+            blocks.append(
+                ChronologyBlock(
+                    block_id=f"B{i:03d}",
+                    document_id="doc-1",
+                    ordinal=i,
+                    start_line=i * 10,
+                    end_line=i * 10 + 8,
+                    raw_text=f"Block {i} raw text " + "word " * 20,
+                    clean_text=f"Block {i} clean text " + "word " * 20,
+                    is_heading=(i == 0),
+                    date_mentions=[],
+                    entity_mentions=[],
+                    evidence_density=1,
+                    temporal_phase="bidding",
+                )
+            )
+        (source_dir / "chronology_blocks.jsonl").write_text(
+            "\n".join(block.model_dump_json() for block in blocks),
+            encoding="utf-8",
+        )
+
+        evidence_items = []
+        for i in range(6):
+            evidence_items.append(
+                EvidenceItem(
+                    evidence_id=f"E{i:03d}",
+                    document_id="doc-1",
+                    accession_number="0001-test",
+                    filing_type="SC 14D9",
+                    start_line=i * 10,
+                    end_line=i * 10 + 1,
+                    raw_text=f"evidence text {i}",
+                    evidence_type=EvidenceType.DATED_ACTION,
+                    confidence="high",
+                )
+            )
+        (source_dir / "evidence_items.jsonl").write_text(
+            "\n".join(item.model_dump_json() for item in evidence_items),
+            encoding="utf-8",
+        )
+        (source_dir / "chronology_selection.json").write_text(
+            json.dumps({
+                "schema_version": "2.0.0",
+                "artifact_type": "chronology_selection",
+                "run_id": "test",
+                "accession_number": "0001-test",
+                "filing_type": "SC 14D9",
+                "document_id": "doc-1",
+                "confidence": "high",
+                "adjudication_basis": "test",
+                "review_required": False,
+            }),
+            encoding="utf-8",
+        )
+
+        raw_dir = tmp_path / "raw" / "test-deal"
+        raw_dir.mkdir(parents=True, exist_ok=True)
+        (raw_dir / "document_registry.json").write_text("{}", encoding="utf-8")
+
+        if mode == "events":
+            extract_dir = tmp_path / "data" / "skill" / "test-deal" / "extract"
+            extract_dir.mkdir(parents=True, exist_ok=True)
+            (extract_dir / "actors_raw.json").write_text(
+                json.dumps(_valid_actor_roster_payload()),
+                encoding="utf-8",
+            )
+
+        from skill_pipeline.compose_prompts import run_compose_prompts
+
+        manifest = run_compose_prompts(
+            "test-deal", tmp_path, mode=mode, chunk_budget=40,
+        )
+        first_packet = manifest.packets[0]
+        rendered = Path(first_packet.rendered_path).read_text(encoding="utf-8")
+
+        assert first_packet.evidence_ids == ["E000", "E001", "E002"]
+        assert "E000" in rendered
+        assert "E001" in rendered
+        assert "E002" in rendered
+        assert "E003" not in rendered
+
+    def test_duplicate_block_ids_fail_fast(self, tmp_path: Path):
+        self._setup_deal(tmp_path)
+        source_dir = tmp_path / "data" / "deals" / "test-deal" / "source"
+        duplicate_blocks = [
+            ChronologyBlock(
+                block_id="B000",
+                document_id="doc-1",
+                ordinal=0,
+                start_line=0,
+                end_line=8,
+                raw_text="first block",
+                clean_text="first block",
+                is_heading=False,
+                date_mentions=[],
+                entity_mentions=[],
+                evidence_density=0,
+                temporal_phase="bidding",
+            ),
+            ChronologyBlock(
+                block_id="B000",
+                document_id="doc-1",
+                ordinal=1,
+                start_line=10,
+                end_line=18,
+                raw_text="duplicate block",
+                clean_text="duplicate block",
+                is_heading=False,
+                date_mentions=[],
+                entity_mentions=[],
+                evidence_density=0,
+                temporal_phase="bidding",
+            ),
+        ]
+        (source_dir / "chronology_blocks.jsonl").write_text(
+            "\n".join(block.model_dump_json() for block in duplicate_blocks),
+            encoding="utf-8",
+        )
+
+        from skill_pipeline.compose_prompts import run_compose_prompts
+
+        with pytest.raises(ValueError, match="Duplicate block_id in chronology blocks"):
+            run_compose_prompts("test-deal", tmp_path, mode="actors")
 
     def test_all_mode_generates_actors_only(self, tmp_path: Path):
         """--mode all generates actor packets only, not event packets."""

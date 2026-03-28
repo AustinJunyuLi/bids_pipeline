@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Phase 2 Plan 03 complete (integration, stec validation, runtime contract update)
-last_updated: "2026-03-27T23:58:29.874Z"
+stopped_at: Phase 2 audit gap closure complete (findings 2-6 fixed and regression-tested)
+last_updated: "2026-03-28T00:32:34Z"
 progress:
   total_phases: 5
   completed_phases: 2
@@ -20,9 +20,9 @@ Phase 2: Prompt Architecture — complete (plan 03 of 03 complete)
 
 ## Last Session
 
-- **Stopped at:** Phase 2 Plan 03 complete (integration, stec validation, runtime contract update)
-- **Resume file:** `.planning/phases/02-prompt-architecture/02-03-PLAN.md`
-- **Date:** 2026-03-27
+- **Stopped at:** Phase 2 audit gap closure complete (findings 2-6 fixed and regression-tested)
+- **Resume file:** `.planning/ROADMAP.md`
+- **Date:** 2026-03-28
 
 ## Progress
 
@@ -73,22 +73,25 @@ Phase 2: Prompt Architecture — complete (plan 03 of 03 complete)
 - Validator checks both schema validity and rendered content tags (chronology_blocks, evidence_checklist, task_instructions, overlap_context)
 - PromptStageSummary reports packet_count, actor_packet_count, event_packet_count in deal-agent
 - compose-prompts documented between preprocess-source and /extract-deal in all runtime docs
+- Evidence checklists are now window-local in chunked prompt packets rather than filing-wide
+- Event packet composition now validates actor-roster JSON against the actor artifact schema before rendering
+- Prompt composition now fails fast on duplicate source block IDs, missing event examples assets, and unknown requested block IDs
+- Chunk-budget overhead remains deferred to Phase 5 complexity routing per the audit decision
 
 - [x] Phase 2 verified (9/9 must-haves passed)
 - [x] Phase 2 GPT 5.4 adversarial audit completed (6 findings: 1 CRITICAL, 3 MAJOR, 2 MINOR)
-- [ ] Phase 2 gap closure: fix audit findings 2-6 (evidence filtering, roster validation, defensive checks)
+- [x] Phase 2 gap closure: fixed audit findings 2-6 (evidence filtering, roster validation, defensive checks)
 - [ ] Phase 3 planning
 
 ## Session Continuity
 
-- **Last session:** 2026-03-28T01:30:00Z
-- **Stopped at:** GPT 5.4 audit complete. 6 findings documented in `02-GPT54-AUDIT.md`. Gap closure patch needed before Phase 3.
-- **Resume file:** `.planning/phases/02-prompt-architecture/02-GPT54-AUDIT.md`
-- **Next action:** Fix items 2-6 from audit (low-complexity, ~30 lines each). Item 1 (budget semantics) deferred to Phase 5.
+- **Last session:** 2026-03-28T00:32:34Z
+- **Stopped at:** Phase 2 audit gap closure complete. Findings 2-6 from `02-GPT54-AUDIT.md` were patched and regression-tested.
+- **Resume file:** `.planning/ROADMAP.md`
+- **Next action:** Start Phase 3 context gathering/planning. Audit item 1 (chunk-budget overhead) remains deferred to Phase 5.
 
 ## Accumulated Context
 
 ### Pending Todos
 
-- Phase 2 gap closure: 5 audit findings to fix (see `02-GPT54-AUDIT.md` items 2-6)
 - Item 1 (chunk budget overhead): deferred to Phase 5 complexity routing — document as known constraint

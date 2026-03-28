@@ -51,8 +51,15 @@ def _render_blocks_section(
     block_ids: list[str],
 ) -> str:
     """Render chronology blocks filtered to *block_ids* inside *tag*."""
-    id_set = set(block_ids)
-    filtered = [b for b in blocks if b.block_id in id_set]
+    if len(block_ids) != len(set(block_ids)):
+        raise ValueError(f"Duplicate block_ids requested for <{tag}>: {block_ids}")
+
+    block_index = {block.block_id: block for block in blocks}
+    missing_ids = [block_id for block_id in block_ids if block_id not in block_index]
+    if missing_ids:
+        raise ValueError(f"Unknown block_ids for <{tag}>: {missing_ids}")
+
+    filtered = [block_index[block_id] for block_id in block_ids]
     # Sort by ordinal to preserve document order
     filtered.sort(key=lambda b: b.ordinal)
     lines = [f"<{tag}>"]
@@ -171,7 +178,7 @@ def render_event_packet(
     chunk_mode = "single_pass" if window.chunk_count == 1 else "chunked"
 
     prefix_parts: list[str] = [_load_asset(prefix_asset_path)]
-    if event_examples_asset_path and event_examples_asset_path.exists():
+    if event_examples_asset_path:
         prefix_parts.append(_load_asset(event_examples_asset_path))
     prefix_text = "\n\n".join(prefix_parts)
 
