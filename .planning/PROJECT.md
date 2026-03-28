@@ -41,6 +41,8 @@ elaborate extraction architecture.
   contract
 - ✓ Quote-before-extract protocol forces evidence citation before structured
   extraction — validated in Phase 3
+- ✓ Enhanced deterministic gates: temporal consistency, cross-event logic,
+  per-actor coverage, attention decay diagnostics — validated in Phase 4
 
 ### Active
 
@@ -59,8 +61,6 @@ elaborate extraction architecture.
 - [ ] Block-aligned semantic chunk boundaries (never split mid-block)
 - [ ] Reusable static prompt prefix separated from chunk-specific content so
   selected local-agent tooling can reuse repeated context where supported
-- [ ] Enhanced deterministic gates: temporal consistency, cross-event logic,
-  per-actor coverage, attention decay diagnostics
 - [ ] Complexity-based routing (single-pass for simple deals, multi-pass for
   complex)
 - [ ] Expanded few-shot examples (4-5 covering NDA groups, ambiguous drops,
@@ -104,12 +104,13 @@ active research packet is split across `.planning/research/SUMMARY.md`,
 `.planning/ROADMAP.md` plus the current phase context file are the execution
 authority for what is actually in scope.
 
-The roadmap currently commits Phase 1 to deterministic block metadata inside
-`preprocess-source` and defers LLM behavior changes to later phases. The
-extraction stage remains the only non-deterministic component. All quality
-originates there. The deterministic gates (`check`, `verify`, `coverage`) catch
-errors after the fact. The redesign improves both: better extraction quality
-through prompt architecture, and better error detection through enhanced gates.
+Phases 1-4 are now complete: deterministic block metadata, prompt packet
+composition, quote-before-extract grounding, and enhanced semantic gates all
+ship in the live repository. The extraction stage remains the only
+non-deterministic component. All quality originates there. The deterministic
+gates (`check`, `verify`, `coverage`, `gates`) catch errors after the fact. The
+remaining redesign work focuses on integration, calibration, and end-to-end
+pipeline unification.
 
 ## Constraints
 
@@ -139,6 +140,7 @@ through prompt architecture, and better error detection through enhanced gates.
 | Correctness over speed/cost | User explicitly prioritized correctness; tradeoffs favor more reliable outputs | — Pending |
 | Prompt ordering is highest-ROI zero-cost change | Data-first chronology packets improve long-document attention handling at effectively zero deterministic cost | — Pending |
 | Quote-before-extract is most impactful structural change | Prevents hallucinated anchor text, the failure mode verify catches most often | ✓ Adopted |
+| Semantic gates run as a dedicated deterministic stage after coverage | Keeps structural and semantic validation separate while giving enrich-core a single fail-fast semantic prerequisite | ✓ Adopted |
 | Keep local-agent orchestration outside `skill_pipeline` | Live code has no Python LLM wrapper, and canonical skill docs already own extraction/repair/export | ✓ Adopted |
 | Hybrid retrieval only for targeted recovery | If coverage finds gaps, lightweight BM25 could narrow recovery context. Implement context/attention improvements first. | — Pending |
 
@@ -160,4 +162,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-28 after Phase 03 completion*
+*Last updated: 2026-03-28 after Phase 04 completion*
