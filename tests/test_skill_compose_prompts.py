@@ -830,8 +830,10 @@ class TestRunComposePrompts:
         rendered = Path(manifest.packets[0].rendered_path).read_text(encoding="utf-8")
         assert "quote-before-extract protocol" in rendered
         assert "quotes, events, exclusions, coverage_notes" in rendered
-        assert 'quotes: [{"quote_id": "Q001"' in rendered
-        assert 'quote_ids=["Q001"]' in rendered
+        assert '"quote_id": "Q001"' in rendered
+        assert "### Example 3: NDA group plus named parties" in rendered
+        assert "### Example 5: Cycle boundary with termination and restart" in rendered
+        assert "quote_ids" in rendered
 
     def test_events_mode_rejects_invalid_actor_roster_json(self, tmp_path: Path):
         self._setup_deal(tmp_path, with_actors=False)
@@ -1081,3 +1083,8 @@ class TestRunComposePrompts:
             "--routing", "single-pass",
         ])
         assert args.routing == "single-pass"
+
+    def test_event_examples_count(self):
+        examples_path = ASSETS_DIR / "event_examples.md"
+        content = examples_path.read_text(encoding="utf-8")
+        assert content.count("### Example") >= 4
