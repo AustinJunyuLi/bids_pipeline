@@ -3,24 +3,24 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: Executing Phase 05
-stopped_at: Completed 05-02-PLAN.md
-last_updated: "2026-03-28T18:10:20Z"
+stopped_at: Completed 05-01-PLAN.md
+last_updated: "2026-03-28T18:15:05.140Z"
 progress:
   total_phases: 5
   completed_phases: 4
   total_plans: 16
-  completed_plans: 14
+  completed_plans: 15
 ---
 
 # Project State
 
 ## Current Phase
 
-Phase 5: Integration + Calibration — plan 02 complete; plans 01 and 03 remain in flight
+Phase 5: Integration + Calibration — plans 01 and 02 complete; plan 03 remains outstanding
 
 ## Last Session
 
-- **Stopped at:** Completed 05-02-PLAN.md
+- **Stopped at:** Completed 05-01-PLAN.md
 - **Resume file:** .planning/phases/05-integration-calibration/05-03-PLAN.md
 - **Date:** 2026-03-28
 
@@ -91,6 +91,9 @@ Phase 5: Integration + Calibration — plan 02 complete; plans 01 and 03 remain 
 - Deal-agent summaries now expose gates as a first-class stage between coverage and verify
 - Enrich-core fixtures synthesize `gates_report.json` by default because semantic gates are now a hard prerequisite
 - stec gate verification restores generated `gates_report.json` after checks so repo artifacts stay clean
+- Phase 5 plan 01 uses a shared `data/pipeline.duckdb` file exposed through `SkillPathSet.database_path`
+- db-load reloads each deal transactionally with deal-scoped DELETE + INSERT across all DuckDB tables
+- db-export writes the review CSV from DuckDB queries and preserves interpretive drop labels even when no deterministic bid row exists
 - compose-prompts auto routing now classifies deals at 150 chronology blocks and forces explicit single-pass windows for simple deals
 - Event prompt few-shot coverage now includes NDA groups, ambiguous drops, and terminate/restart cycle boundaries in addition to range proposals and formal-round signals
 
@@ -108,14 +111,15 @@ Phase 5: Integration + Calibration — plan 02 complete; plans 01 and 03 remain 
 - [x] Phase 4 Plan 01: gate models, semantic gate stage, and regression tests (2/2 tasks)
 - [x] Phase 4 Plan 02: CLI gates command, deal-agent summary, enrich-core gating, docs, and integration tests (2/2 tasks)
 - [x] Phase 4 verified (9/9 must-haves passed)
+- [x] Phase 5 Plan 01: DuckDB schema, db-load stage, db-export stage, CLI, tests (2/2 tasks)
 - [x] Phase 5 Plan 02: Complexity routing, few-shot example expansion (2/2 tasks)
 
 ## Session Continuity
 
-- **Last session:** 2026-03-28T18:10:20Z
-- **Stopped at:** Completed 05-02-PLAN.md
+- **Last session:** 2026-03-28T18:15:05.137Z
+- **Stopped at:** Completed 05-01-PLAN.md
 - **Resume file:** .planning/phases/05-integration-calibration/05-03-PLAN.md
-- **Next action:** Continue Phase 05 execution; 05-01 and 05-03 remain outstanding.
+- **Next action:** Continue Phase 05 execution; 05-03 remains outstanding.
 
 ## Accumulated Context
 
