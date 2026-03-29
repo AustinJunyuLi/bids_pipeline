@@ -459,7 +459,7 @@ def test_cycle_segmentation_terminated_intervening_restarted_no_orphans(tmp_path
 
 
 def test_rule_2_5_classifies_after_final_round_deadline_as_formal(tmp_path: Path) -> None:
-    """Proposal with after_final_round_deadline=True and no informal signals -> Formal via Rule 2.5."""
+    """Proposal with after_final_round_deadline=True and no informal signals -> Formal via Rule 2."""
     formality_signals = {
         "contains_range": False,
         "mentions_indication_of_interest": False,
@@ -487,11 +487,11 @@ def test_rule_2_5_classifies_after_final_round_deadline_as_formal(tmp_path: Path
 
     classification = artifact["bid_classifications"]["evt_003"]
     assert classification["label"] == "Formal"
-    assert classification["rule_applied"] == 2.5
+    assert classification["rule_applied"] == 2
 
 
-def test_rule_1_overrides_rule_2_5_when_non_binding(tmp_path: Path) -> None:
-    """Proposal with both mentions_non_binding=True and after_final_round_deadline=True -> Informal via Rule 1."""
+def test_process_position_overrides_informal_signals(tmp_path: Path) -> None:
+    """Proposal with mentions_non_binding=True AND after_final_round_deadline=True -> Formal via Rule 2 (process position overrides informal language, per D-01/D-04)."""
     formality_signals = {
         "contains_range": False,
         "mentions_indication_of_interest": False,
@@ -518,7 +518,103 @@ def test_rule_1_overrides_rule_2_5_when_non_binding(tmp_path: Path) -> None:
     artifact = json.loads(paths.deterministic_enrichment_path.read_text(encoding="utf-8"))
 
     classification = artifact["bid_classifications"]["evt_003"]
+    assert classification["label"] == "Formal"
+    assert classification["rule_applied"] == 2
+
+
+def test_process_position_overrides_range_proposal(tmp_path: Path) -> None:
+    """Range proposal after final round announcement -> Formal via Rule 2 (mac-gray pattern, per D-04/D-09)."""
+    formality_signals = {
+        "contains_range": True,
+        "mentions_indication_of_interest": True,
+        "mentions_preliminary": False,
+        "mentions_non_binding": False,
+        "mentions_binding_offer": False,
+        "includes_draft_merger_agreement": False,
+        "includes_marked_up_agreement": False,
+        "requested_binding_offer_via_process_letter": False,
+        "after_final_round_announcement": True,
+        "after_final_round_deadline": False,
+        "is_subject_to_financing": None,
+    }
+    events = [
+        _base_event("evt_001", "target_sale"),
+        _base_event("evt_002", "nda", actor_ids=["party_a"]),
+        _base_event("evt_003", "proposal", actor_ids=["party_a"], formality_signals=formality_signals),
+        _base_event("evt_004", "executed", actor_ids=["party_a"], executed_with_actor_id="party_a"),
+    ]
+    _write_enrich_core_fixture(tmp_path, events_override=events)
+    _write_gate_artifacts(tmp_path)
+    run_enrich_core("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    artifact = json.loads(paths.deterministic_enrichment_path.read_text(encoding="utf-8"))
+
+    classification = artifact["bid_classifications"]["evt_003"]
+    assert classification["label"] == "Formal"
+    assert classification["rule_applied"] == 2
+
+
+def test_early_ioi_without_final_round_stays_informal(tmp_path: Path) -> None:
+    """Early IOI without any final round -> Informal via Rule 3 (no over-promotion, per D-08)."""
+    formality_signals = {
+        "contains_range": False,
+        "mentions_indication_of_interest": True,
+        "mentions_preliminary": False,
+        "mentions_non_binding": False,
+        "mentions_binding_offer": False,
+        "includes_draft_merger_agreement": False,
+        "includes_marked_up_agreement": False,
+        "requested_binding_offer_via_process_letter": False,
+        "after_final_round_announcement": False,
+        "after_final_round_deadline": False,
+        "is_subject_to_financing": None,
+    }
+    events = [
+        _base_event("evt_001", "target_sale"),
+        _base_event("evt_002", "nda", actor_ids=["party_a"]),
+        _base_event("evt_003", "proposal", actor_ids=["party_a"], formality_signals=formality_signals),
+        _base_event("evt_004", "executed", actor_ids=["party_a"], executed_with_actor_id="party_a"),
+    ]
+    _write_enrich_core_fixture(tmp_path, events_override=events)
+    _write_gate_artifacts(tmp_path)
+    run_enrich_core("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    artifact = json.loads(paths.deterministic_enrichment_path.read_text(encoding="utf-8"))
+
+    classification = artifact["bid_classifications"]["evt_003"]
     assert classification["label"] == "Informal"
+    assert classification["rule_applied"] == 3
+
+
+def test_explicit_formal_overrides_informal_signals(tmp_path: Path) -> None:
+    """Proposal with marked-up agreement AND non-binding language -> Formal via Rule 1 (explicit formal beats informal, providence-worcester pattern per D-02/D-05)."""
+    formality_signals = {
+        "contains_range": False,
+        "mentions_indication_of_interest": False,
+        "mentions_preliminary": False,
+        "mentions_non_binding": True,
+        "mentions_binding_offer": False,
+        "includes_draft_merger_agreement": False,
+        "includes_marked_up_agreement": True,
+        "requested_binding_offer_via_process_letter": False,
+        "after_final_round_announcement": False,
+        "after_final_round_deadline": False,
+        "is_subject_to_financing": None,
+    }
+    events = [
+        _base_event("evt_001", "target_sale"),
+        _base_event("evt_002", "nda", actor_ids=["party_a"]),
+        _base_event("evt_003", "proposal", actor_ids=["party_a"], formality_signals=formality_signals),
+        _base_event("evt_004", "executed", actor_ids=["party_a"], executed_with_actor_id="party_a"),
+    ]
+    _write_enrich_core_fixture(tmp_path, events_override=events)
+    _write_gate_artifacts(tmp_path)
+    run_enrich_core("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    artifact = json.loads(paths.deterministic_enrichment_path.read_text(encoding="utf-8"))
+
+    classification = artifact["bid_classifications"]["evt_003"]
+    assert classification["label"] == "Formal"
     assert classification["rule_applied"] == 1
 
 
