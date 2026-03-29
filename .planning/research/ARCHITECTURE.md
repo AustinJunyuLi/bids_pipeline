@@ -1,413 +1,734 @@
-# Architecture Patterns
+# Architecture Patterns: v1.1 Reconciliation + Execution-Log Quality Fixes
 
-**Domain:** Correctness-first document extraction pipeline for SEC filing M&A deal data
-**Researched:** 2026-03-27
+**Domain:** Integration architecture for reconciliation-driven fixes and execution-log hardening
+**Researched:** 2026-03-29
+**Scope:** How new features integrate with existing `skill_pipeline/` stages
 
-## Recommended Architecture
-
-This document is research guidance, not the execution contract. `.planning/ROADMAP.md` and the current phase context file are authoritative for scope and sequencing. The architecture below is aligned to that adopted roadmap.
-
-The pipeline follows a **deterministic-shell / LLM-kernel** pattern: an immutable document layer feeds into deterministic preprocessing, which structures input for a non-deterministic LLM extraction kernel, whose outputs are then validated and enriched through a chain of deterministic gates before export. The active roadmap keeps Phase 1 annotation inside `preprocess-source`, then adds prompt-composition responsibilities around extraction in later phases.
-
-### Architecture Diagram
+## Existing Architecture Summary
 
 ```
-                    IMMUTABLE LAYER
-                    ==============
-seeds.csv ---------> raw-fetch -----------> raw/<slug>/filings/*.txt
-                                            raw/<slug>/discovery.json
-                                            raw/<slug>/document_registry.json
-
-                    DETERMINISTIC PREPROCESSING
-                    ===========================
-raw filings -------> preprocess-source ----> chronology_blocks.jsonl
-                                            evidence_items.jsonl
-                                            (Phase 1 adds required block metadata
-                                             directly to chronology_blocks.jsonl)
-
-                    PLANNED PROMPT COMPOSITION
-                    ==========================
-annotated blocks --> chunk planning / prompt composition helpers
-+ evidence items     (block-aligned boundaries, overlap tags,
-+ actor roster       evidence checklist, data-first ordering)
-                  -> optional helper artifacts such as chunk plans
-                     or prompt payload snapshots if Phase 2 chooses
-                     to serialize them
-
-                    LLM EXTRACTION KERNEL
-                    =====================
-prompt inputs -----> extract ----------------> actors_raw.json, events_raw.json
-                     (later phases add quote-before-extract and
-                      provider-native structured outputs)
-
-                    SCHEMA UPGRADE
-                    ==============
-extract artifacts -> canonicalize -----------> actors_raw.json, events_raw.json, spans.json
-                     (schema upgraded in place; filenames stay stable)
-
-                    DETERMINISTIC GATE CHAIN
-                    ========================
-canonical ---------> check ------------------> check_report.json
-                  -> verify -----------------> verification_log.json
-                  -> coverage ---------------> coverage_findings.json
-              [NEW]-> temporal-consistency --> temporal_report.json
-              [NEW]-> cross-event-logic ----> logic_report.json
-              [NEW]-> per-actor-coverage ---> actor_coverage.json
-              [NEW]-> attention-decay ------> decay_diagnostics.json
-                  -> [optional] verify-extraction
-
-                    DETERMINISTIC ENRICHMENT
-                    ========================
-gates pass --------> enrich-core ------------> deterministic_enrichment.json
-                  -> [optional] enrich-deal -> enrichment.json
-
-                    EXPORT
-                    ======
-enriched ----------> export-csv -------------> deal_events.csv
-                  -> [optional] reconcile-alex (post-export only)
+seeds.csv
+  -> raw-fetch          -> raw/<slug>/*
+  -> preprocess-source  -> data/deals/<slug>/source/*
+  -> compose-prompts    -> data/skill/<slug>/prompt/*
+  -> /extract-deal      -> data/skill/<slug>/extract/{actors_raw,events_raw}.json
+  -> canonicalize       -> actors_raw.json, events_raw.json, spans.json (in-place upgrade)
+  -> check              -> check_report.json
+  -> verify             -> verification_findings.json, verification_log.json
+  -> coverage           -> coverage_findings.json, coverage_summary.json
+  -> gates              -> gates_report.json
+  -> /verify-extraction -> (repair loop if deterministic findings are repairable)
+  -> enrich-core        -> deterministic_enrichment.json
+  -> db-load            -> pipeline.duckdb
+  -> db-export          -> deal_events.csv
 ```
 
-### Component Boundaries
+Key files touched by v1.1 changes:
+- `skill_pipeline/models.py` -- Pydantic schemas
+- `skill_pipeline/enrich_core.py` -- bid classification, round pairing, cycles
+- `skill_pipeline/canonicalize.py` -- quote-to-span resolution, dedup, NDA gate
+- `skill_pipeline/check.py` -- structural gate (NDA count assertions)
+- `skill_pipeline/coverage.py` -- evidence coverage audit
+- `skill_pipeline/gates.py` -- semantic gates (temporal, cross-event, lifecycle)
+- `skill_pipeline/db_load.py` -- DuckDB ingestion
+- `skill_pipeline/db_export.py` -- CSV export from DuckDB
+- `skill_pipeline/db_schema.py` -- DuckDB DDL
 
-| Component | Responsibility | Inputs | Outputs | Communicates With |
-|-----------|---------------|--------|---------|-------------------|
-| **raw-fetch** | Discover and freeze SEC filings immutably | seeds.csv, SEC EDGAR | Immutable .txt files, discovery.json, document_registry.json | preprocess-source (downstream) |
-| **preprocess-source** | Parse frozen filings into chronology blocks and evidence items; Phase 1 extends it with block metadata | Frozen .txt files, document registry | `chronology_blocks.jsonl`, `evidence_items.jsonl` | later prompt-composition work |
-| **prompt composition helpers** (planned) | Decide chunk boundaries, overlaps, evidence presentation, and prompt layout | Annotated chronology blocks, evidence items, actor roster | Deterministic prompt inputs, optionally serialized helper artifacts | extract (downstream) |
-| **extract** | LLM calls that produce actor/event artifacts | Prompt inputs | `actors_raw.json`, `events_raw.json` | canonicalize (downstream) |
-| **canonicalize** | Schema upgrade: span resolution, date normalization, semantic dedup, NDA gating | Raw extract artifacts, frozen filings, chronology blocks, evidence items | Canonical span-backed payloads written back to `actors_raw.json` and `events_raw.json`, plus `spans.json` | check (downstream) |
-| **check** | Structural blocker gate | Canonical extract artifacts | `check_report.json` | verify (downstream, gated) |
-| **verify** | Quote resolution and referential integrity | Canonical artifacts, frozen filings, blocks, evidence | `verification_log.json`, `verification_findings.json` | coverage (downstream, gated) |
-| **coverage** | Source evidence coverage audit | Canonical artifacts, evidence items, blocks | `coverage_findings.json`, `coverage_summary.json` | enrich-core (downstream, gated) |
-| **enhanced gates** (planned) | Temporal consistency, cross-event logic, per-actor coverage, attention diagnostics | Canonical artifacts plus source artifacts | Additive reports | Parallel with existing gates |
-| **enrich-core** | Deterministic rounds, bid classification, cycles, formal boundary | Canonical artifacts, gate reports | `deterministic_enrichment.json` | export (downstream) |
-| **export-csv** | Filing-grounded CSV from extract + enrich artifacts | Canonical artifacts, enrichment | `deal_events.csv` | reconcile-alex (post-export) |
+## Integration Point 1: bid_type Rule Priority Fix in enrich_core.py
 
-### Data Flow
+### Problem
 
-**Forward flow is strictly linear and artifact-mediated.** Each component reads from upstream artifacts on the filesystem and writes its own artifacts. There are no in-process callbacks or bidirectional data flow between stages except the optional LLM repair loop.
+`_classify_proposal()` in `enrich_core.py` (lines 209-272) applies rules in this
+order:
 
-1. **Immutable truth**: Filing `.txt` files frozen by raw-fetch are never modified. All downstream processing reads from these.
-2. **Source artifacts**: `chronology_blocks.jsonl` and `evidence_items.jsonl` are deterministic derivations of the frozen text.
-3. **Phase 1 annotation**: Block metadata is added directly onto `chronology_blocks.jsonl`; the active roadmap does not adopt a separate `annotated_blocks.jsonl` artifact.
-4. **Prompt inputs**: Later phases may compute chunk plans or composed prompt payloads deterministically from annotated blocks, evidence items, and actor rosters.
-5. **LLM responses**: Extraction writes `actors_raw.json` and `events_raw.json`.
-6. **Canonical artifacts**: Canonicalization upgrades those extract files in place and adds `spans.json`.
-7. **Gate reports**: Each gate writes a report with status, findings, and diagnostics. Gates are sequential: check must pass before verify, verify before coverage.
-8. **Enrichment**: Deterministic derivations (rounds, bids, cycles) flow from canonical artifacts and passing gate reports.
-9. **Export**: Final structured output comes from the filing-grounded canonical/enrichment layer.
+1. **Rule 1** (line 224-231): If `contains_range`, `mentions_indication_of_interest`,
+   `mentions_preliminary`, or `mentions_non_binding` -> **Informal**
+2. **Rule 2** (line 234-241): If `includes_draft_merger_agreement`,
+   `includes_marked_up_agreement`, or `mentions_binding_offer` -> **Formal**
+3. **Rule 2.5** (line 244-250): If `after_final_round_deadline` or
+   `after_final_round_announcement` -> **Formal**
 
-**Key data flow principle**: Information only flows forward. No downstream stage silently mutates upstream truth artifacts. The only exception is the explicit repair loop, which re-enters extraction by design rather than letting gates rewrite their own inputs.
+Rule 1 fires before Rule 2.5, so a final-round proposal that uses
+"indication of interest" language is classified Informal even though it should
+be Formal because it arrived after a final-round announcement/deadline.
 
-## Patterns to Follow
+### Fix Location
 
-### Pattern 1: Deterministic Shell, LLM Kernel
+**File:** `skill_pipeline/enrich_core.py`, function `_classify_proposal()`
 
-**What:** All stages except extraction are deterministic Python. The LLM is the only source of non-determinism, and its outputs are validated by deterministic gates.
+**Change:** Reorder rules so that Rule 2.5 (after-final-round) is evaluated
+**before** Rule 1 (informal signals). The M&A convention is that process
+position (final round) overrides language signals (IOI phrasing). The corrected
+order should be:
 
-**When:** Always. This is the core architectural invariant.
+```
+1. Rule 2   (explicit formal docs: merger agreement, binding offer)     -> Formal
+2. Rule 2.5 (after final round announcement/deadline, no formal docs)   -> Formal
+3. Rule 1   (informal signals: range, IOI, preliminary, non-binding)    -> Informal
+4. Rule 3   (after selective round)                                     -> Formal
+5. Rule 4   (residual)                                                  -> Uncertain
+```
 
-**Why:** Deterministic code is testable, reproducible, and debuggable. LLM outputs are not. Confining non-determinism to a single stage makes the system auditable.
+Rationale for this ordering:
+- Explicit formal docs (Rule 2) always win -- a signed merger agreement is Formal
+  regardless of process position.
+- Process position (Rule 2.5) beats language signals because M&A convention
+  treats final-round submissions as Formal even when the filing uses IOI phrasing.
+  This is the root cause of the 5+ deal misclassification bug.
+- Informal signals (Rule 1) only apply when the proposal is NOT in a
+  final-round context.
+- Selective-round inference (Rule 3) fills remaining gaps.
+- Residual -> Uncertain.
 
-**Implementation:**
+### Additional Consideration: `requested_binding_offer_via_process_letter`
+
+The `FormalitySignals` model already includes
+`requested_binding_offer_via_process_letter`. This signal should be incorporated
+into Rule 2 or treated as equivalent to Rule 2.5 -- if the process letter
+solicited a binding response, the submission is Formal.
+
+### Downstream Impact
+
+- `deterministic_enrichment.json` `bid_classifications` values change for 5+
+  deals.
+- `db-load` and `db-export` consume `bid_classifications` as-is, so no schema
+  change needed downstream.
+- Existing tests for `enrich_core` must be updated to reflect the new rule
+  priority. New tests should cover the specific scenario: proposal with
+  `mentions_indication_of_interest=True` AND
+  `after_final_round_announcement=True` -> Formal (not Informal).
+
+### What Changes
+
+| Component | Change Type | Details |
+|-----------|-------------|---------|
+| `enrich_core.py` | **Modified** | Reorder `_classify_proposal()` rule evaluation |
+| `tests/test_enrich_core.py` | **Modified** | Update expected classifications, add final-round IOI test |
+
+### What Does NOT Change
+
+- `models.py` -- `FormalitySignals` and `BidClassification` schemas are unchanged.
+- `db_schema.py` -- enrichment table schema is unchanged.
+- No new files needed.
+
+
+## Integration Point 2: New Event Types (Round Milestones, DropTarget)
+
+### Current State
+
+`models.py` already defines these event types in both `RawSkillEventRecord` and
+`SkillEventRecord` Literal unions (lines 173-194 and 243-265):
+
 ```python
-# Every deterministic stage follows this pattern:
-def run_stage(deal_slug: str, *, project_root: Path) -> int:
-    paths = build_skill_paths(deal_slug, project_root=project_root)
-    # 1. Validate inputs exist
-    if not paths.required_input.exists():
-        raise FileNotFoundError(f"Missing required input: {paths.required_input}")
-    # 2. Load inputs via Pydantic models
-    data = Model.model_validate_json(paths.input_path.read_text())
-    # 3. Compute deterministic output
-    result = compute(data)
-    # 4. Write output atomically
-    ensure_output_directories(paths)
-    paths.output_path.write_text(result.model_dump_json(indent=2))
-    # 5. Return exit code
-    return 1 if result.status == "fail" else 0
+"final_round_inf_ann", "final_round_inf",
+"final_round_ann", "final_round",
+"final_round_ext_ann", "final_round_ext",
 ```
 
-**Confidence:** HIGH -- this is the existing pattern and aligns with best practices from controlled LLM pipeline research.
+Round milestone event types are **already present in the schema**. The pipeline
+already supports them in `gates.py` (`SUBSTANTIVE_EVENT_TYPES`,
+`ROUND_ANNOUNCEMENT_RULES`, `EVENT_PHASES`), `enrich_core.py` (`ROUND_PAIRS`,
+`_pair_rounds()`), and `db_export.py` (`EVENT_TYPE_PRIORITY`,
+`NOTE_BY_EVENT_TYPE`, `BIDDERLESS_EVENT_TYPES`).
 
-### Pattern 2: Quote-Before-Extract Protocol
+The gap is in extraction: the local-agent `/extract-deal` skill docs do not
+instruct the LLM to produce these event types consistently. This is a
+skill-doc change, not a Python-side schema change.
 
-**What:** Force the LLM to cite verbatim passages from the source text before producing structured extractions. The extraction schema references span IDs rather than generating citation text inline.
+### DropTarget Event Type: New Addition
 
-**When:** Every extraction call.
+`DropTarget` (committee-driven field narrowing) does NOT exist in the current
+schema. The `DropoutClassification` model (line 364) already has the label
+`"DropTarget"`, but there is no corresponding `event_type` in the event Literal
+unions.
 
-**Why:** This is the highest-ROI structural change for correctness. Anthropic's own documentation recommends it for long-document tasks: "ask Claude to quote relevant parts of the documents first before carrying out its task." The deterministic quoting pattern demonstrates that when quotes are retrieved via lookup rather than LLM generation, hallucinated citations drop to zero.
+**Design decision:** DropTarget is NOT a new event_type. It is a **drop event**
+where the committee narrows the field, and the dropout classification labels it
+as `DropTarget`. The existing `drop` event type with
+`DropoutClassification.label = "DropTarget"` is the correct modeling. The
+enrichment layer (interpretive `/enrich-deal` or future deterministic rule)
+assigns the `DropTarget` label based on whether the drop was committee-driven
+versus bidder-initiated.
 
-**Implementation approach:**
-```xml
-<instructions>
-For each event you identify in the chronology blocks below:
-1. First, cite the exact passage(s) that describe the event.
-   Use <quote block_id="B042">verbatim text from block</quote> tags.
-2. Then, extract the structured event record referencing those quotes.
+### Per-Stage Impact
 
-Do NOT extract any event you cannot first quote evidence for.
-</instructions>
+| Stage | Round Milestones | DropTarget |
+|-------|-----------------|------------|
+| **models.py** | No change needed (types already exist) | No change needed (`DropTarget` is a dropout label, not an event_type) |
+| **check.py** | No change needed (no event-type-specific structural checks for these) | No change needed (drop events already validated) |
+| **coverage.py** | **May need new cue family** for round milestone cues (currently only covers `proposal`, `nda`, `withdrawal_or_drop`, `process_initiation`, `bidder_interest`, `advisor`). Consider adding a `round_milestone` cue family to detect filing language like "invited parties to submit final round bids" and flag uncovered round announcements. | No change needed (drops already covered by `withdrawal_or_drop` cue family) |
+| **gates.py** | No change needed (round announcement rules already in `ROUND_ANNOUNCEMENT_RULES`, `SUBSTANTIVE_EVENT_TYPES`, `EVENT_PHASES`) | No change needed (drop events already validated in lifecycle/cross-event gates) |
+| **enrich_core.py** | No change needed (`ROUND_PAIRS` already processes round milestone events) | **May need deterministic DropTarget classification rule**: if a drop event's `actor_ids` include target_board or if the `drop_reason_text` indicates committee decision, classify as DropTarget. Currently this is an interpretive enrichment task. |
+| **db_load.py** | No change needed (events table already stores any event_type as TEXT) | No change needed |
+| **db_export.py** | No change needed (`EVENT_TYPE_PRIORITY`, `NOTE_BY_EVENT_TYPE`, `BIDDERLESS_EVENT_TYPES` already include all round milestone types) | The `_note_value()` function already handles drop events via `dropout_label`. No change needed if enrichment writes the label. |
+| **Extraction skill docs** | **Must update** `.claude/skills/` to instruct explicit extraction of round milestone events | **Must update** skill docs to recognize committee-driven narrowing as drop events |
 
-<chronology>
-  <block id="B042" lines="1273-1279">
-    [block text here]
-  </block>
-  ...
-</chronology>
+### Summary for Round Milestones
+
+The Python infrastructure is already complete. The bottleneck is **extraction
+quality**: the LLM must be instructed to emit `final_round_inf_ann`,
+`final_round_ann`, `final_round_ext_ann` etc. as separate events. This is a
+skill-doc and few-shot-example change, not a code change.
+
+### Summary for DropTarget
+
+Model the committee-narrowing as `event_type: "drop"` with
+`DropoutClassification.label = "DropTarget"`. The enrichment layer assigns the
+label. Consider adding a deterministic heuristic to `enrich_core.py` that
+classifies drops as DropTarget when:
+- The drop has no explicit bidder-initiated withdrawal language
+- Multiple actors drop simultaneously in the same event
+- The event summary references "committee" or "board" decision language
+
+This is a **new function in enrich_core.py** (`_classify_dropouts()`) that
+produces `dropout_classifications` in `deterministic_enrichment.json`.
+
+
+## Integration Point 3: all_cash Inference Logic
+
+### Problem
+
+The pipeline currently only marks `all_cash` (via
+`MoneyTerms.consideration_type = "cash"`) when the filing sentence explicitly
+says "cash." The reconciliation analysis shows this is too conservative.
+
+### Where It Lives
+
+The `consideration_type` field is set during **extraction** by the LLM. The
+pipeline's deterministic stages do not currently infer or override
+`consideration_type`.
+
+### Recommended Approach
+
+Add a deterministic inference rule to `enrich_core.py` that can upgrade
+`consideration_type` to `"cash"` based on contextual signals:
+
+1. **Deal-level cash inference:** If the `executed` event has
+   `consideration_type = "cash"`, propagate `cash` to all proposals in the
+   same cycle that lack an explicit `consideration_type` for the same bidder.
+
+2. **Bidder-level consistency:** If a bidder's first proposal is `cash` and
+   subsequent proposals have no explicit `consideration_type`, inherit `cash`.
+
+3. **Filing-language heuristic:** If the event summary or evidence text contains
+   "all cash" or "cash consideration" but `consideration_type` is null, set to
+   `"cash"`.
+
+### Integration Location
+
+**File:** `skill_pipeline/enrich_core.py`
+
+Add a new function `_infer_consideration_type()` that:
+- Reads the events list and the actors artifact
+- Applies the inference rules above
+- Returns a dict of `{event_id: inferred_consideration_type}` for events
+  where the type was upgraded
+- Writes the inference results into `deterministic_enrichment.json`
+
+### What Changes
+
+| Component | Change Type | Details |
+|-----------|-------------|---------|
+| `enrich_core.py` | **Modified** | Add `_infer_consideration_type()` function, include results in enrichment output |
+| `deterministic_enrichment.json` | **Extended** | Add `consideration_type_inferences` key |
+| `db_load.py` | **Modified** | Load inferred consideration types into enrichment table |
+| `db_schema.py` | **Modified** | Add `consideration_type_inferred` TEXT column to enrichment table |
+| `db_export.py` | **Modified** | Use inferred consideration type when original is null |
+
+### What Does NOT Change
+
+- `models.py` -- the extraction schema is unchanged; inference happens at
+  enrichment time, not extraction time.
+- `check.py`, `coverage.py`, `gates.py` -- no new validation needed for inferred
+  consideration types.
+
+
+## Integration Point 4: Canonicalize quote_id Collision Prevention
+
+### Problem
+
+`canonicalize.py` line 103 raises `ValueError` on duplicate `quote_id` in the
+quotes array:
+
+```python
+if quote.quote_id in seen_ids:
+    raise ValueError(f"Duplicate quote_id {quote.quote_id!r} in quotes array")
 ```
 
-**Confidence:** HIGH -- supported by Anthropic official documentation and the deterministic quoting research pattern.
+The actors and events extraction passes can independently produce overlapping
+`quote_id` values (e.g., both use `q001`, `q002`, etc.). When
+`_resolve_quotes_to_spans()` receives the merged `all_quotes` list (line 408),
+it hits this collision.
 
-### Pattern 3: Data-First Prompt Ordering
+### Root Cause
 
-**What:** Place the long document content (chronology blocks, evidence items) at the top of the prompt, with instructions, schema, and examples at the bottom.
+The LLM extraction produces actors and events in separate passes. Both passes
+start their quote_id counters from `q001`. The current code (line 408) merges
+them naively:
 
-**When:** Every extraction prompt.
-
-**Why:** Anthropic's testing shows queries at the end improve response quality by up to 30% for complex, multi-document inputs. This exploits recency bias in attention: the model attends more strongly to content near the query.
-
-**Implementation:**
-```
-[System prompt: role, taxonomy, schema, few-shot examples]
-
-[User message top: chronology blocks with XML tags and metadata]
-[User message middle: evidence items as attention-steering checklist]
-[User message bottom: extraction instructions and query]
+```python
+all_quotes = list(loaded.raw_actors.quotes) + list(loaded.raw_events.quotes)
 ```
 
-**Confidence:** HIGH -- directly from Anthropic's official prompt engineering documentation.
+### Fix Location
 
-### Pattern 4: Block-Aligned Semantic Chunking
+**File:** `skill_pipeline/canonicalize.py`, in `run_canonicalize()`
 
-**What:** When a filing exceeds the practical extraction context window, split at block boundaries (never mid-block), with 2-block overlap between adjacent chunks.
+**Strategy:** Before merging, detect overlapping quote_ids between the two sets
+and renumber the event-side quote_ids with a disambiguating prefix or offset.
+Specifically:
 
-**When:** Filings that exceed the single-pass extraction budget.
+```python
+def _deduplicate_quote_ids(
+    actors_artifact: RawSkillActorsArtifact,
+    events_artifact: RawSkillEventsArtifact,
+) -> tuple[RawSkillActorsArtifact, RawSkillEventsArtifact]:
+    """Renumber event-side quote_ids if they collide with actor-side quote_ids."""
+    actor_ids = {q.quote_id for q in actors_artifact.quotes}
+    collisions = {q.quote_id for q in events_artifact.quotes if q.quote_id in actor_ids}
+    if not collisions:
+        return actors_artifact, events_artifact
+    # Build remapping: evt_q001, evt_q002, ...
+    remap = {qid: f"evt_{qid}" for qid in collisions}
+    # Apply remap to events quotes and event records
+    ...
+```
 
-**Why:** Blocks are the natural semantic units of the chronology section. Splitting mid-block risks severing a multi-sentence event description. The 2-block overlap provides enough context for the model to handle events that span block boundaries, while remaining cheap compared to full document duplication.
+This function should:
+1. Detect overlapping quote_ids between actor and event quote sets
+2. Build a remapping dict for colliding event-side quote_ids
+3. Apply the remapping to: events quotes list, each event's `quote_ids` field
+4. Return the updated artifacts
+5. Call this BEFORE `_resolve_quotes_to_spans()`
 
-**Implementation considerations:**
-- Block-level metadata (dates, entities, evidence density) from the annotate stage informs chunk boundary selection
-- Prefer splitting at heading blocks or temporal phase transitions
-- Track which blocks appear in multiple chunks for deduplication during merge
-- Complexity routing: simple deals (fewer blocks, fewer actors) can use single-pass extraction; complex deals require multi-chunk
+### Alternative: Remove the Hard Error
 
-**Confidence:** HIGH -- block-aligned splitting is a natural extension of the existing block structure. The 2-block overlap is a domain-informed choice (not a general chunking recommendation).
+The current `ValueError` is correct fail-fast behavior. The fix should prevent
+the collision upstream rather than weakening the validation. Removing the error
+would allow silent data corruption where two different quotes share the same ID.
 
-### Pattern 5: Artifact-Mediated Stage Communication
+### What Changes
 
-**What:** Stages communicate exclusively through filesystem artifacts (JSON, JSONL, CSV). No in-process function calls between stages. No shared state except the filesystem.
+| Component | Change Type | Details |
+|-----------|-------------|---------|
+| `canonicalize.py` | **Modified** | Add `_deduplicate_quote_ids()`, call before merge |
+| `canonicalize.py` | **No removal** | Keep the `ValueError` guard as a safety net |
+| `tests/test_canonicalize.py` | **Modified** | Add regression test with overlapping quote_ids |
 
-**When:** Always.
+### What Does NOT Change
 
-**Why:** This makes stages independently testable, retryable, and debuggable. You can inspect any intermediate artifact to understand what happened. You can rerun a single stage without rerunning the entire pipeline. The existing architecture already follows this pattern well.
+- `models.py` -- quote_id is a string; no schema change needed.
+- All downstream stages work with span_ids, not quote_ids; renumbering is
+  contained within canonicalize.
 
-**Implementation:**
-- Every stage reads from `SkillPathSet` paths and writes to `SkillPathSet` paths
-- Artifact schemas are defined in Pydantic models with `extra="forbid"` for strict validation
-- Atomic writes prevent partial artifacts from corrupting downstream stages
 
-**Confidence:** HIGH -- existing pattern, well-validated.
+## Integration Point 5: DuckDB Lock Retry Strategy
 
-### Pattern 6: Sequential Gate Chain with Fail-Fast
+### Problem
 
-**What:** Deterministic gates run in a strict sequence. Each gate must pass before the next can run. Any gate failure blocks all downstream processing.
+`db-export` hit a transient DuckDB lock immediately after `db-load` in the
+7-deal rerun. DuckDB uses file-level locking for write access. When `db-load`
+closes its connection, the OS may not immediately release the file lock,
+causing the subsequent `db-export` (read-only) to fail.
 
-**When:** After extraction produces canonical artifacts.
+### Current Code
 
-**Why:** This prevents corrupted or incomplete data from propagating. The existing pattern (check -> verify -> coverage -> enrich-core) works well. The redesign adds more gates (temporal-consistency, cross-event-logic, per-actor-coverage) but maintains the same pattern.
+`db_schema.py` `open_pipeline_db()` (line 99-109) opens a DuckDB connection
+with no retry logic:
 
-**Gate ordering rationale:**
-1. **check**: Structural completeness (cheapest, catches obvious schema violations)
-2. **verify**: Quote resolution (more expensive, verifies evidence grounding)
-3. **coverage**: Source cue audit (most expensive, compares extraction to source evidence)
-4. Enhanced gates (temporal, logic, actor) run after the core three pass
-5. **enrich-core**: Only runs when all gates pass
+```python
+def open_pipeline_db(db_path: Path, *, read_only: bool = False) -> duckdb.DuckDBPyConnection:
+    if not read_only:
+        db_path.parent.mkdir(parents=True, exist_ok=True)
+    con = duckdb.connect(str(db_path), read_only=read_only)
+    if not read_only:
+        _ensure_schema(con)
+    return con
+```
 
-**Confidence:** HIGH -- existing pattern, straightforward to extend.
+### Recommended Strategy
 
-### Pattern 7: Prompt Caching for Multi-Chunk Extraction
+Add retry logic to `open_pipeline_db()` with exponential backoff, constrained
+to transient lock errors only:
 
-**What:** Cache the system prompt (role, taxonomy, schema, few-shot examples) and the actor roster across chunk extraction calls using Anthropic's prompt caching.
+```python
+import time
 
-**When:** Multi-chunk extraction where the same system prompt and actor roster are sent with each chunk.
+MAX_RETRIES = 3
+INITIAL_BACKOFF_SECONDS = 0.5
 
-**Why:** The system prompt and actor roster are identical across chunks for a given deal. Prompt caching reduces cost by 90% and latency by up to 85% for the cached prefix. The cache hierarchy (tools -> system -> messages) means the system prompt cache is preserved as long as the system prompt does not change.
+def open_pipeline_db(db_path: Path, *, read_only: bool = False) -> duckdb.DuckDBPyConnection:
+    if not read_only:
+        db_path.parent.mkdir(parents=True, exist_ok=True)
 
-**Implementation:**
-- System prompt + actor roster = cached prefix (stable across chunks)
-- Per-chunk chronology blocks + evidence items + instructions = variable suffix
-- Cache breakpoints set after system prompt and after actor roster
+    last_error: Exception | None = None
+    for attempt in range(MAX_RETRIES + 1):
+        try:
+            con = duckdb.connect(str(db_path), read_only=read_only)
+            if not read_only:
+                _ensure_schema(con)
+            return con
+        except duckdb.IOException as exc:
+            if "lock" not in str(exc).lower():
+                raise
+            last_error = exc
+            if attempt < MAX_RETRIES:
+                time.sleep(INITIAL_BACKOFF_SECONDS * (2 ** attempt))
+    raise last_error  # type: ignore[misc]
+```
 
-**Confidence:** HIGH -- directly supported by Anthropic API, straightforward application.
+**Design principles:**
+- Only catch `duckdb.IOException` with "lock" in the message -- do not swallow
+  other errors.
+- Short backoff (0.5s, 1s, 2s) because DuckDB lock releases are nearly instant
+  once the prior connection is fully closed.
+- 3 retries max. If the lock persists after ~3.5s total, something else is
+  wrong and should fail fast.
+- Log retries to stderr for observability.
 
-### Pattern 8: Two-Pass Extraction (Actors Then Events)
+### What Changes
 
-**What:** Extract actors first in a dedicated pass, then extract events in a second pass that includes the established actor roster as context.
+| Component | Change Type | Details |
+|-----------|-------------|---------|
+| `db_schema.py` | **Modified** | Add retry loop with backoff in `open_pipeline_db()` |
+| `tests/test_db_schema.py` | **New or modified** | Test retry behavior with mocked lock error |
 
-**When:** Always. The actor roster is needed to correctly attribute events to actors.
+### What Does NOT Change
 
-**Why:** This is the existing pattern and it is correct for this domain. M&A deals involve many actors with aliases and complex relationships. Establishing the actor roster first means event extraction can reference stable actor IDs rather than trying to co-discover actors and events simultaneously. The actor roster also enables prompt caching across event extraction chunks.
+- `db_load.py`, `db_export.py` -- they call `open_pipeline_db()` and benefit
+  automatically.
+- No schema changes.
 
-**Confidence:** HIGH -- existing validated pattern. The redesign preserves it.
+
+## Integration Point 6: Coverage False Positive Hardening
+
+### Problem
+
+Coverage produced false-positive NDA cues on contextual
+confidentiality-agreement mentions (e.g., "which had executed a confidentiality
+agreement" used as a relative clause describing a party, not as a new NDA
+signing event).
+
+### Current State
+
+`coverage.py` already has some guards against this pattern (lines 112-123):
+
+```python
+references_prior_executed_nda = any(
+    phrase in text or phrase in text_compact
+    for phrase in (
+        "which had executed a confidentiality agreement",
+        "who had executed a confidentiality agreement",
+        "that had executed a confidentiality agreement",
+    )
+)
+has_target_due_diligence_confidentiality_language = (...)
+```
+
+And these are used as exclusion conditions (line 192-195, 201-203).
+
+### Fix Location
+
+**File:** `skill_pipeline/coverage.py`, in `_classify_cue_family()`
+
+**Change:** Expand the exclusion phrases in `references_prior_executed_nda` and
+`has_target_due_diligence_confidentiality_language` to cover additional
+contextual patterns observed in the 7-deal rerun. Specifically:
+- "had previously executed a confidentiality agreement"
+- "had already entered into a confidentiality agreement"
+- "pursuant to the confidentiality agreement"
+- "under the terms of the confidentiality agreement"
+- Other back-reference patterns that describe existing NDAs rather than new
+  signings.
+
+### What Changes
+
+| Component | Change Type | Details |
+|-----------|-------------|---------|
+| `coverage.py` | **Modified** | Expand exclusion phrases in `_classify_cue_family()` |
+| `tests/test_skill_coverage.py` | **Modified** | Add regression tests for contextual CA mentions |
+
+
+## Integration Point 7: check.py Grouped NDA Count Assertions
+
+### Problem
+
+`check.py` `_check_nda_count_gaps()` (lines 174-219) counts NDA-signing bidders
+but does not account for `group_size` on grouped actors. A single grouped actor
+representing "4 unnamed financial sponsors" should count as 4, not 1, toward
+the count assertion.
+
+### Current State
+
+The function already has `_counted_bidder_weight()` (lines 48-51) which returns
+`group_size` for grouped actors, but line 203 uses it correctly:
+
+```python
+grounded_actor_count = sum(_counted_bidder_weight(actor) for actor in grounded_actors)
+```
+
+Wait -- examining more carefully, the function **does** use
+`_counted_bidder_weight()` on line 203. The issue reported in the execution log
+was that the extraction did not have proper grouped-actor records at the time.
+After the extraction was repaired with grouped bidder cohorts, check passed.
+
+### Verification
+
+The check.py code is already correct for grouped NDA counts as long as the
+extraction artifacts properly model grouped actors with `is_grouped=True` and
+`group_size` set. The execution-log fix was in the **extraction artifacts**, not
+in check.py.
+
+**Possible remaining gap:** If a count assertion references
+`nda_signed_financial_buyers` and some financial buyers signed NDAs but were
+never modeled as actors (fully unnamed), the count gap persists. This is an
+extraction completeness issue, not a check.py bug.
+
+### What Changes
+
+| Component | Change Type | Details |
+|-----------|-------------|---------|
+| `check.py` | **No code change needed** | Already handles `group_size` via `_counted_bidder_weight()` |
+| `.claude/skills/` | **Modified** | Extraction skill docs should emphasize grouped-actor modeling |
+| `tests/test_skill_check.py` | **Modified** | Ensure grouped-actor test coverage exists |
+
+
+## Integration Point 8: Gates Rejecting Rollover Confidentiality Agreements
+
+### Problem
+
+Gates or check rejected deals where a confidentiality agreement was modeled as
+an NDA event but represented a rollover-side or non-target-process agreement
+(e.g., PetSmart Longview confidentiality agreement was not part of the sale
+process).
+
+### Root Cause
+
+This is an **extraction error**, not a gate/check bug. The LLM modeled a
+non-sale-process confidentiality agreement as an `nda` event. The gate correctly
+identified the lifecycle inconsistency (NDA signer with no downstream events),
+and the correct fix was to remove the erroneous event from the extraction.
+
+### Recommendation
+
+No code change in gates.py. Instead:
+1. Update extraction skill docs to distinguish sale-process NDAs from
+   rollover/due-diligence/non-target confidentiality agreements.
+2. Consider adding to the `SkillExclusionRecord` categories a new category
+   `"non_process_nda"` so the extraction can explicitly document why it excluded
+   a confidentiality agreement mention.
+
+### What Changes
+
+| Component | Change Type | Details |
+|-----------|-------------|---------|
+| `gates.py` | **No change needed** | Gate behavior is correct |
+| `models.py` | **Optional** | Add `"non_process_nda"` to `SkillExclusionRecord.category` Literal |
+| `.claude/skills/` | **Modified** | Clarify NDA vs non-process CA distinction |
+
+
+## Integration Point 9: Verbal/Oral Price Indication Support
+
+### Problem
+
+The pipeline misses verbal/oral price indications (e.g., STEC Company D,
+PetSmart Bidder 3) because extraction skill docs focus on written submissions.
+
+### Approach
+
+This is primarily an **extraction skill-doc change**. The Python infrastructure
+already supports proposals with any terms structure. A verbal indication is
+simply a `proposal` event where `formality_signals.mentions_non_binding = True`
+and the summary indicates it was verbal.
+
+### What Changes
+
+| Component | Change Type | Details |
+|-----------|-------------|---------|
+| `models.py` | **No change needed** | Proposal schema already supports verbal indications |
+| `.claude/skills/` | **Modified** | Add verbal/oral indication extraction guidance |
+| `coverage.py` | **Optional** | Add cue phrases for "verbal indication", "oral proposal" to `_classify_cue_family()` |
+
+
+## Suggested Build Order
+
+Dependencies determine sequencing. Changes are grouped into layers based on
+what blocks what.
+
+### Layer 0: Independent Hardening (no downstream dependencies, can parallelize)
+
+These fixes are isolated improvements that do not affect each other:
+
+| Task | File(s) | Rationale |
+|------|---------|-----------|
+| DuckDB lock retry | `db_schema.py` | Contained in one function, no schema change |
+| Quote_id collision prevention | `canonicalize.py` | Contained in one function, no schema change |
+| Coverage false-positive hardening | `coverage.py` | Contained in classifier function |
+
+**All three can be implemented in parallel.** Each has a clear single-function
+scope and independent test surface.
+
+### Layer 1: bid_type Rule Priority Fix (blocks enrichment accuracy)
+
+| Task | File(s) | Rationale |
+|------|---------|-----------|
+| Reorder `_classify_proposal()` rules | `enrich_core.py` | This is the pipeline's biggest accuracy bug per reconciliation; must fix before any re-enrichment |
+
+**Depends on:** Nothing from Layer 0.
+**Blocks:** Re-enrichment of all 9 deals, which would give wrong bid_type values
+until fixed.
+
+### Layer 2: Extraction Skill-Doc Updates (blocks re-extraction quality)
+
+| Task | File(s) | Rationale |
+|------|---------|-----------|
+| Round milestone extraction guidance | `.claude/skills/` | Infrastructure exists; extraction must produce the events |
+| DropTarget extraction recognition | `.claude/skills/` | Model as drop events with committee-driven context |
+| Verbal/oral indication guidance | `.claude/skills/` | Model as proposals with appropriate signals |
+| Non-process NDA exclusion guidance | `.claude/skills/` | Prevent rollover-CA false modeling |
+| Grouped-actor modeling guidance | `.claude/skills/` | Ensure group_size flows correctly |
+
+**Depends on:** Layer 1 (skill docs should reference corrected bid_type behavior).
+**Blocks:** Any fresh extraction run.
+
+### Layer 3: Deterministic Enrichment Extensions (new inference rules)
+
+| Task | File(s) | Rationale |
+|------|---------|-----------|
+| all_cash inference | `enrich_core.py`, `db_schema.py`, `db_load.py`, `db_export.py` | New enrichment logic with schema extension |
+| Deterministic DropTarget classification | `enrich_core.py` | New classification rule for committee-driven drops |
+
+**Depends on:** Layer 1 (builds on corrected enrichment infrastructure).
+**Blocks:** Nothing critical, but improves export completeness.
+
+### Layer 4: Optional Model Extensions
+
+| Task | File(s) | Rationale |
+|------|---------|-----------|
+| `non_process_nda` exclusion category | `models.py` | Low priority, improves extraction documentation |
+| Coverage round-milestone cue family | `coverage.py` | Detects missing round milestones after extraction |
+
+**Depends on:** Layer 2 (only useful after extraction produces round milestones).
+
+### Layer 5: Validation Re-run
+
+After all fixes:
+1. Re-run `enrich-core` on all 9 deals to verify bid_type corrections
+2. Re-run `db-load` and `db-export` to verify DuckDB lock retry works
+3. Spot-check `canonicalize` on deals that previously had quote_id collisions
+
+### Dependency Graph
+
+```
+Layer 0 (parallel)            Layer 1           Layer 2            Layer 3        Layer 4
++-----------------------+
+| DuckDB lock retry     |
++-----------------------+     +-------------+
+| quote_id collision    |     | bid_type    |   +-------------+   +------------+
++-----------------------+     | rule fix    |-->| skill-doc   |-->| all_cash   |   +----------+
+| coverage FP hardening |     +-------------+   | updates     |   | inference  |   | optional |
++-----------------------+                       +-------------+-->| DropTarget |-->| model    |
+                                                                  | classify   |   | exts     |
+                                                                  +------------+   +----------+
+```
+
+### Critical Path
+
+The critical path is: **bid_type rule fix -> skill-doc updates -> fresh
+extraction -> re-enrichment**. The hardening fixes (Layer 0) are off the
+critical path and can be done anytime.
+
+## Data Flow Changes
+
+### New Enrichment Output Fields
+
+`deterministic_enrichment.json` currently contains:
+```json
+{
+  "rounds": [...],
+  "bid_classifications": {...},
+  "cycles": [...],
+  "formal_boundary": {...}
+}
+```
+
+After v1.1, it will additionally contain:
+```json
+{
+  "consideration_type_inferences": {"evt_007": "cash", ...},
+  "dropout_classifications": {"evt_005": {"label": "DropTarget", ...}, ...}
+}
+```
+
+The `dropout_classifications` key overlaps with the interpretive enrichment
+artifact (`enrich/enrichment.json`). Design choice: deterministic dropout
+classification should be a **subset** -- only classify drops where deterministic
+signals are unambiguous. The interpretive layer fills the rest.
+
+### DuckDB Schema Migration
+
+The `enrichment` table needs one new optional column:
+
+```sql
+ALTER TABLE enrichment ADD COLUMN consideration_type_inferred TEXT;
+```
+
+Handle this via `_ensure_schema()` in `db_schema.py` using an
+`ALTER TABLE ... ADD COLUMN IF NOT EXISTS` pattern rather than requiring a
+clean-slate rebuild.
+
+### No Changes To
+
+- Raw filing artifacts (`raw/<slug>/`)
+- Source artifacts (`data/deals/<slug>/source/`)
+- Prompt packet artifacts (`data/skill/<slug>/prompt/`)
+- Extract artifact schema (actors_raw.json, events_raw.json structure)
+- Span registry schema (spans.json)
+- Check report schema
+- Verification log schema
+- Coverage findings schema
+- Gates report schema
 
 ## Anti-Patterns to Avoid
 
-### Anti-Pattern 1: RAG for Primary Extraction
+### Anti-Pattern 1: Weakening Fail-Fast Guards
+**What:** Removing the `ValueError` on duplicate quote_ids in canonicalize,
+or catching and ignoring DuckDB errors broadly.
+**Why bad:** Silent data corruption. Two different quotes sharing an ID means
+wrong span resolution.
+**Instead:** Fix the root cause (renumber colliding IDs) and keep the guard.
 
-**What:** Using retrieval-augmented generation as the primary extraction architecture.
+### Anti-Pattern 2: Overloading event_type for DropTarget
+**What:** Adding `"drop_target"` as a new event_type alongside `"drop"`.
+**Why bad:** Every stage with an event_type Literal union would need updating
+(models.py, check.py, coverage.py, gates.py, enrich_core.py, db_export.py).
+The existing `DropoutClassification.label` is the correct extension point.
+**Instead:** Keep `event_type: "drop"` and classify via enrichment labels.
 
-**Why bad:** RAG is designed for selective retrieval (find the most relevant passages for a question). Extraction requires exhaustive recall (find every relevant passage in the document). RAG's relevance scoring will miss low-salience but important events. The documents fit in context, so retrieval adds a failure mode without solving a real problem.
+### Anti-Pattern 3: Inference in Extraction
+**What:** Asking the LLM to infer all_cash when the filing doesn't say "cash."
+**Why bad:** Hallucination risk. The LLM should extract what the filing says.
+Inference is a deterministic enrichment responsibility.
+**Instead:** Extract the literal consideration_type. Infer missing values
+deterministically in `enrich_core.py`.
 
-**When acceptable:** Lightweight BM25 retrieval for targeted recovery passes after coverage identifies gaps.
-
-**Confidence:** HIGH -- explicitly assessed and rejected in PROJECT.md.
-
-### Anti-Pattern 2: LLM for Deterministic Tasks
-
-**What:** Using the LLM for tasks that can be done deterministically: chronology localization, date parsing, bid classification, round pairing.
-
-**Why bad:** LLM outputs are non-deterministic, expensive, and slow. If a task can be encoded in Python rules, it should be. The existing codebase correctly keeps these tasks deterministic.
-
-**Instead:** Keep the LLM confined to extraction (the task that genuinely requires language understanding) and let Python handle everything else.
-
-**Confidence:** HIGH -- existing design principle, well-validated.
-
-### Anti-Pattern 3: Silent Fallbacks in Gates
-
-**What:** Gates that log warnings and continue instead of failing when they find errors.
-
-**Why bad:** Silent failures propagate corrupted data downstream. The gate's entire purpose is to stop bad data. If a gate passes when it should fail, the system's correctness guarantee is compromised.
-
-**Instead:** Fail fast and loud. Gates return exit code 1 on any error-level finding. Downstream stages refuse to run if gate artifacts are missing or show failure status.
-
-**Confidence:** HIGH -- existing design principle from CLAUDE.md.
-
-### Anti-Pattern 4: Mid-Block Chunk Splitting
-
-**What:** Splitting chunks at arbitrary token boundaries that bisect chronology blocks.
-
-**Why bad:** A chronology block often describes a single event or a tightly related sequence. Splitting mid-block means the model sees half an event in one chunk and the other half in the next, with no guarantee that overlap captures the full context. The quote-before-extract protocol depends on having complete blocks to cite from.
-
-**Instead:** Always split at block boundaries. Use the annotate stage to identify good split points (heading blocks, temporal phase transitions, natural narrative breaks).
-
-**Confidence:** HIGH -- domain-specific reasoning that follows from block-aligned evidence architecture.
-
-### Anti-Pattern 5: Over-Engineering Chunk Merge
-
-**What:** Building a complex graph-based deduplication system for cross-chunk merge with fuzzy matching, embedding similarity, and conflict resolution.
-
-**Why bad:** With block-aligned chunking and 2-block overlap, the merge problem is constrained: the same blocks appear in at most 2 chunks. Deduplication can be done by block_id overlap. Events grounded in the same block(s) from adjacent chunks are candidates for dedup. Simple deterministic rules suffice.
-
-**Instead:** Merge by block_id overlap. For events in the overlap zone, prefer the version from the chunk where the event's primary block_id is not at the boundary.
-
-**Confidence:** MEDIUM -- the approach is sound but edge cases may require refinement during implementation.
-
-## Scalability Considerations
-
-This pipeline processes 9 deals, each with 1 primary filing. Scale concerns are minimal but worth documenting.
-
-| Concern | Current (9 deals) | At 50 deals | At 500 deals |
-|---------|--------------------|-------------|--------------|
-| Filing size | 50-300KB text, fits in context | Same | Same; DEFM14A filings have consistent size range |
-| LLM API cost | ~$2-5/deal (multi-chunk) | ~$100-250 total | Need batch API or parallel workers |
-| Processing time | 5-15 min/deal sequential | 4-12 hours sequential | Parallelize per-deal; pipeline stages are independent across deals |
-| Artifact storage | ~1MB/deal in JSON | ~50MB total | Negligible |
-| Gate chain time | <30s/deal (deterministic) | <25 min total | Negligible; embarrassingly parallel across deals |
-
-The bottleneck is always the LLM extraction kernel. All other stages are fast deterministic Python. Per-deal parallelism is trivial since deals share no artifacts.
-
-## Build Order Implications
-
-Components have strict dependency ordering that determines the build sequence:
-
-### Layer 1: Foundation (Existing Baseline)
-Already implemented and working:
-- **raw-fetch**: Immutable filing freeze
-- **preprocess-source**: Chronology blocks and evidence items
-
-These are stable. Redesign work should extend them carefully rather than replacing them.
-
-### Layer 2: Annotation (Phase 1)
-- **preprocess-source extension**: Block-level metadata enrichment
-  - Depends on: preprocess-source outputs
-  - Writes back into `chronology_blocks.jsonl`
-  - Can be implemented and tested independently of any LLM changes
-
-### Layer 3: Prompt Architecture (Phase 2)
-- **chunk planning / prompt composition helpers**
-  - Depend on: annotated blocks, evidence items, actor roster when applicable
-  - This is where data-first ordering, evidence checklists, overlap tags, and prompt caching structure are wired in
-
-### Layer 4: Extraction Improvement (Phase 3)
-- **extract**: LLM calls with quote-before-extract and provider-native structured outputs
-  - Depends on: prompt-composition outputs
-  - Requires prompt caching and response-parsing decisions
-
-### Layer 5: Schema Upgrade (Existing, May Need Updates)
-- **canonicalize**: Span resolution for the evolved extraction output format
-  - May need updates to handle quote-before-extract outputs while keeping stable filenames
-
-### Layer 6: Enhanced Gates (Phase 4, Additive)
-These can be built in parallel with each other after the improved extraction path exists:
-- **temporal-consistency**: Date ordering validation
-- **cross-event-logic**: Logical consistency checks
-- **per-actor-coverage**: Actor trajectory completeness
-- **attention-decay**: Position-correlated gap detection
-
-### Layer 7: Integration (Phase 5)
-- **database/orchestration**: Canonical store, end-to-end wiring, calibration
-- **existing deterministic chain**: `check`, `verify`, `coverage`, `enrich-core`, `export-csv`
-
-### Recommended Build Sequence
-
-```
-Phase 1: preprocess-source metadata extension (Layer 2)
-  - Independent, testable, no LLM cost
-  - Validates block metadata and source-artifact contract
-
-Phase 2: prompt architecture helpers (Layer 3)
-  - Block-aligned chunking logic if needed
-  - Deterministic prompt assembly with data-first ordering
-  - Testable with fixture data
-
-Phase 3: extract with quote-before-extract (Layer 4)
-  - Wire new prompt architecture into LLM calls
-  - Implement quote response parsing
-  - End-to-end test on one deal
-
-Phase 4: canonicalize updates + enhanced gates (Layers 5-6)
-  - Update span resolution for the new extraction contract
-  - Add temporal, logic, coverage, and decay diagnostics
-  - Each gate independently testable
-
-Phase 5: integration + calibration (Layer 7)
-  - Wire stages into end-to-end CLI and canonical store
-  - Complexity routing if Phase 2-3 prove it is needed
-  - Run on all 9 deals
-```
-
-**Rationale for this ordering:**
-1. Phase 1 is deterministic prerequisite work with no LLM risk
-2. Extraction improvement depends on prompt composition
-3. Enhanced gates should validate the improved extraction contract, not the old one
-4. Integration depends on all stages being individually functional
+### Anti-Pattern 4: Schema Migrations That Break Existing Data
+**What:** Adding NOT NULL columns to DuckDB tables.
+**Why bad:** Existing loaded deals would violate the constraint.
+**Instead:** All new columns should be nullable (TEXT, DOUBLE, BOOLEAN with no
+NOT NULL constraint).
 
 ## Sources
 
-- [Anthropic Long Context Tips](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/long-context-tips) -- data-first ordering, XML tags, quote-first strategy (HIGH confidence)
-- [Anthropic Prompting Best Practices](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices) -- structured prompts, XML tags, role setting (HIGH confidence)
-- [Anthropic Prompt Caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) -- cost/latency reduction for repeated prefixes (HIGH confidence)
-- [Deterministic Quoting](https://mattyyeung.github.io/deterministic-quoting) -- quote text via database lookup, not LLM generation (HIGH confidence)
-- [Anthropic Reduce Hallucinations](https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations) -- verification with citations, retract if no supporting quote (HIGH confidence)
-- [Controlled LLM-Based Generation Pipeline](https://www.emergentmind.com/topics/controlled-llm-based-generation-pipeline) -- deterministic shell / LLM kernel pattern (MEDIUM confidence)
-- [Deterministic Blackboard Pipelines](https://community.unix.com/t/preprint-deterministic-blackboard-pipelines-with-specialized-llm-knowledge-sources-a-generalizable-architecture-for-intelligent-multi-stage-reasoning/397461) -- staged pipeline with deterministic control and specialized LLM knowledge sources (MEDIUM confidence)
-- [Benchmarking Multi-Agent LLM for Financial Documents](https://arxiv.org/html/2603.22651) -- sequential pipeline, parallel fan-out, reflexive self-correcting loop for SEC filings (MEDIUM confidence)
-- [Chunking Strategies for LLM Pipelines](https://www.typedef.ai/resources/tackle-chunking-context-windows-llm-data-pipelines) -- overlap, deduplication, context-enriched chunks (MEDIUM confidence)
-- Existing codebase architecture at `.planning/codebase/ARCHITECTURE.md` (HIGH confidence)
-- V3 pipeline design at `docs/plans/2026-03-16-pipeline-design-v3.md` (HIGH confidence)
-- Prompt engineering spec at `docs/plans/2026-03-16-prompt-engineering-spec.md` (HIGH confidence)
-
----
-
-*Architecture research: 2026-03-27*
+- `skill_pipeline/enrich_core.py` -- current bid classification rules (lines 209-272)
+- `skill_pipeline/canonicalize.py` -- quote resolution and collision guard (lines 88-142)
+- `skill_pipeline/models.py` -- schema definitions including event types and enrichment models
+- `skill_pipeline/check.py` -- NDA count assertion logic (lines 174-219)
+- `skill_pipeline/coverage.py` -- cue classification and false-positive guards (lines 84-224)
+- `skill_pipeline/gates.py` -- semantic gates including round announcement rules
+- `skill_pipeline/db_schema.py` -- DuckDB connection and schema DDL
+- `skill_pipeline/db_load.py` -- enrichment loading logic
+- `skill_pipeline/db_export.py` -- CSV export with bid_type and consideration_type
+- `data/reconciliation_cross_deal_analysis.md` -- cross-deal reconciliation findings
+- `quality_reports/session_logs/2026-03-29_7-deal-rerun_master.md` -- execution log
+- `.planning/PROJECT.md` -- milestone definition and context

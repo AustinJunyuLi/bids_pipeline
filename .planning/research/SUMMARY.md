@@ -1,227 +1,122 @@
-# Project Research Summary
+# Research Summary: v1.1 Reconciliation + Execution-Log Quality Fixes
 
-**Project:** Filing-Grounded Deal Pipeline Redesign
-**Domain:** Correctness-first local-agent extraction research for structured M&A deal data from SEC filings
-**Researched:** 2026-03-27
-**Confidence:** HIGH
+**Domain:** Filing-grounded M&A extraction pipeline -- quality fixes and hardening
+**Researched:** 2026-03-29
+**Overall confidence:** HIGH
 
 ## Executive Summary
 
-This pipeline extracts structured M&A deal chronologies (actors, events,
-evidence) from SEC DEFM14A/PREM14A/SC 14D-9 filings using local-agent-driven
-structured extraction, then validates every claim against the immutable source
-text through a chain of deterministic gates. The existing architecture --
-deterministic shell / LLM kernel, two-pass extraction, artifact-mediated
-stages, fail-fast gate chain -- is fundamentally sound and aligns with 2026
-best practices for controlled extraction. The redesign is not a rewrite; it is
-a deepening of the existing pattern.
+The v1.1 milestone addresses systematic bugs and gaps identified by two
+independent audits: (1) a 9-deal cross-deal reconciliation comparing pipeline
+output against a hand-coded benchmark, and (2) a 7-deal fresh rerun that
+logged every runtime wall. These are not speculative improvements -- they are
+fixes for documented, reproducible issues with clear root causes.
 
-This research packet records optional external local-agent implementation ideas.
-It is not the live `skill_pipeline` contract, and it does not authorize adding
-Python-side LLM wrappers to the repo.
+The reconciliation found that the pipeline wins filing arbitrations 45:16
+against the benchmark but has one major systematic bug: the `bid_type`
+enrichment rule priority causes final-round proposals to be misclassified as
+Informal across 5+ deals. This is a mechanical rule-ordering fix in
+`enrich_core.py`'s `_classify_proposal()` function -- Rule 1 (IOI language ->
+Informal) fires before Rule 2.5 (after final round -> Formal). The M&A
+convention is that process position overrides language signals. The pipeline also
+has complementary coverage gaps versus the benchmark: it misses round milestone
+events (which its schema already supports) and committee-driven field narrowing
+(DropTarget dropout labels, already supported in the `DropoutClassification`
+model). These gaps are extraction-side, not infrastructure-side.
 
-The adopted roadmap keeps the sequential pipeline (`raw -> preprocess -> extract -> canonicalize -> check -> verify -> coverage -> enrich -> export`) and slices the work into five phases. Phase 1 is deliberately narrow: block metadata is added inside `preprocess-source`, written directly onto `chronology_blocks.jsonl`, and no LLM behavior changes happen yet. Later phases add deterministic prompt-composition helpers, quote-before-extract, enhanced deterministic gates, and finally database/orchestration work. Canonical extract filenames remain `actors_raw.json`, `events_raw.json`, and `spans.json`; canonicalization upgrades the schema in place rather than renaming the artifacts.
+The execution log identified runtime fragility in three clear areas:
+(1) canonicalize crashes on duplicate quote_ids when actor and event extraction
+passes use overlapping ID namespaces -- the fix is deterministic renumbering
+before the merge;
+(2) DuckDB file-lock contention when db-export runs immediately after db-load --
+the fix is a 3-retry loop with exponential backoff in `open_pipeline_db()`;
+(3) coverage false positives on contextual confidentiality-agreement mentions
+that describe existing NDAs rather than new signings -- the fix is expanding
+the exclusion phrase list in `_classify_cue_family()`.
 
-The key risks are: hallucinated anchor text surviving verification (mitigated by quote-before-extract), repair loop degenerative correction (mitigated by investing in first-pass quality and constraining repair scope), over-chunking simple deals (mitigated by deferring complexity routing until later in v1), and evidence items becoming an extraction crutch rather than a coverage supplement (mitigated by restricting evidence items to the later evidence-aware prompt flow). All 9 active deals likely fit in a single context window for event extraction, so chunking complexity should remain conditional rather than assumed.
+All target features integrate cleanly with the existing architecture. No new
+Python dependencies. No new modules. The event_type schema already supports
+round milestones. The dropout classification model already supports DropTarget
+labels. The proposal schema already supports verbal indications. The only
+feature requiring schema extension is all_cash inference (one new nullable
+DuckDB column in the enrichment table).
 
 ## Key Findings
 
-### Recommended Stack
+**Stack:** No new dependencies. All changes are within existing `skill_pipeline/`
+Python package and DuckDB schema.
 
-The existing stack (Python 3.11+, Pydantic 2.0+, edgartools, pytest) is
-retained. The items below are researched options for external local-agent
-execution and later database work; they are not adopted `skill_pipeline`
-runtime dependencies today.
+**Architecture:** Changes span 7 Python files but are isolated to specific
+functions within each. No new modules needed. See ARCHITECTURE.md for the
+detailed 9-integration-point analysis and dependency graph.
 
-**External agent-side options and later-phase additions:**
-- **anthropic >= 0.86**: Researched SDK option for external runners that want
-  native structured outputs and prompt caching
-- **openai >= 2.30**: Researched SDK option for external runners that want the
-  Responses API path on GPT-5.x
-- **duckdb >= 1.5**: Candidate later-phase database layer for canonical deal
-  representation and export generation
-- **edgartools >= 5.23, < 6.0**: Live deterministic runtime risk to monitor or
-  pin regardless of agent choice
-
-**What NOT to add:** Instructor (redundant -- native SDK Pydantic support), LangChain/LlamaIndex (heavy abstractions that fight deterministic design), fuzzywuzzy (GPL, use rapidfuzz only if fuzzy matching enhancement is pursued).
-
-**Schema-constrained structured outputs are the intended later-phase
-direction.** Do not treat any provider-specific implementation path as active
-until Phase 2 planning selects an external runner approach. Extended reasoning
-remains compatible with structured outputs in at least some researched
-providers, but that is external-runner detail rather than repo contract.
-
-### Expected Features
-
-**Must have (table stakes -- missing = extraction quality suffers):**
-- TS-1: Data-first prompt ordering (up to 30% quality improvement, zero cost)
-- TS-2: Quote-before-extract protocol (eliminates hallucinated anchor text at source)
-- TS-3: Block-aligned semantic chunk boundaries (never split mid-block)
-- TS-4: Inter-chunk overlap with context tags (2-block overlap with `<prior_context>` markers)
-- TS-5 through TS-10: Already implemented and validated (Pydantic schemas, deterministic gates, two-pass extraction, span-backed provenance, fail-fast, extended thinking)
-
-**Should have (differentiators -- measurably improve correctness):**
-- D-1: Evidence items as active attention-steering checklist (Pass 2 only, not Pass 1)
-- D-4: Expanded few-shot examples (3-5 diverse scenarios, cached in prompt prefix)
-- D-5: Prompt caching for system prompt + actor roster (90% input token savings on Anthropic)
-- D-6: Temporal consistency gate (cross-event date ordering validation)
-- D-7: Per-actor coverage audit (lifecycle completeness per named bidder)
-
-**Later in the v1 roadmap:**
-- D-2: Block-level metadata enrichment (already adopted into active Phase 1 scope)
-- D-3: Complexity-based routing (deferred to Phase 5, not needed before the prompt overhaul proves it is useful)
-- D-8: Cross-event logical consistency checks (active Phase 4 work, not a v2-only idea)
-
-### Architecture Approach
-
-The architecture follows **deterministic shell / LLM kernel**: an immutable filing layer feeds deterministic preprocessing, which structures input for a non-deterministic LLM extraction kernel, whose outputs are validated by deterministic gates before enrichment and export. The active roadmap keeps Phase 1 annotation inside `preprocess-source`, then adds Phase 2 prompt-composition responsibilities around extraction. Whether those later responsibilities become serialized helper artifacts (`chunk_plan.json`, prompt payload files) or remain internal deterministic helpers is still a Phase 2 planning choice, not an approved runtime contract today. Data flows strictly forward through filesystem artifacts. The only re-entry is the optional LLM repair loop.
-
-**Major components (new or modified):**
-1. **preprocess-source (modified in Phase 1)** -- Enrich chronology blocks with dates, entities, evidence density, temporal phase
-2. **prompt composition helpers (planned for Phase 2)** -- Compute block-aligned chunk boundaries, overlaps, evidence checklists, and data-first prompt layout
-3. **extract (modified later)** -- Quote-before-extract protocol with schema-constrained external extraction
-4. **enhanced gates (planned for Phase 4)** -- Temporal consistency, cross-event logic, per-actor coverage, attention decay diagnostics
-5. **database/orchestration (planned for Phase 5)** -- Canonical store plus a documented orchestration flow
-
-### Critical Pitfalls
-
-1. **Hallucinated anchor text (P1)** -- The primary failure mode. LLMs reconstruct quotes from semantic memory rather than copying verbatim. Mitigate with quote-before-extract protocol: force the LLM to cite passages inside `<quote>` tags before producing structured records. If >10% of anchors fail EXACT/NORMALIZED on first pass, the prompt architecture is the problem.
-
-2. **Repair loop degenerative correction (P2)** -- Fixing one error introduces new errors. Self-correction research shows LLMs exhibit "self-bias" and repaired outputs come from a contaminated distribution. Mitigate by investing in first-pass quality, constraining repair scope to only flagged items, tracking repair deltas, and capping at 2 rounds.
-
-3. **Over-chunking simple deals (P3)** -- Chunking creates overlap regions, deduplication complexity, and actor confusion. Most of the 9 deals fit in a single context window. Mitigate with complexity-based routing: only chunk when chronology exceeds ~150k tokens. Default to single-pass.
-
-4. **Evidence items becoming extraction crutch (P4)** -- If evidence items are presented during primary extraction, the LLM treats them as a closed-world specification and ignores events not on the list. Mitigate by restricting evidence items to Pass 2 gap re-read only. Pass 1 operates on chronology blocks alone.
-
-5. **Thinking token explosion (P5)** -- Extended thinking on complex schemas (20 event types, 11 formality signals) can generate 50k-100k+ thinking tokens. Mitigate with adaptive thinking (`effort="high"`, not manual `budget_tokens`), set `max_tokens >= 64000`, and monitor thinking-to-output token ratio.
+**Critical pitfall:** The bid_type rule fix must land before any re-enrichment
+run, or it perpetuates the misclassification across all 9 deals. The fix is
+NOT "always promote to Formal" -- it is "final-round context overrides IOI
+language." Early IOIs before any formal round should remain Informal.
 
 ## Implications for Roadmap
 
-### Phase 1: Foundation + Annotation
+Based on research, suggested phase structure:
 
-**Rationale:** This is the lowest-risk prerequisite work. It improves deterministic source artifacts without changing extraction behavior, which keeps the baseline stable while creating the metadata later prompt work needs.
+1. **Hardening fixes (parallel)** - DuckDB lock retry, quote_id collision prevention, coverage false-positive expansion
+   - Addresses: Runtime walls from execution log (canonicalize crash, DuckDB lock, coverage FP)
+   - Avoids: Blocking the critical path (these are independent of each other)
+   - Rationale: Three independent single-function changes with clear test contracts. Can parallelize with everything else.
 
-**Delivers:** Required block metadata on `ChronologyBlock`, annotation
-integrated into `preprocess-source`, reprocessed source artifacts for all 9
-deals, and regression tests for the annotation logic.
+2. **bid_type rule priority fix** - Reorder `_classify_proposal()` rules in enrich_core.py
+   - Addresses: Biggest accuracy bug per reconciliation (5+ deals affected, mac-gray, stec, prov-worcester, imprivata, penford)
+   - Avoids: Re-enrichment before the fix lands
+   - Rationale: Single-function change but highest impact. Must validate against all 9 deals before proceeding.
 
-**Addresses features:** D-2 (block metadata enrichment)
+3. **Extraction skill-doc updates** - Round milestones, DropTarget, verbal indications, NDA exclusion guidance
+   - Addresses: Coverage gaps identified by reconciliation (event types Alex captures that pipeline doesn't)
+   - Avoids: Python infrastructure changes (infra already supports all of these)
+   - Rationale: The bottleneck is extraction instructions, not code. Skill docs must reference the corrected bid_type behavior.
 
-**Avoids pitfalls:** P3 (premature chunking complexity), P10 (changing LLM behavior too early), stale source artifacts flowing into later phases
+4. **Enrichment extensions** - all_cash contextual inference, deterministic DropTarget classification
+   - Addresses: Remaining reconciliation gaps (conservative all_cash, committee-driven drops)
+   - Avoids: Schema changes until base functionality is correct
+   - Rationale: New inference logic builds on corrected enrichment rules. Requires careful boundary-case testing (CVR deals, mixed consideration).
 
-### Phase 2: Prompt Architecture
+5. **Deal-specific extraction fixes** - Zep NMC actor error, Medivation missing drops
+   - Addresses: Per-deal extraction errors found in reconciliation
+   - Avoids: Code changes (these are re-extraction, not pipeline code fixes)
+   - Rationale: Requires re-running `/extract-deal` with corrected skill docs from Phase 3.
 
-**Rationale:** Once annotated blocks exist, prompt composition can be built deterministically and tested without changing the underlying extraction contract all at once.
+**Phase ordering rationale:**
+- Hardening fixes (Phase 1) are independent and off the critical path.
+- bid_type fix (Phase 2) is the single highest-impact change and blocks accurate re-enrichment.
+- Skill-doc updates (Phase 3) depend on understanding the corrected bid_type behavior.
+- Enrichment extensions (Phase 4) build on corrected enrichment infrastructure.
+- Deal-specific fixes (Phase 5) require re-extraction, which should use the improved skill docs.
 
-**Delivers:** Deterministic prompt-composition helpers, data-first ordering, evidence checklist formatting, block-aligned chunk planning, overlap tags, and prompt-caching structure.
-
-**Addresses features:** TS-1, TS-3, TS-4, D-1, D-4, D-5
-
-**Avoids pitfalls:** P1 (hallucinated anchors), P3 (over-chunking), P4 (evidence items becoming a crutch), P7 (prompt-ordering regression)
-
-### Phase 3: Quote-Before-Extract
-
-**Rationale:** Quote-before-extract is the highest-leverage extraction change, but it should land only after prompt composition is stable.
-
-**Delivers:** Extraction prompt/response changes, quote-first parsing expectations, and canonicalization/verification updates needed to consume the new output shape safely.
-
-**Addresses features:** TS-2
-
-**Avoids pitfalls:** P1 (hallucinated anchors), P2 (repair-loop overuse), P9 (actor confusion), P10 (cache invalidation mistakes)
-
-### Phase 4: Enhanced Gates
-
-**Rationale:** Once the improved extraction path exists, deterministic checks can be extended to catch the remaining failure modes the current gate chain misses.
-
-**Delivers:** Temporal consistency, cross-event logic, per-actor coverage, and attention-decay diagnostics.
-
-**Addresses features:** D-6, D-7, D-8
-
-**Avoids pitfalls:** P2 (repair degenerative correction), P11 (coverage blind spots)
-
-### Phase 5: Integration + Calibration
-
-**Rationale:** Final orchestration and database work should happen after the stage-level contracts have settled.
-
-**Delivers:** DuckDB canonical store, end-to-end orchestration, complexity routing, calibration on the 9-deal corpus, and export generation from a single canonical representation.
-
-**Addresses features:** D-3 plus the DB/integration requirements
-
-**Avoids pitfalls:** P14 (premature multi-run complexity), P15 (benchmark contamination)
-
-### Phase Ordering Rationale
-
-- Foundation + annotation (Phase 1) is deterministic prerequisite work and keeps the current extraction behavior untouched.
-- Prompt architecture (Phase 2) depends on Phase 1 metadata. This is where prompt composition lands without yet forcing the quote-first extraction contract.
-- Quote-before-extract (Phase 3) depends on Phase 2 prompt composition. This is where LLM API and parsing changes land.
-- Enhanced gates (Phase 4) depend on the improved extraction path so they validate the right output contract.
-- Integration + calibration (Phase 5) depends on all individual stage contracts being stable enough to wire together end-to-end.
-
-### Research Flags
-
-**Phases likely needing deeper research during planning:**
-- **Phase 2 (Prompt Architecture):** Exact helper boundaries (`chunk_plan.json` and serialized prompt payloads versus in-memory deterministic helpers) still need planning decisions.
-- **Phase 3 (Quote-Before-Extract):** External-runner structured-output field
-  names, prompt-caching behavior, and quote-first response parsing still need
-  verification in the selected agent/tooling path.
-- **Phase 4 (Enhanced Gates):** Repair-loop scope constraints and enhanced-gate thresholds need calibration against real extraction output.
-
-**Phases with standard patterns (skip research-phase):**
-- **Phase 1 (Foundation + Annotation):** Deterministic metadata enrichment over existing source artifacts.
-- **Phase 5 (Integration + Calibration):** Standard CLI and DuckDB wiring once the upstream contracts are settled.
+**Research flags for phases:**
+- Phase 1 (hardening): Standard patterns, unlikely to need further research. Verify DuckDB IOException class hierarchy for retry.
+- Phase 2 (bid_type): Clear root cause, well-understood fix. Needs careful regression testing against all 9 deals.
+- Phase 3 (skill docs): May need deeper research on few-shot example design for round milestones and DropTarget events.
+- Phase 4 (enrichment extensions): all_cash inference rules need validation against actual deal patterns to avoid false positives on mixed-consideration deals.
 
 ## Confidence Assessment
 
 | Area | Confidence | Notes |
 |------|------------|-------|
-| Stack | HIGH | Agent-side Anthropic docs were verified. OpenAI remains MEDIUM confidence. DuckDB is well-established. |
-| Features | MEDIUM-HIGH | Table stakes grounded in Anthropic official documentation and academic research. Differentiators are logical extensions with less direct validation. |
-| Architecture | HIGH | Existing architecture is validated. New stages follow established patterns. Build order is dependency-driven. |
-| Pitfalls | HIGH | Critical pitfalls confirmed by project diagnosis history, Anthropic documentation, and self-correction research. |
+| Stack | HIGH | No new dependencies; all changes in existing codebase |
+| Features | HIGH | Each feature has a clear root cause from reconciliation or execution log |
+| Architecture | HIGH | Integration points verified against actual source code in 7 modules |
+| Pitfalls | HIGH | Pitfalls derived from actual runtime failures, not speculation |
 
-**Overall confidence:** HIGH
+## Gaps to Address
 
-### Gaps to Address
-
-- **Selected external runner contract:** The repo has not chosen a final
-  provider/SDK execution path for local-agent extraction. Phase 2 planning must
-  make that decision explicitly if it becomes necessary.
-- **Prompt caching + structured output interaction:** Provider-specific caching
-  behavior still needs testing in the selected external runner, if such caching
-  is used.
-- **edgartools v6 timeline:** Breaking changes confirmed but release date unknown. Monitor and pin `<6.0`.
-- **Chunk threshold calibration:** The 150k-token threshold for chunking is a reasonable default but needs validation against actual deal chronology sizes. Measure token counts for all 9 deals before finalizing.
-- **Few-shot example curation:** Requires completed gold-standard extractions from validated deals. Cannot be done until at least 1-2 deals pass the full pipeline with the new prompts.
-- **DuckDB schema design:** No research on specific table schemas for deal data. This is implementation detail for Phase 4.
+- **DuckDB IOException class hierarchy:** Verify the exact exception class and message format for lock errors in DuckDB 1.5.1. The retry strategy assumes `duckdb.IOException` with "lock" in the message.
+- **all_cash inference false-positive rate:** The contextual inference rules (propagate cash from executed event) need validation against edge cases like mixed-consideration deals (prov-worcester cash+CVR).
+- **Round milestone few-shot examples:** The extraction skill docs will need concrete examples from deals where the benchmark has round milestones and the pipeline doesn't.
+- **DropTarget classification heuristic quality:** Deterministic rules for classifying committee-driven drops need testing against the 9-deal corpus to avoid over-classifying bidder-initiated withdrawals.
+- **Coverage phrase expansion:** The initial exclusion patterns from zep, saks, and petsmart-inc may not cover all filing language variations for contextual CA mentions.
 
 ## Sources
 
-### Primary (HIGH confidence)
-- [Anthropic Structured Outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs) -- GA `output_config.format`, Pydantic `.parse()`, schema limitations
-- [Anthropic Prompt Caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) -- cache breakpoints, TTL, pricing, minimum thresholds
-- [Anthropic Extended Thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) -- compatibility with structured outputs, adaptive thinking
-- [Anthropic Prompting Best Practices](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices) -- data-first ordering, quote grounding, few-shot guidance
-- [Anthropic Reduce Hallucinations](https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations) -- quote-before-extract, citation verification
-- [Anthropic Long Context Tips](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/long-context-tips) -- XML tags, data-first strategy
-- [OpenAI Prompt Caching](https://platform.openai.com/docs/guides/prompt-caching) -- automatic caching, 1024-token minimum
-
-### Secondary (MEDIUM-HIGH confidence)
-- [Multi-Agent Financial Document Processing Benchmark (arxiv 2603.22651)](https://arxiv.org/abs/2603.22651) -- sequential vs multi-agent for SEC filings
-- [LLM Self-Correction Benchmark (arxiv 2510.16062)](https://arxiv.org/html/2510.16062v1) -- self-consistency marginal ROI for structured extraction
-- [SCoRe: Self-Correction via RL (ICLR 2025)](https://proceedings.iclr.cc/paper_files/paper/2025/file/871ac99fdc5282d0301934d23945ebaa-Paper-Conference.pdf) -- reflexive improvement yields 9-15% gains
-- [Lost in the Middle (TACL)](https://direct.mit.edu/tacl/article/doi/10.1162/tacl_a_00638/119630/) -- 30%+ accuracy drops at middle positions
-- [The Few-shot Dilemma (arxiv 2509.13196)](https://arxiv.org/abs/2509.13196) -- performance degradation with excessive examples
-- [LLMQuoter: Quote Extraction for RAG (arxiv 2501.05554)](https://arxiv.org/html/2501.05554v1) -- quote-first-then-answer, 20-point accuracy gains
-- Project diagnosis rounds 1-3 and CONCERNS.md -- repair loop contamination, reasoning effort tradeoffs
-
-### Tertiary (MEDIUM confidence)
-- [OpenAI Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs) -- docs returned 403; info from search results
-- [DuckDB vs SQLite comparison](https://www.analyticsvidhya.com/blog/2026/01/duckdb-vs-sqlite/) -- feature comparison
-- [NVIDIA Chunking Guide](https://developer.nvidia.com/blog/finding-the-best-chunking-strategy-for-accurate-ai-responses/) -- semantic chunking best practices
-- [Deterministic vs LLM Evaluators 2026](https://dev.to/anshd_12/deterministic-vs-llm-evaluators-a-2026-technical-trade-off-study-11h) -- multi-layered evaluation
-- PyPI package registries for version verification (anthropic 0.86.0, openai 2.30.0, duckdb 1.5.1, edgartools 5.26.1)
-
----
-
-*Research completed: 2026-03-27*
-*Roadmap status: adopted into `.planning/ROADMAP.md`*
+- Cross-deal reconciliation analysis: `data/reconciliation_cross_deal_analysis.md`
+- 7-deal execution log: `quality_reports/session_logs/2026-03-29_7-deal-rerun_master.md`
+- Source code: `skill_pipeline/enrich_core.py` (lines 209-272), `skill_pipeline/canonicalize.py` (lines 88-142), `skill_pipeline/coverage.py` (lines 84-224), `skill_pipeline/db_schema.py` (lines 99-109), `skill_pipeline/models.py`, `skill_pipeline/check.py`, `skill_pipeline/gates.py`
+- DuckDB concurrency documentation: https://duckdb.org/docs/stable/connect/concurrency

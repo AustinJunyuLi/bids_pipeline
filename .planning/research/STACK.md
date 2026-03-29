@@ -1,333 +1,352 @@
-# Technology Stack
+# Technology Stack: v1.1 Reconciliation + Execution-Log Quality Fixes
 
-**Project:** Filing-Grounded Deal Pipeline Redesign
-**Researched:** 2026-03-27
-**Focus:** Agent-side structured extraction options, prompt caching, database
-options, complementary libraries
+**Project:** Filing-Grounded M&A Extraction Pipeline
+**Researched:** 2026-03-29
+**Scope:** Stack additions/changes for 6 targeted capability areas
 
-## Recommended Stack
+## Executive Assessment
 
-This is optional external local-agent implementation research. It is not the
-live repo contract. The existing deterministic Python stack (Python 3.11+,
-Pydantic 2.0+, edgartools, pytest, setuptools) is already chosen and validated.
-Nothing in this document by itself authorizes adding Python-side LLM wrappers to
-`skill_pipeline`.
+No new dependencies are required. All six v1.1 capability areas are achievable
+through modifications to existing Python modules using the current stack:
+Python 3.12, Pydantic 2.12.5, DuckDB 1.5.1, and the standard library. This is
+the correct outcome for a brownfield hardening milestone -- adding libraries
+would signal scope creep.
 
-### External Agent-Side SDK Options
+## Current Stack (DO NOT CHANGE)
 
-| Technology | Version | Purpose | Why | Confidence |
-|------------|---------|---------|-----|------------|
-| anthropic | >=0.86 | Claude API client with native structured outputs, prompt caching, extended thinking | GA structured outputs via `output_config.format` with `json_schema` type. Native `client.messages.parse()` with Pydantic models. Prompt caching via `cache_control` blocks. Current minimum for `output_config` (replaces deprecated `output_format`). | HIGH |
-| openai | >=2.30 | OpenAI API client with structured outputs via Responses API | Responses API is the planned path for GPT-5.x structured outputs, but exact request field names still need implementation-time verification against official docs or SDK changelog. Automatic prompt caching requires no code changes. | MEDIUM |
+| Technology | Installed Version | Pin | Purpose |
+|---|---|---|---|
+| Python | 3.12.10 | >=3.11 | Runtime |
+| Pydantic | 2.12.5 | >=2.0 | Schema validation, artifact contracts |
+| DuckDB | 1.5.1 | >=1.2 | Canonical structured store |
+| edgartools | >=5.23 | <6.0 | SEC filing fetch |
+| openpyxl | >=3.1 | | Spreadsheet I/O |
+| pytest | >=8.0 | | Test framework |
 
-**Key version rationale:**
-- `anthropic>=0.86` is required for `output_config.format` (GA path), replacing the deprecated beta header `structured-outputs-2025-11-13` and old `output_format` parameter. The SDK handles Pydantic-to-JSON-Schema transformation internally via `client.messages.parse()`.
-- `openai>=2.30` is the planned SDK floor for the Responses API path on GPT-5.x models. GPT-4o is retired as of Feb 2026; GPT-5.4 is the current production model. Chat Completions API still works, but exact Responses API request fields still need verification during implementation.
+## Capability Analysis: What Each Feature Needs
 
-These SDKs would belong to an external runner chosen by a local agent, not to
-the current `skill_pipeline` contract.
+### 1. bid_type Enrichment Rule Priority Fix
 
-### Structured Output Configuration
+**Files affected:** `skill_pipeline/enrich_core.py`
 
-#### Anthropic (Claude)
+**Problem:** Rule 1 (IOI/indication-of-interest language -> Informal) fires
+before Rule 2.5 (after final round -> Formal). Final-round submissions that
+use IOI language get misclassified as Informal across 5+ deals.
 
-**Approach:** Use `client.messages.parse()` with Pydantic models directly.
+**Stack needs:** None. This is a pure logic reordering in `_classify_proposal`.
+
+**Implementation approach:** Reorder the rule cascade so that Rule 2.5 (after
+final round announcement/deadline) evaluates before Rule 1 (informal signal
+language). The M&A convention is clear: submissions solicited by a process
+letter or responding to a final round deadline are Formal regardless of
+"indication of interest" language in the filing text. The current code at
+lines 223-272 of `enrich_core.py` evaluates in order: Rule 1 (Informal) ->
+Rule 2 (Formal) -> Rule 2.5 (Formal after final round) -> Rule 3 (Formal
+after selective round) -> Rule 4 (Uncertain). The fix reorders to:
+Rule 2.5 -> Rule 2 -> Rule 1 -> Rule 3 -> Rule 4.
+
+Also consider adding `requested_binding_offer_via_process_letter` as a Formal
+signal that should override informal language -- the field already exists on
+`FormalitySignals` but is not used in the classification logic.
+
+**Testing:** Existing `tests/test_skill_enrich_core.py` covers bid
+classification. Add regression cases for the 5 deals identified in the
+reconciliation analysis (mac-gray, stec, prov-worcester, imprivata, penford).
+
+### 2. Round Milestone Event Types and DropTarget Events
+
+**Files affected:** `skill_pipeline/models.py` (schema), extraction skill
+docs under `.claude/skills/`, `skill_pipeline/db_export.py` (export mapping),
+`skill_pipeline/gates.py` (event phase mapping), `skill_pipeline/enrich_core.py`
+(round pairing)
+
+**Problem:** The extraction schema already defines `final_round_inf_ann`,
+`final_round_inf`, `final_round_ann`, `final_round`, `final_round_ext_ann`,
+`final_round_ext` event types. These exist in the `Literal` union for both
+`RawSkillEventRecord.event_type` and `SkillEventRecord.event_type`. The issue
+is that the local-agent extraction skill does not consistently produce these
+events. The `DropTarget` event type (committee-driven field narrowing) is
+genuinely missing from the schema.
+
+**Stack needs:** None. Pydantic `Literal` union expansion is a one-line schema
+change.
+
+**Implementation approach for DropTarget:**
+- Add `"drop_target"` to the `event_type` Literal union in both
+  `RawSkillEventRecord` and `SkillEventRecord` in `models.py`.
+- Add `"drop_target"` to `EVENT_PHASES` in `gates.py` (mapped to `{"bidding"}`).
+- Add `"drop_target"` to `EVENT_TYPE_PRIORITY` and `NOTE_BY_EVENT_TYPE` in
+  `db_export.py`.
+- Add `"drop_target"` to `BIDDERLESS_EVENT_TYPES` in `db_export.py` (since
+  these are committee-driven, not bidder-initiated).
+- Update the extraction skill docs to describe `drop_target` semantics:
+  committee or target board narrows the field, distinct from a bidder-initiated
+  `drop` which models a bidder choosing to leave.
+- The `DropTarget` is semantically different from `drop`: a `drop` means the
+  bidder left; a `drop_target` means the target/committee excluded the bidder.
+  The `drop_reason_text` field already exists on the event record and can
+  carry the committee rationale.
+
+**Implementation approach for round milestone extraction consistency:**
+- The schema types already exist. The fix is in extraction skill docs: update
+  `.claude/skills/` to explicitly instruct round milestone extraction with
+  examples for each type.
+- Ensure `enrich_core.py` `_pair_rounds` correctly handles the already-defined
+  `ROUND_PAIRS` tuples.
+
+**Testing:** Add schema validation tests that `drop_target` is accepted.
+Add integration tests that `db_export` renders `drop_target` events correctly.
+
+### 3. Contextual all_cash Inference
+
+**Files affected:** `skill_pipeline/enrich_core.py`, `skill_pipeline/db_export.py`,
+`skill_pipeline/db_schema.py`
+
+**Problem:** Currently `db_export.py` line 303 emits `cash_value = "1"` only
+when `event.terms.consideration_type == "cash"` at the individual event level.
+The reconciliation analysis shows deals where all proposals from an acquirer
+are cash but individual events may not have `consideration_type` set because
+the filing does not repeat "cash" on every mention.
+
+**Stack needs:** None. This is enrichment logic.
+
+**Implementation approach:** Add a contextual inference rule to `enrich_core`:
+- For each bidder, collect all proposal events where `consideration_type` is
+  explicitly set.
+- If every explicitly-set consideration type for a bidder is "cash" and the
+  executed event for that bidder is also cash (or consideration_type is null
+  on the executed event), infer `all_cash=True` for all that bidder's
+  proposals.
+- Store this in the deterministic enrichment artifact alongside bid
+  classifications.
+- `db_export.py` reads the inference from the enrichment table rather than
+  only checking the per-event `terms.consideration_type`.
+
+This is a conservative inference: it only propagates when ALL evidence agrees.
+It does not guess "cash" when some events say "mixed." The reconciliation
+analysis confirms this matches Alex's approach where he is right (Penford,
+PetSmart) and avoids his error (Prov-Worcester cash+CVR).
+
+**Testing:** Add test cases covering the propagation rule and the
+mixed-consideration guard.
+
+### 4. Canonicalize quote_id Collision Prevention
+
+**Files affected:** `skill_pipeline/canonicalize.py`
+
+**Problem:** The execution log shows `penford` hit duplicate quote_id
+collisions during canonicalize because actor-side and event-side quote arrays
+independently used `q_001`, `q_002`, etc. The current code at line 99-103 of
+`canonicalize.py` checks for duplicates within the combined quotes list but
+raises a hard error. The extraction agent generates quote IDs independently
+per-pass (actor pass, event pass), creating collisions.
+
+**Stack needs:** None. This is defensive dedup/renumber logic.
+
+**Implementation approach:** Instead of raising on duplicate `quote_id`,
+canonicalize should deterministically renumber colliding IDs. The approach:
+1. Build a combined quote list from `actors_raw.quotes + events_raw.quotes`.
+2. Detect collisions where the same `quote_id` appears in both lists.
+3. For colliding event-side quotes, renumber by appending to a counter above
+   the actor-side max (e.g., if actors use `q_001` through `q_042`, event
+   `q_001` becomes `q_043`).
+4. Update all `quote_ids` references in the events array to use the new IDs.
+5. Log the renumbering in the canonicalize log under a new `"quote_id_remap"`
+   key.
+6. The existing `seen_ids` check at line 99 becomes the collision detector
+   instead of a hard error.
+
+This is safe because quote IDs are internal to the raw extraction artifacts
+and are mapped to span IDs during canonicalization. The quote IDs themselves
+are never persisted in canonical output.
+
+**Testing:** Add a regression test with overlapping actor/event quote IDs and
+verify the renumbered output has unique span mappings.
+
+### 5. Coverage False Positive Heuristics
+
+**Files affected:** `skill_pipeline/coverage.py`
+
+**Problem:** The execution log documents two classes of false positives:
+(a) Contextual confidentiality-agreement mentions that are not actual NDA
+    signing events (e.g., "which had executed a confidentiality agreement"
+    as a backward reference, or due-diligence confidentiality agreements that
+    are not sale-process NDAs).
+(b) Negotiation-continuation language appearing in the same text block as
+    drop language, causing the block to be flagged as an uncovered drop when
+    the bidder actually continued negotiating.
+
+The execution log notes that some heuristic fixes were already applied
+mid-rerun. This milestone should formalize and test those fixes.
+
+**Stack needs:** None. This is NLP-level phrase matching with standard library
+string operations.
+
+**Implementation approach:**
+- **Confidentiality false positives:** The existing `references_prior_executed_nda`
+  and `has_target_due_diligence_confidentiality_language` guards in
+  `_classify_cue_family` (lines 112-122 of `coverage.py`) already handle some
+  cases. Extend with:
+  - Rollover-side confidentiality agreements (e.g., investor signing CA as
+    part of equity rollover, not as a bidder entering a sale process). Detect
+    via phrases like "rollover", "equity commitment", "co-invest" near
+    "confidentiality agreement."
+  - Post-execution confidentiality mentions that reference the merger
+    agreement's confidentiality provisions rather than a standalone NDA.
+- **Drop false positives:** The existing `has_continue_negotiation_language`
+  guard (lines 148-155) was added during the rerun. Ensure it is robust:
+  verify the guard covers variations like "decided to proceed," "agreed to
+  continue discussions," and "continued to engage."
+
+**Testing:** The execution log mentions regressions were added to
+`tests/test_skill_coverage.py`. Verify they cover the specific false-positive
+patterns for saks (contextual CA mentions) and zep (negotiation continuation).
+
+### 6. DuckDB Lock Resilience
+
+**Files affected:** `skill_pipeline/db_schema.py`, `skill_pipeline/db_export.py`,
+`skill_pipeline/db_load.py`
+
+**Problem:** The execution log shows `db-export --deal zep` hit a transient
+DuckDB lock immediately after `db-load` completed. DuckDB uses file-level
+locking and does not expose a `busy_timeout` parameter. When `db-load` closes
+its write connection and `db-export` immediately opens a read-only connection,
+the OS-level file lock may not yet be released.
+
+**Stack needs:** None. No new dependencies. DuckDB 1.5.1 is the current
+installed version and is recent enough.
+
+**Implementation approach:** Add a simple retry loop in `open_pipeline_db`
+for `duckdb.IOException` (the exception DuckDB raises when it cannot acquire
+the file lock):
 
 ```python
-from pydantic import BaseModel
-from anthropic import Anthropic
+import time
+import duckdb
 
-class ActorRecord(BaseModel):
-    actor_id: str
-    display_name: str
-    canonical_name: str
-    role: str
-    evidence_span_ids: list[str]
+MAX_RETRIES = 3
+RETRY_DELAY_SECONDS = 0.5
 
-client = Anthropic()
-response = client.messages.parse(
-    model="claude-sonnet-4-5-20250929",
-    max_tokens=16384,
-    output_format=ActorRecord,  # SDK translates to output_config.format internally
-    messages=[{"role": "user", "content": prompt}],
-)
-actor = response.parsed_output  # Typed ActorRecord instance
+def open_pipeline_db(db_path: Path, *, read_only: bool = False) -> duckdb.DuckDBPyConnection:
+    if not read_only:
+        db_path.parent.mkdir(parents=True, exist_ok=True)
+    last_error: Exception | None = None
+    for attempt in range(MAX_RETRIES):
+        try:
+            con = duckdb.connect(str(db_path), read_only=read_only)
+            if not read_only:
+                _ensure_schema(con)
+            return con
+        except duckdb.IOException as exc:
+            last_error = exc
+            if attempt < MAX_RETRIES - 1:
+                time.sleep(RETRY_DELAY_SECONDS * (attempt + 1))
+    raise last_error
 ```
 
-**Supported models:** Claude Opus 4.6, Sonnet 4.6, Sonnet 4.5, Opus 4.5, Haiku 4.5
+This is the minimal correct fix. DuckDB's own documentation recommends
+application-level retry for transient lock contention. The retry window is
+short (0.5s, 1.0s, 1.5s) and only catches `IOException`, not general errors.
 
-**JSON Schema limitations (both providers share similar constraints):**
-- No recursive schemas
-- `additionalProperties` must be `false` on all objects
-- No numerical constraints (`minimum`, `maximum`, `multipleOf`)
-- No string constraints (`minLength`, `maxLength`) -- moved to descriptions automatically by SDK
-- `enum` supports only primitive types (string, number, bool, null)
-- Array `minItems` only supports 0 and 1
-- `anyOf` and `allOf` supported (but `allOf` with `$ref` not)
-- Regex patterns: basic support only (no backreferences, no lookahead/lookbehind)
+**Why not connection pooling or WAL mode:** DuckDB is an embedded database.
+Connection pooling is meaningless for a single-process CLI tool that opens one
+connection per command invocation. WAL mode is DuckDB's default already for
+write connections. The transient lock is an OS-level file handle release timing
+issue, not a database-level concurrency problem.
 
-**Extended thinking + structured outputs interaction:**
-- Grammars (constrained decoding) apply only to Claude's direct output, NOT to thinking blocks
-- Extended thinking and structured outputs CAN be used together -- thinking is unconstrained, final output is schema-enforced
-- However: toggling thinking parameters invalidates prompt cache for message history
-- On Sonnet 4.6 and Opus 4.6, use `thinking: {"type": "adaptive"}` (manual `type: "enabled"` is deprecated on these models)
-- **Recommendation for this project:** Use extended thinking + structured outputs together. The reasoning quality from thinking benefits complex extraction, and the schema guarantee prevents malformed JSON. The thinking blocks will not appear in the constrained output.
+**Testing:** Add a unit test that monkeypatches `duckdb.connect` to raise
+`IOException` on the first call and succeed on the second, verifying the retry
+loop.
 
-**Confidence:** HIGH -- verified against official Anthropic docs (platform.claude.com/docs/en/build-with-claude/structured-outputs, platform.claude.com/docs/en/build-with-claude/extended-thinking)
+## What NOT to Add
 
-#### OpenAI (GPT-5.x)
+| Rejected Addition | Reason |
+|---|---|
+| New Python dependencies | All 6 features are implementable with existing stack |
+| tenacity or retry library | stdlib `time.sleep` with 3-line loop is sufficient for DuckDB lock retry |
+| NLP library (spaCy, nltk) | Coverage heuristics use exact phrase matching, not statistical NLP |
+| Additional database (SQLite, Postgres) | DuckDB is the canonical store; adding alternatives creates split-brain |
+| async/await infrastructure | CLI tool with sequential stage execution; async adds complexity for zero benefit |
+| Schema migration framework (alembic) | Single embedded DB with drop-and-reload per deal; migrations are overkill |
+| hashlib for quote_id generation | Sequential renumbering is deterministic and debuggable; content hashing is opaque |
+| Configuration file for enrichment rules | Rule ordering is code logic, not user-configurable behavior; config adds indirection |
 
-**Approach:** Use `client.responses.parse()` with Pydantic models (Responses API).
+## Version Constraints
 
-```python
-from pydantic import BaseModel
-from openai import OpenAI
-
-class ActorRecord(BaseModel):
-    actor_id: str
-    display_name: str
-    canonical_name: str
-    role: str
-    evidence_span_ids: list[str]
-
-client = OpenAI()
-response = client.responses.parse(
-    model="gpt-5.4",
-    input=[{"role": "user", "content": prompt}],
-    text_format=ActorRecord,  # Provisional example: verify exact field name during Phase 2.
-)
-actor = response.output_parsed  # Typed ActorRecord instance
-```
-
-**Supported models:** GPT-5.4 (current), GPT-5.3, GPT-5.2; legacy gpt-4o-2024-08-06+ still works via Chat Completions
-**GPT-4o status:** Retired from ChatGPT Feb 2026; API access sunsetting April 2026. Do not target gpt-4o for new work.
-
-**Confidence:** MEDIUM -- OpenAI docs returned 403 during verification; information sourced from search results and community documentation. The Responses API parameter names (`text_format` vs `response_format`) may differ from what is shown; verify against SDK changelog before implementation.
-
-### Prompt Caching
-
-#### Anthropic Prompt Caching
-
-**How it works:** Explicit cache breakpoints via `cache_control` blocks on content. Up to 4 breakpoints per request. Caches the entire prompt prefix up to and including the marked block.
-
-**Minimum thresholds:**
-| Model | Minimum Tokens |
-|-------|---------------|
-| Claude Opus 4.6/4.5 | 4,096 |
-| Claude Sonnet 4.6 | 2,048 |
-| Claude Sonnet 4.5/4/3.7 | 1,024 |
-| Claude Haiku 4.5 | 4,096 |
-
-**Pricing (Sonnet 4.5 -- the likely extraction model):**
-- Cache write (5-min TTL): 1.25x base input tokens
-- Cache write (1-hour TTL): 2x base input tokens
-- Cache read: 0.1x base input tokens (90% discount)
-- Latency reduction: up to 85% for cached prompts
-
-**Application to this pipeline:**
-
-```python
-# System prompt + actor roster cached across chunk extraction calls
-response = client.messages.create(
-    model="claude-sonnet-4-5-20250929",
-    max_tokens=16384,
-    system=[
-        {
-            "type": "text",
-            "text": EXTRACTION_SYSTEM_PROMPT,  # Static instructions
-        },
-        {
-            "type": "text",
-            "text": actor_roster_text,  # Actor context from first pass
-            "cache_control": {"type": "ephemeral", "ttl": "1h"},  # Cache for full extraction run
-        },
-    ],
-    messages=[
-        {
-            "role": "user",
-            "content": [
-                {
-                    "type": "text",
-                    "text": chunk_text,  # Changes per chunk -- NOT cached
-                }
-            ],
-        }
-    ],
-)
-```
-
-**Critical caching rules:**
-1. Place `cache_control` on the LAST block of static content, not on changing content
-2. Cache is invalidated hierarchically: tool changes invalidate everything; system changes invalidate messages
-3. Toggling extended thinking invalidates message cache (but system prompt cache survives)
-4. Use 1-hour TTL for extraction runs (multi-chunk processing exceeds 5-minute window)
-5. Maximum 4 cache breakpoints per request
-
-**Confidence:** HIGH -- verified against official Anthropic prompt caching docs
-
-#### OpenAI Prompt Caching
-
-**How it works:** Fully automatic. No code changes required. The API caches the longest matching prefix starting at 1,024 tokens in 128-token increments.
-
-**Pricing:** 50% discount on cached input tokens. Cache lifetime: 5-10 minutes of inactivity, always cleared after 1 hour of last use.
-
-**Application to this pipeline:** Zero code changes needed. Structuring prompts with static content first (system prompt, actor roster) and variable content last (chunk text) naturally maximizes cache hits.
-
-**Confidence:** HIGH -- verified against official OpenAI docs
-
-### Database Layer
-
-| Technology | Version | Purpose | Why | Confidence |
-|------------|---------|---------|-----|------------|
-| DuckDB | >=1.5.1 | Canonical deal representation, analytical queries, export generation | Column-oriented embedded analytics DB. Zero-server deployment (single .duckdb file). Native Python integration. Reads/writes Parquet, CSV, JSON directly. SQL-first querying for export/analysis. 10-50x faster than SQLite for analytical aggregations. | HIGH |
-
-**Why DuckDB over alternatives:**
-
-| Criterion | DuckDB | SQLite | PostgreSQL |
-|-----------|--------|--------|------------|
-| Deployment | Embedded, single file | Embedded, single file | Requires server |
-| Analytics | Column-oriented, optimized | Row-oriented, slow for aggregations | Server-class analytics |
-| Python integration | Native, first-class | Good via stdlib | Requires psycopg2/asyncpg |
-| JSON support | Native JSON type, JSON functions | JSON1 extension | Native JSONB |
-| Parquet/CSV | Native read/write | Not supported | COPY command only |
-| Concurrency | Single-writer, multi-reader | Single-writer, multi-reader | Full MVCC |
-| Dependency footprint | `pip install duckdb` (30MB) | Built into Python stdlib | External server process |
-| This project's data volume | 9 deals, hundreds of events | Would work fine | Overkill |
-
-**Recommendation:** DuckDB. The project has analytical query patterns (aggregate by deal, filter by event type, cross-reference actors with events, generate export CSVs) rather than transactional patterns. DuckDB's column-orientation and native Parquet/CSV I/O eliminate the data format conversion layer. Single-file deployment means no infrastructure changes.
-
-SQLite would also work (and is already in Python's stdlib), but DuckDB's SQL dialect is more expressive for the analytical queries needed in export generation, and its native JSON column type maps cleanly to the existing Pydantic artifact schemas.
-
-PostgreSQL is overkill for a 9-deal batch pipeline with no concurrent write pressure.
-
-**Confidence:** HIGH -- well-established technology, verified versions
-
-### Supporting Libraries
-
-| Library | Version | Purpose | When to Use | Confidence |
-|---------|---------|---------|-------------|------------|
-| rapidfuzz | >=3.14 | Fuzzy string matching for quote verification, actor name deduplication | Replace or complement the existing `normalize_for_matching` + `find_anchor_in_segment` in `provenance.py` and `verify.py`. C++-backed, 10-100x faster than pure-Python difflib. Provides Levenshtein, Jaro-Winkler, partial ratios. | MEDIUM |
-
-**Why rapidfuzz and not fuzzywuzzy:** rapidfuzz is MIT-licensed (fuzzywuzzy is GPL), is actively maintained (v3.14.3 as of Nov 2025), and is significantly faster due to C++ implementation. From v3.0+, strings are not preprocessed by default, which aligns with this pipeline's need for precise, case-sensitive matching.
-
-**Application:** The existing `find_anchor_in_segment` uses custom normalization and substring matching. rapidfuzz's `fuzz.partial_ratio` and `fuzz.token_sort_ratio` could provide calibrated similarity scores for the FUZZY match tier, replacing the current binary FUZZY/UNRESOLVED distinction with a continuous confidence score. However, the existing approach works and is well-tested -- this is an enhancement, not a requirement.
-
-**Confidence:** MEDIUM -- the existing custom matching works; rapidfuzz would improve it but is not essential
-
-## Alternatives Considered
-
-| Category | Recommended | Alternative | Why Not |
-|----------|-------------|-------------|---------|
-| Structured output | Provider-native (`output_config.format` / `response_format`) | Instructor library | Adds unnecessary abstraction layer. Both Anthropic and OpenAI SDKs now have native Pydantic `.parse()` methods that do the same thing. Instructor was valuable before native support existed (pre-Nov 2025); now it is an extra dependency with no benefit for this use case. |
-| Structured output | Provider-native | Tool-use workaround (force a "tool call" to get JSON) | Legacy pattern from before structured outputs GA. Still works but is semantically wrong -- extraction is not a tool call. The tool-use hack also cannot combine with extended thinking as cleanly. |
-| Database | DuckDB | SQLite | Would work but requires more manual JSON handling and lacks native analytical query patterns. No Parquet/CSV I/O. |
-| Database | DuckDB | PostgreSQL | Requires server deployment, adds infrastructure complexity for a 9-deal batch pipeline with no concurrent users. |
-| Database | DuckDB | Pandas DataFrames | Not a database. No persistence, no SQL, no referential integrity. DuckDB can query Pandas DataFrames directly if ever needed. |
-| Fuzzy matching | rapidfuzz (optional) | fuzzywuzzy | GPL license, slower, less maintained. |
-| Fuzzy matching | rapidfuzz (optional) | python-Levenshtein | Narrower API, less maintained. rapidfuzz is the successor. |
-| SEC filing parsing | edgartools (already chosen) | sec-api | Commercial/paid API. edgartools is open-source and already integrated. |
-| SEC filing parsing | edgartools (already chosen) | sec-edgar-toolkit | Less mature, lower adoption than edgartools. |
-| LLM abstraction | Direct SDK usage | LangChain / LlamaIndex | Massive dependency trees, opinionated abstractions that fight the pipeline's deterministic-first design. Direct SDK calls give precise control over caching, structured outputs, and thinking parameters. |
-| LLM abstraction | Direct SDK usage | PydanticAI | Interesting but immature. Adds an abstraction layer between the pipeline and the provider SDKs. For 2 providers with well-known APIs, direct SDK usage is simpler and more debuggable. |
-
-## What NOT to Use
-
-| Technology | Why Not |
-|------------|---------|
-| LangChain | Heavy dependency, opinionated abstractions, version churn. Direct SDK calls are cleaner for this pipeline's 2-provider setup. |
-| Instructor | Redundant now that both Anthropic and OpenAI have native Pydantic structured output support in their SDKs. |
-| RAG frameworks (LlamaIndex, etc.) | Already rejected in project scoping. Documents fit in context; exhaustive extraction is not a retrieval problem. |
-| fuzzywuzzy | GPL-licensed, slower than rapidfuzz, effectively unmaintained. |
-| gpt-4o / gpt-4o-mini | Retired/retiring. GPT-5.4 is the current OpenAI production model. |
-| Summarization/compression tools | Project explicitly rejects lossy compression of filing text. Legal precision requires verbatim source text. |
-
-## Agent-Side Dependency Ideas (Not Adopted `pyproject.toml` Changes)
+The current `pyproject.toml` pins are appropriate. No changes needed:
 
 ```toml
-# Example external-runner dependency set if direct SDK integration is built
-# outside `skill_pipeline`
 dependencies = [
-    "anthropic>=0.86",          # Was >=0.49; need >=0.86 for output_config.format GA
-    "openai>=2.30",             # NEW: OpenAI Responses API with structured outputs on GPT-5.x
-    "edgartools>=5.23,<6.0",    # Pin <6.0 to avoid breaking v6 release (known deprecation risk)
-    "duckdb>=1.5",              # NEW: Embedded analytics database
-    "pydantic>=2.0",            # Unchanged
-    "openpyxl>=3.1",            # Unchanged
-    "pytest>=8.0",              # Unchanged
+  "edgartools>=5.23,<6.0",
+  "openpyxl>=3.1",
+  "pydantic>=2.0",
+  "duckdb>=1.2",
+  "pytest>=8.0",
 ]
-
-# Optional: Enhanced matching
-# "rapidfuzz>=3.14",          # Only if fuzzy matching enhancement is pursued
 ```
 
-**Version pinning rationale:**
-- `anthropic>=0.86`: If an external runner uses Anthropic structured outputs,
-  this floor supports the researched GA path.
-- `openai>=2.30`: If an external runner uses the Responses API path on GPT-5.x,
-  this is the researched starting point.
-- `edgartools>=5.23,<6.0`: Add upper bound. v6.0 will include breaking changes (deprecated parameter removal, dimension column naming changes). The pipeline currently works on 5.23+; latest is 5.26.1 (released 2026-03-26).
-- `duckdb>=1.5`: New dependency. Latest stable is 1.5.1 (released 2026-03-23). Requires Python >=3.10 (compatible with project's >=3.11 requirement).
+DuckDB 1.5.1 (installed) is well above the >=1.2 floor. The `IOException`
+class used for retry has been stable since DuckDB 0.9.x. Pydantic 2.12.5
+supports all `Literal` union features needed for schema expansion.
 
-## External Runner Configuration Ideas (Not Adopted Repo Contract)
+## Integration Points
 
-No repo-standard environment variable naming is adopted for external runner
-configuration. If a future local-agent runner needs provider-specific settings,
-define them there rather than projecting them back into `skill_pipeline`.
-
-### Provider Abstraction Pattern (Hypothetical External Runner)
-
-Earlier notes assumed a repo-level structured-output mode abstraction. The current repo
-does not validate such a contract. If an external runner wants a mode switch,
-one reasonable split is:
-
-- `prompted_json`: include schema in prompt text and parse JSON from response
-- `provider_native`: use provider-native structured output features where
-  available
-- `auto`: select a provider-native path when the chosen external runner supports
-  it
-
-## Prompt Caching Architecture for Extraction
-
-The highest-ROI caching opportunity is the chunked event extraction pass, where the system prompt + actor roster is static across all chunks for a single deal:
+### Cross-Module Dependency Map for v1.1 Changes
 
 ```
-Chunk 1: [SYSTEM_PROMPT + ACTOR_ROSTER (cached write)] + [chunk_1_text]  -> cache miss, write
-Chunk 2: [SYSTEM_PROMPT + ACTOR_ROSTER (cached read)]  + [chunk_2_text]  -> cache hit, 90% savings
-Chunk 3: [SYSTEM_PROMPT + ACTOR_ROSTER (cached read)]  + [chunk_3_text]  -> cache hit, 90% savings
-...
-Chunk N: [SYSTEM_PROMPT + ACTOR_ROSTER (cached read)]  + [chunk_N_text]  -> cache hit, 90% savings
+models.py (schema: add drop_target)
+  -> canonicalize.py (handles new event type in dedup/gate)
+  -> check.py (no change needed -- generic event checks)
+  -> coverage.py (no change needed -- cue families don't target drop_target)
+  -> gates.py (add drop_target to EVENT_PHASES)
+  -> enrich_core.py (drop_target not a proposal, no classification needed)
+  -> db_load.py (no change -- generic event loader)
+  -> db_export.py (add drop_target to EVENT_TYPE_PRIORITY, NOTE_BY_EVENT_TYPE, BIDDERLESS_EVENT_TYPES)
+
+enrich_core.py (rule reorder + all_cash inference)
+  -> db_load.py (may need enrichment table column for all_cash)
+  -> db_export.py (read all_cash from enrichment)
+  -> db_schema.py (may need enrichment DDL update for all_cash column)
+
+canonicalize.py (quote_id collision fix)
+  -> No downstream changes -- quote IDs are internal to raw artifacts
+
+coverage.py (false positive heuristics)
+  -> No downstream changes -- coverage findings are advisory
+
+db_schema.py (retry logic)
+  -> db_load.py (inherits via open_pipeline_db)
+  -> db_export.py (inherits via open_pipeline_db)
 ```
 
-For a typical deal with 10-15 chunks:
-- Without caching: N * (system_tokens + roster_tokens + chunk_tokens)
-- With caching: 1 * write_cost + (N-1) * 0.1 * (system_tokens + roster_tokens) + N * chunk_tokens
-- Savings: ~85-90% on the static portion, significant latency reduction
+### DuckDB Schema Evolution for all_cash
 
-**Implementation note for Anthropic:** Use 1-hour cache TTL because multi-chunk extraction for complex deals can take 10-30 minutes, exceeding the 5-minute default.
+If `all_cash` inference is stored in the enrichment table, the DDL in
+`db_schema.py` needs a new column:
 
-**Implementation note for OpenAI:** No code changes needed. Automatic caching activates when prompts share a prefix of 1,024+ tokens. Structure prompts with static content first to maximize hits.
+```sql
+ALTER TABLE enrichment ADD COLUMN all_cash BOOLEAN;
+```
+
+But since `db-load` uses drop-and-reload per deal, the simpler approach is to
+add `all_cash BOOLEAN` to the `CREATE TABLE IF NOT EXISTS enrichment` DDL.
+Existing data is wiped on reload. No migration needed.
+
+## Confidence Assessment
+
+| Area | Confidence | Basis |
+|---|---|---|
+| bid_type rule fix | HIGH | Bug root cause confirmed in reconciliation analysis; code path is clear |
+| DropTarget schema | HIGH | Pydantic Literal expansion is trivial; event type pattern well-established |
+| all_cash inference | MEDIUM | Logic is clear but boundary cases (mixed consideration, CVR deals) need careful test design |
+| quote_id collision | HIGH | Bug root cause confirmed in execution log; renumbering approach is deterministic |
+| Coverage heuristics | MEDIUM | Phrase-matching heuristics require iterative tuning; initial patterns from execution log but may need expansion |
+| DuckDB lock retry | HIGH | Standard pattern; DuckDB docs recommend application-level retry |
 
 ## Sources
 
-### Official Documentation (HIGH confidence)
-- [Anthropic Structured Outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs) -- GA, `output_config.format` with `json_schema`
-- [Anthropic Prompt Caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) -- `cache_control` with TTL, minimum token thresholds
-- [Anthropic Extended Thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) -- compatibility with structured outputs and caching
-- [OpenAI Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs) -- `response_format` with `json_schema`, strict mode
-- [OpenAI Prompt Caching](https://platform.openai.com/docs/guides/prompt-caching) -- automatic, 1024-token minimum
-
-### Package Registries (HIGH confidence)
-- [anthropic on PyPI](https://pypi.org/project/anthropic/) -- v0.86.0, 2026-03-18
-- [openai on PyPI](https://pypi.org/project/openai/) -- v2.30.0, 2026-03-25
-- [duckdb on PyPI](https://pypi.org/project/duckdb/) -- v1.5.1, 2026-03-23
-- [edgartools on PyPI](https://pypi.org/project/edgartools/) -- v5.26.1, 2026-03-26
-- [RapidFuzz on PyPI/GitHub](https://github.com/rapidfuzz/RapidFuzz) -- v3.14.3, 2025-11-01
-
-### Community/Search Sources (MEDIUM confidence)
-- [DuckDB vs SQLite comparison](https://www.analyticsvidhya.com/blog/2026/01/duckdb-vs-sqlite/) -- feature comparison, use case guidance
-- [OpenAI model retirement](https://www.remio.ai/post/openai-retiring-gpt-4o-gpt-4-1-and-o4-mini-the-2026-transition-guide) -- GPT-4o sunset timeline
-- [OpenAI GPT-5.4 guide](https://developers.openai.com/api/docs/guides/latest-model) -- Responses API migration
-
----
-
-*Stack research: 2026-03-27*
+- DuckDB concurrency documentation: https://duckdb.org/docs/stable/connect/concurrency
+- DuckDB Python API: https://duckdb.org/docs/stable/clients/python/dbapi
+- Cross-deal reconciliation analysis: `data/reconciliation_cross_deal_analysis.md` (local artifact)
+- 7-deal execution log: `quality_reports/session_logs/2026-03-29_7-deal-rerun_master.md` (local artifact)
+- Existing source code: `skill_pipeline/enrich_core.py`, `skill_pipeline/canonicalize.py`, `skill_pipeline/coverage.py`, `skill_pipeline/db_schema.py`, `skill_pipeline/models.py`, `skill_pipeline/gates.py`, `skill_pipeline/db_export.py`

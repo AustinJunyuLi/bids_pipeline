@@ -1,472 +1,396 @@
-# Feature Landscape
+# Feature Landscape: v1.1 Reconciliation + Execution-Log Quality Fixes
 
-**Domain:** Correctness-first LLM extraction pipeline for structured M&A deal data from SEC filings
-**Researched:** 2026-03-27
-**Overall Confidence:** MEDIUM-HIGH
+**Domain:** M&A deal extraction pipeline -- enrichment correctness, event taxonomy expansion, and runtime hardening
+**Researched:** 2026-03-29
+**Overall Confidence:** HIGH (evidence-driven from 9-deal reconciliation + 7-deal execution logs)
+
+---
 
 ## Table Stakes
 
-Features users (pipeline operators, downstream consumers) expect. Missing = extraction quality demonstrably suffers or pipeline is operationally fragile.
+Features that close demonstrated bugs or plug gaps exposed by real data. Missing = the pipeline produces known-incorrect output across multiple deals.
 
-### TS-1: Prompt Ordering (Data First, Instructions Last)
+---
+
+### TS-1: Fix bid_type Enrichment Rule Priority
 
 | Attribute | Detail |
 |-----------|--------|
-| Why Expected | Anthropic's official docs state that placing longform data at the top and queries/instructions at the end improves response quality by up to 30% on complex multi-document inputs. This is the single highest-ROI zero-cost change available. |
+| Why Expected | 5+ deals produce incorrect Formal/Informal classifications. This is the pipeline's single biggest systematic bug per the cross-deal reconciliation. |
 | Complexity | Low |
-| Status | Not yet implemented. Current extraction skill does not enforce ordering. |
-| Confidence | HIGH -- Anthropic official documentation |
+| Dependencies | `enrich_core.py` `_classify_proposal()` only |
+| Confidence | HIGH -- directly observable in reconciliation data |
 
-**What it means:** Restructure extraction prompts so chronology blocks and evidence items appear first (as `<document>` tagged content), followed by few-shot examples, then the extraction schema and instructions at the end. This exploits LLM attention patterns: models attend most strongly to the beginning (data) and end (query) of context.
+**The Problem:** The current `_classify_proposal()` function in `enrich_core.py` (lines 209-272) applies Rule 1 (informal signals) before Rule 2.5 (after final round). When a final-round deadline response uses "indication of interest" language in the filing, Rule 1 fires first and labels it Informal. But M&A convention universally classifies final-round submissions as Formal regardless of filing terminology -- these are solicited responses to a process letter, submitted with merger agreement markups and financing commitments.
 
-**Source:** [Anthropic Prompting Best Practices](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices) -- "Put longform data at the top... Queries at the end can improve response quality by up to 30%."
+**Filing Reality (from reconciliation):**
+- Mac-Gray: Party A $18 and Party B $17-19 (Sep 18) -- final-round deadline responses classified Informal
+- STEC: WDC $9.15 (May 28) -- marked "merger agreement attached" but caught by IOI language first
+- Providence-Worcester: G&W $25 revised LOI -- 24-hour expiry, merger mark-ups, still classified Informal
+- Imprivata: $19.25 best-and-final -- solicited via process letter, still classified Informal
+
+**The Fix:** Reorder rules so Rule 2.5 (after_final_round_announcement or after_final_round_deadline) takes priority over Rule 1's informal language signals. Specifically:
+
+1. Rule 0 (new): If `after_final_round_deadline=true` or `after_final_round_announcement=true`, classify Formal. Rationale: a final-round response is definitionally formal in M&A, even if the filing uses "indication of interest" phrasing.
+2. Rule 1 (demoted): Informal signals only apply to pre-final-round proposals.
+3. Rules 2-4: Unchanged.
+
+Additionally, insert a `requested_binding_offer_via_process_letter` check: if this flag is true, the proposal is Formal regardless of other signals -- a process letter requesting binding offers makes informality impossible.
+
+**M&A Domain Basis:** In structured M&A auctions, the progression from IOI to LOI to definitive agreement is well-established. An "indication of interest" submitted in response to a final-round process letter is functionally a formal bid -- the terminology is an artifact of the filing drafter's prose style, not a substantive signal of informality. The seller's financial advisor has structured the round, set a deadline, and specified deliverables (markup of merger agreement, financing commitment letters). That context overrides any surface-level "indication of interest" language.
+
+**Sources:**
+- [Kimberly Advisors: IOI vs LOI](https://kimberlyadvisors.com/articles/indication-of-interest-ioi) -- IOI is non-binding early-stage; LOI is partially-binding final stage
+- [Redmount: Two-Step M&A Bidding Process](https://redmountpartners.com/twostepsofmanda/) -- IOI is first round, LOI is second/final round
+- `data/reconciliation_cross_deal_analysis.md` lines 69-82 -- 5-deal pattern of misclassification
 
 ---
 
-### TS-2: Quote-Before-Extract Protocol (Ground Responses in Quotes)
+### TS-2: Harden Canonicalize Against Duplicate quote_id Collisions
 
 | Attribute | Detail |
 |-----------|--------|
-| Why Expected | The primary failure mode the verify gate catches is hallucinated or imprecise anchor text. Forcing the LLM to identify and quote relevant passages before producing structured extraction eliminates this at the source. Official Anthropic guidance: "ask Claude to quote relevant parts of the documents first before carrying out its task." |
-| Complexity | Medium |
-| Status | Not yet implemented. Current extraction produces structured output directly. |
-| Confidence | HIGH -- Anthropic official documentation + production pipeline reports |
-
-**What it means:** For each event or actor being extracted, the LLM must first output the verbatim filing text that supports it (inside `<quotes>` tags or similar), then produce the structured JSON record citing that quote. This creates a verifiable chain: quote -> structured record -> downstream verification. The verify gate can then check if the anchor_text matches the quoted passage, and whether the quoted passage actually exists in the source.
-
-**Source:** [Anthropic Prompting Best Practices](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices) -- "Ground responses in quotes... This helps Claude cut through the noise."
-
----
-
-### TS-3: Block-Aligned Semantic Chunk Boundaries
-
-| Attribute | Detail |
-|-----------|--------|
-| Why Expected | The pipeline already produces semantically meaningful chronology blocks. Splitting mid-block for chunked extraction destroys context needed to correctly extract cross-sentence events (e.g., "the following day, Company A submitted..."). Semantic chunking is the industry standard for extraction accuracy. |
+| Why Expected | Penford canonicalization failed on duplicate quote_ids. Multi-pass extraction (actors then events) can independently assign Q001, Q002, etc. |
 | Complexity | Low |
-| Status | Partially implemented. Blocks exist but chunk boundaries are not formally enforced. |
-| Confidence | HIGH -- consensus across NVIDIA, Pinecone, Weaviate chunking research |
+| Dependencies | `canonicalize.py` `_resolve_quotes_to_spans()` only |
+| Confidence | HIGH -- observed in 7-deal rerun (penford) |
 
-**What it means:** When filing text exceeds a single context window (or when multiple chunks are used for attention management), chunk boundaries must fall between chronology blocks, never within them. Each chunk is a contiguous sequence of complete blocks.
+**The Problem:** The `_resolve_quotes_to_spans()` function (line 88-142 of `canonicalize.py`) combines `raw_actors.quotes` and `raw_events.quotes` into one list (line 408), then checks for duplicate `quote_id` values and raises `ValueError` if found. But actors and events are extracted in separate LLM passes, each starting their quote IDs at Q001. Collision is guaranteed for any deal with both actor and event quotes.
 
-**Source:** [NVIDIA Chunking Guide](https://developer.nvidia.com/blog/finding-the-best-chunking-strategy-for-accurate-ai-responses/), [Weaviate Chunking Strategies](https://weaviate.io/blog/chunking-strategies-for-rag)
+**Current Workaround:** The 7-deal rerun manually renumbered event-side quote IDs above the actor-side max. This should be automated.
 
----
-
-### TS-4: Inter-Chunk Overlap with Context Tags
-
-| Attribute | Detail |
-|-----------|--------|
-| Why Expected | Events that span block boundaries (NDA signed at end of one section, referenced in next) get lost without overlap. 2-block overlap with explicit XML context markers (e.g., `<prior_context>`, `<current_chunk>`) prevents boundary blindness without creating duplicate extractions. |
-| Complexity | Low-Medium |
-| Status | Not implemented. |
-| Confidence | MEDIUM -- industry best practice for semantic chunking |
-
-**What it means:** When extracting from chunk N, include the last 2 blocks of chunk N-1 wrapped in `<prior_context already_extracted="true">` tags. The LLM reads them for continuity but knows not to re-extract from them. Similarly, include the first 2 blocks of chunk N+1 as `<upcoming_context>` for forward reference.
+**The Fix:** Before merging quotes, renumber event-side quote_ids with an offset (e.g., event Q001 becomes Q{actor_max + 1}). Update all event `quote_ids` references correspondingly. This is a purely mechanical transformation -- no semantic change.
 
 ---
 
-### TS-5: Pydantic Schema-First Structured Output
+### TS-3: Harden Coverage Against False Positive NDA Cues
 
 | Attribute | Detail |
 |-----------|--------|
-| Why Expected | Schema enforcement is the industry-standard approach for reliable structured extraction. Without it, LLMs drift in field naming, omit optional fields, or add unexpected keys. |
-| Complexity | Low (already exists) |
-| Status | Implemented. `extra="forbid"` on all SkillModel subclasses. |
-| Confidence | HIGH -- already validated in this codebase |
+| Why Expected | Saks coverage reported spurious NDA findings from contextual confidentiality-agreement mentions that were not NDA-signing events. |
+| Complexity | Low |
+| Dependencies | `coverage.py` `_classify_cue_family()` |
+| Confidence | HIGH -- observed in 7-deal rerun (saks) |
 
-**What it means:** Every extraction artifact (actors, events, spans) is validated against strict Pydantic models. Unknown fields cause immediate rejection. This is already a strength of the pipeline and should be preserved.
+**The Problem:** The coverage module's NDA cue detection (lines 89-120 of `coverage.py`) catches phrases like "entered into a confidentiality agreement" but does not filter out backward-looking references like "which had executed a confidentiality agreement" in all sentence contexts. The existing `references_prior_executed_nda` filter covers some patterns but misses contextual mentions like "pursuant to their confidentiality agreement" or "under the terms of the confidentiality agreement" that reference a previously-signed NDA rather than a new signing event.
+
+**The Fix:** Expand the exclusion phrases in `references_prior_executed_nda` and add a new filter for contextual NDA references that appear in non-signing contexts (e.g., "pursuant to", "under the terms of", "in accordance with"). The saks fix from the 7-deal rerun partially addresses this but may need additional patterns from other deals.
 
 ---
 
-### TS-6: Deterministic Verification Gates (Check, Verify, Coverage)
+### TS-4: Harden check.py Grouped NDA Count Assertions
 
 | Attribute | Detail |
 |-----------|--------|
-| Why Expected | LLM extraction is inherently non-deterministic. Without deterministic post-extraction validation, errors propagate silently into enrichment and export. The verify/coverage separation (structural integrity vs quote fidelity vs source completeness) is the correct decomposition. |
-| Complexity | Medium (already exists) |
-| Status | Implemented. check -> verify -> coverage -> enrich-core gate chain. |
-| Confidence | HIGH -- already validated, industry convergence on generate-then-verify |
+| Why Expected | Providence-Worcester check stage failed because grouped bidder actors' `group_size` was not counted toward NDA count assertions. |
+| Complexity | Low |
+| Dependencies | `check.py` `_check_nda_count_gaps()` |
+| Confidence | HIGH -- observed in 7-deal rerun (providence-worcester) |
 
-**What it means:** The existing fail-fast gate chain where each gate must pass before the next runs. This is a core strength. Research confirms the 2026 best practice is multi-layered evaluation: deterministic checks first, LLM-based evaluation only when deterministic methods cannot apply.
+**The Problem:** The `_check_nda_count_gaps()` function (lines 174-219 of `check.py`) already uses `_counted_bidder_weight()` to count grouped actors by their `group_size`. However, the providence-worcester rerun log indicates this did not work correctly -- suggesting the grouped bidder either lacked a NDA event linkage or the `group_size` was not being used in the assertion comparison path. The fix applied during the rerun needs to be verified and regression-tested.
 
-**Source:** [Deterministic vs LLM Evaluators Study 2026](https://dev.to/anshd_12/deterministic-vs-llm-evaluators-a-2026-technical-trade-off-study-11h)
+**The Fix:** Verify the existing `_counted_bidder_weight()` logic covers grouped actors with NDA evidence. Add regression tests for the providence-worcester pattern (grouped NDA-signing bidder cohorts with `group_size` > 1).
 
 ---
 
-### TS-7: Two-Pass Extraction (Forward Scan + Gap Re-Read)
+### TS-5: Fix Gates Rejecting Rollover-Side Confidentiality Agreements
 
 | Attribute | Detail |
 |-----------|--------|
-| Why Expected | Single-pass extraction systematically misses low-salience events (NDAs for minor parties, advisor retentions mentioned in passing). The gap re-read forces explicit coverage of the full event taxonomy against the source. Research shows reflexive self-correction yields 9-15% absolute accuracy gains. |
-| Complexity | Medium (already exists) |
-| Status | Implemented. Pass 1 extracts actors then events; Pass 2 does taxonomy sweep + re-reads. |
-| Confidence | HIGH -- already validated + academic confirmation of reflexive improvement |
+| Why Expected | PetSmart gates rejected a Longview confidentiality agreement modeled as a sale-process NDA. Rollover-side agreements are not sale-process NDAs. |
+| Complexity | Low |
+| Dependencies | `gates.py` NDA-after-drop logic, extraction guidance |
+| Confidence | HIGH -- observed in 7-deal rerun (petsmart-inc) |
 
-**What it means:** The existing two-pass design. Pass 1 is the forward extraction. Pass 2 systematically checks each of 20 event types, re-reads relevant sections for gaps, and audits actor lifecycle completeness. This is retained and can be enhanced.
+**The Problem:** In leveraged buyouts, the existing management team or rollover investor signs confidentiality agreements related to their participation in the buyer's equity structure, not as sale-process bidders. When these get extracted as NDA events, the gates module's `nda_after_drop` rule fires because the rollover party was never an active sale-process bidder. The root fix is either (a) not extracting rollover-side confidentiality agreements as NDA events, or (b) teaching gates to distinguish rollover NDAs from sale-process NDAs.
 
-**Source:** [SCoRe: Multi-turn RL self-correction (ICLR 2025)](https://proceedings.iclr.cc/paper_files/paper/2025/file/871ac99fdc5282d0301934d23945ebaa-Paper-Conference.pdf)
+**The Fix:** The cleaner approach is (a): update extraction guidance to exclude rollover-side confidentiality agreements from the NDA event type. These are operational agreements, not sale-process milestones. If extraction cannot reliably distinguish them, add a `nda_context` field (values: `sale_process`, `rollover`, `other`) to allow gates to filter appropriately.
 
 ---
 
-### TS-8: Span-Backed Evidence Provenance
+### TS-6: Fix Zep NMC Actor Error
 
 | Attribute | Detail |
 |-----------|--------|
-| Why Expected | Every extracted fact must trace to exact line/character positions in the immutable filing text. Without provenance, downstream auditing is impossible and verification degrades to keyword search. |
-| Complexity | Medium (already exists) |
-| Status | Implemented. SpanRecord with document_id, start_line, end_line, start_char, end_char, match_type. |
-| Confidence | HIGH -- already validated, fundamental to correctness-first design |
+| Why Expected | NMC explicitly declined to bid per the Zep filing but is incorrectly included in evt_005/evt_008. This is a data correction, not a code fix. |
+| Complexity | Low (extraction repair) |
+| Dependencies | Extraction re-run or manual artifact correction for Zep |
+| Confidence | HIGH -- filing text directly contradicts current extraction |
 
-**What it means:** The existing span registry (`spans.json`) that maps every evidence reference back to exact positions in frozen filing text. The canonical schema upgrade from legacy `evidence_refs` to `evidence_span_ids` + `spans.json` is the correct direction.
+**The Problem:** The Zep filing states NMC explicitly declined to bid, yet the pipeline includes NMC in two events (evt_005 and evt_008). This is an extraction error -- the LLM included a party that the filing text explicitly excludes.
+
+**The Fix:** Re-extract Zep with corrected guidance, or surgically repair the two affected events in the Zep extract artifacts. Add a regression note in the reconciliation report.
 
 ---
 
-### TS-9: Fail-Fast Error Handling
+### TS-7: Fix Medivation Missing Drop Events
 
 | Attribute | Detail |
 |-----------|--------|
-| Why Expected | In correctness-first extraction, partial success is worse than loud failure. Silent fallbacks (returning empty results, substituting defaults, swallowing exceptions) contaminate downstream analysis. Fail-fast on violated assumptions is the only safe policy. |
-| Complexity | Low (already exists, needs hardening) |
-| Status | Mostly implemented. Some exceptions noted in CONCERNS.md (broad except in enrich_core.py). |
-| Confidence | HIGH -- fundamental pipeline design principle |
+| Why Expected | evt_013 and evt_017 are referenced in coverage notes but absent from the events array. These are filing-grounded drops. |
+| Complexity | Low (extraction repair) |
+| Dependencies | Extraction re-run or manual artifact correction for Medivation |
+| Confidence | HIGH -- coverage notes reference events that do not exist |
 
-**What it means:** No try/except swallowing. No fallback logic. No partial outputs. If a stage cannot produce correct output, it crashes with a specific error. This is already the stated design philosophy but has known violations to fix.
+**The Fix:** Re-extract Medivation to include the missing drop events, or surgically add them to the events artifact with proper span evidence.
 
 ---
 
-### TS-10: Extended Thinking / Adaptive Thinking for Extraction
+### TS-8: Fix DuckDB Transient Lock on db-export After db-load
 
 | Attribute | Detail |
 |-----------|--------|
-| Why Expected | Complex M&A deal chronologies require multi-step reasoning: understanding temporal sequences, disambiguating party references, classifying formality signals from context. Extended/adaptive thinking lets the model reason before committing to structured output. |
-| Complexity | Low (API parameter, already enabled) |
-| Status | Implemented. CLAUDE.md confirms extended thinking is operational. |
-| Confidence | HIGH -- Anthropic official guidance for complex extraction |
+| Why Expected | Zep db-export hit a transient DuckDB lock immediately after db-load; retry succeeded. |
+| Complexity | Low |
+| Dependencies | `db_load.py`, `db_export.py` |
+| Confidence | HIGH -- observed in 7-deal rerun |
 
-**What it means:** Enable adaptive thinking (`thinking: {type: "adaptive"}` with appropriate effort level) for extraction calls. For complex deals, use `high` effort. The model's internal reasoning about temporal ordering, party disambiguation, and formality signals is more reliable when thinking is enabled.
+**The Problem:** DuckDB's WAL (write-ahead log) can hold a brief lock after a write transaction commits. When `db-export` runs immediately after `db-load` in the same orchestration, it can encounter this lock.
 
-**Source:** [Anthropic Adaptive Thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking)
+**The Fix:** Either (a) ensure `db-load` explicitly closes the connection and flushes the WAL before returning, or (b) add a brief retry loop (1-2 attempts, 500ms delay) in `db-export`'s `open_pipeline_db(read_only=True)` call. Option (a) is cleaner. DuckDB's `CHECKPOINT` command forces WAL flush.
 
 ---
 
 ## Differentiators
 
-Features that set the pipeline apart from naive LLM extraction. Not expected, but produce measurably better correctness when implemented.
+Features that improve the pipeline's analytical depth beyond what's minimally correct. Valuable but not required for correctness.
 
-### D-1: Evidence Items as Active Attention-Steering Checklist
+---
+
+### D-1: DropTarget Event Classification in Enrichment
 
 | Attribute | Detail |
 |-----------|--------|
-| Value Proposition | Evidence items (pre-tagged date, actor, value, and process signal anchors from preprocessing) are currently a passive appendix. Promoting them to an active checklist the LLM must address forces attention on signals that might otherwise be lost in the middle of long chronologies. |
+| Value Proposition | Distinguishes target-initiated exclusions from bidder-initiated withdrawals, capturing a critical M&A process dynamic. |
 | Complexity | Medium |
-| Status | Not implemented. Evidence items exist but are not structured as a must-address checklist. |
-| Confidence | MEDIUM -- logical extension of "lost in the middle" mitigation + quote grounding |
+| Dependencies | Existing `drop` events + `drop_reason_text` field; existing `DropoutClassification` model already has the label |
+| Confidence | MEDIUM-HIGH -- domain logic is clear, but extraction quality of `drop_reason_text` determines effectiveness |
 
-**What it means:** Before extraction, compile evidence items into a structured checklist grouped by cue family (proposal, NDA, drop, process initiation, advisor). The prompt instructs the LLM: "For each evidence item below, indicate which extracted event addresses it or explain why no event applies." This converts passive source material into an active attention mechanism.
+**What It Is:** When a target's special committee or board decides not to invite a bidder to the next round, that is a DropTarget -- fundamentally different from a bidder voluntarily withdrawing. The reconciliation shows Alex captures these (mac-gray, stec, prov-worcester, saks) while the pipeline does not.
 
----
+**Current State:** The extraction skill (SKILL.md line 125-128) explicitly collapses all drops into the single `drop` type and instructs the LLM to preserve the narrative basis in `drop_reason_text`. The `DropoutClassification` model (`models.py` line 364) already includes `DropTarget` as a valid label. The `enrich-deal` skill (SKILL.md) already defines the DropTarget classification logic.
 
-### D-2: Block-Level Metadata Enrichment in Preprocessing
+**What's Missing:** The deterministic `enrich_core.py` does not perform dropout classification at all -- it only handles rounds, bid classification, cycles, and formal boundary. Dropout classification currently lives only in the interpretive `enrich-deal` local-agent skill. To make DropTarget deterministic, the pipeline needs to:
 
-| Attribute | Detail |
-|-----------|--------|
-| Value Proposition | Adding metadata to chronology blocks (approximate dates, named entities, evidence density score, temporal phase classification) during preprocessing gives the LLM structured context about each block before reading it. This pre-computation reduces extraction burden and enables complexity-based routing. |
-| Complexity | Medium |
-| Status | Not implemented. Blocks currently have block_id, document_id, start_line, end_line, text. |
-| Confidence | MEDIUM -- logical extension but unvalidated in this specific domain |
+1. Parse `drop_reason_text` for target-initiated exclusion signals (e.g., "the committee determined not to invite", "was not selected for the final round", "the board decided to narrow the field")
+2. Check directionality: was the bidder excluded before signaling withdrawal?
+3. Cross-reference round structure: if a bidder had an NDA but was not in `invited_actor_ids` for the next round announcement, that is likely a DropTarget
 
-**What it means:** During `preprocess-source`, annotate each block with: `approximate_date_range` (from regex date parsing), `entity_mentions` (party names detected), `evidence_density` (count of evidence items overlapping this block), `temporal_phase` (early/mid/late in chronology). The LLM receives these annotations as block-level context.
+**M&A Domain Signals for DropTarget:**
+- "The committee determined not to invite [Party X] to the final round"
+- "The board narrowed the field to [N] bidders"
+- "[Party X] was not selected to participate in the next phase"
+- Absence from `invited_actor_ids` when the bidder was previously active (implicit DropTarget)
 
----
-
-### D-3: Complexity-Based Routing (Single-Pass vs Multi-Pass)
-
-| Attribute | Detail |
-|-----------|--------|
-| Value Proposition | Not all deals require the same extraction intensity. Simple deals (few parties, short chronology, single cycle) can use a more efficient single-pass extraction. Complex deals (many parties, multiple cycles, ambiguous drops) need multi-pass with overlap. Routing saves cost on simple deals and focuses compute on complex ones. |
-| Complexity | Medium |
-| Status | Not implemented. All deals use the same extraction approach. |
-| Confidence | MEDIUM -- routing is a validated pattern but complexity heuristics need calibration |
-
-**What it means:** After preprocessing, compute a complexity score based on: number of chronology blocks, number of evidence items, number of distinct entity mentions, presence of termination/restart events. Route to appropriate extraction configuration:
-- **Simple** (score < threshold): Single chunk, single pass, lower thinking effort
-- **Complex** (score >= threshold): Multi-chunk with overlap, two passes, high thinking effort
-
-**Source:** [LLM Routing Research](https://arxiv.org/pdf/2603.12646)
+**Complexity Note:** The implicit DropTarget case (active bidder not invited to next round, no explicit drop event extracted) may require synthesizing new drop events from round invitation data. This is a higher-complexity variant.
 
 ---
 
-### D-4: Expanded Few-Shot Examples (4-5 Diverse Scenarios)
+### D-2: Round Milestone Event Types
 
 | Attribute | Detail |
 |-----------|--------|
-| Value Proposition | Anthropic docs: "A few well-crafted examples can dramatically improve accuracy and consistency." With prompt caching, including 4-5 diverse examples adds minimal marginal cost. Examples covering NDA groups, ambiguous drops, cycle boundaries, and unnamed aggregates address the specific failure modes of M&A extraction. |
-| Complexity | Medium-High (requires manual curation of gold-standard examples) |
-| Status | Not implemented systematically. Extraction skill has inline examples but not diverse few-shot coverage. |
-| Confidence | MEDIUM-HIGH -- Anthropic official guidance + prompt caching makes cost negligible |
-
-**What it means:** Curate 4-5 complete input/output example pairs that cover:
-1. Standard single-cycle deal with named bidders
-2. Deal with NDA groups and unnamed aggregates ("15 parties signed confidentiality agreements")
-3. Deal with ambiguous drops (bidder-initiated vs target-initiated)
-4. Multi-cycle deal with termination and restart
-5. Deal with complex formality signal classification (mixed informal/formal bids)
-
-Place examples in the static prefix for prompt caching benefit.
-
-**Source:** [Anthropic Prompting Best Practices](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices)
-
----
-
-### D-5: Prompt Caching for System Prompt + Actor Roster
-
-| Attribute | Detail |
-|-----------|--------|
-| Value Proposition | When extracting from multiple chunks of the same deal, the system prompt, few-shot examples, schema definition, and actor roster (from Pass 1) are identical across calls. Caching these static prefixes reduces cost by up to 90% and latency by up to 85% on subsequent chunk calls. |
+| Value Proposition | Captures auction process structure that Alex records but the pipeline omits. |
 | Complexity | Low-Medium |
-| Status | Not implemented. Each extraction call sends the full prompt. |
-| Confidence | HIGH -- Anthropic official documentation with concrete metrics |
+| Dependencies | Already in the 20-type event taxonomy; round pairing already works in `enrich_core.py` |
+| Confidence | HIGH -- the taxonomy and pairing logic already exist |
 
-**What it means:** Structure extraction calls with cache breakpoints:
-1. **Cache layer 1:** System prompt + extraction schema + few-shot examples (static across all deals)
-2. **Cache layer 2:** Actor roster from Pass 1 (static across chunks within a deal)
-3. **Cache layer 3:** Current chunk's chronology blocks (varies per call)
-4. **Uncached:** Instructions + query (at the end, per prompt ordering)
+**What It Is:** The pipeline's event taxonomy already includes 6 round event types:
+- `final_round_inf_ann` / `final_round_inf` (informal round announcement / deadline)
+- `final_round_ann` / `final_round` (formal round announcement / deadline)
+- `final_round_ext_ann` / `final_round_ext` (extension round announcement / deadline)
 
-Up to 4 cache breakpoints are available per call.
+The reconciliation shows Alex captures round milestones across all 9 deals, but the pipeline's extraction often misses them. This is not a taxonomy gap -- it is an extraction coverage gap. The LLM does not reliably extract round events because the filing language for round announcements is more subtle than for proposals or NDAs.
 
-**Source:** [Anthropic Prompt Caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching)
+**Root Cause Analysis:**
+1. Round announcements in filings rarely say "we announced a final round." Instead they say things like "the committee requested that the remaining parties submit revised proposals by [date]" or "process letters were sent to [N] bidders."
+2. The extraction prompt's event taxonomy lists round types but provides no examples of what filing language maps to them.
+3. The coverage module (`coverage.py`) does not have cue families for round events -- it checks proposals, NDAs, drops, and process initiation, but not round milestones.
 
----
-
-### D-6: Temporal Consistency Gate
-
-| Attribute | Detail |
-|-----------|--------|
-| Value Proposition | Events should be globally monotonic in time (with exceptions for cycles). Detecting temporal inconsistencies (e.g., a proposal dated before the process initiation, or an NDA after a drop for the same actor) catches extraction errors that structural and quote verification miss. |
-| Complexity | Medium |
-| Status | Partially implemented. verify-extraction SKILL.md mentions date monotonicity as a warning check. Not in deterministic gates. |
-| Confidence | MEDIUM -- logical correctness check, straightforward to implement |
-
-**What it means:** Add a deterministic gate (or enhance existing check/verify) that:
-- Validates global date ordering (with exceptions for cycle boundaries)
-- Validates per-actor lifecycle consistency (NDA before proposal before drop)
-- Flags impossible temporal sequences (drop before any involvement, proposal after executed)
+**The Fix:**
+1. Add few-shot examples in the extraction prompt showing round announcement language patterns.
+2. Add a `round_milestone` cue family to coverage with patterns like "process letter", "requested that parties submit", "invited to submit revised", "narrowed the field."
+3. Optionally, add round milestone detection in the extraction gap re-read (Pass 2) with explicit prompting for round events.
 
 ---
 
-### D-7: Per-Actor Coverage Audit
+### D-3: Contextual all_cash Inference
 
 | Attribute | Detail |
 |-----------|--------|
-| Value Proposition | Current coverage audits source evidence cues against extracted events. Per-actor coverage goes further: for each named actor, verify they have a complete lifecycle (entry event, optional proposals, exit event or final-deal involvement). Actors who appear and disappear without explanation indicate extraction gaps. |
+| Value Proposition | Increases `all_cash` coverage from explicit-mention-only to contextually inferrable cases. |
 | Complexity | Medium |
-| Status | Partially implemented. Pass 2 gap re-read checks actor lifecycle but not as a deterministic gate. |
-| Confidence | MEDIUM -- logical extension of existing coverage gate |
+| Dependencies | `db_export.py` cash_value logic, `enrich_core.py` |
+| Confidence | MEDIUM -- the inference rules are domain-clear but require careful scoping to avoid false positives |
 
-**What it means:** For each non-grouped actor with role=bidder:
-- Verify they have at least one entry event (NDA, bidder_interest, or process invitation)
-- If they have proposals, verify temporal ordering (entry before proposal)
-- Verify they have either a drop event, an executed event, or appear in the final round
-- Flag actors with incomplete lifecycles for re-examination
+**What It Is:** The current pipeline only marks `all_cash=1` when the event's `terms.consideration_type == "cash"` (line 303 of `db_export.py`). The reconciliation shows this misses cases where cash consideration is contextually obvious:
+- Penford: All Ingredion bids were cash (deal context makes this clear), but not every proposal sentence says "cash"
+- PetSmart: The executed deal was clearly all-cash, but the executed event lacks explicit cash mention
+
+**Inference Rules (domain-grounded, conservative):**
+
+1. **Same-actor consistency:** If an actor's earlier proposal explicitly states "cash" and a later proposal from the same actor does not specify consideration_type, infer cash (unless the later proposal introduces stock/mixed language). Rationale: bidders rarely switch from cash to mixed consideration without stating it.
+
+2. **Executed event inference:** If the executed merger agreement specifies cash consideration (checkable from the `executed` event or the signing event's terms), propagate `all_cash` to the executed row. This is nearly always disclosed.
+
+3. **Process-level inference:** If ALL proposals from ALL bidders throughout the process specify cash, and the filing does not mention stock or mixed consideration, the process is all-cash. Mark all proposals accordingly.
+
+**Anti-pattern to avoid:** Do NOT infer cash from the absence of stock mention. Some filings simply do not specify consideration type for early-stage indications. The inference must be positive (evidence of cash), not negative (absence of stock).
+
+**Where It Lives:** This belongs in `enrich_core.py` as a new enrichment pass after bid classification. The inference result should be stored in `deterministic_enrichment.json` as a `consideration_inference` dict keyed by event_id, with fields: `inferred_type`, `basis`, `confidence`.
 
 ---
 
-### D-8: Cross-Event Logical Consistency Checks
+### D-4: Verbal/Oral Price Indication Support
 
 | Attribute | Detail |
 |-----------|--------|
-| Value Proposition | Beyond temporal ordering, certain event combinations are logically impossible: a bidder cannot be both executed-with and dropped; a round cannot have more invited bidders than active bidders; a formal round should not have fewer participants than an earlier informal round. |
+| Value Proposition | Captures price signals that precede formal written bids, filling a gap Alex records. |
 | Complexity | Medium |
-| Status | Not implemented as deterministic gate. Some checks exist in enrich-core round pairing. |
-| Confidence | MEDIUM -- domain-specific correctness rules |
+| Dependencies | Extraction prompt guidance, possibly a new `formality_signals` flag |
+| Confidence | MEDIUM -- filing language is clear but these are inherently informal |
 
-**What it means:** Add deterministic checks for:
-- No actor appears in both `executed_with_actor_id` and a `drop` event
-- `invited_actor_ids` count <= `active_bidders_at_time` in round structure
-- Selective round (is_selective=true) should have fewer invitees than prior round
-- Every `executed` event's counterparty should have a prior NDA or proposal
+**What It Is:** Some deals include verbal price indications before written IOIs: STEC Company D oral price signal, PetSmart Bidder 3 verbal indication. The filing says something like "representatives of Company D verbally indicated a willingness to pay approximately $X per share."
+
+**Current Gap:** The extraction prompt does not specifically guide the LLM to extract verbal/oral indications. The `FormalitySignals` model does not have a flag for verbal-only proposals.
+
+**The Fix:**
+1. Add extraction prompt guidance: "Verbal or oral price indications are extractable as proposal events. Set `formality_signals.mentions_preliminary=true` and add `verbal_indication` to event notes."
+2. Optionally add `is_verbal_indication: bool` to `FormalitySignals` (default false). This allows deterministic classification to handle verbal proposals correctly (they are always Informal).
+3. Add coverage cue patterns for "verbally indicated", "oral indication", "verbal expression of interest."
+
+---
+
+### D-5: Harden Extraction Orchestration Against Concurrent Artifact Writes
+
+| Attribute | Detail |
+|-----------|--------|
+| Value Proposition | Prevents corruption when multiple workers write deal artifacts simultaneously. |
+| Complexity | Medium |
+| Dependencies | Orchestration workflow, filesystem locking |
+| Confidence | HIGH -- observed in 7-deal rerun |
+
+**What It Is:** The 7-deal rerun initially launched parallel workers that could collide on shared filesystem paths. The workaround was serialized per-deal launches with strict path ownership. A more robust solution would be file-level locking or per-deal workspace isolation.
+
+**The Fix:** Add per-deal lock files (e.g., `data/skill/<slug>/.lock`) that deterministic stages check before writing. The lock should be advisory (not mandatory) with clear error messages. Alternatively, document the concurrency contract: each deal slug is owned by exactly one worker at a time.
 
 ---
 
 ## Anti-Features
 
-Features to explicitly NOT build. Each adds complexity that damages correctness, maintainability, or both.
-
-### AF-1: RAG as Primary Architecture
-
-| Anti-Feature | RAG-based retrieval for primary extraction |
-|--------------|------------------------------------------|
-| Why Avoid | Extraction requires exhaustive recall (every event in the filing), not selective retrieval. RAG introduces retrieval failure modes where relevant passages are missed by embedding similarity search. The filing fits in context. RAG was formally assessed and rejected in PROJECT.md. |
-| What to Do Instead | Direct full-document or chunked extraction with block-aligned boundaries. Use targeted retrieval only for recovery passes when coverage identifies gaps. |
-| Confidence | HIGH -- formally assessed and rejected |
+Features to explicitly NOT build for this milestone.
 
 ---
 
-### AF-2: Context Compression or Summarization
+### AF-1: Do Not Add New Event Types to the Taxonomy
 
-| Anti-Feature | Summarizing or compressing filing text before extraction |
-|--------------|--------------------------------------------------------|
-| Why Avoid | SEC filings use legally precise language where every word matters. "Indication of interest" vs "binding offer" is a single-word difference that changes formality classification. Summarization is lossy and risks destroying anchor text needed for verification. |
-| What to Do Instead | Preserve verbatim filing text. Use chunking with overlap to manage context length. |
-| Confidence | HIGH -- formally listed as out of scope |
+| Anti-Feature | Why Avoid | What to Do Instead |
+|--------------|-----------|-------------------|
+| Adding `exclusivity_grant`, `ib_termination`, `aggregate_cohort_drop`, or other new event types | The 20-type taxonomy is sufficient. Alex's extra event types (exclusivity, IB termination) are either rare or can be captured as notes on existing events. Adding types increases schema complexity, extraction prompt length, and downstream handling for minimal coverage gain. | Capture exclusivity grants as notes on NDA or proposal events. IB termination is rare (1 deal) -- not worth a taxonomy slot. Aggregate cohort drops are a presentation choice, not an event type. |
 
----
+### AF-2: Do Not Build Benchmark-Informed Generation
 
-### AF-3: LLM-as-Judge for Verification
+| Anti-Feature | Why Avoid | What to Do Instead |
+|--------------|-----------|-------------------|
+| Using reconciliation findings or Alex's spreadsheet to influence extraction generation | This violates the benchmark boundary constraint. The pipeline must generate from filing text alone. Reconciliation findings inform pipeline code fixes, not extraction prompts. | Use reconciliation to identify code bugs (bid_type rule order) and coverage gaps (missing round events), then fix the pipeline code. Never feed Alex's answers into the extraction prompt. |
 
-| Anti-Feature | Using a second LLM to evaluate extraction quality |
-|--------------|--------------------------------------------------|
-| Why Avoid | LLM-based verification introduces a second source of non-determinism. When the judge and generator disagree, there is no ground truth to break the tie. Deterministic substring matching against filing text is provably correct. Adding an LLM judge layer adds cost, latency, and a new failure mode without improving correctness. |
-| What to Do Instead | Use deterministic verification (exact/normalized substring matching) for quote verification. Use deterministic rules for structural and referential integrity checks. Reserve LLM involvement for the repair loop only (fix verified errors, not detect them). |
-| Confidence | HIGH -- deterministic verification is provably more reliable for substring matching |
+### AF-3: Do Not Add Aggregate Per-Party Rows
 
----
+| Anti-Feature | Why Avoid | What to Do Instead |
+|--------------|-----------|-------------------|
+| Adding aggregate rows like "15 parties NDA" or "6 parties IOI" as pseudo-events | These are presentation artifacts, not events. Alex uses them for spreadsheet readability. The pipeline's `count_assertions` mechanism already captures these filing statements as metadata without polluting the event timeline. | Continue using `count_assertions` for filing-stated aggregate counts. The count reconciliation task in enrich-deal already compares them to extracted events. |
 
-### AF-4: Self-Consistency via Majority Voting
+### AF-4: Do Not Build Automatic Extraction Re-Run for Data Fixes
 
-| Anti-Feature | Running extraction N times and taking majority vote |
-|--------------|-----------------------------------------------------|
-| Why Avoid | Research shows self-consistency (sampling multiple outputs and voting) improves F1 only marginally while costing 3x tokens. For structured extraction with 20+ event types and complex schemas, defining "majority" across heterogeneous records is intractable. The deterministic verify/coverage gates catch errors more reliably than statistical agreement. |
-| What to Do Instead | Single high-quality extraction with extended thinking, followed by deterministic verification and targeted repair. |
-| Confidence | HIGH -- research confirms marginal ROI for structured extraction |
-
-**Source:** [Self-Correction Benchmark (2025)](https://arxiv.org/html/2510.16062v1)
-
----
-
-### AF-5: Fine-Tuned Domain-Specific Model
-
-| Anti-Feature | Fine-tuning a model specifically for SEC filing extraction |
-|--------------|----------------------------------------------------------|
-| Why Avoid | 9-deal corpus is far too small for meaningful fine-tuning. Fine-tuning loses the general reasoning capability needed for novel deal structures. Prompt engineering with few-shot examples on frontier models outperforms fine-tuned smaller models on complex extraction. Fine-tuning also creates model lock-in, incompatible with multi-provider support. |
-| What to Do Instead | Use frontier models (Claude, GPT) with well-engineered prompts and few-shot examples. Maintain multi-provider flexibility. |
-| Confidence | HIGH -- corpus too small, multi-provider requirement |
-
----
-
-### AF-6: Agentic Multi-Agent Orchestration
-
-| Anti-Feature | Using multiple specialized LLM agents (one for actors, one for events, one for enrichment, etc.) communicating via message passing |
-|--------------|--------------------------------------------------------------------------------------------------------------------------------|
-| Why Avoid | Recent research (March 2026) shows reflexive/multi-agent architectures achieve the highest F1 (0.943) but at 2.3x the cost. For a 9-deal corpus, the complexity overhead is massive. The existing two-pass + deterministic gate architecture achieves similar quality at much lower complexity. Multi-agent introduces coordination failures and state consistency problems. |
-| What to Do Instead | Keep the existing sequential pipeline: extract -> canonicalize -> check -> verify -> coverage -> repair -> enrich -> export. Each stage is a deterministic function or a single LLM call, not a multi-agent conversation. |
-| Confidence | MEDIUM-HIGH -- multi-agent may be warranted for larger corpora but is overkill for 9 deals |
-
-**Source:** [Multi-Agent Financial Document Processing Benchmark (2026)](https://arxiv.org/abs/2603.22651)
-
----
-
-### AF-7: Automatic Retry/Fallback on Extraction Failure
-
-| Anti-Feature | Automatically retrying failed extractions with relaxed parameters or fallback models |
-|--------------|------------------------------------------------------------------------------------|
-| Why Avoid | Retry with relaxed parameters means accepting lower quality output. Fallback to a weaker model means accepting less capable extraction. In a correctness-first pipeline, the right response to extraction failure is to fail loud and investigate, not to silently produce lower-quality output. Retries also mask systematic prompt issues that should be fixed. |
-| What to Do Instead | Fail fast on extraction errors. Log the failure with full context. Fix the root cause (prompt issue, context overflow, schema mismatch) rather than retrying around it. |
-| Confidence | HIGH -- core design principle of this pipeline |
-
----
-
-### AF-8: Graph RAG or Knowledge Graph Construction
-
-| Anti-Feature | Building a knowledge graph from extracted data and using graph traversal for enrichment |
-|--------------|--------------------------------------------------------------------------------------|
-| Why Avoid | Assessed in PROJECT.md and rejected. The 9-deal corpus does not warrant graph infrastructure. The deterministic enrichment (round pairing, bid classification, cycle segmentation) works correctly as sequential logic over flat event lists. Graph adds complexity without correctness benefit at this scale. |
-| What to Do Instead | Keep flat event/actor lists with deterministic enrichment logic. The existing round_pairs, bid_classifications, cycles, and formal_boundary outputs are correct as-is. |
-| Confidence | HIGH -- formally assessed and rejected |
-
----
-
-### AF-9: Streaming/Incremental Extraction
-
-| Anti-Feature | Processing filing text as a stream with incremental updates to extraction state |
-|--------------|-------------------------------------------------------------------------------|
-| Why Avoid | Extraction decisions are context-dependent: whether an event is a "proposal" vs "bidder_interest" depends on whether a prior NDA exists; formality classification depends on whether a final round has been announced. Streaming extraction would need to retroactively reclassify earlier events as later context arrives, creating state management complexity without benefit. |
-| What to Do Instead | Batch extraction per chunk with full context (including overlap from adjacent chunks). The two-pass design already handles the need for context-dependent reclassification. |
-| Confidence | HIGH -- context dependency makes streaming fundamentally unsuitable |
+| Anti-Feature | Why Avoid | What to Do Instead |
+|--------------|-----------|-------------------|
+| Building an automated re-extraction pipeline that detects and fixes data errors like Zep NMC or Medivation missing drops | Re-extraction is expensive and non-deterministic. The fixes for Zep and Medivation are surgical artifact repairs, not systematic pipeline changes. Automating artifact repair risks masking extraction quality issues. | Fix the specific data errors via manual artifact repair (Zep NMC, Medivation drops). Improve extraction prompts to prevent similar errors in future runs. |
 
 ---
 
 ## Feature Dependencies
 
 ```
-TS-1 (Prompt Ordering) -- no dependencies, implement first
-  |
-  v
-TS-2 (Quote-Before-Extract) -- depends on TS-1 for optimal placement
-  |
-  v
-TS-3 (Block-Aligned Chunks) -- independent, but prerequisite for:
-  |
-  +-> TS-4 (Inter-Chunk Overlap) -- depends on TS-3
-  |
-  +-> D-2 (Block Metadata) -- depends on block structure from TS-3
-  |
-  +-> D-3 (Complexity Routing) -- depends on D-2 for complexity signals
+TS-1 (bid_type rule fix) -> D-1 (DropTarget depends on correct round structure from enrichment)
+TS-2 (canonicalize dedup) -> TS-3, TS-4, TS-5 (all downstream stages depend on clean canonicalization)
+TS-3 (coverage false positives) -> no downstream dependency
+TS-4 (check grouped NDA) -> no downstream dependency (but blocks canonicalize -> check -> verify flow)
+TS-5 (gates rollover NDA) -> D-1 (DropTarget enrichment needs clean gate results)
+TS-6 (Zep NMC) -> independent (data fix)
+TS-7 (Medivation drops) -> independent (data fix)
+TS-8 (DuckDB lock) -> independent (runtime fix)
 
-D-1 (Evidence Checklist) -- depends on TS-2 (quote protocol) for consistency
-
-D-4 (Few-Shot Examples) -- independent, but benefits from:
-  +-> D-5 (Prompt Caching) -- few-shot examples in cached prefix
-
-D-5 (Prompt Caching) -- depends on TS-1 (static content at top)
-
-D-6 (Temporal Consistency) -- independent deterministic gate
-D-7 (Per-Actor Coverage) -- independent deterministic gate
-D-8 (Cross-Event Logic) -- depends on D-6 (temporal ordering) + D-7 (actor lifecycle)
-
-TS-5 through TS-10 are already implemented -- maintain and harden.
+D-1 (DropTarget) -> depends on D-2 (round milestones) for implicit DropTarget detection
+D-2 (round milestones) -> independent extraction improvement
+D-3 (all_cash inference) -> depends on TS-1 (correct bid classification needed for inference context)
+D-4 (verbal indications) -> independent extraction improvement
+D-5 (concurrent writes) -> independent runtime improvement
 ```
-
-**Critical path:** TS-1 -> TS-2 -> TS-3 + TS-4 -> D-1 -> D-4 + D-5
-
-**Independent track:** D-6 -> D-7 -> D-8 (enhanced deterministic gates, can proceed in parallel)
 
 ---
 
 ## MVP Recommendation
 
-### Prioritize (highest correctness impact per effort):
+### Must-Fix (blocks correctness):
+1. **TS-1: bid_type rule priority** -- highest-impact single fix, affects 5+ deals
+2. **TS-2: canonicalize dedup** -- prevents runtime crashes
+3. **TS-3: coverage false positives** -- prevents spurious repair work
+4. **TS-4: check grouped NDA** -- prevents false blocker assertions
+5. **TS-5: gates rollover NDA** -- prevents false gate rejections
+6. **TS-8: DuckDB lock** -- prevents transient runtime failures
 
-1. **TS-1: Prompt Ordering** -- Zero-cost, up to 30% quality improvement. Implement immediately.
-2. **TS-2: Quote-Before-Extract** -- Eliminates the most common verification failure mode at the source. Medium effort, highest correctness impact.
-3. **TS-3 + TS-4: Block-Aligned Chunks with Overlap** -- Prevents boundary-induced extraction errors. Low-medium effort.
-4. **D-5: Prompt Caching** -- Low effort, immediate cost/latency savings once prompt ordering is in place.
-5. **D-1: Evidence Items as Checklist** -- Addresses "lost in the middle" for critical signals. Medium effort.
+### Should-Fix (closes known data gaps):
+7. **TS-6: Zep NMC** -- data repair
+8. **TS-7: Medivation drops** -- data repair
 
-### Defer:
+### High-Value Additions:
+9. **D-1: DropTarget classification** -- moves a key interpretive judgment into deterministic code
+10. **D-2: Round milestone coverage** -- closes the biggest extraction gap vs Alex
 
-- **D-2: Block Metadata** -- Useful but not blocking. Implement when complexity routing is needed.
-- **D-3: Complexity Routing** -- 9-deal corpus does not yet justify routing infrastructure. Implement after all deals are processed once and complexity variation is understood.
-- **D-4: Few-Shot Examples** -- High value but requires manual curation of gold-standard examples from completed deals. Implement after stec baseline is validated.
-- **D-6/D-7/D-8: Enhanced Gates** -- Valuable but incremental. Implement as needed when specific error patterns emerge.
+### Defer to v1.2:
+- **D-3: all_cash inference** -- design choice (precision vs coverage), not a bug
+- **D-4: Verbal indications** -- rare (2 deals affected), extraction prompt guidance is sufficient
+- **D-5: Concurrent write hardening** -- documentation of the concurrency contract is sufficient for now
+
+---
+
+## Complexity Summary
+
+| Feature | Complexity | Lines of Code (est.) | Test Effort |
+|---------|------------|---------------------|-------------|
+| TS-1: bid_type rule fix | Low | ~20 lines changed in `enrich_core.py` | Medium (regression tests across 5+ deals) |
+| TS-2: canonicalize dedup | Low | ~30 lines in `canonicalize.py` | Low (unit test with overlapping quote_ids) |
+| TS-3: coverage false positives | Low | ~10-20 lines in `coverage.py` | Low (add exclusion patterns, unit tests) |
+| TS-4: check grouped NDA | Low | ~10 lines verification + tests | Low (regression test for providence-worcester pattern) |
+| TS-5: gates rollover NDA | Low | ~20 lines in gates or extraction guidance | Medium (needs extraction guidance update + gate logic) |
+| TS-6: Zep NMC | Low | Artifact edit | Low (data verification) |
+| TS-7: Medivation drops | Low | Artifact edit | Low (data verification) |
+| TS-8: DuckDB lock | Low | ~10 lines in `db_load.py` or `db_export.py` | Low (integration test) |
+| D-1: DropTarget enrichment | Medium | ~80-120 lines in `enrich_core.py` | Medium (need filing-grounded test cases) |
+| D-2: Round milestone coverage | Medium | ~40-60 lines in `coverage.py` + prompt updates | Medium (new cue family + extraction prompt changes) |
+| D-3: all_cash inference | Medium | ~60-80 lines in `enrich_core.py` | Medium (inference rules + edge cases) |
+| D-4: Verbal indications | Medium | ~20 lines prompt guidance + optional model field | Low |
+| D-5: Concurrent writes | Medium | ~40 lines lock mechanism | Low |
 
 ---
 
 ## Sources
 
-### Official Documentation (HIGH confidence)
-- [Anthropic Prompting Best Practices](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices)
-- [Anthropic Prompt Caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching)
-- [Anthropic Adaptive Thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking)
+### Primary Evidence (Pipeline-Internal)
+- `data/reconciliation_cross_deal_analysis.md` -- 9-deal cross-deal reconciliation (pipeline vs Alex)
+- `quality_reports/session_logs/2026-03-29_7-deal-rerun_master.md` -- 7-deal execution log with runtime walls
+- `skill_pipeline/enrich_core.py` -- current bid classification rules
+- `skill_pipeline/canonicalize.py` -- current quote-to-span resolution
+- `skill_pipeline/coverage.py` -- current coverage cue families
+- `skill_pipeline/check.py` -- current structural assertions
+- `skill_pipeline/gates.py` -- current semantic gates
+- `skill_pipeline/db_export.py` -- current CSV export with all_cash logic
+- `.claude/skills/extract-deal/SKILL.md` -- extraction taxonomy and instructions
+- `.claude/skills/enrich-deal/SKILL.md` -- enrichment classification rules
 
-### Academic/Research (MEDIUM-HIGH confidence)
-- [Multi-Agent Financial Document Processing Benchmark (arxiv 2603.22651)](https://arxiv.org/abs/2603.22651)
-- [LLM Self-Correction Benchmark (arxiv 2510.16062)](https://arxiv.org/html/2510.16062v1)
-- [SCoRe: Self-Correction via RL (ICLR 2025)](https://proceedings.iclr.cc/paper_files/paper/2025/file/871ac99fdc5282d0301934d23945ebaa-Paper-Conference.pdf)
-- [Lost in the Middle (TACL)](https://direct.mit.edu/tacl/article/doi/10.1162/tacl_a_00638/119630/)
-- [Automated Self-Refinement for Product Attribute Extraction (arxiv 2501.01237)](https://arxiv.org/html/2501.01237v1)
-
-### Industry/Blog (MEDIUM confidence)
-- [Lessons from Running LLM Document Processing Pipeline in Production (Alan/Medium)](https://medium.com/alan/lessons-from-running-an-llm-document-processing-pipeline-in-production-33d87f99cdb1)
-- [NVIDIA Chunking Strategy Guide](https://developer.nvidia.com/blog/finding-the-best-chunking-strategy-for-accurate-ai-responses/)
-- [Weaviate Chunking Strategies](https://weaviate.io/blog/chunking-strategies-for-rag)
-- [Pinecone Chunking Strategies](https://www.pinecone.io/learn/chunking-strategies/)
-- [Deterministic vs LLM Evaluators 2026](https://dev.to/anshd_12/deterministic-vs-llm-evaluators-a-2026-technical-trade-off-study-11h)
-- [LLM Routing Research (arxiv 2603.12646)](https://arxiv.org/pdf/2603.12646)
-- [Unstract Intelligent Chunking](https://unstract.com/blog/how-intelligent-chunking-strategies-makes-llms-better-at-extracting-long-documents/)
-
----
-
-*Feature landscape analysis: 2026-03-27*
+### M&A Domain (External)
+- [Kimberly Advisors: Indication of Interest (IOI)](https://kimberlyadvisors.com/articles/indication-of-interest-ioi) -- IOI is non-binding, LOI is partially binding
+- [Redmount: The Two-Step M&A Bidding Process](https://redmountpartners.com/twostepsofmanda/) -- IOI (first round) vs LOI (final round) formality progression
+- [Carpenter Wellington: All Cash Consideration in Public Company Mergers](https://carpenterwellington.com/post/public-company-merger-transactions-involving-all-cash-consideration/) -- explicit disclosure in merger agreements and SEC filings
+- [Exit Strategies: M&A Auction Process](https://www.exitstrategiesgroup.com/how-auction-process-works/) -- two-round bid process with field narrowing
+- [Wall Street Prep: Sell Side M&A Process](https://www.wallstreetprep.com/knowledge/sell-side-process/) -- round milestones and process timeline
