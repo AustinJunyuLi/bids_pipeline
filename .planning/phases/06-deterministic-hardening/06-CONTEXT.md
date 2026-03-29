@@ -20,19 +20,19 @@ Open requirements: HARD-06 (mixed-schema guard), HARD-01 (quote_id collision ren
 - **D-02:** The current loader routes to canonical if EITHER artifact has span_ids. The fix adds an explicit mismatch check before that routing decision.
 
 ### Quote_id Renumbering (HARD-01)
-- **D-03:** Canonicalize always renumbers event-side quote_ids above the actor-side max — defensive, not collision-triggered. Deterministic, no collision possible, idempotent on reruns.
+- **D-03:** Canonicalize assigns fresh namespaced deterministic IDs to all quotes before merge — actor quotes get `qa_001`, `qa_002`, etc.; event quotes get `qe_001`, `qe_002`, etc. Collision-free by construction. Does NOT parse or increment existing IDs (quote_id is plain `str` with no guaranteed numeric format). Idempotent on reruns.
 - **D-04:** Same-array duplicate quote_ids still fail-fast (existing behavior preserved).
 - **D-05:** The renumber mapping is logged in the existing `canonicalize_log.json` artifact. No new files.
 - **D-06:** All actor/event/count-assertion references to renumbered quote_ids must be rewritten consistently. Partial renumbering (IDs changed but references not updated) is a hard error.
 
 ### Rollover CA Tolerance (HARD-04)
-- **D-07:** Phase 6 ships text-pattern exclusion as the immediate fix. Coverage phrase lists and gates logic are expanded to recognize rollover/teaming/diligence CA language patterns from filing text. This stops false positives on existing artifacts without extraction changes.
-- **D-08:** Phase 8 will add `nda_subtype` to the extraction schema (sale_process, rollover, teaming, diligence) for precise long-term classification. Phase 9 re-extracts with subtypes. Progressive improvement.
+- **D-07:** Phase 6 ships text-pattern exclusion as the immediate fix. Coverage phrase lists and gates logic are expanded to recognize rollover/teaming/diligence CA language patterns from filing text. This stops false positives on existing artifacts without extraction changes. **Precision requirement:** patterns must be tested with both positive cases (should exclude: rollover equity, management agreement, joint bid) and negative cases (should still count as NDA: bidder signs CA for due diligence access to target). Over-exclusion of legitimate bidder NDAs is worse than residual false positives.
+- **D-08:** Phase 8 will add `nda_subtype` to the extraction schema (sale_process, rollover, teaming, diligence) for precise long-term classification. This requires changes across: raw event model, canonical event model, all `extra="forbid"` Pydantic configs, DB loader column set, and export queries — not just extraction. Phase 8 should also ship a shared `is_sale_process_nda()` predicate consumed by check, gates, enrich_core, and coverage (replacing Phase 6's text-pattern workaround). Phase 9 re-extracts with subtypes.
 - **D-09:** Both gates (`_gate_actor_lifecycle`) and coverage (`_classify_cue_family`) get the text-pattern fix. Gates-only is insufficient — coverage also produces false positives on rollover CAs.
 
 ### DuckDB Lock Retry (HARD-05)
 - **D-10:** Retry logic lives in `open_pipeline_db()` in `db_schema.py` — any caller gets automatic retry on transient lock. Single implementation point.
-- **D-11:** Bounded retry: 3 attempts, exponential backoff (0.1s, 0.5s, 2s). Only lock-specific DuckDB exceptions are retried. Non-lock errors propagate immediately. Hard failure after exhaustion with a clear error message.
+- **D-11:** Bounded retry: 3 attempts, exponential backoff. Retry budget must exceed the expected db-load transaction duration (a full deal DELETE + INSERT can take several seconds). Only lock-specific DuckDB exceptions are retried. Non-lock errors propagate immediately. Hard failure after exhaustion with a clear error message. Exact backoff intervals and exception class are Claude's discretion after researching DuckDB's lock behavior.
 
 ### Claude's Discretion
 - Exact text patterns for rollover/teaming/diligence CA recognition (research filing language across the 9-deal corpus)
@@ -110,14 +110,16 @@ Open requirements: HARD-06 (mixed-schema guard), HARD-01 (quote_id collision ren
 - The execution log for zep documents the exact mixed-schema failure: "events_raw.json reverted to quote-first while actors_raw.json remained canonical; likely overlapping worker write after canonicalize." Use as regression test case.
 - The execution log for penford documents the exact quote_id collision: "canonicalize hit duplicate quote_id collisions; fixed by renumbering event-side quote ids above the actor-side max." Use as regression test case.
 - DuckDB version mismatch: lockfile pins 1.5.1 but local runtime may differ. Research the exact exception class before implementing HARD-05.
+- Each requirement must ship with regression tests covering both the fix (should now pass) and the boundary (should still fail). For HARD-04 specifically: test both "should exclude rollover CA" AND "should still flag legitimate bidder NDA" cases.
 
 </specifics>
 
 <deferred>
 ## Deferred Ideas
 
-- `nda_subtype` extraction schema field (sale_process, rollover, teaming, diligence) — Phase 8 scope (extraction guidance)
+- `nda_subtype` extraction schema field (sale_process, rollover, teaming, diligence) — Phase 8 scope. Full scope: raw model, canonical model, `extra="forbid"` configs, DB loader columns, export queries, shared `is_sale_process_nda()` predicate for check/gates/enrich_core/coverage
 - Per-deal artifact locking or atomic writes to prevent concurrent write corruption — orchestration concern, not deterministic stage hardening
+- Shared qualifying-NDA predicate across all stages (check, gates, enrich_core, coverage) — belongs in Phase 8 when nda_subtype schema ships; Phase 6's text-pattern fix is the interim for gates+coverage only
 - Comprehensive rollover/teaming CA pattern coverage beyond the 9-deal corpus — future corpus expansion
 
 </deferred>
