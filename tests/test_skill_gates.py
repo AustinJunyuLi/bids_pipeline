@@ -22,6 +22,8 @@ def _make_block(
     normalized: str | None,
     *,
     temporal_phase: str,
+    raw_text: str | None = None,
+    clean_text: str | None = None,
 ) -> dict:
     return {
         "block_id": block_id,
@@ -29,8 +31,8 @@ def _make_block(
         "ordinal": ordinal,
         "start_line": ordinal,
         "end_line": ordinal,
-        "raw_text": f"Block {block_id}",
-        "clean_text": f"Block {block_id}",
+        "raw_text": raw_text or f"Block {block_id}",
+        "clean_text": clean_text or raw_text or f"Block {block_id}",
         "is_heading": False,
         "page_break_before": False,
         "page_break_after": False,
@@ -667,6 +669,108 @@ def test_nda_after_drop(tmp_path: Path) -> None:
     assert any(finding["rule_id"] == "nda_after_drop" for finding in report["findings"])
 
 
+def test_rollover_nda_after_drop_is_ignored(tmp_path: Path) -> None:
+    blocks = [
+        _make_block(
+            "B001",
+            1,
+            "2016-01-10",
+            temporal_phase="initiation",
+            raw_text="Party A signed a confidentiality agreement with the Company.",
+        ),
+        _make_block(
+            "B002",
+            2,
+            "2016-02-01",
+            temporal_phase="bidding",
+            raw_text="Party A withdrew from the process.",
+        ),
+        _make_block(
+            "B003",
+            3,
+            "2016-03-01",
+            temporal_phase="bidding",
+            raw_text=(
+                "After the drop, Party A entered into a confidentiality agreement "
+                "regarding management rollover equity."
+            ),
+        ),
+    ]
+    events = [
+        _make_event("evt_001", "nda", "2016-01-10", actor_ids=["party_a"], block_ids=["B001"]),
+        _make_event("evt_002", "drop", "2016-02-01", actor_ids=["party_a"], block_ids=["B002"]),
+        _make_event(
+            "evt_003",
+            "nda",
+            "2016-03-01",
+            actor_ids=["party_a"],
+            block_ids=["B003"],
+            summary="Party A signed a confidentiality agreement.",
+        ),
+    ]
+    _write_gates_fixture(tmp_path, blocks=blocks, events=events)
+
+    exit_code = run_gates("imprivata", project_root=tmp_path)
+    report = json.loads(
+        build_skill_paths("imprivata", project_root=tmp_path)
+        .gates_report_path.read_text(encoding="utf-8")
+    )
+
+    assert exit_code == 0
+    assert not any(finding["rule_id"] == "nda_after_drop" for finding in report["findings"])
+
+
+def test_sale_process_nda_after_drop_still_blocks(tmp_path: Path) -> None:
+    blocks = [
+        _make_block(
+            "B001",
+            1,
+            "2016-01-10",
+            temporal_phase="initiation",
+            raw_text="Party A signed a confidentiality agreement with the Company.",
+        ),
+        _make_block(
+            "B002",
+            2,
+            "2016-02-01",
+            temporal_phase="bidding",
+            raw_text="Party A withdrew from the process.",
+        ),
+        _make_block(
+            "B003",
+            3,
+            "2016-03-01",
+            temporal_phase="bidding",
+            raw_text=(
+                "After the drop, Party A entered into a confidentiality agreement "
+                "with the Company to facilitate due diligence for a possible acquisition."
+            ),
+        ),
+    ]
+    events = [
+        _make_event("evt_001", "nda", "2016-01-10", actor_ids=["party_a"], block_ids=["B001"]),
+        _make_event("evt_002", "drop", "2016-02-01", actor_ids=["party_a"], block_ids=["B002"]),
+        _make_event(
+            "evt_003",
+            "nda",
+            "2016-03-01",
+            actor_ids=["party_a"],
+            block_ids=["B003"],
+            summary="Party A signed a confidentiality agreement.",
+        ),
+    ]
+    _write_gates_fixture(tmp_path, blocks=blocks, events=events)
+
+    exit_code = run_gates("imprivata", project_root=tmp_path)
+    report = json.loads(
+        build_skill_paths("imprivata", project_root=tmp_path)
+        .gates_report_path.read_text(encoding="utf-8")
+    )
+
+    assert exit_code == 1
+    assert any(finding["rule_id"] == "nda_after_drop" for finding in report["findings"])
+
+
 def test_announcement_before_deadline(tmp_path: Path) -> None:
     events = [
         _make_event("evt_001", "nda", "2016-01-10", actor_ids=["party_a"], block_ids=["B001"]),
@@ -792,11 +896,88 @@ def test_undated_events_excluded(tmp_path: Path) -> None:
     )
 
 
-def test_nda_signer_missing_downstream(tmp_path: Path) -> None:
+def test_nda_signer_no_downstream_warning(tmp_path: Path) -> None:
     events = [
         _make_event("evt_001", "nda", "2016-01-10", actor_ids=["party_a"], block_ids=["B001"])
     ]
     _write_gates_fixture(tmp_path, events=events)
+
+    exit_code = run_gates("imprivata", project_root=tmp_path)
+    report = json.loads(
+        build_skill_paths("imprivata", project_root=tmp_path)
+        .gates_report_path.read_text(encoding="utf-8")
+    )
+
+    assert exit_code == 0
+    assert any(
+        finding["rule_id"] == "nda_signer_no_downstream"
+        and finding["severity"] == "warning"
+        for finding in report["findings"]
+    )
+
+
+def test_rollover_nda_signer_no_downstream_is_ignored(tmp_path: Path) -> None:
+    blocks = [
+        _make_block(
+            "B001",
+            1,
+            "2016-01-10",
+            temporal_phase="initiation",
+            raw_text=(
+                "Party A entered into a confidentiality agreement regarding "
+                "continuing equity."
+            ),
+        )
+    ]
+    events = [
+        _make_event(
+            "evt_001",
+            "nda",
+            "2016-01-10",
+            actor_ids=["party_a"],
+            block_ids=["B001"],
+            summary="Party A signed a confidentiality agreement.",
+        )
+    ]
+    _write_gates_fixture(tmp_path, blocks=blocks, events=events, canonical=True)
+
+    exit_code = run_gates("imprivata", project_root=tmp_path)
+    report = json.loads(
+        build_skill_paths("imprivata", project_root=tmp_path)
+        .gates_report_path.read_text(encoding="utf-8")
+    )
+
+    assert exit_code == 0
+    assert not any(
+        finding["rule_id"] == "nda_signer_no_downstream"
+        for finding in report["findings"]
+    )
+
+
+def test_sale_process_nda_signer_no_downstream_still_warns(tmp_path: Path) -> None:
+    blocks = [
+        _make_block(
+            "B001",
+            1,
+            "2016-01-10",
+            temporal_phase="initiation",
+            raw_text=(
+                "Party A entered into a confidentiality agreement with the Company "
+                "to facilitate due diligence for a possible acquisition."
+            ),
+        )
+    ]
+    events = [
+        _make_event(
+            "evt_001",
+            "nda",
+            "2016-01-10",
+            actor_ids=["party_a"],
+            block_ids=["B001"],
+            summary="Party A signed a confidentiality agreement.",
+        )
+    ]
+    _write_gates_fixture(tmp_path, blocks=blocks, events=events, canonical=True)
 
     exit_code = run_gates("imprivata", project_root=tmp_path)
     report = json.loads(
