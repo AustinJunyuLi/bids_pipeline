@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Literal
 
 from skill_pipeline.config import PROJECT_ROOT
+from skill_pipeline.coverage import _has_non_sale_nda_marker, _normalize_coverage_text
 from skill_pipeline.extract_artifacts import LoadedExtractArtifacts, load_extract_artifacts
 from skill_pipeline.models import (
     GateAttentionDecay,
@@ -205,6 +206,26 @@ def _event_block_ids(artifacts: LoadedExtractArtifacts, event) -> list[str]:
     return block_ids
 
 
+def _qualifies_as_sale_process_nda(
+    artifacts: LoadedExtractArtifacts,
+    block_index: dict[str, ChronologyBlock],
+    event,
+) -> bool:
+    normalized_parts: list[str] = []
+    if event.summary:
+        normalized_parts.append(event.summary)
+
+    for block_id in sorted(set(_event_block_ids(artifacts, event))):
+        block = block_index.get(block_id)
+        if block is None:
+            continue
+        normalized_parts.append(block.raw_text)
+        if block.clean_text != block.raw_text:
+            normalized_parts.append(block.clean_text)
+
+    return not _has_non_sale_nda_marker(_normalize_coverage_text(" ".join(normalized_parts)))
+
+
 def _gate_temporal_consistency(
     artifacts: LoadedExtractArtifacts,
     blocks: list[ChronologyBlock],
@@ -282,6 +303,8 @@ def _gate_temporal_consistency(
 
 
 def _gate_cross_event_logic(
+    artifacts: LoadedExtractArtifacts,
+    block_index: dict[str, ChronologyBlock],
     sorted_events: list,
     cycle_ranges: list[tuple[int, int]],
     undated_event_ids: list[str],
@@ -328,7 +351,11 @@ def _gate_cross_event_logic(
             if event.event_type == "drop":
                 dropped_actor_ids.update(event.actor_ids)
 
-            if event.event_type == "nda" and dropped_actor_ids.intersection(event.actor_ids):
+            if (
+                event.event_type == "nda"
+                and _qualifies_as_sale_process_nda(artifacts, block_index, event)
+                and dropped_actor_ids.intersection(event.actor_ids)
+            ):
                 findings.append(
                     GateFinding(
                         gate_id="cross_event_logic",
@@ -402,12 +429,19 @@ def _gate_cross_event_logic(
     return findings
 
 
-def _gate_actor_lifecycle(actors: list, events: list) -> list[GateFinding]:
+def _gate_actor_lifecycle(
+    artifacts: LoadedExtractArtifacts,
+    block_index: dict[str, ChronologyBlock],
+    actors: list,
+    events: list,
+) -> list[GateFinding]:
     nda_signer_ids: set[str] = set()
     downstream_actor_ids: set[str] = set()
 
     for event in events:
-        if event.event_type == "nda":
+        if event.event_type == "nda" and _qualifies_as_sale_process_nda(
+            artifacts, block_index, event
+        ):
             nda_signer_ids.update(event.actor_ids)
         if event.event_type in {"proposal", "drop", "executed", "terminated"}:
             downstream_actor_ids.update(event.actor_ids)
@@ -541,6 +575,7 @@ def run_gates(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> int:
 
     artifacts = load_extract_artifacts(paths)
     blocks = _load_chronology_blocks(paths)
+    block_index = {block.block_id: block for block in blocks}
     actors, events = _get_actor_event_records(artifacts)
 
     findings: list[GateFinding] = []
@@ -548,9 +583,15 @@ def run_gates(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> int:
 
     sorted_events, undated_event_ids = _sort_events_by_date(events)
     findings.extend(
-        _gate_cross_event_logic(sorted_events, _cycle_ranges(sorted_events), undated_event_ids)
+        _gate_cross_event_logic(
+            artifacts,
+            block_index,
+            sorted_events,
+            _cycle_ranges(sorted_events),
+            undated_event_ids,
+        )
     )
-    findings.extend(_gate_actor_lifecycle(actors, events))
+    findings.extend(_gate_actor_lifecycle(artifacts, block_index, actors, events))
 
     verification_findings = _load_verification_findings(paths)
     attention_decay = None
