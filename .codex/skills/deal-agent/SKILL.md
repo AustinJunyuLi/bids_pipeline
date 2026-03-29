@@ -13,11 +13,11 @@ description: Use when orchestrating the repo's end-to-end skill workflow for a d
 
 ## Overview
 
-Thin orchestrator that runs four sub-skills against preprocessed source:
-extract-deal, verify-extraction, enrich-deal, export-csv. Deterministic runtime
-stages (canonicalize, check, verify, coverage, enrich-core, db-load,
-db-export) are available via `skill-pipeline` CLI. Deterministic CSV export now
-comes from `db-export`; `/export-csv` remains a legacy/manual workflow.
+Thin orchestrator that runs three local-agent sub-skills against preprocessed
+source: extract-deal, verify-extraction, and enrich-deal. Deterministic runtime
+stages (canonicalize, check, verify, coverage, gates, enrich-core, db-load,
+db-export) are available via `skill-pipeline` CLI. Deterministic CSV export
+comes from `db-export`.
 
 ## Prerequisite
 
@@ -26,8 +26,9 @@ comes from `db-export`; `/export-csv` remains a legacy/manual workflow.
 
 ## When To Use
 
-Invoke as `/deal-agent <slug>` for end-to-end extraction through CSV export. Use
-individual skills when re-running a specific stage.
+Invoke as `/deal-agent <slug>` for end-to-end extraction through
+`skill-pipeline db-export --deal <slug>`, plus optional interpretive
+enrichment. Use individual skills when re-running a specific stage.
 
 ## Benchmark Boundary
 
@@ -36,9 +37,6 @@ files, benchmark notes, `example/`, `diagnosis/`,
 `data/skill/<slug>/reconcile/*`, or `/reconcile-alex` before
 `skill-pipeline db-export --deal <slug>` completes.
 
-The legacy/manual `/export-csv` workflow keeps the same blind-generation rule:
-do not consult benchmark materials before `/export-csv`.
-
 Use only filing-grounded inputs through export. Benchmark comparison is
 post-export only and read-only.
 
@@ -46,8 +44,9 @@ post-export only and read-only.
 
 | # | Skill | Artifacts | Failure Mode |
 |---|---|---|---|
-| 0a | `compose-prompts` (deterministic) | `prompt/manifest.json`, `prompt/packets/*/rendered.md` | Fail closed |
+| 0a | `compose-prompts --mode actors` (deterministic) | `prompt/manifest.json`, actor `prompt/packets/*/rendered.md` | Fail closed |
 | 0b | `extract-deal` | `extract/actors_raw.json`, `extract/events_raw.json` | Fail closed |
+| 0c | `compose-prompts --mode events` (deterministic) | `prompt/manifest.json` updated, event `prompt/packets/*/rendered.md` | Fail closed; requires `actors_raw.json` |
 | 1 | `canonicalize` (deterministic) | `extract/spans.json`, `canonicalize/canonicalize_log.json` | Fail closed |
 | 2 | `check` (deterministic) | `check/check_report.json` | Fail closed on blockers |
 | 3 | `verify` + `coverage` (deterministic) | `verify/verification_findings.json`, `verify/verification_log.json`, `coverage/coverage_findings.json`, `coverage/coverage_summary.json` | Fail closed on error status |
@@ -57,7 +56,6 @@ post-export only and read-only.
 | 5a | `db-load` (deterministic) | DuckDB `data/pipeline.duckdb` updated | Fail closed |
 | 5b | `db-export` (deterministic) | `export/deal_events.csv` | Fail closed |
 | 6 | `enrich-deal` | `enrich/enrichment.json` | Fail closed |
-| 7 | `export-csv` | `export/deal_events.csv` (legacy/manual) | Fail closed |
 
 ## Procedure
 
@@ -78,40 +76,49 @@ post-export only and read-only.
    - data/skill/<slug>/enrich/
    - data/skill/<slug>/export/
 
-3a. Run `skill-pipeline compose-prompts --deal <slug>`
-   Gate: prompt/manifest.json exists and is non-empty.
-   Generates prompt packets consumed by extract-deal.
+3a. Run `skill-pipeline compose-prompts --deal <slug> --mode actors`
+    Gate: prompt/manifest.json exists, actor_packet_count > 0.
+    Generates actor prompt packets consumed by extract-deal for actor extraction.
 
 4. Run /extract-deal <slug>
    Gate: actors_raw.json and events_raw.json both exist and are non-empty.
    If gate fails: stop.
 
-4a. Run `skill-pipeline canonicalize --deal <slug>`.
-   - Outputs: `data/skill/<slug>/canonicalize/canonicalize_log.json`
-     and `data/skill/<slug>/extract/spans.json`
-   - Overwrites `actors_raw.json` and `events_raw.json` in place with the
-     canonical schema (`evidence_span_ids`, normalized dates)
-   - Deduplicates events, removes drops without NDAs, recovers unnamed parties
+4a. Run `skill-pipeline compose-prompts --deal <slug> --mode events`
+    Gate: prompt/manifest.json updated, event_packet_count > 0.
+    Generates event prompt packets. Requires actors_raw.json from step 4.
 
-4b. Run deterministic check: `skill-pipeline check --deal <slug>`
-   Gate: check_report.json exists and summary.status == "pass".
-   If gate fails: stop.
+4b. Run `skill-pipeline canonicalize --deal <slug>`.
+    - Outputs: `data/skill/<slug>/canonicalize/canonicalize_log.json`
+      and `data/skill/<slug>/extract/spans.json`
+    - Overwrites `actors_raw.json` and `events_raw.json` in place with the
+      canonical schema (`evidence_span_ids`, normalized dates)
+    - Deduplicates events, removes drops without NDAs, recovers unnamed parties
+
+4c. Run deterministic check: `skill-pipeline check --deal <slug>`
+    Gate: check_report.json exists and summary.status == "pass".
+    If gate fails: stop.
 
 5. Run deterministic verify: `skill-pipeline verify --deal <slug>`
    Gate: verification_log.json exists AND summary.status != "fail".
    Writes verification_findings.json and verification_log.json.
 
 5a. Run deterministic coverage: `skill-pipeline coverage --deal <slug>`
-   Gate: coverage_summary.json exists and summary.status != "fail".
-   Writes coverage_findings.json and coverage_summary.json.
+    Gate: coverage_summary.json exists and summary.status != "fail".
+    Writes coverage_findings.json and coverage_summary.json.
 
 5b. Run deterministic gates: `skill-pipeline gates --deal <slug>`
-   Gate: gates_report.json exists and has no blocker-severity findings.
-   Writes gates/gates_report.json. Required by enrich-core.
+    Gate: gates_report.json exists and has no blocker-severity findings.
+    Writes gates/gates_report.json. Required by enrich-core.
 
 6. Run /verify-extraction <slug>
    Gate: verification and coverage artifacts exist. May invoke LLM repair when
    all error-level findings are repairable; otherwise fail closed.
+
+   Note: If verify-extraction made structural changes (added/removed events,
+   changed dates, modified actor references), re-run steps 4c through 5b
+   (check, verify, coverage, gates) before proceeding to enrich-core.
+   Enrich-core uses gate artifacts that may be stale after structural repairs.
 
 7. Run `skill-pipeline enrich-core --deal <slug>`
    Gate: deterministic_enrichment.json exists.
@@ -125,10 +132,15 @@ post-export only and read-only.
 8. Run /enrich-deal <slug>
    Gate: enrichment.json exists.
 
-9. Run /export-csv <slug> only for legacy/manual export workflows.
-   Gate: deal_events.csv exists if this step is run.
+8a. Re-run `skill-pipeline db-load --deal <slug>`
+    Note: Picks up enrichment.json overlay written by enrich-deal.
+    Gate: pipeline.duckdb updated with interpretive enrichment data.
 
-10. Report summary:
+8b. Re-run `skill-pipeline db-export --deal <slug>`
+    Note: Regenerates deal_events.csv with dropout_classifications from enrichment.
+    Gate: deal_events.csv updated and non-empty.
+
+9. Report summary:
    - Actor count, event count, proposal count
    - Check: blocker count, warning count (if check_report exists)
    - Coverage: error count, warning count (if coverage_summary exists)
@@ -156,7 +168,6 @@ Each skill is independently callable:
 - `/extract-deal <slug>` -- run extraction only
 - `/verify-extraction <slug>` -- run verification only
 - `/enrich-deal <slug>` -- run enrichment only
-- `/export-csv <slug>` -- run export only for legacy/manual workflows
 
 ## Supersedes
 
