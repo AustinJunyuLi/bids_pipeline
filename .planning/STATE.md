@@ -20,9 +20,9 @@ Phase 5: Integration + Calibration — complete (plans 01-03 complete)
 
 ## Last Session
 
-- **Stopped at:** Completed 05-03-PLAN.md
+- **Stopped at:** Completed quick task 260329-hyh: Fix 4 deal-agent orchestrator issues
 - **Resume file:** None
-- **Date:** 2026-03-28
+- **Date:** 2026-03-29
 
 ## Progress
 
@@ -43,6 +43,12 @@ Phase 5: Integration + Calibration — complete (plans 01-03 complete)
 - [x] Phase 2 Plan 01: Prompt packet contract — models, paths, CLI, tests (3/3 tasks)
 - [x] Phase 2 Plan 02: Chunk planner, evidence checklist, packet renderer (3/3 tasks)
 - [x] Phase 2 Plan 03: Integration, stec validation, runtime contract update (3/3 tasks)
+
+## Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 260329-hyh | Fix 4 deal-agent orchestrator issues | 2026-03-29 | 0aa4254 | [260329-hyh-fix-4-deal-agent-orchestrator-issues](./quick/260329-hyh-fix-4-deal-agent-orchestrator-issues/) |
 
 ## Historical Decisions
 
