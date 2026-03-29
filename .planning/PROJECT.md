@@ -74,6 +74,9 @@ elaborate extraction architecture.
   validated in Phase 2
 - ✓ Every extracted actor, event, term, and classification traceable to
   verbatim filing evidence — validated in Phase 3
+- ✓ bid_type classification evaluates process position before IOI language so
+  final-round proposals are correctly classified as Formal — validated in
+  Phase 7
 
 ### Active
 
@@ -159,7 +162,8 @@ Execution-log-driven fixes:
 
 ## Current State
 
-**v1.0 shipped 2026-03-28. Phase 6 shipped 2026-03-29.** All 9 deals now have
+**v1.0 shipped 2026-03-28. Phase 6 shipped 2026-03-29. Phase 7 shipped
+2026-03-29.** All 9 deals now have
 complete pipeline artifacts through DuckDB export. The live runtime includes 12
 deterministic CLI stages (`source-discover`, `raw-fetch`,
 `preprocess-source`, `compose-prompts`, `canonicalize`, `check`, `verify`,
@@ -228,4 +232,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-29 — Phase 6 complete; Phase 7 next*
+*Last updated: 2026-03-29 — Phase 7 complete; Phase 8 next*
