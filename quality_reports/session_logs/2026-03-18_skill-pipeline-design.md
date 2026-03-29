@@ -117,3 +117,38 @@ Spec and plan docs also use old paths but CLAUDE.md warns about this.
 - PROJECT.md evolved: 8 Active -> Validated, Key Decisions updated
 - Tag `v1.0` created and pushed to remote
 - Stats: 5 phases, 16 plans, 8,967 LOC pipeline, 9,074 LOC tests, 265 passing
+
+---
+
+## 2026-03-28/29: Post-Milestone Hardening
+
+### Reconciliation (stec + saks)
+- Ran `/reconcile-alex` for stec and saks in parallel
+- stec: 95.7% atomic match rate (22/23), 15 pipeline-only (all grounded), 1 Alex-only
+- saks: 81.8% atomic match rate (18/22), 4 pipeline-only (all grounded), 9 Alex-only (2-3 Alex coding errors)
+- Both status: attention. Pipeline more granular than Alex in both cases.
+
+### Deal-Agent Procedure Trace (4 issues found + fixed)
+- HIGH: compose-prompts only generated actor packets (--mode all misleading). Fixed: split into --mode actors pre-extract + --mode events post-extract
+- MEDIUM: verify.py:506-510 silently dropped canonical quote findings (code bug). Fixed: append quote_findings to findings list. 266 tests now passing.
+- MEDIUM: no db-load/db-export re-run after enrich-deal. Initially added re-run steps, then simplified: moved enrich-deal BEFORE db-load so single pass works.
+- LOW-MEDIUM: stale gates after verify-extraction. Added re-validation note.
+
+### /export-csv Retired
+- No skill doc, no procedure step, no live references remain
+- db-export is the sole export path
+- 5 stale agent worktrees cleaned
+
+### Deal-Agent Made Fully End-to-End
+- Now orchestrates from raw-fetch through db-export (was compose-prompts onward)
+- Step 0: clean artifacts for idempotent re-runs (delete data/skill/<slug>/ and source/)
+- Step 1a: set EDGAR identity (Austin Li junyu.li.24@ucl.ac.uk)
+- Raw filings preserved on re-run (immutable content from EDGAR)
+- CLAUDE.md updated: E2E flow corrected, two-tier enrichment documented
+
+### v2 Discussion (batch + API)
+- 400-deal scale requires Python API calls replacing local-agent extraction
+- compose-prompts already builds exact packets; structured output schema in Pydantic
+- Migration path: add skill-pipeline extract/extract-verify/enrich-interpret Python stages
+- Local-agent skills become manual/debug fallback
+- Batch runner: skill-pipeline batch --deals all --parallel N
