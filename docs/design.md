@@ -15,10 +15,12 @@ Operational sequence:
 6. `skill-pipeline check --deal <slug>`
 7. `skill-pipeline verify --deal <slug>`
 8. `skill-pipeline coverage --deal <slug>`
-9. `/verify-extraction <slug>`
-10. `skill-pipeline enrich-core --deal <slug>`
-11. `/enrich-deal <slug>`
-12. `/export-csv <slug>`
+9. `skill-pipeline gates --deal <slug>`
+10. `/verify-extraction <slug>`
+11. `skill-pipeline enrich-core --deal <slug>`
+12. `skill-pipeline db-load --deal <slug>`
+13. `skill-pipeline db-export --deal <slug>`
+14. `/enrich-deal <slug>` (optional interpretive layer)
 
 Artifact flow:
 
@@ -32,7 +34,7 @@ Current design constraints:
 
 - Upstream source preparation is seed-only and single-primary-document.
 - Canonical extract artifacts require a valid `spans.json` sidecar.
-- `enrich-core` must only run after passing `check`, `verify`, and `coverage`.
+- `enrich-core` must only run after passing `check`, `verify`, `coverage`, and `gates`.
 - `skill-pipeline deal-agent` is preflight/summary only, not the end-to-end runner.
 
 ## Notes

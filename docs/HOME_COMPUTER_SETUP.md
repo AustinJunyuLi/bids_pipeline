@@ -5,11 +5,11 @@ and the `skill-pipeline` CLI.
 
 ## Local Workflow
 
-Use the filing-grounded workflow through `/export-csv`.
+Use the filing-grounded workflow through `skill-pipeline db-export --deal <slug>`.
 
 Benchmark materials are post-export only. Do not consult `example/`,
-`diagnosis/`, benchmark workbooks, or `/reconcile-alex` before `/export-csv`
-completes.
+`diagnosis/`, benchmark workbooks, or `/reconcile-alex` before
+`skill-pipeline db-export --deal <slug>` completes.
 
 ## Minimum Setup
 

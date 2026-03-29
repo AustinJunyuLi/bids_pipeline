@@ -20,9 +20,6 @@ GENERATION_DOCS = [
     PROJECT_ROOT / ".claude/skills/enrich-deal/SKILL.md",
     PROJECT_ROOT / ".codex/skills/enrich-deal/SKILL.md",
     PROJECT_ROOT / ".cursor/skills/enrich-deal/SKILL.md",
-    PROJECT_ROOT / ".claude/skills/export-csv/SKILL.md",
-    PROJECT_ROOT / ".codex/skills/export-csv/SKILL.md",
-    PROJECT_ROOT / ".cursor/skills/export-csv/SKILL.md",
 ]
 
 SUPPORT_DOCS = [
@@ -68,11 +65,16 @@ def test_generation_docs_do_not_reference_benchmark_files() -> None:
 def test_generation_docs_state_benchmark_boundary_explicitly() -> None:
     violations: list[str] = []
     for path in GENERATION_DOCS:
-        text = _read(path).lower()
-        if "benchmark" not in text:
+        text = _read(path)
+        lowered = text.lower()
+        normalized = " ".join(text.split()).lower()
+        if "benchmark" not in lowered:
             violations.append(f"{path}: missing benchmark-separation language")
-        if "before `/export-csv`" not in _read(path) and "before /export-csv" not in text:
-            violations.append(f"{path}: missing pre-export boundary")
+        if (
+            "before `skill-pipeline db-export --deal <slug>` completes" not in normalized
+            and "before skill-pipeline db-export --deal <slug> completes" not in normalized
+        ):
+            violations.append(f"{path}: missing pre-db-export boundary")
 
     assert not violations, "Generation docs do not state the benchmark boundary clearly:\n" + "\n".join(
         violations

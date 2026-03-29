@@ -163,7 +163,7 @@ def test_claude_md_documents_db_load_and_db_export_contract() -> None:
     )
 
 
-def test_claude_md_db_stages_follow_enrich_core_before_local_agent_export() -> None:
+def test_claude_md_db_stages_follow_enrich_core_before_optional_local_agent_enrichment() -> None:
     text = _read(CLAUDE_MD)
     flow_start = text.find("## End-To-End Flow")
     flow_end = text.find("## Hard Invariants", flow_start)
@@ -180,6 +180,9 @@ def test_claude_md_db_stages_follow_enrich_core_before_local_agent_export() -> N
     )
     assert enrich_core_pos < db_load_pos < db_export_pos < enrich_deal_pos, (
         "CLAUDE.md must place db-load and db-export after enrich-core and before /enrich-deal"
+    )
+    assert "/export-csv" not in flow_text, (
+        "CLAUDE.md must not include /export-csv in the live end-to-end flow"
     )
 
 
