@@ -1,11 +1,14 @@
 from __future__ import annotations
 
 from pathlib import Path
+import time
 
 import duckdb
 
 
 DEFAULT_DB_NAME = "pipeline.duckdb"
+LOCK_RETRY_ATTEMPTS = 3
+LOCK_RETRY_BACKOFF_SECONDS = (0.25, 0.5, 1.0)
 
 SCHEMA_DDL = """
 CREATE TABLE IF NOT EXISTS actors (
@@ -103,10 +106,25 @@ def open_pipeline_db(
 ) -> duckdb.DuckDBPyConnection:
     if not read_only:
         db_path.parent.mkdir(parents=True, exist_ok=True)
-    con = duckdb.connect(str(db_path), read_only=read_only)
+    con: duckdb.DuckDBPyConnection | None = None
+    for attempt_index in range(LOCK_RETRY_ATTEMPTS):
+        try:
+            con = duckdb.connect(str(db_path), read_only=read_only)
+            break
+        except Exception as exc:
+            if not _is_lock_contention_error(exc):
+                raise
+            if attempt_index == LOCK_RETRY_ATTEMPTS - 1:
+                raise
+            time.sleep(LOCK_RETRY_BACKOFF_SECONDS[attempt_index])
+    assert con is not None
     if not read_only:
         _ensure_schema(con)
     return con
+
+
+def _is_lock_contention_error(exc: Exception) -> bool:
+    return isinstance(exc, duckdb.IOException) and "Could not set lock on file" in str(exc)
 
 
 def _ensure_schema(con: duckdb.DuckDBPyConnection) -> None:

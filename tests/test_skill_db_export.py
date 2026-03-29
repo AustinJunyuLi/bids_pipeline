@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import csv
-from multiprocessing import Event, Process
+from multiprocessing import get_context
 from pathlib import Path
 import threading
 
@@ -50,7 +50,7 @@ def _read_rows(path: Path) -> list[list[str]]:
         return list(csv.reader(handle))
 
 
-def _hold_duckdb_write_lock(db_path: str, ready: Event, release: Event) -> None:
+def _hold_duckdb_write_lock(db_path: str, ready, release) -> None:
     con = duckdb.connect(db_path)
     con.execute("CREATE TABLE IF NOT EXISTS export_lock_probe(x INTEGER)")
     con.execute("INSERT INTO export_lock_probe VALUES (1)")
@@ -375,9 +375,13 @@ def test_run_db_export_retries_transient_duckdb_lock_contention(
 ) -> None:
     output_path = _load_fixture(tmp_path)
     db_path = build_skill_paths("imprivata", project_root=tmp_path).database_path
-    ready = Event()
-    release = Event()
-    lock_holder = Process(target=_hold_duckdb_write_lock, args=(str(db_path), ready, release))
+    multiprocessing_context = get_context("spawn")
+    ready = multiprocessing_context.Event()
+    release = multiprocessing_context.Event()
+    lock_holder = multiprocessing_context.Process(
+        target=_hold_duckdb_write_lock,
+        args=(str(db_path), ready, release),
+    )
 
     monkeypatch.setattr(db_schema, "LOCK_RETRY_BACKOFF_SECONDS", (0.05, 0.1, 0.2))
     lock_holder.start()
