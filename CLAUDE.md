@@ -13,7 +13,7 @@ It has two distinct parts:
 - `skill_pipeline/`: the only active Python package and the only installed CLI
   in this worktree
 - local-agent workflow documents under `.claude/skills/`: the canonical
-  instructions for extraction, repair, interpretive enrichment, and export
+  instructions for extraction, repair, and optional interpretive enrichment
 
 LLM-driven stages are orchestrated by a local agent working against repository artifacts
 and skill instructions. Keep that orchestration agent-agnostic.
@@ -66,7 +66,6 @@ These stages are not implemented as Python-side provider wrappers:
 - `/extract-deal`
 - `/verify-extraction`
 - `/enrich-deal`
-- `/export-csv`
 - `/reconcile-alex` (optional, post-export only)
 
 The local agent reads and writes repo artifacts directly, following the
@@ -78,8 +77,9 @@ canonical skill docs.
 It only verifies required inputs, ensures output directories exist, and prints a
 status summary.
 
-The thin end-to-end orchestration flow lives in the local-agent skill
-documentation for `/deal-agent`.
+The full end-to-end orchestration flow lives in the local-agent skill
+documentation for `/deal-agent`. It covers fetch, preprocess, extraction,
+gates, enrichment, and DuckDB export with idempotent re-run support.
 
 ## Repository Layout
 
@@ -193,6 +193,11 @@ gates have blocker findings.
 Tables: `actors`, `events`, `spans`, `enrichment`, `cycles`, `rounds`. The
 database is a single multi-deal file keyed by `(deal_slug, <entity_id>)`.
 
+`db-load` uses two-tier enrichment loading:
+
+- `deterministic_enrichment.json` (required) — bid classifications, rounds, cycles
+- `enrichment.json` (optional) — dropout classifications overlaid when present
+
 `skill-pipeline db-export --deal <slug>` writes:
 
 - `data/skill/<slug>/export/deal_events.csv`
@@ -223,10 +228,9 @@ data/seeds.csv
   -> skill-pipeline gates --deal <slug>
   -> /verify-extraction <slug>        (only if deterministic findings are repairable)
   -> skill-pipeline enrich-core --deal <slug>
+  -> /enrich-deal <slug>              (optional interpretive layer)
   -> skill-pipeline db-load --deal <slug>
   -> skill-pipeline db-export --deal <slug>
-  -> /enrich-deal <slug>              (optional interpretive layer; deterministic export already exists)
-  -> /export-csv <slug>               (legacy/manual export workflow; deterministic export is db-export)
   -> /reconcile-alex <slug>           (optional post-export diagnostic)
 ```
 
@@ -246,8 +250,8 @@ data/seeds.csv
   severity `blocker` prevent enrichment.
 - `db-load` requires canonical extract artifacts with `spans.json` and
   `deterministic_enrichment.json`. It refuses quote-first or incomplete data.
-- `db-export` generates CSV from DuckDB, not JSON artifacts. It replaces
-  `/export-csv` for deterministic exports.
+- `db-export` generates CSV from DuckDB, not JSON artifacts. It is the only
+  filing-grounded export boundary in this worktree.
 - `verify` only treats `EXACT` and `NORMALIZED` quote matches as passing.
   `FUZZY` does not pass.
 - Fail fast on missing files, schema drift, contradictory state, and invalid
@@ -262,9 +266,6 @@ Benchmark material is post-export only.
 
 Do not consult any of the following before
 `skill-pipeline db-export --deal <slug>` completes:
-
-The legacy/manual `/export-csv` workflow keeps the same blind-generation rule:
-do not consult benchmark materials before `/export-csv`.
 
 - `example/`
 - `diagnosis/`
@@ -325,6 +326,9 @@ python scripts/sync_skill_mirrors.py --check
 
 - Treat `raw/`, `data/deals/<slug>/source/`, and `data/skill/<slug>/` as
   generated artifacts. Edit only intentionally and document why.
+- Re-running `/deal-agent <slug>` deletes `data/skill/<slug>/` and
+  `data/deals/<slug>/source/` then rebuilds from scratch. `raw/<slug>/` is
+  preserved (immutable content from EDGAR).
 - Never rewrite raw filing text under `raw/<slug>/filings/`.
 - When skill docs change, update `.claude/skills/` first, then sync mirrors.
 - Keep repo documentation factual. Do not write future architecture into this
