@@ -1,77 +1,113 @@
 {
   "rounds": [
     {
-      "announcement_event_id": "evt_016",
-      "deadline_event_id": "evt_018",
+      "announcement_event_id": "evt_022",
+      "deadline_event_id": null,
+      "round_scope": "informal",
+      "invited_actor_ids": [
+        "bidder_wdc",
+        "bidder_company_d"
+      ],
+      "active_bidders_at_time": 3,
+      "is_selective": true
+    },
+    {
+      "announcement_event_id": "evt_023",
+      "deadline_event_id": null,
+      "round_scope": "informal",
+      "invited_actor_ids": [
+        "bidder_company_g"
+      ],
+      "active_bidders_at_time": 3,
+      "is_selective": true
+    },
+    {
+      "announcement_event_id": "evt_031",
+      "deadline_event_id": null,
       "round_scope": "formal",
       "invited_actor_ids": [
         "bidder_wdc",
         "bidder_company_d"
       ],
-      "active_bidders_at_time": 5,
+      "active_bidders_at_time": 3,
       "is_selective": true
     },
     {
-      "announcement_event_id": "evt_020",
-      "deadline_event_id": "evt_021",
+      "announcement_event_id": "evt_034",
+      "deadline_event_id": null,
       "round_scope": "extension",
       "invited_actor_ids": [
         "bidder_wdc",
         "bidder_company_d"
       ],
-      "active_bidders_at_time": 4,
-      "is_selective": true
+      "active_bidders_at_time": 2,
+      "is_selective": false
     }
   ],
   "bid_classifications": {
-    "evt_010": {
-      "label": "Informal",
-      "rule_applied": 1.0,
-      "basis": "Observable informal signal from formality_signals."
-    },
-    "evt_011": {
-      "label": "Informal",
-      "rule_applied": 1.0,
-      "basis": "Observable informal signal from formality_signals."
-    },
-    "evt_014": {
-      "label": "Informal",
-      "rule_applied": 1.0,
-      "basis": "Observable informal signal from formality_signals."
-    },
-    "evt_015": {
-      "label": "Informal",
-      "rule_applied": 1.0,
-      "basis": "Observable informal signal from formality_signals."
-    },
-    "evt_019": {
-      "label": "Formal",
-      "rule_applied": 2.0,
-      "basis": "Observable formal signal from formality_signals."
-    },
     "evt_024": {
       "label": "Informal",
       "rule_applied": 1.0,
       "basis": "Observable informal signal from formality_signals."
     },
-    "evt_025": {
-      "label": "Formal",
-      "rule_applied": 2.5,
-      "basis": "Proposal after final round announcement/deadline with no informal signals."
+    "evt_027": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_029": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_030": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_033": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_035": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_039": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_040": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
     }
   },
   "cycles": [
     {
       "cycle_id": "cycle_1",
       "start_event_id": "evt_001",
-      "end_event_id": "evt_026",
-      "boundary_basis": "Single cycle -- no termination events"
+      "end_event_id": "evt_037",
+      "boundary_basis": "Restarted event."
+    },
+    {
+      "cycle_id": "cycle_2",
+      "start_event_id": "evt_038",
+      "end_event_id": "evt_042",
+      "boundary_basis": "Final cycle."
     }
   ],
   "formal_boundary": {
     "cycle_1": {
-      "event_id": "evt_019",
-      "basis": "First formal proposal in cycle: evt_019."
+      "event_id": null,
+      "basis": "No formal proposals in this cycle."
+    },
+    "cycle_2": {
+      "event_id": null,
+      "basis": "No formal proposals in this cycle."
     }
   }
 }
