@@ -220,7 +220,28 @@ def _classify_proposal(
             basis="No formality_signals; residual case.",
         )
 
-    # Rule 1: Informal
+    # Rule 1: Explicit formal signals (strongest evidence)
+    if (
+        sig.includes_draft_merger_agreement
+        or sig.includes_marked_up_agreement
+        or sig.mentions_binding_offer
+    ):
+        return BidClassification(
+            label="Formal",
+            rule_applied=1,
+            basis="Observable formal signal from formality_signals.",
+        )
+
+    # Rule 2: Process position (final-round context overrides language)
+    if sig.after_final_round_deadline or sig.after_final_round_announcement:
+        return BidClassification(
+            label="Formal",
+            rule_applied=2,
+            basis="Proposal after final round announcement/deadline; "
+                  "process position overrides informal language.",
+        )
+
+    # Rule 3: Informal signals
     if (
         sig.contains_range
         or sig.mentions_indication_of_interest
@@ -229,42 +250,22 @@ def _classify_proposal(
     ):
         return BidClassification(
             label="Informal",
-            rule_applied=1,
+            rule_applied=3,
             basis="Observable informal signal from formality_signals.",
         )
 
-    # Rule 2: Formal
-    if (
-        sig.includes_draft_merger_agreement
-        or sig.includes_marked_up_agreement
-        or sig.mentions_binding_offer
-    ):
-        return BidClassification(
-            label="Formal",
-            rule_applied=2,
-            basis="Observable formal signal from formality_signals.",
-        )
-
-    # Rule 2.5: After final round with no informal signals
-    if sig.after_final_round_deadline or sig.after_final_round_announcement:
-        return BidClassification(
-            label="Formal",
-            rule_applied=2.5,
-            basis="Proposal after final round announcement/deadline with no informal signals.",
-        )
-
-    # Rule 3: Formal after selective round
+    # Rule 4: Formal after selective round
     evt_idx = event_order.index(evt.event_id) if evt.event_id in event_order else -1
     for r in reversed(rounds):
         ann_idx = event_order.index(r["announcement_event_id"]) if r["announcement_event_id"] in event_order else -1
         if ann_idx >= 0 and evt_idx > ann_idx and r.get("is_selective"):
             return BidClassification(
                 label="Formal",
-                rule_applied=3,
+                rule_applied=4,
                 basis="Proposal after selective final round.",
             )
 
-    # Rule 4: Residual -> Uncertain
+    # Rule 5: Residual -> Uncertain
     return BidClassification(
         label="Uncertain",
         rule_applied=None,
