@@ -2,25 +2,22 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: planning
-stopped_at: Phase 6 context gathered
-last_updated: "2026-03-29T20:18:17.529Z"
-last_activity: 2026-03-29 -- Roadmap created for v1.1 milestone (4 phases, 16 requirements)
+status: Executing Phase 06
+stopped_at: Completed 06-02-PLAN.md
+last_updated: "2026-03-29T21:31:19Z"
 progress:
   total_phases: 4
   completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
+  total_plans: 3
+  completed_plans: 2
 ---
 
 # Project State
 
 ## Current Position
 
-Phase: 6 - Deterministic Hardening (not started)
-Plan: --
-Status: Roadmap created, ready for phase planning
-Last activity: 2026-03-29 -- Roadmap created for v1.1 milestone (4 phases, 16 requirements)
+Phase: 06 (deterministic-hardening) — EXECUTING
+Plan: 3 of 3
 
 ## Progress
 
@@ -28,7 +25,7 @@ Last activity: 2026-03-29 -- Roadmap created for v1.1 milestone (4 phases, 16 re
 - [x] REQUIREMENTS.md defined (16 requirements, 4 categories)
 - [x] Research completed (5 documents)
 - [x] ROADMAP.md created (4 phases: 6-9)
-- [ ] Phase 6 planned
+- [x] Phase 6 planned
 - [ ] Phase 6 executed
 - [ ] Phase 7 planned
 - [ ] Phase 7 executed
@@ -104,17 +101,19 @@ Last activity: 2026-03-29 -- Roadmap created for v1.1 milestone (4 phases, 16 re
 | Phase | Plan | Duration | Tasks | Files | Date |
 |-------|------|----------|-------|-------|------|
 | 05-integration-calibration | 03 | 19m | 2 | 8 | 2026-03-28 |
+| 06-deterministic-hardening | 02 | 12m | 2 | 4 | 2026-03-29 |
 
 ## Decisions
 
-(v1.1 decisions will be recorded here as phases execute)
+- Phase 6 NDA tolerance stays schema-neutral by using exact normalized substring markers instead of changing extract artifacts.
+- Gates now qualify NDA events from event summaries plus matched chronology block text before lifecycle and cycle rules consume them.
 
 ## Session Continuity
 
-- **Last session:** 2026-03-29T20:18:17.527Z
-- **Stopped at:** Phase 6 context gathered
-- **Resume file:** .planning/phases/06-deterministic-hardening/06-CONTEXT.md
-- **Next action:** `/gsd:plan-phase 6` to plan the Deterministic Hardening phase
+- **Last session:** 2026-03-29T21:31:19Z
+- **Stopped at:** Completed 06-02-PLAN.md
+- **Resume file:** .planning/phases/06-deterministic-hardening/06-03-PLAN.md
+- **Next action:** Execute `06-03-PLAN.md` to add the DuckDB lock retry hardening.
 
 ## Accumulated Context
 

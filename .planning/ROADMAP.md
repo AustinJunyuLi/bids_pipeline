@@ -7,7 +7,7 @@
 
 ## Phases
 
-- [ ] **Phase 6: Deterministic Hardening** - Fix runtime walls from 7-deal rerun: canonicalize collisions, coverage false positives, check assertions, gates tolerance, DuckDB locks, mixed-schema rejection
+- [ ] **Phase 6: Deterministic Hardening** - Fix runtime walls from 7-deal rerun: mixed-schema loader guard, canonicalize collisions, gates+coverage rollover-CA tolerance, DuckDB lock retry (HARD-02/03 already satisfied)
 - [ ] **Phase 7: bid_type Rule Priority** - Fix highest-impact enrichment bug: final-round proposals misclassified as Informal across 5+ deals
 - [ ] **Phase 8: Extraction Guidance + Enrichment Extensions** - Update skill docs for round milestones, verbal indications, NDA exclusion; add DropTarget classification and contextual all_cash inference
 - [ ] **Phase 9: Deal-Specific Fixes + Revalidation** - Fix Zep/Medivation extraction errors, re-extract affected deals, validate improved match rate across 9-deal corpus
@@ -15,16 +15,16 @@
 ## Phase Details
 
 ### Phase 6: Deterministic Hardening
-**Goal**: Pipeline deterministic stages handle all documented edge cases from the 7-deal rerun without crashing or producing false findings
-**Depends on**: Nothing (independent fixes, off critical path)
-**Requirements**: HARD-01, HARD-02, HARD-03, HARD-04, HARD-05, HARD-06
+**Goal**: Pipeline deterministic stages handle all documented edge cases from the 7-deal rerun without crashing, producing false findings, or accepting corrupt inputs
+**Depends on**: Nothing (independent fixes)
+**Requirements**: HARD-06, HARD-01, HARD-04, HARD-05 (HARD-02 and HARD-03 already satisfied during 7-deal rerun)
+**Execution order**: HARD-06 → HARD-01 → HARD-04 → HARD-05
 **Success Criteria** (what must be TRUE):
-  1. Running `skill-pipeline canonicalize` on a deal with overlapping actor/event quote_id namespaces completes without crash and produces unique quote_ids in the merged artifact
-  2. Running `skill-pipeline coverage` on zep, saks, and petsmart-inc does not flag contextual confidentiality-agreement references (describing existing NDAs) as false-positive coverage findings
-  3. Running `skill-pipeline check` on deals with grouped NDA-signing bidder cohorts passes without assertion errors on bidder count
-  4. Running `skill-pipeline gates` on deals with rollover-side confidentiality agreements does not reject them as missing sale-process NDAs
-  5. Running `skill-pipeline db-export` immediately after `db-load` succeeds without DuckDB file-lock errors (retries transparently on transient contention)
-**Plans**: TBD
+  1. Loading extract artifacts where actors are canonical but events are quote-first (or vice versa) raises a dedicated `MixedSchemaError` before any stage processes them
+  2. Running `skill-pipeline canonicalize` on a deal with overlapping actor/event quote_id namespaces completes without crash, produces unique cross-array quote_ids, rewrites all references consistently, and is idempotent on reruns; same-array duplicates still fail-fast
+  3. Running `skill-pipeline gates` and `skill-pipeline coverage` on deals with rollover-side confidentiality agreements does not produce false NDA findings (covers rollover, bidder-bidder teaming, and target-on-target diligence CAs)
+  4. Running `skill-pipeline db-export` immediately after `db-load` succeeds without DuckDB file-lock errors; bounded retry with exponential backoff on transient lock; non-lock errors not retried; exhausted retries surface a hard failure
+**Plans**: 06-01 (complete), 06-02 (complete), 06-03 (planned)
 
 ### Phase 7: bid_type Rule Priority
 **Goal**: Enrichment correctly classifies final-round proposals as Formal when process position (after final round announcement) overrides IOI filing language
@@ -68,7 +68,7 @@
 | 3. Quote-Before-Extract | v1.0 | 5/5 | Complete | 2026-03-28 |
 | 4. Enhanced Gates | v1.0 | 2/2 | Complete | 2026-03-28 |
 | 5. Integration + Calibration | v1.0 | 3/3 | Complete | 2026-03-28 |
-| 6. Deterministic Hardening | v1.1 | 0/? | Not started | - |
+| 6. Deterministic Hardening | v1.1 | 2/3 | In progress (HARD-05 remaining; HARD-02/03 already satisfied) | - |
 | 7. bid_type Rule Priority | v1.1 | 0/? | Not started | - |
 | 8. Extraction Guidance + Enrichment Extensions | v1.1 | 0/? | Not started | - |
 | 9. Deal-Specific Fixes + Revalidation | v1.1 | 0/? | Not started | - |
