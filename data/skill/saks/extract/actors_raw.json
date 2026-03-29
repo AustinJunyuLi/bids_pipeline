@@ -1,0 +1,269 @@
+{
+  "actors": [
+    {
+      "actor_id": "target_board_saks",
+      "display_name": "Saks Board of Directors / Finance Committee / Executive Committee",
+      "canonical_name": "SAKS BOARD OF DIRECTORS",
+      "aliases": [
+        "board",
+        "Finance committee",
+        "Executive committee"
+      ],
+      "role": "target_board",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0001"
+      ],
+      "notes": [
+        "The board delegated frequent process oversight to the Finance committee and Executive committee."
+      ]
+    },
+    {
+      "actor_id": "advisor_goldman_sachs",
+      "display_name": "Goldman Sachs",
+      "canonical_name": "GOLDMAN SACHS",
+      "aliases": [],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "target_board_saks",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0002"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_wachtell_lipton",
+      "display_name": "Wachtell, Lipton, Rosen & Katz",
+      "canonical_name": "WACHTELL, LIPTON, ROSEN & KATZ",
+      "aliases": [
+        "Wachtell Lipton"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": "target_board_saks",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0003"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_morgan_stanley",
+      "display_name": "Morgan Stanley & Co. LLC",
+      "canonical_name": "MORGAN STANLEY & CO. LLC",
+      "aliases": [
+        "Morgan Stanley"
+      ],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "target_board_saks",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0004"
+      ],
+      "notes": [
+        "Appears late in the process as another long-time adviser to Saks."
+      ]
+    },
+    {
+      "actor_id": "bidder_hudsons_bay",
+      "display_name": "Hudsons Bay",
+      "canonical_name": "HUDSONS BAY",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": "public",
+      "geography": "non_us",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0006"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_sponsor_a",
+      "display_name": "Sponsor A",
+      "canonical_name": "SPONSOR A",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": "private",
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0005"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_sponsor_e",
+      "display_name": "Sponsor E",
+      "canonical_name": "SPONSOR E",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": "private",
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0007"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_sponsor_g",
+      "display_name": "Sponsor G",
+      "canonical_name": "SPONSOR G",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": "private",
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0008"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_f",
+      "display_name": "Company F",
+      "canonical_name": "COMPANY F",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": "private",
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0009"
+      ],
+      "notes": [
+        "Identified as a possible participant with Sponsor A and Sponsor E but did not participate in the submitted offer."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_h",
+      "display_name": "Company H",
+      "canonical_name": "COMPANY H",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": "private",
+      "geography": "domestic",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0010"
+      ],
+      "notes": [
+        "Purported bidder with no follow-up communication."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_i",
+      "display_name": "Company I",
+      "canonical_name": "COMPANY I",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0011"
+      ],
+      "notes": [
+        "The only named go-shop participant to sign a confidentiality agreement and conduct due diligence."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_b",
+      "display_name": "Company B",
+      "canonical_name": "COMPANY B",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": "private",
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0012"
+      ],
+      "notes": [
+        "Alternative transaction counterparty considered by Saks during the same timeline."
+      ]
+    }
+  ],
+  "count_assertions": [
+    {
+      "subject": "go_shop_contacted_third_parties",
+      "count": 58,
+      "evidence_span_ids": [
+        "span_0013"
+      ]
+    },
+    {
+      "subject": "go_shop_interested_parties",
+      "count": 6,
+      "evidence_span_ids": [
+        "span_0014"
+      ]
+    }
+  ],
+  "unresolved_mentions": []
+}

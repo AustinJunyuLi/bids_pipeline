@@ -1,0 +1,72 @@
+{
+  "findings": [
+    {
+      "check_id": "bidder_kind_missing",
+      "severity": "warning",
+      "description": "Bidder actors should have bidder_kind.",
+      "actor_ids": [
+        "bidder_company1"
+      ],
+      "event_ids": []
+    },
+    {
+      "check_id": "bidder_kind_missing",
+      "severity": "warning",
+      "description": "Bidder actors should have bidder_kind.",
+      "actor_ids": [
+        "bidder_company2"
+      ],
+      "event_ids": []
+    },
+    {
+      "check_id": "bidder_kind_missing",
+      "severity": "warning",
+      "description": "Bidder actors should have bidder_kind.",
+      "actor_ids": [
+        "bidder_company3"
+      ],
+      "event_ids": []
+    },
+    {
+      "check_id": "bidder_kind_missing",
+      "severity": "warning",
+      "description": "Bidder actors should have bidder_kind.",
+      "actor_ids": [
+        "bidder_company4"
+      ],
+      "event_ids": []
+    },
+    {
+      "check_id": "bidder_kind_missing",
+      "severity": "warning",
+      "description": "Bidder actors should have bidder_kind.",
+      "actor_ids": [
+        "group_late_march_parties"
+      ],
+      "event_ids": []
+    },
+    {
+      "check_id": "bidder_kind_missing",
+      "severity": "warning",
+      "description": "Bidder actors should have bidder_kind.",
+      "actor_ids": [
+        "group_contacted_parties"
+      ],
+      "event_ids": []
+    },
+    {
+      "check_id": "bidder_kind_missing",
+      "severity": "warning",
+      "description": "Bidder actors should have bidder_kind.",
+      "actor_ids": [
+        "group_fifteen_parties"
+      ],
+      "event_ids": []
+    }
+  ],
+  "summary": {
+    "blocker_count": 0,
+    "warning_count": 7,
+    "status": "pass"
+  }
+}

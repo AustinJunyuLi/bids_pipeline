@@ -1,0 +1,1855 @@
+{
+  "events": [
+    {
+      "event_id": "evt_001",
+      "event_type": "bidder_interest",
+      "date": {
+        "raw_text": "March 25, 2016",
+        "normalized_start": "2016-03-25",
+        "normalized_end": "2016-03-25",
+        "sort_date": "2016-03-25",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_sanofi"
+      ],
+      "summary": "Sanofi CEO Brandicourt expressed interest in pursuing a possible strategic transaction with Medivation in an unsolicited telephone call.",
+      "evidence_span_ids": [
+        "span_0045"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": [
+        "Initial unsolicited contact was March 22, 2016; substantive expression of interest occurred on March 25 call."
+      ]
+    },
+    {
+      "event_id": "evt_002",
+      "event_type": "ib_retention",
+      "date": {
+        "raw_text": "March 24, 2016",
+        "normalized_start": "2016-03-24",
+        "normalized_end": "2016-03-24",
+        "sort_date": "2016-03-24",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "advisor_jpmorgan"
+      ],
+      "summary": "J.P. Morgan retained as independent financial advisor to Medivation for defense and general strategic advice.",
+      "evidence_span_ids": [
+        "span_0006"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": [
+        "Retention described as 'routine advanced preparedness for defense and general strategic advice.'"
+      ]
+    },
+    {
+      "event_id": "evt_003",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "April 13, 2016",
+        "normalized_start": "2016-04-13",
+        "normalized_end": "2016-04-13",
+        "sort_date": "2016-04-13",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_sanofi"
+      ],
+      "summary": "Sanofi submitted a non-binding proposal to acquire Medivation for $52.50 per share in cash, subject to due diligence, definitive agreements, and Sanofi board approval.",
+      "evidence_span_ids": [
+        "span_0007",
+        "span_0046",
+        "span_0047"
+      ],
+      "terms": {
+        "per_share": "52.50",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": false,
+        "mentions_preliminary": false,
+        "mentions_non_binding": true,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": false,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": [
+        "Letter dated April 13, 2016; received by Dr. Hung on April 15, 2016. Using authoring date per extraction rules."
+      ]
+    },
+    {
+      "event_id": "evt_004",
+      "event_type": "bid_press_release",
+      "date": {
+        "raw_text": "April 28, 2016",
+        "normalized_start": "2016-04-28",
+        "normalized_end": "2016-04-28",
+        "sort_date": "2016-04-28",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_sanofi"
+      ],
+      "summary": "Sanofi issued a press release publicly announcing its $52.50 per share proposal for Medivation.",
+      "evidence_span_ids": [
+        "span_0048"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_005",
+      "event_type": "bid_press_release",
+      "date": {
+        "raw_text": "May 5, 2016",
+        "normalized_start": "2016-05-05",
+        "normalized_end": "2016-05-05",
+        "sort_date": "2016-05-05",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_sanofi"
+      ],
+      "summary": "Sanofi issued a press release restating its $52.50 proposal and threatening to commence a consent solicitation to replace Medivation's board.",
+      "evidence_span_ids": [
+        "span_0049",
+        "span_0050"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_006",
+      "event_type": "ib_retention",
+      "date": {
+        "raw_text": "April 22, 2016",
+        "normalized_start": "2016-04-22",
+        "normalized_end": "2016-04-22",
+        "sort_date": "2016-04-22",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "advisor_evercore"
+      ],
+      "summary": "Medivation board determined to engage Evercore as an additional independent financial advisor.",
+      "evidence_span_ids": [
+        "span_0051",
+        "span_0052"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_007",
+      "event_type": "ib_retention",
+      "date": {
+        "raw_text": "April 28, 2016",
+        "normalized_start": "2016-04-28",
+        "normalized_end": "2016-04-28",
+        "sort_date": "2016-04-28",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "advisor_wachtell"
+      ],
+      "summary": "Medivation retained Wachtell, Lipton, Rosen & Katz as an additional legal advisor.",
+      "evidence_span_ids": [
+        "span_0053"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": [
+        "First mention is at the April 28 board meeting (B016). Exact retention date may be slightly earlier."
+      ]
+    },
+    {
+      "event_id": "evt_008",
+      "event_type": "target_sale",
+      "date": {
+        "raw_text": "June 21 and 22, 2016",
+        "normalized_start": null,
+        "normalized_end": null,
+        "sort_date": null,
+        "precision": "unknown",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": "Unable to parse date deterministically.",
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "target_board_medivation"
+      ],
+      "summary": "Medivation board directed J.P. Morgan and Evercore to contact select industry participants to explore third-party interest, initiating a controlled sale process.",
+      "evidence_span_ids": [
+        "span_0054",
+        "span_0016"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_009",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "June 27, 2016",
+        "normalized_start": "2016-06-27",
+        "normalized_end": "2016-06-27",
+        "sort_date": "2016-06-27",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_sanofi"
+      ],
+      "summary": "Sanofi submitted a revised unsolicited proposal of $58.00 per share in cash plus a CVR of up to $3.00 per share conditioned on revenue metrics.",
+      "evidence_span_ids": [
+        "span_0039",
+        "span_0055"
+      ],
+      "terms": {
+        "per_share": "58.00",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "mixed"
+      },
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": false,
+        "mentions_preliminary": false,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": false,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": [
+        "Includes CVR component conditioned on revenue metrics. Rejected unanimously by Medivation board on June 30."
+      ]
+    },
+    {
+      "event_id": "evt_010",
+      "event_type": "nda",
+      "date": {
+        "raw_text": "June 29, 2016",
+        "normalized_start": "2016-06-29",
+        "normalized_end": "2016-06-29",
+        "sort_date": "2016-06-29",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_pfizer"
+      ],
+      "summary": "Medivation entered into a confidentiality agreement with Pfizer.",
+      "evidence_span_ids": [
+        "span_0021"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": []
+    },
+    {
+      "event_id": "evt_011",
+      "event_type": "nda",
+      "date": {
+        "raw_text": "June 29, 2016",
+        "normalized_start": "2016-06-29",
+        "normalized_end": "2016-06-29",
+        "sort_date": "2016-06-29",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_company1"
+      ],
+      "summary": "Medivation entered into a confidentiality agreement with one additional party (later identified as one of Company 1 through Company 4).",
+      "evidence_span_ids": [
+        "span_0022"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": [
+        "Filing does not specify which named company this was. It is one of the four Interested Parties besides Pfizer."
+      ]
+    },
+    {
+      "event_id": "evt_012",
+      "event_type": "nda",
+      "date": {
+        "raw_text": "July 5, 2016",
+        "normalized_start": "2016-07-05",
+        "normalized_end": "2016-07-05",
+        "sort_date": "2016-07-05",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_sanofi"
+      ],
+      "summary": "Medivation entered into a confidentiality agreement with Sanofi, which included a six-month standstill and Sanofi's agreement to terminate the Consent Solicitation.",
+      "evidence_span_ids": [
+        "span_0023",
+        "span_0044",
+        "span_0056"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": []
+    },
+    {
+      "event_id": "evt_013",
+      "event_type": "sale_press_release",
+      "date": {
+        "raw_text": "July 5, 2016",
+        "normalized_start": "2016-07-05",
+        "normalized_end": "2016-07-05",
+        "sort_date": "2016-07-05",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "target_board_medivation"
+      ],
+      "summary": "Medivation announced via press release that it had entered into confidentiality agreements with Sanofi and other parties, and that the board had rejected Sanofi's revised $58.00 proposal.",
+      "evidence_span_ids": [
+        "span_0094",
+        "span_0095"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_014",
+      "event_type": "nda",
+      "date": {
+        "raw_text": "July 9, 2016",
+        "normalized_start": "2016-07-09",
+        "normalized_end": "2016-07-09",
+        "sort_date": "2016-07-09",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_company2"
+      ],
+      "summary": "Medivation entered into a confidentiality agreement with a fourth industry participant.",
+      "evidence_span_ids": [
+        "span_0057"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": [
+        "Filing does not specify which named company; mapped to Company 2 by sequence but identity uncertain."
+      ]
+    },
+    {
+      "event_id": "evt_015",
+      "event_type": "nda",
+      "date": {
+        "raw_text": "July 13, 2016",
+        "normalized_start": "2016-07-13",
+        "normalized_end": "2016-07-13",
+        "sort_date": "2016-07-13",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_company3"
+      ],
+      "summary": "Medivation entered into a confidentiality agreement with a fifth industry participant.",
+      "evidence_span_ids": [
+        "span_0058"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": [
+        "Filing does not specify which named company; mapped to Company 3 by sequence but identity uncertain. Company 4 NDA not separately dated in the filing."
+      ]
+    },
+    {
+      "event_id": "evt_016",
+      "event_type": "final_round_inf_ann",
+      "date": {
+        "raw_text": "July 19 and 20, 2016",
+        "normalized_start": null,
+        "normalized_end": null,
+        "sort_date": null,
+        "precision": "unknown",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": "Unable to parse date deterministically.",
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "target_board_medivation"
+      ],
+      "summary": "J.P. Morgan and Evercore sent process letters requesting non-binding preliminary proposals by August 8, 2016.",
+      "evidence_span_ids": [
+        "span_0059",
+        "span_0060",
+        "span_0061",
+        "span_0102"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": "informal",
+      "invited_actor_ids": [
+        "bidder_pfizer",
+        "bidder_company1",
+        "bidder_company2",
+        "bidder_company3",
+        "bidder_company4"
+      ],
+      "deadline_date": {
+        "raw_text": "August 8, 2016",
+        "normalized_start": "2016-08-08",
+        "normalized_end": "2016-08-08",
+        "sort_date": "2016-08-08",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": [
+        "Letters sent to each of the five Interested Parties. Non-binding preliminary proposals requested."
+      ]
+    },
+    {
+      "event_id": "evt_017",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "August 8, 2016",
+        "normalized_start": "2016-08-08",
+        "normalized_end": "2016-08-08",
+        "sort_date": "2016-08-08",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_pfizer"
+      ],
+      "summary": "Pfizer submitted a preliminary proposal for the all-cash acquisition of Medivation for $65.00 per share.",
+      "evidence_span_ids": [
+        "span_0062"
+      ],
+      "terms": {
+        "per_share": "65.00",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": false,
+        "mentions_preliminary": true,
+        "mentions_non_binding": true,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": false,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_018",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "August 8, 2016",
+        "normalized_start": "2016-08-08",
+        "normalized_end": "2016-08-08",
+        "sort_date": "2016-08-08",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_company1"
+      ],
+      "summary": "Company 1 submitted a preliminary proposal for the all-cash acquisition of Medivation for $71.00 per share.",
+      "evidence_span_ids": [
+        "span_0063"
+      ],
+      "terms": {
+        "per_share": "71.00",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": false,
+        "mentions_preliminary": true,
+        "mentions_non_binding": true,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": false,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_019",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "August 8, 2016",
+        "normalized_start": "2016-08-08",
+        "normalized_end": "2016-08-08",
+        "sort_date": "2016-08-08",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_company2"
+      ],
+      "summary": "Company 2 submitted a preliminary proposal for the all-cash acquisition of Medivation for $62.00-$64.00 per share.",
+      "evidence_span_ids": [
+        "span_0064"
+      ],
+      "terms": {
+        "per_share": null,
+        "range_low": "62.00",
+        "range_high": "64.00",
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": true,
+        "mentions_indication_of_interest": false,
+        "mentions_preliminary": true,
+        "mentions_non_binding": true,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": false,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_020",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "August 8, 2016",
+        "normalized_start": "2016-08-08",
+        "normalized_end": "2016-08-08",
+        "sort_date": "2016-08-08",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_company3"
+      ],
+      "summary": "Company 3 submitted a preliminary proposal to acquire Medivation for $60.00 per share in cash, plus CVRs of up to $10.00 per share conditioned on revenue metrics.",
+      "evidence_span_ids": [
+        "span_0065",
+        "span_0066"
+      ],
+      "terms": {
+        "per_share": "60.00",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "mixed"
+      },
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": false,
+        "mentions_preliminary": true,
+        "mentions_non_binding": true,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": false,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": [
+        "Includes CVR component of up to $10.00 per share conditioned on revenue metrics."
+      ]
+    },
+    {
+      "event_id": "evt_021",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "August 8, 2016",
+        "normalized_start": "2016-08-08",
+        "normalized_end": "2016-08-08",
+        "sort_date": "2016-08-08",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_company4"
+      ],
+      "summary": "Company 4 submitted a preliminary proposal to acquire Medivation for $63.00 per share in cash, plus CVRs of up to $5.00 per share conditioned on regulatory milestones.",
+      "evidence_span_ids": [
+        "span_0067",
+        "span_0068"
+      ],
+      "terms": {
+        "per_share": "63.00",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "mixed"
+      },
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": false,
+        "mentions_preliminary": true,
+        "mentions_non_binding": true,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": false,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": [
+        "Includes CVR component of up to $5.00 per share conditioned on regulatory milestones for pipeline assets."
+      ]
+    },
+    {
+      "event_id": "evt_022",
+      "event_type": "final_round_inf",
+      "date": {
+        "raw_text": "August 8, 2016",
+        "normalized_start": "2016-08-08",
+        "normalized_end": "2016-08-08",
+        "sort_date": "2016-08-08",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [],
+      "summary": "Deadline for submission of non-binding preliminary proposals at 5:00 p.m. Pacific Time.",
+      "evidence_span_ids": [
+        "span_0061"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": "informal",
+      "invited_actor_ids": [],
+      "deadline_date": {
+        "raw_text": "August 8, 2016",
+        "normalized_start": "2016-08-08",
+        "normalized_end": "2016-08-08",
+        "sort_date": "2016-08-08",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": [
+        "All five Interested Parties submitted proposals by this deadline."
+      ]
+    },
+    {
+      "event_id": "evt_023",
+      "event_type": "drop",
+      "date": {
+        "raw_text": "August 10, 2016",
+        "normalized_start": "2016-08-10",
+        "normalized_end": "2016-08-10",
+        "sort_date": "2016-08-10",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_company2"
+      ],
+      "summary": "Company 2 was informed its preliminary proposal was not competitive and would not be invited to continue in the strategic transaction process.",
+      "evidence_span_ids": [
+        "span_0070"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": "preliminary proposals were not competitive with those of the other Interested Parties and that they would not be invited to continue in the strategic transaction process",
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": [
+        "Target-initiated exclusion. Company 2 later re-entered with a revised $70.00 bid on August 11-12."
+      ]
+    },
+    {
+      "event_id": "evt_024",
+      "event_type": "drop",
+      "date": {
+        "raw_text": "August 10, 2016",
+        "normalized_start": "2016-08-10",
+        "normalized_end": "2016-08-10",
+        "sort_date": "2016-08-10",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_company3"
+      ],
+      "summary": "Company 3 was informed its preliminary proposal was not competitive and would not be invited to continue in the strategic transaction process.",
+      "evidence_span_ids": [
+        "span_0070"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": "preliminary proposals were not competitive with those of the other Interested Parties and that they would not be invited to continue in the strategic transaction process",
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": [
+        "Target-initiated exclusion. Company 3 later re-entered with a revised $70.50 bid on August 12."
+      ]
+    },
+    {
+      "event_id": "evt_025",
+      "event_type": "final_round_ann",
+      "date": {
+        "raw_text": "August 14, 2016",
+        "normalized_start": "2016-08-14",
+        "normalized_end": "2016-08-14",
+        "sort_date": "2016-08-14",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "target_board_medivation"
+      ],
+      "summary": "J.P. Morgan and Evercore sent written instruction letter requiring definitive written proposals by August 19, 2016, with merger agreement markups due August 18.",
+      "evidence_span_ids": [
+        "span_0074",
+        "span_0075"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": "formal",
+      "invited_actor_ids": [
+        "bidder_pfizer",
+        "bidder_company1",
+        "bidder_company2",
+        "bidder_company3",
+        "bidder_company4"
+      ],
+      "deadline_date": {
+        "raw_text": "August 19, 2016",
+        "normalized_start": "2016-08-19",
+        "normalized_end": "2016-08-19",
+        "sort_date": "2016-08-19",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": [
+        "Sent to each Interested Party. By this point Company 2 and Company 3 had re-entered with revised bids."
+      ]
+    },
+    {
+      "event_id": "evt_026",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "August 12, 2016",
+        "normalized_start": "2016-08-12",
+        "normalized_end": "2016-08-12",
+        "sort_date": "2016-08-12",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_company2"
+      ],
+      "summary": "Company 2 submitted a written revised proposal for the all-cash acquisition of Medivation at $70.00 per share.",
+      "evidence_span_ids": [
+        "span_0072",
+        "span_0073"
+      ],
+      "terms": {
+        "per_share": "70.00",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": false,
+        "mentions_preliminary": false,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": false,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": [
+        "Revised bid after being initially excluded from second round."
+      ]
+    },
+    {
+      "event_id": "evt_027",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "August 12, 2016",
+        "normalized_start": "2016-08-12",
+        "normalized_end": "2016-08-12",
+        "sort_date": "2016-08-12",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_company3"
+      ],
+      "summary": "Company 3 submitted a written revised proposal for the all-cash acquisition of Medivation at $70.50 per share.",
+      "evidence_span_ids": [
+        "span_0072",
+        "span_0073"
+      ],
+      "terms": {
+        "per_share": "70.50",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": false,
+        "mentions_preliminary": false,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": false,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": [
+        "Revised bid after being initially excluded from second round."
+      ]
+    },
+    {
+      "event_id": "evt_028",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "August 19, 2016",
+        "normalized_start": "2016-08-19",
+        "normalized_end": "2016-08-19",
+        "sort_date": "2016-08-19",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_pfizer"
+      ],
+      "summary": "Pfizer submitted a definitive proposal for the all-cash acquisition of Medivation for $77.00 per share.",
+      "evidence_span_ids": [
+        "span_0076",
+        "span_0082"
+      ],
+      "terms": {
+        "per_share": "77.00",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": false,
+        "mentions_preliminary": false,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": true,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": true,
+        "after_final_round_announcement": true,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_029",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "August 19, 2016",
+        "normalized_start": "2016-08-19",
+        "normalized_end": "2016-08-19",
+        "sort_date": "2016-08-19",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_company1"
+      ],
+      "summary": "Company 1 submitted a definitive proposal for the all-cash acquisition of Medivation for $73.00 per share.",
+      "evidence_span_ids": [
+        "span_0076",
+        "span_0080"
+      ],
+      "terms": {
+        "per_share": "73.00",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": false,
+        "mentions_preliminary": false,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": true,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": true,
+        "requested_binding_offer_via_process_letter": true,
+        "after_final_round_announcement": true,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": [
+        "Company 1 also submitted a revised version of the merger agreement."
+      ]
+    },
+    {
+      "event_id": "evt_030",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "August 19, 2016",
+        "normalized_start": "2016-08-19",
+        "normalized_end": "2016-08-19",
+        "sort_date": "2016-08-19",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_company2"
+      ],
+      "summary": "Company 2 submitted a definitive proposal for the all-cash acquisition of Medivation for $75.50 per share.",
+      "evidence_span_ids": [
+        "span_0076",
+        "span_0081"
+      ],
+      "terms": {
+        "per_share": "75.50",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": false,
+        "mentions_preliminary": false,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": true,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": true,
+        "after_final_round_announcement": true,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_031",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "August 19, 2016",
+        "normalized_start": "2016-08-19",
+        "normalized_end": "2016-08-19",
+        "sort_date": "2016-08-19",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_company3"
+      ],
+      "summary": "Company 3 submitted a definitive proposal for the all-cash acquisition of Medivation for $72.50 per share.",
+      "evidence_span_ids": [
+        "span_0076",
+        "span_0079"
+      ],
+      "terms": {
+        "per_share": "72.50",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": false,
+        "mentions_preliminary": false,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": true,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": true,
+        "requested_binding_offer_via_process_letter": true,
+        "after_final_round_announcement": true,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": [
+        "Company 3 also submitted a revised version of the merger agreement."
+      ]
+    },
+    {
+      "event_id": "evt_033",
+      "event_type": "final_round",
+      "date": {
+        "raw_text": "August 19, 2016",
+        "normalized_start": "2016-08-19",
+        "normalized_end": "2016-08-19",
+        "sort_date": "2016-08-19",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [],
+      "summary": "Formal final round deadline for definitive proposals at 12:00 p.m. Pacific Time on August 19, 2016.",
+      "evidence_span_ids": [
+        "span_0075"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": "formal",
+      "invited_actor_ids": [],
+      "deadline_date": {
+        "raw_text": "August 19, 2016",
+        "normalized_start": "2016-08-19",
+        "normalized_end": "2016-08-19",
+        "sort_date": "2016-08-19",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": [
+        "Four parties submitted definitive proposals (Pfizer, Company 1, Company 2, Company 3). Company 4 declined."
+      ]
+    },
+    {
+      "event_id": "evt_034",
+      "event_type": "final_round_ext_ann",
+      "date": {
+        "raw_text": "August 19, 2016",
+        "normalized_start": "2016-08-19",
+        "normalized_end": "2016-08-19",
+        "sort_date": "2016-08-19",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "target_board_medivation"
+      ],
+      "summary": "Medivation board authorized financial advisors to communicate that best and final proposals would be due August 20, 2016 by 12:00 p.m. Pacific Time.",
+      "evidence_span_ids": [
+        "span_0083",
+        "span_0084",
+        "span_0103"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": "formal",
+      "invited_actor_ids": [
+        "bidder_pfizer",
+        "bidder_company1",
+        "bidder_company2",
+        "bidder_company3"
+      ],
+      "deadline_date": {
+        "raw_text": "August 20, 2016",
+        "normalized_start": "2016-08-20",
+        "normalized_end": "2016-08-20",
+        "sort_date": "2016-08-20",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": [
+        "Extension round announced same afternoon as the formal round deadline. Company 3 declined to participate."
+      ]
+    },
+    {
+      "event_id": "evt_036",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "August 20, 2016",
+        "normalized_start": "2016-08-20",
+        "normalized_end": "2016-08-20",
+        "sort_date": "2016-08-20",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_pfizer"
+      ],
+      "summary": "Pfizer submitted a revised final proposal to acquire Medivation for $81.50 per share in cash, approved by Pfizer's board and not subject to further diligence.",
+      "evidence_span_ids": [
+        "span_0086",
+        "span_0089",
+        "span_0090"
+      ],
+      "terms": {
+        "per_share": "81.50",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": false,
+        "mentions_preliminary": false,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": true,
+        "includes_draft_merger_agreement": true,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": true,
+        "after_final_round_announcement": true,
+        "after_final_round_deadline": true,
+        "is_subject_to_financing": false
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": [
+        "Board-approved. Included a revised draft of the merger agreement. Filing notes absence of any financing condition."
+      ]
+    },
+    {
+      "event_id": "evt_037",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "August 20, 2016",
+        "normalized_start": "2016-08-20",
+        "normalized_end": "2016-08-20",
+        "sort_date": "2016-08-20",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_company1"
+      ],
+      "summary": "Company 1 submitted a revised final proposal to acquire Medivation for $80.25 per share in cash.",
+      "evidence_span_ids": [
+        "span_0087",
+        "span_0089",
+        "span_0090"
+      ],
+      "terms": {
+        "per_share": "80.25",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": false,
+        "mentions_preliminary": false,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": true,
+        "includes_draft_merger_agreement": true,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": true,
+        "after_final_round_announcement": true,
+        "after_final_round_deadline": true,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_038",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "August 20, 2016",
+        "normalized_start": "2016-08-20",
+        "normalized_end": "2016-08-20",
+        "sort_date": "2016-08-20",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_company2"
+      ],
+      "summary": "Company 2 submitted a revised final proposal to acquire Medivation for $80.00 per share in cash.",
+      "evidence_span_ids": [
+        "span_0088",
+        "span_0089",
+        "span_0090"
+      ],
+      "terms": {
+        "per_share": "80.00",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": false,
+        "mentions_preliminary": false,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": true,
+        "includes_draft_merger_agreement": true,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": true,
+        "after_final_round_announcement": true,
+        "after_final_round_deadline": true,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_039",
+      "event_type": "final_round_ext",
+      "date": {
+        "raw_text": "August 20, 2016",
+        "normalized_start": "2016-08-20",
+        "normalized_end": "2016-08-20",
+        "sort_date": "2016-08-20",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [],
+      "summary": "Best and final round deadline at 12:00 p.m. Pacific Time on August 20, 2016. Three parties submitted final proposals.",
+      "evidence_span_ids": [
+        "span_0084"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": "formal",
+      "invited_actor_ids": [],
+      "deadline_date": {
+        "raw_text": "August 20, 2016",
+        "normalized_start": "2016-08-20",
+        "normalized_end": "2016-08-20",
+        "sort_date": "2016-08-20",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": [
+        "Pfizer ($81.50), Company 1 ($80.25), and Company 2 ($80.00) submitted by the deadline."
+      ]
+    },
+    {
+      "event_id": "evt_040",
+      "event_type": "executed",
+      "date": {
+        "raw_text": "August 20, 2016",
+        "normalized_start": "2016-08-20",
+        "normalized_end": "2016-08-20",
+        "sort_date": "2016-08-20",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_pfizer",
+        "target_board_medivation"
+      ],
+      "summary": "Pfizer and Medivation executed the merger agreement at $81.50 per share in cash, following unanimous board approval.",
+      "evidence_span_ids": [
+        "span_0034",
+        "span_0099",
+        "span_0100",
+        "span_0101"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": "bidder_pfizer",
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_041",
+      "event_type": "bid_press_release",
+      "date": {
+        "raw_text": "August 22, 2016",
+        "normalized_start": "2016-08-22",
+        "normalized_end": "2016-08-22",
+        "sort_date": "2016-08-22",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_pfizer",
+        "target_board_medivation"
+      ],
+      "summary": "Pfizer and Medivation issued a joint press release announcing the transaction.",
+      "evidence_span_ids": [
+        "span_0091"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_042",
+      "event_type": "bidder_interest",
+      "date": {
+        "raw_text": "April 20, 2016",
+        "normalized_start": "2016-04-20",
+        "normalized_end": "2016-04-20",
+        "sort_date": "2016-04-20",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_pfizer"
+      ],
+      "summary": "Douglas Giordano of Pfizer contacted Dr. Hung to indicate interest in participating in any strategic discussions Medivation might initiate.",
+      "evidence_span_ids": [
+        "span_0092",
+        "span_0093"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_043",
+      "event_type": "sale_press_release",
+      "date": {
+        "raw_text": "April 29, 2016",
+        "normalized_start": "2016-04-29",
+        "normalized_end": "2016-04-29",
+        "sort_date": "2016-04-29",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "target_board_medivation"
+      ],
+      "summary": "Medivation issued a press release announcing the board's rejection of Sanofi's $52.50 proposal.",
+      "evidence_span_ids": [
+        "span_0096"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_044",
+      "event_type": "drop",
+      "date": {
+        "raw_text": "August 10, 2016",
+        "normalized_start": "2016-08-10",
+        "normalized_end": "2016-08-10",
+        "sort_date": "2016-08-10",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_sanofi"
+      ],
+      "summary": "Sanofi was not among the parties advanced in the formal sale process. The board directed outreach only to Interested Parties (Pfizer, Company 1-4). Sanofi had signed an NDA with standstill but was not invited to bid.",
+      "evidence_span_ids": [
+        "span_0042"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": "Sanofi was bound by standstill and was not among the Interested Parties invited to submit preliminary or definitive proposals",
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": [
+        "Sanofi's NDA included a six-month standstill. The filing does not describe a formal exclusion event; Sanofi simply was not invited to the process rounds."
+      ]
+    }
+  ],
+  "exclusions": [],
+  "coverage_notes": [
+    "target_sale: extracted (evt_008) -- board directed advisors to contact industry participants on June 21-22, 2016",
+    "target_sale_public: NOT FOUND -- no public announcement of strategic review prior to the July 5 press release which is captured as sale_press_release",
+    "bidder_sale: NOT FOUND -- this was not an acquirer-initiated process; Sanofi made unsolicited approaches but the formal process was target-directed",
+    "bidder_interest: extracted (evt_001 Sanofi, evt_042 Pfizer) -- both expressed unsolicited interest before the formal process",
+    "activist_sale: NOT FOUND -- no activist involvement in this deal; Sanofi filed a consent solicitation but as a bidder, not an activist",
+    "sale_press_release: extracted (evt_013 July 5 NDA announcement, evt_043 April 29 rejection announcement)",
+    "bid_press_release: extracted (evt_004 Sanofi April 28, evt_005 Sanofi May 5, evt_041 Pfizer-Medivation August 22)",
+    "ib_retention: extracted (evt_002 J.P. Morgan, evt_006 Evercore, evt_007 Wachtell Lipton)",
+    "nda: extracted (evt_010 Pfizer, evt_011 Company 1, evt_012 Sanofi, evt_014 Company 2, evt_015 Company 3) -- Company 4 NDA timing not separately dated in filing but must have occurred given it was an Interested Party",
+    "proposal: extracted (evt_003 Sanofi $52.50, evt_009 Sanofi $58.00, evt_017-021 preliminary proposals Aug 8, evt_026-027 revised bids Aug 12, evt_028-031 definitive proposals Aug 19, evt_036-038 best-and-final proposals Aug 20)",
+    "drop: extracted (evt_023 Company 2 initial exclusion, evt_024 Company 3 initial exclusion, evt_032 Company 4 withdrawal, evt_035 Company 3 best-and-final withdrawal, evt_044 Sanofi standstill non-participation)",
+    "final_round_inf_ann: extracted (evt_016) -- process letters sent July 19-20 requesting preliminary proposals by August 8",
+    "final_round_inf: extracted (evt_022) -- August 8 deadline for non-binding preliminary proposals",
+    "final_round_ann: extracted (evt_025) -- instruction letter sent August 14 requiring definitive proposals by August 19",
+    "final_round: extracted (evt_033) -- August 19 deadline for definitive proposals",
+    "final_round_ext_ann: extracted (evt_034) -- best-and-final round announced afternoon of August 19 with August 20 deadline",
+    "final_round_ext: extracted (evt_039) -- August 20 deadline for best-and-final proposals",
+    "executed: extracted (evt_040) -- merger agreement executed August 20, 2016 at $81.50 per share",
+    "terminated: NOT FOUND -- the sale process was not terminated; it concluded with a signed merger agreement",
+    "restarted: NOT FOUND -- the sale process was not restarted; it ran continuously from June 2016 through execution"
+  ]
+}
