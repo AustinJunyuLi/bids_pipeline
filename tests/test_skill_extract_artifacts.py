@@ -141,7 +141,7 @@ def _quote_first_event_payload() -> dict:
     }
 
 
-def test_load_extract_artifacts_rejects_canonical_actors_with_quote_first_events(
+def test_load_extract_artifacts_mixed_schema_rejects_canonical_actors_with_quote_first_events(
     tmp_path: Path,
 ) -> None:
     _write_extract_payloads(
@@ -155,7 +155,7 @@ def test_load_extract_artifacts_rejects_canonical_actors_with_quote_first_events
         load_extract_artifacts(paths)
 
 
-def test_load_extract_artifacts_rejects_quote_first_actors_with_canonical_events(
+def test_load_extract_artifacts_mixed_schema_rejects_quote_first_actors_with_canonical_events(
     tmp_path: Path,
 ) -> None:
     _write_extract_payloads(

@@ -32,6 +32,10 @@ class LoadedExtractArtifacts:
         return {span.span_id: span for span in self.spans.spans}
 
 
+class MixedSchemaError(ValueError):
+    pass
+
+
 def load_extract_artifacts(paths: SkillPathSet) -> LoadedExtractArtifacts:
     actors_payload = _read_json(paths.actors_raw_path)
     events_payload = _read_json(paths.events_raw_path)
@@ -40,6 +44,13 @@ def load_extract_artifacts(paths: SkillPathSet) -> LoadedExtractArtifacts:
         "count_assertions",
     )
     events_canonical = _payload_has_span_ids(events_payload, "events")
+
+    if actors_canonical != events_canonical:
+        actors_mode = "canonical" if actors_canonical else "quote_first"
+        events_mode = "canonical" if events_canonical else "quote_first"
+        raise MixedSchemaError(
+            f"Mixed extract schema modes: actors are {actors_mode} but events are {events_mode}"
+        )
 
     if actors_canonical or events_canonical:
         if not paths.spans_path.exists():
