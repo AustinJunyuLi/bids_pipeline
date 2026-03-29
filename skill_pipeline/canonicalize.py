@@ -142,6 +142,79 @@ def _resolve_quotes_to_spans(
     return spans, quote_to_span
 
 
+def _validate_unique_quote_ids(quotes: list[QuoteEntry]) -> None:
+    seen_ids: set[str] = set()
+    for quote in quotes:
+        if quote.quote_id in seen_ids:
+            raise ValueError(f"Duplicate quote_id {quote.quote_id!r} in quotes array")
+        seen_ids.add(quote.quote_id)
+
+
+def _build_quote_id_remap(
+    quotes: list[QuoteEntry],
+    *,
+    prefix: str,
+) -> dict[str, str]:
+    return {
+        quote.quote_id: f"{prefix}_{index:03d}"
+        for index, quote in enumerate(quotes, start=1)
+    }
+
+
+def _rewrite_quote_ids(quote_ids: list[str], remap: dict[str, str]) -> list[str]:
+    return [remap[quote_id] for quote_id in quote_ids if quote_id in remap]
+
+
+def _remap_quote_entries(
+    quotes: list[QuoteEntry],
+    remap: dict[str, str],
+) -> list[dict]:
+    return [
+        {
+            "quote_id": remap[quote.quote_id],
+            "block_id": quote.block_id,
+            "text": quote.text,
+        }
+        for quote in quotes
+    ]
+
+
+def _renumber_quote_first_artifacts(
+    raw_actors: RawSkillActorsArtifact,
+    raw_events: RawSkillEventsArtifact,
+) -> tuple[RawSkillActorsArtifact, RawSkillEventsArtifact, dict[str, dict[str, str]]]:
+    _validate_unique_quote_ids(list(raw_actors.quotes))
+    _validate_unique_quote_ids(list(raw_events.quotes))
+
+    actor_quote_remap = _build_quote_id_remap(list(raw_actors.quotes), prefix="qa")
+    event_quote_remap = _build_quote_id_remap(list(raw_events.quotes), prefix="qe")
+
+    actors_payload = raw_actors.model_dump(mode="json")
+    actors_payload["quotes"] = _remap_quote_entries(list(raw_actors.quotes), actor_quote_remap)
+    for actor in actors_payload["actors"]:
+        actor["quote_ids"] = _rewrite_quote_ids(actor.get("quote_ids", []), actor_quote_remap)
+    for assertion in actors_payload.get("count_assertions", []):
+        assertion["quote_ids"] = _rewrite_quote_ids(
+            assertion.get("quote_ids", []),
+            actor_quote_remap,
+        )
+
+    events_payload = raw_events.model_dump(mode="json")
+    events_payload["quotes"] = _remap_quote_entries(list(raw_events.quotes), event_quote_remap)
+    for event in events_payload["events"]:
+        event["quote_ids"] = _rewrite_quote_ids(event.get("quote_ids", []), event_quote_remap)
+
+    quote_id_renumber_log = {
+        "actor_quotes": actor_quote_remap,
+        "event_quotes": event_quote_remap,
+    }
+    return (
+        RawSkillActorsArtifact.model_validate(actors_payload),
+        RawSkillEventsArtifact.model_validate(events_payload),
+        quote_id_renumber_log,
+    )
+
+
 def _upgrade_raw_actors(
     actors_artifact: RawSkillActorsArtifact,
     *,
@@ -401,11 +474,15 @@ def run_canonicalize(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> in
 
     loaded = load_extract_artifacts(paths)
     if loaded.mode == "quote_first":
+        raw_actors, raw_events, quote_id_renumber_log = _renumber_quote_first_artifacts(
+            loaded.raw_actors,
+            loaded.raw_events,
+        )
         blocks = _load_chronology_blocks(paths.chronology_blocks_path)
         document_lines = _load_document_lines(paths.raw_root / deal_slug / "filings")
         document_meta = _load_document_registry(paths.document_registry_path)
         blocks_by_id = {block.block_id: block for block in blocks}
-        all_quotes = list(loaded.raw_actors.quotes) + list(loaded.raw_events.quotes)
+        all_quotes = list(raw_actors.quotes) + list(raw_events.quotes)
         spans, quote_to_span = _resolve_quotes_to_spans(
             all_quotes,
             blocks_by_id=blocks_by_id,
@@ -414,20 +491,20 @@ def run_canonicalize(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> in
         )
 
         referenced_ids: set[str] = set()
-        for actor in loaded.raw_actors.actors:
+        for actor in raw_actors.actors:
             referenced_ids.update(actor.quote_ids)
-        for assertion in loaded.raw_actors.count_assertions:
+        for assertion in raw_actors.count_assertions:
             referenced_ids.update(assertion.quote_ids)
-        for event in loaded.raw_events.events:
+        for event in raw_events.events:
             referenced_ids.update(event.quote_ids)
         orphaned = [quote.quote_id for quote in all_quotes if quote.quote_id not in referenced_ids]
 
         actors_dict = _upgrade_raw_actors(
-            loaded.raw_actors,
+            raw_actors,
             quote_to_span=quote_to_span,
         )
         events_dict = _upgrade_raw_events(
-            loaded.raw_events,
+            raw_events,
             quote_to_span=quote_to_span,
         )
     else:
@@ -435,6 +512,10 @@ def run_canonicalize(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> in
         events_dict = loaded.events.model_dump(mode="json")
         spans = loaded.spans.model_dump(mode="json")["spans"]
         orphaned = []
+        quote_id_renumber_log = {
+            "actor_quotes": {},
+            "event_quotes": {},
+        }
 
     events = events_dict["events"]
     log: dict = {
@@ -442,6 +523,7 @@ def run_canonicalize(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> in
         "nda_gate_log": [],
         "recovery_log": [],
         "orphaned_quotes": orphaned,
+        "quote_id_renumber_log": quote_id_renumber_log,
     }
 
     events, dedup_log = _dedup_events(events)

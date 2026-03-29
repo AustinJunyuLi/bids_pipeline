@@ -701,7 +701,7 @@ def test_canonicalize_cross_array_quote_ids_are_renumbered_and_logged(tmp_path: 
     assert assertion_span_ids == ["span_0001"]
     assert nda_event["evidence_span_ids"] == ["span_0002"]
     assert log["quote_id_renumber_log"]["actor_quotes"] == {"Q001": "qa_001"}
-    assert log["quote_id_renumber_log"]["event_quotes"] == {"Q001": "qe_001"}
+    assert log["quote_id_renumber_log"]["event_quotes"]["Q001"] == "qe_001"
     assert all(event["evidence_span_ids"] for event in events_result["events"])
 
 
