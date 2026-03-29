@@ -640,6 +640,71 @@ def test_canonicalize_rejects_duplicate_quote_ids(tmp_path: Path) -> None:
         run_canonicalize("imprivata", project_root=tmp_path)
 
 
+def test_canonicalize_cross_array_quote_ids_are_renumbered_and_logged(tmp_path: Path) -> None:
+    actors_payload = {
+        "quotes": [
+            {"quote_id": "Q001", "block_id": "B001", "text": "Bidder A signed an NDA"},
+        ],
+        "actors": [
+            {
+                "actor_id": "bidder_a",
+                "display_name": "Bidder A",
+                "canonical_name": "BIDDER A",
+                "aliases": [],
+                "role": "bidder",
+                "advisor_kind": None,
+                "advised_actor_id": None,
+                "bidder_kind": "financial",
+                "listing_status": "private",
+                "geography": "domestic",
+                "is_grouped": False,
+                "group_size": None,
+                "group_label": None,
+                "quote_ids": ["Q001"],
+                "notes": [],
+            },
+        ],
+        "count_assertions": [
+            {
+                "subject": "nda_signed_financial_buyers",
+                "count": 1,
+                "quote_ids": ["Q001"],
+            },
+        ],
+        "unresolved_mentions": [],
+    }
+    event = _evt("evt_001", "nda", actor_ids=["bidder_a"], block_id="B002", summary="Bidder A signed an NDA")
+    event["quote_ids"] = ["Q001"]
+    event["_quote_source"] = {
+        "quote_id": "Q001",
+        "block_id": "B002",
+        "text": "Bidder A signed an NDA",
+    }
+    events = [
+        event,
+        _evt("evt_002", "executed", actor_ids=["bidder_a"], date="2016-07-13", block_id="B003"),
+    ]
+    _write_canon_fixture(tmp_path, actors_payload=actors_payload, events=events)
+
+    run_canonicalize("imprivata", project_root=tmp_path)
+
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    actors_result = json.loads(paths.actors_raw_path.read_text(encoding="utf-8"))
+    events_result = json.loads(paths.events_raw_path.read_text(encoding="utf-8"))
+    log = json.loads(paths.canonicalize_log_path.read_text(encoding="utf-8"))
+
+    actor_span_ids = actors_result["actors"][0]["evidence_span_ids"]
+    assertion_span_ids = actors_result["count_assertions"][0]["evidence_span_ids"]
+    nda_event = next(event for event in events_result["events"] if event["event_id"] == "evt_001")
+
+    assert actor_span_ids == ["span_0001"]
+    assert assertion_span_ids == ["span_0001"]
+    assert nda_event["evidence_span_ids"] == ["span_0002"]
+    assert log["quote_id_renumber_log"]["actor_quotes"] == {"Q001": "qa_001"}
+    assert log["quote_id_renumber_log"]["event_quotes"] == {"Q001": "qe_001"}
+    assert all(event["evidence_span_ids"] for event in events_result["events"])
+
+
 def test_canonicalize_logs_orphaned_quotes(tmp_path: Path) -> None:
     actors_payload = {
         "quotes": [
@@ -766,4 +831,9 @@ def test_canonicalize_is_idempotent_on_existing_canonical_extract(tmp_path: Path
 
     paths = build_skill_paths("imprivata", project_root=tmp_path)
     result = json.loads(paths.events_raw_path.read_text(encoding="utf-8"))
+    log = json.loads(paths.canonicalize_log_path.read_text(encoding="utf-8"))
     assert [event["event_id"] for event in result["events"]] == ["evt_002", "evt_003"]
+    assert log["quote_id_renumber_log"] == {
+        "actor_quotes": {},
+        "event_quotes": {},
+    }
