@@ -19,7 +19,7 @@ Requirements for this milestone. Each maps to roadmap phases.
 
 ### Enrichment Improvements
 
-- [ ] **ENRICH-01**: bid_type classification promotes final-round proposals to Formal when process position (after final round announcement) overrides IOI filing language
+- [x] **ENRICH-01**: bid_type classification promotes final-round proposals to Formal when process position (after final round announcement) overrides IOI filing language
 - [ ] **ENRICH-02**: Deterministic DropTarget classification for committee-driven field narrowing based on drop_reason_text signals in enrich-core
 - [ ] **ENRICH-03**: Contextual all_cash inference from deal-level consideration patterns when explicit per-proposal mention is absent
 
@@ -67,7 +67,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | HARD-04 | Phase 6 | Complete |
 | HARD-05 | Phase 6 | Complete |
 | HARD-06 | Phase 6 | Complete |
-| ENRICH-01 | Phase 7 | Pending |
+| ENRICH-01 | Phase 7 | Complete |
 | ENRICH-02 | Phase 8 | Pending |
 | ENRICH-03 | Phase 8 | Pending |
 | EXTRACT-01 | Phase 8 | Pending |

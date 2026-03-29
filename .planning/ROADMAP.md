@@ -36,7 +36,7 @@
   3. The `_classify_proposal()` function in enrich_core.py evaluates process-position rules before IOI-language rules, with regression tests covering both orderings
 **Plans:** 1 plan
 Plans:
-- [ ] 07-01-PLAN.md -- Reorder _classify_proposal() rule priority with TDD regression tests
+- [x] 07-01-PLAN.md -- Reorder _classify_proposal() rule priority with TDD regression tests
 
 ### Phase 8: Extraction Guidance + Enrichment Extensions
 **Goal**: Extraction skill docs cover round milestones, verbal indications, and NDA exclusions; enrichment adds deterministic DropTarget classification and contextual all_cash inference
