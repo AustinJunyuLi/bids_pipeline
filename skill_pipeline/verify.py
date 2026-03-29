@@ -508,6 +508,8 @@ def _collect_verification_findings(paths: SkillPathSet) -> tuple[list[Verificati
             artifacts,
             document_lines,
         )
+        findings.extend(quote_findings)
+        total_checks += quote_checks
     evidence_findings, evidence_checks = _check_canonical_evidence_presence(artifacts)
     findings.extend(evidence_findings)
     total_checks += evidence_checks
