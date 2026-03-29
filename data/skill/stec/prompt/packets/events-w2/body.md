@@ -223,15 +223,106 @@ B235 [L2043-L2043]: 44
 
 <actor_roster>
 {
+  "quotes": [
+    {
+      "quote_id": "Q001",
+      "block_id": "B007",
+      "text": "our board of directors determined"
+    },
+    {
+      "quote_id": "Q002",
+      "block_id": "B011",
+      "text": "Balch Hill"
+    },
+    {
+      "quote_id": "Q003",
+      "block_id": "B011",
+      "text": "Potomac Capital Partners II"
+    },
+    {
+      "quote_id": "Q004",
+      "block_id": "B005",
+      "text": "WDC"
+    },
+    {
+      "quote_id": "Q005",
+      "block_id": "B008",
+      "text": "Company A"
+    },
+    {
+      "quote_id": "Q006",
+      "block_id": "B014",
+      "text": "Company B"
+    },
+    {
+      "quote_id": "Q007",
+      "block_id": "B024",
+      "text": "Company C"
+    },
+    {
+      "quote_id": "Q008",
+      "block_id": "B028",
+      "text": "Company D"
+    },
+    {
+      "quote_id": "Q009",
+      "block_id": "B034",
+      "text": "Company E"
+    },
+    {
+      "quote_id": "Q010",
+      "block_id": "B034",
+      "text": "Company F"
+    },
+    {
+      "quote_id": "Q011",
+      "block_id": "B036",
+      "text": "Company G"
+    },
+    {
+      "quote_id": "Q012",
+      "block_id": "B046",
+      "text": "Company H"
+    },
+    {
+      "quote_id": "Q013",
+      "block_id": "B029",
+      "text": "BofA Merrill Lynch"
+    },
+    {
+      "quote_id": "Q014",
+      "block_id": "B010",
+      "text": "Gibson Dunn"
+    },
+    {
+      "quote_id": "Q015",
+      "block_id": "B093",
+      "text": "Shearman & Sterling LLP"
+    },
+    {
+      "quote_id": "Q016",
+      "block_id": "B032",
+      "text": "18 prospective acquirers"
+    },
+    {
+      "quote_id": "Q017",
+      "block_id": "B036",
+      "text": "executed six non-disclosure agreements"
+    },
+    {
+      "quote_id": "Q018",
+      "block_id": "B032",
+      "text": "three prospective acquirers"
+    }
+  ],
   "actors": [
     {
-      "actor_id": "target_board_stec",
-      "display_name": "sTec Board of Directors / Special Committee",
-      "canonical_name": "STEC BOARD OF DIRECTORS",
+      "actor_id": "target_stec_board",
+      "display_name": "sTec Board",
+      "canonical_name": "STEC BOARD",
       "aliases": [
         "board of directors",
-        "special committee",
-        "independent directors"
+        "special committee"
       ],
       "role": "target_board",
       "advisor_kind": null,
@@ -242,236 +333,11 @@ B235 [L2043-L2043]: 44
       "is_grouped": false,
       "group_size": null,
       "group_label": null,
-      "evidence_span_ids": [
-        "span_0001",
-        "span_0003",
-        "span_0009",
-        "span_0020",
-        "span_0021",
-        "span_0083"
+      "quote_ids": [
+        "Q001"
       ],
       "notes": [
-        "Special committee initially composed of Dr. Daly, Messrs. Colpitts and Witte; expanded to four members with Mr. Bahri on March 26, 2013."
-      ]
-    },
-    {
-      "actor_id": "bidder_wdc",
-      "display_name": "Western Digital Corporation",
-      "canonical_name": "WESTERN DIGITAL CORPORATION",
-      "aliases": [
-        "WDC"
-      ],
-      "role": "bidder",
-      "advisor_kind": null,
-      "advised_actor_id": null,
-      "bidder_kind": "strategic",
-      "listing_status": "public",
-      "geography": "domestic",
-      "is_grouped": false,
-      "group_size": null,
-      "group_label": null,
-      "evidence_span_ids": [
-        "span_0005",
-        "span_0006",
-        "span_0044",
-        "span_0047",
-        "span_0054",
-        "span_0059",
-        "span_0061",
-        "span_0066",
-        "span_0067"
-      ],
-      "notes": []
-    },
-    {
-      "actor_id": "bidder_company_a",
-      "display_name": "Company A",
-      "canonical_name": "COMPANY A",
-      "aliases": [],
-      "role": "bidder",
-      "advisor_kind": null,
-      "advised_actor_id": null,
-      "bidder_kind": "strategic",
-      "listing_status": null,
-      "geography": null,
-      "is_grouped": false,
-      "group_size": null,
-      "group_label": null,
-      "evidence_span_ids": [
-        "span_0011",
-        "span_0012",
-        "span_0039",
-        "span_0081"
-      ],
-      "notes": [
-        "Described as a participant in the storage industry. Had an investment bank represent it. Cancelled meeting before process began. Indicated not interested during BofA outreach."
-      ]
-    },
-    {
-      "actor_id": "bidder_company_b",
-      "display_name": "Company B",
-      "canonical_name": "COMPANY B",
-      "aliases": [],
-      "role": "bidder",
-      "advisor_kind": null,
-      "advised_actor_id": null,
-      "bidder_kind": "strategic",
-      "listing_status": null,
-      "geography": null,
-      "is_grouped": false,
-      "group_size": null,
-      "group_label": null,
-      "evidence_span_ids": [
-        "span_0022",
-        "span_0023",
-        "span_0027",
-        "span_0084"
-      ],
-      "notes": [
-        "Described as a participant in the electronics industry. Determined it was not interested in acquiring sTec."
-      ]
-    },
-    {
-      "actor_id": "bidder_company_c",
-      "display_name": "Company C",
-      "canonical_name": "COMPANY C",
-      "aliases": [],
-      "role": "bidder",
-      "advisor_kind": null,
-      "advised_actor_id": null,
-      "bidder_kind": "strategic",
-      "listing_status": null,
-      "geography": null,
-      "is_grouped": false,
-      "group_size": null,
-      "group_label": null,
-      "evidence_span_ids": [
-        "span_0028",
-        "span_0076"
-      ],
-      "notes": [
-        "Described as a participant in the semiconductor industry. Only interested in limited, select assets."
-      ]
-    },
-    {
-      "actor_id": "bidder_company_d",
-      "display_name": "Company D",
-      "canonical_name": "COMPANY D",
-      "aliases": [],
-      "role": "bidder",
-      "advisor_kind": null,
-      "advised_actor_id": null,
-      "bidder_kind": "strategic",
-      "listing_status": null,
-      "geography": null,
-      "is_grouped": false,
-      "group_size": null,
-      "group_label": null,
-      "evidence_span_ids": [
-        "span_0030",
-        "span_0037",
-        "span_0041",
-        "span_0049",
-        "span_0056",
-        "span_0057",
-        "span_0058"
-      ],
-      "notes": [
-        "Described as a participant in the storage industry. Submitted IOI at $5.75/share. Disengaged from process on June 5, 2013."
-      ]
-    },
-    {
-      "actor_id": "bidder_company_e",
-      "display_name": "Company E",
-      "canonical_name": "COMPANY E",
-      "aliases": [],
-      "role": "bidder",
-      "advisor_kind": null,
-      "advised_actor_id": null,
-      "bidder_kind": "strategic",
-      "listing_status": null,
-      "geography": null,
-      "is_grouped": false,
-      "group_size": null,
-      "group_label": null,
-      "evidence_span_ids": [
-        "span_0040",
-        "span_0064",
-        "span_0078"
-      ],
-      "notes": [
-        "Described as a participant in the storage industry. Only interested in limited, select assets."
-      ]
-    },
-    {
-      "actor_id": "bidder_company_f",
-      "display_name": "Company F",
-      "canonical_name": "COMPANY F",
-      "aliases": [],
-      "role": "bidder",
-      "advisor_kind": null,
-      "advised_actor_id": null,
-      "bidder_kind": "strategic",
-      "listing_status": null,
-      "geography": null,
-      "is_grouped": false,
-      "group_size": null,
-      "group_label": null,
-      "evidence_span_ids": [
-        "span_0042",
-        "span_0064",
-        "span_0077"
-      ],
-      "notes": [
-        "Described as another participant in the storage industry. Declined invitation to schedule management presentation. Only interested in select assets."
-      ]
-    },
-    {
-      "actor_id": "bidder_company_g",
-      "display_name": "Company G",
-      "canonical_name": "COMPANY G",
-      "aliases": [],
-      "role": "bidder",
-      "advisor_kind": null,
-      "advised_actor_id": null,
-      "bidder_kind": "strategic",
-      "listing_status": null,
-      "geography": null,
-      "is_grouped": false,
-      "group_size": null,
-      "group_label": null,
-      "evidence_span_ids": [
-        "span_0043",
-        "span_0079"
-      ],
-      "notes": [
-        "Described as a participant in the storage industry. Indicated it would not continue in the process on May 3, 2013."
-      ]
-    },
-    {
-      "actor_id": "bidder_company_h",
-      "display_name": "Company H",
-      "canonical_name": "COMPANY H",
-      "aliases": [],
-      "role": "bidder",
-      "advisor_kind": null,
-      "advised_actor_id": null,
-      "bidder_kind": "strategic",
-      "listing_status": null,
-      "geography": null,
-      "is_grouped": false,
-      "group_size": null,
-      "group_label": null,
-      "evidence_span_ids": [
-        "span_0037",
-        "span_0046",
-        "span_0050",
-        "span_0051",
-        "span_0065",
-        "span_0080"
-      ],
-      "notes": [
-        "Described as a participant in the storage industry. Submitted IOI at $5.00-$5.75/share. Could not increase its price."
+        "Includes the special committee when it directed the strategic review."
       ]
     },
     {
@@ -490,16 +356,10 @@ B235 [L2043-L2043]: 44
       "is_grouped": false,
       "group_size": null,
       "group_label": null,
-      "evidence_span_ids": [
-        "span_0015",
-        "span_0016",
-        "span_0018",
-        "span_0019",
-        "span_0074"
+      "quote_ids": [
+        "Q002"
       ],
-      "notes": [
-        "Filed Schedule 13D on November 16, 2012. Started at 6.4%, later jointly held 9.8% with Potomac. Nominated three directors for 2013 annual meeting."
-      ]
+      "notes": []
     },
     {
       "actor_id": "activist_potomac",
@@ -517,45 +377,216 @@ B235 [L2043-L2043]: 44
       "is_grouped": false,
       "group_size": null,
       "group_label": null,
-      "evidence_span_ids": [
-        "span_0017",
-        "span_0018",
-        "span_0074"
+      "quote_ids": [
+        "Q003"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_wdc",
+      "display_name": "Western Digital Corporation",
+      "canonical_name": "WESTERN DIGITAL CORPORATION",
+      "aliases": [
+        "WDC"
+      ],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": "public",
+      "geography": "domestic",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "quote_ids": [
+        "Q004"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_a",
+      "display_name": "Company A",
+      "canonical_name": "COMPANY A",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "quote_ids": [
+        "Q005"
       ],
       "notes": [
-        "Joined Balch Hill in activist campaign. Jointly increased holdings to 9.8%."
+        "Storage-industry participant contacted in November 2012."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_b",
+      "display_name": "Company B",
+      "canonical_name": "COMPANY B",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "quote_ids": [
+        "Q006"
+      ],
+      "notes": [
+        "Electronics-industry participant."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_c",
+      "display_name": "Company C",
+      "canonical_name": "COMPANY C",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "quote_ids": [
+        "Q007"
+      ],
+      "notes": [
+        "Semiconductor-industry participant that only pursued selected assets."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_d",
+      "display_name": "Company D",
+      "canonical_name": "COMPANY D",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "quote_ids": [
+        "Q008"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_e",
+      "display_name": "Company E",
+      "canonical_name": "COMPANY E",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "quote_ids": [
+        "Q009"
+      ],
+      "notes": [
+        "Storage-industry participant that ultimately focused on selected assets."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_f",
+      "display_name": "Company F",
+      "canonical_name": "COMPANY F",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "quote_ids": [
+        "Q010"
+      ],
+      "notes": [
+        "Storage-industry participant that ultimately focused on selected assets."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_g",
+      "display_name": "Company G",
+      "canonical_name": "COMPANY G",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "quote_ids": [
+        "Q011"
+      ],
+      "notes": [
+        "Storage-industry participant."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_h",
+      "display_name": "Company H",
+      "canonical_name": "COMPANY H",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "quote_ids": [
+        "Q012"
+      ],
+      "notes": [
+        "Storage-industry participant that emerged on May 1, 2013."
       ]
     },
     {
       "actor_id": "advisor_bofa_merrill_lynch",
       "display_name": "BofA Merrill Lynch",
       "canonical_name": "BOFA MERRILL LYNCH",
-      "aliases": [
-        "Bank of America Merrill Lynch"
-      ],
+      "aliases": [],
       "role": "advisor",
       "advisor_kind": "financial",
-      "advised_actor_id": "target_board_stec",
+      "advised_actor_id": "target_stec_board",
       "bidder_kind": null,
-      "listing_status": null,
+      "listing_status": "public",
       "geography": null,
       "is_grouped": false,
       "group_size": null,
       "group_label": null,
-      "evidence_span_ids": [
-        "span_0026",
-        "span_0031",
-        "span_0032",
-        "span_0033",
-        "span_0034",
-        "span_0035",
-        "span_0053",
-        "span_0071",
-        "span_0072"
+      "quote_ids": [
+        "Q013"
       ],
-      "notes": [
-        "Engaged March 28, 2013. Fee approximately $4.3 million. Delivered fairness opinion June 23, 2013."
-      ]
+      "notes": []
     },
     {
       "actor_id": "advisor_gibson_dunn",
@@ -566,68 +597,20 @@ B235 [L2043-L2043]: 44
       ],
       "role": "advisor",
       "advisor_kind": "legal",
-      "advised_actor_id": "target_board_stec",
+      "advised_actor_id": "target_stec_board",
       "bidder_kind": null,
       "listing_status": null,
       "geography": null,
       "is_grouped": false,
       "group_size": null,
       "group_label": null,
-      "evidence_span_ids": [
-        "span_0013",
-        "span_0014",
-        "span_0082"
+      "quote_ids": [
+        "Q014"
       ],
-      "notes": [
-        "Engaged in October 2012 as outside corporate counsel."
-      ]
+      "notes": []
     },
     {
-      "actor_id": "advisor_latham_watkins",
-      "display_name": "Latham & Watkins LLP",
-      "canonical_name": "LATHAM & WATKINS LLP",
-      "aliases": [
-        "Latham & Watkins"
-      ],
-      "role": "advisor",
-      "advisor_kind": "legal",
-      "advised_actor_id": "target_board_stec",
-      "bidder_kind": null,
-      "listing_status": null,
-      "geography": null,
-      "is_grouped": false,
-      "group_size": null,
-      "group_label": null,
-      "evidence_span_ids": [
-        "span_0052"
-      ],
-      "notes": [
-        "Described as litigation counsel to sTec and Mr. Manouch Moshayedi."
-      ]
-    },
-    {
-      "actor_id": "advisor_mackenzie_partners",
-      "display_name": "MacKenzie Partners",
-      "canonical_name": "MACKENZIE PARTNERS",
-      "aliases": [],
-      "role": "advisor",
-      "advisor_kind": "financial",
-      "advised_actor_id": "target_board_stec",
-      "bidder_kind": null,
-      "listing_status": null,
-      "geography": null,
-      "is_grouped": false,
-      "group_size": null,
-      "group_label": null,
-      "evidence_span_ids": [
-        "span_0029"
-      ],
-      "notes": [
-        "Described as sTecs proxy solicitor."
-      ]
-    },
-    {
-      "actor_id": "advisor_shearman_sterling",
+      "actor_id": "advisor_shearman",
       "display_name": "Shearman & Sterling LLP",
       "canonical_name": "SHEARMAN & STERLING LLP",
       "aliases": [
@@ -642,182 +625,38 @@ B235 [L2043-L2043]: 44
       "is_grouped": false,
       "group_size": null,
       "group_label": null,
-      "evidence_span_ids": [
-        "span_0063"
+      "quote_ids": [
+        "Q015"
       ],
-      "notes": [
-        "Counsel to WDC."
-      ]
-    },
-    {
-      "actor_id": "advisor_paul_hastings",
-      "display_name": "Paul Hastings LLP",
-      "canonical_name": "PAUL HASTINGS LLP",
-      "aliases": [
-        "Paul Hastings"
-      ],
-      "role": "advisor",
-      "advisor_kind": "legal",
-      "advised_actor_id": null,
-      "bidder_kind": null,
-      "listing_status": null,
-      "geography": null,
-      "is_grouped": false,
-      "group_size": null,
-      "group_label": null,
-      "evidence_span_ids": [
-        "span_0062"
-      ],
-      "notes": [
-        "Counsel to Messrs. Moshayedi (personal counsel, not sTec)."
-      ]
-    },
-    {
-      "actor_id": "advisor_company_a_ib",
-      "display_name": "Company A's Investment Bank",
-      "canonical_name": "COMPANY A INVESTMENT BANK",
-      "aliases": [],
-      "role": "advisor",
-      "advisor_kind": "financial",
-      "advised_actor_id": "bidder_company_a",
-      "bidder_kind": null,
-      "listing_status": null,
-      "geography": null,
-      "is_grouped": false,
-      "group_size": null,
-      "group_label": null,
-      "evidence_span_ids": [
-        "span_0011"
-      ],
-      "notes": [
-        "Unnamed investment bank that contacted sTec management on behalf of Company A on November 14, 2012."
-      ]
-    },
-    {
-      "actor_id": "grouped_prospective_acquirers_not_interested",
-      "display_name": "Non-interested Prospective Acquirers",
-      "canonical_name": "NON-INTERESTED PROSPECTIVE ACQUIRERS",
-      "aliases": [],
-      "role": "bidder",
-      "advisor_kind": null,
-      "advised_actor_id": null,
-      "bidder_kind": "strategic",
-      "listing_status": null,
-      "geography": null,
-      "is_grouped": true,
-      "group_size": 9,
-      "group_label": "nine prospective acquirers not interested",
-      "evidence_span_ids": [
-        "span_0039"
-      ],
-      "notes": [
-        "Including the financial sponsor and Company A. Indicated they were not interested in a potential transaction."
-      ]
-    },
-    {
-      "actor_id": "grouped_asset_only_acquirers",
-      "display_name": "Asset-Only Interested Acquirers",
-      "canonical_name": "ASSET-ONLY INTERESTED ACQUIRERS",
-      "aliases": [],
-      "role": "bidder",
-      "advisor_kind": null,
-      "advised_actor_id": null,
-      "bidder_kind": "strategic",
-      "listing_status": null,
-      "geography": null,
-      "is_grouped": true,
-      "group_size": 6,
-      "group_label": "six potential strategic acquirers interested in limited assets",
-      "evidence_span_ids": [
-        "span_0038"
-      ],
-      "notes": [
-        "Expressed interest only in purchasing limited, select assets of sTec."
-      ]
-    },
-    {
-      "actor_id": "grouped_financial_sponsor",
-      "display_name": "Unnamed Financial Sponsor",
-      "canonical_name": "UNNAMED FINANCIAL SPONSOR",
-      "aliases": [],
-      "role": "bidder",
-      "advisor_kind": null,
-      "advised_actor_id": null,
-      "bidder_kind": "financial",
-      "listing_status": null,
-      "geography": null,
-      "is_grouped": false,
-      "group_size": null,
-      "group_label": null,
-      "evidence_span_ids": [
-        "span_0036",
-        "span_0039"
-      ],
-      "notes": [
-        "One of 18 prospective acquirers. Among the nine who indicated not interested."
-      ]
+      "notes": []
     }
   ],
   "count_assertions": [
     {
-      "subject": "prospective acquirers contacted by BofA Merrill Lynch",
+      "subject": "prospective acquirers contacted",
       "count": 18,
-      "evidence_span_ids": [
-        "span_0035"
+      "quote_ids": [
+        "Q016"
       ]
     },
     {
-      "subject": "technology companies among prospective acquirers",
-      "count": 17,
-      "evidence_span_ids": [
-        "span_0036"
+      "subject": "confidentiality agreements",
+      "count": 6,
+      "quote_ids": [
+        "Q017"
       ]
     },
     {
-      "subject": "financial sponsor among prospective acquirers",
-      "count": 1,
-      "evidence_span_ids": [
-        "span_0036"
-      ]
-    },
-    {
-      "subject": "prospective acquirers submitting written IOIs for complete purchase",
+      "subject": "written whole-company indications of interest",
       "count": 3,
-      "evidence_span_ids": [
-        "span_0037",
-        "span_0073"
-      ]
-    },
-    {
-      "subject": "strategic acquirers interested in limited select assets",
-      "count": 6,
-      "evidence_span_ids": [
-        "span_0038"
-      ]
-    },
-    {
-      "subject": "prospective acquirers not interested",
-      "count": 9,
-      "evidence_span_ids": [
-        "span_0039"
-      ]
-    },
-    {
-      "subject": "non-disclosure agreements executed for potential sale",
-      "count": 6,
-      "evidence_span_ids": [
-        "span_0045"
-      ]
-    },
-    {
-      "subject": "other potential buyers contacted",
-      "count": 17,
-      "evidence_span_ids": [
-        "span_0069"
+      "quote_ids": [
+        "Q018"
       ]
     }
   ],
-  "unresolved_mentions": []
+  "unresolved_mentions": [
+    "One unnamed financial sponsor was contacted during the April 2013 market check and declined interest."
+  ]
 }
 </actor_roster>
 

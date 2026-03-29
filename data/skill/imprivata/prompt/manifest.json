@@ -1,20 +1,20 @@
 {
   "schema_version": "2.0.0",
   "artifact_type": "prompt_packet_manifest",
-  "created_at": "2026-03-29T10:05:43.147438Z",
+  "created_at": "2026-03-29T12:41:16.246633Z",
   "pipeline_version": "0.1.0",
-  "run_id": "compose-f33bc778",
+  "run_id": "compose-c982a013",
   "deal_slug": "imprivata",
   "source_accession_number": "0001193125-16-677939",
   "packets": [
     {
-      "packet_id": "actors-w0",
-      "packet_family": "actors",
+      "packet_id": "events-w0",
+      "packet_family": "events",
       "chunk_mode": "single_pass",
       "window_id": "w0",
-      "prefix_path": "/home/austinli/Projects/bids_pipeline/data/skill/imprivata/prompt/packets/actors-w0/prefix.md",
-      "body_path": "/home/austinli/Projects/bids_pipeline/data/skill/imprivata/prompt/packets/actors-w0/body.md",
-      "rendered_path": "/home/austinli/Projects/bids_pipeline/data/skill/imprivata/prompt/packets/actors-w0/rendered.md",
+      "prefix_path": "/home/austinli/Projects/bids_pipeline/data/skill/imprivata/prompt/packets/events-w0/prefix.md",
+      "body_path": "/home/austinli/Projects/bids_pipeline/data/skill/imprivata/prompt/packets/events-w0/body.md",
+      "rendered_path": "/home/austinli/Projects/bids_pipeline/data/skill/imprivata/prompt/packets/events-w0/rendered.md",
       "evidence_ids": [
         "0001193125-16-677939:E0328",
         "0001193125-16-677939:E0329",
@@ -208,14 +208,15 @@
         "0001193125-16-677939:E0517",
         "0001193125-16-677939:E0518"
       ],
-      "actor_roster_source_path": null
+      "actor_roster_source_path": "/home/austinli/Projects/bids_pipeline/data/skill/imprivata/extract/actors_raw.json"
     }
   ],
   "asset_files": [
-    "/home/austinli/Projects/bids_pipeline/skill_pipeline/prompt_assets/actors_prefix.md"
+    "/home/austinli/Projects/bids_pipeline/skill_pipeline/prompt_assets/events_prefix.md",
+    "/home/austinli/Projects/bids_pipeline/skill_pipeline/prompt_assets/event_examples.md"
   ],
   "notes": [
-    "mode=actors",
+    "mode=events",
     "chunk_budget=6000",
     "routing=auto",
     "effective_budget=single-pass",

@@ -4,12 +4,11 @@
       "gate_id": "temporal_consistency",
       "rule_id": "temporal_phase_mismatch",
       "severity": "warning",
-      "description": "Event evt_004 type bidder_interest is grounded only in ['bidding'] blocks.",
+      "description": "Event evt_003 type bidder_interest is grounded only in ['bidding'] blocks.",
       "event_ids": [
-        "evt_004"
+        "evt_003"
       ],
       "actor_ids": [
-        "advisor_company_a_ib",
         "bidder_company_a"
       ],
       "block_ids": [
@@ -20,9 +19,24 @@
       "gate_id": "temporal_consistency",
       "rule_id": "temporal_phase_mismatch",
       "severity": "warning",
-      "description": "Event evt_006 type activist_sale is grounded only in ['bidding'] blocks.",
+      "description": "Event evt_001 type target_sale is grounded only in ['bidding'] blocks.",
       "event_ids": [
-        "evt_006"
+        "evt_001"
+      ],
+      "actor_ids": [
+        "target_stec_board"
+      ],
+      "block_ids": [
+        "B007"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_002 type activist_sale is grounded only in ['bidding'] blocks.",
+      "event_ids": [
+        "evt_002"
       ],
       "actor_ids": [
         "activist_balch_hill"
@@ -35,24 +49,9 @@
       "gate_id": "temporal_consistency",
       "rule_id": "temporal_phase_mismatch",
       "severity": "warning",
-      "description": "Event evt_007 type activist_sale is grounded only in ['bidding'] blocks.",
+      "description": "Event evt_004 type bidder_interest is grounded only in ['bidding'] blocks.",
       "event_ids": [
-        "evt_007"
-      ],
-      "actor_ids": [
-        "activist_balch_hill"
-      ],
-      "block_ids": [
-        "B011"
-      ]
-    },
-    {
-      "gate_id": "temporal_consistency",
-      "rule_id": "temporal_phase_mismatch",
-      "severity": "warning",
-      "description": "Event evt_008 type bidder_interest is grounded only in ['bidding'] blocks.",
-      "event_ids": [
-        "evt_008"
+        "evt_004"
       ],
       "actor_ids": [
         "bidder_company_b"
@@ -65,27 +64,27 @@
       "gate_id": "temporal_consistency",
       "rule_id": "temporal_phase_mismatch",
       "severity": "warning",
-      "description": "Event evt_010 type bidder_interest is grounded only in ['bidding'] blocks.",
+      "description": "Event evt_005 type bidder_interest is grounded only in ['bidding'] blocks.",
       "event_ids": [
-        "evt_010"
+        "evt_005"
       ],
       "actor_ids": [
-        "bidder_company_c"
+        "bidder_company_d"
       ],
       "block_ids": [
-        "B024"
+        "B028"
       ]
     },
     {
       "gate_id": "temporal_consistency",
       "rule_id": "temporal_phase_mismatch",
       "severity": "warning",
-      "description": "Event evt_011a type target_sale is grounded only in ['bidding'] blocks.",
+      "description": "Event evt_029 type target_sale is grounded only in ['bidding'] blocks.",
       "event_ids": [
-        "evt_011a"
+        "evt_029"
       ],
       "actor_ids": [
-        "target_board_stec"
+        "target_stec_board"
       ],
       "block_ids": [
         "B029"
@@ -95,16 +94,14 @@
       "gate_id": "temporal_consistency",
       "rule_id": "temporal_phase_mismatch",
       "severity": "warning",
-      "description": "Event evt_012 type ib_retention is grounded only in ['bidding'] blocks.",
+      "description": "Event evt_006 type ib_retention is grounded only in ['bidding'] blocks.",
       "event_ids": [
-        "evt_012"
+        "evt_006"
       ],
       "actor_ids": [
-        "advisor_bofa_merrill_lynch",
-        "target_board_stec"
+        "advisor_bofa_merrill_lynch"
       ],
       "block_ids": [
-        "B029",
         "B030"
       ]
     },
@@ -112,25 +109,24 @@
       "gate_id": "temporal_consistency",
       "rule_id": "temporal_phase_mismatch",
       "severity": "warning",
-      "description": "Event evt_013 type target_sale is grounded only in ['bidding'] blocks.",
+      "description": "Event evt_010 type nda is grounded only in ['outcome'] blocks.",
       "event_ids": [
-        "evt_013"
+        "evt_010"
       ],
       "actor_ids": [
-        "advisor_bofa_merrill_lynch",
-        "target_board_stec"
+        "bidder_company_g"
       ],
       "block_ids": [
-        "B032"
+        "B036"
       ]
     },
     {
       "gate_id": "temporal_consistency",
       "rule_id": "temporal_phase_mismatch",
       "severity": "warning",
-      "description": "Event evt_018 type nda is grounded only in ['outcome'] blocks.",
+      "description": "Event evt_011 type nda is grounded only in ['outcome'] blocks.",
       "event_ids": [
-        "evt_018"
+        "evt_011"
       ],
       "actor_ids": [
         "bidder_wdc"
@@ -143,28 +139,11 @@
       "gate_id": "temporal_consistency",
       "rule_id": "temporal_phase_mismatch",
       "severity": "warning",
-      "description": "Event evt_025 type bidder_interest is grounded only in ['bidding'] blocks.",
+      "description": "Event evt_017 type final_round_ann is grounded only in ['outcome'] blocks.",
       "event_ids": [
-        "evt_025"
+        "evt_017"
       ],
-      "actor_ids": [
-        "bidder_company_h"
-      ],
-      "block_ids": [
-        "B046"
-      ]
-    },
-    {
-      "gate_id": "temporal_consistency",
-      "rule_id": "temporal_phase_mismatch",
-      "severity": "warning",
-      "description": "Event evt_031 type final_round_ann is grounded only in ['outcome'] blocks.",
-      "event_ids": [
-        "evt_031"
-      ],
-      "actor_ids": [
-        "advisor_bofa_merrill_lynch"
-      ],
+      "actor_ids": [],
       "block_ids": [
         "B064"
       ]
@@ -173,9 +152,22 @@
       "gate_id": "temporal_consistency",
       "rule_id": "temporal_phase_mismatch",
       "severity": "warning",
-      "description": "Event evt_033 type proposal is grounded only in ['outcome'] blocks.",
+      "description": "Event evt_018 type final_round is grounded only in ['outcome'] blocks.",
       "event_ids": [
-        "evt_033"
+        "evt_018"
+      ],
+      "actor_ids": [],
+      "block_ids": [
+        "B064"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_020 type proposal is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_020"
       ],
       "actor_ids": [
         "bidder_wdc"
@@ -188,111 +180,36 @@
       "gate_id": "temporal_consistency",
       "rule_id": "temporal_phase_mismatch",
       "severity": "warning",
-      "description": "Event evt_034 type final_round_ext_ann is grounded only in ['outcome'] blocks.",
+      "description": "Event evt_028 type bid_press_release is grounded only in ['outcome'] blocks.",
       "event_ids": [
-        "evt_034"
-      ],
-      "actor_ids": [
-        "advisor_bofa_merrill_lynch",
-        "target_board_stec"
-      ],
-      "block_ids": [
-        "B068"
-      ]
-    },
-    {
-      "gate_id": "temporal_consistency",
-      "rule_id": "temporal_phase_mismatch",
-      "severity": "warning",
-      "description": "Event evt_038 type restarted is grounded only in ['bidding'] blocks.",
-      "event_ids": [
-        "evt_038"
+        "evt_028"
       ],
       "actor_ids": [
         "bidder_wdc"
-      ],
-      "block_ids": [
-        "B083"
-      ]
-    },
-    {
-      "gate_id": "temporal_consistency",
-      "rule_id": "temporal_phase_mismatch",
-      "severity": "warning",
-      "description": "Event evt_042 type bid_press_release is grounded only in ['outcome'] blocks.",
-      "event_ids": [
-        "evt_042"
-      ],
-      "actor_ids": [
-        "bidder_wdc",
-        "target_board_stec"
       ],
       "block_ids": [
         "B102"
       ]
     },
     {
-      "gate_id": "cross_event_logic",
-      "rule_id": "undated_event_in_sequence",
+      "gate_id": "actor_lifecycle",
+      "rule_id": "nda_signer_no_downstream",
       "severity": "warning",
-      "description": "Event evt_015 (nda) has no parseable date and was excluded from chronological sequence checks.",
-      "event_ids": [
-        "evt_015"
-      ],
-      "actor_ids": [
-        "bidder_company_d"
-      ],
-      "block_ids": []
-    },
-    {
-      "gate_id": "cross_event_logic",
-      "rule_id": "undated_event_in_sequence",
-      "severity": "warning",
-      "description": "Event evt_016 (nda) has no parseable date and was excluded from chronological sequence checks.",
-      "event_ids": [
-        "evt_016"
-      ],
-      "actor_ids": [
-        "bidder_company_f"
-      ],
-      "block_ids": []
-    },
-    {
-      "gate_id": "cross_event_logic",
-      "rule_id": "undated_event_in_sequence",
-      "severity": "warning",
-      "description": "Event evt_017 (nda) has no parseable date and was excluded from chronological sequence checks.",
-      "event_ids": [
-        "evt_017"
-      ],
-      "actor_ids": [
-        "bidder_company_g"
-      ],
-      "block_ids": []
-    },
-    {
-      "gate_id": "cross_event_logic",
-      "rule_id": "undated_event_in_sequence",
-      "severity": "warning",
-      "description": "Event evt_020 (drop) has no parseable date and was excluded from chronological sequence checks.",
-      "event_ids": [
-        "evt_020"
-      ],
-      "actor_ids": [
-        "bidder_company_f"
-      ],
-      "block_ids": []
-    },
-    {
-      "gate_id": "cross_event_logic",
-      "rule_id": "undated_event_in_sequence",
-      "severity": "warning",
-      "description": "Event evt_021 (drop) has no parseable date and was excluded from chronological sequence checks.",
-      "event_ids": [
-        "evt_021"
-      ],
+      "description": "NDA signer bidder_company_e does not appear in any downstream proposal, drop, executed, or terminated event.",
+      "event_ids": [],
       "actor_ids": [
         "bidder_company_e"
+      ],
+      "block_ids": []
+    },
+    {
+      "gate_id": "actor_lifecycle",
+      "rule_id": "nda_signer_no_downstream",
+      "severity": "warning",
+      "description": "NDA signer bidder_company_f does not appear in any downstream proposal, drop, executed, or terminated event.",
+      "event_ids": [],
+      "actor_ids": [
+        "bidder_company_f"
       ],
       "block_ids": []
     }
@@ -310,7 +227,7 @@
   },
   "summary": {
     "blocker_count": 0,
-    "warning_count": 20,
+    "warning_count": 15,
     "status": "pass"
   }
 }

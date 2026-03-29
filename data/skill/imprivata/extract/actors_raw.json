@@ -1,0 +1,270 @@
+{
+  "actors": [
+    {
+      "actor_id": "target_imprivata_board",
+      "display_name": "Imprivata Board",
+      "canonical_name": "IMPRIVATA BOARD",
+      "aliases": [
+        "Board",
+        "Special Committee"
+      ],
+      "role": "target_board",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0001"
+      ],
+      "notes": [
+        "Includes the Special Committee when it directed the sale process."
+      ]
+    },
+    {
+      "actor_id": "bidder_thoma_bravo",
+      "display_name": "Thoma Bravo",
+      "canonical_name": "THOMA BRAVO, LLC",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": "private",
+      "geography": "domestic",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0002"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_sponsor_a",
+      "display_name": "Sponsor A",
+      "canonical_name": "SPONSOR A",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": "private",
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0003"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_sponsor_b",
+      "display_name": "Sponsor B",
+      "canonical_name": "SPONSOR B",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": "private",
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0004"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_strategic_1",
+      "display_name": "Strategic 1",
+      "canonical_name": "STRATEGIC 1",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0005"
+      ],
+      "notes": [
+        "Telecommunications enterprise company."
+      ]
+    },
+    {
+      "actor_id": "bidder_strategic_2",
+      "display_name": "Strategic 2",
+      "canonical_name": "STRATEGIC 2",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0006"
+      ],
+      "notes": [
+        "Large software company."
+      ]
+    },
+    {
+      "actor_id": "bidder_strategic_3",
+      "display_name": "Strategic 3",
+      "canonical_name": "STRATEGIC 3",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0007"
+      ],
+      "notes": [
+        "Large software company."
+      ]
+    },
+    {
+      "actor_id": "bidder_strategic_4",
+      "display_name": "Strategic 4",
+      "canonical_name": "STRATEGIC 4",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0008"
+      ],
+      "notes": [
+        "Enterprise software company contacted after the first-round bids."
+      ]
+    },
+    {
+      "actor_id": "bidder_unnamed_financial_sponsor",
+      "display_name": "Unnamed Financial Sponsor",
+      "canonical_name": "UNNAMED FINANCIAL SPONSOR",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": "private",
+      "geography": null,
+      "is_grouped": true,
+      "group_size": 1,
+      "group_label": "Unnamed financial sponsor",
+      "evidence_span_ids": [
+        "span_0009"
+      ],
+      "notes": [
+        "Executed a confidentiality agreement and declined shortly thereafter."
+      ]
+    },
+    {
+      "actor_id": "advisor_barclays",
+      "display_name": "Barclays",
+      "canonical_name": "BARCLAYS",
+      "aliases": [],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "target_imprivata_board",
+      "bidder_kind": null,
+      "listing_status": "public",
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0010"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_goodwin",
+      "display_name": "Goodwin Procter LLP",
+      "canonical_name": "GOODWIN PROCTER LLP",
+      "aliases": [
+        "Goodwin"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": "target_imprivata_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0011"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_kirkland",
+      "display_name": "Kirkland & Ellis LLP",
+      "canonical_name": "KIRKLAND & ELLIS LLP",
+      "aliases": [
+        "Kirkland"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": "bidder_thoma_bravo",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0012"
+      ],
+      "notes": []
+    }
+  ],
+  "count_assertions": [
+    {
+      "subject": "confidentiality agreements",
+      "count": 7,
+      "evidence_span_ids": [
+        "span_0013"
+      ]
+    },
+    {
+      "subject": "parties in strategic process",
+      "count": 15,
+      "evidence_span_ids": [
+        "span_0014"
+      ]
+    }
+  ],
+  "unresolved_mentions": [
+    "One unnamed financial sponsor executed a confidentiality agreement and declined shortly thereafter."
+  ]
+}

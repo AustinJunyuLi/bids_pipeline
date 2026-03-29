@@ -1,38 +1,28 @@
 {
   "dropout_classifications": {
-    "evt_012": {
+    "evt_014": {
       "label": "Drop",
-      "basis": "Company G stated that it would not continue in the process.",
-      "source_text": "Company G indicated it would not continue in the process"
+      "basis": "Company G stated that it would not continue in the process, with no filing-grounded valuation comparison or target exclusion.",
+      "source_text": "Also on May 3, 2013, Company G indicated it would not continue in the process."
     },
-    "evt_017": {
+    "evt_019": {
       "label": "DropAtInf",
-      "basis": "Company H said it could not increase its indicated value range after previously bidding $5.00 to $5.75 per share.",
-      "source_text": "Company H was not able to increase its indicated value range"
-    },
-    "evt_022": {
-      "label": "Drop",
-      "basis": "WDC reevaluated its interest and said it was not prepared to move forward at that time.",
-      "source_text": "WDC had decided to reconsider its interest in acquiring sTec and that it was not prepared to move forward with a transaction with sTec at that time"
+      "basis": "Company H said it could not improve the value range from its earlier informal proposal, so the bidder dropped at its prior informal level.",
+      "source_text": "Company H was not able to increase its indicated value range."
     },
     "evt_023": {
       "label": "Drop",
-      "basis": "Company D said it could not conduct due diligence on the required timetable and was disengaging from the process.",
-      "source_text": "Company D would not be in a position to actively conduct due diligence for more than two weeks and was disengaging from the process"
+      "basis": "WDC reevaluated its interest and said it was not prepared to move forward, which is a bidder-initiated withdrawal rather than a comparative price drop or target exclusion.",
+      "source_text": "On May 31, 2013, a representative of WDC communicated to BofA Merrill Lynch that WDC was reevaluating its interest in acquiring sTec, and that WDC was not prepared to move forward with a transaction."
+    },
+    "evt_024": {
+      "label": "Drop",
+      "basis": "Company D said it could not actively continue diligence and was disengaging from the process, with no filing-grounded price comparison.",
+      "source_text": "Company D reconfirmed that it would not be in a position to actively conduct due diligence for more than two weeks and was disengaging from the process."
     }
   },
   "bid_classifications": {
-    "evt_010": {
-      "label": "Informal",
-      "rule_applied": 1.0,
-      "basis": "Observable informal signal from formality_signals."
-    },
-    "evt_011": {
-      "label": "Informal",
-      "rule_applied": 1.0,
-      "basis": "Observable informal signal from formality_signals."
-    },
-    "evt_014": {
+    "evt_013": {
       "label": "Informal",
       "rule_applied": 1.0,
       "basis": "Observable informal signal from formality_signals."
@@ -42,25 +32,30 @@
       "rule_applied": 1.0,
       "basis": "Observable informal signal from formality_signals."
     },
-    "evt_019": {
-      "label": "Formal",
-      "rule_applied": 2.0,
-      "basis": "Observable formal signal from formality_signals."
+    "evt_016": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
     },
-    "evt_024": {
+    "evt_020": {
       "label": "Informal",
       "rule_applied": 1.0,
       "basis": "Observable informal signal from formality_signals."
     },
     "evt_025": {
-      "label": "Formal",
-      "rule_applied": 2.5,
-      "basis": "Proposal after final round announcement/deadline with no informal signals."
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_026": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
     }
   },
   "rounds": [
     {
-      "announcement_event_id": "evt_016",
+      "announcement_event_id": "evt_017",
       "deadline_event_id": "evt_018",
       "round_scope": "formal",
       "invited_actor_ids": [
@@ -71,8 +66,8 @@
       "is_selective": true
     },
     {
-      "announcement_event_id": "evt_020",
-      "deadline_event_id": "evt_021",
+      "announcement_event_id": "evt_021",
+      "deadline_event_id": "evt_022",
       "round_scope": "extension",
       "invited_actor_ids": [
         "bidder_wdc",
@@ -85,49 +80,61 @@
   "cycles": [
     {
       "cycle_id": "cycle_1",
-      "start_event_id": "evt_001",
-      "end_event_id": "evt_026",
+      "start_event_id": "evt_003",
+      "end_event_id": "evt_028",
       "boundary_basis": "Single cycle -- no termination events"
     }
   ],
   "formal_boundary": {
     "cycle_1": {
-      "event_id": "evt_019",
-      "basis": "First formal proposal in cycle: evt_019."
+      "event_id": null,
+      "basis": "No formal proposals in this cycle."
     }
   },
   "initiation_judgment": {
     "type": "mixed",
-    "basis": "The board was already reviewing strategic alternatives because of operating pressure, while Balch Hill separately pressed the board to explore alternatives.",
-    "source_text": "our board of directors determined that it would be beneficial to undertake a formal review of strategic alternatives, including exploring a potential sale of sTec",
+    "basis": "The process combined board-driven exploration of strategic alternatives with contemporaneous inbound bidder interest and later activist pressure, rather than reflecting a single clear trigger.",
+    "source_text": "Consequently, in mid-November, 2012, our board of directors authorized management to contact potential financial advisors to explore their interest in representing the company in its exploration of strategic alternatives.",
     "confidence": "medium"
   },
   "advisory_verification": {
     "advisor_bofa_merrill_lynch": {
-      "advised_actor_id": "target_board_stec",
+      "advised_actor_id": "target_stec_board",
       "verified": true,
       "source_text": "the board approved retaining BofA Merrill Lynch to act as sTec's financial advisor"
     },
     "advisor_gibson_dunn": {
-      "advised_actor_id": "target_board_stec",
+      "advised_actor_id": "target_stec_board",
       "verified": true,
       "source_text": "Gibson, Dunn & Crutcher LLP, which had been engaged in October 2012 as the company's outside corporate counsel"
     },
-    "advisor_latham_watkins": {
-      "advised_actor_id": "target_board_stec",
-      "verified": false,
-      "source_text": "Latham & Watkins LLP, litigation counsel to sTec and Mr. Manouch Moshayedi"
+    "advisor_shearman": {
+      "advised_actor_id": "bidder_wdc",
+      "verified": true,
+      "source_text": "Shearman & Sterling LLP, counsel to WDC"
     }
   },
   "count_reconciliation": [
     {
-      "assertion": "In total sTec executed six non-disclosure agreements related to the exploration of a potential sale of the company.",
+      "assertion": "BofA Merrill Lynch had discussions with 18 prospective acquirers.",
+      "extracted_count": 9,
+      "classification": "unnamed_aggregate",
+      "note": "The extract names nine bidder actors individually (WDC and Companies A-H), leaving nine contacted counterparties unnamed in the filing chronology."
+    },
+    {
+      "assertion": "sTec executed six non-disclosure agreements related to the exploration of a potential sale of the company.",
       "extracted_count": 6,
       "classification": null,
-      "note": "Counts match exactly: six bidder NDA events were extracted."
+      "note": "Counts match exactly across the six NDA signers extracted in the chronology."
+    },
+    {
+      "assertion": "Three prospective acquirers submitted written whole-company indications of interest.",
+      "extracted_count": 3,
+      "classification": null,
+      "note": "Counts match exactly across WDC, Company D, and Company H."
     }
   ],
   "review_flags": [
-    "advisory_mismatch:advisor_latham_watkins"
+    "count_mismatch:prospective_acquirers_contacted"
   ]
 }
