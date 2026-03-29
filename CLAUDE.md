@@ -228,9 +228,9 @@ data/seeds.csv
   -> skill-pipeline gates --deal <slug>
   -> /verify-extraction <slug>        (only if deterministic findings are repairable)
   -> skill-pipeline enrich-core --deal <slug>
-  -> /enrich-deal <slug>              (optional interpretive layer)
   -> skill-pipeline db-load --deal <slug>
   -> skill-pipeline db-export --deal <slug>
+  -> /enrich-deal <slug>              (optional interpretive layer; rerun db-load/db-export if overlay should reach DuckDB/CSV)
   -> /reconcile-alex <slug>           (optional post-export diagnostic)
 ```
 

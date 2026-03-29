@@ -52,6 +52,14 @@ elaborate extraction architecture.
   boundaries, range proposals, and formal-round signals — validated in Phase 5
 - ✓ Database output and deterministic CSV export now derive from one canonical
   DuckDB representation — validated in Phase 5
+- ✓ Shared extract loading now rejects mixed actor/event schema modes before
+  downstream processing — validated in Phase 6
+- ✓ Canonicalize now renumbers cross-array quote IDs deterministically while
+  preserving same-array fail-fast duplicate checks — validated in Phase 6
+- ✓ Coverage and gates now suppress non-sale NDA false positives without
+  weakening real sale-process NDA detection — validated in Phase 6
+- ✓ DuckDB connection handling now retries transient file-lock contention in
+  the shared DB helper with bounded backoff — validated in Phase 6
 - ✓ Block-level metadata enrichment (dates, entities, evidence density,
   temporal phase) in preprocessing — validated in Phase 1
 - ✓ Prompt ordering restructured for cognitive bias exploitation (chronology
@@ -151,12 +159,14 @@ Execution-log-driven fixes:
 
 ## Current State
 
-**v1.0 shipped 2026-03-28.** All 9 deals now have complete pipeline artifacts
-through DuckDB export. The live runtime includes 12 deterministic CLI stages
-(`source-discover`, `raw-fetch`, `preprocess-source`, `compose-prompts`,
-`canonicalize`, `check`, `verify`, `coverage`, `gates`, `enrich-core`,
-`db-load`, `db-export`) plus 4 local-agent skills (`extract-deal`,
-`verify-extraction`, `enrich-deal`). 265 tests passing.
+**v1.0 shipped 2026-03-28. Phase 6 shipped 2026-03-29.** All 9 deals now have
+complete pipeline artifacts through DuckDB export. The live runtime includes 12
+deterministic CLI stages (`source-discover`, `raw-fetch`,
+`preprocess-source`, `compose-prompts`, `canonicalize`, `check`, `verify`,
+`coverage`, `gates`, `enrich-core`, `db-load`, `db-export`) plus 4 local-agent
+skills (`extract-deal`, `verify-extraction`, `enrich-deal`). Phase 6 hardened
+the shared extract loader, canonicalize quote-ID handling, non-sale NDA
+tolerance, and DuckDB lock retry behavior. 288 tests passing.
 
 The 9-deal cross-deal reconciliation found the pipeline wins filing arbitrations
 45:16 vs Alex's hand-coded spreadsheet, but identified systematic enrichment
@@ -218,4 +228,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-29 — v1.1 milestone started*
+*Last updated: 2026-03-29 — Phase 6 complete; Phase 7 next*

@@ -2,22 +2,22 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Executing Phase 06
-stopped_at: Completed 06-02-PLAN.md
-last_updated: "2026-03-29T21:31:19Z"
+status: Ready to plan
+stopped_at: Completed 06-03-PLAN.md
+last_updated: "2026-03-29T22:25:43Z"
 progress:
   total_phases: 4
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 3
-  completed_plans: 2
+  completed_plans: 3
 ---
 
 # Project State
 
 ## Current Position
 
-Phase: 06 (deterministic-hardening) — EXECUTING
-Plan: 3 of 3
+Phase: 7
+Plan: Not started
 
 ## Progress
 
@@ -26,7 +26,7 @@ Plan: 3 of 3
 - [x] Research completed (5 documents)
 - [x] ROADMAP.md created (4 phases: 6-9)
 - [x] Phase 6 planned
-- [ ] Phase 6 executed
+- [x] Phase 6 executed
 - [ ] Phase 7 planned
 - [ ] Phase 7 executed
 - [ ] Phase 8 planned
@@ -102,18 +102,21 @@ Plan: 3 of 3
 |-------|------|----------|-------|-------|------|
 | 05-integration-calibration | 03 | 19m | 2 | 8 | 2026-03-28 |
 | 06-deterministic-hardening | 02 | 12m | 2 | 4 | 2026-03-29 |
+| 06-deterministic-hardening | 03 | 14 min | 1 | 6 | 2026-03-29 |
 
 ## Decisions
 
 - Phase 6 NDA tolerance stays schema-neutral by using exact normalized substring markers instead of changing extract artifacts.
 - Gates now qualify NDA events from event summaries plus matched chronology block text before lifecycle and cycle rules consume them.
+- Keep DuckDB lock retry in `open_pipeline_db()` so `db-load` and `db-export` share the same bounded connection policy.
+- Retry only lock-specific `duckdb.IOException` failures containing `Could not set lock on file`, and re-raise all other connection errors immediately.
 
 ## Session Continuity
 
-- **Last session:** 2026-03-29T21:31:19Z
-- **Stopped at:** Completed 06-02-PLAN.md
-- **Resume file:** .planning/phases/06-deterministic-hardening/06-03-PLAN.md
-- **Next action:** Execute `06-03-PLAN.md` to add the DuckDB lock retry hardening.
+- **Last session:** 2026-03-29T22:14:00Z
+- **Stopped at:** Phase 06 verified and marked complete
+- **Resume file:** None
+- **Next action:** Start Phase 07 discussion/planning (`$gsd-discuss-phase 7` or `$gsd-plan-phase 7`).
 
 ## Accumulated Context
 
