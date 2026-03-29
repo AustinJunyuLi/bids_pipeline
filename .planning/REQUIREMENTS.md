@@ -28,8 +28,8 @@ Requirements for this milestone. Each maps to roadmap phases.
 - [ ] **EXTRACT-01**: Extraction skill docs include round milestone event guidance (Final Round Inf Ann, Final Round Inf, deadlines) with filing-grounded examples
 - [ ] **EXTRACT-02**: Extraction skill docs include verbal/oral price indication guidance with examples from stec and petsmart-inc patterns
 - [ ] **EXTRACT-03**: Extraction skill docs include NDA exclusion guidance for rollover-side and non-target confidentiality agreements
-- [ ] **EXTRACT-04**: Zep NMC actor error corrected — remove NMC from evt_005 and evt_008 actor_ids
-- [ ] **EXTRACT-05**: Medivation missing drops restored — evt_013 and evt_017 present in events_raw.json with filing-grounded evidence
+- [ ] **EXTRACT-04**: Zep NMC actor error corrected -- remove NMC from evt_005 and evt_008 actor_ids
+- [ ] **EXTRACT-05**: Medivation missing drops restored -- evt_013 and evt_017 present in events_raw.json with filing-grounded evidence
 
 ### Re-extraction & Validation
 
@@ -61,28 +61,28 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| HARD-01 | — | Pending |
-| HARD-02 | — | Pending |
-| HARD-03 | — | Pending |
-| HARD-04 | — | Pending |
-| HARD-05 | — | Pending |
-| HARD-06 | — | Pending |
-| ENRICH-01 | — | Pending |
-| ENRICH-02 | — | Pending |
-| ENRICH-03 | — | Pending |
-| EXTRACT-01 | — | Pending |
-| EXTRACT-02 | — | Pending |
-| EXTRACT-03 | — | Pending |
-| EXTRACT-04 | — | Pending |
-| EXTRACT-05 | — | Pending |
-| RERUN-01 | — | Pending |
-| RERUN-02 | — | Pending |
+| HARD-01 | Phase 6 | Pending |
+| HARD-02 | Phase 6 | Pending |
+| HARD-03 | Phase 6 | Pending |
+| HARD-04 | Phase 6 | Pending |
+| HARD-05 | Phase 6 | Pending |
+| HARD-06 | Phase 6 | Pending |
+| ENRICH-01 | Phase 7 | Pending |
+| ENRICH-02 | Phase 8 | Pending |
+| ENRICH-03 | Phase 8 | Pending |
+| EXTRACT-01 | Phase 8 | Pending |
+| EXTRACT-02 | Phase 8 | Pending |
+| EXTRACT-03 | Phase 8 | Pending |
+| EXTRACT-04 | Phase 9 | Pending |
+| EXTRACT-05 | Phase 9 | Pending |
+| RERUN-01 | Phase 9 | Pending |
+| RERUN-02 | Phase 9 | Pending |
 
 **Coverage:**
 - v1.1 requirements: 16 total
-- Mapped to phases: 0
-- Unmapped: 16 (roadmap pending)
+- Mapped to phases: 16
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-29*
-*Last updated: 2026-03-29 after initial definition*
+*Last updated: 2026-03-29 after roadmap creation*

@@ -2,11 +2,11 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Reconciliation + Execution-Log Quality Fixes
-status: Defining requirements
+status: Roadmap created
 stopped_at: —
-last_updated: "2026-03-29T22:00:00.000Z"
+last_updated: "2026-03-29T22:30:00.000Z"
 progress:
-  total_phases: 0
+  total_phases: 4
   completed_phases: 0
   total_plans: 0
   completed_plans: 0
@@ -16,30 +16,25 @@ progress:
 
 ## Current Position
 
-Phase: Not started (defining requirements)
-Plan: —
-Status: Defining requirements
-Last activity: 2026-03-29 — Milestone v1.1 started
+Phase: 6 - Deterministic Hardening (not started)
+Plan: --
+Status: Roadmap created, ready for phase planning
+Last activity: 2026-03-29 -- Roadmap created for v1.1 milestone (4 phases, 16 requirements)
 
 ## Progress
 
 - [x] PROJECT.md initialized
-- [x] REQUIREMENTS.md defined (20 requirements, 4 categories)
-- [x] ROADMAP.md created (5 phases)
-- [x] Codebase mapped (7 documents)
+- [x] REQUIREMENTS.md defined (16 requirements, 4 categories)
 - [x] Research completed (5 documents)
-- [x] Phase 1 context gathered (13 decisions)
-- [x] Phase 1 planned
-- [x] Phase 1 Plan 01: Annotated block schema and preprocess integration (3/3 tasks)
-- [x] Phase 1 Plan 02: Runtime contract hardening (3/3 tasks)
-- [x] Phase 1 Plan 03: local validator + `stec` regeneration/downstream rerun
-- [x] Phase 1 Plan 03: full 9-deal corpus validation across `imprivata`, `mac-gray`, `medivation`, `penford`, `petsmart-inc`, `providence-worcester`, `saks`, `stec`, `zep`
-- [x] Phase 1 verified
-- [x] Phase 2 context gathered
-- [x] Phase 2 planned
-- [x] Phase 2 Plan 01: Prompt packet contract — models, paths, CLI, tests (3/3 tasks)
-- [x] Phase 2 Plan 02: Chunk planner, evidence checklist, packet renderer (3/3 tasks)
-- [x] Phase 2 Plan 03: Integration, stec validation, runtime contract update (3/3 tasks)
+- [x] ROADMAP.md created (4 phases: 6-9)
+- [ ] Phase 6 planned
+- [ ] Phase 6 executed
+- [ ] Phase 7 planned
+- [ ] Phase 7 executed
+- [ ] Phase 8 planned
+- [ ] Phase 8 executed
+- [ ] Phase 9 planned
+- [ ] Phase 9 executed
 
 ## Quick Tasks Completed
 
@@ -49,7 +44,7 @@ Last activity: 2026-03-29 — Milestone v1.1 started
 
 ## Historical Decisions
 
-- No Python LLM wrapper — all LLM calls remain in .claude/skills/
+- No Python LLM wrapper -- all LLM calls remain in .claude/skills/
 - INFRA-01/02 moved from Phase 1 to Phase 2 (skill-level changes)
 - Annotation extends preprocess-source, not a separate command
 - Block metadata: parsed dates, seed-based entities, evidence density, hybrid temporal phase
@@ -99,25 +94,9 @@ Last activity: 2026-03-29 — Milestone v1.1 started
 - db-export writes the review CSV from DuckDB queries and preserves interpretive drop labels even when no deterministic bid row exists
 - compose-prompts auto routing now classifies deals at 150 chronology blocks and forces explicit single-pass windows for simple deals
 - Event prompt few-shot coverage now includes NDA groups, ambiguous drops, and terminate/restart cycle boundaries in addition to range proposals and formal-round signals
-
-- [x] Phase 2 verified (9/9 must-haves passed)
-- [x] Phase 2 GPT 5.4 adversarial audit completed (6 findings: 1 CRITICAL, 3 MAJOR, 2 MINOR)
-- [x] Phase 2 gap closure: fixed audit findings 2-6 (evidence filtering, roster validation, defensive checks)
-- [x] Phase 3 context gathered
-- [x] Phase 3 planned
-- [x] Phase 3 Plan 01: Schema foundation: QuoteEntry model, extract loader, test fixture conversion (3/3 tasks)
-- [x] Phase 3 Plan 02: Canonicalize rewrite: quote-to-span resolution and enrich_core cleanup (2/2 tasks)
-- [x] Phase 3 Plan 03: Verify + Check rewrite: quote validation, quote_id integrity (2/2 tasks)
-- [x] Phase 3 Plan 04: Prompt instructions, prompt assets, and extract-deal skill schema updated for quote-before-extract (2/2 tasks)
-- [x] Phase 3 Plan 05: Gap closure for deal-agent and coverage quote_first consumers (2/2 tasks)
-- [x] Phase 3 verification gaps closed; full pytest suite green (203 passed)
-- [x] Phase 4 Plan 01: gate models, semantic gate stage, and regression tests (2/2 tasks)
-- [x] Phase 4 Plan 02: CLI gates command, deal-agent summary, enrich-core gating, docs, and integration tests (2/2 tasks)
-- [x] Phase 4 verified (9/9 must-haves passed)
-- [x] Phase 5 Plan 01: DuckDB schema, db-load stage, db-export stage, CLI, tests (2/2 tasks)
-- [x] Phase 5 Plan 02: Complexity routing, few-shot example expansion (2/2 tasks)
-- [x] Phase 5 Plan 03: Orchestration wiring, deal-agent integration, docs, stec validation (2/2 tasks)
-- [x] Phase 5 verified
+- deal-agent now reports db_load and db_export from persisted DuckDB and CSV artifacts rather than invoking stages directly
+- runtime docs treat db-export as the deterministic export contract while preserving explicit pre-/export-csv benchmark-boundary wording for legacy/manual workflows
+- Phase 5 db validation remains scoped to the active 9-deal calibration roster because data/seeds.csv now contains 401 rows outside this phase scope
 
 ## Performance Metrics
 
@@ -127,19 +106,23 @@ Last activity: 2026-03-29 — Milestone v1.1 started
 
 ## Decisions
 
-- deal-agent now reports db_load and db_export from persisted DuckDB and CSV artifacts rather than invoking stages directly
-- runtime docs treat db-export as the deterministic export contract while preserving explicit pre-/export-csv benchmark-boundary wording for legacy/manual workflows
-- Phase 5 db validation remains scoped to the active 9-deal calibration roster because data/seeds.csv now contains 401 rows outside this phase scope
+(v1.1 decisions will be recorded here as phases execute)
 
 ## Session Continuity
 
-- **Last session:** 2026-03-28T18:37:29Z
-- **Stopped at:** Completed 05-03-PLAN.md
+- **Last session:** 2026-03-29
+- **Stopped at:** Roadmap created for v1.1
 - **Resume file:** None
-- **Next action:** Phase 05 complete; ready for milestone wrap-up or downstream verification.
+- **Next action:** `/gsd:plan-phase 6` to plan the Deterministic Hardening phase
 
 ## Accumulated Context
 
 ### Pending Todos
 
-- None currently recorded. The prior chunk-budget-overhead todo was resolved in Phase 5 Plan 02 via explicit routing and `single_pass` chunk planning.
+- None currently recorded.
+
+### Key Reference Artifacts
+
+- Cross-deal reconciliation: `data/reconciliation_cross_deal_analysis.md`
+- 7-deal execution log: `quality_reports/session_logs/2026-03-29_7-deal-rerun_master.md`
+- Per-deal reconciliation reports: `data/skill/<slug>/reconcile/`
