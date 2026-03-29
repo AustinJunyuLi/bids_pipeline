@@ -739,7 +739,8 @@ def test_canonicalize_logs_orphaned_quotes(tmp_path: Path) -> None:
     paths = build_skill_paths("imprivata", project_root=tmp_path)
     log = json.loads(paths.canonicalize_log_path.read_text(encoding="utf-8"))
 
-    assert log["orphaned_quotes"] == ["Q999"]
+    assert log["orphaned_quotes"] == ["qa_002"]
+    assert log["quote_id_renumber_log"]["actor_quotes"]["Q999"] == "qa_002"
 
 
 def test_dedup_preserves_events_with_conflicting_structured_fields(tmp_path: Path) -> None:
@@ -779,7 +780,37 @@ def test_load_extract_artifacts_requires_spans_for_canonical_payloads(tmp_path: 
         _evt("evt_001", "proposal", actor_ids=["bidder_a"], block_id="B064"),
         _evt("evt_002", "executed", actor_ids=["bidder_a"], date="2016-07-13"),
     ]
-    _write_canon_fixture(tmp_path, events=events)
+    actors_payload = {
+        "quotes": [
+            {
+                "quote_id": "Q001",
+                "block_id": "B064",
+                "text": "Bidder A",
+            }
+        ],
+        "actors": [
+            {
+                "actor_id": "bidder_a",
+                "display_name": "Bidder A",
+                "canonical_name": "BIDDER A",
+                "aliases": [],
+                "role": "bidder",
+                "advisor_kind": None,
+                "advised_actor_id": None,
+                "bidder_kind": "financial",
+                "listing_status": "private",
+                "geography": "domestic",
+                "is_grouped": False,
+                "group_size": None,
+                "group_label": None,
+                "quote_ids": ["Q001"],
+                "notes": [],
+            },
+        ],
+        "count_assertions": [],
+        "unresolved_mentions": [],
+    }
+    _write_canon_fixture(tmp_path, actors_payload=actors_payload, events=events)
     run_canonicalize("imprivata", project_root=tmp_path)
     paths = build_skill_paths("imprivata", project_root=tmp_path)
     paths.spans_path.unlink()
