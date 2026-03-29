@@ -1,0 +1,181 @@
+{
+  "findings": [
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_001 type activist_sale is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_001"
+      ],
+      "actor_ids": [
+        "activist_jana_partners"
+      ],
+      "block_ids": [
+        "B007"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_002 type activist_sale is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_002"
+      ],
+      "actor_ids": [
+        "activist_longview"
+      ],
+      "block_ids": [
+        "B007"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_004 type bidder_interest is grounded only in ['bidding'] blocks.",
+      "event_ids": [
+        "evt_004"
+      ],
+      "actor_ids": [
+        "bidder_industry_participant"
+      ],
+      "block_ids": [
+        "B008"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_005 type target_sale is grounded only in ['bidding'] blocks.",
+      "event_ids": [
+        "evt_005"
+      ],
+      "actor_ids": [
+        "target_board"
+      ],
+      "block_ids": [
+        "B009"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_006 type target_sale_public is grounded only in ['bidding'] blocks.",
+      "event_ids": [
+        "evt_006"
+      ],
+      "actor_ids": [
+        "target_board"
+      ],
+      "block_ids": [
+        "B011"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_008 type final_round is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_008"
+      ],
+      "actor_ids": [],
+      "block_ids": [
+        "B029"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_009 type proposal is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_009"
+      ],
+      "actor_ids": [
+        "bidder_buyer_group"
+      ],
+      "block_ids": [
+        "B029"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_010 type proposal is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_010"
+      ],
+      "actor_ids": [
+        "bidder_2"
+      ],
+      "block_ids": [
+        "B029"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_012 type final_round_ext_ann is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_012"
+      ],
+      "actor_ids": [],
+      "block_ids": [
+        "B030"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_014 type proposal is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_014"
+      ],
+      "actor_ids": [
+        "bidder_2"
+      ],
+      "block_ids": [
+        "B034"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_015 type proposal is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_015"
+      ],
+      "actor_ids": [
+        "bidder_buyer_group"
+      ],
+      "block_ids": [
+        "B034"
+      ]
+    }
+  ],
+  "attention_decay": {
+    "quartile_counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "hot_spots": [],
+    "decay_score": 1.0,
+    "note": null
+  },
+  "summary": {
+    "blocker_count": 0,
+    "warning_count": 11,
+    "status": "pass"
+  }
+}

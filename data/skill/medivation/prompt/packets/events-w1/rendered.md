@@ -38,18 +38,225 @@ B019 [L286-L288]: On August 28, 2012, Party O submitted a revised proposal of $5
 B020 [L289-L292]: On September 3, 2012, Party A submitted an indication of interest of $7.50 to $8.00 per share for all outstanding shares of the Company.
 
 Expected:
-- quotes: [{"quote_id": "Q001", "block_id": "B020", "text": "Party A submitted an indication of interest of $7.50 to $8.00 per share for all outstanding shares"}]
-- proposal event for Party A: quote_ids=["Q001"], range $7.50-$8.00, whole_company_scope=true, contains_range=true, mentions_indication_of_interest=true
-- exclusion for B019: partial_company_bid (UK and Europe business only)
+```json
+{
+  "quotes": [
+    {
+      "quote_id": "Q001",
+      "block_id": "B019",
+      "text": "Party O submitted a revised proposal of $55 million for the Company's business in the United Kingdom and Europe."
+    },
+    {
+      "quote_id": "Q002",
+      "block_id": "B020",
+      "text": "Party A submitted an indication of interest of $7.50 to $8.00 per share for all outstanding shares of the Company."
+    }
+  ],
+  "events": [
+    {
+      "event_id": "evt_001",
+      "event_type": "proposal",
+      "date": {"raw_text": "September 3, 2012"},
+      "actor_ids": ["bidder_party_a"],
+      "summary": "Party A submitted an indication of interest for the whole company at $7.50 to $8.00 per share.",
+      "quote_ids": ["Q002"],
+      "terms": {"range_low": "7.50", "range_high": "8.00"},
+      "whole_company_scope": true,
+      "formality_signals": {
+        "contains_range": true,
+        "mentions_indication_of_interest": true
+      }
+    }
+  ],
+  "exclusions": [
+    {
+      "category": "partial_company_bid",
+      "quote_ids": ["Q001"],
+      "explanation": "Party O's proposal covered only the United Kingdom and Europe business, not the whole company."
+    }
+  ],
+  "coverage_notes": []
+}
+```
 
 ### Example 2: Formal-round signal
 
 Input:
-B112 [L282-L282]: Beginning on December 19, 2012, representatives of BofA Merrill Lynch and Deutsche Bank, on behalf of the Company, sent final round process letters to OTPP, Bidder A and Bidder B, which process letters requested bidders to submit a final binding offer.
+B064 [L1498-L1499]: After the meeting, at the direction of the board, BofA Merrill Lynch sent final round process letters and a draft merger agreement to WDC and Company D, requesting a response by May 28, 2013.
 
 Expected:
-- quotes: [{"quote_id": "Q001", "block_id": "B112", "text": "representatives of BofA Merrill Lynch and Deutsche Bank, on behalf of the Company, sent final round process letters"}]
-- final_round_ann event: quote_ids=["Q001"], date December 19, 2012, round_scope=formal
+```json
+{
+  "quotes": [
+    {
+      "quote_id": "Q001",
+      "block_id": "B064",
+      "text": "BofA Merrill Lynch sent final round process letters and a draft merger agreement to WDC and Company D, requesting a response by May 28, 2013."
+    }
+  ],
+  "events": [
+    {
+      "event_id": "evt_001",
+      "event_type": "final_round_ann",
+      "date": {"raw_text": "after May 16, 2013"},
+      "actor_ids": ["advisor_bofa_merrill_lynch"],
+      "summary": "BofA Merrill Lynch sent final round process letters and a draft merger agreement to WDC and Company D.",
+      "quote_ids": ["Q001"],
+      "round_scope": "formal",
+      "invited_actor_ids": ["bidder_wdc", "bidder_company_d"],
+      "deadline_date": {"raw_text": "May 28, 2013"},
+      "notes": [
+        "Draft merger agreement plus final round process letters is a formal-round signal."
+      ]
+    }
+  ],
+  "exclusions": [],
+  "coverage_notes": []
+}
+```
+
+### Example 3: NDA group plus named parties
+
+Input:
+B030 [L1273-L1278]: During the period from May 6 through June 9, 2016, at the direction of the Board, Barclays contacted and had discussions with the 15 potentially interested parties discussed by the Board at its April 28 and May 5, 2016 meetings, including Thoma Bravo. Of the parties contacted, three strategic parties and four financial sponsors executed confidentiality agreements with the Company, including Thoma Bravo on May 10, 2016. Except for one financial sponsor that declined interest shortly after executing its confidentiality agreement, each party that entered into a confidentiality agreement attended a high-level management presentation conducted by members of Company management and attended by Barclays. These parties included a telecommunications enterprise company ("Strategic 1"), two large software companies ("Strategic 2" and "Strategic 3") and three financial sponsors ("Sponsor A," "Sponsor B" and Thoma Bravo).
+
+Expected:
+```json
+{
+  "quotes": [
+    {
+      "quote_id": "Q001",
+      "block_id": "B030",
+      "text": "three strategic parties and four financial sponsors executed confidentiality agreements with the Company, including Thoma Bravo on May 10, 2016."
+    },
+    {
+      "quote_id": "Q002",
+      "block_id": "B030",
+      "text": "These parties included a telecommunications enterprise company (\"Strategic 1\"), two large software companies (\"Strategic 2\" and \"Strategic 3\") and three financial sponsors (\"Sponsor A,\" \"Sponsor B\" and Thoma Bravo)."
+    }
+  ],
+  "events": [
+    {
+      "event_id": "evt_001",
+      "event_type": "nda",
+      "date": {"raw_text": "May 10, 2016"},
+      "actor_ids": ["grouped_strategic_parties"],
+      "summary": "Three strategic parties executed confidentiality agreements with the Company.",
+      "quote_ids": ["Q001", "Q002"],
+      "nda_signed": true,
+      "notes": [
+        "actor_roster grouped_strategic_parties is_grouped=true group_size=3 group_label=\"three strategic parties\""
+      ]
+    },
+    {
+      "event_id": "evt_002",
+      "event_type": "nda",
+      "date": {"raw_text": "May 10, 2016"},
+      "actor_ids": ["bidder_sponsor_a"],
+      "summary": "Sponsor A executed a confidentiality agreement with the Company.",
+      "quote_ids": ["Q001", "Q002"],
+      "nda_signed": true
+    },
+    {
+      "event_id": "evt_003",
+      "event_type": "nda",
+      "date": {"raw_text": "May 10, 2016"},
+      "actor_ids": ["bidder_sponsor_b"],
+      "summary": "Sponsor B executed a confidentiality agreement with the Company.",
+      "quote_ids": ["Q001", "Q002"],
+      "nda_signed": true
+    },
+    {
+      "event_id": "evt_004",
+      "event_type": "nda",
+      "date": {"raw_text": "May 10, 2016"},
+      "actor_ids": ["bidder_thoma_bravo"],
+      "summary": "Thoma Bravo executed a confidentiality agreement with the Company.",
+      "quote_ids": ["Q001", "Q002"],
+      "nda_signed": true
+    }
+  ],
+  "exclusions": [],
+  "coverage_notes": []
+}
+```
+
+### Example 4: Ambiguous drop with stated rationale
+
+Input:
+B082 [L1564-L1565]: On June 5, 2013 representatives of Company D contacted representatives of BofA Merrill Lynch and indicated that Company D would not be in a position to actively conduct due diligence for more than two weeks and was disengaging from the process.
+
+Expected:
+```json
+{
+  "quotes": [
+    {
+      "quote_id": "Q001",
+      "block_id": "B082",
+      "text": "Company D would not be in a position to actively conduct due diligence for more than two weeks and was disengaging from the process."
+    }
+  ],
+  "events": [
+    {
+      "event_id": "evt_001",
+      "event_type": "drop",
+      "date": {"raw_text": "June 5, 2013"},
+      "actor_ids": ["bidder_company_d"],
+      "summary": "Company D disengaged from the process because it could not actively conduct due diligence for more than two weeks.",
+      "quote_ids": ["Q001"],
+      "drop_reason_text": "Company D would not be in a position to actively conduct due diligence for more than two weeks and was disengaging from the process"
+    }
+  ],
+  "exclusions": [],
+  "coverage_notes": []
+}
+```
+
+### Example 5: Cycle boundary with termination and restart
+
+Input:
+B068 [L1886-L1888]: At a June 26, 2014 meeting of our board of directors, based on the lack of buyer interest and the uncertainty surrounding the impact of the fire at our aerosol manufacturing facility in Marietta, Georgia, our board of directors decided to terminate the process to explore potential strategic alternatives at that time and to continue to focus on our business and financial performance.
+B075 [L1899-L1901]: In early February 2015, New Mountain Capital contacted representatives of BofA Merrill Lynch and requested a meeting. On February 10, 2015, New Mountain Capital met with representatives of BofA Merrill Lynch and expressed its interest in discussions with the Company regarding a potential transaction. On February 19, 2015, New Mountain Capital delivered an unsolicited indication of interest to the Company to acquire us for a per share price of $19.25.
+
+Expected:
+```json
+{
+  "quotes": [
+    {
+      "quote_id": "Q001",
+      "block_id": "B068",
+      "text": "our board of directors decided to terminate the process to explore potential strategic alternatives at that time"
+    },
+    {
+      "quote_id": "Q002",
+      "block_id": "B075",
+      "text": "In early February 2015, New Mountain Capital contacted representatives of BofA Merrill Lynch and requested a meeting."
+    }
+  ],
+  "events": [
+    {
+      "event_id": "evt_001",
+      "event_type": "terminated",
+      "date": {"raw_text": "June 26, 2014"},
+      "actor_ids": ["target_board"],
+      "summary": "The board terminated the strategic alternatives process.",
+      "quote_ids": ["Q001"],
+      "boundary_note": "Board terminated the 2014 process because of limited buyer interest and operational uncertainty."
+    },
+    {
+      "event_id": "evt_002",
+      "event_type": "restarted",
+      "date": {"raw_text": "early February 2015"},
+      "actor_ids": ["bidder_new_mountain_capital"],
+      "summary": "New Mountain Capital reopened sale discussions after the prior process had been terminated.",
+      "quote_ids": ["Q002"],
+      "boundary_note": "New Mountain Capital's unsolicited re-engagement marks the start of a new process cycle."
+    }
+  ],
+  "exclusions": [],
+  "coverage_notes": []
+}
+```
 
 </few_shot_examples>
 
@@ -250,244 +457,131 @@ B075 [L914-L918]: On the morning of Saturday, August 20, 2016, at the request of
     {
       "quote_id": "Q001",
       "block_id": "B002",
-      "text": "outside financial and legal advisors"
+      "text": "The Medivation board of directors"
     },
     {
       "quote_id": "Q002",
-      "block_id": "B003",
-      "text": "Olivier Brandicourt, Chief Executive Officer of Sanofi"
+      "block_id": "B004",
+      "text": "Cooley LLP"
     },
     {
       "quote_id": "Q003",
-      "block_id": "B003",
-      "text": "David Hung, M. D., President and Chief Executive Officer of Medivation"
+      "block_id": "B004",
+      "text": "J. P. Morgan Securities LLC"
     },
     {
       "quote_id": "Q004",
-      "block_id": "B004",
-      "text": "representatives of Cooley LLP ( Cooley), Medivations legal advisor"
+      "block_id": "B003",
+      "text": "Chief Executive Officer of Sanofi"
     },
     {
       "quote_id": "Q005",
-      "block_id": "B004",
-      "text": "J. P. Morgan Securities LLC ( J. P. Morgan)"
+      "block_id": "B012",
+      "text": "at Pfizer"
     },
     {
       "quote_id": "Q006",
-      "block_id": "B004",
-      "text": "retained as independent financial advisor to Medivation"
+      "block_id": "B013",
+      "text": "Evercore Group L. L. C."
     },
     {
       "quote_id": "Q007",
-      "block_id": "B009",
-      "text": "non-binding proposal from Sanofi to acquire Medivation for $52.50 per share"
+      "block_id": "B016",
+      "text": "Wachtell, Lipton, Rosen & Katz"
     },
     {
       "quote_id": "Q008",
-      "block_id": "B012",
-      "text": "Douglas Giordano, Senior Vice President, Worldwide Business Development at Pfizer"
+      "block_id": "B017",
+      "text": "Richards, Layton & Finger, P. A."
     },
     {
       "quote_id": "Q009",
-      "block_id": "B013",
-      "text": "Evercore Group L. L. C. ( Evercore) as an additional independent financial advisor"
+      "block_id": "B021",
+      "text": "Weil Gotshal & Manges LLP"
     },
     {
       "quote_id": "Q010",
-      "block_id": "B016",
-      "text": "Wachtell, Lipton, Rosen & Katz ( Wachtell Lipton)"
+      "block_id": "B057",
+      "text": "Company 1"
     },
     {
       "quote_id": "Q011",
-      "block_id": "B016",
-      "text": "which Medivation had retained as an additional legal advisor"
+      "block_id": "B057",
+      "text": "Company 2"
     },
     {
       "quote_id": "Q012",
-      "block_id": "B017",
-      "text": "Richards, Layton & Finger, P. A., Medivations Delaware counsel"
+      "block_id": "B057",
+      "text": "Company 3"
     },
     {
       "quote_id": "Q013",
-      "block_id": "B006",
-      "text": "three industry participants contacted J. P. Morgan"
-    },
-    {
-      "quote_id": "Q014",
-      "block_id": "B006",
-      "text": "a fourth industry participant contacted Dr. Hung"
-    },
-    {
-      "quote_id": "Q015",
-      "block_id": "B021",
-      "text": "Weil Gotshal & Manges LLP ( Weil Gotshal), Sanofis legal counsel"
-    },
-    {
-      "quote_id": "Q016",
-      "block_id": "B044",
-      "text": "directed J. P. Morgan and Evercore to contact select industry participants"
-    },
-    {
-      "quote_id": "Q017",
-      "block_id": "B044",
-      "text": "the four companies that had contacted J. P. Morgan and Dr. Hung in late March 2016"
-    },
-    {
-      "quote_id": "Q018",
-      "block_id": "B044",
-      "text": "Pfizer, which had first contacted Dr. Hung on April 20, 2016"
-    },
-    {
-      "quote_id": "Q019",
-      "block_id": "B045",
-      "text": "J. P. Morgan and Evercore contacted eleven industry participants"
-    },
-    {
-      "quote_id": "Q020",
-      "block_id": "B045",
-      "text": "Medivation also contacted a twelfth industry participant"
-    },
-    {
-      "quote_id": "Q021",
-      "block_id": "B047",
-      "text": "Medivation entered into confidentiality agreements with Pfizer"
-    },
-    {
-      "quote_id": "Q022",
-      "block_id": "B047",
-      "text": "one additional party initially contacted by Medivations financial advisors"
-    },
-    {
-      "quote_id": "Q023",
-      "block_id": "B051",
-      "text": "Medivation entered into a confidentiality agreement with Sanofi"
-    },
-    {
-      "quote_id": "Q024",
       "block_id": "B057",
-      "text": "hereinafter referred to as Company 1, Company 2, Company 3, and Company 4"
-    },
-    {
-      "quote_id": "Q025",
-      "block_id": "B057",
-      "text": "Pfizer, Company 1, Company 2, Company 3 and Company 4 are referred to as the Interested Parties"
-    },
-    {
-      "quote_id": "Q026",
-      "block_id": "B053",
-      "text": "Ian Read, Chief Executive Officer of Pfizer"
-    },
-    {
-      "quote_id": "Q027",
-      "block_id": "B064",
-      "text": "Pfizer submitted a preliminary proposal for the all-cash acquisition"
-    },
-    {
-      "quote_id": "Q028",
-      "block_id": "B064",
-      "text": "Company 1 submitted a preliminary proposal for the all-cash acquisition"
-    },
-    {
-      "quote_id": "Q029",
-      "block_id": "B064",
-      "text": "Company 2 submitted a preliminary proposal for the all-cash acquisition"
-    },
-    {
-      "quote_id": "Q030",
-      "block_id": "B064",
-      "text": "Company 3 submitted a preliminary proposal to acquire Medivation"
-    },
-    {
-      "quote_id": "Q031",
-      "block_id": "B064",
-      "text": "Company 4 submitted a preliminary proposal to acquire Medivation"
-    },
-    {
-      "quote_id": "Q032",
-      "block_id": "B079",
-      "text": "representatives of J. P. Morgan and Evercore presented the final proposals"
-    },
-    {
-      "quote_id": "Q033",
-      "block_id": "B079",
-      "text": "Representatives of Cooley and Wachtell Lipton reviewed each proposal"
-    },
-    {
-      "quote_id": "Q034",
-      "block_id": "B080",
-      "text": "Pfizer and Medivation executed the merger agreement"
-    },
-    {
-      "quote_id": "Q035",
-      "block_id": "B090",
-      "text": "representatives of Medivation contacted 15 parties"
-    },
-    {
-      "quote_id": "Q036",
-      "block_id": "B044",
-      "text": "the Medivation board of directors determined that"
-    },
-    {
-      "quote_id": "Q037",
-      "block_id": "B042",
-      "text": "Sanofi filed with the SEC a preliminary consent solicitation statement"
-    },
-    {
-      "quote_id": "Q038",
-      "block_id": "B015",
-      "text": "Sanofi issued a press release publicly announcing"
-    },
-    {
-      "quote_id": "Q039",
-      "block_id": "B046",
-      "text": "increased proposal from Sanofi of $58.00 per share in cash"
-    },
-    {
-      "quote_id": "Q040",
-      "block_id": "B091",
-      "text": "none of the other four bidders expressed a willingness"
-    },
-    {
-      "quote_id": "Q041",
-      "block_id": "B045",
-      "text": "which included Pfizer and the four companies"
-    },
-    {
-      "quote_id": "Q042",
-      "block_id": "B065",
-      "text": "authorized Medivations financial advisors to advance Pfizer, Company 1, and Company 4"
-    },
-    {
-      "quote_id": "Q043",
-      "block_id": "B128",
-      "text": "Scenario 3 Case was provided to Parent and to each of Company 1, Company 2, Company 3 and Company 4"
-    },
-    {
-      "quote_id": "Q044",
-      "block_id": "B051",
-      "text": "Sanofi agreed to terminate its Consent Solicitation"
+      "text": "Company 4"
     }
   ],
   "actors": [
     {
-      "actor_id": "target_board_medivation",
+      "actor_id": "target_board",
       "display_name": "Medivation Board of Directors",
-      "canonical_name": "MEDIVATION INC BOARD OF DIRECTORS",
+      "canonical_name": "MEDIVATION BOARD OF DIRECTORS",
       "aliases": [
-        "Board of Directors",
-        "our Board of Directors",
         "Medivation board of directors"
       ],
       "role": "target_board",
       "advisor_kind": null,
       "advised_actor_id": null,
       "bidder_kind": null,
-      "listing_status": "public",
-      "geography": "domestic",
+      "listing_status": null,
+      "geography": null,
       "is_grouped": false,
       "group_size": null,
       "group_label": null,
-      "quote_ids": ["Q001", "Q036"],
+      "quote_ids": [
+        "Q001"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_cooley",
+      "display_name": "Cooley LLP",
+      "canonical_name": "COOLEY LLP",
+      "aliases": [
+        "Cooley"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": "target_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "quote_ids": [
+        "Q002"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_jp_morgan",
+      "display_name": "J. P. Morgan Securities LLC",
+      "canonical_name": "J. P. MORGAN SECURITIES LLC",
+      "aliases": [
+        "J. P. Morgan"
+      ],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "target_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "quote_ids": [
+        "Q003"
+      ],
       "notes": []
     },
     {
@@ -499,179 +593,58 @@ B075 [L914-L918]: On the morning of Saturday, August 20, 2016, at the request of
       "advisor_kind": null,
       "advised_actor_id": null,
       "bidder_kind": "strategic",
-      "listing_status": "public",
-      "geography": "non_us",
+      "listing_status": null,
+      "geography": null,
       "is_grouped": false,
       "group_size": null,
       "group_label": null,
-      "quote_ids": ["Q002", "Q007", "Q037", "Q038", "Q039", "Q044"],
-      "notes": [
-        "Based in Paris, France. Initiated unsolicited approach. Filed consent solicitation to replace Medivation board."
-      ]
+      "quote_ids": [
+        "Q004"
+      ],
+      "notes": []
     },
     {
       "actor_id": "bidder_pfizer",
       "display_name": "Pfizer",
-      "canonical_name": "PFIZER INC",
-      "aliases": [
-        "Parent",
-        "Purchaser"
-      ],
+      "canonical_name": "PFIZER",
+      "aliases": [],
       "role": "bidder",
       "advisor_kind": null,
       "advised_actor_id": null,
       "bidder_kind": "strategic",
-      "listing_status": "public",
-      "geography": "domestic",
-      "is_grouped": false,
-      "group_size": null,
-      "group_label": null,
-      "quote_ids": ["Q008", "Q018", "Q021", "Q026", "Q027", "Q034"],
-      "notes": [
-        "First contacted Dr. Hung on April 20, 2016. Winning bidder at $81.50 per share."
-      ]
-    },
-    {
-      "actor_id": "bidder_company1",
-      "display_name": "Company 1",
-      "canonical_name": "COMPANY 1",
-      "aliases": [],
-      "role": "bidder",
-      "advisor_kind": null,
-      "advised_actor_id": null,
-      "bidder_kind": null,
       "listing_status": null,
       "geography": null,
       "is_grouped": false,
       "group_size": null,
       "group_label": null,
-      "quote_ids": ["Q024", "Q028"],
-      "notes": [
-        "Filing alias. Industry participant that signed NDA and submitted bids."
-      ]
-    },
-    {
-      "actor_id": "bidder_company2",
-      "display_name": "Company 2",
-      "canonical_name": "COMPANY 2",
-      "aliases": [],
-      "role": "bidder",
-      "advisor_kind": null,
-      "advised_actor_id": null,
-      "bidder_kind": null,
-      "listing_status": null,
-      "geography": null,
-      "is_grouped": false,
-      "group_size": null,
-      "group_label": null,
-      "quote_ids": ["Q024", "Q029"],
-      "notes": [
-        "Filing alias. Initially excluded after first round ($62-$64), re-entered with $70.00 revised bid."
-      ]
-    },
-    {
-      "actor_id": "bidder_company3",
-      "display_name": "Company 3",
-      "canonical_name": "COMPANY 3",
-      "aliases": [],
-      "role": "bidder",
-      "advisor_kind": null,
-      "advised_actor_id": null,
-      "bidder_kind": null,
-      "listing_status": null,
-      "geography": null,
-      "is_grouped": false,
-      "group_size": null,
-      "group_label": null,
-      "quote_ids": ["Q024", "Q030"],
-      "notes": [
-        "Filing alias. Initially excluded after first round ($60 + CVRs), re-entered with $70.50 revised bid. Dropped before final round."
-      ]
-    },
-    {
-      "actor_id": "bidder_company4",
-      "display_name": "Company 4",
-      "canonical_name": "COMPANY 4",
-      "aliases": [],
-      "role": "bidder",
-      "advisor_kind": null,
-      "advised_actor_id": null,
-      "bidder_kind": null,
-      "listing_status": null,
-      "geography": null,
-      "is_grouped": false,
-      "group_size": null,
-      "group_label": null,
-      "quote_ids": ["Q024", "Q031"],
-      "notes": [
-        "Filing alias. Advanced to second round but declined to submit definitive proposal on August 19, 2016."
-      ]
-    },
-    {
-      "actor_id": "advisor_jpmorgan",
-      "display_name": "J.P. Morgan",
-      "canonical_name": "J. P. MORGAN SECURITIES LLC",
-      "aliases": [
-        "J. P. Morgan"
+      "quote_ids": [
+        "Q005"
       ],
-      "role": "advisor",
-      "advisor_kind": "financial",
-      "advised_actor_id": "target_board_medivation",
-      "bidder_kind": null,
-      "listing_status": null,
-      "geography": null,
-      "is_grouped": false,
-      "group_size": null,
-      "group_label": null,
-      "quote_ids": ["Q005", "Q006", "Q016", "Q032"],
-      "notes": [
-        "Retained as independent financial advisor based on long history with the Company."
-      ]
+      "notes": []
     },
     {
       "actor_id": "advisor_evercore",
-      "display_name": "Evercore",
-      "canonical_name": "EVERCORE GROUP L.L.C.",
+      "display_name": "Evercore Group L. L. C.",
+      "canonical_name": "EVERCORE GROUP L. L. C.",
       "aliases": [
         "Evercore"
       ],
       "role": "advisor",
       "advisor_kind": "financial",
-      "advised_actor_id": "target_board_medivation",
+      "advised_actor_id": "target_board",
       "bidder_kind": null,
       "listing_status": null,
       "geography": null,
       "is_grouped": false,
       "group_size": null,
       "group_label": null,
-      "quote_ids": ["Q009", "Q016", "Q032"],
-      "notes": [
-        "Engaged on April 22, 2016 as additional independent financial advisor."
-      ]
-    },
-    {
-      "actor_id": "advisor_cooley",
-      "display_name": "Cooley LLP",
-      "canonical_name": "COOLEY LLP",
-      "aliases": [
-        "Cooley"
+      "quote_ids": [
+        "Q006"
       ],
-      "role": "advisor",
-      "advisor_kind": "legal",
-      "advised_actor_id": "target_board_medivation",
-      "bidder_kind": null,
-      "listing_status": null,
-      "geography": null,
-      "is_grouped": false,
-      "group_size": null,
-      "group_label": null,
-      "quote_ids": ["Q004", "Q033"],
-      "notes": [
-        "Medivation's primary legal advisor throughout the process."
-      ]
+      "notes": []
     },
     {
-      "actor_id": "advisor_wachtell",
+      "actor_id": "advisor_wachtell_lipton",
       "display_name": "Wachtell, Lipton, Rosen & Katz",
       "canonical_name": "WACHTELL, LIPTON, ROSEN & KATZ",
       "aliases": [
@@ -679,36 +652,36 @@ B075 [L914-L918]: On the morning of Saturday, August 20, 2016, at the request of
       ],
       "role": "advisor",
       "advisor_kind": "legal",
-      "advised_actor_id": "target_board_medivation",
+      "advised_actor_id": "target_board",
       "bidder_kind": null,
       "listing_status": null,
       "geography": null,
       "is_grouped": false,
       "group_size": null,
       "group_label": null,
-      "quote_ids": ["Q010", "Q011", "Q033"],
-      "notes": [
-        "Retained as additional legal advisor by April 28, 2016."
-      ]
+      "quote_ids": [
+        "Q007"
+      ],
+      "notes": []
     },
     {
-      "actor_id": "advisor_richards_layton",
-      "display_name": "Richards, Layton & Finger, P.A.",
-      "canonical_name": "RICHARDS, LAYTON & FINGER, P.A.",
+      "actor_id": "advisor_richards_layton_finger",
+      "display_name": "Richards, Layton & Finger, P. A.",
+      "canonical_name": "RICHARDS, LAYTON & FINGER, P. A.",
       "aliases": [],
       "role": "advisor",
       "advisor_kind": "legal",
-      "advised_actor_id": "target_board_medivation",
+      "advised_actor_id": "target_board",
       "bidder_kind": null,
       "listing_status": null,
       "geography": null,
       "is_grouped": false,
       "group_size": null,
       "group_label": null,
-      "quote_ids": ["Q012"],
-      "notes": [
-        "Medivation's Delaware counsel."
-      ]
+      "quote_ids": [
+        "Q008"
+      ],
+      "notes": []
     },
     {
       "actor_id": "advisor_weil_gotshal",
@@ -726,101 +699,89 @@ B075 [L914-L918]: On the morning of Saturday, August 20, 2016, at the request of
       "is_grouped": false,
       "group_size": null,
       "group_label": null,
-      "quote_ids": ["Q015"],
-      "notes": [
-        "Sanofi's legal counsel."
-      ]
+      "quote_ids": [
+        "Q009"
+      ],
+      "notes": []
     },
     {
-      "actor_id": "group_late_march_parties",
-      "display_name": "Four industry participants (late March 2016)",
-      "canonical_name": "FOUR LATE MARCH 2016 INDUSTRY PARTICIPANTS",
+      "actor_id": "bidder_company_1",
+      "display_name": "Company 1",
+      "canonical_name": "COMPANY 1",
       "aliases": [],
       "role": "bidder",
       "advisor_kind": null,
       "advised_actor_id": null,
-      "bidder_kind": null,
+      "bidder_kind": "strategic",
       "listing_status": null,
       "geography": null,
-      "is_grouped": true,
-      "group_size": 4,
-      "group_label": "four industry participants that indicated interest in late March 2016",
-      "quote_ids": ["Q013", "Q014", "Q017"],
-      "notes": [
-        "Three contacted J.P. Morgan and one contacted Dr. Hung. Later included among the parties contacted by Medivation's financial advisors in late June 2016."
-      ]
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "quote_ids": [
+        "Q010"
+      ],
+      "notes": []
     },
     {
-      "actor_id": "group_contacted_parties",
-      "display_name": "Twelve contacted industry participants",
-      "canonical_name": "TWELVE CONTACTED INDUSTRY PARTICIPANTS",
+      "actor_id": "bidder_company_2",
+      "display_name": "Company 2",
+      "canonical_name": "COMPANY 2",
       "aliases": [],
       "role": "bidder",
       "advisor_kind": null,
       "advised_actor_id": null,
-      "bidder_kind": null,
+      "bidder_kind": "strategic",
       "listing_status": null,
       "geography": null,
-      "is_grouped": true,
-      "group_size": 12,
-      "group_label": "twelve industry participants contacted in late June through early July 2016",
-      "quote_ids": ["Q019", "Q020", "Q041"],
-      "notes": [
-        "J.P. Morgan and Evercore contacted eleven; Medivation contacted a twelfth directly. Includes Pfizer and the four late-March parties."
-      ]
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "quote_ids": [
+        "Q011"
+      ],
+      "notes": []
     },
     {
-      "actor_id": "group_fifteen_parties",
-      "display_name": "Fifteen parties contacted",
-      "canonical_name": "FIFTEEN PARTIES CONTACTED",
+      "actor_id": "bidder_company_3",
+      "display_name": "Company 3",
+      "canonical_name": "COMPANY 3",
       "aliases": [],
       "role": "bidder",
       "advisor_kind": null,
       "advised_actor_id": null,
-      "bidder_kind": null,
+      "bidder_kind": "strategic",
       "listing_status": null,
       "geography": null,
-      "is_grouped": true,
-      "group_size": 15,
-      "group_label": "15 parties contacted by representatives of Medivation",
-      "quote_ids": ["Q035"],
-      "notes": [
-        "Board stated that representatives of Medivation contacted 15 parties. This is the broadest count referenced."
-      ]
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "quote_ids": [
+        "Q012"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_4",
+      "display_name": "Company 4",
+      "canonical_name": "COMPANY 4",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "quote_ids": [
+        "Q013"
+      ],
+      "notes": []
     }
   ],
-  "count_assertions": [
-    {
-      "subject": "parties contacted",
-      "count": 15,
-      "quote_ids": ["Q035"]
-    },
-    {
-      "subject": "industry participants contacted by financial advisors in late June-early July 2016",
-      "count": 11,
-      "quote_ids": ["Q019"]
-    },
-    {
-      "subject": "twelfth industry participant contacted by Medivation directly",
-      "count": 1,
-      "quote_ids": ["Q020"]
-    },
-    {
-      "subject": "industry participants that indicated interest in late March 2016",
-      "count": 4,
-      "quote_ids": ["Q013", "Q014"]
-    },
-    {
-      "subject": "Interested Parties (NDA signatories who submitted preliminary bids)",
-      "count": 5,
-      "quote_ids": ["Q025"]
-    },
-    {
-      "subject": "other four bidders besides Pfizer in final stages",
-      "count": 4,
-      "quote_ids": ["Q040"]
-    }
-  ],
+  "count_assertions": [],
   "unresolved_mentions": []
 }
 </actor_roster>

@@ -1,47 +1,47 @@
 {
   "dropout_classifications": {
-    "evt_015": {
+    "evt_014": {
       "label": "Drop",
-      "basis": "Sponsor G was reported as no longer participating after the July 11 proposal submission.",
-      "source_text": "Saks was subsequently informed that Sponsor G was no longer participating in the process"
+      "basis": "Sponsor G was reported to be no longer participating in the process, with no filing text indicating target exclusion or a valuation comparison.",
+      "source_text": "Saks was subsequently informed that Sponsor G was no longer participating in the process."
     }
   },
   "bid_classifications": {
+    "evt_006": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "The proposal used indicative price ranges and preliminary language."
+    },
     "evt_007": {
       "label": "Informal",
       "rule_applied": 1.0,
-      "basis": "Observable informal signal from formality_signals."
+      "basis": "The proposal used indicative price ranges and preliminary language."
     },
-    "evt_008": {
-      "label": "Informal",
-      "rule_applied": 1.0,
-      "basis": "Observable informal signal from formality_signals."
-    },
-    "evt_013": {
+    "evt_012": {
       "label": "Formal",
       "rule_applied": 2.0,
-      "basis": "Observable formal signal from formality_signals."
+      "basis": "The proposal included a revised draft merger agreement and committed financing documentation."
     },
-    "evt_014": {
+    "evt_013": {
       "label": "Informal",
       "rule_applied": 1.0,
-      "basis": "Observable informal signal from formality_signals."
+      "basis": "The proposal used an indicative price range and stated that more diligence was needed for a more definitive proposal."
     },
-    "evt_017": {
-      "label": "Uncertain",
-      "rule_applied": null,
-      "basis": "No deterministic rule matched; residual case."
-    },
-    "evt_018": {
+    "evt_015": {
       "label": "Formal",
       "rule_applied": 2.5,
-      "basis": "Proposal after final round announcement/deadline with no informal signals."
+      "basis": "The proposal arrived after the July 2 formal-round request and after the July 11 offer deadline, with no extracted informal signals."
+    },
+    "evt_016": {
+      "label": "Formal",
+      "rule_applied": 2.0,
+      "basis": "Hudson's Bay said it was prepared to offer $16 per share subject to a definitive, binding agreement."
     }
   },
   "rounds": [
     {
       "announcement_event_id": "evt_010",
-      "deadline_event_id": "evt_012",
+      "deadline_event_id": null,
       "round_scope": "formal",
       "invited_actor_ids": [
         "bidder_hudsons_bay",
@@ -56,37 +56,37 @@
     {
       "cycle_id": "cycle_1",
       "start_event_id": "evt_001",
-      "end_event_id": "evt_022",
+      "end_event_id": "evt_019",
       "boundary_basis": "Single cycle -- no termination events"
     }
   ],
   "formal_boundary": {
     "cycle_1": {
-      "event_id": "evt_013",
-      "basis": "First formal proposal in cycle: evt_013."
+      "event_id": "evt_012",
+      "basis": "First formal proposal in cycle: evt_012 included a revised draft merger agreement and committed financing documentation."
     }
   },
   "initiation_judgment": {
     "type": "bidder_driven",
-    "basis": "Sponsor A's unsolicited outreach, followed by Hudson's Bay's approach, preceded the board's June 5 authorization of a sale process, even though Saks had been reviewing strategic alternatives more generally.",
+    "basis": "The sale process was triggered by unsolicited bidder outreach, even though the board had been reviewing strategic alternatives generally.",
     "source_text": "In February 2013, Stephen I. Sadove, Saks' Chairman and Chief Executive Officer, received an unsolicited phone call from a representative of a private equity firm, which we refer to as Sponsor A, expressing interest in a potential acquisition of Saks.",
     "confidence": "medium"
   },
   "advisory_verification": {
     "advisor_goldman_sachs": {
-      "advised_actor_id": "target_board_saks",
+      "advised_actor_id": "target_board",
       "verified": true,
-      "source_text": "Goldman Sachs, one of Saks' longstanding financial advisors"
+      "source_text": "Goldman Sachs, one of Saks' longstanding financial advisors, has participated in these reviews."
     },
     "advisor_wachtell_lipton": {
-      "advised_actor_id": "target_board_saks",
+      "advised_actor_id": "target_board",
       "verified": true,
-      "source_text": "Wachtell, Lipton, Rosen & Katz, referred to as Wachtell Lipton, Saks' external counsel"
+      "source_text": "Wachtell, Lipton, Rosen & Katz, referred to as Wachtell Lipton, Saks' external counsel."
     },
     "advisor_morgan_stanley": {
-      "advised_actor_id": "target_board_saks",
+      "advised_actor_id": "target_board",
       "verified": true,
-      "source_text": "Morgan Stanley & Co. LLC (a long-time advisor to Saks, referred to as “ Morgan Stanley”)"
+      "source_text": "Morgan Stanley & Co. LLC (a long-time advisor to Saks, referred to as \"Morgan Stanley\")"
     }
   },
   "count_reconciliation": [
@@ -94,18 +94,20 @@
       "assertion": "During the go shop process, Goldman Sachs, on behalf of Saks, contacted 58 potentially interested third parties.",
       "extracted_count": 1,
       "classification": "unnamed_aggregate",
-      "note": "Only Company I was individually named from the go-shop contact pool; the remaining 57 contacted parties were left unnamed in the filing chronology."
+      "note": "The filing counts unnamed go-shop contacts in aggregate; the verified extract individualizes only Company I."
     },
     {
       "assertion": "Of those contacted, only six parties expressed interest.",
       "extracted_count": 1,
       "classification": "unnamed_aggregate",
-      "note": "Only Company I was individually named among the six interested go-shop parties, so five interested parties remained unnamed."
+      "note": "The filing counts unnamed interested parties in aggregate; the verified extract individualizes only Company I."
+    },
+    {
+      "assertion": "Only one of the six (which we refer to as Company I) executed a confidentiality agreement with, and conducted a due diligence investigation of, Saks.",
+      "extracted_count": 1,
+      "classification": null,
+      "note": "Counts match exactly."
     }
   ],
-  "review_flags": [
-    "bid_classification_uncertain:evt_017",
-    "count_mismatch:go_shop_contacted_third_parties",
-    "count_mismatch:go_shop_interested_parties"
-  ]
+  "review_flags": []
 }

@@ -1,0 +1,63 @@
+{
+  "rounds": [
+    {
+      "announcement_event_id": "evt_007",
+      "deadline_event_id": "evt_008",
+      "round_scope": "formal",
+      "invited_actor_ids": [
+        "bidder_buyer_group",
+        "bidder_2",
+        "bidder_3"
+      ],
+      "active_bidders_at_time": 0,
+      "is_selective": false
+    },
+    {
+      "announcement_event_id": "evt_012",
+      "deadline_event_id": null,
+      "round_scope": "extension",
+      "invited_actor_ids": [
+        "bidder_buyer_group",
+        "bidder_2"
+      ],
+      "active_bidders_at_time": 0,
+      "is_selective": false
+    }
+  ],
+  "bid_classifications": {
+    "evt_009": {
+      "label": "Formal",
+      "rule_applied": 2.0,
+      "basis": "Observable formal signal from formality_signals."
+    },
+    "evt_010": {
+      "label": "Formal",
+      "rule_applied": 2.0,
+      "basis": "Observable formal signal from formality_signals."
+    },
+    "evt_014": {
+      "label": "Formal",
+      "rule_applied": 2.0,
+      "basis": "Observable formal signal from formality_signals."
+    },
+    "evt_015": {
+      "label": "Formal",
+      "rule_applied": 2.0,
+      "basis": "Observable formal signal from formality_signals."
+    }
+  },
+  "cycles": [
+    {
+      "cycle_id": "cycle_1",
+      "start_event_id": "evt_001",
+      "end_event_id": "evt_016",
+      "boundary_basis": "Single cycle -- no termination events"
+    }
+  ],
+  "formal_boundary": {
+    "cycle_1": {
+      "event_id": "evt_009",
+      "basis": "First formal proposal in cycle: evt_009."
+    }
+  }
+}

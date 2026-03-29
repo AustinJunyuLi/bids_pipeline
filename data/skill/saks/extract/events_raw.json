@@ -17,9 +17,9 @@
       "actor_ids": [
         "bidder_sponsor_a"
       ],
-      "summary": "Sponsor A makes the first unsolicited approach about a potential acquisition of Saks.",
+      "summary": "Sponsor A expressed interest in a potential acquisition of Saks.",
       "evidence_span_ids": [
-        "span_0015"
+        "span_0014"
       ],
       "terms": null,
       "formality_signals": null,
@@ -29,9 +29,11 @@
       "invited_actor_ids": [],
       "deadline_date": null,
       "executed_with_actor_id": null,
-      "boundary_note": "No specific proposal or transaction terms were discussed in this initial contact.",
+      "boundary_note": null,
       "nda_signed": null,
-      "notes": []
+      "notes": [
+        "Early March 2013 management meeting followed this unsolicited approach, but no specific proposal terms were discussed."
+      ]
     },
     {
       "event_id": "evt_002",
@@ -50,42 +52,9 @@
       "actor_ids": [
         "bidder_hudsons_bay"
       ],
-      "summary": "Richard Baker discusses a potential acquisition of Saks by Hudsons Bay with Stephen Sadove.",
+      "summary": "Hudson’s Bay discussed a potential acquisition of Saks with management.",
       "evidence_span_ids": [
-        "span_0016"
-      ],
-      "terms": null,
-      "formality_signals": null,
-      "whole_company_scope": null,
-      "drop_reason_text": null,
-      "round_scope": null,
-      "invited_actor_ids": [],
-      "deadline_date": null,
-      "executed_with_actor_id": null,
-      "boundary_note": "No specific proposal or transaction terms were discussed at this stage.",
-      "nda_signed": null,
-      "notes": []
-    },
-    {
-      "event_id": "evt_003",
-      "event_type": "target_sale",
-      "date": {
-        "raw_text": "June 5, 2013",
-        "normalized_start": "2013-06-05",
-        "normalized_end": "2013-06-05",
-        "sort_date": "2013-06-05",
-        "precision": "exact_day",
-        "anchor_event_id": null,
-        "anchor_span_id": null,
-        "resolution_note": null,
-        "is_inferred": false
-      },
-      "actor_ids": [
-        "target_board_saks"
-      ],
-      "summary": "The board authorizes a process to determine whether a sale transaction with one of the confidentiality-agreement counterparties can be reached.",
-      "evidence_span_ids": [
-        "span_0017"
+        "span_0015"
       ],
       "terms": null,
       "formality_signals": null,
@@ -97,6 +66,39 @@
       "executed_with_actor_id": null,
       "boundary_note": null,
       "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_003",
+      "event_type": "nda",
+      "date": {
+        "raw_text": "April 26, 2013",
+        "normalized_start": "2013-04-26",
+        "normalized_end": "2013-04-26",
+        "sort_date": "2013-04-26",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_sponsor_a"
+      ],
+      "summary": "Sponsor A entered into a confidentiality agreement with Saks.",
+      "evidence_span_ids": [
+        "span_0016"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
       "notes": []
     },
     {
@@ -114,12 +116,11 @@
         "is_inferred": false
       },
       "actor_ids": [
-        "bidder_sponsor_a"
+        "bidder_sponsor_e"
       ],
-      "summary": "Sponsor A executes a confidentiality agreement with Saks.",
+      "summary": "Sponsor E entered into a confidentiality agreement with Saks.",
       "evidence_span_ids": [
-        "span_0018",
-        "span_0019"
+        "span_0016"
       ],
       "terms": null,
       "formality_signals": null,
@@ -137,10 +138,10 @@
       "event_id": "evt_005",
       "event_type": "nda",
       "date": {
-        "raw_text": "April 26, 2013",
-        "normalized_start": "2013-04-26",
-        "normalized_end": "2013-04-26",
-        "sort_date": "2013-04-26",
+        "raw_text": "April 30, 2013",
+        "normalized_start": "2013-04-30",
+        "normalized_end": "2013-04-30",
+        "sort_date": "2013-04-30",
         "precision": "exact_day",
         "anchor_event_id": null,
         "anchor_span_id": null,
@@ -148,12 +149,11 @@
         "is_inferred": false
       },
       "actor_ids": [
-        "bidder_sponsor_e"
+        "bidder_hudsons_bay"
       ],
-      "summary": "Sponsor E executes a confidentiality agreement with Saks.",
+      "summary": "Hudson’s Bay entered into a confidentiality agreement with Saks.",
       "evidence_span_ids": [
-        "span_0018",
-        "span_0019"
+        "span_0017"
       ],
       "terms": null,
       "formality_signals": null,
@@ -169,43 +169,9 @@
     },
     {
       "event_id": "evt_006",
-      "event_type": "nda",
-      "date": {
-        "raw_text": "April 30, 2013",
-        "normalized_start": "2013-04-30",
-        "normalized_end": "2013-04-30",
-        "sort_date": "2013-04-30",
-        "precision": "exact_day",
-        "anchor_event_id": null,
-        "anchor_span_id": null,
-        "resolution_note": null,
-        "is_inferred": false
-      },
-      "actor_ids": [
-        "bidder_hudsons_bay"
-      ],
-      "summary": "Hudsons Bay executes a confidentiality agreement with Saks.",
-      "evidence_span_ids": [
-        "span_0019",
-        "span_0020"
-      ],
-      "terms": null,
-      "formality_signals": null,
-      "whole_company_scope": null,
-      "drop_reason_text": null,
-      "round_scope": null,
-      "invited_actor_ids": [],
-      "deadline_date": null,
-      "executed_with_actor_id": null,
-      "boundary_note": null,
-      "nda_signed": true,
-      "notes": []
-    },
-    {
-      "event_id": "evt_007",
       "event_type": "proposal",
       "date": {
-        "raw_text": "during the week of June 3, 2013",
+        "raw_text": "During the week of June 3, 2013",
         "normalized_start": "2013-06-03",
         "normalized_end": "2013-06-03",
         "sort_date": "2013-06-03",
@@ -218,9 +184,9 @@
       "actor_ids": [
         "bidder_hudsons_bay"
       ],
-      "summary": "Hudsons Bay indicates it is prepared to submit a proposal in the range of $15.00 to $15.25 per share.",
+      "summary": "Hudson’s Bay indicated it was prepared to submit a proposal to acquire Saks at $15.00 to $15.25 per share.",
       "evidence_span_ids": [
-        "span_0021"
+        "span_0018"
       ],
       "terms": {
         "per_share": null,
@@ -253,10 +219,10 @@
       "notes": []
     },
     {
-      "event_id": "evt_008",
+      "event_id": "evt_007",
       "event_type": "proposal",
       "date": {
-        "raw_text": "during the week of June 3, 2013",
+        "raw_text": "During the week of June 3, 2013",
         "normalized_start": "2013-06-03",
         "normalized_end": "2013-06-03",
         "sort_date": "2013-06-03",
@@ -270,9 +236,9 @@
         "bidder_sponsor_a",
         "bidder_sponsor_e"
       ],
-      "summary": "Sponsor A and Sponsor E indicate they are prepared to submit a proposal in the range of $15.00 to $16.00 per share.",
+      "summary": "Sponsor A and Sponsor E indicated they were prepared to submit a proposal to acquire Saks at $15.00 to $16.00 per share.",
       "evidence_span_ids": [
-        "span_0022"
+        "span_0019"
       ],
       "terms": {
         "per_share": null,
@@ -305,10 +271,43 @@
       "notes": []
     },
     {
+      "event_id": "evt_008",
+      "event_type": "target_sale",
+      "date": {
+        "raw_text": "June 5, 2013",
+        "normalized_start": "2013-06-05",
+        "normalized_end": "2013-06-05",
+        "sort_date": "2013-06-05",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "target_board"
+      ],
+      "summary": "The board authorized a sale process to determine whether a transaction with an NDA-signed potential acquiror could be reached on attractive terms.",
+      "evidence_span_ids": [
+        "span_0020"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
       "event_id": "evt_009",
       "event_type": "bidder_interest",
       "date": {
-        "raw_text": "during the week of June 10, 2013",
+        "raw_text": "During the week of June 10, 2013",
         "normalized_start": "2013-06-10",
         "normalized_end": "2013-06-10",
         "sort_date": "2013-06-10",
@@ -321,9 +320,9 @@
       "actor_ids": [
         "bidder_company_f"
       ],
-      "summary": "Company F indicates interest in joining Sponsor A and Sponsor E in a potential acquisition of Saks.",
+      "summary": "Company F indicated interest in participating with Sponsor A and Sponsor E in a potential acquisition of Saks.",
       "evidence_span_ids": [
-        "span_0023"
+        "span_0021"
       ],
       "terms": null,
       "formality_signals": null,
@@ -333,9 +332,11 @@
       "invited_actor_ids": [],
       "deadline_date": null,
       "executed_with_actor_id": null,
-      "boundary_note": "Company F did not participate in the offer that was ultimately submitted.",
+      "boundary_note": null,
       "nda_signed": null,
-      "notes": []
+      "notes": [
+        "The filing says Company F later did not participate in the submitted offer."
+      ]
     },
     {
       "event_id": "evt_010",
@@ -354,10 +355,9 @@
       "actor_ids": [
         "advisor_goldman_sachs"
       ],
-      "summary": "Goldman Sachs sends a draft merger agreement and process details to Hudsons Bay, Sponsor A, and Sponsor E, requesting offers by July 11, 2013.",
+      "summary": "Goldman Sachs sent a draft merger agreement and process details to Hudson’s Bay, Sponsor A, and Sponsor E and requested July 11 offers.",
       "evidence_span_ids": [
-        "span_0024",
-        "span_0025"
+        "span_0022"
       ],
       "terms": null,
       "formality_signals": null,
@@ -384,7 +384,7 @@
       "boundary_note": null,
       "nda_signed": null,
       "notes": [
-        "Draft merger agreement plus a bid deadline is a formal-round signal."
+        "Draft merger agreement plus process details is a formal-round signal."
       ]
     },
     {
@@ -404,9 +404,9 @@
       "actor_ids": [
         "bidder_sponsor_g"
       ],
-      "summary": "Sponsor G executes a confidentiality agreement with Saks after joining discussions with Sponsor E.",
+      "summary": "Sponsor G entered into a confidentiality agreement with Saks.",
       "evidence_span_ids": [
-        "span_0026"
+        "span_0023"
       ],
       "terms": null,
       "formality_signals": null,
@@ -422,7 +422,7 @@
     },
     {
       "event_id": "evt_012",
-      "event_type": "final_round",
+      "event_type": "proposal",
       "date": {
         "raw_text": "July 11, 2013",
         "normalized_start": "2013-07-11",
@@ -434,16 +434,36 @@
         "resolution_note": null,
         "is_inferred": false
       },
-      "actor_ids": [],
-      "summary": "The July 11 deadline for final-round offers arrives and bidders submit proposals.",
-      "evidence_span_ids": [
-        "span_0027"
+      "actor_ids": [
+        "bidder_hudsons_bay"
       ],
-      "terms": null,
-      "formality_signals": null,
-      "whole_company_scope": null,
+      "summary": "Hudson’s Bay submitted a $15.25 per share proposal with a revised draft merger agreement and committed financing documentation.",
+      "evidence_span_ids": [
+        "span_0024"
+      ],
+      "terms": {
+        "per_share": "15.25",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": false,
+        "mentions_preliminary": false,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": true,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": true,
+        "after_final_round_announcement": true,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": false
+      },
+      "whole_company_scope": true,
       "drop_reason_text": null,
-      "round_scope": "formal",
+      "round_scope": null,
       "invited_actor_ids": [],
       "deadline_date": null,
       "executed_with_actor_id": null,
@@ -466,63 +486,12 @@
         "is_inferred": false
       },
       "actor_ids": [
-        "bidder_hudsons_bay"
-      ],
-      "summary": "Hudsons Bay submits a $15.25 per share proposal with a revised draft merger agreement and committed financing materials.",
-      "evidence_span_ids": [
-        "span_0028"
-      ],
-      "terms": {
-        "per_share": "15.25",
-        "range_low": null,
-        "range_high": null,
-        "enterprise_value": null,
-        "consideration_type": "cash"
-      },
-      "formality_signals": {
-        "contains_range": false,
-        "mentions_indication_of_interest": false,
-        "mentions_preliminary": false,
-        "mentions_non_binding": false,
-        "mentions_binding_offer": false,
-        "includes_draft_merger_agreement": true,
-        "includes_marked_up_agreement": false,
-        "requested_binding_offer_via_process_letter": true,
-        "after_final_round_announcement": true,
-        "after_final_round_deadline": true,
-        "is_subject_to_financing": false
-      },
-      "whole_company_scope": true,
-      "drop_reason_text": null,
-      "round_scope": null,
-      "invited_actor_ids": [],
-      "deadline_date": null,
-      "executed_with_actor_id": null,
-      "boundary_note": null,
-      "nda_signed": null,
-      "notes": []
-    },
-    {
-      "event_id": "evt_014",
-      "event_type": "proposal",
-      "date": {
-        "raw_text": "July 11, 2013",
-        "normalized_start": "2013-07-11",
-        "normalized_end": "2013-07-11",
-        "sort_date": "2013-07-11",
-        "precision": "exact_day",
-        "anchor_event_id": null,
-        "anchor_span_id": null,
-        "resolution_note": null,
-        "is_inferred": false
-      },
-      "actor_ids": [
         "bidder_sponsor_e",
         "bidder_sponsor_g"
       ],
-      "summary": "Sponsor E and Sponsor G submit a $14.50 to $15.50 per share proposal but state that they need more time for diligence and provide no draft agreement or financing support.",
+      "summary": "Sponsor E and Sponsor G submitted a $14.50 to $15.50 per share joint proposal that required more diligence and did not include a draft merger agreement or financing support.",
       "evidence_span_ids": [
-        "span_0029"
+        "span_0025"
       ],
       "terms": {
         "per_share": null,
@@ -534,14 +503,14 @@
       "formality_signals": {
         "contains_range": true,
         "mentions_indication_of_interest": false,
-        "mentions_preliminary": true,
+        "mentions_preliminary": false,
         "mentions_non_binding": false,
         "mentions_binding_offer": false,
         "includes_draft_merger_agreement": false,
         "includes_marked_up_agreement": false,
         "requested_binding_offer_via_process_letter": true,
         "after_final_round_announcement": true,
-        "after_final_round_deadline": true,
+        "after_final_round_deadline": false,
         "is_subject_to_financing": null
       },
       "whole_company_scope": true,
@@ -552,28 +521,30 @@
       "executed_with_actor_id": null,
       "boundary_note": null,
       "nda_signed": null,
-      "notes": []
+      "notes": [
+        "The filing says the parties would require several additional weeks of diligence before any more definitive proposal."
+      ]
     },
     {
-      "event_id": "evt_015",
+      "event_id": "evt_014",
       "event_type": "drop",
       "date": {
-        "raw_text": "July 11, 2013",
-        "normalized_start": "2013-07-11",
-        "normalized_end": "2013-07-11",
-        "sort_date": "2013-07-11",
-        "precision": "exact_day",
+        "raw_text": "subsequently",
+        "normalized_start": null,
+        "normalized_end": null,
+        "sort_date": null,
+        "precision": "unknown",
         "anchor_event_id": null,
         "anchor_span_id": null,
-        "resolution_note": null,
+        "resolution_note": "Unable to parse date deterministically.",
         "is_inferred": false
       },
       "actor_ids": [
         "bidder_sponsor_g"
       ],
-      "summary": "Sponsor G ceases participating in the process after the July 11 proposal submission.",
+      "summary": "Sponsor G stopped participating in the process after the July 11 joint proposal.",
       "evidence_span_ids": [
-        "span_0030"
+        "span_0026"
       ],
       "terms": null,
       "formality_signals": null,
@@ -585,43 +556,12 @@
       "executed_with_actor_id": null,
       "boundary_note": null,
       "nda_signed": null,
-      "notes": []
+      "notes": [
+        "The filing says Sponsor E later rejoined with Sponsor A as the continuing financial-bidder group."
+      ]
     },
     {
-      "event_id": "evt_016",
-      "event_type": "nda",
-      "date": {
-        "raw_text": "July 18, 2013",
-        "normalized_start": "2013-07-18",
-        "normalized_end": "2013-07-18",
-        "sort_date": "2013-07-18",
-        "precision": "exact_day",
-        "anchor_event_id": null,
-        "anchor_span_id": null,
-        "resolution_note": null,
-        "is_inferred": false
-      },
-      "actor_ids": [
-        "bidder_company_b"
-      ],
-      "summary": "Saks signs a confidentiality agreement with Company B to conduct diligence on a possible acquisition of Company B.",
-      "evidence_span_ids": [
-        "span_0031"
-      ],
-      "terms": null,
-      "formality_signals": null,
-      "whole_company_scope": null,
-      "drop_reason_text": null,
-      "round_scope": null,
-      "invited_actor_ids": [],
-      "deadline_date": null,
-      "executed_with_actor_id": null,
-      "boundary_note": "This NDA belongs to the parallel Company B alternative-transaction track.",
-      "nda_signed": true,
-      "notes": []
-    },
-    {
-      "event_id": "evt_017",
+      "event_id": "evt_015",
       "event_type": "proposal",
       "date": {
         "raw_text": "July 21, 2013",
@@ -637,9 +577,9 @@
       "actor_ids": [
         "bidder_company_h"
       ],
-      "summary": "Company H sends an unsolicited cash proposal to acquire Saks for an aggregate value of $2.6 billion.",
+      "summary": "Company H sent a purported $2.6 billion all-cash proposal for Saks.",
       "evidence_span_ids": [
-        "span_0032"
+        "span_0027"
       ],
       "terms": {
         "per_share": null,
@@ -657,8 +597,8 @@
         "includes_draft_merger_agreement": false,
         "includes_marked_up_agreement": false,
         "requested_binding_offer_via_process_letter": false,
-        "after_final_round_announcement": false,
-        "after_final_round_deadline": false,
+        "after_final_round_announcement": true,
+        "after_final_round_deadline": true,
         "is_subject_to_financing": null
       },
       "whole_company_scope": true,
@@ -667,12 +607,14 @@
       "invited_actor_ids": [],
       "deadline_date": null,
       "executed_with_actor_id": null,
-      "boundary_note": "The letter provided no details and no follow-up communications occurred.",
+      "boundary_note": null,
       "nda_signed": null,
-      "notes": []
+      "notes": [
+        "The filing says Company H provided no details or further information and never followed up."
+      ]
     },
     {
-      "event_id": "evt_018",
+      "event_id": "evt_016",
       "event_type": "proposal",
       "date": {
         "raw_text": "July 24, 2013",
@@ -688,9 +630,9 @@
       "actor_ids": [
         "bidder_hudsons_bay"
       ],
-      "summary": "Hudsons Bay raises its offer to $16.00 per share and agrees with Saks on substantially all major deal issues.",
+      "summary": "Hudson’s Bay stated it was prepared to offer $16 per share, subject to negotiating a definitive binding agreement.",
       "evidence_span_ids": [
-        "span_0033"
+        "span_0028"
       ],
       "terms": {
         "per_share": "16.00",
@@ -704,13 +646,13 @@
         "mentions_indication_of_interest": false,
         "mentions_preliminary": false,
         "mentions_non_binding": false,
-        "mentions_binding_offer": false,
+        "mentions_binding_offer": true,
         "includes_draft_merger_agreement": false,
         "includes_marked_up_agreement": false,
         "requested_binding_offer_via_process_letter": false,
         "after_final_round_announcement": true,
         "after_final_round_deadline": true,
-        "is_subject_to_financing": false
+        "is_subject_to_financing": null
       },
       "whole_company_scope": true,
       "drop_reason_text": null,
@@ -723,25 +665,59 @@
       "notes": []
     },
     {
-      "event_id": "evt_019",
-      "event_type": "bidder_interest",
+      "event_id": "evt_017",
+      "event_type": "executed",
       "date": {
-        "raw_text": "during the go shop process",
-        "normalized_start": null,
-        "normalized_end": null,
-        "sort_date": null,
-        "precision": "unknown",
+        "raw_text": "July 28, 2013",
+        "normalized_start": "2013-07-28",
+        "normalized_end": "2013-07-28",
+        "sort_date": "2013-07-28",
+        "precision": "exact_day",
         "anchor_event_id": null,
         "anchor_span_id": null,
-        "resolution_note": "Unable to parse date deterministically.",
+        "resolution_note": null,
         "is_inferred": false
       },
       "actor_ids": [
-        "bidder_company_i"
+        "target_board"
       ],
-      "summary": "Company I is the only named go-shop participant among the six parties that expressed interest in Saks.",
+      "summary": "Saks executed the merger agreement and related transaction documents with Hudson’s Bay.",
       "evidence_span_ids": [
-        "span_0014"
+        "span_0029"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": "bidder_hudsons_bay",
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_018",
+      "event_type": "bid_press_release",
+      "date": {
+        "raw_text": "July 29, 2013",
+        "normalized_start": "2013-07-29",
+        "normalized_end": "2013-07-29",
+        "sort_date": "2013-07-29",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "target_board",
+        "bidder_hudsons_bay"
+      ],
+      "summary": "Saks and Hudson’s Bay issued a joint press release announcing the transaction.",
+      "evidence_span_ids": [
+        "span_0030"
       ],
       "terms": null,
       "formality_signals": null,
@@ -756,7 +732,7 @@
       "notes": []
     },
     {
-      "event_id": "evt_020",
+      "event_id": "evt_019",
       "event_type": "nda",
       "date": {
         "raw_text": "approximately two weeks after the merger agreement was executed",
@@ -772,10 +748,10 @@
       "actor_ids": [
         "bidder_company_i"
       ],
-      "summary": "Company I signs a confidentiality agreement and conducts due diligence during the go-shop period after the merger agreement is signed.",
+      "summary": "Company I executed a confidentiality agreement during the go-shop process and conducted due diligence on Saks.",
       "evidence_span_ids": [
-        "span_0034",
-        "span_0035"
+        "span_0031",
+        "span_0011"
       ],
       "terms": null,
       "formality_signals": null,
@@ -785,98 +761,61 @@
       "invited_actor_ids": [],
       "deadline_date": null,
       "executed_with_actor_id": null,
-      "boundary_note": "Post-signing go-shop NDA activity.",
+      "boundary_note": null,
       "nda_signed": true,
-      "notes": []
-    },
-    {
-      "event_id": "evt_021",
-      "event_type": "executed",
-      "date": {
-        "raw_text": "July 28, 2013",
-        "normalized_start": "2013-07-28",
-        "normalized_end": "2013-07-28",
-        "sort_date": "2013-07-28",
-        "precision": "exact_day",
-        "anchor_event_id": null,
-        "anchor_span_id": null,
-        "resolution_note": null,
-        "is_inferred": false
-      },
-      "actor_ids": [
-        "bidder_hudsons_bay"
-      ],
-      "summary": "Saks signs the merger agreement and related transaction documents with Hudsons Bay and Merger Sub.",
-      "evidence_span_ids": [
-        "span_0036"
-      ],
-      "terms": null,
-      "formality_signals": null,
-      "whole_company_scope": null,
-      "drop_reason_text": null,
-      "round_scope": null,
-      "invited_actor_ids": [],
-      "deadline_date": null,
-      "executed_with_actor_id": "bidder_hudsons_bay",
-      "boundary_note": null,
-      "nda_signed": null,
-      "notes": []
-    },
-    {
-      "event_id": "evt_022",
-      "event_type": "bid_press_release",
-      "date": {
-        "raw_text": "July 29, 2013",
-        "normalized_start": "2013-07-29",
-        "normalized_end": "2013-07-29",
-        "sort_date": "2013-07-29",
-        "precision": "exact_day",
-        "anchor_event_id": null,
-        "anchor_span_id": null,
-        "resolution_note": null,
-        "is_inferred": false
-      },
-      "actor_ids": [
-        "bidder_hudsons_bay"
-      ],
-      "summary": "Saks and Hudsons Bay issue a joint press release announcing the transaction.",
-      "evidence_span_ids": [
-        "span_0037"
-      ],
-      "terms": null,
-      "formality_signals": null,
-      "whole_company_scope": null,
-      "drop_reason_text": null,
-      "round_scope": null,
-      "invited_actor_ids": [],
-      "deadline_date": null,
-      "executed_with_actor_id": null,
-      "boundary_note": null,
-      "nda_signed": null,
-      "notes": []
+      "notes": [
+        "Company I was the only individualized go-shop party that signed an NDA and conducted diligence."
+      ]
     }
   ],
-  "exclusions": [],
+  "exclusions": [
+    {
+      "category": "non_event_context",
+      "block_ids": [
+        "B009",
+        "B012",
+        "B013",
+        "B017",
+        "B020"
+      ],
+      "explanation": "Sponsor C and Sponsor D, and the related confidentiality agreements and financing discussions, concerned Saks's possible acquisition of Company B rather than bids for Saks."
+    },
+    {
+      "category": "non_event_context",
+      "block_ids": [
+        "B021",
+        "B026",
+        "B030",
+        "B032",
+        "B036",
+        "B042",
+        "B044",
+        "B047",
+        "B049"
+      ],
+      "explanation": "The Company B proposal path describes Saks exploring an acquisition of Company B, not third-party acquisition events for Saks."
+    }
+  ],
   "coverage_notes": [
-    "target_sale: extracted (evt_003)",
-    "target_sale_public: NOT FOUND -- no public strategic-review announcement before signing",
-    "bidder_sale: NOT FOUND -- no separate acquirer-initiated sale process for Saks was described",
-    "bidder_interest: extracted (evt_001, evt_002, evt_009, evt_019)",
-    "activist_sale: NOT FOUND -- no activist-triggered sale process described",
-    "sale_press_release: NOT FOUND -- no press release announced a sale process before the merger announcement",
-    "bid_press_release: extracted (evt_022)",
-    "ib_retention: NOT FOUND -- Goldman Sachs was a longstanding adviser rather than newly retained during the described process",
-    "nda: extracted (evt_004, evt_005, evt_006, evt_011, evt_016, evt_020)",
-    "proposal: extracted (evt_007, evt_008, evt_013, evt_014, evt_017, evt_018)",
-    "drop: extracted (evt_015)",
-    "final_round_inf_ann: NOT FOUND -- no informal final round announcement described",
-    "final_round_inf: NOT FOUND -- no informal final round deadline described",
+    "target_sale: extracted (evt_008)",
+    "target_sale_public: NOT FOUND -- the filing describes media reports but no company-issued public strategic-review announcement before signing.",
+    "bidder_sale: NOT FOUND -- no acquirer-launched sale of itself was described.",
+    "bidder_interest: extracted (evt_001, evt_002, evt_009)",
+    "activist_sale: NOT FOUND -- no activist involvement was described.",
+    "sale_press_release: NOT FOUND -- the filing only describes the post-signing transaction announcement.",
+    "bid_press_release: extracted (evt_018)",
+    "ib_retention: NOT FOUND -- Goldman Sachs and Morgan Stanley were described as longstanding advisors rather than newly retained in this chronology.",
+    "nda: extracted (evt_003, evt_004, evt_005, evt_011, evt_019)",
+    "proposal: extracted (evt_006, evt_007, evt_012, evt_013, evt_015, evt_016)",
+    "drop: extracted (evt_014)",
+    "final_round_inf_ann: NOT FOUND -- no informal final-round announcement was described.",
+    "final_round_inf: NOT FOUND -- no informal final-round deadline was described.",
     "final_round_ann: extracted (evt_010)",
-    "final_round: extracted (evt_012)",
-    "final_round_ext_ann: NOT FOUND -- no extension round announcement described",
-    "final_round_ext: NOT FOUND -- no extension round deadline described",
-    "executed: extracted (evt_021)",
-    "terminated: NOT FOUND -- the process ended with a signed merger, not a termination",
-    "restarted: NOT FOUND -- no restarted sale process described"
+    "final_round: NOT FOUND -- the filing gives a response deadline within the July 2 process letter, but no separate deadline event was described.",
+    "final_round_ext_ann: NOT FOUND -- no extension round announcement was described.",
+    "final_round_ext: NOT FOUND -- no extension round deadline was described.",
+    "executed: extracted (evt_017)",
+    "terminated: NOT FOUND -- the process ended in a signed transaction rather than a terminated sale process.",
+    "restarted: NOT FOUND -- no terminated process later restarted."
   ]
 }

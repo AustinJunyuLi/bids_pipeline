@@ -1,6 +1,15 @@
 {
   "dedup_log": {},
-  "nda_gate_log": [],
+  "nda_gate_log": [
+    {
+      "removed_event_id": "evt_027",
+      "reason": "Drop actor(s) {'bidder_company_4'} have no prior NDA in the current cycle."
+    },
+    {
+      "removed_event_id": "evt_029",
+      "reason": "Drop actor(s) {'bidder_company_3'} have no prior NDA in the current cycle."
+    }
+  ],
   "recovery_log": [],
   "orphaned_quotes": []
 }

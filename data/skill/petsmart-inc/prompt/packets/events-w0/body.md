@@ -1,0 +1,404 @@
+<deal_context>
+deal_slug: petsmart-inc
+target_name: PETSMART INC
+source_accession_number: 0001571049-15-000695
+source_form_type: UNKNOWN
+chunk_mode: single_pass
+window_id: w0
+</deal_context>
+
+<chronology_blocks>
+B001 [L1100-L1100]: Background of the Merger
+B002 [L1102-L1105]: The board frequently reviews, with the Company’s management and with the assistance of financial and legal advisors, the Company’s strategic and financial alternatives in light of developments in the Company’s business, in the sectors in which it competes, in the economy generally and in financial markets. The alternatives reviewed have included large and small acquisitions, mergers, a sale of the Company, as well as alternatives for returning capital to stockholders, including by means of levered or unlevered share repurchases or extraordinary dividends, and, from time to time, the Company received inquiries from third parties seeking to determine the Company’s interest in a sale transaction. During the first calendar quarter of 2014, one of the alternatives considered by the board was a merger with or acquisition of another participant in PetSmart’s industry, a privately-held company which we refer to here as “ Industry Participant.” In March, 2014, the board authorized management to contact Industry Participant to determine Industry Participant’s interest in initiating exploratory discussions concerning the feasibility of a merger or acquisition transaction. During the Spring of 2014, David Lenhardt, PetSmart’s chief executive officer, spoke on a few occasions to Industry Participant’s CEO. Industry Participant’s CEO informed Mr. Lenhardt that Industry Participant was not for sale and that, in any event, Industry Participant’s management and owners believed that antitrust clearance for a combination of PetSmart and Industry Participant would not be received or would be received only with unacceptable conditions. Over the next two months, Mr. Lenhardt spoke on several other occasions with Industry Participant’s CEO and with a representative of one of Industry Participant’s controlling stockholders, during which time, Industry Participant continued to raise concerns regarding receiving antitrust clearance for such a transaction.
+B003 [L1107-L1108]: On May 21, 2014, the Company released its first quarter earnings announcement, which disclosed quarterly performance below Wall Street expectations and weaker-than-expected guidance for its second quarter and full year. Following this release, in late May and June 2014, the Company received written or verbal communications from some stockholders and from interested parties suggesting that the Company engage in various strategic or financial alternatives. Among the alternatives suggested were a levered return of capital to stockholders and a sale of the Company. Also during May 2014, representatives of Longview met with certain members of the board and senior management. At those meetings, representatives of Longview presented their views on the business and strategic direction of the Company, but did not advocate for any specific transactions or alternatives.
+B004 [L1110-L1111]: At a meeting on June 18, 2014, the board reviewed, together with a financial advisor and with Wachtell, Lipton, Rosen & Katz (“ Wachtell Lipton”), its legal advisor, the various strategic and financial alternatives potentially available to the Company and determined to explore more intensively potential changes to the Company’s capital structure, with a focus on returning capital to stockholders. The board also established an ad hoc advisory subcommittee (the “ad hoc committee”) with respect to, among other
+B005 [L1113-L1113]: 21
+B006 [L1116-L1117]: things, the review of alternatives. Chairman Gregory Josefowicz and directors Rakesh Gangwal and Thomas Stemberg, all of whom are nonexecutive, independent directors, were appointed to the ad hoc committee. In addition, the board authorized the vetting and retention of a financial advisor to assist in the review. In July, after interviewing several potential financial advisors, the Company retained J. P. Morgan as financial advisor based on, among other factors, J. P. Morgan’s reputation, experience in mergers and acquisitions, valuation, financing and capital markets and its familiarity with the Company.
+B007 [L1119-L1121]: On July 3, 2014, JANA Partners filed a Schedule 13D with the SEC disclosing that JANA had acquired 9.9% of the Company’s outstanding common stock and that JANA intended to engage in discussions with management and the board with respect to a review of strategic alternatives, including a sale of the Company. On July 7, 2014, Longview made public a letter to the board in which Longview stated that the board should consider the a sale of the Company (as well as other strategic alternatives) and that should the board determine a sale transaction to be in the interests of all stockholders, Longview would consider, depending on the parties and terms involved, rolling part or all of its holdings into equity of the acquiring entity rather than receive cash consideration, should doing so prove necessary in order to enable the Company to complete a transaction. Over the course of July and August, JANA Partners filed several amendments to its Schedule 13D and publicly disclosed letters to the board, advocating for a sale of PetSmart. On July 10, 2014, representatives of JANA met in person with representatives of the Company. At this meeting, the JANA representatives presented their perspectives on the Company and advocated for a sale of the Company. On July 10, 2014, representatives of the Company also spoke to representatives of Longview and Longview reiterated its advocacy for a sale of the Company.
+B008 [L1123-L1124]: On August 7, 2014, a representative of Industry Participant contacted a representative of J. P. Morgan. The Industry Participant representative indicated that she had heard rumors that J. P. Morgan was working with the Company and wanted to inform J. P. Morgan that, if the Company were to pursue strategic alternatives, Industry Participant might be interested in re-visiting the conversations that had taken place in the Spring concerning the feasibility of a possible combination of the two Companies. The J. P. Morgan representative reported the conversation to the ad hoc committee.
+B009 [L1126-L1131]: On August 13, 2014, the board met in person, together with members of management and representatives of J. P. Morgan and Wachtell Lipton, to complete its initial review of strategic and financial alternatives potentially available to the Company and to receive an update on communications from stockholders and other interested parties, including Industry Participant. As a result of this meeting, the board (1) determined to explore strategic alternatives (including a possible sale of the Company) for the Company to maximize value for stockholders including by commencing a process to determine the potential value that could be achieved via a sale of the Company; (2) instructed management to commence intensive planning for a cost-reduction and profit-improvement plan (which we refer to collectively as the “ Profit Improvement Plan”) to potentially increase the value of the Company, whether in a sale of the Company or on a standalone basis should no sale materialize; and (3) authorized the ad hoc committee to oversee the sale exploration process, and, in between meetings of the full board, to give direction to the Company’s financial and legal advisors, to lead on behalf of the Company (or to give guidance to the Company’s representatives in connection with) any negotiations with potentially interested parties and periodically to brief the full board on the status of the sale exploration process. Together with the Company’s financial and legal advisors, the board also considered and discussed alternative formats and timing for the conduct of the exploratory sale process, and determined that at the appropriate time, which was expected to be during the second half of September or early October, J. P. Morgan should contact financial and strategic parties deemed likely to be interested and capable of completing a transaction. In addition, the board determined that the Company would issue a public announcement of its intention to explore strategic alternatives, which would ensure that interested parties not contacted would become aware of the process and could contact J. P. Morgan on their own initiative. In connection with this discussion, after deliberation and consultation with its financial and legal advisors, the board reviewed the potential benefits and risks of inviting Industry Participant to participate in the exploratory sale process. In this regard, the board considered, among other things, in addition to the communications with Industry Representative in the Spring and on August 7, the very high risk that an acquisition by or a combination with Industry Participant would not receive antitrust clearances, or would receive such clearances only with the imposition by governmental authorities of unacceptable conditions; the near certainty that the process of seeking such clearances would result in the receipt of a so-called “second request” from governmental
+B010 [L1133-L1133]: 22
+B011 [L1136-L1137]: authorities and would take eight months to a year, or longer, to pursue, with no assurance of success even after such a delay; the risk that Industry Participant would obtain competitively advantageous information in the course of due diligence even if it were not the winning bidder or indeed never bid; and the risk that participation by Industry Participant in the sale process would disrupt or negatively impact the sale process or impose an unacceptable time delay, in either case which would not advance the goal of maximizing shareholder value. On August 19, 2014, concurrent with its second quarter earnings announcement, the Company issued a press release announcing that it determined to explore strategic alternatives for the Company to maximize value for stockholders, including a possible sale of the Company.
+B012 [L1139-L1142]: During the weeks following the August 13 board meeting, members of the ad hoc committee continued to discuss among themselves, with fellow directors and with J. P. Morgan, the timing and process for the exploration of strategic alternatives, including issues relating to Industry Participant. In light of the risks discussed at the August 13 meeting and in these subsequent discussions, the ad hoc committee directed J. P. Morgan to communicate to Industry Participant the board’s concerns as a result of which Industry Participant would not be invited to participate in the exploratory process. On August 22, 2014, a representative of J. P. Morgan contacted by telephone the representative of Industry Participant with whom the J. P. Morgan representative had spoken to on August 7. During this call, Industry Participant confirmed that it was aware of the Company’s August 19 announcement and the J. P Morgan representative informed the Industry Participant representative of the board’s concerns regarding Industry Participant’s participation. The parties agreed to speak again in a few days. On August 27, 2014, representatives of Industry Participant contacted by telephone the representative of J. P. Morgan. During this call, the Industry Participant representatives stated that Industry Participant would have interest in discussing the possibility of a combination of the two companies. The J. P. Morgan representative reiterated the concerns identified by the board that engaging with Industry Participant was unlikely to maximize value for PetSmart’s stockholders. The J. P. Morgan representative stated that Industry Participant would not be invited into the exploratory process, but that if Industry Participant were to wish to submit a proposal or other communication to the Company, the board would consider it. There has been no contact between PetSmart and Industry Participant (or between any of their respective representatives) since August 27, 2014.
+B013 [L1144-L1144]: During the period from the middle of August through the end of October, the Company developed the Profit Improvement Plan and prepared for a sale process. During this period, J. P. Morgan was contacted by 27 potential participants in a sale process, including three strategic parties (not counting Industry Participant) and 24 financial participants (including potential lead buyers as well as large suppliers of equity capital to lead buyers).
+B014 [L1146-L1147]: On October 3, 2014, the board met, together with members of management and representatives of J. P. Morgan and Wachtell Lipton, to conduct regularly scheduled business and to receive an update on the status of the Profit Improvement Plan, the planning for which had been completed, and on the sale process, including an update on communications with the 27 potentially interested parties as well as Industry Participant that had occurred since the August 13 board meeting. Among other things, the board was informed that approximately 15 parties had expressed interest in participating in the process. In addition, at this meeting, in consultation with its financial and legal advisors, the board reviewed and, for the reasons discussed in August, reaffirmed the determination not to invite Industry Participant to participate in the sale process.
+B015 [L1149-L1149]: In the first week of October 2014, the Company entered into confidentiality and standstill agreements with 15 potentially interested financial buyers, all 15 of which, during the month of October engaged in due diligence, received management presentations involving the Company’s senior-most management, and received detailed financial and business plan information, including detailed information concerning the Profit Improvement Plan and associated cost-saving plans and opportunities.
+B016 [L1151-L1151]: During October, the potential bidders were informed that non-binding preliminary indications of interest would be due on October 30, 2014. The potential bidders were also informed that Longview had informed the Company that it would be willing to “roll-over” up to 7.5 million shares on terms and price acceptable to Longview, meaning that such shares would not receive cash merger consideration but would
+B017 [L1153-L1153]: 23
+B018 [L1156-L1156]: remain outstanding as equity in PetSmart or the buyer’s acquisition vehicle, if so desired by the bidder. The Company requested that, in connection with their preliminary indications of interest, the bidders should indicate their interest, if any, in participation by Longview, but that such interest was not a condition to participation in the process.
+B019 [L1158-L1159]: On October 30, six of the potentially interested parties submitted indications of interest. From October 30 to November 2, 2014, representatives of J. P. Morgan spoke by telephone with all of the potentially interested parties, including those that did not submit an indication of interest, to hear the parties’ respective rationales for the price levels suggested in their indications or rationales for not submitting an indication. Three bidders initially indicated price ranges that reached at least $80.00 per share, including the Buyer Group, which indicated a range of  $81.00 to $83.00 per share, and another bidder, which suggested a range of  $80.00 to $85.00 per share. As a result of its discussions with J. P. Morgan, another bidder (which we refer to as “ Bidder 2”), which had initially indicated a price of  $78.00, increased its indication to a range of  $81.00 to $84.00 per share.
+B020 [L1161-L1162]: On November 3, 2014, the board met in person, together with members of management and representatives of J. P. Morgan and Wachtell Lipton, to continue its review of strategic alternatives, including a review of the indications of interest. The board determined to allow the four bidders that had indicated a price or range at or above $80.00 per share to proceed to the final round of the sale process. Following this meeting, representatives of J. P. Morgan notified the eliminated parties, none of which indicated any interest or ability to remain in the process at price levels above their respective initial indications.
+B021 [L1164-L1165]: Two of the bidders (one of which had been invited into the final round but had indicated a desire to work with an equity partner in light of the size of an acquisition of PetSmart, and the other of which had indicated to J. P. Morgan that it would drop out of the process if not permitted to work together with another bidder) requested permission to work together. These two bidders informed J. P. Morgan that they had worked together successfully in previous large leveraged buyouts. After deliberation and consultation with the Company’s financial and legal advisors, the ad hoc committee authorized these two bidders to work together. We refer to these two bidders together as “ Bidder 3.” Each of the bidders invited into the final round indicated some interest in a Longview rollover, though each also stated that its bid would not be conditioned or dependent on Longview participation.
+B022 [L1167-L1168]: During November, the bidders engaged in further extensive due diligence investigations of the Company, including further detailed management presentations. Also during November, the Company circulated a form of merger agreement to the bidders with instructions that the bidders submit any proposed comments on the merger agreement together with their final bids. Following the Company’s third quarter earnings announcement and, at the request of bidders and the direction of the board and the Company, representatives of J. P. Morgan provided the bidders with updates to the Company’s fiscal year 2014 financial projections.
+B023 [L1170-L1173]: On December 3, 2014, the board met in-person for a regularly scheduled meeting. In addition to regular business, significant portions of this meeting were devoted to a further review and financial analysis of the Company’s strategic and financial alternatives, particularly in light of positive indications about the Company’s operating results based on preliminary information from the Fall and Thanksgiving season and indications that the Profit Improvement Plan would likely be successful in achieving at least $200 million in annual incremental profit. During these portions of the meeting, which were attended by members of management and representatives of J. P. Morgan and Wachtell Lipton, the board considered the values for the Company that might be achieved on a standalone basis, with and without a leveraged return of capital to stockholders. Because the board did not have bids in hand at this time, no decisions were made. The board had initially targeted Monday, December 15 for completion of the sale process, and had initially set Friday, December 5 as the date for submission of bids so as to allow sufficient time for the Company to receive and analyze the bids, conduct further rounds of bidding, if necessary, to negotiate final documentation, and to permit the winning bidder a short period of time to discuss and negotiate a Longview rollover, if desired by the winning bidder. However, on December 4 and December 5, 2014, after consultation with the Company’s financial and legal advisors, the ad hoc committee concluded that these matters could be accomplished in a shorter period of time, which would reduce the risk of leaks or
+B024 [L1175-L1175]: 24
+B025 [L1178-L1178]: unintended public disclosure. Accordingly, the Company set the evening of Wednesday, December 10 (five days, rather than 10 days prior to the anticipated December 15 completion date) as the deadline for submission of final bids, and at the same time asked the bidders to submit mark-ups of the draft merger agreement and the other transaction documents and financing commitments, if possible, in advance.
+B026 [L1180-L1180]: On December 6, 2014, the Buyer Group and Bidder 2 submitted their respective comments on the draft merger agreement and other transaction documents, and the Buyer Group provided its financing commitment documents.
+B027 [L1182-L1183]: On December 8, 2014, the board met telephonically, together with members of management and representatives of J. P. Morgan and Wachtell Lipton, to receive an update and review and discuss the comments from the bidders on the draft merger agreement and other transaction documents. Later on December 8, 2014, Wachtell Lipton sent to the Buyer Group and Bidder 2 revised versions of the form of merger agreement and other transaction documents, reflecting the Company’s positions and reactions to the bidders’ respective comments.
+B028 [L1185-L1186]: Following the execution of a confidentiality agreement, on December 9, 2014, J. P. Morgan arranged introductory meetings between Longview and the Buyer Group, and between Longview and Bidder 2. These meetings, which were attended by representatives of J. P. Morgan and Wachtell Lipton, were introductory in nature, to enable the bidders to determine their interest in working with Longview, and vice versa, and the bidders were prohibited at this time from disclosing to Longview the respective prices that the bidders intended to bid.
+B029 [L1188-L1190]: On December 10, PetSmart received final bid letters along with revised versions of the merger agreement and other transaction documents from the Buyer Group and from Bidder 2 and a verbal indication from Bidder 3. The Buyer Group offered $80.70 per share, in cash, and Bidder 2 offered $80.35 per share, in cash. Bidder 3 verbally communicated to J. P. Morgan that their valuation would not be above the current stock price of approximately $78 per share. J. P. Morgan communicated to Bidder 3 that it was unlikely to be competitive and accordingly Bidder 3 did not submit a written offer. The form of merger agreement and other transaction documentation submitted by the Buyer Group were more favorable to the Company (including because they were less conditional and more likely to be completed and because they offered more certainty of protection for the Company in the unlikely event of non-completion of the transaction) and reflected substantially more acceptance of the Company’s positions. Each bidder indicated that its bid was not dependent on a rollover by Longview, but neither the Buyer Group nor Bidder 2 ruled out the possibility of partnering with Longview in a transaction, though Bidder 2 indicated that any partnering with Longview would only occur after completion of bidding and execution of a definitive merger agreement with the Company.
+B030 [L1192-L1194]: On December 10, 2014, the ad hoc committee discussed the bids and the draft merger agreements with representatives of J. P. Morgan and Wachtell Lipton. The ad hoc committee was of the view that there could be no assurance that the board would approve either bid unless improved. In light of the closeness of the bids, recent positive developments identified at the board meeting on December 3, and the view shared by the ad hoc committee and J. P. Morgan that neither of the bids represented the bidders’ respective best offers, the ad hoc committee instructed J. P. Morgan to inform each bidder that it would need to increase its bid, and to instruct the bidders to submit improved bids on December 12, 2014. On the evening of December 11, 2014, representatives of J. P. Morgan contacted Longview to inform Longview that the bidders have been asked to submit revised and improved bids, and to confirm that Longview continued to be interested and willing to participate in a potential transaction by rolling over a portion of its Company common stock, so long as Longview’s participation was desired and approved by the ad hoc committee.
+B031 [L1196-L1197]: Early in the day on December 12, 2014, the Buyer Group requested permission to work more closely with Longview in order to include a rollover of a portion of the Company shares managed by Longview in the Buyer Group’s bid. The Buyer Group informed J. P. Morgan that the Buyer Group was working to achieve a higher price, and that Longview participation with the Buyer Group might enhance the Buyer Group’s ability to do so. Bidder 2 indicated to J. P. Morgan that accommodation of a Longview rollover would not affect Bidder 2’s price, and that Bidder 2 would consider accommodating a Longview rollover only after execution of a merger agreement between the Company and Bidder 2. After consultation with the Company’s financial and legal advisors, the ad hoc committee approved the Buyer Group’s request, and,
+B032 [L1199-L1199]: 25
+B033 [L1202-L1202]: later that day, Longview and the Buyer Group entered into a confidentiality agreement permitting the exchange of detailed information between them, including bid price, which had not previously been shared with Longview. The ad hoc committee also instructed Wachtell Lipton to provide a form of voting agreement to Longview to secure Longview’s commitment to vote for the merger subject to certain exceptions, including a change of recommendation by the board.
+B034 [L1204-L1205]: During the evening of December 12, 2014, Bidder 2 submitted an offer of  $81.50 per share, in cash. Representatives of J. P. Morgan confirmed via a conversation with Bidder 2 on the evening of December 12, 2014 that $81.50 per share was its best and final offer. The Buyer Group initially submitted an oral offer of $82.50 per share, in cash, but stated that it was working to increase the offer within the next few hours. Later in the evening, the Buyer Group submitted a best and final offer of $83.00 per share, in cash. In addition, each bidder submitted a revised draft of the merger agreement and other transaction agreements, and copies of their respective financing commitment documents. The versions submitted by the Buyer Group were, with few exceptions, in substantially executable form.
+B035 [L1207-L1210]: On December 13, 2014, the board met in person, together with the members of management and representatives of J. P. Morgan and Wachtell Lipton, to discuss and review the final bids and to consider the proposed transaction. Representatives of J. P. Morgan reviewed the respective bids as well as the recent progression of the sale process. Representatives of Wachtell Lipton reviewed the terms of the draft merger agreement and other transaction documents and reviewed the financing commitments that had been provided by the Buyer Group. Representatives of J. P. Morgan made a financial presentation concerning the proposed transaction with the Buyer Group, as well as the Company’s alternatives to a sale of the Company, including a leveraged share repurchase. J. P. Morgan then rendered its oral opinion, which was subsequently confirmed in writing, to the board that, as of that date, and based upon and subject to the factors, assumptions and limitations set forth in its opinion, the merger consideration of  $83.00 in cash to be paid to the holders of the Company’s common stock in the merger was fair, from a financial point of view, to such holders. Following extensive discussion, the board unanimously determined that the merger agreement and the transactions contemplated thereby, including the merger, were advisable and in the best interests of PetSmart and its stockholders, and to recommend that the Company’s stockholders approve the adoption of the merger agreement. The board’s determination was subject, however, to confirmation that the remaining open points in the merger agreement had been satisfactorily resolved, and the board determined to reconvene, if deemed necessary by the ad hoc committee or the chairman of the board.
+B036 [L1212-L1212]: Following the board meeting, the parties completed negotiations on terms satisfactory to both parties, and finalized the terms of the Longview voting agreement. On December 14, 2014, the parties executed the merger agreement, the voting agreement and related transaction agreements and issued a press release announcing the transaction.
+</chronology_blocks>
+
+<evidence_checklist>
+### Dated actions to extract
+- [ ] **0001571049-15-000695:E0331** L1102-L1105 (date: March; terms: authorized, received, sent)
+- [ ] **0001571049-15-000695:E0333** L1107-L1108 (date: May 21, 2014; terms: meeting, met, received)
+- [ ] **0001571049-15-000695:E0335** L1110-L1111 (date: June 18, 2014; terms: meeting)
+- [ ] **0001571049-15-000695:E0337** L1116-L1117 (date: July; actor: P. Morgan; terms: authorized, retained)
+- [ ] **0001571049-15-000695:E0339** L1119-L1121 (date: July 3, 2014; actor: JANA Partners; terms: meeting, met, sent)
+- [ ] **0001571049-15-000695:E0343** L1123-L1124 (date: August 7, 2014; actor: P. Morgan; terms: contacted, sent)
+- [ ] **0001571049-15-000695:E0346** L1126-L1131 (date: August 13, 2014; actor: P. Morgan; terms: authorized, called, contacted)
+- [ ] **0001571049-15-000695:E0351** L1139-L1142 (date: August; actor: P. Morgan; terms: contacted, discussed, meeting)
+- [ ] **0001571049-15-000695:E0354** L1144-L1144 (date: August; actor: P. Morgan; terms: contacted)
+- [ ] **0001571049-15-000695:E0356** L1146-L1147 (date: October 3, 2014; actor: P. Morgan; terms: discussed, meeting, met)
+- [ ] **0001571049-15-000695:E0358** L1149-L1149 (date: October 2014; terms: engaged, entered into, received)
+- [ ] **0001571049-15-000695:E0361** L1158-L1159 (date: October; actor: P. Morgan; value: $80.00 per share; terms: sent, submitted)
+- [ ] **0001571049-15-000695:E0364** L1161-L1162 (date: November 3, 2014; actor: P. Morgan; value: $80.00 per share; terms: meeting, met, sent)
+- [ ] **0001571049-15-000695:E0369** L1167-L1168 (date: November; actor: P. Morgan; terms: engaged, proposed, sent)
+- [ ] **0001571049-15-000695:E0373** L1170-L1173 (date: December 3, 2014; actor: P. Morgan; value: $200; terms: meeting, met, sent)
+- [ ] **0001571049-15-000695:E0379** L1180-L1180 (date: December 6, 2014; terms: submitted)
+- [ ] **0001571049-15-000695:E0383** L1182-L1183 (date: December 8, 2014; actor: P. Morgan; terms: met, sent)
+- [ ] **0001571049-15-000695:E0387** L1185-L1186 (date: December 9, 2014; actor: P. Morgan; terms: meeting, sent)
+- [ ] **0001571049-15-000695:E0391** L1188-L1190 (date: December; actor: P. Morgan; value: $80.70 per share; terms: offer, offered, received)
+- [ ] **0001571049-15-000695:E0396** L1192-L1194 (date: December 10, 2014; actor: P. Morgan; terms: contacted, discussed, meeting)
+- [ ] **0001571049-15-000695:E0400** L1196-L1197 (date: December 12, 2014; actor: P. Morgan; terms: requested)
+- [ ] **0001571049-15-000695:E0405** L1204-L1205 (date: December 12, 2014; actor: P. Morgan; value: $81.50 per share; terms: offer, sent, submitted)
+- [ ] **0001571049-15-000695:E0410** L1207-L1210 (date: December 13, 2014; actor: P. Morgan; value: $83.00; terms: met, proposed, sent)
+- [ ] **0001571049-15-000695:E0415** L1212-L1212 (date: December 14, 2014; terms: executed, meeting)
+
+### Financial terms to capture
+- [ ] **0001571049-15-000695:E0360** L1151-L1151 (date: October; value: 7.5 million; terms: 7.5 million)
+- [ ] **0001571049-15-000695:E0362** L1158-L1159 (date: October; actor: P. Morgan; value: $80.00 per share; terms: $78.00, $80.00 per share, $80.00 to $85.00 per share)
+- [ ] **0001571049-15-000695:E0365** L1161-L1162 (date: November 3, 2014; actor: P. Morgan; value: $80.00 per share; terms: $80.00 per share)
+- [ ] **0001571049-15-000695:E0374** L1170-L1173 (date: December 3, 2014; actor: P. Morgan; value: $200; terms: $200)
+- [ ] **0001571049-15-000695:E0392** L1188-L1190 (date: December; actor: P. Morgan; value: $80.70 per share; terms: $78 per share, $80.35 per share, $80.70 per share)
+- [ ] **0001571049-15-000695:E0406** L1204-L1205 (date: December 12, 2014; actor: P. Morgan; value: $81.50 per share; terms: $81.50 per share, $82.50 per share, $83.00 per share)
+- [ ] **0001571049-15-000695:E0411** L1207-L1210 (date: December 13, 2014; actor: P. Morgan; value: $83.00; terms: $83.00)
+
+### Actors to identify
+- [ ] **0001571049-15-000695:E0332** L1102-L1105 (date: March; terms: advisor, advisors, legal advisor)
+- [ ] **0001571049-15-000695:E0334** L1107-L1108 (date: May 21, 2014; terms: stockholder)
+- [ ] **0001571049-15-000695:E0336** L1110-L1111 (date: June 18, 2014; terms: advisor, financial advisor, legal advisor)
+- [ ] **0001571049-15-000695:E0338** L1116-L1117 (date: July; actor: P. Morgan; terms: advisor, advisors, financial advisor)
+- [ ] **0001571049-15-000695:E0340** L1119-L1121 (date: July 3, 2014; actor: JANA Partners; terms: stockholder)
+- [ ] **0001571049-15-000695:E0344** L1123-L1124 (date: August 7, 2014; actor: P. Morgan)
+- [ ] **0001571049-15-000695:E0347** L1126-L1131 (date: August 13, 2014; actor: P. Morgan; terms: advisor, advisors, legal advisor)
+- [ ] **0001571049-15-000695:E0349** L1136-L1137 (date: August 19, 2014; terms: bidder , shareholder, stockholder)
+- [ ] **0001571049-15-000695:E0352** L1139-L1142 (date: August; actor: P. Morgan; terms: stockholder)
+- [ ] **0001571049-15-000695:E0355** L1144-L1144 (date: August; actor: P. Morgan)
+- [ ] **0001571049-15-000695:E0357** L1146-L1147 (date: October 3, 2014; actor: P. Morgan; terms: advisor, advisors, legal advisor)
+- [ ] **0001571049-15-000695:E0363** L1158-L1159 (date: October; actor: P. Morgan; value: $80.00 per share; terms: bidder )
+- [ ] **0001571049-15-000695:E0366** L1161-L1162 (date: November 3, 2014; actor: P. Morgan; value: $80.00 per share)
+- [ ] **0001571049-15-000695:E0368** L1164-L1165 (actor: P. Morgan; terms: advisor, advisors, bidder )
+- [ ] **0001571049-15-000695:E0370** L1167-L1168 (date: November; actor: P. Morgan)
+- [ ] **0001571049-15-000695:E0375** L1170-L1173 (date: December 3, 2014; actor: P. Morgan; value: $200; terms: advisor, advisors, bidder )
+- [ ] **0001571049-15-000695:E0380** L1180-L1180 (date: December 6, 2014; terms: bidder )
+- [ ] **0001571049-15-000695:E0384** L1182-L1183 (date: December 8, 2014; actor: P. Morgan; terms: bidder )
+- [ ] **0001571049-15-000695:E0388** L1185-L1186 (date: December 9, 2014; actor: P. Morgan; terms: bidder )
+- [ ] **0001571049-15-000695:E0393** L1188-L1190 (date: December; actor: P. Morgan; value: $80.70 per share; terms: bidder )
+- [ ] **0001571049-15-000695:E0397** L1192-L1194 (date: December 10, 2014; actor: P. Morgan; terms: bidder )
+- [ ] **0001571049-15-000695:E0401** L1196-L1197 (date: December 12, 2014; actor: P. Morgan; terms: advisor, advisors, bidder )
+- [ ] **0001571049-15-000695:E0407** L1204-L1205 (date: December 12, 2014; actor: P. Morgan; value: $81.50 per share; terms: bidder )
+- [ ] **0001571049-15-000695:E0412** L1207-L1210 (date: December 13, 2014; actor: P. Morgan; value: $83.00; terms: stockholder)
+
+### Process signals to check
+- [ ] **0001571049-15-000695:E0341** L1119-L1121 (date: July 3, 2014; actor: JANA Partners; terms: strategic alternatives)
+- [ ] **0001571049-15-000695:E0345** L1123-L1124 (date: August 7, 2014; actor: P. Morgan; terms: strategic alternatives)
+- [ ] **0001571049-15-000695:E0348** L1126-L1131 (date: August 13, 2014; actor: P. Morgan; terms: strategic alternatives)
+- [ ] **0001571049-15-000695:E0350** L1136-L1137 (date: August 19, 2014; terms: due diligence, strategic alternatives)
+- [ ] **0001571049-15-000695:E0353** L1139-L1142 (date: August; actor: P. Morgan; terms: strategic alternatives)
+- [ ] **0001571049-15-000695:E0359** L1149-L1149 (date: October 2014; terms: confidentiality and standstill, due diligence, management presentation)
+- [ ] **0001571049-15-000695:E0367** L1161-L1162 (date: November 3, 2014; actor: P. Morgan; value: $80.00 per share; terms: strategic alternatives)
+- [ ] **0001571049-15-000695:E0371** L1167-L1168 (date: November; actor: P. Morgan; terms: due diligence, final bid, management presentation)
+- [ ] **0001571049-15-000695:E0377** L1178-L1178 (date: December; terms: draft merger agreement, final bid)
+- [ ] **0001571049-15-000695:E0381** L1180-L1180 (date: December 6, 2014; terms: draft merger agreement)
+- [ ] **0001571049-15-000695:E0385** L1182-L1183 (date: December 8, 2014; actor: P. Morgan; terms: draft merger agreement)
+- [ ] **0001571049-15-000695:E0389** L1185-L1186 (date: December 9, 2014; actor: P. Morgan; terms: confidentiality agreement)
+- [ ] **0001571049-15-000695:E0394** L1188-L1190 (date: December; actor: P. Morgan; value: $80.70 per share; terms: final bid)
+- [ ] **0001571049-15-000695:E0398** L1192-L1194 (date: December 10, 2014; actor: P. Morgan; terms: draft merger agreement)
+- [ ] **0001571049-15-000695:E0403** L1202-L1202 (terms: confidentiality agreement)
+- [ ] **0001571049-15-000695:E0408** L1204-L1205 (date: December 12, 2014; actor: P. Morgan; value: $81.50 per share; terms: best and final)
+- [ ] **0001571049-15-000695:E0413** L1207-L1210 (date: December 13, 2014; actor: P. Morgan; value: $83.00; terms: draft merger agreement, final bid)
+
+### Outcome facts to verify
+- [ ] **0001571049-15-000695:E0342** L1119-L1121 (date: July 3, 2014; actor: JANA Partners; terms: closing)
+- [ ] **0001571049-15-000695:E0372** L1167-L1168 (date: November; actor: P. Morgan; terms: merger agreement)
+- [ ] **0001571049-15-000695:E0376** L1170-L1173 (date: December 3, 2014; actor: P. Morgan; value: $200; terms: vote)
+- [ ] **0001571049-15-000695:E0378** L1178-L1178 (date: December; terms: merger agreement)
+- [ ] **0001571049-15-000695:E0382** L1180-L1180 (date: December 6, 2014; terms: merger agreement)
+- [ ] **0001571049-15-000695:E0386** L1182-L1183 (date: December 8, 2014; actor: P. Morgan; terms: merger agreement)
+- [ ] **0001571049-15-000695:E0390** L1185-L1186 (date: December 9, 2014; actor: P. Morgan; terms: closing)
+- [ ] **0001571049-15-000695:E0395** L1188-L1190 (date: December; actor: P. Morgan; value: $80.70 per share; terms: merger agreement)
+- [ ] **0001571049-15-000695:E0399** L1192-L1194 (date: December 10, 2014; actor: P. Morgan; terms: merger agreement)
+- [ ] **0001571049-15-000695:E0402** L1196-L1197 (date: December 12, 2014; actor: P. Morgan; terms: merger agreement)
+- [ ] **0001571049-15-000695:E0404** L1202-L1202 (terms: vote)
+- [ ] **0001571049-15-000695:E0409** L1204-L1205 (date: December 12, 2014; actor: P. Morgan; value: $81.50 per share; terms: merger agreement)
+- [ ] **0001571049-15-000695:E0414** L1207-L1210 (date: December 13, 2014; actor: P. Morgan; value: $83.00; terms: merger agreement)
+- [ ] **0001571049-15-000695:E0416** L1212-L1212 (date: December 14, 2014; terms: executed, merger agreement)
+</evidence_checklist>
+
+<actor_roster>
+{
+  "quotes": [
+    {
+      "quote_id": "Q001",
+      "block_id": "B009",
+      "text": "determined to explore strategic alternatives (including a possible sale of the Company)"
+    },
+    {
+      "quote_id": "Q002",
+      "block_id": "B006",
+      "text": "the Company retained J. P. Morgan as financial advisor"
+    },
+    {
+      "quote_id": "Q003",
+      "block_id": "B009",
+      "text": "representatives of J. P. Morgan and Wachtell Lipton"
+    },
+    {
+      "quote_id": "Q004",
+      "block_id": "B007",
+      "text": "JANA intended to engage in discussions with management and the board with respect to a review of strategic alternatives, including a sale of the Company"
+    },
+    {
+      "quote_id": "Q005",
+      "block_id": "B007",
+      "text": "Longview stated that the board should consider the a sale of the Company"
+    },
+    {
+      "quote_id": "Q006",
+      "block_id": "B008",
+      "text": "Industry Participant might be interested in re-visiting the conversations"
+    },
+    {
+      "quote_id": "Q007",
+      "block_id": "B019",
+      "text": "the Buyer Group, which indicated a range of $81.00 to $83.00 per share"
+    },
+    {
+      "quote_id": "Q008",
+      "block_id": "B019",
+      "text": "Bidder 2 ... increased its indication to a range of $81.00 to $84.00 per share"
+    },
+    {
+      "quote_id": "Q009",
+      "block_id": "B021",
+      "text": "We refer to these two bidders together as \"Bidder 3.\""
+    },
+    {
+      "quote_id": "Q010",
+      "block_id": "B020",
+      "text": "allow the four bidders that had indicated a price or range at or above $80.00 per share to proceed to the final round"
+    }
+  ],
+  "actors": [
+    {
+      "actor_id": "target_board",
+      "display_name": "PetSmart board and ad hoc committee",
+      "canonical_name": "PETSMART BOARD AND AD HOC COMMITTEE",
+      "aliases": [
+        "the board",
+        "the ad hoc committee"
+      ],
+      "role": "target_board",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "quote_ids": [
+        "Q001"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_jp_morgan",
+      "display_name": "J. P. Morgan",
+      "canonical_name": "J. P. MORGAN",
+      "aliases": [],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "target_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "quote_ids": [
+        "Q002"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_wachtell_lipton",
+      "display_name": "Wachtell Lipton",
+      "canonical_name": "WACHTELL LIPTON",
+      "aliases": [
+        "Wachtell, Lipton, Rosen & Katz"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": "target_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "quote_ids": [
+        "Q003"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "activist_jana_partners",
+      "display_name": "JANA Partners",
+      "canonical_name": "JANA PARTNERS",
+      "aliases": [
+        "JANA"
+      ],
+      "role": "activist",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "quote_ids": [
+        "Q004"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "activist_longview",
+      "display_name": "Longview",
+      "canonical_name": "LONGVIEW",
+      "aliases": [],
+      "role": "activist",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "quote_ids": [
+        "Q005"
+      ],
+      "notes": [
+        "Longview advocated for a sale process and separately considered a rollover into the winning bidder's acquisition vehicle."
+      ]
+    },
+    {
+      "actor_id": "bidder_industry_participant",
+      "display_name": "Industry Participant",
+      "canonical_name": "INDUSTRY PARTICIPANT",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": "private",
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "quote_ids": [
+        "Q006"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_buyer_group",
+      "display_name": "Buyer Group",
+      "canonical_name": "BUYER GROUP",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": "private",
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "quote_ids": [
+        "Q007"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_2",
+      "display_name": "Bidder 2",
+      "canonical_name": "BIDDER 2",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "quote_ids": [
+        "Q008"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_3",
+      "display_name": "Bidder 3",
+      "canonical_name": "BIDDER 3",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": true,
+      "group_size": 2,
+      "group_label": "two bidders working together as Bidder 3",
+      "quote_ids": [
+        "Q009"
+      ],
+      "notes": []
+    }
+  ],
+  "count_assertions": [
+    {
+      "subject": "final_round_invitees",
+      "count": 4,
+      "quote_ids": [
+        "Q010"
+      ]
+    }
+  ],
+  "unresolved_mentions": []
+}
+</actor_roster>
+
+<task_instructions>
+IMPORTANT: You MUST follow the quote-before-extract protocol.
+
+Step 1 - QUOTE: Read the chronology blocks above. For every passage that describes an M&A event, copy the exact verbatim text into the quotes array. Each quote needs a unique quote_id (Q001, Q002, ...), the block_id it comes from, and the verbatim text.
+
+Step 2 - EXTRACT: Build the events array using the locked actor roster. Each event references quote_ids from Step 1 instead of inline evidence. Do not include anchor_text or evidence_refs.
+
+Return a single JSON object with: quotes, events, exclusions, coverage_notes. The quotes array MUST appear first.
+</task_instructions>

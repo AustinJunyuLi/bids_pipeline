@@ -481,84 +481,77 @@ B065 [L1346-L1347]: As of the date of this proxy statement, Saks has not receive
   "quotes": [
     {
       "quote_id": "Q001",
-      "block_id": "B004",
-      "text": "the board"
+      "block_id": "B002",
+      "text": "the board and Saks' senior management"
     },
     {
       "quote_id": "Q002",
       "block_id": "B002",
-      "text": "Goldman Sachs, one of Saks longstanding financial advisors"
+      "text": "Goldman Sachs, one of Saks' longstanding financial advisors"
     },
     {
       "quote_id": "Q003",
       "block_id": "B008",
-      "text": "Wachtell, Lipton, Rosen & Katz"
+      "text": "Wachtell, Lipton, Rosen & Katz, referred to as Wachtell Lipton, Saks' external counsel"
     },
     {
       "quote_id": "Q004",
       "block_id": "B058",
-      "text": "Morgan Stanley & Co. LLC"
+      "text": "Morgan Stanley & Co. LLC (a long-time advisor to Saks, referred to as \" Morgan Stanley\")"
     },
     {
       "quote_id": "Q005",
       "block_id": "B003",
-      "text": "Sponsor A"
+      "text": "which we refer to as Sponsor A"
     },
     {
       "quote_id": "Q006",
       "block_id": "B005",
-      "text": "Hudsons Bay"
+      "text": "potential acquisition of Saks by Hudson's Bay"
     },
     {
       "quote_id": "Q007",
-      "block_id": "B014",
-      "text": "Sponsor E"
+      "block_id": "B011",
+      "text": "A private equity firm that we refer to as Sponsor E"
     },
     {
       "quote_id": "Q008",
-      "block_id": "B033",
-      "text": "Sponsor G"
+      "block_id": "B027",
+      "text": "a privately held retail company, which we refer to as Company F"
     },
     {
       "quote_id": "Q009",
-      "block_id": "B027",
-      "text": "Company F"
+      "block_id": "B033",
+      "text": "Sponsor G, a private equity firm"
     },
     {
       "quote_id": "Q010",
       "block_id": "B045",
-      "text": "Company H"
+      "text": "Company H, a privately held company based in the U. S."
     },
     {
       "quote_id": "Q011",
       "block_id": "B062",
-      "text": "Company I"
+      "text": "only one of the six (which we refer to as Company I) executed a confidentiality agreement with, and conducted a due diligence investigation of, Saks"
     },
     {
       "quote_id": "Q012",
-      "block_id": "B042",
-      "text": "Company B"
-    },
-    {
-      "quote_id": "Q013",
       "block_id": "B062",
       "text": "contacted 58 potentially interested third parties"
     },
     {
-      "quote_id": "Q014",
+      "quote_id": "Q013",
       "block_id": "B062",
       "text": "only six parties expressed interest"
     }
   ],
   "actors": [
     {
-      "actor_id": "target_board_saks",
-      "display_name": "Saks Board of Directors / Finance Committee / Executive Committee",
-      "canonical_name": "SAKS BOARD OF DIRECTORS",
+      "actor_id": "target_board",
+      "display_name": "Saks Board and Senior Management",
+      "canonical_name": "SAKS INC",
       "aliases": [
-        "board",
-        "Finance committee",
-        "Executive committee"
+        "Saks"
       ],
       "role": "target_board",
       "advisor_kind": null,
@@ -573,7 +566,7 @@ B065 [L1346-L1347]: As of the date of this proxy statement, Saks has not receive
         "Q001"
       ],
       "notes": [
-        "The board delegated frequent process oversight to the Finance committee and Executive committee."
+        "Company-side board and senior management actor for sale-process decisions."
       ]
     },
     {
@@ -583,7 +576,7 @@ B065 [L1346-L1347]: As of the date of this proxy statement, Saks has not receive
       "aliases": [],
       "role": "advisor",
       "advisor_kind": "financial",
-      "advised_actor_id": "target_board_saks",
+      "advised_actor_id": "target_board",
       "bidder_kind": null,
       "listing_status": null,
       "geography": null,
@@ -593,7 +586,9 @@ B065 [L1346-L1347]: As of the date of this proxy statement, Saks has not receive
       "quote_ids": [
         "Q002"
       ],
-      "notes": []
+      "notes": [
+        "Longstanding financial advisor to Saks."
+      ]
     },
     {
       "actor_id": "advisor_wachtell_lipton",
@@ -604,7 +599,7 @@ B065 [L1346-L1347]: As of the date of this proxy statement, Saks has not receive
       ],
       "role": "advisor",
       "advisor_kind": "legal",
-      "advised_actor_id": "target_board_saks",
+      "advised_actor_id": "target_board",
       "bidder_kind": null,
       "listing_status": null,
       "geography": null,
@@ -625,7 +620,7 @@ B065 [L1346-L1347]: As of the date of this proxy statement, Saks has not receive
       ],
       "role": "advisor",
       "advisor_kind": "financial",
-      "advised_actor_id": "target_board_saks",
+      "advised_actor_id": "target_board",
       "bidder_kind": null,
       "listing_status": null,
       "geography": null,
@@ -636,27 +631,8 @@ B065 [L1346-L1347]: As of the date of this proxy statement, Saks has not receive
         "Q004"
       ],
       "notes": [
-        "Appears late in the process as another long-time adviser to Saks."
+        "Additional financial advisor mentioned late in the process."
       ]
-    },
-    {
-      "actor_id": "bidder_hudsons_bay",
-      "display_name": "Hudsons Bay",
-      "canonical_name": "HUDSONS BAY",
-      "aliases": [],
-      "role": "bidder",
-      "advisor_kind": null,
-      "advised_actor_id": null,
-      "bidder_kind": "strategic",
-      "listing_status": "public",
-      "geography": "non_us",
-      "is_grouped": false,
-      "group_size": null,
-      "group_label": null,
-      "quote_ids": [
-        "Q006"
-      ],
-      "notes": []
     },
     {
       "actor_id": "bidder_sponsor_a",
@@ -674,6 +650,27 @@ B065 [L1346-L1347]: As of the date of this proxy statement, Saks has not receive
       "group_label": null,
       "quote_ids": [
         "Q005"
+      ],
+      "notes": [
+        "Initial unsolicited financial bidder."
+      ]
+    },
+    {
+      "actor_id": "bidder_hudsons_bay",
+      "display_name": "Hudson's Bay",
+      "canonical_name": "HUDSON'S BAY",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "quote_ids": [
+        "Q006"
       ],
       "notes": []
     },
@@ -694,26 +691,9 @@ B065 [L1346-L1347]: As of the date of this proxy statement, Saks has not receive
       "quote_ids": [
         "Q007"
       ],
-      "notes": []
-    },
-    {
-      "actor_id": "bidder_sponsor_g",
-      "display_name": "Sponsor G",
-      "canonical_name": "SPONSOR G",
-      "aliases": [],
-      "role": "bidder",
-      "advisor_kind": null,
-      "advised_actor_id": null,
-      "bidder_kind": "financial",
-      "listing_status": "private",
-      "geography": null,
-      "is_grouped": false,
-      "group_size": null,
-      "group_label": null,
-      "quote_ids": [
-        "Q008"
-      ],
-      "notes": []
+      "notes": [
+        "Participated first with Sponsor A and later with Sponsor G."
+      ]
     },
     {
       "actor_id": "bidder_company_f",
@@ -730,10 +710,31 @@ B065 [L1346-L1347]: As of the date of this proxy statement, Saks has not receive
       "group_size": null,
       "group_label": null,
       "quote_ids": [
+        "Q008"
+      ],
+      "notes": [
+        "Explored joining Sponsor A and Sponsor E but did not appear in a submitted offer."
+      ]
+    },
+    {
+      "actor_id": "bidder_sponsor_g",
+      "display_name": "Sponsor G",
+      "canonical_name": "SPONSOR G",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": "private",
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "quote_ids": [
         "Q009"
       ],
       "notes": [
-        "Identified as a possible participant with Sponsor A and Sponsor E but did not participate in the submitted offer."
+        "Joined Sponsor E for the July 11 proposal before later leaving the process."
       ]
     },
     {
@@ -754,7 +755,7 @@ B065 [L1346-L1347]: As of the date of this proxy statement, Saks has not receive
         "Q010"
       ],
       "notes": [
-        "Purported bidder with no follow-up communication."
+        "Submitted a purported offer but never engaged further."
       ]
     },
     {
@@ -775,48 +776,39 @@ B065 [L1346-L1347]: As of the date of this proxy statement, Saks has not receive
         "Q011"
       ],
       "notes": [
-        "The only named go-shop participant to sign a confidentiality agreement and conduct due diligence."
-      ]
-    },
-    {
-      "actor_id": "bidder_company_b",
-      "display_name": "Company B",
-      "canonical_name": "COMPANY B",
-      "aliases": [],
-      "role": "bidder",
-      "advisor_kind": null,
-      "advised_actor_id": null,
-      "bidder_kind": "strategic",
-      "listing_status": "private",
-      "geography": null,
-      "is_grouped": false,
-      "group_size": null,
-      "group_label": null,
-      "quote_ids": [
-        "Q012"
-      ],
-      "notes": [
-        "Alternative transaction counterparty considered by Saks during the same timeline."
+        "Only individualized go-shop participant that signed an NDA and conducted diligence."
       ]
     }
   ],
   "count_assertions": [
     {
-      "subject": "go_shop_contacted_third_parties",
+      "subject": "go_shop_contacted_total",
       "count": 58,
+      "quote_ids": [
+        "Q012"
+      ]
+    },
+    {
+      "subject": "go_shop_expressed_interest_total",
+      "count": 6,
       "quote_ids": [
         "Q013"
       ]
     },
     {
-      "subject": "go_shop_interested_parties",
-      "count": 6,
+      "subject": "go_shop_nda_total",
+      "count": 1,
       "quote_ids": [
-        "Q014"
+        "Q011"
       ]
     }
   ],
-  "unresolved_mentions": []
+  "unresolved_mentions": [
+    "Sponsor C and Sponsor D were discussed only as potential equity financing sources for Saks's possible acquisition of Company B, not as participants in the sale of Saks.",
+    "Company B and its principal shareholders were discussed as a separate acquisition path for Saks rather than as bidders for Saks.",
+    "The filing states that Goldman Sachs contacted 58 potentially interested third parties and that six expressed interest during the go-shop process, but only Company I was individualized.",
+    "Merger Sub was mentioned only as a transaction vehicle at signing and was not separately added to the actor roster."
+  ]
 }
 </actor_roster>
 

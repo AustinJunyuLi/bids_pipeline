@@ -273,6 +273,43 @@ def test_coverage_warns_on_uncovered_medium_confidence_advisor_cue(tmp_path: Pat
     assert findings["findings"][0]["severity"] == "warning"
 
 
+def test_coverage_does_not_treat_continued_negotiations_as_drop(tmp_path: Path) -> None:
+    evidence_items = [
+        {
+            "evidence_id": "DOC001:E0001",
+            "document_id": "DOC001",
+            "accession_number": "DOC001",
+            "filing_type": "DEFM14A",
+            "start_line": 1,
+            "end_line": 3,
+            "raw_text": (
+                "On February 26, 2015, the board reviewed the bidder's revised indication of interest. "
+                "The bidder was not prepared to move forward without an exclusivity agreement, "
+                "but after deliberation the board determined to move forward with negotiations with the bidder "
+                "regarding the proposed sale of the Company."
+            ),
+            "evidence_type": "dated_action",
+            "confidence": "high",
+            "matched_terms": ["met", "offer", "proposed", "sent"],
+            "date_text": "February 26, 2015",
+            "actor_hint": "Bidder A",
+            "value_hint": None,
+            "note": "detected dated action",
+        }
+    ]
+    _write_coverage_fixture(tmp_path, evidence_items=evidence_items)
+
+    exit_code = run_coverage("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    findings = json.loads(paths.coverage_findings_path.read_text(encoding="utf-8"))
+    summary = json.loads(paths.coverage_summary_path.read_text(encoding="utf-8"))
+
+    assert exit_code == 0
+    assert findings["findings"] == []
+    assert summary["status"] == "pass"
+    assert summary["error_count"] == 0
+
+
 def test_coverage_ignores_evidence_outside_chronology_blocks(tmp_path: Path) -> None:
     evidence_items = [
         {
@@ -341,6 +378,79 @@ def test_coverage_does_not_treat_draft_nda_as_signed_nda_cue(tmp_path: Path) -> 
             "matched_terms": ["sent", "proposed"],
             "date_text": "July 5, 2016",
             "actor_hint": "Company A",
+            "value_hint": None,
+            "note": None,
+        }
+    ]
+    _write_coverage_fixture(tmp_path, evidence_items=evidence_items)
+
+    exit_code = run_coverage("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    findings = json.loads(paths.coverage_findings_path.read_text(encoding="utf-8"))
+    summary = json.loads(paths.coverage_summary_path.read_text(encoding="utf-8"))
+
+    assert exit_code == 0
+    assert findings["findings"] == []
+    assert summary["status"] == "pass"
+
+
+def test_coverage_does_not_treat_prior_executed_confidentiality_reference_as_nda_cue(
+    tmp_path: Path,
+) -> None:
+    evidence_items = [
+        {
+            "evidence_id": "DOC001:E0001",
+            "document_id": "DOC001",
+            "accession_number": "DOC001",
+            "filing_type": "DEFM14A",
+            "start_line": 1,
+            "end_line": 2,
+            "raw_text": (
+                "On June 5, 2013, the board authorized a process to determine whether a transaction "
+                "with one of the potential acquirors which had executed a confidentiality agreement "
+                "could be reached on attractive terms."
+            ),
+            "evidence_type": "dated_action",
+            "confidence": "high",
+            "matched_terms": ["authorized", "executed", "offer"],
+            "date_text": "June 5, 2013",
+            "actor_hint": None,
+            "value_hint": None,
+            "note": None,
+        }
+    ]
+    _write_coverage_fixture(tmp_path, evidence_items=evidence_items)
+
+    exit_code = run_coverage("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    findings = json.loads(paths.coverage_findings_path.read_text(encoding="utf-8"))
+    summary = json.loads(paths.coverage_summary_path.read_text(encoding="utf-8"))
+
+    assert exit_code == 0
+    assert findings["findings"] == []
+    assert summary["status"] == "pass"
+
+
+def test_coverage_does_not_treat_target_due_diligence_confidentiality_as_nda_cue(
+    tmp_path: Path,
+) -> None:
+    evidence_items = [
+        {
+            "evidence_id": "DOC001:E0001",
+            "document_id": "DOC001",
+            "accession_number": "DOC001",
+            "filing_type": "DEFM14A",
+            "start_line": 1,
+            "end_line": 2,
+            "raw_text": (
+                "On July 18, 2013, Saks entered into a confidentiality agreement with Company B "
+                "for Saks to engage in due diligence with respect to Company B."
+            ),
+            "evidence_type": "process_signal",
+            "confidence": "high",
+            "matched_terms": ["confidentiality agreement", "due diligence"],
+            "date_text": "July 18, 2013",
+            "actor_hint": None,
             "value_hint": None,
             "note": None,
         }

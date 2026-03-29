@@ -1,0 +1,27 @@
+{
+  "findings": [
+    {
+      "check_id": "bidder_kind_missing",
+      "severity": "warning",
+      "description": "Bidder actors should have bidder_kind.",
+      "actor_ids": [
+        "bidder_2"
+      ],
+      "event_ids": []
+    },
+    {
+      "check_id": "bidder_kind_missing",
+      "severity": "warning",
+      "description": "Bidder actors should have bidder_kind.",
+      "actor_ids": [
+        "bidder_3"
+      ],
+      "event_ids": []
+    }
+  ],
+  "summary": {
+    "blocker_count": 0,
+    "warning_count": 2,
+    "status": "pass"
+  }
+}

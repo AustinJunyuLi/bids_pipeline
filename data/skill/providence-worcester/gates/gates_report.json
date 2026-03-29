@@ -1,0 +1,179 @@
+{
+  "findings": [
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_001 type target_sale is grounded only in ['bidding'] blocks.",
+      "event_ids": [
+        "evt_001"
+      ],
+      "actor_ids": [
+        "advisor_bmo_capital_markets",
+        "bidder_party_a",
+        "target_board"
+      ],
+      "block_ids": [
+        "B003"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_002 type nda is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_002"
+      ],
+      "actor_ids": [
+        "bidder_financial_nda_signers",
+        "bidder_other_strategic_nda_signers",
+        "bidder_party_a"
+      ],
+      "block_ids": [
+        "B007"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_003 type bidder_interest is grounded only in ['bidding'] blocks.",
+      "event_ids": [
+        "evt_003"
+      ],
+      "actor_ids": [
+        "bidder_party_b"
+      ],
+      "block_ids": [
+        "B009"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_004 type final_round_ann is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_004"
+      ],
+      "actor_ids": [
+        "advisor_bmo_capital_markets",
+        "target_board"
+      ],
+      "block_ids": [
+        "B014"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_007 type proposal is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_007"
+      ],
+      "actor_ids": [
+        "bidder_g_and_w"
+      ],
+      "block_ids": [
+        "B019"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_017 type bidder_interest is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_017"
+      ],
+      "actor_ids": [
+        "bidder_g_and_w"
+      ],
+      "block_ids": [
+        "B031"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_018 type proposal is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_018"
+      ],
+      "actor_ids": [
+        "bidder_g_and_w"
+      ],
+      "block_ids": [
+        "B032"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_020 type bid_press_release is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_020"
+      ],
+      "actor_ids": [
+        "bidder_g_and_w",
+        "target_board"
+      ],
+      "block_ids": [
+        "B039"
+      ]
+    },
+    {
+      "gate_id": "actor_lifecycle",
+      "rule_id": "nda_signer_no_downstream",
+      "severity": "warning",
+      "description": "NDA signer bidder_financial_nda_signers does not appear in any downstream proposal, drop, executed, or terminated event.",
+      "event_ids": [],
+      "actor_ids": [
+        "bidder_financial_nda_signers"
+      ],
+      "block_ids": []
+    },
+    {
+      "gate_id": "actor_lifecycle",
+      "rule_id": "nda_signer_no_downstream",
+      "severity": "warning",
+      "description": "NDA signer bidder_other_strategic_nda_signers does not appear in any downstream proposal, drop, executed, or terminated event.",
+      "event_ids": [],
+      "actor_ids": [
+        "bidder_other_strategic_nda_signers"
+      ],
+      "block_ids": []
+    },
+    {
+      "gate_id": "actor_lifecycle",
+      "rule_id": "nda_signer_no_downstream",
+      "severity": "warning",
+      "description": "NDA signer bidder_party_a does not appear in any downstream proposal, drop, executed, or terminated event.",
+      "event_ids": [],
+      "actor_ids": [
+        "bidder_party_a"
+      ],
+      "block_ids": []
+    }
+  ],
+  "attention_decay": {
+    "quartile_counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "hot_spots": [],
+    "decay_score": 1.0,
+    "note": null
+  },
+  "summary": {
+    "blocker_count": 0,
+    "warning_count": 11,
+    "status": "pass"
+  }
+}

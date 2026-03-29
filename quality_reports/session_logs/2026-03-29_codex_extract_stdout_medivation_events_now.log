@@ -1,0 +1,2111 @@
+Reading prompt from stdin...
+OpenAI Codex v0.117.0 (research preview)
+--------
+workdir: /home/austinli/Projects/bids_pipeline
+model: gpt-5.4
+provider: openai
+approval: never
+sandbox: danger-full-access
+reasoning effort: xhigh
+reasoning summaries: none
+session id: 019d39ef-e53f-7fa3-9386-a568a55b145f
+--------
+user
+Complete the extraction stage for deal `medivation`, but keep scope extremely narrow.
+
+Read only what is necessary from the current filing-grounded medivation artifacts. Do not do more repository exploration.
+
+Write scope is strictly limited to:
+- /home/austinli/Projects/bids_pipeline/data/skill/medivation/extract/
+- /home/austinli/Projects/bids_pipeline/quality_reports/session_logs/2026-03-29_rerun_medivation.md
+
+Do not touch shared code, other deals, benchmark/reconcile materials, or data/pipeline.duckdb. You are not alone in the codebase. Do not revert or overwrite edits made by others; adjust to the current on-disk state.
+
+Current state:
+- /home/austinli/Projects/bids_pipeline/data/skill/medivation/extract/actors_raw.json exists.
+- /home/austinli/Projects/bids_pipeline/data/skill/medivation/prompt/manifest.json is already on validated events packets (`events-w0`, `events-w1`).
+- /home/austinli/Projects/bids_pipeline/data/skill/medivation/extract/events_raw.json does not exist.
+
+Required actions:
+1. Use the current filing-grounded prompt/source artifacts to write /home/austinli/Projects/bids_pipeline/data/skill/medivation/extract/events_raw.json now.
+2. Only adjust actors_raw.json if strictly necessary and filing-grounded.
+3. Append only concise log entries to /home/austinli/Projects/bids_pipeline/quality_reports/session_logs/2026-03-29_rerun_medivation.md.
+4. Finalize as soon as both extract files exist and are non-empty.
+
+Final response must include: status, whether events_raw.json was written, whether actors_raw.json changed, and exact files changed.
+
+codex
+I’m reading the repo instructions first, then only the medivation extraction artifacts needed to assemble `events_raw.json` and log the rerun.
+exec
+/bin/bash -lc "sed -n '1,220p' CLAUDE.md" in /home/austinli/Projects/bids_pipeline
+ succeeded in 0ms:
+# CLAUDE.md
+
+This file is the authoritative instruction source for agents working in this
+repository. When repository facts, artifact contracts, or action protocols
+change, update this file.
+
+## What This Repo Is
+
+This repository is a filing-grounded M&A extraction pipeline.
+
+It has two distinct parts:
+
+- `skill_pipeline/`: the only active Python package and the only installed CLI
+  in this worktree
+- local-agent workflow documents under `.claude/skills/`: the canonical
+  instructions for extraction, repair, and optional interpretive enrichment
+
+LLM-driven stages are orchestrated by a local agent working against repository artifacts
+and skill instructions. Keep that orchestration agent-agnostic.
+
+If docs disagree, trust live code and tests over planning notes or historical
+design documents.
+
+## Authority And Scope
+
+Authoritative implementation truth lives here:
+
+- `skill_pipeline/`
+- `tests/`
+- `.claude/skills/`
+- artifact path contracts encoded in `skill_pipeline/paths.py`
+
+Important non-authorities unless explicitly updated to match the code:
+
+- historical references to a `pipeline/` package
+- provider-specific LLM infrastructure notes from older design work
+- benchmark materials in `example/`, `diagnosis/`, or spreadsheet workflows
+
+`.claude/skills/` is the canonical workflow tree. `.codex/skills/` and
+`.cursor/skills/` are derived mirrors and should be synced from `.claude/skills/`.
+
+## Runtime Split
+
+### Deterministic Python Runtime
+
+The `skill-pipeline` CLI owns these stages:
+
+- `source-discover`: discover source filing candidates without fetching
+- `raw-fetch`: fetch and freeze the seed-selected SEC filing set
+- `preprocess-source`: build source artifacts from frozen filings
+- `compose-prompts`: build provider-neutral prompt packet artifacts from source
+- `canonicalize`: upgrade extract artifacts into canonical span-backed form
+- `check`: structural blocker gate
+- `verify`: strict deterministic verification
+- `coverage`: deterministic source-coverage audit
+- `gates`: semantic validation (temporal consistency, cross-event logic, actor lifecycle, attention decay)
+- `enrich-core`: deterministic enrichment
+- `db-load`: load canonical extract + enrichment artifacts into DuckDB
+- `db-export`: generate `deal_events.csv` from DuckDB queries
+- `deal-agent`: preflight and artifact summary only
+
+### Local-Agent Stages
+
+These stages are not implemented as Python-side provider wrappers:
+
+- `/extract-deal`
+- `/verify-extraction`
+- `/enrich-deal`
+- `/reconcile-alex` (optional, post-export only)
+
+The local agent reads and writes repo artifacts directly, following the
+canonical skill docs.
+
+### Important Name Collision
+
+`skill-pipeline deal-agent --deal <slug>` is not the end-to-end orchestrator.
+It only verifies required inputs, ensures output directories exist, and prints a
+status summary.
+
+The full end-to-end orchestration flow lives in the local-agent skill
+documentation for `/deal-agent`. It covers fetch, preprocess, extraction,
+gates, enrichment, and DuckDB export with idempotent re-run support.
+
+## Repository Layout
+
+- `skill_pipeline/`: deterministic runtime package
+- `raw/<slug>/`: frozen filing ingress and manifests
+- `data/deals/<slug>/source/`: shared source artifacts derived from raw filings
+- `data/skill/<slug>/`: extract, QA, enrichment, and export artifacts
+- `tests/`: regression tests for runtime stages
+- `.claude/skills/`: canonical local-agent workflow instructions
+- `docs/`: design notes and specs; useful, but not automatically authoritative
+
+## Artifact Contract
+
+### Seed Input
+
+- `data/seeds.csv`: authoritative deal roster and seed URLs
+
+### Raw Fetch Outputs
+
+`skill-pipeline raw-fetch --deal <slug>` writes:
+
+- `raw/<slug>/discovery.json`
+- `raw/<slug>/document_registry.json`
+- `raw/<slug>/filings/*.txt`
+- raw HTML and markdown mirrors when available
+
+Raw filing text under `raw/` is immutable truth input. Never rewrite it.
+
+### Source Preprocess Outputs
+
+`skill-pipeline preprocess-source --deal <slug>` currently enforces a seed-only,
+single-primary-document contract. It requires:
+
+- exactly one primary candidate
+- zero supplementary candidates
+- exactly one frozen document in `document_registry.json`
+
+It writes:
+
+- `data/deals/<slug>/source/chronology_selection.json`
+- `data/deals/<slug>/source/chronology_blocks.jsonl`
+- `data/deals/<slug>/source/evidence_items.jsonl`
+- `data/deals/<slug>/source/chronology.json`
+- `data/deals/<slug>/source/filings/*`
+
+It also removes stale `source/supplementary_snippets.jsonl`. That file is not a
+current preprocess output in this worktree.
+
+### Prompt Packet Outputs
+
+`skill-pipeline compose-prompts --deal <slug>` writes:
+
+- `data/skill/<slug>/prompt/manifest.json`
+- `data/skill/<slug>/prompt/packets/<packet-id>/prefix.md`
+- `data/skill/<slug>/prompt/packets/<packet-id>/body.md`
+- `data/skill/<slug>/prompt/packets/<packet-id>/rendered.md`
+
+Use `--mode actors` for actor extraction packets, `--mode events` for event
+extraction packets (requires `actors_raw.json`), or `--mode all` for actor
+packets only (event packets require a separate call after actor extraction).
+
+### Extract Outputs
+
+`/extract-deal <slug>` writes:
+
+- `data/skill/<slug>/extract/actors_raw.json`
+- `data/skill/<slug>/extract/events_raw.json`
+
+These start as legacy extraction artifacts using `evidence_refs`.
+
+### Canonical Extract Outputs
+
+`skill-pipeline canonicalize --deal <slug>` upgrades extraction artifacts in
+place. It:
+
+- rewrites `actors_raw.json` and `events_raw.json` into canonical span-backed
+  form
+- writes `data/skill/<slug>/extract/spans.json`
+- writes `data/skill/<slug>/canonicalize/canonicalize_log.json`
+
+Do not document the canonical extract contract as `actors.json` or
+`events.json`. The live filenames are still `actors_raw.json` and
+`events_raw.json`.
+
+### Deterministic QA And Enrichment Outputs
+
+- `data/skill/<slug>/check/check_report.json`
+- `data/skill/<slug>/verify/verification_findings.json`
+- `data/skill/<slug>/verify/verification_log.json`
+- `data/skill/<slug>/coverage/coverage_findings.json`
+- `data/skill/<slug>/coverage/coverage_summary.json`
+- `data/skill/<slug>/enrich/deterministic_enrichment.json`
+
+### Semantic Gate Outputs
+
+`skill-pipeline gates --deal <slug>` writes:
+
+- `data/skill/<slug>/gates/gates_report.json`
+
+The gate report contains semantic findings (temporal consistency, cross-event
+logic, actor lifecycle coverage) and an optional attention decay diagnostic.
+Gates run after coverage and before enrich-core. Enrich-core refuses to run if
+gates have blocker findings.
+
+### DuckDB Database
+
+`skill-pipeline db-load --deal <slug>` writes deal data into:
+
+- `data/pipeline.duckdb`
+
+Tables: `actors`, `events`, `spans`, `enrichment`, `cycles`, `rounds`. The
+database is a single multi-deal file keyed by `(deal_slug, <entity_id>)`.
+
+`db-load` uses two-tier enrichment loading:
+
+- `deterministic_enrichment.json` (required) — bid classifications, rounds, cycles
+- `enrichment.json` (optional) — dropout classifications overlaid when present
+
+`skill-pipeline db-export --deal <slug>` writes:
+
+- `data/skill/<slug>/export/deal_events.csv`
+
+The CSV is generated from DuckDB queries, not from JSON artifacts.
+
+Optional later-stage artifacts written by local-agent workflows:
+
+- `data/skill/<slug>/enrich/enrichment.json`
+
+## End-To-End Flow
+
+```text
+data/seeds.csv
+  -> skill-pipeline source-discover --deal <slug>     (optional)
+  -> skill-pipeline raw-fetch --deal <slug>
+  -> raw/<slug>/*
+  -> skill-pipeline preprocess-source --deal <slug>
+  -> data/deals/<slug>/source/*
+  -> skill-pipeline compose-prompts --deal <slug>
+
+exec
+/bin/bash -lc "sed -n '1,220p' /home/austinli/.codex/skills/extract-deal/SKILL.md" in /home/austinli/Projects/bids_pipeline
+ exited 2 in 0ms:
+sed: can't read /home/austinli/.codex/skills/extract-deal/SKILL.md: No such file or directory
+
+codex
+I’m using the `extract-deal` skill because this is a narrowly scoped extraction-stage artifact write. Next I’m reading only the medivation extract/prompt files and the skill instructions needed to preserve the artifact contract.
+exec
+/bin/bash -lc "sed -n '1,240p' /home/austinli/Projects/bids_pipeline/.codex/skills/extract-deal/SKILL.md" in /home/austinli/Projects/bids_pipeline
+exec
+/bin/bash -lc "sed -n '1,220p' /home/austinli/Projects/bids_pipeline/data/skill/medivation/prompt/manifest.json" in /home/austinli/Projects/bids_pipeline
+ succeeded in 0ms:
+{
+  "schema_version": "2.0.0",
+  "artifact_type": "prompt_packet_manifest",
+  "created_at": "2026-03-29T13:59:07.122171Z",
+  "pipeline_version": "0.1.0",
+  "run_id": "compose-74ddbe5e",
+  "deal_slug": "medivation",
+  "source_accession_number": "0001193125-16-696911",
+  "packets": [
+    {
+      "packet_id": "events-w0",
+      "packet_family": "events",
+      "chunk_mode": "chunked",
+      "window_id": "w0",
+      "prefix_path": "/home/austinli/Projects/bids_pipeline/data/skill/medivation/prompt/packets/events-w0/prefix.md",
+      "body_path": "/home/austinli/Projects/bids_pipeline/data/skill/medivation/prompt/packets/events-w0/body.md",
+      "rendered_path": "/home/austinli/Projects/bids_pipeline/data/skill/medivation/prompt/packets/events-w0/rendered.md",
+      "evidence_ids": [
+        "0001193125-16-696911:E0096",
+        "0001193125-16-696911:E0097",
+        "0001193125-16-696911:E0098",
+        "0001193125-16-696911:E0099",
+        "0001193125-16-696911:E0100",
+        "0001193125-16-696911:E0101",
+        "0001193125-16-696911:E0102",
+        "0001193125-16-696911:E0103",
+        "0001193125-16-696911:E0104",
+        "0001193125-16-696911:E0105",
+        "0001193125-16-696911:E0106",
+        "0001193125-16-696911:E0107",
+        "0001193125-16-696911:E0108",
+        "0001193125-16-696911:E0109",
+        "0001193125-16-696911:E0110",
+        "0001193125-16-696911:E0111",
+        "0001193125-16-696911:E0112",
+        "0001193125-16-696911:E0113",
+        "0001193125-16-696911:E0114",
+        "0001193125-16-696911:E0115",
+        "0001193125-16-696911:E0116",
+        "0001193125-16-696911:E0117",
+        "0001193125-16-696911:E0118",
+        "0001193125-16-696911:E0119",
+        "0001193125-16-696911:E0120",
+        "0001193125-16-696911:E0121",
+        "0001193125-16-696911:E0122",
+        "0001193125-16-696911:E0123",
+        "0001193125-16-696911:E0124",
+        "0001193125-16-696911:E0125",
+        "0001193125-16-696911:E0126",
+        "0001193125-16-696911:E0127",
+        "0001193125-16-696911:E0128",
+        "0001193125-16-696911:E0129",
+        "0001193125-16-696911:E0130",
+        "0001193125-16-696911:E0131",
+        "0001193125-16-696911:E0132",
+        "0001193125-16-696911:E0133",
+        "0001193125-16-696911:E0134",
+        "0001193125-16-696911:E0135",
+        "0001193125-16-696911:E0136",
+        "0001193125-16-696911:E0137",
+        "0001193125-16-696911:E0138",
+        "0001193125-16-696911:E0139",
+        "0001193125-16-696911:E0140",
+        "0001193125-16-696911:E0141",
+        "0001193125-16-696911:E0142",
+        "0001193125-16-696911:E0143",
+        "0001193125-16-696911:E0144",
+        "0001193125-16-696911:E0145",
+        "0001193125-16-696911:E0146",
+        "0001193125-16-696911:E0147",
+        "0001193125-16-696911:E0148",
+        "0001193125-16-696911:E0149",
+        "0001193125-16-696911:E0150",
+        "0001193125-16-696911:E0151",
+        "0001193125-16-696911:E0152",
+        "0001193125-16-696911:E0153",
+        "0001193125-16-696911:E0154",
+        "0001193125-16-696911:E0155",
+        "0001193125-16-696911:E0156",
+        "0001193125-16-696911:E0157",
+        "0001193125-16-696911:E0158",
+        "0001193125-16-696911:E0159",
+        "0001193125-16-696911:E0160",
+        "0001193125-16-696911:E0161",
+        "0001193125-16-696911:E0162",
+        "0001193125-16-696911:E0163",
+        "0001193125-16-696911:E0164",
+        "0001193125-16-696911:E0165",
+        "0001193125-16-696911:E0166",
+        "0001193125-16-696911:E0167",
+        "0001193125-16-696911:E0168",
+        "0001193125-16-696911:E0169",
+        "0001193125-16-696911:E0170",
+        "0001193125-16-696911:E0171",
+        "0001193125-16-696911:E0172",
+        "0001193125-16-696911:E0173",
+        "0001193125-16-696911:E0174",
+        "0001193125-16-696911:E0175",
+        "0001193125-16-696911:E0176",
+        "0001193125-16-696911:E0177",
+        "0001193125-16-696911:E0178",
+        "0001193125-16-696911:E0179",
+        "0001193125-16-696911:E0180",
+        "0001193125-16-696911:E0181",
+        "0001193125-16-696911:E0182",
+        "0001193125-16-696911:E0183",
+        "0001193125-16-696911:E0184",
+        "0001193125-16-696911:E0185",
+        "0001193125-16-696911:E0186",
+        "0001193125-16-696911:E0187",
+        "0001193125-16-696911:E0188",
+        "0001193125-16-696911:E0189",
+        "0001193125-16-696911:E0190",
+        "0001193125-16-696911:E0191",
+        "0001193125-16-696911:E0192",
+        "0001193125-16-696911:E0193",
+        "0001193125-16-696911:E0194",
+        "0001193125-16-696911:E0195",
+        "0001193125-16-696911:E0196",
+        "0001193125-16-696911:E0197",
+        "0001193125-16-696911:E0198",
+        "0001193125-16-696911:E0199",
+        "0001193125-16-696911:E0200",
+        "0001193125-16-696911:E0201",
+        "0001193125-16-696911:E0202",
+        "0001193125-16-696911:E0203",
+        "0001193125-16-696911:E0204",
+        "0001193125-16-696911:E0205",
+        "0001193125-16-696911:E0206",
+        "0001193125-16-696911:E0207",
+        "0001193125-16-696911:E0208",
+        "0001193125-16-696911:E0209",
+        "0001193125-16-696911:E0210",
+        "0001193125-16-696911:E0211",
+        "0001193125-16-696911:E0212",
+        "0001193125-16-696911:E0213",
+        "0001193125-16-696911:E0214",
+        "0001193125-16-696911:E0215",
+        "0001193125-16-696911:E0216",
+        "0001193125-16-696911:E0217",
+        "0001193125-16-696911:E0218",
+        "0001193125-16-696911:E0219",
+        "0001193125-16-696911:E0220",
+        "0001193125-16-696911:E0221",
+        "0001193125-16-696911:E0222",
+        "0001193125-16-696911:E0223",
+        "0001193125-16-696911:E0224",
+        "0001193125-16-696911:E0225",
+        "0001193125-16-696911:E0226",
+        "0001193125-16-696911:E0227",
+        "0001193125-16-696911:E0228"
+      ],
+      "actor_roster_source_path": "/home/austinli/Projects/bids_pipeline/data/skill/medivation/extract/actors_raw.json"
+    },
+    {
+      "packet_id": "events-w1",
+      "packet_family": "events",
+      "chunk_mode": "chunked",
+      "window_id": "w1",
+      "prefix_path": "/home/austinli/Projects/bids_pipeline/data/skill/medivation/prompt/packets/events-w1/prefix.md",
+      "body_path": "/home/austinli/Projects/bids_pipeline/data/skill/medivation/prompt/packets/events-w1/body.md",
+      "rendered_path": "/home/austinli/Projects/bids_pipeline/data/skill/medivation/prompt/packets/events-w1/rendered.md",
+      "evidence_ids": [
+        "0001193125-16-696911:E0218",
+        "0001193125-16-696911:E0219",
+        "0001193125-16-696911:E0220",
+        "0001193125-16-696911:E0221",
+        "0001193125-16-696911:E0222",
+        "0001193125-16-696911:E0223",
+        "0001193125-16-696911:E0224",
+        "0001193125-16-696911:E0225",
+        "0001193125-16-696911:E0226",
+        "0001193125-16-696911:E0227",
+        "0001193125-16-696911:E0228",
+        "0001193125-16-696911:E0229",
+        "0001193125-16-696911:E0230",
+        "0001193125-16-696911:E0231",
+        "0001193125-16-696911:E0232",
+        "0001193125-16-696911:E0233",
+        "0001193125-16-696911:E0234",
+        "0001193125-16-696911:E0235",
+        "0001193125-16-696911:E0236",
+        "0001193125-16-696911:E0237",
+        "0001193125-16-696911:E0238",
+        "0001193125-16-696911:E0239",
+        "0001193125-16-696911:E0240",
+        "0001193125-16-696911:E0241",
+        "0001193125-16-696911:E0242",
+        "0001193125-16-696911:E0243",
+        "0001193125-16-696911:E0244",
+        "0001193125-16-696911:E0245",
+        "0001193125-16-696911:E0246",
+        "0001193125-16-696911:E0247",
+        "0001193125-16-696911:E0248",
+        "0001193125-16-696911:E0249",
+        "0001193125-16-696911:E0250",
+        "0001193125-16-696911:E0251",
+        "0001193125-16-696911:E0252",
+        "0001193125-16-696911:E0253",
+        "0001193125-16-696911:E0254",
+        "0001193125-16-696911:E0255",
+        "0001193125-16-696911:E0256",
+        "0001193125-16-696911:E0257",
+        "0001193125-16-696911:E0258",
+        "0001193125-16-696911:E0259",
+        "0001193125-16-696911:E0260",
+        "0001193125-16-696911:E0261",
+        "0001193125-16-696911:E0262",
+        "0001193125-16-696911:E0263",
+        "0001193125-16-696911:E0264",
+        "0001193125-16-696911:E0265",
+        "0001193125-16-696911:E0266",
+        "0001193125-16-696911:E0267",
+        "0001193125-16-696911:E0268",
+        "0001193125-16-696911:E0269",
+        "0001193125-16-696911:E0270",
+        "0001193125-16-696911:E0271",
+        "0001193125-16-696911:E0272",
+        "0001193125-16-696911:E0273",
+        "0001193125-16-696911:E0274",
+
+exec
+/bin/bash -lc "sed -n '1,220p' /home/austinli/Projects/bids_pipeline/data/skill/medivation/extract/actors_raw.json" in /home/austinli/Projects/bids_pipeline
+ succeeded in 0ms:
+---
+name: extract-deal
+description: Use when extracting skill-workflow actor and event artifacts from preprocessed SEC filing source for a specific deal.
+---
+
+# extract-deal
+
+## Design Principles
+
+1. The filing is the single source of truth. Every fact traces to
+   `source_accession_number` + verbatim `source_text`.
+2. Fail closed on source ambiguity. Fail open on extraction incompleteness.
+3. Facts before judgments. Extract observable text features only.
+4. Evidence items are anchors, not constraints. Use them to guide rereads, not
+   to replace reading the chronology.
+
+## Purpose
+
+Two-pass LLM extraction of actors and events from preprocessed SEC filing
+source. The skill defines its own JSON format as specified below.
+
+## When To Use
+
+- Called by the deal-agent orchestrator, or independently via
+  `/extract-deal <slug>`.
+- Prerequisite: `skill-pipeline raw-fetch` +
+  `skill-pipeline preprocess-source` already ran.
+
+## Benchmark Boundary
+
+Benchmark materials are forbidden during generation. Do not consult benchmark
+files, benchmark notes, `example/`, `diagnosis/`,
+`data/skill/<slug>/reconcile/*`, or `/reconcile-alex` before
+`skill-pipeline db-export --deal <slug>` completes.
+
+Use only filing-grounded source artifacts during extraction. Benchmark
+comparison is post-export only and read-only.
+
+## Reads
+
+| File | What it provides |
+|---|---|
+| `data/skill/<slug>/prompt/manifest.json` | Prompt packet manifest listing all rendered packets |
+| `data/skill/<slug>/prompt/packets/*/rendered.md` | Composed prompt packets with chronology, checklist, and instructions |
+| `data/deals/<slug>/source/chronology_selection.json` | Selected filing and section |
+| `data/deals/<slug>/source/chronology_blocks.jsonl` | Chronology narrative blocks |
+| `data/deals/<slug>/source/evidence_items.jsonl` | Pre-tagged anchors for dates, actors, values, and process signals |
+| `raw/<slug>/document_registry.json` | Filing metadata and paths |
+| `raw/<slug>/filings/*.txt` | Frozen text for verbatim anchors |
+
+## Preflight
+
+Before extraction, run `skill-pipeline compose-prompts --deal <slug> --mode actors`
+(or `--mode events` after actor extraction) to generate prompt packet artifacts.
+Validate them with `python scripts/validate_prompt_packets.py --deal <slug> --expect-sections`.
+
+## Extraction Method
+
+Use the composed prompt packets from `data/skill/<slug>/prompt/` as the primary
+extraction input. Each packet's `rendered.md` contains the full prompt context:
+deal metadata, chronology blocks, evidence checklist, and task instructions in
+the correct ordering. For chunked deals, each window packet includes overlap
+context from adjacent blocks.
+
+The extraction follows the quote-before-extract protocol: first cite verbatim
+filing passages in the `quotes` array, then build structured actors/events that
+reference those quotes by `quote_id`. This structurally forces the LLM to commit
+to verbatim text before building structured data on top of it.
+
+### Pass 1 — Forward Scan
+
+#### Step 1a: Actor Extraction
+
+Load the actor prompt packets from the manifest. For each actor packet, use the
+`rendered.md` content as the extraction context. Extract every party mentioned
+in the chronology:
+
+- Named bidders, advisors, activists, and target-side entities
+- Filing aliases such as `Party A`
+- Unnamed aggregates when the filing counts them but does not individualize them
+
+For each actor, produce a `RawActorRecord` with the standard roster fields plus:
+
+- `advised_actor_id`: for advisors only, link the advisor to the actor it
+  represents when the filing says so. Example: if the text says "Wachtell,
+  Lipton, Rosen & Katz, counsel to the Company", set `advised_actor_id` to the
+  target-side actor. If unclear, set `null`.
+
+Also extract `count_assertions` for explicit numeric statements such as:
+
+- "15 parties signed confidentiality agreements"
+- "7 bidders were invited to the final round"
+
+#### Step 1b: Event Extraction
+
+Every event must have a stable `event_id` (e.g., `evt_001`, `evt_002`)
+assigned at extraction time. IDs must not change once assigned. Downstream
+skills reference events by event_id.
+
+Extract all events across the 20-type taxonomy below. Every event needs:
+
+- `event_id`
+- `event_type`
+- `date`
+- `actor_ids`
+- `summary`
+- `quote_ids` referencing the quotes array
+
+Events with genuinely unknown dates: set `date.raw_text` and
+`date.normalized_hint` both to null. The event is still extracted.
+
+Additional event rules:
+
+- Proposal events must include `terms`, `consideration_type`, and
+  `formality_signals`.
+- Add `formality_signals.is_subject_to_financing`:
+  - `true` when the proposal is explicitly subject to financing
+  - `false` when the text explicitly says financing is committed, available, or
+    not a condition
+  - `null` when financing is not discussed
+- Only set `after_final_round_announcement=true` if you have already extracted
+  a chronologically earlier `final_round_ann` or `final_round_ext_ann`.
+- Round events must include `round_scope`. For announcement events, also fill
+  `invited_actor_ids` when the filing names or clearly identifies the invitees.
+- Collapse every withdrawal or exclusion into `drop`. Do not emit
+  `drop_below_m`, `drop_below_inf`, `drop_at_inf`, or `drop_target`.
+  Preserve the narrative basis in `drop_reason_text`, including whether the
+  withdrawal was bidder-initiated or target-initiated when the text makes that
+  clear.
+- For `executed`, fill `executed_with_actor_id` when the counterparty is known.
+- For `terminated` and `restarted`, fill `boundary_note`.
+
+Open-world actor minting is allowed. If an event clearly references a party not
+yet on the roster, add that actor with evidence. When minting new actors during
+event extraction, add a corresponding actor record to actors_raw.json using the
+quote-first schema (supporting quotes in the top-level `quotes` array plus
+`quote_ids` on the actor).
+
+### Date and Event Precision Rules
+
+**Date precision:** When the filing gives a specific date for an individual
+party's action (e.g., "including Thoma Bravo on May 10, 2016"), use that exact
+date. Do not substitute the date range of a broader period (e.g., "May 6
+through June 9") when an individual date is explicitly stated. When the filing
+says a letter was "received on date X" but "dated date Y," use date Y (the
+authoring/sending date).
+
+**Event granularity:** One action = one event. A board committee discussing a
+received bid is not a separate proposal event. A board confirming a prior
+decision is not a separate event. Only create an event when there is a new
+external action (bid submitted, NDA signed, party drops out) or a new board
+decision (launch sale process, advance to final round).
+
+**Terminated semantics:** Use `terminated` only when the deal process itself
+ends (sale process abandoned, no transaction). A party terminating a hostile
+tactic (consent solicitation, proxy fight) as a condition of joining the
+friendly process is NOT a `terminated` event. Note it in the NDA event's
+`notes` field instead.
+
+### Pass 2 — Gap Re-Read (Always Runs)
+
+1. For each of the 20 event types, list extracted events or write
+   `NOT FOUND — [specific filing-based reason]`.
+2. Re-read the most relevant sections for missing NDA, dropout, adviser, and
+   process-initiation events.
+3. Re-check actor lifecycle coverage. If an actor disappears from the process,
+   record that in `coverage_notes` even if the terminal event remains unresolved.
+
+## Writes
+
+### `data/skill/<slug>/extract/actors_raw.json`
+
+### `data/skill/<slug>/extract/events_raw.json`
+
+The skill defines its own JSON format as specified below.
+
+`coverage_notes` must be a list of strings. It must explicitly record the
+taxonomy sweep, for example:
+
+```json
+"coverage_notes": [
+  "target_sale: extracted (evt_001)",
+  "activist_sale: NOT FOUND -- no activist involvement in this deal"
+]
+```
+
+### Quote-First Evidence Schema
+
+Every extraction response uses the quote-before-extract protocol. The LLM first
+cites verbatim filing passages in a top-level `quotes` array, then builds
+structured actors/events that reference those quotes by `quote_id`.
+
+Each quote entry:
+
+```json
+{
+  "quote_id": "Q001",
+  "block_id": "B042",
+  "text": "representatives of Thoma Bravo informally approached"
+}
+```
+
+- `quote_id`: stable identifier assigned sequentially (Q001, Q002, ...) per
+  extraction response. Must be unique within a single response.
+- `block_id`: references a block in chronology_blocks.jsonl. Required for all
+  quotes.
+- `text`: verbatim substring from the filing. Always required. Ideally 3 to
+  12 words.
+
+Actors and events reference `quote_ids` (list of strings) instead of carrying
+inline `evidence_refs`. The `evidence_refs` field is no longer part of the
+extraction schema.
+
+### Actor Record Fields
+
+Each actor in the `actors` array:
+
+| Field | Type | Required | Notes |
+|---|---|---|---|
+| `actor_id` | string | yes | Stable ID (e.g., `bidder_thoma_bravo`) |
+| `display_name` | string | yes | Human-readable name |
+| `canonical_name` | string | yes | Uppercase legal name |
+| `aliases` | list[string] | no | Filing aliases (Party A, etc.) |
+| `role` | string | yes | `bidder`, `advisor`, `activist`, `target_board` |
+| `advisor_kind` | string or null | no | `financial`, `legal`, `other` (advisors only) |
+| `advised_actor_id` | string or null | no | Actor ID of client (advisors only) |
+| `bidder_kind` | string or null | no | `strategic`, `financial` (bidders only) |
+| `listing_status` | string or null | no | `public`, `private` |
+| `geography` | string or null | no | `domestic`, `non_us` |
+| `is_grouped` | boolean | yes | True for unnamed aggregates |
+| `group_size` | integer or null | no | Required when is_grouped=true |
+| `group_label` | string or null | no | Required when is_grouped=true |
+| `quote_ids` | list[string] | yes | At least one quote_id from the quotes array |
+| `notes` | list[string] | no | |
+
+### Event Record Fields
+
+Each event in the `events` array:
+
+| Field | Type | Required | Notes |
+
+ succeeded in 0ms:
+{
+  "quotes": [
+    {
+      "quote_id": "Q001",
+      "block_id": "B002",
+      "text": "The Medivation board of directors"
+    },
+    {
+      "quote_id": "Q002",
+      "block_id": "B004",
+      "text": "Cooley LLP"
+    },
+    {
+      "quote_id": "Q003",
+      "block_id": "B004",
+      "text": "J. P. Morgan Securities LLC"
+    },
+    {
+      "quote_id": "Q004",
+      "block_id": "B003",
+      "text": "Chief Executive Officer of Sanofi"
+    },
+    {
+      "quote_id": "Q005",
+      "block_id": "B012",
+      "text": "at Pfizer"
+    },
+    {
+      "quote_id": "Q006",
+      "block_id": "B013",
+      "text": "Evercore Group L. L. C."
+    },
+    {
+      "quote_id": "Q007",
+      "block_id": "B016",
+      "text": "Wachtell, Lipton, Rosen & Katz"
+    },
+    {
+      "quote_id": "Q008",
+      "block_id": "B017",
+      "text": "Richards, Layton & Finger, P. A."
+    },
+    {
+      "quote_id": "Q009",
+      "block_id": "B021",
+      "text": "Weil Gotshal & Manges LLP"
+    },
+    {
+      "quote_id": "Q010",
+      "block_id": "B057",
+      "text": "Company 1"
+    },
+    {
+      "quote_id": "Q011",
+      "block_id": "B057",
+      "text": "Company 2"
+    },
+    {
+      "quote_id": "Q012",
+      "block_id": "B057",
+      "text": "Company 3"
+    },
+    {
+      "quote_id": "Q013",
+      "block_id": "B057",
+      "text": "Company 4"
+    }
+  ],
+  "actors": [
+    {
+      "actor_id": "target_board",
+      "display_name": "Medivation Board of Directors",
+      "canonical_name": "MEDIVATION BOARD OF DIRECTORS",
+      "aliases": [
+        "Medivation board of directors"
+      ],
+      "role": "target_board",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "quote_ids": [
+        "Q001"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_cooley",
+      "display_name": "Cooley LLP",
+      "canonical_name": "COOLEY LLP",
+      "aliases": [
+        "Cooley"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": "target_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "quote_ids": [
+        "Q002"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_jp_morgan",
+      "display_name": "J. P. Morgan Securities LLC",
+      "canonical_name": "J. P. MORGAN SECURITIES LLC",
+      "aliases": [
+        "J. P. Morgan"
+      ],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "target_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "quote_ids": [
+        "Q003"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_sanofi",
+      "display_name": "Sanofi",
+      "canonical_name": "SANOFI",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "quote_ids": [
+        "Q004"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_pfizer",
+      "display_name": "Pfizer",
+      "canonical_name": "PFIZER",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "quote_ids": [
+        "Q005"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_evercore",
+      "display_name": "Evercore Group L. L. C.",
+      "canonical_name": "EVERCORE GROUP L. L. C.",
+      "aliases": [
+        "Evercore"
+      ],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "target_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "quote_ids": [
+        "Q006"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_wachtell_lipton",
+      "display_name": "Wachtell, Lipton, Rosen & Katz",
+      "canonical_name": "WACHTELL, LIPTON, ROSEN & KATZ",
+      "aliases": [
+        "Wachtell Lipton"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": "target_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "quote_ids": [
+        "Q007"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_richards_layton_finger",
+      "display_name": "Richards, Layton & Finger, P. A.",
+      "canonical_name": "RICHARDS, LAYTON & FINGER, P. A.",
+      "aliases": [],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": "target_board",
+
+exec
+/bin/bash -lc 'tail -n 80 /home/austinli/Projects/bids_pipeline/quality_reports/session_logs/2026-03-29_rerun_medivation.md' in /home/austinli/Projects/bids_pipeline
+ succeeded in 0ms:
+        "0001193125-16-696911:E0234",
+        "0001193125-16-696911:E0235",
+        "0001193125-16-696911:E0236",
+        "0001193125-16-696911:E0237",
+        "0001193125-16-696911:E0238",
+        "0001193125-16-696911:E0239",
+        "0001193125-16-696911:E0240",
+        "0001193125-16-696911:E0241",
+        "0001193125-16-696911:E0242",
+        "0001193125-16-696911:E0243",
+        "0001193125-16-696911:E0244",
+        "0001193125-16-696911:E0245",
+        "0001193125-16-696911:E0246",
+        "0001193125-16-696911:E0247",
+        "0001193125-16-696911:E0248",
+        "0001193125-16-696911:E0249",
+        "0001193125-16-696911:E0250",
+        "0001193125-16-696911:E0251",
+        "0001193125-16-696911:E0252",
+        "0001193125-16-696911:E0253",
+        "0001193125-16-696911:E0254",
+        "0001193125-16-696911:E0255",
+        "0001193125-16-696911:E0256",
+        "0001193125-16-696911:E0257",
+        "0001193125-16-696911:E0258",
+        "0001193125-16-696911:E0259",
+        "0001193125-16-696911:E0260",
+        "0001193125-16-696911:E0261",
+        "0001193125-16-696911:E0262",
+        "0001193125-16-696911:E0263",
+        "0001193125-16-696911:E0264",
+        "0001193125-16-696911:E0265",
+        "0001193125-16-696911:E0266",
+        "0001193125-16-696911:E0267",
+        "0001193125-16-696911:E0268",
+        "0001193125-16-696911:E0269",
+        "0001193125-16-696911:E0270",
+        "0001193125-16-696911:E0271",
+        "0001193125-16-696911:E0272",
+        "0001193125-16-696911:E0273",
+        "0001193125-16-696911:E0274",
+        "0001193125-16-696911:E0275",
+        "0001193125-16-696911:E0276",
+        "0001193125-16-696911:E0277",
+        "0001193125-16-696911:E0278",
+        "0001193125-16-696911:E0279",
+        "0001193125-16-696911:E0280",
+        "0001193125-16-696911:E0281",
+        "0001193125-16-696911:E0282",
+        "0001193125-16-696911:E0283",
+        "0001193125-16-696911:E0284",
+        "0001193125-16-696911:E0285",
+        "0001193125-16-696911:E0286",
+        "0001193125-16-696911:E0287",
+        "0001193125-16-696911:E0288",
+        "0001193125-16-696911:E0289"
+      ],
+      "actor_roster_source_path": "/home/austinli/Projects/bids_pipeline/data/skill/medivation/extract/actors_raw.json"
+    }
+  ],
+  "asset_files": [
+    "/home/austinli/Projects/bids_pipeline/skill_pipeline/prompt_assets/events_prefix.md",
+    "/home/austinli/Projects/bids_pipeline/skill_pipeline/prompt_assets/event_examples.md"
+  ],
+  "notes": [
+    "mode=events",
+    "chunk_budget=6000",
+    "routing=auto",
+    "effective_budget=6000",
+    "source_blocks=165",
+    "source_evidence_items=511",
+    "chunk_windows=2",
+    "complexity=complex"
+  ]
+}
+
+### medivation: validate-events
+
+Command: python scripts/validate_prompt_packets.py --deal medivation --expect-sections
+PASS: All prompt packets valid for medivation.
+
+codex
+I have the contract and current medivation actor roster. Now I’m reading the event-schema portion of the extraction skill and the two validated event packets only, so I can write `events_raw.json` without pulling in unrelated repo context.
+exec
+/bin/bash -lc "sed -n '240,520p' /home/austinli/Projects/bids_pipeline/.codex/skills/extract-deal/SKILL.md" in /home/austinli/Projects/bids_pipeline
+ succeeded in 0ms:
+| Field | Type | Required | Notes |
+|---|---|---|---|
+| `event_id` | string | yes | Stable ID (e.g., `evt_001`) assigned at extraction time |
+| `event_type` | string | yes | One of 20 taxonomy types |
+| `date` | object | yes | `{raw_text, normalized_hint}`. Both may be null for genuinely undated events. |
+| `actor_ids` | list[string] | yes | May be empty for process-level events (round announcements, etc.) |
+| `summary` | string | yes | One-sentence description |
+| `quote_ids` | list[string] | yes | At least one quote_id from the quotes array |
+| `terms` | object or null | proposal only | `{per_share, range_low, range_high, enterprise_value, consideration_type}` |
+| `formality_signals` | object or null | proposal only | 11 boolean flags (see Reference: Formality Signals below) |
+| `whole_company_scope` | boolean or null | proposal only | See note below |
+| `drop_reason_text` | string or null | drop only | Verbatim filing language |
+| `round_scope` | string or null | round only | `formal` or `informal` |
+| `invited_actor_ids` | list[string] | round only | When identifiable from filing |
+| `deadline_date` | object or null | round only | Same shape as `date` |
+| `executed_with_actor_id` | string or null | executed only | Counterparty |
+| `boundary_note` | string or null | terminated/restarted only | Filing context |
+| `nda_signed` | boolean or null | nda only | |
+| `notes` | list[string] | no | |
+
+`whole_company_scope`: set to true for whole-company bids, false for partial-
+company bids. When ambiguous, set to null and include the event (do not exclude
+on ambiguity). Partial-company bids with `whole_company_scope=false` go into
+`exclusions`, not `events`.
+
+### Top-Level Structures
+
+```json
+// actors_raw.json
+{
+  "quotes": [
+    {"quote_id": "Q001", "block_id": "B042", "text": "representatives of Thoma Bravo informally approached"}
+  ],
+  "actors": [ <actor records with quote_ids> ],
+  "count_assertions": [
+    {
+      "subject": "confidentiality agreements",
+      "count": 15,
+      "quote_ids": ["Q003", "Q004"]
+    }
+  ],
+  "unresolved_mentions": [ <strings> ]
+}
+
+// events_raw.json
+{
+  "quotes": [
+    {"quote_id": "Q001", "block_id": "B050", "text": "Party A submitted an indication of interest"}
+  ],
+  "events": [ <event records with quote_ids> ],
+  "exclusions": [
+    {
+      "category": "partial_company_bid",
+      "block_ids": ["B015"],
+      "explanation": "Party X only interested in acquiring the software division"
+    }
+  ],
+  "coverage_notes": [
+    "target_sale: extracted (evt_001)",
+    "activist_sale: NOT FOUND -- no activist involvement in this deal"
+  ]
+}
+```
+
+## Gate
+
+Both files exist. `actors` has at least one entry. `events` has at least one
+entry. Fail closed if the gate fails.
+
+---
+
+## Reference: Event Taxonomy (20 types)
+
+### Process Markers (8 types)
+
+| Type | Filing Signal |
+|---|---|
+| `target_sale` | Board authorizes strategic alternatives exploration |
+| `target_sale_public` | Public announcement of strategic review |
+| `bidder_sale` | Acquirer-initiated process |
+| `bidder_interest` | Unsolicited expression of interest without a bid |
+| `activist_sale` | Activist pressure triggers a sale review |
+| `sale_press_release` | Press release announcing strategic alternatives |
+| `bid_press_release` | Press release announcing a deal or public bid |
+| `ib_retention` | Investment bank or other adviser retained |
+
+### Deal Mechanics (3 types)
+
+| Type | Filing Signal |
+|---|---|
+| `nda` | Confidentiality agreement signed |
+| `proposal` | Whole-company priced bid or indication of interest |
+| `drop` | Bidder withdraws or target excludes bidder from continuing |
+
+### Auction Stages (6 types)
+
+| Type | Filing Signal |
+|---|---|
+| `final_round_inf_ann` | Informal final round announced |
+| `final_round_inf` | Informal final round deadline |
+| `final_round_ann` | Formal final round announced |
+| `final_round` | Formal final round deadline |
+| `final_round_ext_ann` | Extension round announced |
+| `final_round_ext` | Extension round deadline |
+
+### Outcomes (3 types)
+
+| Type | Filing Signal |
+|---|---|
+| `executed` | Merger agreement signed |
+| `terminated` | Sale process terminated |
+| `restarted` | Sale process restarted |
+
+## Reference: Formality Signals
+
+Every proposal must include:
+
+```json
+{
+  "contains_range": false,
+  "mentions_indication_of_interest": false,
+  "mentions_preliminary": false,
+  "mentions_non_binding": false,
+  "mentions_binding_offer": true,
+  "includes_draft_merger_agreement": true,
+  "includes_marked_up_agreement": false,
+  "requested_binding_offer_via_process_letter": false,
+  "after_final_round_announcement": true,
+  "after_final_round_deadline": false,
+  "is_subject_to_financing": null
+}
+```
+
+These are observable text features, not classifications.
+
+## Reference: Exclusions
+
+Record deliberate exclusions with category and explanation:
+
+- `partial_company_bid`
+- `unsigned_nda`
+- `stale_process_reference`
+- `duplicate_mention`
+- `non_event_context`
+- `other`
+
+## Supersedes
+
+This skill replaces the old `audit-and-enrich` skill's extraction
+responsibilities. Its QA and enrichment responsibilities are now handled by
+verify-extraction (Skill 2) and enrich-deal (Skill 3).
+
+exec
+/bin/bash -lc "sed -n '1,260p' /home/austinli/Projects/bids_pipeline/data/skill/medivation/prompt/packets/events-w0/rendered.md" in /home/austinli/Projects/bids_pipeline
+ succeeded in 0ms:
+You are extracting structured M&A process events from SEC merger-background narrative text.
+
+<mission>
+Produce a complete event chronology using only the supplied chronology blocks and the supplied locked actor roster.
+Return only facts grounded in the filing text.
+You are not allowed to invent actors, events, dates, or prices.
+</mission>
+
+<source_of_truth>
+The only factual source is the supplied SEC filing text blocks.
+Do not use outside knowledge.
+Do not infer facts that are not textually supported.
+</source_of_truth>
+
+<actor_roster_rules>
+Use only actor_ids from the provided actor roster.
+If a mention cannot be linked confidently to an existing actor_id, place the mention in unresolved_mentions.
+</actor_roster_rules>
+
+<evidence>
+For every event, first add verbatim filing quotes to the top-level quotes array.
+Each quote needs: quote_id (Q001, Q002, ...), block_id (matching the source block), and text (exact verbatim substring from the block, ideally 3 to 12 words).
+Then reference those quote_ids in the event record. Do not use evidence_refs or anchor_text.
+Do not paraphrase.
+</evidence>
+
+<output_requirements>
+Return a single JSON object with: quotes, events, exclusions, coverage_notes.
+The quotes array must appear first in the JSON.
+</output_requirements>
+
+<few_shot_examples>
+
+### Example 1: Range proposal and partial-company exclusion
+
+Input:
+B019 [L286-L288]: On August 28, 2012, Party O submitted a revised proposal of $55 million for the Company's business in the United Kingdom and Europe.
+B020 [L289-L292]: On September 3, 2012, Party A submitted an indication of interest of $7.50 to $8.00 per share for all outstanding shares of the Company.
+
+Expected:
+```json
+{
+  "quotes": [
+    {
+      "quote_id": "Q001",
+      "block_id": "B019",
+      "text": "Party O submitted a revised proposal of $55 million for the Company's business in the United Kingdom and Europe."
+    },
+    {
+      "quote_id": "Q002",
+      "block_id": "B020",
+      "text": "Party A submitted an indication of interest of $7.50 to $8.00 per share for all outstanding shares of the Company."
+    }
+  ],
+  "events": [
+    {
+      "event_id": "evt_001",
+      "event_type": "proposal",
+      "date": {"raw_text": "September 3, 2012"},
+      "actor_ids": ["bidder_party_a"],
+      "summary": "Party A submitted an indication of interest for the whole company at $7.50 to $8.00 per share.",
+      "quote_ids": ["Q002"],
+      "terms": {"range_low": "7.50", "range_high": "8.00"},
+      "whole_company_scope": true,
+      "formality_signals": {
+        "contains_range": true,
+        "mentions_indication_of_interest": true
+      }
+    }
+  ],
+  "exclusions": [
+    {
+      "category": "partial_company_bid",
+      "quote_ids": ["Q001"],
+      "explanation": "Party O's proposal covered only the United Kingdom and Europe business, not the whole company."
+    }
+  ],
+  "coverage_notes": []
+}
+```
+
+### Example 2: Formal-round signal
+
+Input:
+B064 [L1498-L1499]: After the meeting, at the direction of the board, BofA Merrill Lynch sent final round process letters and a draft merger agreement to WDC and Company D, requesting a response by May 28, 2013.
+
+Expected:
+```json
+{
+  "quotes": [
+    {
+      "quote_id": "Q001",
+      "block_id": "B064",
+      "text": "BofA Merrill Lynch sent final round process letters and a draft merger agreement to WDC and Company D, requesting a response by May 28, 2013."
+    }
+  ],
+  "events": [
+    {
+      "event_id": "evt_001",
+      "event_type": "final_round_ann",
+      "date": {"raw_text": "after May 16, 2013"},
+      "actor_ids": ["advisor_bofa_merrill_lynch"],
+      "summary": "BofA Merrill Lynch sent final round process letters and a draft merger agreement to WDC and Company D.",
+      "quote_ids": ["Q001"],
+      "round_scope": "formal",
+      "invited_actor_ids": ["bidder_wdc", "bidder_company_d"],
+      "deadline_date": {"raw_text": "May 28, 2013"},
+      "notes": [
+        "Draft merger agreement plus final round process letters is a formal-round signal."
+      ]
+    }
+  ],
+  "exclusions": [],
+  "coverage_notes": []
+}
+```
+
+### Example 3: NDA group plus named parties
+
+Input:
+B030 [L1273-L1278]: During the period from May 6 through June 9, 2016, at the direction of the Board, Barclays contacted and had discussions with the 15 potentially interested parties discussed by the Board at its April 28 and May 5, 2016 meetings, including Thoma Bravo. Of the parties contacted, three strategic parties and four financial sponsors executed confidentiality agreements with the Company, including Thoma Bravo on May 10, 2016. Except for one financial sponsor that declined interest shortly after executing its confidentiality agreement, each party that entered into a confidentiality agreement attended a high-level management presentation conducted by members of Company management and attended by Barclays. These parties included a telecommunications enterprise company ("Strategic 1"), two large software companies ("Strategic 2" and "Strategic 3") and three financial sponsors ("Sponsor A," "Sponsor B" and Thoma Bravo).
+
+Expected:
+```json
+{
+  "quotes": [
+    {
+      "quote_id": "Q001",
+      "block_id": "B030",
+      "text": "three strategic parties and four financial sponsors executed confidentiality agreements with the Company, including Thoma Bravo on May 10, 2016."
+    },
+    {
+      "quote_id": "Q002",
+      "block_id": "B030",
+      "text": "These parties included a telecommunications enterprise company (\"Strategic 1\"), two large software companies (\"Strategic 2\" and \"Strategic 3\") and three financial sponsors (\"Sponsor A,\" \"Sponsor B\" and Thoma Bravo)."
+    }
+  ],
+  "events": [
+    {
+      "event_id": "evt_001",
+      "event_type": "nda",
+      "date": {"raw_text": "May 10, 2016"},
+      "actor_ids": ["grouped_strategic_parties"],
+      "summary": "Three strategic parties executed confidentiality agreements with the Company.",
+      "quote_ids": ["Q001", "Q002"],
+      "nda_signed": true,
+      "notes": [
+        "actor_roster grouped_strategic_parties is_grouped=true group_size=3 group_label=\"three strategic parties\""
+      ]
+    },
+    {
+      "event_id": "evt_002",
+      "event_type": "nda",
+      "date": {"raw_text": "May 10, 2016"},
+      "actor_ids": ["bidder_sponsor_a"],
+      "summary": "Sponsor A executed a confidentiality agreement with the Company.",
+      "quote_ids": ["Q001", "Q002"],
+      "nda_signed": true
+    },
+    {
+      "event_id": "evt_003",
+      "event_type": "nda",
+      "date": {"raw_text": "May 10, 2016"},
+      "actor_ids": ["bidder_sponsor_b"],
+      "summary": "Sponsor B executed a confidentiality agreement with the Company.",
+      "quote_ids": ["Q001", "Q002"],
+      "nda_signed": true
+    },
+    {
+      "event_id": "evt_004",
+      "event_type": "nda",
+      "date": {"raw_text": "May 10, 2016"},
+      "actor_ids": ["bidder_thoma_bravo"],
+      "summary": "Thoma Bravo executed a confidentiality agreement with the Company.",
+      "quote_ids": ["Q001", "Q002"],
+      "nda_signed": true
+    }
+  ],
+  "exclusions": [],
+  "coverage_notes": []
+}
+```
+
+### Example 4: Ambiguous drop with stated rationale
+
+Input:
+B082 [L1564-L1565]: On June 5, 2013 representatives of Company D contacted representatives of BofA Merrill Lynch and indicated that Company D would not be in a position to actively conduct due diligence for more than two weeks and was disengaging from the process.
+
+Expected:
+```json
+{
+  "quotes": [
+    {
+      "quote_id": "Q001",
+      "block_id": "B082",
+      "text": "Company D would not be in a position to actively conduct due diligence for more than two weeks and was disengaging from the process."
+    }
+  ],
+  "events": [
+    {
+      "event_id": "evt_001",
+      "event_type": "drop",
+      "date": {"raw_text": "June 5, 2013"},
+      "actor_ids": ["bidder_company_d"],
+      "summary": "Company D disengaged from the process because it could not actively conduct due diligence for more than two weeks.",
+      "quote_ids": ["Q001"],
+      "drop_reason_text": "Company D would not be in a position to actively conduct due diligence for more than two weeks and was disengaging from the process"
+    }
+  ],
+  "exclusions": [],
+  "coverage_notes": []
+}
+```
+
+### Example 5: Cycle boundary with termination and restart
+
+Input:
+B068 [L1886-L1888]: At a June 26, 2014 meeting of our board of directors, based on the lack of buyer interest and the uncertainty surrounding the impact of the fire at our aerosol manufacturing facility in Marietta, Georgia, our board of directors decided to terminate the process to explore potential strategic alternatives at that time and to continue to focus on our business and financial performance.
+B075 [L1899-L1901]: In early February 2015, New Mountain Capital contacted representatives of BofA Merrill Lynch and requested a meeting. On February 10, 2015, New Mountain Capital met with representatives of BofA Merrill Lynch and expressed its interest in discussions with the Company regarding a potential transaction. On February 19, 2015, New Mountain Capital delivered an unsolicited indication of interest to the Company to acquire us for a per share price of $19.25.
+
+Expected:
+```json
+{
+  "quotes": [
+    {
+      "quote_id": "Q001",
+      "block_id": "B068",
+      "text": "our board of directors decided to terminate the process to explore potential strategic alternatives at that time"
+    },
+    {
+      "quote_id": "Q002",
+      "block_id": "B075",
+      "text": "In early February 2015, New Mountain Capital contacted representatives of BofA Merrill Lynch and requested a meeting."
+    }
+  ],
+  "events": [
+    {
+      "event_id": "evt_001",
+      "event_type": "terminated",
+      "date": {"raw_text": "June 26, 2014"},
+      "actor_ids": ["target_board"],
+      "summary": "The board terminated the strategic alternatives process.",
+      "quote_ids": ["Q001"],
+      "boundary_note": "Board terminated the 2014 process because of limited buyer interest and operational uncertainty."
+    },
+    {
+      "event_id": "evt_002",
+      "event_type": "restarted",
+      "date": {"raw_text": "early February 2015"},
+      "actor_ids": ["bidder_new_mountain_capital"],
+      "summary": "New Mountain Capital reopened sale discussions after the prior process had been terminated.",
+      "quote_ids": ["Q002"],
+      "boundary_note": "New Mountain Capital's unsolicited re-engagement marks the start of a new process cycle."
+    }
+  ],
+  "exclusions": [],
+  "coverage_notes": []
+}
+```
+
+
+exec
+/bin/bash -lc "sed -n '220,420p' /home/austinli/Projects/bids_pipeline/data/skill/medivation/extract/actors_raw.json" in /home/austinli/Projects/bids_pipeline
+ succeeded in 0ms:
+      "advised_actor_id": "target_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "quote_ids": [
+        "Q008"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_weil_gotshal",
+      "display_name": "Weil Gotshal & Manges LLP",
+      "canonical_name": "WEIL GOTSHAL & MANGES LLP",
+      "aliases": [
+        "Weil Gotshal"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": "bidder_sanofi",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "quote_ids": [
+        "Q009"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_1",
+      "display_name": "Company 1",
+      "canonical_name": "COMPANY 1",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "quote_ids": [
+        "Q010"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_2",
+      "display_name": "Company 2",
+      "canonical_name": "COMPANY 2",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "quote_ids": [
+        "Q011"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_3",
+      "display_name": "Company 3",
+      "canonical_name": "COMPANY 3",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "quote_ids": [
+        "Q012"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_4",
+      "display_name": "Company 4",
+      "canonical_name": "COMPANY 4",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "quote_ids": [
+        "Q013"
+      ],
+      "notes": []
+    }
+  ],
+  "count_assertions": [],
+  "unresolved_mentions": []
+}
+
+exec
+/bin/bash -lc "sed -n '1,260p' /home/austinli/Projects/bids_pipeline/data/skill/medivation/prompt/packets/events-w1/rendered.md" in /home/austinli/Projects/bids_pipeline
+ succeeded in 0ms:
+You are extracting structured M&A process events from SEC merger-background narrative text.
+
+<mission>
+Produce a complete event chronology using only the supplied chronology blocks and the supplied locked actor roster.
+Return only facts grounded in the filing text.
+You are not allowed to invent actors, events, dates, or prices.
+</mission>
+
+<source_of_truth>
+The only factual source is the supplied SEC filing text blocks.
+Do not use outside knowledge.
+Do not infer facts that are not textually supported.
+</source_of_truth>
+
+<actor_roster_rules>
+Use only actor_ids from the provided actor roster.
+If a mention cannot be linked confidently to an existing actor_id, place the mention in unresolved_mentions.
+</actor_roster_rules>
+
+<evidence>
+For every event, first add verbatim filing quotes to the top-level quotes array.
+Each quote needs: quote_id (Q001, Q002, ...), block_id (matching the source block), and text (exact verbatim substring from the block, ideally 3 to 12 words).
+Then reference those quote_ids in the event record. Do not use evidence_refs or anchor_text.
+Do not paraphrase.
+</evidence>
+
+<output_requirements>
+Return a single JSON object with: quotes, events, exclusions, coverage_notes.
+The quotes array must appear first in the JSON.
+</output_requirements>
+
+<few_shot_examples>
+
+### Example 1: Range proposal and partial-company exclusion
+
+Input:
+B019 [L286-L288]: On August 28, 2012, Party O submitted a revised proposal of $55 million for the Company's business in the United Kingdom and Europe.
+B020 [L289-L292]: On September 3, 2012, Party A submitted an indication of interest of $7.50 to $8.00 per share for all outstanding shares of the Company.
+
+Expected:
+```json
+{
+  "quotes": [
+    {
+      "quote_id": "Q001",
+      "block_id": "B019",
+      "text": "Party O submitted a revised proposal of $55 million for the Company's business in the United Kingdom and Europe."
+    },
+    {
+      "quote_id": "Q002",
+      "block_id": "B020",
+      "text": "Party A submitted an indication of interest of $7.50 to $8.00 per share for all outstanding shares of the Company."
+    }
+  ],
+  "events": [
+    {
+      "event_id": "evt_001",
+      "event_type": "proposal",
+      "date": {"raw_text": "September 3, 2012"},
+      "actor_ids": ["bidder_party_a"],
+      "summary": "Party A submitted an indication of interest for the whole company at $7.50 to $8.00 per share.",
+      "quote_ids": ["Q002"],
+      "terms": {"range_low": "7.50", "range_high": "8.00"},
+      "whole_company_scope": true,
+      "formality_signals": {
+        "contains_range": true,
+        "mentions_indication_of_interest": true
+      }
+    }
+  ],
+  "exclusions": [
+    {
+      "category": "partial_company_bid",
+      "quote_ids": ["Q001"],
+      "explanation": "Party O's proposal covered only the United Kingdom and Europe business, not the whole company."
+    }
+  ],
+  "coverage_notes": []
+}
+```
+
+### Example 2: Formal-round signal
+
+Input:
+B064 [L1498-L1499]: After the meeting, at the direction of the board, BofA Merrill Lynch sent final round process letters and a draft merger agreement to WDC and Company D, requesting a response by May 28, 2013.
+
+Expected:
+```json
+{
+  "quotes": [
+    {
+      "quote_id": "Q001",
+      "block_id": "B064",
+      "text": "BofA Merrill Lynch sent final round process letters and a draft merger agreement to WDC and Company D, requesting a response by May 28, 2013."
+    }
+  ],
+  "events": [
+    {
+      "event_id": "evt_001",
+      "event_type": "final_round_ann",
+      "date": {"raw_text": "after May 16, 2013"},
+      "actor_ids": ["advisor_bofa_merrill_lynch"],
+      "summary": "BofA Merrill Lynch sent final round process letters and a draft merger agreement to WDC and Company D.",
+      "quote_ids": ["Q001"],
+      "round_scope": "formal",
+      "invited_actor_ids": ["bidder_wdc", "bidder_company_d"],
+      "deadline_date": {"raw_text": "May 28, 2013"},
+      "notes": [
+        "Draft merger agreement plus final round process letters is a formal-round signal."
+      ]
+    }
+  ],
+  "exclusions": [],
+  "coverage_notes": []
+}
+```
+
+### Example 3: NDA group plus named parties
+
+Input:
+B030 [L1273-L1278]: During the period from May 6 through June 9, 2016, at the direction of the Board, Barclays contacted and had discussions with the 15 potentially interested parties discussed by the Board at its April 28 and May 5, 2016 meetings, including Thoma Bravo. Of the parties contacted, three strategic parties and four financial sponsors executed confidentiality agreements with the Company, including Thoma Bravo on May 10, 2016. Except for one financial sponsor that declined interest shortly after executing its confidentiality agreement, each party that entered into a confidentiality agreement attended a high-level management presentation conducted by members of Company management and attended by Barclays. These parties included a telecommunications enterprise company ("Strategic 1"), two large software companies ("Strategic 2" and "Strategic 3") and three financial sponsors ("Sponsor A," "Sponsor B" and Thoma Bravo).
+
+Expected:
+```json
+{
+  "quotes": [
+    {
+      "quote_id": "Q001",
+      "block_id": "B030",
+      "text": "three strategic parties and four financial sponsors executed confidentiality agreements with the Company, including Thoma Bravo on May 10, 2016."
+    },
+    {
+      "quote_id": "Q002",
+      "block_id": "B030",
+      "text": "These parties included a telecommunications enterprise company (\"Strategic 1\"), two large software companies (\"Strategic 2\" and \"Strategic 3\") and three financial sponsors (\"Sponsor A,\" \"Sponsor B\" and Thoma Bravo)."
+    }
+  ],
+  "events": [
+    {
+      "event_id": "evt_001",
+      "event_type": "nda",
+      "date": {"raw_text": "May 10, 2016"},
+      "actor_ids": ["grouped_strategic_parties"],
+      "summary": "Three strategic parties executed confidentiality agreements with the Company.",
+      "quote_ids": ["Q001", "Q002"],
+      "nda_signed": true,
+      "notes": [
+        "actor_roster grouped_strategic_parties is_grouped=true group_size=3 group_label=\"three strategic parties\""
+      ]
+    },
+    {
+      "event_id": "evt_002",
+      "event_type": "nda",
+      "date": {"raw_text": "May 10, 2016"},
+      "actor_ids": ["bidder_sponsor_a"],
+      "summary": "Sponsor A executed a confidentiality agreement with the Company.",
+      "quote_ids": ["Q001", "Q002"],
+      "nda_signed": true
+    },
+    {
+      "event_id": "evt_003",
+      "event_type": "nda",
+      "date": {"raw_text": "May 10, 2016"},
+      "actor_ids": ["bidder_sponsor_b"],
+      "summary": "Sponsor B executed a confidentiality agreement with the Company.",
+      "quote_ids": ["Q001", "Q002"],
+      "nda_signed": true
+    },
+    {
+      "event_id": "evt_004",
+      "event_type": "nda",
+      "date": {"raw_text": "May 10, 2016"},
+      "actor_ids": ["bidder_thoma_bravo"],
+      "summary": "Thoma Bravo executed a confidentiality agreement with the Company.",
+      "quote_ids": ["Q001", "Q002"],
+      "nda_signed": true
+    }
+  ],
+  "exclusions": [],
+  "coverage_notes": []
+}
+```
+
+### Example 4: Ambiguous drop with stated rationale
+
+Input:
+B082 [L1564-L1565]: On June 5, 2013 representatives of Company D contacted representatives of BofA Merrill Lynch and indicated that Company D would not be in a position to actively conduct due diligence for more than two weeks and was disengaging from the process.
+
+Expected:
+```json
+{
+  "quotes": [
+    {
+      "quote_id": "Q001",
+      "block_id": "B082",
+      "text": "Company D would not be in a position to actively conduct due diligence for more than two weeks and was disengaging from the process."
+    }
+  ],
+  "events": [
+    {
+      "event_id": "evt_001",
+      "event_type": "drop",
+      "date": {"raw_text": "June 5, 2013"},
+      "actor_ids": ["bidder_company_d"],
+      "summary": "Company D disengaged from the process because it could not actively conduct due diligence for more than two weeks.",
+      "quote_ids": ["Q001"],
+      "drop_reason_text": "Company D would not be in a position to actively conduct due diligence for more than two weeks and was disengaging from the process"
+    }
+  ],
+  "exclusions": [],
+  "coverage_notes": []
+}
+```
+
+### Example 5: Cycle boundary with termination and restart
+
+Input:
+B068 [L1886-L1888]: At a June 26, 2014 meeting of our board of directors, based on the lack of buyer interest and the uncertainty surrounding the impact of the fire at our aerosol manufacturing facility in Marietta, Georgia, our board of directors decided to terminate the process to explore potential strategic alternatives at that time and to continue to focus on our business and financial performance.
+B075 [L1899-L1901]: In early February 2015, New Mountain Capital contacted representatives of BofA Merrill Lynch and requested a meeting. On February 10, 2015, New Mountain Capital met with representatives of BofA Merrill Lynch and expressed its interest in discussions with the Company regarding a potential transaction. On February 19, 2015, New Mountain Capital delivered an unsolicited indication of interest to the Company to acquire us for a per share price of $19.25.
+
+Expected:
+```json
+{
+  "quotes": [
+    {
+      "quote_id": "Q001",
+      "block_id": "B068",
+      "text": "our board of directors decided to terminate the process to explore potential strategic alternatives at that time"
+    },
+    {
+      "quote_id": "Q002",
+      "block_id": "B075",
+      "text": "In early February 2015, New Mountain Capital contacted representatives of BofA Merrill Lynch and requested a meeting."
+    }
+  ],
+  "events": [
+    {
+      "event_id": "evt_001",
+      "event_type": "terminated",
+      "date": {"raw_text": "June 26, 2014"},
+      "actor_ids": ["target_board"],
+      "summary": "The board terminated the strategic alternatives process.",
+      "quote_ids": ["Q001"],
+      "boundary_note": "Board terminated the 2014 process because of limited buyer interest and operational uncertainty."
+    },
+    {
+      "event_id": "evt_002",
+      "event_type": "restarted",
+      "date": {"raw_text": "early February 2015"},
+      "actor_ids": ["bidder_new_mountain_capital"],
+      "summary": "New Mountain Capital reopened sale discussions after the prior process had been terminated.",
+      "quote_ids": ["Q002"],
+      "boundary_note": "New Mountain Capital's unsolicited re-engagement marks the start of a new process cycle."
+    }
+  ],
+  "exclusions": [],
+  "coverage_notes": []
+}
+```
+
+
+codex
+The packet files are longer than the initial slice. I’m locating the chronology sections inside the two medivation event packets, then I’ll read just those ranges and convert them directly into the final event JSON.
+exec
+/bin/bash -lc "rg -n '"'^B[0-9]{3}|''^##|''^###|''^<|''^Actor roster|''^Chronology|''^Evidence'"' /home/austinli/Projects/bids_pipeline/data/skill/medivation/prompt/packets/events-w1/rendered.md" in /home/austinli/Projects/bids_pipeline
+ succeeded in 0ms:
+3:<mission>
+7:</mission>
+9:<source_of_truth>
+13:</source_of_truth>
+15:<actor_roster_rules>
+18:</actor_roster_rules>
+20:<evidence>
+25:</evidence>
+27:<output_requirements>
+30:</output_requirements>
+32:<few_shot_examples>
+34:### Example 1: Range proposal and partial-company exclusion
+37:B019 [L286-L288]: On August 28, 2012, Party O submitted a revised proposal of $55 million for the Company's business in the United Kingdom and Europe.
+38:B020 [L289-L292]: On September 3, 2012, Party A submitted an indication of interest of $7.50 to $8.00 per share for all outstanding shares of the Company.
+82:### Example 2: Formal-round signal
+85:B064 [L1498-L1499]: After the meeting, at the direction of the board, BofA Merrill Lynch sent final round process letters and a draft merger agreement to WDC and Company D, requesting a response by May 28, 2013.
+118:### Example 3: NDA group plus named parties
+121:B030 [L1273-L1278]: During the period from May 6 through June 9, 2016, at the direction of the Board, Barclays contacted and had discussions with the 15 potentially interested parties discussed by the Board at its April 28 and May 5, 2016 meetings, including Thoma Bravo. Of the parties contacted, three strategic parties and four financial sponsors executed confidentiality agreements with the Company, including Thoma Bravo on May 10, 2016. Except for one financial sponsor that declined interest shortly after executing its confidentiality agreement, each party that entered into a confidentiality agreement attended a high-level management presentation conducted by members of Company management and attended by Barclays. These parties included a telecommunications enterprise company ("Strategic 1"), two large software companies ("Strategic 2" and "Strategic 3") and three financial sponsors ("Sponsor A," "Sponsor B" and Thoma Bravo).
+184:### Example 4: Ambiguous drop with stated rationale
+187:B082 [L1564-L1565]: On June 5, 2013 representatives of Company D contacted representatives of BofA Merrill Lynch and indicated that Company D would not be in a position to actively conduct due diligence for more than two weeks and was disengaging from the process.
+215:### Example 5: Cycle boundary with termination and restart
+218:B068 [L1886-L1888]: At a June 26, 2014 meeting of our board of directors, based on the lack of buyer interest and the uncertainty surrounding the impact of the fire at our aerosol manufacturing facility in Marietta, Georgia, our board of directors decided to terminate the process to explore potential strategic alternatives at that time and to continue to focus on our business and financial performance.
+219:B075 [L1899-L1901]: In early February 2015, New Mountain Capital contacted representatives of BofA Merrill Lynch and requested a meeting. On February 10, 2015, New Mountain Capital met with representatives of BofA Merrill Lynch and expressed its interest in discussions with the Company regarding a potential transaction. On February 19, 2015, New Mountain Capital delivered an unsolicited indication of interest to the Company to acquire us for a per share price of $19.25.
+261:</few_shot_examples>
+263:<deal_context>
+270:</deal_context>
+272:<chronology_blocks>
+273:B076 [L920-L922]: Later that morning, on August 20, 2016, beginning at 11:51 a. m. Pacific Time, each of Pfizer, Company 1, and Company 2 submitted a final proposal, each of which had been approved by the board of directors of the respective bidding party and each of which included confirmation that it was not subject to further diligence, and a revised draft of the merger agreement. Pfizer submitted a revised final proposal to acquire Medivation for $81.50 per share. Company 1 submitted a revised final proposal to acquire Medivation for $80.25 per share. Company 2 submitted a revised final proposal to acquire Medivation for $80.00 per share.
+274:B077 [L924-L925]: Immediately thereafter, at 12:15 p. m. Pacific Time on August 20, 2016, the Medivation board of directors met telephonically with representatives of Medivations senior management and the Companys legal and
+275:B078 [L927-L927]: 22
+276:B079 [L930-L943]: financial advisors to consider the final proposals and corresponding merger agreements. At that meeting, representatives of J. P. Morgan and Evercore presented the final proposals from Pfizer, Company 1 and Company 2. Representatives of Cooley and Wachtell Lipton reviewed each proposal and confirmed that the final proposal merger agreements had substantially similar principal terms, with minor revisions to be made, and no material changes from the terms reviewed in the previous days meeting on August 19, 2016. The Medivation board of directors and its advisors then discussed the final valuation proposals. After discussion among the board of directors and its advisors, each of J. P. Morgan and Evercore delivered an oral opinion with respect to the Pfizer final proposal, confirmed by delivery of a written opinion dated August 20, 2016, to the board of directors of Medivation to the effect that, as of such date and based on and subject to various assumptions made, procedures followed, matters considered and limitations and qualifications on the review undertaken described in each financial advisors written opinion, the consideration to be paid to the holders of Medivation common stock in the proposed Offer and the Merger, consisting of $81.50 per share in cash, was fair, from a financial point of view, to such holders. Representatives of Wachtell Lipton then reviewed the principal terms of the merger agreement that had been negotiated with Pfizer, including (1) the fiduciary duty exceptions that would permit Medivation to negotiate and accept an unsolicited superior proposal, subject to compliance with Pfizers match rights, (2) the size of the termination fee to be paid by Medivation in the event Medivation were to terminate the Pfizer transaction in order to accept an alternative transaction with another party, and (3) the conditions to consummation of the tender offer, including those with respect to antitrust legal requirements and a material adverse effect, and answered questions from the Medivation board of directors about the conditions to the tender offer. The Medivation board also discussed amending the Rights Agreement in order to permit the tender offer, the merger and the other transactions contemplated by the merger agreement to occur without triggering any distribution or other adverse event to Pfizer or its affiliates under the Rights Agreement (the  Rights Amendment). Representatives of J. P. Morgan and Evercore reviewed the financial analyses supporting their fairness opinions. Representatives of Cooley provided a review for the board of the boards fiduciary duties. Following the delivery of such oral opinions, and after further discussion, including as to the matters discussed in the section entitled  Reasons for the Merger; Recommendation of the Medivation Board of Directors, the Medivation board of directors unanimously determined that to enter into the Pfizer merger agreement would be advisable, fair, and in the best interests of Medivation and its stockholders and unanimously approved that merger agreement and the merger.
+277:B080 [L945-L946]: Also on August 20, 2016, following approval of the Medivation board of directors, Pfizer and Medivation executed the merger agreement and Medivation executed the Rights Amendment. On August 22, 2016, the parties issued a joint press release announcing the transaction.
+278:B081 [L948-L948]: (ii)      Reasons for Recommendation
+279:B082 [L950-L950]: Our Board of Directors, with the assistance of
+280:B083 [L951-L954]: Medivations senior management and its financial and legal advisors, evaluated the Merger Agreement and the Transactions and unanimously (i) determined that the Merger Agreement and the Transactions, including the Offer and the Merger, are fair to, and in the best interest of, Medivation and its stockholders, (ii) declared it advisable to enter into the Merger Agreement with Parent and Purchaser, (iii) approved the execution, delivery and performance by Medivation of the Merger Agreement and the consummation of the Transactions, including the Offer and the Merger, (iv) agreed that the Merger shall be effected under Section 251(h) of the DGCL and (v) resolved to recommend that the stockholders of Medivation tender their Shares to Purchaser pursuant to the Offer.
+281:B084 [L956-L957]: In the course of reaching its unanimous determination, our Board of Directors carefully considered the following reasons that weighed positively in favor of its decision, among others and not necessarily in order of relative importance:
+282:B085 [L959-L959]: Premium to Market Price. Our Board of Directors considered the current and historical market prices
+283:B086 [L961-L961]: 23
+284:B087 [L964-L964]: premium to the closing price of the Shares on April 27, 2016, the last full trading day prior to the public announcement of the initial unsolicited proposal by Sanofi; (2) a 27.2% premium to the
+285:B088 [L966-L966]: Certainty of Value. Our Board of Directors considered that the Offer Price and the Merger Consideration is all cash, so that the Transactions provide certainty, immediate value and liquidity to...
+286:B089 [L968-L968]: Best Strategic Alternative for Maximizing Stockholder Value. Our Board of Directors determined, after a thorough review of strategic alternatives and discussions with Medivation management and ...
+287:B090 [L970-L970]: Our Board of Directors considered that Medivation had conducted a lengthy and thorough process, directed by our Board of Directors, during which representatives of Medivation contacted 15 parti...
+288:B091 [L972-L972]: Our Board of Directors noted that none of the other four bidders expressed a willingness to make a definitive offer at a price per Share above $80.25, which was lower than the $81.50 price per ...
+289:B092 [L974-L977]: On several occasions in 2016, including at meetings in March through August, our Board of Directors evaluated carefully, with the assistance of legal and financial advisors and members of Mediv... management, the risks and potential benefits associated with other strategic or financial alternatives and the potential for shareholder value creation associated with those alternatives. As pa... considered: ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+290:B093 [L979-L979]: an assessment of Medivations business, assets (including pipeline assets), prospects, competitive position, regulatory landscape, historical and projected financial performance, short and long...
+291:B094 [L981-L981]: the risks associated with Medivations business and remaining a standalone public company, including risks associated with Medivations ability to obtain regulatory approval for its products or...
+292:B095 [L983-L983]: Likelihood and Speed of Consummation. Our Board of Directors considered the likelihood of completion of the Transactions to be high, particularly in light of the terms of the Merger Agreement a...
+293:B096 [L985-L985]: the conditions to the Offer and the Merger being specific and limited;
+294:B097 [L987-L987]: 24
+295:B098 [L990-L990]: the absence of any financing condition in the Merger Agreement;
+296:B099 [L992-L992]: the size and financial strength of Parent, and Parents ability to fund the Offer Price with cash;
+297:B100 [L994-L994]: the likelihood of obtaining required regulatory approvals;
+298:B101 [L996-L996]: the remedy of specific performance available to Medivation under the Merger Agreement in the event of breaches by Parent and Purchaser;
+299:B102 [L998-L998]: the fact that the Offer and the Merger are not subject to the conditionality and execution risk of any required approval by Parents stockholders; and
+300:B103 [L1000-L1000]: the structure of the transaction as a cash tender offer for all outstanding Shares, with the expected result that a relatively short period will elapse before our stockholders receive the Offer...
+301:B104 [L1002-L1002]: Opportunity to Receive Unsolicited Alternative Proposals and to Terminate the Transactions in Order to Accept a Superior Proposal. Our Board of Directors considered the terms of the Merger Agre...
+302:B105 [L1004-L1004]: Medivations right, subject to certain conditions, to respond to and negotiate unsolicited acquisition proposals that are made prior to the time that the Offer is consummated;
+303:B106 [L1006-L1006]: the provision of the Merger Agreement allowing our Board of Directors to terminate the Merger Agreement in order to accept and enter into a definitive agreement with respect to an unsolicited s...
+304:B107 [L1008-L1008]: the ability of our Board of Directors under the Merger Agreement to withdraw or modify its recommendation that Medivations stockholders tender their Shares to Purchaser pursuant to the Offer i...
+305:B108 [L1010-L1015]: Fairness Opinions from J. P. Morgan and Evercore. Our Board of Directors considered the separate financial analyses presentations of J. P. Morgan and Evercore and the oral opinions of J. P. Mor... subsequently confirmed in writing, rendered to our Board of Directors, to the effect that, as of August 20, 2016 and based upon and subject to the assumptions made, procedures followed, matters... J. P. Morgan and Evercore in preparing the opinions, as set forth therein, the consideration to be paid to Medivations common stockholders in the proposed Offer and the Merger was fair, from a... below under  Opinions of Financial Advisors). The full text of the written opinions of J. P. Morgan and Evercore, each dated August 20, 2016, which set forth, among other things, the assumpt... considered and limitations on the review undertaken in rendering the opinion, have been included as Annex I and Annex II, respectively, to this Schedule 14D-9 and are incorporated herein by ref... ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+306:B109 [L1017-L1018]: Our Board of Directors also considered a variety of risks and other potentially adverse factors in determining whether to approve the Merger Agreement and the Transactions, including the following, which are not necessarily listed in order of relative importance:
+307:B110 [L1020-L1020]: the fact that Medivation would no longer exist as an independent, publicly traded company, and our stockholders would no longer participate in any future earnings or growth of Medivation or ben...
+308:B111 [L1022-L1022]: 25
+309:B112 [L1025-L1025]: the potential risk of diverting management attention and resources from the operation of Medivations business and towards completion of the Offer and the Merger;
+310:B113 [L1027-L1027]: the risk of incurring substantial expenses related to the Offer and the Merger;
+311:B114 [L1029-L1029]: the risk that all conditions to the parties obligations to complete the Offer and the Merger are not satisfied, and as a result, the Merger is not completed;
+312:B115 [L1031-L1033]: the risks and costs to Medivation if the Transactions do not close, including uncertainty about the effect of the proposed Offer and Merger on Medivations employees, customers and other partie... Medivations ability to attract, retain and motivate key personnel, and could cause customers, suppliers and others to seek to change existing business relationships with Medivation; ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+313:B116 [L1035-L1035]: the possibility that under certain circumstances, Medivation may be required to pay Parent a termination fee of $510 million;
+314:B117 [L1037-L1037]: the fact that the gain realized by Medivations stockholders as a result of the Offer and the Merger generally will be taxable to the stockholders for U. S. federal income tax purposes;
+315:B118 [L1039-L1041]: the restrictions in the Merger Agreement on the conduct of Medivations business prior to the consummation of the Merger, which may delay or prevent Medivation from undertaking business or othe... may arise prior to the consummation of the Offer or the Merger; and ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+316:B119 [L1043-L1043]: various other risks associated with the Merger and the business of Medivation described in the section entitled  Risk Factors.
+317:B120 [L1045-L1046]: Our Board of Directors concluded that the risks, uncertainties, restrictions and potentially negative reasons associated with the Offer and Merger were outweighed by the potential benefits of the Offer and Merger.
+318:B121 [L1048-L1053]: The foregoing discussion of our Board of Directors reasons for its recommendation to accept the Offer is not meant to be exhaustive, but addresses the material information and factors considered by our Board of Directors in connection with its recommendation. In view of the wide variety of reasons considered by our Board of Directors in connection with the evaluation of the Offer and the complexity of these matters, our Board of Directors did not find it practicable to, and did not, quantify or otherwise assign relative weights to the specific reasons considered in reaching its determination and recommendation. Rather, our directors made their determinations and recommendations based on the totality of the information presented to them, and the judgments of individual members of our Board of Directors may have been influenced to a greater or lesser degree by different reasons. In arriving at their respective recommendations, the members of our Board of Directors considered the interests of our executive officers and directors as described under  Past Contacts, Transactions, Negotiations and Agreements in Item 3 above.
+319:B122 [L1055-L1057]: The foregoing description of the consideration by our Board of Directors of the reasons supporting the Merger Agreement, the Offer, the Merger and the other Transactions contemplated by the Merger Agreement is forward-looking in nature. This information should be read in light of the factors discussed in the section entitled Cautionary Note Regarding Forward-Looking Statements.
+320:B123 [L1059-L1059]: (iii)      Certain Unaudited Prospective Financial Information
+321:B124 [L1061-L1065]: Medivation does not, as a matter of course, publicly disclose forecasts or internal projections as to future performance or results of operations due to the inherent unpredictability of the underlying assumptions and projections. However, in connection with the review of potential strategic alternatives, at the direction of the Board of Directors, management of Medivation prepared three sets of unaudited, long-range financial projections (collectively  Projections), reflecting three different scenarios, with each scenario using a different set of assumptions about future regulatory approvals for Medivations products: (a) a case that included (i) indications for which Medivation has or has filed for regulatory approval, (ii) indications that are being evaluated in ongoing registrational trials, (iii)
+322:B125 [L1067-L1067]: 26
+323:B126 [L1070-L1074]: indications that are being evaluated in ongoing trials where top-line results are expected to be available in calendar year 2016 and (iv) indications for which Medivation expected registrational trials to be initiated in calendar year 2016 (collectively, the  Scenario 1 Case)1; (b) a case that included all of the indications described in the foregoing clause (a) and also included (i) all indications that are being evaluated in ongoing trials where top-line results are expected to be reported in calendar year 2017 or in later years and (ii) indications for enzalutamide and pidilizumab where Medivation planned to initiate studies in 2017 or in later years (collectively, the  Scenario 2 Case)2; and (c) a case that included all of the indications described in the foregoing clauses (a) and (b) and also included all indications for talazoparib where Medivation planned to initiate clinical studies in calendar year 2017 or in later years (collectively, the  Scenario 3 Case)3.
+324:B127 [L1076-L1076]: Medivation provided the Projections to the Board of Directors and to J. P. Morgan and
+325:B128 [L1077-L1078]: Evercore and directed each of J. P. Morgan and Evercore, respectively, to use the Projections in connection with the rendering of its fairness opinion to the Board of Directors and performing its related financial analyses, as described above under the heading  Opinions of Financial Advisors in this Item 4 of this Schedule 14D-9. The Scenario 3 Case was provided to Parent and to each of Company 1, Company 2, Company 3 and Company 4.
+326:B129 [L1080-L1085]: The summary of the Projections set forth below is included solely to give Medivation stockholders access to certain financial projections that were made available to the Board of Directors and advisors and, solely with respect to the Scenario 3 Case, Parent, Company 1, Company 2, Company 3 and Company 4, and is not being included in this Schedule 14D-9 in order to influence any stockholders decision to tender Shares in the Offer or any other purpose. The Projections were prepared by management for internal use. The Projections were not prepared with a view toward public disclosure, or with a view toward compliance with published guidelines of the SEC, the guidelines established by the American Institute of Certified Public Accountants for preparation and presentation of financial forecasts, or United States generally accepted accounting principles ( GAAP). Neither our independent registered public accounting firm, nor any other independent accountants, have compiled, examined or performed any procedures with respect to the prospective financial information included below, or expressed any opinion or any other form of assurance on such information or its achievability.
+327:B130 [L1087-L1090]: The Projections reflect numerous estimates and assumptions made by Medivations management with respect to general business, economic, competitive, regulatory, reimbursement and other market and financial conditions and other future events, all of which are difficult to predict and many of which are beyond Medivations control. For example, in preparing the Projections, Medivations management assumed and applied a 20% probability to the Scenario 1 Case and a 40% probability to each of the Scenario 2 Case and the Scenario 3 Case, which assumptions were provided to Medivations financial advisors, but not to Parent, Company 1, Company 2, Company 3 and Company 4.
+328:B131 [L1092-L1092]: 1      The Scenario 1 Case includes management projections accounting for (i) XTANDI in three indications for prostate cancer (its currently approved indication of metastatic castration-resistant pros...
+329:B132 [L1094-L1094]: 2      The Scenario 2 Case includes the management projections for XTANDI, talazoparib and pidilizumab included in the Scenario 1 Case, together with management projections accounting for (i) XTANDI f...
+330:B133 [L1096-L1096]: 3      The Scenario 3 Case includes the management projections for XTANDI, pidilizumab and talazoparib included in the Scenario 2 Case, together with management projections accounting for talazoparib ...
+331:B134 [L1098-L1098]: 27
+332:B135 [L1101-L1106]: The Projections reflect subjective judgment in many respects and, therefore, are susceptible to multiple interpretations and periodic revisions based on actual experience and business developments. There can be no assurance that the underlying assumptions will prove to be accurate or that the forecasted results will be realized, and actual results likely will differ, and may differ materially, from those reflected in the Projections, whether or not the Offer and the Merger are completed. The inclusion of the Projections should not be regarded as an indication that we, J. P. Morgan, Evercore, any of their respective affiliates or anyone else who received the Projections then considered, or now considers, the Projections to be necessarily predictive of actual future events, and this information should not be relied upon as such. Medivations management views the Projections as being subject to inherent risks and uncertainties associated with such long-range projections. Medivations management, J. P. Morgan and Evercore do not intend to, and disclaims any obligation to, update, revise or correct the Projections if any of them are or become inaccurate (even in the short term).
+333:B136 [L1108-L1111]: In particular, the Projections, while presented with numerical specificity, necessarily were based on numerous variables and assumptions that are inherently uncertain. Because the Projections cover multiple years, by their nature, they become subject to greater uncertainty with each successive year and are unlikely to anticipate each circumstance that will have an effect on Medivations business and its results of operations. The Projections also reflect assumptions as to certain business decisions that are subject to change. Modeling and forecasting the future in the pharmaceutical industry is, in particular, a highly speculative endeavor.
+334:B137 [L1113-L1116]: By including the summary of the Projections in this Schedule 14D-9, none of Medivation, J. P. Morgan, Evercore or any of their respective affiliates or representatives has made or makes any representation to any person regarding the information included in the Projections or the ultimate performance of Medivation, Parent, Buyer or any of their respective affiliates compared to the information contained in the Projections. Medivation has made no representation to Parent or Buyer, in the Merger Agreement or otherwise, concerning the Projections. Neither Medivation nor J. P. Morgan nor Evercore nor any of their respective affiliates assumes any responsibility to holders of Shares for the accuracy of this information.
+335:B138 [L1118-L1120]: The Projections summarized in this section were prepared during the periods described below and have not been updated to reflect any changes after the date they were prepared. The Projections do not take into account any circumstances or events occurring after the date they were prepared. Stockholders are cautioned not to place undue, if any, reliance on the Projections included in this Schedule 14D-9.
+336:B139 [L1122-L1122]: Scenario 1 Case
+337:B140 [L1124-L1124]: (dollars in millions)
+338:B141 [L1126-L1134]: ────────────────────────────────────────────────────────────────────────────────────────────────────── Total revenue(1)           1,543      1,942      2,497      2,993      3,634      4,507      1,248 Operating expenses(2)        702        736        740        718        835      1,002        437 EBIT(3)                      841      1,205      1,757      2,275      2,799      3,505        811 EBIAT(4)                     510        771      1,142      1,477      1,820      2,325        602 D& A                          11         14         17         20         26         33         13 Capex                         12         16         22         27         38         52         13 Change in NWC                  0          1          2          2          5          7         10 Free Cash Flow(5)            510        767      1,136      1,469      1,803      2,298        612
+339:B142 [L1136-L1136]: (1)      Revenues shown account for Medivations share of XTANDI revenues in accordance with Medivations collaboration agreement with Astellas Pharma, Inc. and deductions for certain royalty and milest...
+340:B143 [L1138-L1138]: (2)      Excludes early research development expenses not allocable to the programs described in the Scenario 1 Case.
+341:B144 [L1140-L1140]: (3)      EBIT is calculated as total revenue minus cost of goods sold, sales, general and administrative expenses, research and development costs, in each case, determined in accordance with GAAP, and n...
+342:B145 [L1142-L1142]: (4)      EBIAT is calculated as EBIT minus taxes. EBIAT is a non-GAAP financial measure and should not be considered as an alternative to operating income or net income as a measure of operating perform...
+343:B146 [L1144-L1144]: (5)      Free Cash Flow is calculated as EBIAT plus depreciation & amortization minus capital expenditure and change in net working capital. Free Cash Flow is a non-GAAP financial measure and should not...
+344:B147 [L1146-L1146]: 28
+345:B148 [L1149-L1149]: Scenario 2 Case
+346:B149 [L1151-L1151]: (dollars in millions)
+347:B150 [L1153-L1161]: ────────────────────────────────────────────────────────────────────────────────────────────────────── Total revenue(1)           1,543      1,942      2,497      2,994      3,699      5,821      1,790 Operating expenses(2)        767        807        816        792        901      1,363        634 EBIT(3)                      776      1,135      1,681      2,202      2,798      4,458      1,156 EBIAT(4)                     469        726      1,094      1,431      1,819      2,961        821 D& A                          11         14         17         20         26         44         19 Capex                         12         16         22         27         39         72         19 Change in NWC                  0          1          2          2          5         10         11 Free Cash Flow(5)            468        723      1,087      1,423      1,802      2,922        832
+348:B151 [L1163-L1163]: (1)      Revenues shown account for Medivations share of XTANDI revenues in accordance with Medivations collaboration agreement with Astellas Pharma, Inc. and deductions for certain royalty and milest...
+349:B152 [L1165-L1165]: (2)      Excludes early research development expenses not allocable to the programs described in the Scenario 2 Case.
+350:B153 [L1167-L1167]: (3)      EBIT is calculated as total revenue minus cost of goods sold, sales, general and administrative expenses, research and development costs, in each case, determined in accordance with GAAP, and n...
+351:B154 [L1169-L1169]: (4)      EBIAT is calculated as EBIT minus taxes. EBIAT is a non-GAAP financial measure and should not be considered as an alternative to operating income or net income as a measure of operating perform...
+352:B155 [L1171-L1171]: (5)      Free Cash Flow is calculated as EBIAT plus depreciation & amortization minus capital expenditure and change in net working capital. Free Cash Flow is a non-GAAP financial measure and should not...
+353:B156 [L1173-L1173]: Scenario 3 Case
+354:B157 [L1175-L1175]: (dollars in millions)
+355:B158 [L1177-L1185]: ────────────────────────────────────────────────────────────────────────────────────────────────────── Total revenue(1)           1,541      5,157      6,374      7,264      7,989      8,523      2,590 Operating expenses(2)        888      1,291      1,576      1,735      1,857      1,936        923 EBIT(3)                      653      3,866      4,798      5,528      6,132      6,588      1,667 EBIAT(4)                     346      2,583      3,233      3,734      4,145      4,467      1,229 D& A                          11         38         49         58         63         67         27 Capex                         12         65         87         99        104        105         27 Change in NWC                  0         11         14         10          7          5         21 Free Cash Flow(5)            345      2,546      3,182      3,682      4,097      4,425      1,250
+356:B159 [L1187-L1187]: (1)      Revenues shown account for Medivations share of XTANDI revenues in accordance with Medivations collaboration agreement with Astellas Pharma, Inc. and deductions for certain royalty and milest...
+357:B160 [L1189-L1189]: (2)      Excludes early research development expenses not allocable to the programs described in the Scenario 3 Case.
+358:B161 [L1191-L1191]: (3)      EBIT is calculated as total revenue minus cost of goods sold, sales, general and administrative expenses, research and development costs, in each case, determined in accordance with GAAP, and n...
+359:B162 [L1193-L1193]: (4)      EBIAT is calculated as EBIT minus taxes. EBIAT is a non-GAAP financial measure and should not be considered as an alternative to operating income or net income as a measure of operating perform...
+360:B163 [L1195-L1195]: (5)      Free Cash Flow is calculated as EBIAT plus depreciation & amortization minus capital expenditure and change in net working capital. Free Cash Flow is a non-GAAP financial measure and should not...
+361:B164 [L1197-L1197]: 29
+362:B165 [L1200-L1200]: (iv)      Opinions of Financial Advisors
+363:</chronology_blocks>
+365:<overlap_context>
+366:B074 [L911-L912]: During the evening of Friday, August 19, 2016 and early morning of Saturday, August 20, 2016, Wachtell Lipton and Cooley sent revised drafts of the merger agreement to each of Pfizer, Company 1, Company 2 and Company 3. In the evening of August 19, 2016, Company 3 notified Medivations financial advisors that Company 3 would not be submitting a revised proposal.
+367:B075 [L914-L918]: On the morning of Saturday, August 20, 2016, at the request of legal advisors of Pfizer and Company 2, Wachtell Lipton and Cooley met telephonically with those legal advisors to answer questions concerning the form of merger agreement provided by Medivations legal advisors the previous evening. In each of these separate discussions, the representatives of Pfizer and the representatives of Company 2 indicated that Pfizer and Company 2, respectively, were prepared to accept and enter into a merger agreement substantially in the form proposed by Medivation the previous evening. During these conversations, Medivations legal advisors also repeated the instructions previously given to the Interested Parties to the effect that the Interested Party should expect that Medivation would enter into a merger agreement with the party submitting the best proposal at the noon deadline, and the Interested Party should not assume it would have any further opportunity to improve or increase its proposal should its proposal not be the highest and best.
+368:</overlap_context>
+370:<evidence_checklist>
+371:### Dated actions to extract
+385:### Financial terms to capture
+391:### Actors to identify
+428:### Process signals to check
+434:### Outcome facts to verify
+452:</evidence_checklist>
+454:<actor_roster>
+787:</actor_roster>
+789:<task_instructions>
+797:</task_instructions>
+
+exec
+/bin/bash -lc "rg -n '"'^B[0-9]{3}|''^##|''^###|''^<|''^Actor roster|''^Chronology|''^Evidence'"' /home/austinli/Projects/bids_pipeline/data/skill/medivation/prompt/packets/events-w0/rendered.md" in /home/austinli/Projects/bids_pipeline
+ succeeded in 0ms:
+3:<mission>
+7:</mission>
+9:<source_of_truth>
+13:</source_of_truth>
+15:<actor_roster_rules>
+18:</actor_roster_rules>
+20:<evidence>
+25:</evidence>
+27:<output_requirements>
+30:</output_requirements>
+32:<few_shot_examples>
+34:### Example 1: Range proposal and partial-company exclusion
+37:B019 [L286-L288]: On August 28, 2012, Party O submitted a revised proposal of $55 million for the Company's business in the United Kingdom and Europe.
+38:B020 [L289-L292]: On September 3, 2012, Party A submitted an indication of interest of $7.50 to $8.00 per share for all outstanding shares of the Company.
+82:### Example 2: Formal-round signal
+85:B064 [L1498-L1499]: After the meeting, at the direction of the board, BofA Merrill Lynch sent final round process letters and a draft merger agreement to WDC and Company D, requesting a response by May 28, 2013.
+118:### Example 3: NDA group plus named parties
+121:B030 [L1273-L1278]: During the period from May 6 through June 9, 2016, at the direction of the Board, Barclays contacted and had discussions with the 15 potentially interested parties discussed by the Board at its April 28 and May 5, 2016 meetings, including Thoma Bravo. Of the parties contacted, three strategic parties and four financial sponsors executed confidentiality agreements with the Company, including Thoma Bravo on May 10, 2016. Except for one financial sponsor that declined interest shortly after executing its confidentiality agreement, each party that entered into a confidentiality agreement attended a high-level management presentation conducted by members of Company management and attended by Barclays. These parties included a telecommunications enterprise company ("Strategic 1"), two large software companies ("Strategic 2" and "Strategic 3") and three financial sponsors ("Sponsor A," "Sponsor B" and Thoma Bravo).
+184:### Example 4: Ambiguous drop with stated rationale
+187:B082 [L1564-L1565]: On June 5, 2013 representatives of Company D contacted representatives of BofA Merrill Lynch and indicated that Company D would not be in a position to actively conduct due diligence for more than two weeks and was disengaging from the process.
+215:### Example 5: Cycle boundary with termination and restart
+218:B068 [L1886-L1888]: At a June 26, 2014 meeting of our board of directors, based on the lack of buyer interest and the uncertainty surrounding the impact of the fire at our aerosol manufacturing facility in Marietta, Georgia, our board of directors decided to terminate the process to explore potential strategic alternatives at that time and to continue to focus on our business and financial performance.
+219:B075 [L1899-L1901]: In early February 2015, New Mountain Capital contacted representatives of BofA Merrill Lynch and requested a meeting. On February 10, 2015, New Mountain Capital met with representatives of BofA Merrill Lynch and expressed its interest in discussions with the Company regarding a potential transaction. On February 19, 2015, New Mountain Capital delivered an unsolicited indication of interest to the Company to acquire us for a per share price of $19.25.
+261:</few_shot_examples>
+263:<deal_context>
+270:</deal_context>
+272:<chronology_blocks>
+273:B001 [L640-L640]: (i)      Background of Offer and Merger
+274:B002 [L642-L645]: The Medivation board of directors frequently reviews, with Medivations management, and with the assistance of its outside financial and legal advisors, Medivations strategic and financial alternatives in light of developments in Medivations business, in the sectors in which it competes, in the economy generally and in financial markets. The alternatives reviewed have included large and small acquisitions, mergers and a sale of Medivation, and, from time to time, Medivation has received inquiries from third parties seeking to determine Medivations interest in a sale transaction.
+275:B003 [L647-L648]: On March 22, 2016, Olivier Brandicourt, Chief Executive Officer of Sanofi, contacted David Hung, M. D., President and Chief Executive Officer of Medivation, on an unsolicited basis, and requested a telephone discussion.
+276:B004 [L650-L654]: On March 24, 2016, the Medivation board of directors held a special meeting attended by management of Medivation and representatives of Cooley LLP ( Cooley), Medivations legal advisor, and J. P. Morgan Securities LLC ( J. P. Morgan), retained as independent financial advisor to Medivation in connection with routine advanced preparedness for defense and general strategic advice and based on J. P. Morgans long history with the Company and expertise in Medivations general industry (see Item 5.  Person/Assets Retained, Employed Compensated or Usedbelow). At this meeting, the Medivation board of directors discussed Dr. Brandicourts request for a call and meeting. At the conclusion of the meeting, the Medivation board of directors directed Dr. Hung to proceed with an initial call and report any relevant discussion.
+277:B005 [L656-L658]: On March 25, 2016, Drs. Brandicourt and Hung had an initial telephone discussion during which Dr. Brandicourt expressed interest in pursuing a possible strategic transaction. Dr. Brandicourt did not indicate a potential price or range of prices for any such transaction. Dr. Hung told Dr. Brandicourt that he would report Sanofis interest to the Medivation board of directors.
+278:B006 [L660-L662]: In late March 2016, media publications reported rumors of Sanofis potential acquisition interest in Medivation and that Medivation had hired financial advisors in connection with the defense of a possible strategic transaction. Following those media reports, three industry participants contacted J. P. Morgan to indicate an interest in participating in any strategic discussions Medivation might initiate and a fourth industry participant contacted Dr. Hung to express interest in the same.
+279:B007 [L664-L668]: On April 1, 2016, the Medivation board of directors held a special meeting attended by management of Medivation and representatives of J. P. Morgan and Cooley to discuss the preliminary interest conveyed by Dr. Brandicourt, as well as the communications received from the four other parties. The Medivation board of directors evaluated, with input from its financial and legal advisors, Sanofis expression of interest, as well as the communications received from the four other parties. The Medivation board of directors determined that, given the speculative nature of the expressions of interest, the then-current market price of Medivations Common Stock (as well as the relative position of the equity markets generally) and the potential value in Medivations well-defined strategic plan, it was not the appropriate time for Medivation to engage in discussions relating to a strategic transaction with Sanofi or any other party.
+280:B008 [L670-L672]: On April 3, 2016, Dr. Hung informed Dr. Brandicourt that the Medivation board of directors, following a review and discussion of Dr. Brandicourts expression of interest, had determined that it was not an appropriate time for Medivation to engage in discussions relating to a possible strategic transaction.
+281:B009 [L674-L676]: On April 15, 2016, Dr. Hung received an unsolicited letter, dated April 13, 2016, from Dr. Brandicourt, setting forth a non-binding proposal from Sanofi to acquire Medivation for $52.50 per share of Medivations Common Stock, subject to the completion of due diligence, the negotiation and execution of definitive agreements, and the approval of Sanofis board of directors ( Sanofis $52.50 proposal).
+282:B010 [L678-L678]: 16
+283:B011 [L681-L683]: Later that day, the Medivation board of directors convened a special meeting to discuss, with management of Medivation and representatives of J. P. Morgan and Cooley, Sanofis $52.50 proposal. The Medivation board of directors determined that additional review, discussion and analysis were required prior to any formal response to Sanofi.
+284:B012 [L685-L686]: On April 20, 2016, Douglas Giordano, Senior Vice President, Worldwide Business Development at Pfizer contacted Dr. Hung to indicate an interest in participating in any strategic discussions Medivation might initiate.
+285:B013 [L688-L692]: On April 22, 2016, the Medivation board of directors held a regular meeting at which, among other topics, the Medivation board of directors continued to discuss and evaluate Sanofis $52.50 proposal with its legal advisors and determined to engage Evercore Group L. L. C. ( Evercore) as an additional independent financial advisor to Medivation, based on Evercores historical work with key constituents in Medivations industry and Evercores reputation as a financial advisor to companies in unsolicited strategic transaction scenarios. At this meeting, the Medivation board of directors also scheduled special meetings of the Medivation board of directors to be held on April 27, 2016 and April 28, 2016 to further review and analyze Sanofis $52.50 proposal.
+286:B014 [L694-L695]: At a special meeting of the Medivation board of directors on April 27, 2016, the Medivation board of directors continued its review of Sanofis $52.50 proposal with input from management of Medivation and representatives of J. P. Morgan and Cooley.
+287:B015 [L697-L697]: On April 28, 2016, Sanofi issued a press release publicly announcing Sanofis $52.50 proposal.
+288:B016 [L699-L702]: Later that morning, the Medivation board of directors held its previously scheduled special meeting at which it continued its review of Sanofis $52.50 proposal with input from management of Medivation and representatives of Evercore, J. P. Morgan, Cooley and Wachtell, Lipton, Rosen & Katz ( Wachtell Lipton), which Medivation had retained as an additional legal advisor. Following those discussions, the Medivation board of directors unanimously rejected Sanofis $52.50 proposal, concluding that Sanofis $52.50 proposal substantially undervalued Medivation, and was not in the best interests of Medivation and its stockholders.
+289:B017 [L704-L708]: On April 29, 2016, Medivation issued a press release announcing the Medivation board of directors determination. Later that same day, the Medivation board of directors held a special meeting attended by management of Medivation and representatives of Cooley, Wachtell Lipton and Richards, Layton & Finger, P. A., Medivations Delaware counsel, at which it approved amendments to the Medivation Bylaws in order to (i) put in place certain procedural requirements in connection with any stockholder action by written consent (including the appointment by Medivation of independent inspectors of election in the event of any stockholder consent solicitation) and (ii) select the Court of Chancery of the State of Delaware as the sole and exclusive forum for certain actions or proceedings brought on behalf of, or against, Medivation.
+290:B018 [L710-L711]: On May 2, 2016, Mr. Giordano and Dr. Hung spoke by phone and Mr. Giordano expressed Pfizers continued interest in participating in any strategic discussions Medivation might initiate.
+291:B019 [L713-L715]: Early on the morning of May 5, 2016, Sanofi issued a press release restating the terms of Sanofis $52.50 proposal and threatening to commence a stockholder consent solicitation to remove and replace the Medivation board of directors if Medivation did not engage in discussions with Sanofi. Later that morning, Medivation issued a press release reiterating its rejection of Sanofis substantially inadequate proposal.
+292:B020 [L717-L718]: On May 5, 2016, Medivation hosted a live teleconference in which members of Medivations senior management team discussed Medivations first quarter 2016 results and presented an overview of Medivations business performance and future prospects.
+293:B021 [L720-L722]: From May 9, 2016 through May 17, 2016, Sanofi and Weil Gotshal & Manges LLP ( Weil Gotshal), Sanofis legal counsel, contacted Medivation and its legal counsel, respectively, to express Sanofis interest in signing a confidentiality agreement and receiving due diligence materials on Medivation. Weil Gotshal on behalf of Sanofi stated that Sanofi could pay more (but did not indicate how much more), but that Sanofi would need to
+294:B022 [L724-L724]: 17
+295:B023 [L727-L730]: receive confidential information before doing so. Representatives of Wachtell Lipton and Cooley informed representatives of Weil Gotshal that this was a matter for the Medivation board of directors to decide but that the Medivation board of directors had already determined that the price offered by Sanofi was substantially inadequate and that Sanofis $52.50 proposal was not a reasonable basis to begin a negotiation. Representatives of Wachtell Lipton and Cooley also noted that Sanofi was free to send a confidentiality agreement to Medivation to show the terms to which it would be willing to agree in order to obtain access to certain confidential information of Medivation.
+296:B024 [L732-L733]: On May 12, 2016, Sanofi announced that it had filed for premerger notification under the HSR Act with the U. S. Department of Justice Antitrust Division (the  Antitrust Division) and the Federal Trade Commission (the  FTC).
+297:B025 [L735-L735]: On
+298:B026 [L736-L738]: May 13, 2016, at a meeting of the board of directors of Medivation, Dr. Hung and representatives of Evercore and J. P. Morgan updated the board with respect to matters involving Sanofis $52.50 proposal. Representatives of Cooley and Wachtell Lipton also reviewed certain legal matters with respect to the anticipated consent solicitation process. The Medivation board of directors asked questions and discussed matters related to Sanofis $52.50 proposal and the anticipated consent solicitation process, with input from its financial and legal advisors.
+299:B027 [L740-L741]: On May 17, 2016, Dr. Brandicourt sent Dr. Hung a letter expressing Sanofis desire to sign a confidentiality agreement and engage in discussions with respect to a strategic transaction. In response, Dr. Hung sent the following letter to Dr. Brandicourt:
+300:B028 [L743-L743]: May 17, 2016
+301:B029 [L745-L745]: Olivier Brandicourt
+302:B030 [L747-L747]: Chief Executive Officer
+303:B031 [L749-L749]: 54, rue La Boetie
+304:B032 [L751-L751]: 75008 Paris, France
+305:B033 [L753-L753]: Dear Olivier:
+306:B034 [L755-L758]: Over the past week, representatives and advisors of Sanofi have made a number of phone calls to our advisors, all conveying a similar messagethat Sanofi may consider an increase to its proposed price but first must review Medivations proprietary information. While we appreciate the measured tone of your most recent letter dated May 17, Sanofis proposal remains unchanged. What matters for Medivation and its Board is value for our shareholders. As we have previously said, Sanofis proposal of $52.50 per share in cash for Medivation substantially undervalues our company and is not an appropriate basis upon which to consider evaluation of a potential strategic combination.
+307:B035 [L760-L763]: We are extremely comfortable that our Boards position is well understood by and reflects the overwhelming sentiment of our shareholders. Our Board reached its view about Sanofis proposal based on a thorough analysis of our companys marketed products commercial momentum and outlook, our pipelines excellent prospects and our companys track record of successful drug development and delivering outstanding value to our shareholders. We are confident that what we continue to build will be highly beneficial to patients and, we believe, extraordinarily valuable to our shareholders.
+308:B036 [L765-L766]: Our Board is committed to act so that our shareholders realize the value we have created and are continuing to create. The value which Sanofi proposes is not close to a reasonable starting point for providing information or commencing discussions.
+309:B037 [L768-L768]: Very truly yours,
+310:B038 [L770-L770]: /s/ David Hung, M. D.
+311:B039 [L772-L772]: David Hung, M. D.
+312:B040 [L774-L774]: 18
+313:B041 [L777-L778]: On May 20, 2016, Mr. Giordano contacted Dr. Hung by telephone. During that conversation, Mr. Giordano reiterated Pfizers interest in participating in any potential negotiated transaction process that Medivation might initiate and highlighted the strategic fit of Pfizer and Medivation.
+314:B042 [L780-L782]: On May 25, 2016, Sanofi filed with the SEC a preliminary consent solicitation statement (as amended, the  Consent Solicitation), seeking the consent of Medivation stockholder to four proposals, including (1) the removal of each of the eight existing directors of the Medivation board and (2) the replacement of those directors with eight nominees selected by Sanofi (the  Sanofi Proposals).
+315:B043 [L784-L785]: On May 27, 2016, Medivation filed with the SEC a preliminary consent revocation statement (the  Consent Revocation), urging the Medivation stockholders to revoke consent to the Sanofi Proposals for the reasons set forth at length in the Consent Revocation.
+316:B044 [L787-L796]: On June 21 and 22, 2016, the Medivation board of directors met with Medivations senior management team, and Medivations outside financial advisors and legal advisors to review and discuss, among other matters, the ongoing Consent Solicitation. The board considered the possibility that Sanofi would revise and make public an increased proposal offer, but that the offer would remain unattractive in terms of value. The Medivation board considered that an unattractive offer made at such time could result in market pressure to engage in a change of control transaction in which the Medivation stockholders would not receive appropriate value for their shares. In light of the foregoing, the Medivation board was of the view that it should seek to control any process to explore the value that might be obtained in a transaction with a third party. Accordingly, the Medivation board directed J. P. Morgan and Evercore to contact select industry participants, to determine respective levels of preliminary interest in a strategic process, with the objective of expeditiously entering into confidentiality agreements. These industry participants would include the four companies that had contacted J. P. Morgan and Dr. Hung in late March 2016, Pfizer, which had first contacted Dr. Hung on April 20, 2016, as well as a number of other parties selected by the Medivation board of directors based on perceived interest and ability to review and consummate a transaction. Cooley summarized for the board the principal terms of the contemplated form of confidentiality agreement, which included a customary standstill provision with a fall-away upon an alternative transaction. The Medivation board of directors determined that following execution of satisfactory confidentiality agreements with one or more other parties, Medivation would privately offer Sanofi the opportunity to enter into the process and receive confidential information, provided that Sanofi entered into a confidentiality and standstill agreement on substantially the same terms as the other interested parties, and terminate the Consent Solicitation.
+317:B045 [L798-L800]: From late June 2016 through early July 2016, J. P. Morgan and Evercore contacted eleven industry participants, which included Pfizer and the four companies that had initially indicated interest in late March 2016. Medivation also contacted a twelfth industry participant to explore preliminary interest in a potential strategic transaction.
+318:B046 [L802-L803]: On June 27, 2016, Medivation received a private letter with an increased proposal from Sanofi of $58.00 per share in cash plus a contingent value right ( CVR) of up to $3.00 per share, conditioned on certain revenue metrics.
+319:B047 [L805-L806]: On June 29, 2016, Medivation entered into confidentiality agreements with Pfizer and one additional party initially contacted by Medivations financial advisors.
+320:B048 [L808-L811]: On June 30, 2016, the Medivation board of directors met telephonically to discuss Sanofis revised unsolicited proposal, together with members of Medivations senior management, and the Companys legal and financial advisors. Cooley provided an update for the board on current contacts with third parties and the executed confidentiality agreements. Medivations financial advisors provided their respective preliminary valuation overviews and analyses for Medivation. Following these presentations and further discussion, the Medivation board of directors unanimously rejected Sanofis unsolicited revised proposal as not in the best interests of Medivation and its stockholders and directed the management team and advisors to communicate the
+321:B049 [L813-L813]: 19
+322:B050 [L816-L817]: determination to Sanofi while at the same time offering Sanofi the opportunity to enter into a confidentiality and standstill agreement with Medivation on substantially the same terms being offered to (and entered into) by other interested parties.
+323:B051 [L819-L823]: On July 5, 2016, Medivation entered into a confidentiality agreement with Sanofi, pursuant to which Sanofi agreed to terminate its Consent Solicitation and be bound by a six-month standstill, subject to limited termination events, in order to facilitate friendly confidential discussions and a due diligence investigation. Later that day, Medivation announced in a press release that, among other things: (1) Medivation had entered into confidentiality agreements with Sanofi and a number of other parties, and (2) prior to entering into the confidentiality agreement with Sanofi, Medivation had received the revised unsolicited proposal from Sanofi for $58.00 per share and a CVR of up to $3.00 per share and the board of directors of Medivation had unanimously rejected it as not in the best interests of Medivation and its stockholders.
+324:B052 [L825-L827]: On July 7, 2016, Medivation granted Pfizer, and the other interested parties that had executed confidentiality agreements with Medivation, access to an electronic data room containing certain information regarding Medivations business and operations. Throughout the diligence process, Medivation engaged in diligence calls and responded to written diligence requests from each of the parties that entered into confidentiality agreements with Medivation.
+325:B053 [L829-L831]: Also on July 7, 2016, Dr. Hung met with Ian Read, Chief Executive Officer of Pfizer, Dr. Mace Rothenberg, Chief Development Officer, Oncology at Pfizer and Dr. Mikael Dolsten, President of Worldwide Research and Development at Pfizer. During this meeting, the Pfizer management team expressed Pfizers continued interest in exploring a potential negotiated strategic transaction with Medivation.
+326:B054 [L833-L833]: On
+327:B055 [L834-L834]: July 9, 2016, Medivation entered into a confidentiality agreement with a fourth industry participant initially contacted by Medivations financial advisors.
+328:B056 [L836-L837]: On July 13, Medivation entered into a confidentiality agreement with a fifth industry participant initially contacted by Medivations financial advisors.
+329:B057 [L839-L841]: For reference, other than Pfizer, the industry participants with which Medivation entered into confidentiality agreements as described above are hereinafter referred to as  Company 1,  Company 2,  Company 3, and  Company 4. Together, Pfizer, Company 1, Company 2, Company 3 and Company 4 are referred to as the  Interested Parties.
+330:B058 [L843-L844]: On July 14, 2016, Medivation held a management presentation at Cooleys offices in San Francisco with Pfizer. That night, Dr. Hung and other members of Medivations management team had dinner with members of Pfizers management team.
+331:B059 [L846-L847]: Over the course of July 15, 2016 through July 21, 2016, Medivation held a series of in-person full-day management presentations with core business teams from each of the other Interested Parties.
+332:B060 [L849-L852]: On July 19 and 20, 2016, representatives of J. P. Morgan and Evercore sent a letter to each of the Interested Parties with guidelines for the Interested Party to submit a written, non-binding preliminary proposal for the potential acquisition of Medivation. The letter requested submission of the preliminary proposal by 5:00 p. m. Pacific Time on August 8, 2016 and stated that if Medivation decided to continue exploring potential interest in a transaction, a limited number of qualified parties might be invited to enter into further discussions and be provided additional due diligence materials.
+333:B061 [L854-L855]: In the five week period between Medivations initial opening of the electronic data room on July 7, 2016 and the deadline for preliminary proposals on August 8, 2016, Medivation held a series of calls regarding due diligence and the potential strategic transaction process with each Interested Party at its request.
+334:B062 [L857-L857]: 20
+335:B063 [L860-L861]: Also in that five week period, the Medivation board of directors met five times telephonically. During each of those meetings, the Medivation board of directors discussed the course of due diligence and the potential strategic transaction process with Medivations management team and advisors.
+336:B064 [L863-L866]: On August 8, 2016, each of the Interested Parties submitted non-binding written preliminary proposals for the acquisition of Medivation. Pfizer submitted a preliminary proposal for the all-cash acquisition of Medivation for $65.00 per Share. Company 1 submitted a preliminary proposal for the all-cash acquisition of Medivation for $71.00 per Share. Company 2 submitted a preliminary proposal for the all-cash acquisition of Medivation for $62.00$64.00 per Share. Company 3 submitted a preliminary proposal to acquire Medivation for $60.00 per Share in cash, plus CVRs of up to $10.00 per Share, conditioned on certain revenue metrics. Company 4 submitted a preliminary proposal to acquire Medivation for $63.00 per Share in cash, plus CVRs of up to $5.00 per Share conditioned on certain regulatory milestones for pipeline assets.
+337:B065 [L868-L874]: On August 10, 2016, the Medivation board of directors met telephonically with Medivations senior management and legal and financial advisors to discuss the preliminary proposals. After a presentation from the financial advisors, including a review of the Companys stock price and a comparison of the non-binding proposals, the Medivation board of directors discussed strategies for next steps and a proposed timeline for the transaction process. Following that discussion, the Medivation board of directors authorized Medivations financial advisors to advance Pfizer, Company 1, and Company 4 into a second and confirmatory round of due diligence and the continuation of the strategic transaction process, including negotiation of a proposed acquisition agreement. The Medivation board of directors also authorized Medivations financial advisors to inform Company 2 and Company 3 that their preliminary proposals were not competitive with those of the other Interested Parties and that they would not be invited to continue in the strategic transaction process. Following the meeting, at the direction of Medivations board of directors, Medivations financial advisors notified each of Pfizer, Company 1 and Company 4 that such Interested Party, together with several other Interested Parties, was being invited to a subsequent round of the potential strategic transaction process.
+338:B066 [L876-L880]: On August 11, 2016, at the direction of Medivations board of directors, Medivations financial advisors distributed a draft merger agreement to Pfizer, Company 1, and Company 4. Later that day, Medivations financial advisors communicated to Company 2 and Company 3 that their preliminary proposals had not been competitive from a valuation perspective and that Company 2 and Company 3 would not advance in the transaction process at their then-current valuation. At that time, Company 2 communicated by telephone to Medivations financial advisors that Company 2 would submit a revised initial bid proposal for an all-cash acquisition of Medivation at $70.00 per Share. Medivations financial advisors responded that Company 2 would not be advanced in the process in the absence of a competitive revised proposal in writing.
+339:B067 [L882-L883]: On August 12, 2016, Company 2 and Company 3 submitted written revised proposals for an all-cash acquisition of Medivation, at $70.00 per Share and $70.50 per Share, respectively. Later that day, Medivations financial advisors provided Company 2 and Company 3 with the draft merger agreement and access to the second stage of confirmatory diligence.
+340:B068 [L885-L886]: On August 14, 2016, J. P. Morgan and Evercore sent a written instruction letter to each Interested Party, requiring a definitive written proposal by 12:00 p. m. Pacific Time on Friday, August 19, 2016. The instructions also requested that each Interested Party submit any comments on the draft of the merger agreement by 5:00 p. m. Pacific Time on Thursday, August 18, 2016.
+341:B069 [L888-L889]: On August 18, 2016, each Interested Party submitted a revised draft of the merger agreement to Medivation representatives. That evening, Medivations legal advisors met telephonically with members of Medivations management team to review the marked agreements and to discuss response strategy.
+342:B070 [L891-L892]: On Friday, August 19, 2016, each of Pfizer, Company 1, Company 2, and Company 3 submitted a definitive proposal for an all-cash acquisition of Medivation. Company 4 declined to submit a definitive proposal and
+343:B071 [L894-L894]: 21
+344:B072 [L897-L898]: ceased participation in the strategic transaction process. The definitive proposals, in order of increasing valuation, were from Company 3 for $72.50 per Share in cash, Company 1 for $73.00 per Share in cash, Company 2 for $75.50 per Share in cash, and Pfizer for $77.00 per Share in cash. Together with their definitive proposals, each of Company 1 and Company 3 also submitted a revised version of the merger agreement.
+345:B073 [L900-L909]: That afternoon, the Medivation board of directors met telephonically with Medivations senior management and legal and financial advisors to discuss the definitive proposals and marked agreements received from Pfizer, Company 1, Company 2 and Company 3. Medivations management team provided an overview of the conversations and meetings with the Interested Parties over the course of the diligence process. The financial advisors presented to the board of directors a review of the bidding process and positions of the Interested Parties over the course of the bidding process. Cooley and Wachtell Lipton summarized and compared the revised drafts of the merger agreements provided by the relevant Interested Parties, including a thorough discussion of the material adverse effect provision and other conditions to closing the proposed transaction. After further discussions, including as to the matters discussed in the section entitled  Reasons for the Merger; Recommendation of the Medivation Board of Directors, the Medivation board of directors authorized Medivations financial advisors to communicate to the remaining Interested Parties that best and final proposals (to include confirmation that no further diligence would be required) would be due on August 20, 2016, by 12:00 p. m. Pacific Time. The Medivation board of directors authorized Medivations financial advisors to inform the Interested Parties that the Medivation board of directors intended to review the proposals promptly after the deadline at a meeting scheduled for the afternoon of Saturday, August 20, 2016, with the intention of identifying a successful bidder and executing a merger agreement promptly following the completion of that meeting. The Medivation board of directors authorized Medivations financial advisors to inform each Interested Party that such Interested Party should assume that it would not receive a call or other notification on August 20, 2016, if its proposal was not the highest, and, accordingly, each Interested Party was urged to put forward its best proposal at that time. Following the meeting, Medivations financial advisors delivered that message to each of Pfizer, Company 1, Company 2 and Company 3.
+346:B074 [L911-L912]: During the evening of Friday, August 19, 2016 and early morning of Saturday, August 20, 2016, Wachtell Lipton and Cooley sent revised drafts of the merger agreement to each of Pfizer, Company 1, Company 2 and Company 3. In the evening of August 19, 2016, Company 3 notified Medivations financial advisors that Company 3 would not be submitting a revised proposal.
+347:B075 [L914-L918]: On the morning of Saturday, August 20, 2016, at the request of legal advisors of Pfizer and Company 2, Wachtell Lipton and Cooley met telephonically with those legal advisors to answer questions concerning the form of merger agreement provided by Medivations legal advisors the previous evening. In each of these separate discussions, the representatives of Pfizer and the representatives of Company 2 indicated that Pfizer and Company 2, respectively, were prepared to accept and enter into a merger agreement substantially in the form proposed by Medivation the previous evening. During these conversations, Medivations legal advisors also repeated the instructions previously given to the Interested Parties to the effect that the Interested Party should expect that Medivation would enter into a merger agreement with the party submitting the best proposal at the noon deadline, and the Interested Party should not assume it would have any further opportunity to improve or increase its proposal should its proposal not be the highest and best.
+348:</chronology_blocks>
+350:<overlap_context>
+351:B076 [L920-L922]: Later that morning, on August 20, 2016, beginning at 11:51 a. m. Pacific Time, each of Pfizer, Company 1, and Company 2 submitted a final proposal, each of which had been approved by the board of directors of the respective bidding party and each of which included confirmation that it was not subject to further diligence, and a revised draft of the merger agreement. Pfizer submitted a revised final proposal to acquire Medivation for $81.50 per share. Company 1 submitted a revised final proposal to acquire Medivation for $80.25 per share. Company 2 submitted a revised final proposal to acquire Medivation for $80.00 per share.
+352:B077 [L924-L925]: Immediately thereafter, at 12:15 p. m. Pacific Time on August 20, 2016, the Medivation board of directors met telephonically with representatives of Medivations senior management and the Companys legal and
+353:</overlap_context>
+355:<evidence_checklist>
+356:### Dated actions to extract
+406:### Financial terms to capture
+426:### Actors to identify
+466:### Process signals to check
+492:### Outcome facts to verify
+504:</evidence_checklist>
+506:<actor_roster>
+839:</actor_roster>
+841:<task_instructions>
+849:</task_instructions>
+
+turn interrupted
+tokens used
+68,074

@@ -83,6 +83,7 @@ def _build_coverage_cues(
 
 def _classify_cue_family(item: EvidenceItem) -> str | None:
     text = item.raw_text.lower()
+    text_compact = " ".join(text.split())
     evidence_type = item.evidence_type.value
 
     has_nda_language = any(
@@ -108,6 +109,18 @@ def _classify_cue_family(item: EvidenceItem) -> str | None:
             "signed a confidentiality agreement",
         )
     )
+    references_prior_executed_nda = any(
+        phrase in text or phrase in text_compact
+        for phrase in (
+            "which had executed a confidentiality agreement",
+            "who had executed a confidentiality agreement",
+            "that had executed a confidentiality agreement",
+        )
+    )
+    has_target_due_diligence_confidentiality_language = (
+        "entered into a confidentiality agreement with" in text_compact
+        and "to engage in due diligence with respect to" in text_compact
+    )
     has_proposal_language = any(
         phrase in text
         for phrase in (
@@ -130,6 +143,15 @@ def _classify_cue_family(item: EvidenceItem) -> str | None:
             "withdrew",
             "withdrawn",
             "no longer interested",
+        )
+    )
+    has_continue_negotiation_language = any(
+        phrase in text
+        for phrase in (
+            "move forward with negotiations",
+            "moved forward with negotiations",
+            "continue negotiations",
+            "continued negotiations",
         )
     )
     has_advisor_language = any(
@@ -167,16 +189,22 @@ def _classify_cue_family(item: EvidenceItem) -> str | None:
     )
 
     if evidence_type == "process_signal":
-        if has_executed_nda_language:
+        if has_executed_nda_language and not (
+            references_prior_executed_nda or has_target_due_diligence_confidentiality_language
+        ):
             return "nda"
         if has_process_initiation_language:
             return "process_initiation"
         return None
 
     if evidence_type == "dated_action":
-        if has_executed_nda_language:
+        if has_executed_nda_language and not (
+            references_prior_executed_nda or has_target_due_diligence_confidentiality_language
+        ):
             return "nda"
-        if has_drop_language:
+        # Some blocks mention a bidder's reluctance to proceed unless terms improve,
+        # but then immediately state that negotiations continued. Those are not drops.
+        if has_drop_language and not has_continue_negotiation_language:
             return "withdrawal_or_drop"
         if has_proposal_language:
             return "proposal"

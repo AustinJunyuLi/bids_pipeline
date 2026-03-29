@@ -1,20 +1,20 @@
 {
   "schema_version": "2.0.0",
   "artifact_type": "prompt_packet_manifest",
-  "created_at": "2026-03-29T10:05:44.365149Z",
+  "created_at": "2026-03-29T14:17:46.661966Z",
   "pipeline_version": "0.1.0",
-  "run_id": "compose-930f8895",
+  "run_id": "compose-b1cbdad5",
   "deal_slug": "mac-gray",
   "source_accession_number": "0001047469-13-010973",
   "packets": [
     {
-      "packet_id": "actors-w0",
-      "packet_family": "actors",
+      "packet_id": "events-w0",
+      "packet_family": "events",
       "chunk_mode": "chunked",
       "window_id": "w0",
-      "prefix_path": "/home/austinli/Projects/bids_pipeline/data/skill/mac-gray/prompt/packets/actors-w0/prefix.md",
-      "body_path": "/home/austinli/Projects/bids_pipeline/data/skill/mac-gray/prompt/packets/actors-w0/body.md",
-      "rendered_path": "/home/austinli/Projects/bids_pipeline/data/skill/mac-gray/prompt/packets/actors-w0/rendered.md",
+      "prefix_path": "/home/austinli/Projects/bids_pipeline/data/skill/mac-gray/prompt/packets/events-w0/prefix.md",
+      "body_path": "/home/austinli/Projects/bids_pipeline/data/skill/mac-gray/prompt/packets/events-w0/body.md",
+      "rendered_path": "/home/austinli/Projects/bids_pipeline/data/skill/mac-gray/prompt/packets/events-w0/rendered.md",
       "evidence_ids": [
         "0001047469-13-010973:E0356",
         "0001047469-13-010973:E0357",
@@ -103,16 +103,16 @@
         "0001047469-13-010973:E0440",
         "0001047469-13-010973:E0441"
       ],
-      "actor_roster_source_path": null
+      "actor_roster_source_path": "/home/austinli/Projects/bids_pipeline/data/skill/mac-gray/extract/actors_raw.json"
     },
     {
-      "packet_id": "actors-w1",
-      "packet_family": "actors",
+      "packet_id": "events-w1",
+      "packet_family": "events",
       "chunk_mode": "chunked",
       "window_id": "w1",
-      "prefix_path": "/home/austinli/Projects/bids_pipeline/data/skill/mac-gray/prompt/packets/actors-w1/prefix.md",
-      "body_path": "/home/austinli/Projects/bids_pipeline/data/skill/mac-gray/prompt/packets/actors-w1/body.md",
-      "rendered_path": "/home/austinli/Projects/bids_pipeline/data/skill/mac-gray/prompt/packets/actors-w1/rendered.md",
+      "prefix_path": "/home/austinli/Projects/bids_pipeline/data/skill/mac-gray/prompt/packets/events-w1/prefix.md",
+      "body_path": "/home/austinli/Projects/bids_pipeline/data/skill/mac-gray/prompt/packets/events-w1/body.md",
+      "rendered_path": "/home/austinli/Projects/bids_pipeline/data/skill/mac-gray/prompt/packets/events-w1/rendered.md",
       "evidence_ids": [
         "0001047469-13-010973:E0438",
         "0001047469-13-010973:E0439",
@@ -244,16 +244,16 @@
         "0001047469-13-010973:E0565",
         "0001047469-13-010973:E0566"
       ],
-      "actor_roster_source_path": null
+      "actor_roster_source_path": "/home/austinli/Projects/bids_pipeline/data/skill/mac-gray/extract/actors_raw.json"
     },
     {
-      "packet_id": "actors-w2",
-      "packet_family": "actors",
+      "packet_id": "events-w2",
+      "packet_family": "events",
       "chunk_mode": "chunked",
       "window_id": "w2",
-      "prefix_path": "/home/austinli/Projects/bids_pipeline/data/skill/mac-gray/prompt/packets/actors-w2/prefix.md",
-      "body_path": "/home/austinli/Projects/bids_pipeline/data/skill/mac-gray/prompt/packets/actors-w2/body.md",
-      "rendered_path": "/home/austinli/Projects/bids_pipeline/data/skill/mac-gray/prompt/packets/actors-w2/rendered.md",
+      "prefix_path": "/home/austinli/Projects/bids_pipeline/data/skill/mac-gray/prompt/packets/events-w2/prefix.md",
+      "body_path": "/home/austinli/Projects/bids_pipeline/data/skill/mac-gray/prompt/packets/events-w2/body.md",
+      "rendered_path": "/home/austinli/Projects/bids_pipeline/data/skill/mac-gray/prompt/packets/events-w2/rendered.md",
       "evidence_ids": [
         "0001047469-13-010973:E0556",
         "0001047469-13-010973:E0557",
@@ -283,14 +283,15 @@
         "0001047469-13-010973:E0581",
         "0001047469-13-010973:E0582"
       ],
-      "actor_roster_source_path": null
+      "actor_roster_source_path": "/home/austinli/Projects/bids_pipeline/data/skill/mac-gray/extract/actors_raw.json"
     }
   ],
   "asset_files": [
-    "/home/austinli/Projects/bids_pipeline/skill_pipeline/prompt_assets/actors_prefix.md"
+    "/home/austinli/Projects/bids_pipeline/skill_pipeline/prompt_assets/events_prefix.md",
+    "/home/austinli/Projects/bids_pipeline/skill_pipeline/prompt_assets/event_examples.md"
   ],
   "notes": [
-    "mode=actors",
+    "mode=events",
     "chunk_budget=6000",
     "routing=auto",
     "effective_budget=6000",

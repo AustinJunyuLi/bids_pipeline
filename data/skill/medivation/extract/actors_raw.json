@@ -1,26 +1,65 @@
 {
   "actors": [
     {
-      "actor_id": "target_board_medivation",
+      "actor_id": "target_board",
       "display_name": "Medivation Board of Directors",
-      "canonical_name": "MEDIVATION INC BOARD OF DIRECTORS",
+      "canonical_name": "MEDIVATION BOARD OF DIRECTORS",
       "aliases": [
-        "Board of Directors",
-        "our Board of Directors",
         "Medivation board of directors"
       ],
       "role": "target_board",
       "advisor_kind": null,
       "advised_actor_id": null,
       "bidder_kind": null,
-      "listing_status": "public",
-      "geography": "domestic",
+      "listing_status": null,
+      "geography": null,
       "is_grouped": false,
       "group_size": null,
       "group_label": null,
       "evidence_span_ids": [
-        "span_0001",
-        "span_0036"
+        "span_0001"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_cooley",
+      "display_name": "Cooley LLP",
+      "canonical_name": "COOLEY LLP",
+      "aliases": [
+        "Cooley"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": "target_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0002"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_jp_morgan",
+      "display_name": "J. P. Morgan Securities LLC",
+      "canonical_name": "J. P. MORGAN SECURITIES LLC",
+      "aliases": [
+        "J. P. Morgan"
+      ],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "target_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0003"
       ],
       "notes": []
     },
@@ -33,176 +72,45 @@
       "advisor_kind": null,
       "advised_actor_id": null,
       "bidder_kind": "strategic",
-      "listing_status": "public",
-      "geography": "non_us",
+      "listing_status": null,
+      "geography": null,
       "is_grouped": false,
       "group_size": null,
       "group_label": null,
       "evidence_span_ids": [
-        "span_0002",
-        "span_0007",
-        "span_0037",
-        "span_0038",
-        "span_0039",
-        "span_0044"
+        "span_0004"
       ],
-      "notes": [
-        "Based in Paris, France. Initiated unsolicited approach. Filed consent solicitation to replace Medivation board."
-      ]
+      "notes": []
     },
     {
       "actor_id": "bidder_pfizer",
       "display_name": "Pfizer",
-      "canonical_name": "PFIZER INC",
-      "aliases": [
-        "Parent",
-        "Purchaser"
-      ],
+      "canonical_name": "PFIZER",
+      "aliases": [],
       "role": "bidder",
       "advisor_kind": null,
       "advised_actor_id": null,
       "bidder_kind": "strategic",
-      "listing_status": "public",
-      "geography": "domestic",
-      "is_grouped": false,
-      "group_size": null,
-      "group_label": null,
-      "evidence_span_ids": [
-        "span_0008",
-        "span_0018",
-        "span_0021",
-        "span_0026",
-        "span_0027",
-        "span_0034"
-      ],
-      "notes": [
-        "First contacted Dr. Hung on April 20, 2016. Winning bidder at $81.50 per share."
-      ]
-    },
-    {
-      "actor_id": "bidder_company1",
-      "display_name": "Company 1",
-      "canonical_name": "COMPANY 1",
-      "aliases": [],
-      "role": "bidder",
-      "advisor_kind": null,
-      "advised_actor_id": null,
-      "bidder_kind": null,
       "listing_status": null,
       "geography": null,
       "is_grouped": false,
       "group_size": null,
       "group_label": null,
       "evidence_span_ids": [
-        "span_0024",
-        "span_0028"
+        "span_0005"
       ],
-      "notes": [
-        "Filing alias. Industry participant that signed NDA and submitted bids."
-      ]
-    },
-    {
-      "actor_id": "bidder_company2",
-      "display_name": "Company 2",
-      "canonical_name": "COMPANY 2",
-      "aliases": [],
-      "role": "bidder",
-      "advisor_kind": null,
-      "advised_actor_id": null,
-      "bidder_kind": null,
-      "listing_status": null,
-      "geography": null,
-      "is_grouped": false,
-      "group_size": null,
-      "group_label": null,
-      "evidence_span_ids": [
-        "span_0024",
-        "span_0029"
-      ],
-      "notes": [
-        "Filing alias. Initially excluded after first round ($62-$64), re-entered with $70.00 revised bid."
-      ]
-    },
-    {
-      "actor_id": "bidder_company3",
-      "display_name": "Company 3",
-      "canonical_name": "COMPANY 3",
-      "aliases": [],
-      "role": "bidder",
-      "advisor_kind": null,
-      "advised_actor_id": null,
-      "bidder_kind": null,
-      "listing_status": null,
-      "geography": null,
-      "is_grouped": false,
-      "group_size": null,
-      "group_label": null,
-      "evidence_span_ids": [
-        "span_0024",
-        "span_0030"
-      ],
-      "notes": [
-        "Filing alias. Initially excluded after first round ($60 + CVRs), re-entered with $70.50 revised bid. Dropped before final round."
-      ]
-    },
-    {
-      "actor_id": "bidder_company4",
-      "display_name": "Company 4",
-      "canonical_name": "COMPANY 4",
-      "aliases": [],
-      "role": "bidder",
-      "advisor_kind": null,
-      "advised_actor_id": null,
-      "bidder_kind": null,
-      "listing_status": null,
-      "geography": null,
-      "is_grouped": false,
-      "group_size": null,
-      "group_label": null,
-      "evidence_span_ids": [
-        "span_0024",
-        "span_0031"
-      ],
-      "notes": [
-        "Filing alias. Advanced to second round but declined to submit definitive proposal on August 19, 2016."
-      ]
-    },
-    {
-      "actor_id": "advisor_jpmorgan",
-      "display_name": "J.P. Morgan",
-      "canonical_name": "J. P. MORGAN SECURITIES LLC",
-      "aliases": [
-        "J. P. Morgan"
-      ],
-      "role": "advisor",
-      "advisor_kind": "financial",
-      "advised_actor_id": "target_board_medivation",
-      "bidder_kind": null,
-      "listing_status": null,
-      "geography": null,
-      "is_grouped": false,
-      "group_size": null,
-      "group_label": null,
-      "evidence_span_ids": [
-        "span_0005",
-        "span_0006",
-        "span_0016",
-        "span_0032"
-      ],
-      "notes": [
-        "Retained as independent financial advisor based on long history with the Company."
-      ]
+      "notes": []
     },
     {
       "actor_id": "advisor_evercore",
-      "display_name": "Evercore",
-      "canonical_name": "EVERCORE GROUP L.L.C.",
+      "display_name": "Evercore Group L. L. C.",
+      "canonical_name": "EVERCORE GROUP L. L. C.",
       "aliases": [
         "Evercore"
       ],
       "role": "advisor",
       "advisor_kind": "financial",
-      "advised_actor_id": "target_board_medivation",
+      "advised_actor_id": "target_board",
       "bidder_kind": null,
       "listing_status": null,
       "geography": null,
@@ -210,40 +118,12 @@
       "group_size": null,
       "group_label": null,
       "evidence_span_ids": [
-        "span_0009",
-        "span_0016",
-        "span_0032"
+        "span_0006"
       ],
-      "notes": [
-        "Engaged on April 22, 2016 as additional independent financial advisor."
-      ]
+      "notes": []
     },
     {
-      "actor_id": "advisor_cooley",
-      "display_name": "Cooley LLP",
-      "canonical_name": "COOLEY LLP",
-      "aliases": [
-        "Cooley"
-      ],
-      "role": "advisor",
-      "advisor_kind": "legal",
-      "advised_actor_id": "target_board_medivation",
-      "bidder_kind": null,
-      "listing_status": null,
-      "geography": null,
-      "is_grouped": false,
-      "group_size": null,
-      "group_label": null,
-      "evidence_span_ids": [
-        "span_0004",
-        "span_0033"
-      ],
-      "notes": [
-        "Medivation's primary legal advisor throughout the process."
-      ]
-    },
-    {
-      "actor_id": "advisor_wachtell",
+      "actor_id": "advisor_wachtell_lipton",
       "display_name": "Wachtell, Lipton, Rosen & Katz",
       "canonical_name": "WACHTELL, LIPTON, ROSEN & KATZ",
       "aliases": [
@@ -251,7 +131,7 @@
       ],
       "role": "advisor",
       "advisor_kind": "legal",
-      "advised_actor_id": "target_board_medivation",
+      "advised_actor_id": "target_board",
       "bidder_kind": null,
       "listing_status": null,
       "geography": null,
@@ -259,22 +139,18 @@
       "group_size": null,
       "group_label": null,
       "evidence_span_ids": [
-        "span_0010",
-        "span_0011",
-        "span_0033"
+        "span_0007"
       ],
-      "notes": [
-        "Retained as additional legal advisor by April 28, 2016."
-      ]
+      "notes": []
     },
     {
-      "actor_id": "advisor_richards_layton",
-      "display_name": "Richards, Layton & Finger, P.A.",
-      "canonical_name": "RICHARDS, LAYTON & FINGER, P.A.",
+      "actor_id": "advisor_richards_layton_finger",
+      "display_name": "Richards, Layton & Finger, P. A.",
+      "canonical_name": "RICHARDS, LAYTON & FINGER, P. A.",
       "aliases": [],
       "role": "advisor",
       "advisor_kind": "legal",
-      "advised_actor_id": "target_board_medivation",
+      "advised_actor_id": "target_board",
       "bidder_kind": null,
       "listing_status": null,
       "geography": null,
@@ -282,11 +158,9 @@
       "group_size": null,
       "group_label": null,
       "evidence_span_ids": [
-        "span_0012"
+        "span_0008"
       ],
-      "notes": [
-        "Medivation's Delaware counsel."
-      ]
+      "notes": []
     },
     {
       "actor_id": "advisor_weil_gotshal",
@@ -305,124 +179,87 @@
       "group_size": null,
       "group_label": null,
       "evidence_span_ids": [
-        "span_0015"
+        "span_0009"
       ],
-      "notes": [
-        "Sanofi's legal counsel."
-      ]
+      "notes": []
     },
     {
-      "actor_id": "group_late_march_parties",
-      "display_name": "Four industry participants (late March 2016)",
-      "canonical_name": "FOUR LATE MARCH 2016 INDUSTRY PARTICIPANTS",
+      "actor_id": "bidder_company_1",
+      "display_name": "Company 1",
+      "canonical_name": "COMPANY 1",
       "aliases": [],
       "role": "bidder",
       "advisor_kind": null,
       "advised_actor_id": null,
-      "bidder_kind": null,
+      "bidder_kind": "strategic",
       "listing_status": null,
       "geography": null,
-      "is_grouped": true,
-      "group_size": 4,
-      "group_label": "four industry participants that indicated interest in late March 2016",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
       "evidence_span_ids": [
-        "span_0013",
-        "span_0014",
-        "span_0017"
+        "span_0010"
       ],
-      "notes": [
-        "Three contacted J.P. Morgan and one contacted Dr. Hung. Later included among the parties contacted by Medivation's financial advisors in late June 2016."
-      ]
+      "notes": []
     },
     {
-      "actor_id": "group_contacted_parties",
-      "display_name": "Twelve contacted industry participants",
-      "canonical_name": "TWELVE CONTACTED INDUSTRY PARTICIPANTS",
+      "actor_id": "bidder_company_2",
+      "display_name": "Company 2",
+      "canonical_name": "COMPANY 2",
       "aliases": [],
       "role": "bidder",
       "advisor_kind": null,
       "advised_actor_id": null,
-      "bidder_kind": null,
+      "bidder_kind": "strategic",
       "listing_status": null,
       "geography": null,
-      "is_grouped": true,
-      "group_size": 12,
-      "group_label": "twelve industry participants contacted in late June through early July 2016",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
       "evidence_span_ids": [
-        "span_0019",
-        "span_0020",
-        "span_0041"
+        "span_0011"
       ],
-      "notes": [
-        "J.P. Morgan and Evercore contacted eleven; Medivation contacted a twelfth directly. Includes Pfizer and the four late-March parties."
-      ]
+      "notes": []
     },
     {
-      "actor_id": "group_fifteen_parties",
-      "display_name": "Fifteen parties contacted",
-      "canonical_name": "FIFTEEN PARTIES CONTACTED",
+      "actor_id": "bidder_company_3",
+      "display_name": "Company 3",
+      "canonical_name": "COMPANY 3",
       "aliases": [],
       "role": "bidder",
       "advisor_kind": null,
       "advised_actor_id": null,
-      "bidder_kind": null,
+      "bidder_kind": "strategic",
       "listing_status": null,
       "geography": null,
-      "is_grouped": true,
-      "group_size": 15,
-      "group_label": "15 parties contacted by representatives of Medivation",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
       "evidence_span_ids": [
-        "span_0035"
+        "span_0012"
       ],
-      "notes": [
-        "Board stated that representatives of Medivation contacted 15 parties. This is the broadest count referenced."
-      ]
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_4",
+      "display_name": "Company 4",
+      "canonical_name": "COMPANY 4",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0013"
+      ],
+      "notes": []
     }
   ],
-  "count_assertions": [
-    {
-      "subject": "parties contacted",
-      "count": 15,
-      "evidence_span_ids": [
-        "span_0035"
-      ]
-    },
-    {
-      "subject": "industry participants contacted by financial advisors in late June-early July 2016",
-      "count": 11,
-      "evidence_span_ids": [
-        "span_0019"
-      ]
-    },
-    {
-      "subject": "twelfth industry participant contacted by Medivation directly",
-      "count": 1,
-      "evidence_span_ids": [
-        "span_0020"
-      ]
-    },
-    {
-      "subject": "industry participants that indicated interest in late March 2016",
-      "count": 4,
-      "evidence_span_ids": [
-        "span_0013",
-        "span_0014"
-      ]
-    },
-    {
-      "subject": "Interested Parties (NDA signatories who submitted preliminary bids)",
-      "count": 5,
-      "evidence_span_ids": [
-        "span_0025"
-      ]
-    },
-    {
-      "subject": "other four bidders besides Pfizer in final stages",
-      "count": 4,
-      "evidence_span_ids": [
-        "span_0040"
-      ]
-    }
-  ],
+  "count_assertions": [],
   "unresolved_mentions": []
 }

@@ -1,0 +1,180 @@
+{
+  "dropout_classifications": {},
+  "bid_classifications": {
+    "evt_003": {
+      "label": "Informal",
+      "rule_applied": 1,
+      "basis": "Proposal was expressly non-binding."
+    },
+    "evt_008": {
+      "label": "Uncertain",
+      "rule_applied": null,
+      "basis": "Revised unsolicited proposal carried no extracted informal or formal signal and preceded any selective round."
+    },
+    "evt_013": {
+      "label": "Informal",
+      "rule_applied": 1,
+      "basis": "Proposal was expressly non-binding and preliminary."
+    },
+    "evt_014": {
+      "label": "Informal",
+      "rule_applied": 1,
+      "basis": "Proposal was expressly non-binding and preliminary."
+    },
+    "evt_015": {
+      "label": "Informal",
+      "rule_applied": 1,
+      "basis": "Proposal was a non-binding preliminary range bid."
+    },
+    "evt_016": {
+      "label": "Informal",
+      "rule_applied": 1,
+      "basis": "Proposal was expressly non-binding and preliminary."
+    },
+    "evt_017": {
+      "label": "Informal",
+      "rule_applied": 1,
+      "basis": "Proposal was expressly non-binding and preliminary."
+    },
+    "evt_019": {
+      "label": "Formal",
+      "rule_applied": 3,
+      "basis": "Proposal followed the selective August 10 confirmatory round, which advanced 3 of 5 active bidders."
+    },
+    "evt_020": {
+      "label": "Formal",
+      "rule_applied": 3,
+      "basis": "Proposal followed the selective August 10 confirmatory round, which advanced 3 of 5 active bidders."
+    },
+    "evt_023": {
+      "label": "Formal",
+      "rule_applied": 2,
+      "basis": "Definitive proposal included explicit binding-offer signals and a marked-up merger agreement."
+    },
+    "evt_024": {
+      "label": "Formal",
+      "rule_applied": 2,
+      "basis": "Definitive proposal included explicit binding-offer signals and a marked-up merger agreement."
+    },
+    "evt_025": {
+      "label": "Formal",
+      "rule_applied": 2,
+      "basis": "Definitive proposal carried an explicit binding-offer signal."
+    },
+    "evt_026": {
+      "label": "Formal",
+      "rule_applied": 2,
+      "basis": "Definitive proposal carried an explicit binding-offer signal."
+    },
+    "evt_031": {
+      "label": "Formal",
+      "rule_applied": 2,
+      "basis": "Final proposal included a draft merger agreement and an explicit binding-offer signal."
+    },
+    "evt_032": {
+      "label": "Formal",
+      "rule_applied": 2,
+      "basis": "Final proposal included a draft merger agreement and an explicit binding-offer signal."
+    },
+    "evt_033": {
+      "label": "Formal",
+      "rule_applied": 2,
+      "basis": "Final proposal included a draft merger agreement and an explicit binding-offer signal."
+    }
+  },
+  "rounds": [
+    {
+      "announcement_event_id": "evt_018",
+      "deadline_event_id": null,
+      "round_scope": "formal",
+      "invited_actor_ids": [
+        "bidder_pfizer",
+        "bidder_company_1",
+        "bidder_company_4"
+      ],
+      "active_bidders_at_time": 5,
+      "is_selective": true
+    },
+    {
+      "announcement_event_id": "evt_021",
+      "deadline_event_id": "evt_022",
+      "round_scope": "formal",
+      "invited_actor_ids": [
+        "bidder_pfizer",
+        "bidder_company_1",
+        "bidder_company_2",
+        "bidder_company_3",
+        "bidder_company_4"
+      ],
+      "active_bidders_at_time": 5,
+      "is_selective": false
+    },
+    {
+      "announcement_event_id": "evt_028",
+      "deadline_event_id": "evt_030",
+      "round_scope": "extension",
+      "invited_actor_ids": [
+        "bidder_pfizer",
+        "bidder_company_1",
+        "bidder_company_2",
+        "bidder_company_3"
+      ],
+      "active_bidders_at_time": 4,
+      "is_selective": false
+    }
+  ],
+  "cycles": [
+    {
+      "cycle_id": "cycle_1",
+      "start_event_id": "evt_001",
+      "end_event_id": "evt_035",
+      "boundary_basis": "Single cycle -- no termination events"
+    }
+  ],
+  "formal_boundary": {
+    "cycle_1": {
+      "event_id": "evt_019",
+      "basis": "First formal proposal per Rule 3 after the selective August 10 confirmatory round."
+    }
+  },
+  "initiation_judgment": {
+    "type": "mixed",
+    "basis": "Medivation was already reviewing strategic alternatives with advisors, but unsolicited third-party interest, led by Sanofi, turned that standing review into a live sale process.",
+    "source_text": "The alternatives reviewed have included large and small acquisitions, mergers and a sale of Medivation, and, from time to time, Medivation has received inquiries from third parties seeking to determine Medivation's interest in a sale transaction.",
+    "confidence": "medium"
+  },
+  "advisory_verification": {
+    "advisor_cooley": {
+      "advised_actor_id": "target_board",
+      "verified": true,
+      "source_text": "Cooley LLP (\"Cooley\"), Medivation's legal advisor"
+    },
+    "advisor_jp_morgan": {
+      "advised_actor_id": "target_board",
+      "verified": true,
+      "source_text": "J. P. Morgan Securities LLC (\"J. P. Morgan\"), retained as independent financial advisor to Medivation"
+    },
+    "advisor_evercore": {
+      "advised_actor_id": "target_board",
+      "verified": true,
+      "source_text": "Evercore Group L. L. C. (\"Evercore\") as an additional independent financial advisor to Medivation"
+    },
+    "advisor_wachtell_lipton": {
+      "advised_actor_id": "target_board",
+      "verified": true,
+      "source_text": "Wachtell, Lipton, Rosen & Katz (\"Wachtell Lipton\"), which Medivation had retained as an additional legal advisor"
+    },
+    "advisor_richards_layton_finger": {
+      "advised_actor_id": "target_board",
+      "verified": true,
+      "source_text": "Richards, Layton & Finger, P. A., Medivation's Delaware counsel"
+    },
+    "advisor_weil_gotshal": {
+      "advised_actor_id": "bidder_sanofi",
+      "verified": true,
+      "source_text": "Weil Gotshal & Manges LLP (\"Weil Gotshal\"), Sanofi's legal counsel"
+    }
+  },
+  "count_reconciliation": [],
+  "review_flags": []
+}

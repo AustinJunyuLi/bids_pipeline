@@ -1,20 +1,20 @@
 {
   "schema_version": "2.0.0",
   "artifact_type": "prompt_packet_manifest",
-  "created_at": "2026-03-29T10:05:47.819406Z",
+  "created_at": "2026-03-29T14:15:17.540989Z",
   "pipeline_version": "0.1.0",
-  "run_id": "compose-175c8e5e",
+  "run_id": "compose-73a14210",
   "deal_slug": "petsmart-inc",
   "source_accession_number": "0001571049-15-000695",
   "packets": [
     {
-      "packet_id": "actors-w0",
-      "packet_family": "actors",
+      "packet_id": "events-w0",
+      "packet_family": "events",
       "chunk_mode": "single_pass",
       "window_id": "w0",
-      "prefix_path": "/home/austinli/Projects/bids_pipeline/data/skill/petsmart-inc/prompt/packets/actors-w0/prefix.md",
-      "body_path": "/home/austinli/Projects/bids_pipeline/data/skill/petsmart-inc/prompt/packets/actors-w0/body.md",
-      "rendered_path": "/home/austinli/Projects/bids_pipeline/data/skill/petsmart-inc/prompt/packets/actors-w0/rendered.md",
+      "prefix_path": "/home/austinli/Projects/bids_pipeline/data/skill/petsmart-inc/prompt/packets/events-w0/prefix.md",
+      "body_path": "/home/austinli/Projects/bids_pipeline/data/skill/petsmart-inc/prompt/packets/events-w0/body.md",
+      "rendered_path": "/home/austinli/Projects/bids_pipeline/data/skill/petsmart-inc/prompt/packets/events-w0/rendered.md",
       "evidence_ids": [
         "0001571049-15-000695:E0331",
         "0001571049-15-000695:E0332",
@@ -103,14 +103,15 @@
         "0001571049-15-000695:E0415",
         "0001571049-15-000695:E0416"
       ],
-      "actor_roster_source_path": null
+      "actor_roster_source_path": "/home/austinli/Projects/bids_pipeline/data/skill/petsmart-inc/extract/actors_raw.json"
     }
   ],
   "asset_files": [
-    "/home/austinli/Projects/bids_pipeline/skill_pipeline/prompt_assets/actors_prefix.md"
+    "/home/austinli/Projects/bids_pipeline/skill_pipeline/prompt_assets/events_prefix.md",
+    "/home/austinli/Projects/bids_pipeline/skill_pipeline/prompt_assets/event_examples.md"
   ],
   "notes": [
-    "mode=actors",
+    "mode=events",
     "chunk_budget=6000",
     "routing=auto",
     "effective_budget=single-pass",

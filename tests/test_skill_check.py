@@ -388,6 +388,49 @@ def test_run_check_uses_highest_nda_count_assertion(tmp_path: Path) -> None:
     assert "nda_signed_financial_buyers=3" in finding["description"]
 
 
+def test_run_check_counts_grouped_bidder_size_toward_nda_assertion(tmp_path: Path) -> None:
+    _write_canonical_check_fixture(
+        tmp_path,
+        actor_evidence_span_ids=["span_actor"],
+        event_evidence_span_ids=["span_event"],
+        count_assertion_count=4,
+    )
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    actors_payload = json.loads(paths.actors_raw_path.read_text(encoding="utf-8"))
+    events_payload = json.loads(paths.events_raw_path.read_text(encoding="utf-8"))
+
+    actors_payload["actors"].append(
+        {
+            "actor_id": "financial_group",
+            "display_name": "Financial Group",
+            "canonical_name": "FINANCIAL GROUP",
+            "aliases": [],
+            "role": "bidder",
+            "advisor_kind": None,
+            "advised_actor_id": None,
+            "bidder_kind": "financial",
+            "listing_status": None,
+            "geography": None,
+            "is_grouped": True,
+            "group_size": 3,
+            "group_label": "3 unnamed financial NDA signers",
+            "evidence_span_ids": ["span_actor"],
+            "notes": [],
+        }
+    )
+    events_payload["events"][0]["actor_ids"].append("financial_group")
+
+    paths.actors_raw_path.write_text(json.dumps(actors_payload), encoding="utf-8")
+    paths.events_raw_path.write_text(json.dumps(events_payload), encoding="utf-8")
+
+    exit_code = run_check("imprivata", project_root=tmp_path)
+    report = json.loads(paths.check_report_path.read_text(encoding="utf-8"))
+
+    assert exit_code == 0
+    assert report["summary"]["status"] == "pass"
+    assert report["findings"] == []
+
+
 def test_skill_cli_supports_check_subcommand() -> None:
     parser = cli.build_parser()
     args = parser.parse_args(["check", "--deal", "imprivata"])

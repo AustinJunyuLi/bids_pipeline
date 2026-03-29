@@ -1,0 +1,101 @@
+{
+  "dropout_classifications": {
+    "evt_021": {
+      "label": "Drop",
+      "basis": "Party D withdrew on its own by telling Deutsche Bank that it would not continue discussions regarding a potential transaction.",
+      "source_text": "did not intend to move forward"
+    }
+  },
+  "bid_classifications": {
+    "evt_005": {
+      "label": "Uncertain",
+      "rule_applied": null,
+      "basis": "Residual case; the filing gives a priced proposal but no Rule 1, Rule 2, or Rule 3 signal."
+    },
+    "evt_006": {
+      "label": "Informal",
+      "rule_applied": 1,
+      "basis": "Rule 1 applies because the proposal is described as a written indication of interest and as non-binding."
+    },
+    "evt_015": {
+      "label": "Informal",
+      "rule_applied": 1,
+      "basis": "Rule 1 applies because the proposal is a price range and an indication of interest."
+    },
+    "evt_019": {
+      "label": "Uncertain",
+      "rule_applied": null,
+      "basis": "Residual case; the filing gives a fixed-price proposal but no explicit informal or formal signal and no selective round context."
+    },
+    "evt_020": {
+      "label": "Informal",
+      "rule_applied": 1,
+      "basis": "Rule 1 applies because the filing still characterizes the revised written proposal as an indication of interest."
+    },
+    "evt_022": {
+      "label": "Informal",
+      "rule_applied": 1,
+      "basis": "Rule 1 applies because the proposal is expressed as a price range."
+    },
+    "evt_023": {
+      "label": "Informal",
+      "rule_applied": 1,
+      "basis": "Rule 1 applies because, despite being submitted in a formal letter, the filing still describes it as an indication of interest."
+    }
+  },
+  "rounds": [],
+  "cycles": [
+    {
+      "cycle_id": "cycle_1",
+      "start_event_id": "evt_001",
+      "end_event_id": "evt_025",
+      "boundary_basis": "Single cycle -- no termination events"
+    }
+  ],
+  "formal_boundary": {
+    "cycle_1": {
+      "event_id": null,
+      "basis": "No formal proposals in this cycle."
+    }
+  },
+  "initiation_judgment": {
+    "type": "mixed",
+    "basis": "Penford moved toward a sale process after the July 24 Executive Committee meeting considered both SEACOR's activist pressure and Ingredion's oral acquisition approach.",
+    "source_text": "in light of these developments",
+    "confidence": "high"
+  },
+  "advisory_verification": {
+    "advisor_deutsche_bank": {
+      "advised_actor_id": "target_penford",
+      "verified": true,
+      "basis": "The filing identifies Deutsche Bank as Penford's banker when the Executive Committee retained it to evaluate strategic alternatives.",
+      "source_text": "financial advisor"
+    },
+    "advisor_perkins_coie": {
+      "advised_actor_id": "target_penford",
+      "verified": true,
+      "basis": "The filing places Perkins Coie with Penford's board and management as Penford's counsel during the sale process.",
+      "source_text": "legal counsel"
+    },
+    "advisor_jp_morgan_securities": {
+      "advised_actor_id": "bidder_ingredion",
+      "verified": true,
+      "basis": "The filing identifies J. P. Morgan Securities as advising Ingredion during diligence and negotiations.",
+      "source_text": "financial advisor"
+    },
+    "advisor_sidley_austin": {
+      "advised_actor_id": "bidder_ingredion",
+      "verified": true,
+      "basis": "The filing identifies Sidley Austin as Ingredion's counsel in the merger agreement negotiations.",
+      "source_text": "legal counsel"
+    },
+    "advisor_milbank": {
+      "advised_actor_id": "activist_seacor",
+      "verified": true,
+      "basis": "The filing identifies Milbank as SEACOR's counsel in the voting and support agreement discussions.",
+      "source_text": "legal counsel"
+    }
+  },
+  "count_reconciliation": [],
+  "review_flags": []
+}

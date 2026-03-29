@@ -1,0 +1,19 @@
+{
+  "dedup_log": {},
+  "nda_gate_log": [
+    {
+      "removed_event_id": "evt_010",
+      "reason": "Drop actor(s) {'bidder_party_x'} have no prior NDA in the current cycle."
+    },
+    {
+      "removed_event_id": "evt_013",
+      "reason": "Drop actor(s) {'bidder_unnamed_five_remaining_2014'} have no prior NDA in the current cycle."
+    },
+    {
+      "removed_event_id": "evt_014",
+      "reason": "Drop actor(s) {'bidder_unnamed_one_nonresponsive_2014'} have no prior NDA in the current cycle."
+    }
+  ],
+  "recovery_log": [],
+  "orphaned_quotes": []
+}

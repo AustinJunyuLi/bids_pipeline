@@ -1,0 +1,317 @@
+{
+  "actors": [
+    {
+      "actor_id": "target_penford",
+      "display_name": "Penford",
+      "canonical_name": "PENFORD CORP",
+      "aliases": [
+        "the Company"
+      ],
+      "role": "target_board",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0001"
+      ],
+      "notes": [
+        "Target-side actor covers Penford and the board-level sale process described in the filing."
+      ]
+    },
+    {
+      "actor_id": "bidder_ingredion",
+      "display_name": "Ingredion",
+      "canonical_name": "INGREDION",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0002"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "activist_seacor",
+      "display_name": "SEACOR",
+      "canonical_name": "SEACOR",
+      "aliases": [],
+      "role": "activist",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0003"
+      ],
+      "notes": [
+        "The filing presents SEACOR as a shareholder activist and later as a potential counterparty that declined interest."
+      ]
+    },
+    {
+      "actor_id": "bidder_prior_industry_parties",
+      "display_name": "Two prior industry parties",
+      "canonical_name": "TWO PRIOR INDUSTRY PARTIES",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": true,
+      "group_size": 2,
+      "group_label": "two parties engaged in the Companys industry",
+      "evidence_span_ids": [
+        "span_0004"
+      ],
+      "notes": [
+        "Grouped actor covering the two unnamed industry parties mentioned for 2007 and 2009."
+      ]
+    },
+    {
+      "actor_id": "bidder_party_a",
+      "display_name": "Party A",
+      "canonical_name": "PARTY A",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0005"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_party_b",
+      "display_name": "Party B",
+      "canonical_name": "PARTY B",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0006"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_party_c",
+      "display_name": "Party C",
+      "canonical_name": "PARTY C",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0007"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_party_d",
+      "display_name": "Party D",
+      "canonical_name": "PARTY D",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0008"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_party_e",
+      "display_name": "Party E",
+      "canonical_name": "PARTY E",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0009"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_party_f",
+      "display_name": "Party F",
+      "canonical_name": "PARTY F",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0010"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_deutsche_bank",
+      "display_name": "Deutsche Bank",
+      "canonical_name": "DEUTSCHE BANK",
+      "aliases": [],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "target_penford",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0011"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_perkins_coie",
+      "display_name": "Perkins Coie",
+      "canonical_name": "PERKINS COIE LLP",
+      "aliases": [],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": "target_penford",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0012"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_jp_morgan_securities",
+      "display_name": "J. P. Morgan Securities",
+      "canonical_name": "J. P. MORGAN SECURITIES",
+      "aliases": [],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "bidder_ingredion",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0013"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_sidley_austin",
+      "display_name": "Sidley Austin",
+      "canonical_name": "SIDLEY AUSTIN LLP",
+      "aliases": [],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": "bidder_ingredion",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0014"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_milbank",
+      "display_name": "Milbank",
+      "canonical_name": "MILBANK, TWEED, HADLEY & MCCLOY, LLP",
+      "aliases": [],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": "activist_seacor",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0015"
+      ],
+      "notes": []
+    }
+  ],
+  "count_assertions": [
+    {
+      "subject": "unnamed industry parties that expressed interest in 2007 and 2009",
+      "count": 2,
+      "evidence_span_ids": [
+        "span_0004"
+      ]
+    },
+    {
+      "subject": "potential strategic counterparties contacted in the market check process",
+      "count": 6,
+      "evidence_span_ids": [
+        "span_0016"
+      ]
+    }
+  ],
+  "unresolved_mentions": [
+    "Party G was discussed as a possible strategic counterparty but was not contacted and was not otherwise identified.",
+    "Several potential financial advisors were reviewed before Deutsche Bank was retained, but the filing does not identify those firms."
+  ]
+}

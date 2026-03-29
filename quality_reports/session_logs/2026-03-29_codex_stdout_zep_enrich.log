@@ -1,0 +1,1546 @@
+OpenAI Codex v0.117.0 (research preview)
+--------
+workdir: /home/austinli/Projects/bids_pipeline
+model: gpt-5.4
+provider: openai
+approval: never
+sandbox: danger-full-access
+reasoning effort: xhigh
+reasoning summaries: none
+session id: 019d39e5-d515-77c0-9a9f-05edc2c9dd57
+--------
+user
+Resume the fresh `/deal-agent` rerun for `zep` only from the current stable checkpoint.
+
+Model requirement: GPT-5.4 xhigh.
+
+Strict ownership:
+- `data/skill/zep/`
+- `data/deals/zep/`
+- `raw/zep/`
+- `quality_reports/session_logs/2026-03-29_rerun_zep.md`
+- `quality_reports/session_logs/2026-03-29_codex_last_zep_enrich.txt`
+- `quality_reports/session_logs/2026-03-29_codex_stdout_zep_enrich.log`
+
+Do not touch:
+- shared repo code or tests
+- other deals
+- `data/pipeline.duckdb`
+- benchmark files, reconcile artifacts, or benchmark docs
+
+Authoritative instructions:
+- `CLAUDE.md`
+- `.claude/skills/deal-agent/SKILL.md`
+- `.claude/skills/enrich-deal/SKILL.md`
+
+Current stable checkpoint for `zep`:
+- canonical extract artifacts exist in `data/skill/zep/extract/`
+- `skill-pipeline verify --deal zep` passes
+- `skill-pipeline coverage --deal zep` passes with warnings only
+- `skill-pipeline gates --deal zep` passes with warnings only
+- `skill-pipeline enrich-core --deal zep` has already been run and `data/skill/zep/enrich/deterministic_enrichment.json` exists
+
+Your task:
+1. Append a recovery note to `quality_reports/session_logs/2026-03-29_rerun_zep.md` explaining that you are resuming from the stabilized post-verify/post-coverage/post-gates checkpoint after the earlier concurrency issue.
+2. Perform only the remaining `/enrich-deal zep` work, filing-grounded only.
+3. Write `data/skill/zep/enrich/enrichment.json` matching the canonical skill contract with all 8 top-level keys.
+4. Log every action, any wall, and any fix in `quality_reports/session_logs/2026-03-29_rerun_zep.md`.
+5. Stop before any DB stages.
+
+Fail closed if you hit another concurrent-writer condition or if you cannot support a judgment from the filing artifacts.
+
+In your final response, report:
+- status
+- walls hit
+- fixes applied
+- whether you wrote `enrichment.json`
+- files changed
+
+codex
+Using `deal-agent` and `enrich-deal` because the task is a scoped rerun of the skill workflow for one deal. I’m reading `CLAUDE.md` plus the two skill instructions first, then I’ll inspect the current `zep` checkpoint and resume only the remaining filing-grounded enrichment work.
+exec
+/bin/bash -lc "sed -n '1,240p' .claude/skills/deal-agent/SKILL.md" in /home/austinli/Projects/bids_pipeline
+ succeeded in 0ms:
+---
+name: deal-agent
+description: Use when orchestrating the repo's end-to-end skill workflow for a deal, from SEC filing fetch through DuckDB export.
+---
+
+# deal-agent
+
+## Design Principles
+
+1. The orchestrator stays thin. It checks gates and reports summaries.
+2. It does not re-encode extraction, verification, enrichment, or export logic.
+3. Each sub-skill is independently invocable.
+4. Re-runs are idempotent. Old artifacts are cleaned before fresh writes.
+
+## Overview
+
+End-to-end orchestrator that fetches a SEC filing, preprocesses it into
+chronology blocks, runs LLM extraction with composed prompt packets, validates
+through deterministic gates, enriches, and exports to DuckDB-backed CSV.
+Deterministic runtime stages are available via `skill-pipeline` CLI. Three
+stages require LLM calls: extract-deal, verify-extraction, and enrich-deal.
+
+## Prerequisite
+
+Requires `data/seeds.csv` with a row for `<slug>` and a valid SEC identity
+environment variable (`PIPELINE_SEC_IDENTITY`, `SEC_IDENTITY`, or
+`EDGAR_IDENTITY`).
+
+## When To Use
+
+Invoke as `/deal-agent <slug>` for end-to-end pipeline from filing fetch through
+DuckDB export, plus optional interpretive enrichment and post-export
+reconciliation. Use individual skills when re-running a specific stage.
+
+Re-running `/deal-agent <slug>` on a previously processed deal cleans all
+downstream artifacts and rebuilds from scratch.
+
+## Benchmark Boundary
+
+Benchmark materials are forbidden during generation. Do not consult benchmark
+files, benchmark notes, `example/`, `diagnosis/`,
+`data/skill/<slug>/reconcile/*`, or `/reconcile-alex` before
+`skill-pipeline db-export --deal <slug>` completes.
+
+Use only filing-grounded inputs through export. Benchmark comparison is
+post-export only and read-only.
+
+## Skills
+
+| # | Skill | Artifacts | Failure Mode |
+|---|---|---|---|
+| 0 | `raw-fetch` (deterministic) | `raw/<slug>/document_registry.json`, `raw/<slug>/filings/*.txt` | Fail closed |
+| 0a | `preprocess-source` (deterministic) | `source/chronology_blocks.jsonl`, `source/evidence_items.jsonl` | Fail closed |
+| 1 | `compose-prompts --mode actors` (deterministic) | `prompt/manifest.json`, actor `prompt/packets/*/rendered.md` | Fail closed |
+| 1a | `extract-deal` (LLM) | `extract/actors_raw.json`, `extract/events_raw.json` | Fail closed |
+| 1b | `compose-prompts --mode events` (deterministic) | `prompt/manifest.json` updated, event `prompt/packets/*/rendered.md` | Fail closed; requires `actors_raw.json` |
+| 2 | `canonicalize` (deterministic) | `extract/spans.json`, `canonicalize/canonicalize_log.json` | Fail closed |
+| 2a | `check` (deterministic) | `check/check_report.json` | Fail closed on blockers |
+| 3 | `verify` + `coverage` (deterministic) | `verify/*.json`, `coverage/*.json` | Fail closed on error status |
+| 3a | `gates` (deterministic) | `gates/gates_report.json` | Fail closed on blocker findings |
+| 4 | `verify-extraction` (LLM) | updated extraction files | Fail closed (stop on round-2 errors) |
+| 5 | `enrich-core` (deterministic) | `enrich/deterministic_enrichment.json` | Fail closed |
+| 6 | `enrich-deal` (LLM, optional) | `enrich/enrichment.json` | Fail closed |
+| 6a | `db-load` (deterministic) | DuckDB `data/pipeline.duckdb` updated | Fail closed |
+| 6b | `db-export` (deterministic) | `export/deal_events.csv` | Fail closed |
+
+## Procedure
+
+```text
+0. Clean artifacts for fresh run.
+   Delete data/skill/<slug>/ entirely (extract, check, verify, coverage,
+   gates, enrich, export, canonicalize, prompt — all downstream artifacts).
+   Delete data/deals/<slug>/source/ (preprocess outputs).
+   Leave raw/<slug>/ intact — filing text is immutable from EDGAR.
+   If raw/<slug>/ does not exist, it will be created by raw-fetch.
+
+1. Read the seed entry for <slug>.
+   Gate: seeds.csv contains a row for this slug.
+
+1a. Set SEC identity.
+    Run: export EDGAR_IDENTITY="Austin Li junyu.li.24@ucl.ac.uk"
+    Gate: EDGAR_IDENTITY is set in the shell environment before raw-fetch.
+
+2. Run `skill-pipeline raw-fetch --deal <slug>`
+   Gate: raw/<slug>/document_registry.json exists.
+   Note: If raw filings already exist with identical content, raw-fetch
+   succeeds silently (immutable-write contract). Discovery and registry
+   metadata are always refreshed.
+
+2a. Run `skill-pipeline preprocess-source --deal <slug>`
+    Gate: data/deals/<slug>/source/chronology_blocks.jsonl exists.
+
+3. Ensure output directories exist:
+   - data/skill/<slug>/extract/
+   - data/skill/<slug>/check/
+   - data/skill/<slug>/verify/
+   - data/skill/<slug>/coverage/
+   - data/skill/<slug>/gates/
+   - data/skill/<slug>/enrich/
+   - data/skill/<slug>/export/
+   - data/skill/<slug>/canonicalize/
+   - data/skill/<slug>/prompt/
+
+4. Run `skill-pipeline compose-prompts --deal <slug> --mode actors`
+   Gate: prompt/manifest.json exists, actor_packet_count > 0.
+   Generates actor prompt packets consumed by extract-deal.
+
+4a. Run /extract-deal <slug>
+    Gate: actors_raw.json and events_raw.json both exist and are non-empty.
+    If gate fails: stop.
+
+4b. Run `skill-pipeline compose-prompts --deal <slug> --mode events`
+    Gate: prompt/manifest.json updated, event_packet_count > 0.
+    Requires actors_raw.json from step 4a.
+
+5. Run `skill-pipeline canonicalize --deal <slug>`
+   - Outputs: canonicalize/canonicalize_log.json and extract/spans.json
+   - Overwrites actors_raw.json and events_raw.json in place with the
+     canonical schema (evidence_span_ids, normalized dates)
+   - Deduplicates events, removes drops without NDAs, recovers unnamed parties
+
+5a. Run deterministic check: `skill-pipeline check --deal <slug>`
+    Gate: check_report.json exists and summary.status == "pass".
+    If gate fails: stop.
+
+6. Run deterministic verify: `skill-pipeline verify --deal <slug>`
+   Gate: verification_log.json exists AND summary.status != "fail".
+
+6a. Run deterministic coverage: `skill-pipeline coverage --deal <slug>`
+    Gate: coverage_summary.json exists and summary.status != "fail".
+
+6b. Run deterministic gates: `skill-pipeline gates --deal <slug>`
+    Gate: gates_report.json exists and has no blocker-severity findings.
+    Required by enrich-core.
+
+7. Run /verify-extraction <slug>
+   Gate: verification and coverage artifacts exist. May invoke LLM repair when
+   all error-level findings are repairable; otherwise fail closed.
+
+   Note: If verify-extraction made structural changes (added/removed events,
+   changed dates, modified actor references), re-run steps 5a through 6b
+   (check, verify, coverage, gates) before proceeding to enrich-core.
+   Enrich-core uses gate artifacts that may be stale after structural repairs.
+
+8. Run `skill-pipeline enrich-core --deal <slug>`
+   Gate: deterministic_enrichment.json exists.
+
+9. Run /enrich-deal <slug>
+   Gate: enrichment.json exists.
+   Optional: skip if only deterministic enrichment is needed.
+
+9a. Run `skill-pipeline db-load --deal <slug>`
+    Gate: data/pipeline.duckdb exists and contains rows for this deal.
+    Note: Loads deterministic enrichment baseline. If enrichment.json exists
+    (from enrich-deal above), overlays dropout_classifications automatically.
+
+9b. Run `skill-pipeline db-export --deal <slug>`
+    Gate: deal_events.csv exists and is non-empty.
+
+10. Report summary:
+    - Actor count, event count, proposal count
+    - Check: blocker count, warning count
+    - Coverage: error count, warning count
+    - Verification: round 1 errors found, fixes applied, round 2 status
+    - Enrichment: cycle count, formal/informal split, initiation judgment type
+    - DB load: actor row count, event row count, span row count
+    - DB export: event row count, output path
+    - Review flags count
+    - Output path: data/skill/<slug>/export/deal_events.csv
+```
+
+## Individual Invocation
+
+Each skill is independently callable:
+
+- `skill-pipeline raw-fetch --deal <slug>` -- fetch and freeze SEC filing
+- `skill-pipeline preprocess-source --deal <slug>` -- build source artifacts from frozen filings
+- `skill-pipeline compose-prompts --deal <slug>` -- build prompt packets for extraction
+- `skill-pipeline canonicalize --deal <slug>` -- upgrade extraction into canonical span-backed artifacts
+- `skill-pipeline check --deal <slug>` -- run deterministic structural check
+- `skill-pipeline verify --deal <slug>` -- run deterministic verification
+- `skill-pipeline coverage --deal <slug>` -- run deterministic source-coverage audit
+- `skill-pipeline gates --deal <slug>` -- run semantic validation gates (temporal, cross-event, lifecycle, attention)
+- `skill-pipeline enrich-core --deal <slug>` -- run deterministic enrich core
+- `skill-pipeline db-load --deal <slug>` -- load canonical extracts + enrichment into DuckDB
+- `skill-pipeline db-export --deal <slug>` -- generate CSV export from DuckDB
+- `/extract-deal <slug>` -- run extraction only
+- `/verify-extraction <slug>` -- run verification only
+- `/enrich-deal <slug>` -- run enrichment only
+
+exec
+/bin/bash -lc "sed -n '1,260p' .claude/skills/enrich-deal/SKILL.md" in /home/austinli/Projects/bids_pipeline
+exec
+/bin/bash -lc "sed -n '1,240p' CLAUDE.md" in /home/austinli/Projects/bids_pipeline
+ succeeded in 0ms:
+# CLAUDE.md
+
+This file is the authoritative instruction source for agents working in this
+repository. When repository facts, artifact contracts, or action protocols
+change, update this file.
+
+## What This Repo Is
+
+This repository is a filing-grounded M&A extraction pipeline.
+
+It has two distinct parts:
+
+- `skill_pipeline/`: the only active Python package and the only installed CLI
+  in this worktree
+- local-agent workflow documents under `.claude/skills/`: the canonical
+  instructions for extraction, repair, and optional interpretive enrichment
+
+LLM-driven stages are orchestrated by a local agent working against repository artifacts
+and skill instructions. Keep that orchestration agent-agnostic.
+
+If docs disagree, trust live code and tests over planning notes or historical
+design documents.
+
+## Authority And Scope
+
+Authoritative implementation truth lives here:
+
+- `skill_pipeline/`
+- `tests/`
+- `.claude/skills/`
+- artifact path contracts encoded in `skill_pipeline/paths.py`
+
+Important non-authorities unless explicitly updated to match the code:
+
+- historical references to a `pipeline/` package
+- provider-specific LLM infrastructure notes from older design work
+- benchmark materials in `example/`, `diagnosis/`, or spreadsheet workflows
+
+`.claude/skills/` is the canonical workflow tree. `.codex/skills/` and
+`.cursor/skills/` are derived mirrors and should be synced from `.claude/skills/`.
+
+## Runtime Split
+
+### Deterministic Python Runtime
+
+The `skill-pipeline` CLI owns these stages:
+
+- `source-discover`: discover source filing candidates without fetching
+- `raw-fetch`: fetch and freeze the seed-selected SEC filing set
+- `preprocess-source`: build source artifacts from frozen filings
+- `compose-prompts`: build provider-neutral prompt packet artifacts from source
+- `canonicalize`: upgrade extract artifacts into canonical span-backed form
+- `check`: structural blocker gate
+- `verify`: strict deterministic verification
+- `coverage`: deterministic source-coverage audit
+- `gates`: semantic validation (temporal consistency, cross-event logic, actor lifecycle, attention decay)
+- `enrich-core`: deterministic enrichment
+- `db-load`: load canonical extract + enrichment artifacts into DuckDB
+- `db-export`: generate `deal_events.csv` from DuckDB queries
+- `deal-agent`: preflight and artifact summary only
+
+### Local-Agent Stages
+
+These stages are not implemented as Python-side provider wrappers:
+
+- `/extract-deal`
+- `/verify-extraction`
+- `/enrich-deal`
+- `/reconcile-alex` (optional, post-export only)
+
+The local agent reads and writes repo artifacts directly, following the
+canonical skill docs.
+
+### Important Name Collision
+
+`skill-pipeline deal-agent --deal <slug>` is not the end-to-end orchestrator.
+It only verifies required inputs, ensures output directories exist, and prints a
+status summary.
+
+The full end-to-end orchestration flow lives in the local-agent skill
+documentation for `/deal-agent`. It covers fetch, preprocess, extraction,
+gates, enrichment, and DuckDB export with idempotent re-run support.
+
+## Repository Layout
+
+- `skill_pipeline/`: deterministic runtime package
+- `raw/<slug>/`: frozen filing ingress and manifests
+- `data/deals/<slug>/source/`: shared source artifacts derived from raw filings
+- `data/skill/<slug>/`: extract, QA, enrichment, and export artifacts
+- `tests/`: regression tests for runtime stages
+- `.claude/skills/`: canonical local-agent workflow instructions
+- `docs/`: design notes and specs; useful, but not automatically authoritative
+
+## Artifact Contract
+
+### Seed Input
+
+- `data/seeds.csv`: authoritative deal roster and seed URLs
+
+### Raw Fetch Outputs
+
+`skill-pipeline raw-fetch --deal <slug>` writes:
+
+- `raw/<slug>/discovery.json`
+- `raw/<slug>/document_registry.json`
+- `raw/<slug>/filings/*.txt`
+- raw HTML and markdown mirrors when available
+
+Raw filing text under `raw/` is immutable truth input. Never rewrite it.
+
+### Source Preprocess Outputs
+
+`skill-pipeline preprocess-source --deal <slug>` currently enforces a seed-only,
+single-primary-document contract. It requires:
+
+- exactly one primary candidate
+- zero supplementary candidates
+- exactly one frozen document in `document_registry.json`
+
+It writes:
+
+- `data/deals/<slug>/source/chronology_selection.json`
+- `data/deals/<slug>/source/chronology_blocks.jsonl`
+- `data/deals/<slug>/source/evidence_items.jsonl`
+- `data/deals/<slug>/source/chronology.json`
+- `data/deals/<slug>/source/filings/*`
+
+It also removes stale `source/supplementary_snippets.jsonl`. That file is not a
+current preprocess output in this worktree.
+
+### Prompt Packet Outputs
+
+`skill-pipeline compose-prompts --deal <slug>` writes:
+
+- `data/skill/<slug>/prompt/manifest.json`
+- `data/skill/<slug>/prompt/packets/<packet-id>/prefix.md`
+- `data/skill/<slug>/prompt/packets/<packet-id>/body.md`
+- `data/skill/<slug>/prompt/packets/<packet-id>/rendered.md`
+
+Use `--mode actors` for actor extraction packets, `--mode events` for event
+extraction packets (requires `actors_raw.json`), or `--mode all` for actor
+packets only (event packets require a separate call after actor extraction).
+
+### Extract Outputs
+
+`/extract-deal <slug>` writes:
+
+- `data/skill/<slug>/extract/actors_raw.json`
+- `data/skill/<slug>/extract/events_raw.json`
+
+These start as legacy extraction artifacts using `evidence_refs`.
+
+### Canonical Extract Outputs
+
+`skill-pipeline canonicalize --deal <slug>` upgrades extraction artifacts in
+place. It:
+
+- rewrites `actors_raw.json` and `events_raw.json` into canonical span-backed
+  form
+- writes `data/skill/<slug>/extract/spans.json`
+- writes `data/skill/<slug>/canonicalize/canonicalize_log.json`
+
+Do not document the canonical extract contract as `actors.json` or
+`events.json`. The live filenames are still `actors_raw.json` and
+`events_raw.json`.
+
+### Deterministic QA And Enrichment Outputs
+
+- `data/skill/<slug>/check/check_report.json`
+- `data/skill/<slug>/verify/verification_findings.json`
+- `data/skill/<slug>/verify/verification_log.json`
+- `data/skill/<slug>/coverage/coverage_findings.json`
+- `data/skill/<slug>/coverage/coverage_summary.json`
+- `data/skill/<slug>/enrich/deterministic_enrichment.json`
+
+### Semantic Gate Outputs
+
+`skill-pipeline gates --deal <slug>` writes:
+
+- `data/skill/<slug>/gates/gates_report.json`
+
+The gate report contains semantic findings (temporal consistency, cross-event
+logic, actor lifecycle coverage) and an optional attention decay diagnostic.
+Gates run after coverage and before enrich-core. Enrich-core refuses to run if
+gates have blocker findings.
+
+### DuckDB Database
+
+`skill-pipeline db-load --deal <slug>` writes deal data into:
+
+- `data/pipeline.duckdb`
+
+Tables: `actors`, `events`, `spans`, `enrichment`, `cycles`, `rounds`. The
+database is a single multi-deal file keyed by `(deal_slug, <entity_id>)`.
+
+`db-load` uses two-tier enrichment loading:
+
+- `deterministic_enrichment.json` (required) — bid classifications, rounds, cycles
+- `enrichment.json` (optional) — dropout classifications overlaid when present
+
+`skill-pipeline db-export --deal <slug>` writes:
+
+- `data/skill/<slug>/export/deal_events.csv`
+
+The CSV is generated from DuckDB queries, not from JSON artifacts.
+
+Optional later-stage artifacts written by local-agent workflows:
+
+- `data/skill/<slug>/enrich/enrichment.json`
+
+## End-To-End Flow
+
+```text
+data/seeds.csv
+  -> skill-pipeline source-discover --deal <slug>     (optional)
+  -> skill-pipeline raw-fetch --deal <slug>
+  -> raw/<slug>/*
+  -> skill-pipeline preprocess-source --deal <slug>
+  -> data/deals/<slug>/source/*
+  -> skill-pipeline compose-prompts --deal <slug>
+  -> data/skill/<slug>/prompt/*
+  -> /extract-deal <slug>
+  -> data/skill/<slug>/extract/{actors_raw,events_raw}.json
+  -> skill-pipeline canonicalize --deal <slug>
+  -> skill-pipeline check --deal <slug>
+  -> skill-pipeline verify --deal <slug>
+  -> skill-pipeline coverage --deal <slug>
+  -> skill-pipeline gates --deal <slug>
+  -> /verify-extraction <slug>        (only if deterministic findings are repairable)
+  -> skill-pipeline enrich-core --deal <slug>
+  -> /enrich-deal <slug>              (optional interpretive layer)
+  -> skill-pipeline db-load --deal <slug>
+  -> skill-pipeline db-export --deal <slug>
+  -> /reconcile-alex <slug>           (optional post-export diagnostic)
+```
+
+## Hard Invariants
+
+- Filing text is the only factual source of truth.
+- Benchmark materials are forbidden until `skill-pipeline db-export --deal <slug>`
+
+ succeeded in 0ms:
+---
+name: enrich-deal
+description: Use when enriching verified skill extraction artifacts with bid classification, cycle structure, initiation judgment, and advisory or count review.
+---
+
+# enrich-deal
+
+## Design Principles
+
+1. The filing is the single source of truth. Every judgment must cite verbatim
+   filing text.
+2. Classification rules have strict priority order. Do not skip or reorder.
+3. Diagnostic outputs (count reconciliation) never alter data.
+4. Facts come from extract-deal. Judgments come from this skill.
+
+## Purpose
+
+Analyze what the extracted facts mean. Classify bids, segment cycles, determine
+initiation, verify advisory links. This is where reading comprehension matters
+most.
+
+## When To Use
+
+- Called by deal-agent after verify-extraction, or independently via
+  `/enrich-deal <slug>`.
+- Prerequisite: verified `actors_raw.json` and `events_raw.json` exist in
+  `data/skill/<slug>/extract/`.
+
+**Deterministic core:** Run `skill-pipeline enrich-core --deal <slug>` first.
+This writes `enrich/deterministic_enrichment.json` with `rounds`,
+`bid_classifications`, `cycles`, and `formal_boundary`. Residual bid
+classification is `Uncertain`, not forced `Informal`. The interpretive remainder
+(initiation, advisory verification, count reconciliation) stays in this skill.
+
+## Benchmark Boundary
+
+Benchmark materials are forbidden during generation. Do not consult benchmark
+files, benchmark notes, `example/`, `diagnosis/`,
+`data/skill/<slug>/reconcile/*`, or `/reconcile-alex` before
+`skill-pipeline db-export --deal <slug>` completes.
+
+Use only filing-grounded extract and source artifacts during enrichment.
+Benchmark comparison is post-export only and read-only.
+
+## Reads
+
+| File | What it provides |
+|---|---|
+| `data/skill/<slug>/extract/actors_raw.json` | Verified actor roster with roles, advisory links, count_assertions |
+| `data/skill/<slug>/extract/events_raw.json` | Verified event timeline with evidence_refs, terms, formality_signals |
+| `data/deals/<slug>/source/chronology_blocks.jsonl` | Narrative blocks for rereading filing context |
+| `data/deals/<slug>/source/evidence_items.jsonl` | Pre-tagged evidence anchors |
+| `raw/<slug>/filings/*.txt` | Frozen filing text for verbatim citation |
+
+## Enrichment Tasks
+
+All 8 tasks must be completed in this order. Do not skip any task. Do not
+reorder. Tasks 1-2 depend on Task 3's output, so compute Task 3 first even
+though it appears third in the output schema.
+
+**Execution order: 3 -> 4 -> 5 -> 1 -> 2 -> 6 -> 7 -> 8.**
+
+---
+
+### Task 1: Dropout Classification
+
+For each `drop` event in events_raw.json, read `drop_reason_text` and the full
+event history for that actor. Classify into exactly one of 5 labels:
+
+| Label | Condition |
+|---|---|
+| `Drop` | Bidder informed of withdrawal, or general exit. This is the default when no more specific label applies. |
+| `DropBelowM` | Filing says the valuation was below market or trading price. Use filing language only. If the filing does not explicitly mention a market-price comparison, classify as `Drop` and add `dropout_needs_market_data:evt_XXX` to review_flags. |
+| `DropBelowInf` | Filing says the valuation was below the bidder's earlier informal bid. Verify by comparing the drop event's value (if stated) against the actor's extracted proposal values from earlier events. If no prior proposal is extracted for this actor, classify as `Drop` and flag. |
+| `DropAtInf` | Filing says the valuation was at the bidder's earlier informal bid (no improvement). Verify by comparing against the actor's extracted proposal values from earlier events. If no prior proposal is extracted for this actor, classify as `Drop` and flag. |
+| `DropTarget` | Target excluded the bidder from continuing (did not invite to next round). The filing must indicate target-initiated exclusion, not bidder-initiated withdrawal. |
+
+**DropTarget directionality:** DropTarget requires the TARGET to initiate
+exclusion without the bidder first signaling withdrawal. If the sequence is:
+(1) bidder says it cannot improve its bid, then (2) target confirms
+disinterest — classify based on the bidder's stated position (DropAtInf or
+DropBelowInf), not as DropTarget. DropTarget applies only when the target
+proactively excludes a bidder who has not signaled withdrawal.
+
+**DropBelowM rule:** Use filing language only. Do not infer market-price
+comparisons from external data. If the filing says something like "below the
+current trading price" or "less than the market value," that qualifies. If the
+filing simply says the bid was too low without referencing market price,
+classify as `Drop` and add `dropout_needs_market_data:evt_XXX` to
+review_flags.
+
+**DropBelowInf/DropAtInf comparison logic:**
+1. Find all prior proposal events where this actor appears in `actor_ids`.
+2. Extract `terms.per_share` from each prior proposal.
+3. Compare the drop event's stated value (from `drop_reason_text` or context)
+   against the most recent prior proposal value.
+4. If the drop value < prior proposal value: `DropBelowInf`.
+5. If the drop value == prior proposal value: `DropAtInf`.
+6. If no prior proposal exists for this actor: classify as `Drop` and add
+   `dropout_comparison_missing_prior:evt_XXX` to review_flags.
+
+---
+
+### Task 2: Bid Classification (Formal/Informal)
+
+For each `proposal` event in events_raw.json, apply classification rules in
+strict priority order. First matching rule wins. Do not skip to a later rule
+if an earlier rule matches.
+
+| Priority | Rule | Label | Basis |
+|---|---|---|---|
+| 1 | Range bid (`contains_range=true`) OR explicit informal language: `mentions_indication_of_interest=true`, `mentions_preliminary=true`, or `mentions_non_binding=true` | `Informal` | Observable text signal from formality_signals |
+| 2 | Draft/marked-up agreement (`includes_draft_merger_agreement=true` or `includes_marked_up_agreement=true`) OR explicit binding offer (`mentions_binding_offer=true`) | `Formal` | Observable text signal from formality_signals |
+| 3 | Proposal follows a selective final round: `invited_actor_ids` is a strict subset of active bidders at that point in time | `Formal` | Round context + selectivity test |
+| 4 | Residual case: none of the above rules matched | `Uncertain` | Conflicting signals; do not force Informal |
+
+**Rule 3 selectivity test:**
+1. From the `rounds` output (Task 3), find the most recent round announcement
+   that precedes this proposal chronologically.
+2. Count active bidders at the time of that round announcement: actors who have
+   an NDA event and no prior drop event as of that date.
+3. Compare `active_bidders_at_time` to `len(invited_actor_ids)`.
+4. If `len(invited_actor_ids) < active_bidders_at_time`, the round is
+   selective, and this rule applies.
+
+**Fallback when invited_actor_ids is missing or incomplete:** If the round
+announcement event does not have `invited_actor_ids` populated, fall back to
+the post-announcement heuristic: check whether only a subset of previously
+active bidders submitted proposals after the announcement. This is weaker
+evidence. Apply the Formal label but add
+`bid_classification_uncertain:evt_XXX` to review_flags.
+
+---
+
+### Task 3: Round Structure
+
+**This task must be computed BEFORE Tasks 1 and 2** because dropout
+classification and bid classification depend on round context.
+
+Pair each round announcement event with its corresponding deadline event.
+Round announcement types and their paired deadline types:
+
+| Announcement Type | Deadline Type |
+|---|---|
+| `final_round_inf_ann` | `final_round_inf` |
+| `final_round_ann` | `final_round` |
+| `final_round_ext_ann` | `final_round_ext` |
+
+For each paired round, record:
+
+- `announcement_event_id`: the event_id of the announcement event
+- `deadline_event_id`: the event_id of the deadline event (null if no
+  corresponding deadline was extracted)
+- `round_scope`: `formal`, `informal`, or `extension`, taken from the announcement
+  event's `round_scope` field (extension rounds use `final_round_ext_ann`/`final_round_ext`)
+- `invited_actor_ids`: from the announcement event (empty list if not
+  identifiable)
+- `active_bidders_at_time`: count of actors who have an NDA event and no prior
+  drop event as of the announcement date
+- `is_selective`: true when `len(invited_actor_ids) < active_bidders_at_time`
+  and `invited_actor_ids` is non-empty; false otherwise
+
+---
+
+### Task 4: Cycle Segmentation
+
+Identify process cycles from `terminated` and `restarted` events:
+
+- **Single cycle:** No `terminated` or `restarted` events exist. The entire
+  event timeline is one cycle.
+- **Multi-cycle:** Each `terminated` event followed by a `restarted` event
+  defines a cycle boundary. The cycle before the termination is one cycle; the
+  cycle starting at the restart is the next.
+
+For each cycle, record:
+- `cycle_id`: `cycle_1`, `cycle_2`, etc.
+- `start_event_id`: first event in this cycle (first event overall for cycle_1,
+  restarted event_id for subsequent cycles)
+- `end_event_id`: last event in this cycle (terminated event_id, or final event
+  overall for the last cycle)
+- `boundary_basis`: verbatim filing text or description of what triggered the
+  boundary. For single-cycle deals, use `Single cycle -- no termination events`.
+
+---
+
+### Task 5: Formal Boundary
+
+For each cycle, identify the first formal proposal. This is the event where the
+deal shifted from exploratory to serious.
+
+A proposal is formal if its bid classification (Task 2) is `Formal`.
+
+Record:
+- Key: the cycle_id (e.g., `cycle_1`)
+- `event_id`: the event_id of the first formal proposal in that cycle
+- `basis`: one-sentence explanation of why this is the formal boundary, citing
+  the classification rule that applied
+
+If a cycle has no formal proposals, record `event_id: null` and
+`basis: "No formal proposals in this cycle"`.
+
+---
+
+### Task 6: Initiation Judgment
+
+Determine who started the sale process. Read the earliest events in the
+timeline and the surrounding filing narrative.
+
+Four possible types:
+
+| Type | Meaning |
+|---|---|
+| `target_driven` | Board proactively decided to explore strategic alternatives. First process event is `target_sale` or equivalent board decision. |
+| `bidder_driven` | An unsolicited approach triggered the process. First process event is `bidder_interest` or `bidder_sale` before any board decision to sell. |
+| `activist_driven` | Activist pressure forced the board's hand. `activist_sale` precedes or triggers the board's decision. |
+| `mixed` | Multiple factors contributed. E.g., bidder interest coincided with board discussions already underway. |
+
+Required output fields:
+- `type`: one of the four labels above
+- `basis`: one-sentence explanation of the judgment
+- `source_text`: verbatim quote from the filing that supports the judgment
+- `confidence`: `high`, `medium`, or `low`
+
+Use `high` when the filing clearly describes a single initiating cause. Use
+`medium` when the filing is suggestive but not explicit. Use `low` when the
+filing is ambiguous or contradictory and you are making an inference.
+
+---
+
+### Task 7: Advisory Attribution Verification
+
+For each actor with `role: "advisor"` in actors_raw.json:
+1. Read the `advised_actor_id` field.
+2. Search the filing text for the passage that establishes the advisory
+   relationship.
+3. Confirm the link matches. For example, if the filing says "Goodwin Procter,
+   counsel to the Company," verify that `advised_actor_id` points to the
+   target-side actor.
+4. Flag mismatches: if the filing text contradicts the extracted
+   `advised_actor_id`, record `verified: false` and add
+   `advisory_mismatch:advisor_XXX` to review_flags.
+5. If `advised_actor_id` is null but the filing clearly states who the advisor
+   represents, record `verified: false` and flag
+   `advisory_missing_link:advisor_XXX`.
+
+---
+
+### Task 8: Count Reconciliation (Diagnostic Only)
+
+**This output is diagnostic. It never alters data. It informs review_flags.**
+
+Compare each `count_assertion` from actors_raw.json against the actual
+extracted counts. For example, if the filing asserts "15 parties signed
+confidentiality agreements" and you extracted 12 NDA events, that is a
+mismatch of 3.
+
+For each mismatch, classify into exactly one of this 7-label closed set:
+
+| Label | Meaning |
+|---|---|
+
+codex
+I’ve got the workflow constraints. Next I’m loading the rest of the enrichment contract and the current `zep` artifacts so I can append the recovery log and resume from the exact post-`enrich-core` checkpoint without drifting into other stages.
+exec
+/bin/bash -lc "sed -n '261,520p' .claude/skills/enrich-deal/SKILL.md" in /home/austinli/Projects/bids_pipeline
+ succeeded in 0ms:
+| `advisor_exclusion` | The filing counts advisors among the parties, but extraction correctly excludes them from bidder counts. |
+| `stale_process` | The filing references parties from a prior process or earlier timeframe not covered by the chronology. |
+| `unnamed_aggregate` | The filing counts unnamed parties in aggregate that were not individually extracted. |
+| `filing_approximation` | The filing uses approximate language ("approximately 15", "more than a dozen"). |
+| `consortium_counted_once` | Extraction counted consortium members individually, but the filing counted the consortium as one party. |
+| `partial_bidder_excluded` | The filing counts partial-company bidders that were correctly excluded from extraction. |
+| `unresolved` | The mismatch cannot be explained by any of the above categories. |
+
+When counts match exactly, still record the reconciliation with a note
+confirming the match.
+
+---
+
+## Writes
+
+- `data/skill/<slug>/enrich/deterministic_enrichment.json` — from
+  `skill-pipeline enrich-core` (rounds, bid_classifications, cycles, formal_boundary)
+- `data/skill/<slug>/enrich/enrichment.json` — full enrichment including
+  initiation_judgment, advisory_verification, count_reconciliation, review_flags
+
+## JSON Format
+
+The output must contain all 8 sections. Use `event_id` keys (e.g., `evt_016`,
+`evt_011`), NOT event_index or positional references.
+
+```json
+{
+  "dropout_classifications": {
+    "evt_016": {
+      "label": "DropBelowInf",
+      "basis": "Party C's revised indication of $18.50 was below their earlier informal bid of $19.25",
+      "source_text": "Party C submitted a revised indication..."
+    },
+    "evt_023": {
+      "label": "DropTarget",
+      "basis": "Target did not invite Party D to the final round",
+      "source_text": "the Special Committee determined not to invite Party D..."
+    },
+    "evt_025": {
+      "label": "Drop",
+      "basis": "Party E informed the Company it was no longer interested",
+      "source_text": "On October 3, Party E informed representatives of the Company..."
+    }
+  },
+  "bid_classifications": {
+    "evt_011": {
+      "label": "Formal",
+      "rule_applied": 2,
+      "basis": "Proposal included marked-up merger agreement"
+    },
+    "evt_008": {
+      "label": "Informal",
+      "rule_applied": 1,
+      "basis": "Proposal described as preliminary indication of interest"
+    },
+    "evt_019": {
+      "label": "Formal",
+      "rule_applied": 3,
+      "basis": "Proposal submitted after selective final round (3 of 7 active bidders invited)"
+    },
+    "evt_022": {
+      "label": "Uncertain",
+      "rule_applied": null,
+      "basis": "Residual case; conflicting signals"
+    }
+  },
+  "rounds": [
+    {
+      "announcement_event_id": "evt_009",
+      "deadline_event_id": "evt_012",
+      "round_scope": "informal",
+      "invited_actor_ids": [],
+      "active_bidders_at_time": 8,
+      "is_selective": false
+    },
+    {
+      "announcement_event_id": "evt_014",
+      "deadline_event_id": "evt_018",
+      "round_scope": "formal",
+      "invited_actor_ids": ["bidder_sponsor_a", "bidder_sponsor_b", "bidder_thoma_bravo"],
+      "active_bidders_at_time": 5,
+      "is_selective": true
+    }
+  ],
+  "cycles": [
+    {
+      "cycle_id": "cycle_1",
+      "start_event_id": "evt_001",
+      "end_event_id": "evt_029",
+      "boundary_basis": "Single cycle -- no termination events"
+    }
+  ],
+  "formal_boundary": {
+    "cycle_1": {
+      "event_id": "evt_020",
+      "basis": "First formal proposal per Rule 2 (includes_draft_merger_agreement=true)"
+    }
+  },
+  "initiation_judgment": {
+    "type": "bidder_driven",
+    "basis": "Thoma Bravo approached Imprivata before any board decision to explore alternatives",
+    "source_text": "In early 2015, and again in June 2015, representatives of Thoma Bravo informally approached representatives of Imprivata",
+    "confidence": "high"
+  },
+  "advisory_verification": {
+    "advisor_goodwin": {
+      "advised_actor_id": "target_board",
+      "verified": true,
+      "source_text": "Goodwin Procter, counsel to the Company"
+    },
+    "advisor_morgan_stanley": {
+      "advised_actor_id": "target_board",
+      "verified": true,
+      "source_text": "Morgan Stanley & Co. LLC, financial advisor to the Company"
+    }
+  },
+  "count_reconciliation": [
+    {
+      "assertion": "15 parties signed confidentiality agreements",
+      "extracted_count": 12,
+      "classification": "unnamed_aggregate",
+      "note": "Filing counts unnamed parties in aggregate; 3 parties were never individually named in the chronology"
+    },
+    {
+      "assertion": "7 bidders were invited to the final round",
+      "extracted_count": 7,
+      "classification": null,
+      "note": "Counts match exactly"
+    }
+  ],
+  "review_flags": [
+    "dropout_needs_market_data:evt_016",
+    "bid_classification_uncertain:evt_022",
+    "advisory_mismatch:advisor_wachtell"
+  ]
+}
+```
+
+### Field Reference
+
+- **dropout_classifications**: keyed by drop event_id. Every drop event must
+  have an entry.
+- **bid_classifications**: keyed by proposal event_id. Every proposal event
+  must have an entry.
+- **rounds**: ordered list of round pairs. May be empty if no round events
+  exist.
+- **cycles**: ordered list of cycles. Always at least one entry.
+- **formal_boundary**: keyed by cycle_id. Every cycle must have an entry (use
+  `event_id: null` if no formal proposals in that cycle).
+- **initiation_judgment**: single object. Always present.
+- **advisory_verification**: keyed by advisor actor_id. Every advisor actor
+  must have an entry.
+- **count_reconciliation**: list of reconciliation entries. One per
+  count_assertion. May be empty if no count_assertions exist.
+- **review_flags**: flat list of strings. Format: `flag_name:entity_id`.
+  Collect flags from all tasks. May be empty.
+
+## Gate
+
+`enrichment.json` exists and contains all 8 top-level keys. Fail closed if
+any key is missing.
+
+exec
+/bin/bash -lc "if [ -f quality_reports/session_logs/2026-03-29_rerun_zep.md ]; then sed -n '1,220p' quality_reports/session_logs/2026-03-29_rerun_zep.md; fi" in /home/austinli/Projects/bids_pipeline
+ succeeded in 0ms:
+# Fresh Rerun Log: zep
+
+- Start time: 2026-03-29T14:35:48+01:00
+- Owner: main agent
+- Workflow: canonical `/deal-agent` path through enrichment, stopping before DB load/export
+
+## Run Log
+\n### 2026-03-29T14:41:14+01:00 Step 0-2: raw-fetch
+$ EDGAR_IDENTITY='Austin Li junyu.li.24@ucl.ac.uk' skill-pipeline raw-fetch --deal zep
+{
+  "deal_slug": "zep",
+  "cik": "1408287",
+  "primary_candidate_count": 1,
+  "supplementary_candidate_count": 0,
+  "frozen_count": 1,
+  "discovery_path": "raw/zep/discovery.json",
+  "document_registry_path": "raw/zep/document_registry.json"
+}
+\n### 2026-03-29T14:41:27+01:00 Step 2a: preprocess-source
+$ skill-pipeline preprocess-source --deal zep
+{
+  "selected_document_id": "0001047469-15-004989",
+  "selected_accession_number": "0001047469-15-004989",
+  "confidence": "high",
+  "confidence_factors": {
+    "section_length": 361,
+    "score_gap": 4288,
+    "ambiguity_risk": "low",
+    "coverage_assessment": "full"
+  },
+  "block_count": 114,
+  "evidence_count": 1510,
+  "candidate_count": 1,
+  "top_primary_candidate_id": "0001047469-15-004989",
+  "scanned_document_count": 1
+}
+\n### 2026-03-29T14:41:28+01:00 Step 4: compose-prompts actors
+$ skill-pipeline compose-prompts --deal zep --mode actors
+{
+  "schema_version": "2.0.0",
+  "artifact_type": "prompt_packet_manifest",
+  "created_at": "2026-03-29T13:41:28.390813Z",
+  "pipeline_version": "0.1.0",
+  "run_id": "compose-cb483dc1",
+  "deal_slug": "zep",
+  "source_accession_number": "0001047469-15-004989",
+  "packets": [
+    {
+      "packet_id": "actors-w0",
+      "packet_family": "actors",
+      "chunk_mode": "single_pass",
+      "window_id": "w0",
+      "prefix_path": "/home/austinli/Projects/bids_pipeline/data/skill/zep/prompt/packets/actors-w0/prefix.md",
+      "body_path": "/home/austinli/Projects/bids_pipeline/data/skill/zep/prompt/packets/actors-w0/body.md",
+      "rendered_path": "/home/austinli/Projects/bids_pipeline/data/skill/zep/prompt/packets/actors-w0/rendered.md",
+      "evidence_ids": [
+        "0001047469-15-004989:E0364",
+        "0001047469-15-004989:E0365",
+        "0001047469-15-004989:E0366",
+        "0001047469-15-004989:E0367",
+        "0001047469-15-004989:E0368",
+        "0001047469-15-004989:E0369",
+        "0001047469-15-004989:E0370",
+        "0001047469-15-004989:E0371",
+        "0001047469-15-004989:E0372",
+        "0001047469-15-004989:E0373",
+        "0001047469-15-004989:E0374",
+        "0001047469-15-004989:E0375",
+        "0001047469-15-004989:E0376",
+        "0001047469-15-004989:E0377",
+        "0001047469-15-004989:E0378",
+        "0001047469-15-004989:E0379",
+        "0001047469-15-004989:E0380",
+        "0001047469-15-004989:E0381",
+        "0001047469-15-004989:E0382",
+        "0001047469-15-004989:E0383",
+        "0001047469-15-004989:E0384",
+        "0001047469-15-004989:E0385",
+        "0001047469-15-004989:E0386",
+        "0001047469-15-004989:E0387",
+        "0001047469-15-004989:E0388",
+        "0001047469-15-004989:E0389",
+        "0001047469-15-004989:E0390",
+        "0001047469-15-004989:E0391",
+        "0001047469-15-004989:E0392",
+        "0001047469-15-004989:E0393",
+        "0001047469-15-004989:E0394",
+        "0001047469-15-004989:E0395",
+        "0001047469-15-004989:E0396",
+        "0001047469-15-004989:E0397",
+        "0001047469-15-004989:E0398",
+        "0001047469-15-004989:E0399",
+        "0001047469-15-004989:E0400",
+        "0001047469-15-004989:E0401",
+        "0001047469-15-004989:E0402",
+        "0001047469-15-004989:E0403",
+        "0001047469-15-004989:E0404",
+        "0001047469-15-004989:E0405",
+        "0001047469-15-004989:E0406",
+        "0001047469-15-004989:E0407",
+        "0001047469-15-004989:E0408",
+        "0001047469-15-004989:E0409",
+        "0001047469-15-004989:E0410",
+        "0001047469-15-004989:E0411",
+        "0001047469-15-004989:E0412",
+        "0001047469-15-004989:E0413",
+        "0001047469-15-004989:E0414",
+        "0001047469-15-004989:E0415",
+        "0001047469-15-004989:E0416",
+        "0001047469-15-004989:E0417",
+        "0001047469-15-004989:E0418",
+        "0001047469-15-004989:E0419",
+        "0001047469-15-004989:E0420",
+        "0001047469-15-004989:E0421",
+        "0001047469-15-004989:E0422",
+        "0001047469-15-004989:E0423",
+        "0001047469-15-004989:E0424",
+        "0001047469-15-004989:E0425",
+        "0001047469-15-004989:E0426",
+        "0001047469-15-004989:E0427",
+        "0001047469-15-004989:E0428",
+        "0001047469-15-004989:E0429",
+        "0001047469-15-004989:E0430",
+        "0001047469-15-004989:E0431",
+        "0001047469-15-004989:E0432",
+        "0001047469-15-004989:E0433",
+        "0001047469-15-004989:E0434",
+        "0001047469-15-004989:E0435",
+        "0001047469-15-004989:E0436",
+        "0001047469-15-004989:E0437",
+        "0001047469-15-004989:E0438",
+        "0001047469-15-004989:E0439",
+        "0001047469-15-004989:E0440",
+        "0001047469-15-004989:E0441",
+        "0001047469-15-004989:E0442",
+        "0001047469-15-004989:E0443",
+        "0001047469-15-004989:E0444",
+        "0001047469-15-004989:E0445",
+        "0001047469-15-004989:E0446",
+        "0001047469-15-004989:E0447",
+        "0001047469-15-004989:E0448",
+        "0001047469-15-004989:E0449",
+        "0001047469-15-004989:E0450",
+        "0001047469-15-004989:E0451",
+        "0001047469-15-004989:E0452",
+        "0001047469-15-004989:E0453",
+        "0001047469-15-004989:E0454",
+        "0001047469-15-004989:E0455",
+        "0001047469-15-004989:E0456",
+        "0001047469-15-004989:E0457",
+        "0001047469-15-004989:E0458",
+        "0001047469-15-004989:E0459",
+        "0001047469-15-004989:E0460",
+        "0001047469-15-004989:E0461",
+        "0001047469-15-004989:E0462",
+        "0001047469-15-004989:E0463",
+        "0001047469-15-004989:E0464",
+        "0001047469-15-004989:E0465",
+        "0001047469-15-004989:E0466",
+        "0001047469-15-004989:E0467",
+        "0001047469-15-004989:E0468",
+        "0001047469-15-004989:E0469",
+        "0001047469-15-004989:E0470",
+        "0001047469-15-004989:E0471",
+        "0001047469-15-004989:E0472",
+        "0001047469-15-004989:E0473",
+        "0001047469-15-004989:E0474",
+        "0001047469-15-004989:E0475",
+        "0001047469-15-004989:E0476",
+        "0001047469-15-004989:E0477",
+        "0001047469-15-004989:E0478",
+        "0001047469-15-004989:E0479",
+        "0001047469-15-004989:E0480",
+        "0001047469-15-004989:E0481",
+        "0001047469-15-004989:E0482",
+        "0001047469-15-004989:E0483",
+        "0001047469-15-004989:E0484",
+        "0001047469-15-004989:E0485",
+        "0001047469-15-004989:E0486",
+        "0001047469-15-004989:E0487",
+        "0001047469-15-004989:E0488",
+        "0001047469-15-004989:E0489",
+        "0001047469-15-004989:E0490",
+        "0001047469-15-004989:E0491",
+        "0001047469-15-004989:E0492",
+        "0001047469-15-004989:E0493",
+        "0001047469-15-004989:E0494",
+        "0001047469-15-004989:E0495",
+        "0001047469-15-004989:E0496",
+        "0001047469-15-004989:E0497",
+        "0001047469-15-004989:E0498",
+        "0001047469-15-004989:E0499",
+        "0001047469-15-004989:E0500",
+        "0001047469-15-004989:E0501",
+        "0001047469-15-004989:E0502",
+        "0001047469-15-004989:E0503",
+        "0001047469-15-004989:E0504",
+        "0001047469-15-004989:E0505",
+        "0001047469-15-004989:E0506",
+        "0001047469-15-004989:E0507",
+        "0001047469-15-004989:E0508",
+        "0001047469-15-004989:E0509",
+        "0001047469-15-004989:E0510",
+        "0001047469-15-004989:E0511",
+        "0001047469-15-004989:E0512",
+        "0001047469-15-004989:E0513",
+        "0001047469-15-004989:E0514"
+      ],
+      "actor_roster_source_path": null
+    }
+  ],
+  "asset_files": [
+    "/home/austinli/Projects/bids_pipeline/skill_pipeline/prompt_assets/actors_prefix.md"
+  ],
+  "notes": [
+    "mode=actors",
+    "chunk_budget=6000",
+    "routing=auto",
+    "effective_budget=single-pass",
+    "source_blocks=114",
+
+exec
+/bin/bash -lc "ls -R data/skill/zep/enrich data/skill/zep/extract data/deals/zep/source raw/zep quality_reports/session_logs | sed -n '1,260p'" in /home/austinli/Projects/bids_pipeline
+ succeeded in 0ms:
+data/deals/zep/source:
+chronology.json
+chronology_blocks.jsonl
+chronology_selection.json
+evidence_items.jsonl
+filings
+
+data/deals/zep/source/filings:
+0001047469-15-004989.html
+0001047469-15-004989.txt
+
+data/skill/zep/enrich:
+deterministic_enrichment.json
+
+data/skill/zep/extract:
+actors_raw.json
+events_raw.json
+spans.json
+
+quality_reports/session_logs:
+2026-03-18_skill-pipeline-design.md
+2026-03-29_7-deal-rerun_master.md
+2026-03-29_codex_extract_stdout_mac-gray.log
+2026-03-29_codex_extract_stdout_medivation.log
+2026-03-29_codex_extract_stdout_penford.log
+2026-03-29_codex_extract_stdout_petsmart-inc.log
+2026-03-29_codex_extract_stdout_providence-worcester.log
+2026-03-29_codex_extract_stdout_saks.log
+2026-03-29_codex_last_zep.txt
+2026-03-29_codex_stdout_mac-gray.log
+2026-03-29_codex_stdout_medivation.log
+2026-03-29_codex_stdout_penford.log
+2026-03-29_codex_stdout_petsmart-inc.log
+2026-03-29_codex_stdout_providence-worcester.log
+2026-03-29_codex_stdout_saks.log
+2026-03-29_codex_stdout_zep.log
+2026-03-29_codex_stdout_zep_enrich.log
+2026-03-29_rerun_mac-gray.md
+2026-03-29_rerun_medivation.md
+2026-03-29_rerun_penford.md
+2026-03-29_rerun_petsmart-inc.md
+2026-03-29_rerun_providence-worcester.md
+2026-03-29_rerun_saks.md
+2026-03-29_rerun_zep.md
+prompts
+
+quality_reports/session_logs/prompts:
+2026-03-29_codex_enrich_zep_recovery.txt
+2026-03-29_codex_exec_mac-gray.txt
+2026-03-29_codex_exec_medivation.txt
+2026-03-29_codex_exec_penford.txt
+2026-03-29_codex_exec_petsmart-inc.txt
+2026-03-29_codex_exec_providence-worcester.txt
+2026-03-29_codex_exec_saks.txt
+2026-03-29_codex_exec_zep.txt
+2026-03-29_codex_extract_mac-gray.txt
+2026-03-29_codex_extract_medivation.txt
+2026-03-29_codex_extract_penford.txt
+2026-03-29_codex_extract_petsmart-inc.txt
+2026-03-29_codex_extract_providence-worcester.txt
+2026-03-29_codex_extract_saks.txt
+
+raw/zep:
+discovery.json
+document_registry.json
+filings
+
+raw/zep/filings:
+0001047469-15-004989.html
+0001047469-15-004989.txt
+
+codex
+The stable artifacts are present. I’m checking the `zep` extract/enrich inputs plus the prior `zep` enrich session files now so I can document the recovery point, detect any live writer risk, and then fill only the missing interpretive layer.
+exec
+/bin/bash -lc "sed -n '1,220p' quality_reports/session_logs/2026-03-29_codex_last_zep_enrich.txt" in /home/austinli/Projects/bids_pipeline
+ exited 2 in 0ms:
+sed: can't read quality_reports/session_logs/2026-03-29_codex_last_zep_enrich.txt: No such file or directory
+
+exec
+/bin/bash -lc "sed -n '1,260p' quality_reports/session_logs/2026-03-29_codex_stdout_zep_enrich.log" in /home/austinli/Projects/bids_pipeline
+ succeeded in 0ms:
+OpenAI Codex v0.117.0 (research preview)
+--------
+workdir: /home/austinli/Projects/bids_pipeline
+model: gpt-5.4
+provider: openai
+approval: never
+sandbox: danger-full-access
+reasoning effort: xhigh
+reasoning summaries: none
+session id: 019d39e5-d515-77c0-9a9f-05edc2c9dd57
+--------
+user
+Resume the fresh `/deal-agent` rerun for `zep` only from the current stable checkpoint.
+
+Model requirement: GPT-5.4 xhigh.
+
+Strict ownership:
+- `data/skill/zep/`
+- `data/deals/zep/`
+- `raw/zep/`
+- `quality_reports/session_logs/2026-03-29_rerun_zep.md`
+- `quality_reports/session_logs/2026-03-29_codex_last_zep_enrich.txt`
+- `quality_reports/session_logs/2026-03-29_codex_stdout_zep_enrich.log`
+
+Do not touch:
+- shared repo code or tests
+- other deals
+- `data/pipeline.duckdb`
+- benchmark files, reconcile artifacts, or benchmark docs
+
+Authoritative instructions:
+- `CLAUDE.md`
+- `.claude/skills/deal-agent/SKILL.md`
+- `.claude/skills/enrich-deal/SKILL.md`
+
+Current stable checkpoint for `zep`:
+- canonical extract artifacts exist in `data/skill/zep/extract/`
+- `skill-pipeline verify --deal zep` passes
+- `skill-pipeline coverage --deal zep` passes with warnings only
+- `skill-pipeline gates --deal zep` passes with warnings only
+- `skill-pipeline enrich-core --deal zep` has already been run and `data/skill/zep/enrich/deterministic_enrichment.json` exists
+
+Your task:
+1. Append a recovery note to `quality_reports/session_logs/2026-03-29_rerun_zep.md` explaining that you are resuming from the stabilized post-verify/post-coverage/post-gates checkpoint after the earlier concurrency issue.
+2. Perform only the remaining `/enrich-deal zep` work, filing-grounded only.
+3. Write `data/skill/zep/enrich/enrichment.json` matching the canonical skill contract with all 8 top-level keys.
+4. Log every action, any wall, and any fix in `quality_reports/session_logs/2026-03-29_rerun_zep.md`.
+5. Stop before any DB stages.
+
+Fail closed if you hit another concurrent-writer condition or if you cannot support a judgment from the filing artifacts.
+
+In your final response, report:
+- status
+- walls hit
+- fixes applied
+- whether you wrote `enrichment.json`
+- files changed
+
+codex
+Using `deal-agent` and `enrich-deal` because the task is a scoped rerun of the skill workflow for one deal. I’m reading `CLAUDE.md` plus the two skill instructions first, then I’ll inspect the current `zep` checkpoint and resume only the remaining filing-grounded enrichment work.
+exec
+/bin/bash -lc "sed -n '1,240p' .claude/skills/deal-agent/SKILL.md" in /home/austinli/Projects/bids_pipeline
+ succeeded in 0ms:
+---
+name: deal-agent
+description: Use when orchestrating the repo's end-to-end skill workflow for a deal, from SEC filing fetch through DuckDB export.
+---
+
+# deal-agent
+
+## Design Principles
+
+1. The orchestrator stays thin. It checks gates and reports summaries.
+2. It does not re-encode extraction, verification, enrichment, or export logic.
+3. Each sub-skill is independently invocable.
+4. Re-runs are idempotent. Old artifacts are cleaned before fresh writes.
+
+## Overview
+
+End-to-end orchestrator that fetches a SEC filing, preprocesses it into
+chronology blocks, runs LLM extraction with composed prompt packets, validates
+through deterministic gates, enriches, and exports to DuckDB-backed CSV.
+Deterministic runtime stages are available via `skill-pipeline` CLI. Three
+stages require LLM calls: extract-deal, verify-extraction, and enrich-deal.
+
+## Prerequisite
+
+Requires `data/seeds.csv` with a row for `<slug>` and a valid SEC identity
+environment variable (`PIPELINE_SEC_IDENTITY`, `SEC_IDENTITY`, or
+`EDGAR_IDENTITY`).
+
+## When To Use
+
+Invoke as `/deal-agent <slug>` for end-to-end pipeline from filing fetch through
+DuckDB export, plus optional interpretive enrichment and post-export
+reconciliation. Use individual skills when re-running a specific stage.
+
+Re-running `/deal-agent <slug>` on a previously processed deal cleans all
+downstream artifacts and rebuilds from scratch.
+
+## Benchmark Boundary
+
+Benchmark materials are forbidden during generation. Do not consult benchmark
+files, benchmark notes, `example/`, `diagnosis/`,
+`data/skill/<slug>/reconcile/*`, or `/reconcile-alex` before
+`skill-pipeline db-export --deal <slug>` completes.
+
+Use only filing-grounded inputs through export. Benchmark comparison is
+post-export only and read-only.
+
+## Skills
+
+| # | Skill | Artifacts | Failure Mode |
+|---|---|---|---|
+| 0 | `raw-fetch` (deterministic) | `raw/<slug>/document_registry.json`, `raw/<slug>/filings/*.txt` | Fail closed |
+| 0a | `preprocess-source` (deterministic) | `source/chronology_blocks.jsonl`, `source/evidence_items.jsonl` | Fail closed |
+| 1 | `compose-prompts --mode actors` (deterministic) | `prompt/manifest.json`, actor `prompt/packets/*/rendered.md` | Fail closed |
+| 1a | `extract-deal` (LLM) | `extract/actors_raw.json`, `extract/events_raw.json` | Fail closed |
+| 1b | `compose-prompts --mode events` (deterministic) | `prompt/manifest.json` updated, event `prompt/packets/*/rendered.md` | Fail closed; requires `actors_raw.json` |
+| 2 | `canonicalize` (deterministic) | `extract/spans.json`, `canonicalize/canonicalize_log.json` | Fail closed |
+| 2a | `check` (deterministic) | `check/check_report.json` | Fail closed on blockers |
+| 3 | `verify` + `coverage` (deterministic) | `verify/*.json`, `coverage/*.json` | Fail closed on error status |
+| 3a | `gates` (deterministic) | `gates/gates_report.json` | Fail closed on blocker findings |
+| 4 | `verify-extraction` (LLM) | updated extraction files | Fail closed (stop on round-2 errors) |
+| 5 | `enrich-core` (deterministic) | `enrich/deterministic_enrichment.json` | Fail closed |
+| 6 | `enrich-deal` (LLM, optional) | `enrich/enrichment.json` | Fail closed |
+| 6a | `db-load` (deterministic) | DuckDB `data/pipeline.duckdb` updated | Fail closed |
+| 6b | `db-export` (deterministic) | `export/deal_events.csv` | Fail closed |
+
+## Procedure
+
+```text
+0. Clean artifacts for fresh run.
+   Delete data/skill/<slug>/ entirely (extract, check, verify, coverage,
+   gates, enrich, export, canonicalize, prompt — all downstream artifacts).
+   Delete data/deals/<slug>/source/ (preprocess outputs).
+   Leave raw/<slug>/ intact — filing text is immutable from EDGAR.
+   If raw/<slug>/ does not exist, it will be created by raw-fetch.
+
+1. Read the seed entry for <slug>.
+   Gate: seeds.csv contains a row for this slug.
+
+1a. Set SEC identity.
+    Run: export EDGAR_IDENTITY="Austin Li junyu.li.24@ucl.ac.uk"
+    Gate: EDGAR_IDENTITY is set in the shell environment before raw-fetch.
+
+2. Run `skill-pipeline raw-fetch --deal <slug>`
+   Gate: raw/<slug>/document_registry.json exists.
+   Note: If raw filings already exist with identical content, raw-fetch
+   succeeds silently (immutable-write contract). Discovery and registry
+   metadata are always refreshed.
+
+2a. Run `skill-pipeline preprocess-source --deal <slug>`
+    Gate: data/deals/<slug>/source/chronology_blocks.jsonl exists.
+
+3. Ensure output directories exist:
+   - data/skill/<slug>/extract/
+   - data/skill/<slug>/check/
+   - data/skill/<slug>/verify/
+   - data/skill/<slug>/coverage/
+   - data/skill/<slug>/gates/
+   - data/skill/<slug>/enrich/
+   - data/skill/<slug>/export/
+   - data/skill/<slug>/canonicalize/
+   - data/skill/<slug>/prompt/
+
+4. Run `skill-pipeline compose-prompts --deal <slug> --mode actors`
+   Gate: prompt/manifest.json exists, actor_packet_count > 0.
+   Generates actor prompt packets consumed by extract-deal.
+
+4a. Run /extract-deal <slug>
+    Gate: actors_raw.json and events_raw.json both exist and are non-empty.
+    If gate fails: stop.
+
+4b. Run `skill-pipeline compose-prompts --deal <slug> --mode events`
+    Gate: prompt/manifest.json updated, event_packet_count > 0.
+    Requires actors_raw.json from step 4a.
+
+5. Run `skill-pipeline canonicalize --deal <slug>`
+   - Outputs: canonicalize/canonicalize_log.json and extract/spans.json
+   - Overwrites actors_raw.json and events_raw.json in place with the
+     canonical schema (evidence_span_ids, normalized dates)
+   - Deduplicates events, removes drops without NDAs, recovers unnamed parties
+
+5a. Run deterministic check: `skill-pipeline check --deal <slug>`
+    Gate: check_report.json exists and summary.status == "pass".
+    If gate fails: stop.
+
+6. Run deterministic verify: `skill-pipeline verify --deal <slug>`
+   Gate: verification_log.json exists AND summary.status != "fail".
+
+6a. Run deterministic coverage: `skill-pipeline coverage --deal <slug>`
+    Gate: coverage_summary.json exists and summary.status != "fail".
+
+6b. Run deterministic gates: `skill-pipeline gates --deal <slug>`
+    Gate: gates_report.json exists and has no blocker-severity findings.
+    Required by enrich-core.
+
+7. Run /verify-extraction <slug>
+   Gate: verification and coverage artifacts exist. May invoke LLM repair when
+   all error-level findings are repairable; otherwise fail closed.
+
+   Note: If verify-extraction made structural changes (added/removed events,
+   changed dates, modified actor references), re-run steps 5a through 6b
+   (check, verify, coverage, gates) before proceeding to enrich-core.
+   Enrich-core uses gate artifacts that may be stale after structural repairs.
+
+8. Run `skill-pipeline enrich-core --deal <slug>`
+   Gate: deterministic_enrichment.json exists.
+
+9. Run /enrich-deal <slug>
+   Gate: enrichment.json exists.
+   Optional: skip if only deterministic enrichment is needed.
+
+9a. Run `skill-pipeline db-load --deal <slug>`
+    Gate: data/pipeline.duckdb exists and contains rows for this deal.
+    Note: Loads deterministic enrichment baseline. If enrichment.json exists
+    (from enrich-deal above), overlays dropout_classifications automatically.
+
+9b. Run `skill-pipeline db-export --deal <slug>`
+    Gate: deal_events.csv exists and is non-empty.
+
+10. Report summary:
+    - Actor count, event count, proposal count
+    - Check: blocker count, warning count
+    - Coverage: error count, warning count
+    - Verification: round 1 errors found, fixes applied, round 2 status
+    - Enrichment: cycle count, formal/informal split, initiation judgment type
+    - DB load: actor row count, event row count, span row count
+    - DB export: event row count, output path
+    - Review flags count
+    - Output path: data/skill/<slug>/export/deal_events.csv
+```
+
+## Individual Invocation
+
+Each skill is independently callable:
+
+- `skill-pipeline raw-fetch --deal <slug>` -- fetch and freeze SEC filing
+- `skill-pipeline preprocess-source --deal <slug>` -- build source artifacts from frozen filings
+- `skill-pipeline compose-prompts --deal <slug>` -- build prompt packets for extraction
+- `skill-pipeline canonicalize --deal <slug>` -- upgrade extraction into canonical span-backed artifacts
+- `skill-pipeline check --deal <slug>` -- run deterministic structural check
+- `skill-pipeline verify --deal <slug>` -- run deterministic verification
+- `skill-pipeline coverage --deal <slug>` -- run deterministic source-coverage audit
+- `skill-pipeline gates --deal <slug>` -- run semantic validation gates (temporal, cross-event, lifecycle, attention)
+- `skill-pipeline enrich-core --deal <slug>` -- run deterministic enrich core
+- `skill-pipeline db-load --deal <slug>` -- load canonical extracts + enrichment into DuckDB
+- `skill-pipeline db-export --deal <slug>` -- generate CSV export from DuckDB
+- `/extract-deal <slug>` -- run extraction only
+- `/verify-extraction <slug>` -- run verification only
+- `/enrich-deal <slug>` -- run enrichment only
+
+exec
+/bin/bash -lc "sed -n '1,260p' .claude/skills/enrich-deal/SKILL.md" in /home/austinli/Projects/bids_pipeline
+exec
+/bin/bash -lc "sed -n '1,240p' CLAUDE.md" in /home/austinli/Projects/bids_pipeline
+ succeeded in 0ms:
+# CLAUDE.md
+
+
+exec
+/bin/bash -lc "printf 'actors\\n'; jq '.actors | length' data/skill/zep/extract/actors_raw.json; printf '\\nevents\\n'; jq '.events | length' data/skill/zep/extract/events_raw.json; printf '\\ndeterministic top keys\\n'; jq 'keys' data/skill/zep/enrich/deterministic_enrichment.json" in /home/austinli/Projects/bids_pipeline
+ succeeded in 0ms:
+actors
+8
+
+events
+16
+
+deterministic top keys
+[
+  "bid_classifications",
+  "cycles",
+  "formal_boundary",
+  "rounds"
+]
+
+exec
+/bin/bash -lc "pgrep -fa 'skill-pipeline|codex|claude|zep'" in /home/austinli/Projects/bids_pipeline
+ succeeded in 0ms:
+9659 /home/austinli/.local/share/claude/versions/2.1.85 --chrome-native-host
+15002 claude --dangerously-skip-permissions
+15082 node /home/austinli/.npm-global/bin/codex mcp-server -c sandbox=workspace-write
+15142 /home/austinli/.npm-global/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl/codex/codex mcp-server -c sandbox=workspace-write
+517669 node /home/austinli/.npm-global/bin/codex
+517676 /home/austinli/.npm-global/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl/codex/codex
+519613 systemd-inhibit --what=idle --mode=block --who codex --why Codex is running an active turn -- sleep 2147483647
+529222 /bin/bash -c codex exec -m gpt-5.4 -c 'model_reasoning_effort="xhigh"' --dangerously-bypass-approvals-and-sandbox -C /home/austinli/Projects/bids_pipeline -o /home/austinli/Projects/bids_pipeline/quality_reports/session_logs/2026-03-29_codex_extract_last_penford.txt - < /home/austinli/Projects/bids_pipeline/quality_reports/session_logs/prompts/2026-03-29_codex_extract_penford.txt > /home/austinli/Projects/bids_pipeline/quality_reports/session_logs/2026-03-29_codex_extract_stdout_penford.log 2>&1
+529223 /bin/bash -c codex exec -m gpt-5.4 -c 'model_reasoning_effort="xhigh"' --dangerously-bypass-approvals-and-sandbox -C /home/austinli/Projects/bids_pipeline -o /home/austinli/Projects/bids_pipeline/quality_reports/session_logs/2026-03-29_codex_extract_last_mac-gray.txt - < /home/austinli/Projects/bids_pipeline/quality_reports/session_logs/prompts/2026-03-29_codex_extract_mac-gray.txt > /home/austinli/Projects/bids_pipeline/quality_reports/session_logs/2026-03-29_codex_extract_stdout_mac-gray.log 2>&1
+529224 /bin/bash -c codex exec -m gpt-5.4 -c 'model_reasoning_effort="xhigh"' --dangerously-bypass-approvals-and-sandbox -C /home/austinli/Projects/bids_pipeline -o /home/austinli/Projects/bids_pipeline/quality_reports/session_logs/2026-03-29_codex_extract_last_saks.txt - < /home/austinli/Projects/bids_pipeline/quality_reports/session_logs/prompts/2026-03-29_codex_extract_saks.txt > /home/austinli/Projects/bids_pipeline/quality_reports/session_logs/2026-03-29_codex_extract_stdout_saks.log 2>&1
+529225 node /home/austinli/.npm-global/bin/codex exec -m gpt-5.4 -c model_reasoning_effort="xhigh" --dangerously-bypass-approvals-and-sandbox -C /home/austinli/Projects/bids_pipeline -o /home/austinli/Projects/bids_pipeline/quality_reports/session_logs/2026-03-29_codex_extract_last_penford.txt -
+529226 node /home/austinli/.npm-global/bin/codex exec -m gpt-5.4 -c model_reasoning_effort="xhigh" --dangerously-bypass-approvals-and-sandbox -C /home/austinli/Projects/bids_pipeline -o /home/austinli/Projects/bids_pipeline/quality_reports/session_logs/2026-03-29_codex_extract_last_saks.txt -
+529227 node /home/austinli/.npm-global/bin/codex exec -m gpt-5.4 -c model_reasoning_effort="xhigh" --dangerously-bypass-approvals-and-sandbox -C /home/austinli/Projects/bids_pipeline -o /home/austinli/Projects/bids_pipeline/quality_reports/session_logs/2026-03-29_codex_extract_last_mac-gray.txt -
+529246 /home/austinli/.npm-global/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl/codex/codex exec -m gpt-5.4 -c model_reasoning_effort="xhigh" --dangerously-bypass-approvals-and-sandbox -C /home/austinli/Projects/bids_pipeline -o /home/austinli/Projects/bids_pipeline/quality_reports/session_logs/2026-03-29_codex_extract_last_mac-gray.txt -
+529247 /home/austinli/.npm-global/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl/codex/codex exec -m gpt-5.4 -c model_reasoning_effort="xhigh" --dangerously-bypass-approvals-and-sandbox -C /home/austinli/Projects/bids_pipeline -o /home/austinli/Projects/bids_pipeline/quality_reports/session_logs/2026-03-29_codex_extract_last_saks.txt -
+529270 /home/austinli/.npm-global/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl/codex/codex exec -m gpt-5.4 -c model_reasoning_effort="xhigh" --dangerously-bypass-approvals-and-sandbox -C /home/austinli/Projects/bids_pipeline -o /home/austinli/Projects/bids_pipeline/quality_reports/session_logs/2026-03-29_codex_extract_last_penford.txt -
+530518 /bin/bash -c codex exec -m gpt-5.4 -c 'model_reasoning_effort="xhigh"' --dangerously-bypass-approvals-and-sandbox -C /home/austinli/Projects/bids_pipeline -o /home/austinli/Projects/bids_pipeline/quality_reports/session_logs/2026-03-29_codex_extract_last_medivation.txt - < /home/austinli/Projects/bids_pipeline/quality_reports/session_logs/prompts/2026-03-29_codex_extract_medivation.txt > /home/austinli/Projects/bids_pipeline/quality_reports/session_logs/2026-03-29_codex_extract_stdout_medivation.log 2>&1
+530519 node /home/austinli/.npm-global/bin/codex exec -m gpt-5.4 -c model_reasoning_effort="xhigh" --dangerously-bypass-approvals-and-sandbox -C /home/austinli/Projects/bids_pipeline -o /home/austinli/Projects/bids_pipeline/quality_reports/session_logs/2026-03-29_codex_extract_last_medivation.txt -
+530527 /bin/bash -c codex exec -m gpt-5.4 -c 'model_reasoning_effort="xhigh"' --dangerously-bypass-approvals-and-sandbox -C /home/austinli/Projects/bids_pipeline -o /home/austinli/Projects/bids_pipeline/quality_reports/session_logs/2026-03-29_codex_extract_last_providence-worcester.txt - < /home/austinli/Projects/bids_pipeline/quality_reports/session_logs/prompts/2026-03-29_codex_extract_providence-worcester.txt > /home/austinli/Projects/bids_pipeline/quality_reports/session_logs/2026-03-29_codex_extract_stdout_providence-worcester.log 2>&1
+530529 node /home/austinli/.npm-global/bin/codex exec -m gpt-5.4 -c model_reasoning_effort="xhigh" --dangerously-bypass-approvals-and-sandbox -C /home/austinli/Projects/bids_pipeline -o /home/austinli/Projects/bids_pipeline/quality_reports/session_logs/2026-03-29_codex_extract_last_providence-worcester.txt -
+530541 /home/austinli/.npm-global/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl/codex/codex exec -m gpt-5.4 -c model_reasoning_effort="xhigh" --dangerously-bypass-approvals-and-sandbox -C /home/austinli/Projects/bids_pipeline -o /home/austinli/Projects/bids_pipeline/quality_reports/session_logs/2026-03-29_codex_extract_last_medivation.txt -
+530560 /home/austinli/.npm-global/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl/codex/codex exec -m gpt-5.4 -c model_reasoning_effort="xhigh" --dangerously-bypass-approvals-and-sandbox -C /home/austinli/Projects/bids_pipeline -o /home/austinli/Projects/bids_pipeline/quality_reports/session_logs/2026-03-29_codex_extract_last_providence-worcester.txt -
+532846 /bin/bash -c sleep 120; date -Iseconds; for d in mac-gray medivation penford petsmart-inc providence-worcester saks zep; do echo "== $d =="; find data/skill/$d -maxdepth 3 -type f 2>/dev/null | sort; echo '-- log tail --'; tail -n 12 quality_reports/session_logs/2026-03-29_rerun_$d.md 2>/dev/null; done
+533121 /bin/bash -c codex exec -m gpt-5.4 -c 'model_reasoning_effort="xhigh"' --dangerously-bypass-approvals-and-sandbox -C /home/austinli/Projects/bids_pipeline -o /home/austinli/Projects/bids_pipeline/quality_reports/session_logs/2026-03-29_codex_last_zep_enrich.txt - < /home/austinli/Projects/bids_pipeline/quality_reports/session_logs/prompts/2026-03-29_codex_enrich_zep_recovery.txt > /home/austinli/Projects/bids_pipeline/quality_reports/session_logs/2026-03-29_codex_stdout_zep_enrich.log 2>&1
+533122 node /home/austinli/.npm-global/bin/codex exec -m gpt-5.4 -c model_reasoning_effort="xhigh" --dangerously-bypass-approvals-and-sandbox -C /home/austinli/Projects/bids_pipeline -o /home/austinli/Projects/bids_pipeline/quality_reports/session_logs/2026-03-29_codex_last_zep_enrich.txt -
+533129 /home/austinli/.npm-global/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl/codex/codex exec -m gpt-5.4 -c model_reasoning_effort="xhigh" --dangerously-bypass-approvals-and-sandbox -C /home/austinli/Projects/bids_pipeline -o /home/austinli/Projects/bids_pipeline/quality_reports/session_logs/2026-03-29_codex_last_zep_enrich.txt -
+533573 /bin/bash -c sleep 70; echo '== zep enrich files =='; find data/skill/zep/enrich -maxdepth 2 -type f 2>/dev/null | sort; echo '== zep enrich stdout tail =='; tail -n 80 quality_reports/session_logs/2026-03-29_codex_stdout_zep_enrich.log; echo '== zep enrich last =='; [ -f quality_reports/session_logs/2026-03-29_codex_last_zep_enrich.txt ] && tail -n 80 quality_reports/session_logs/2026-03-29_codex_last_zep_enrich.txt || echo 'no last yet';
+533633 /bin/bash -c sleep 60; for d in mac-gray medivation penford saks petsmart-inc providence-worcester zep; do printf '%s ' "$d"; [ -f data/skill/$d/extract/actors_raw.json ] && printf 'A'; [ -f data/skill/$d/extract/events_raw.json ] && printf 'E'; [ -f data/skill/$d/canonicalize/canonicalize_log.json ] && printf 'C'; [ -f data/skill/$d/check/check_report.json ] && printf 'K'; [ -f data/skill/$d/verify/verification_log.json ] && printf 'V'; [ -f data/skill/$d/coverage/coverage_summary.json ] && printf 'O'; [ -f data/skill/$d/gates/gates_report.json ] && printf 'G'; [ -f data/skill/$d/enrich/deterministic_enrichment.json ] && printf 'D'; [ -f data/skill/$d/enrich/enrichment.json ] && printf 'N'; printf '\n'; done
+

@@ -1,0 +1,129 @@
+{
+  "dropout_classifications": {
+    "evt_008": {
+      "label": "Drop",
+      "basis": "The filing says the remaining bidders were unable to proceed because of valuation concerns, but it does not provide actor-specific comparison values or describe a target-initiated exclusion.",
+      "source_text": "the next few weeks, five of the remaining six interested parties communicated to representatives of BofA Merrill Lynch that they were unable to proceed with the process due to concerns regarding valuation"
+    }
+  },
+  "bid_classifications": {
+    "evt_005": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_006": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_007": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_011": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_013": {
+      "label": "Informal",
+      "rule_applied": 1.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_014": {
+      "label": "Uncertain",
+      "rule_applied": null,
+      "basis": "No deterministic rule matched; residual case."
+    }
+  },
+  "rounds": [],
+  "cycles": [
+    {
+      "cycle_id": "cycle_1",
+      "start_event_id": "evt_001",
+      "end_event_id": "evt_011",
+      "boundary_basis": "Restarted event."
+    },
+    {
+      "cycle_id": "cycle_2",
+      "start_event_id": "evt_012",
+      "end_event_id": "evt_016",
+      "boundary_basis": "Final cycle."
+    }
+  ],
+  "formal_boundary": {
+    "cycle_1": {
+      "event_id": null,
+      "basis": "No formal proposals in this cycle."
+    },
+    "cycle_2": {
+      "event_id": null,
+      "basis": "No formal proposals in this cycle."
+    }
+  },
+  "initiation_judgment": {
+    "type": "target_driven",
+    "basis": "The board began exploring strategic alternatives well before the later New Mountain Capital approach, so the sale process was initiated by the target rather than by an inbound bidder.",
+    "source_text": "our board of directors unanimously agreed to proceed with certain initial steps related to exploring our strategic alternatives, including a potential sale of the Company.",
+    "confidence": "high"
+  },
+  "advisory_verification": {
+    "advisor_bofa_merrill_lynch": {
+      "advised_actor_id": "target_board",
+      "verified": true,
+      "source_text": "BofA Merrill Lynch to act as our financial advisor in connection with reviewing our strategic alternatives."
+    },
+    "advisor_king_spalding": {
+      "advised_actor_id": "target_board",
+      "verified": true,
+      "source_text": "King & Spalding LLP (\"King & Spalding\"), legal counsel to the Company"
+    }
+  },
+  "count_reconciliation": [
+    {
+      "assertion": "fifty potential buyers were contacted",
+      "extracted_count": 7,
+      "classification": "unnamed_aggregate",
+      "note": "The filing counts the broad outreach pool, but only seven bidders are represented in the extract through named actors or grouped unnamed actors."
+    },
+    {
+      "assertion": "fifty potential buyers comprised twenty-eight strategic buyers and twenty-two financial buyers",
+      "extracted_count": 7,
+      "classification": "unnamed_aggregate",
+      "note": "The strategic-versus-financial outreach mix is described in aggregate, while only seven bidder participants are represented in the extract."
+    },
+    {
+      "assertion": "twenty-five confidentiality agreements were executed",
+      "extracted_count": 5,
+      "classification": "unnamed_aggregate",
+      "note": "The extract captures New Mountain Capital plus grouped unnamed bidders with NDA participation, but most NDA counterparties remain unnamed in the filing chronology."
+    },
+    {
+      "assertion": "five parties submitted initial preliminary indications of interest",
+      "extracted_count": 5,
+      "classification": null,
+      "note": "Counts match exactly across New Mountain Capital, three grouped financial bidders, and one grouped strategic bidder."
+    },
+    {
+      "assertion": "six remaining bidders received the draft merger agreement after Party X withdrew",
+      "extracted_count": 6,
+      "classification": null,
+      "note": "Counts match exactly across New Mountain Capital, three grouped financial bidders, one grouped strategic bidder, and Party Y."
+    },
+    {
+      "assertion": "fifty-eight parties were contacted during the go-shop process",
+      "extracted_count": 0,
+      "classification": "unnamed_aggregate",
+      "note": "No go-shop counterparties were individually identified or extracted because none submitted a competing proposal or remained engaged."
+    }
+  ],
+  "review_flags": [
+    "bid_classification_uncertain:evt_014",
+    "count_mismatch:buyers_contacted_total",
+    "count_mismatch:buyers_contacted_mix",
+    "count_mismatch:nda_executed_total",
+    "count_mismatch:go_shop_contacted_total"
+  ]
+}

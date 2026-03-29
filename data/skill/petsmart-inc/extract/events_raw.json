@@ -1,0 +1,590 @@
+{
+  "events": [
+    {
+      "event_id": "evt_001",
+      "event_type": "activist_sale",
+      "date": {
+        "raw_text": "July 3, 2014",
+        "normalized_start": "2014-07-03",
+        "normalized_end": "2014-07-03",
+        "sort_date": "2014-07-03",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "activist_jana_partners"
+      ],
+      "summary": "JANA Partners publicly pushed for a review of strategic alternatives, including a sale of the Company.",
+      "evidence_span_ids": [
+        "span_0011"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_002",
+      "event_type": "activist_sale",
+      "date": {
+        "raw_text": "July 7, 2014",
+        "normalized_start": "2014-07-07",
+        "normalized_end": "2014-07-07",
+        "sort_date": "2014-07-07",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "activist_longview"
+      ],
+      "summary": "Longview publicly urged the board to consider a sale of the Company.",
+      "evidence_span_ids": [
+        "span_0005"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_003",
+      "event_type": "ib_retention",
+      "date": {
+        "raw_text": "In July",
+        "normalized_start": null,
+        "normalized_end": null,
+        "sort_date": null,
+        "precision": "unknown",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": "Unable to parse date deterministically.",
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "advisor_jp_morgan",
+        "target_board"
+      ],
+      "summary": "The Company retained J. P. Morgan as financial advisor for the review of alternatives.",
+      "evidence_span_ids": [
+        "span_0012"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_004",
+      "event_type": "bidder_interest",
+      "date": {
+        "raw_text": "August 7, 2014",
+        "normalized_start": "2014-08-07",
+        "normalized_end": "2014-08-07",
+        "sort_date": "2014-08-07",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_industry_participant"
+      ],
+      "summary": "Industry Participant indicated interest in revisiting a possible combination if the Company pursued strategic alternatives.",
+      "evidence_span_ids": [
+        "span_0006"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_005",
+      "event_type": "target_sale",
+      "date": {
+        "raw_text": "August 13, 2014",
+        "normalized_start": "2014-08-13",
+        "normalized_end": "2014-08-13",
+        "sort_date": "2014-08-13",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "target_board"
+      ],
+      "summary": "The board determined to explore strategic alternatives, including a possible sale of the Company.",
+      "evidence_span_ids": [
+        "span_0001"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_006",
+      "event_type": "target_sale_public",
+      "date": {
+        "raw_text": "August 19, 2014",
+        "normalized_start": "2014-08-19",
+        "normalized_end": "2014-08-19",
+        "sort_date": "2014-08-19",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "target_board"
+      ],
+      "summary": "The Company publicly announced that it was exploring strategic alternatives, including a possible sale of the Company.",
+      "evidence_span_ids": [
+        "span_0024"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_007",
+      "event_type": "final_round_ann",
+      "date": {
+        "raw_text": "November 3, 2014",
+        "normalized_start": "2014-11-03",
+        "normalized_end": "2014-11-03",
+        "sort_date": "2014-11-03",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [],
+      "summary": "The board advanced the bidders at or above $80.00 per share to the final round.",
+      "evidence_span_ids": [
+        "span_0014"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": "formal",
+      "invited_actor_ids": [
+        "bidder_buyer_group",
+        "bidder_2",
+        "bidder_3"
+      ],
+      "deadline_date": {
+        "raw_text": "December 10, 2014",
+        "normalized_start": "2014-12-10",
+        "normalized_end": "2014-12-10",
+        "sort_date": "2014-12-10",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": [
+        "Bidder 3 represents two bidders working together, consistent with the filing's count of four invited bidders."
+      ]
+    },
+    {
+      "event_id": "evt_008",
+      "event_type": "final_round",
+      "date": {
+        "raw_text": "December 10, 2014",
+        "normalized_start": "2014-12-10",
+        "normalized_end": "2014-12-10",
+        "sort_date": "2014-12-10",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [],
+      "summary": "PetSmart received final bid letters and transaction documents from the remaining final-round bidders.",
+      "evidence_span_ids": [
+        "span_0015"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": "formal",
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_009",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "December 10, 2014",
+        "normalized_start": "2014-12-10",
+        "normalized_end": "2014-12-10",
+        "sort_date": "2014-12-10",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_buyer_group"
+      ],
+      "summary": "The Buyer Group submitted a final cash bid at $80.70 per share.",
+      "evidence_span_ids": [
+        "span_0016",
+        "span_0015"
+      ],
+      "terms": {
+        "per_share": "80.7",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": false,
+        "mentions_preliminary": false,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": true,
+        "includes_marked_up_agreement": true,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": true,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_010",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "December 10, 2014",
+        "normalized_start": "2014-12-10",
+        "normalized_end": "2014-12-10",
+        "sort_date": "2014-12-10",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_2"
+      ],
+      "summary": "Bidder 2 submitted a final cash bid at $80.35 per share.",
+      "evidence_span_ids": [
+        "span_0017",
+        "span_0015"
+      ],
+      "terms": {
+        "per_share": "80.35",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": false,
+        "mentions_preliminary": false,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": true,
+        "includes_marked_up_agreement": true,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": true,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_012",
+      "event_type": "final_round_ext_ann",
+      "date": {
+        "raw_text": "December 10, 2014",
+        "normalized_start": "2014-12-10",
+        "normalized_end": "2014-12-10",
+        "sort_date": "2014-12-10",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [],
+      "summary": "The ad hoc committee required the remaining bidders to submit improved bids on December 12, 2014.",
+      "evidence_span_ids": [
+        "span_0019"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": "formal",
+      "invited_actor_ids": [
+        "bidder_buyer_group",
+        "bidder_2"
+      ],
+      "deadline_date": {
+        "raw_text": "December 12, 2014",
+        "normalized_start": "2014-12-12",
+        "normalized_end": "2014-12-12",
+        "sort_date": "2014-12-12",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_014",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "December 12, 2014",
+        "normalized_start": "2014-12-12",
+        "normalized_end": "2014-12-12",
+        "sort_date": "2014-12-12",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_2"
+      ],
+      "summary": "Bidder 2 submitted a best-and-final cash offer at $81.50 per share.",
+      "evidence_span_ids": [
+        "span_0021"
+      ],
+      "terms": {
+        "per_share": "81.5",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": false,
+        "mentions_preliminary": false,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": true,
+        "includes_marked_up_agreement": true,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": true,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_015",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "December 12, 2014",
+        "normalized_start": "2014-12-12",
+        "normalized_end": "2014-12-12",
+        "sort_date": "2014-12-12",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_buyer_group"
+      ],
+      "summary": "The Buyer Group submitted a best-and-final cash offer at $83.00 per share.",
+      "evidence_span_ids": [
+        "span_0022"
+      ],
+      "terms": {
+        "per_share": "83.0",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": false,
+        "mentions_preliminary": false,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": true,
+        "includes_marked_up_agreement": true,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": true,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": [
+        "The filing also notes an earlier oral indication at $82.50 per share before the best-and-final $83.00 bid."
+      ]
+    },
+    {
+      "event_id": "evt_016",
+      "event_type": "executed",
+      "date": {
+        "raw_text": "December 14, 2014",
+        "normalized_start": "2014-12-14",
+        "normalized_end": "2014-12-14",
+        "sort_date": "2014-12-14",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "target_board",
+        "bidder_buyer_group"
+      ],
+      "summary": "The parties executed the merger agreement and related transaction agreements.",
+      "evidence_span_ids": [
+        "span_0023"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": "bidder_buyer_group",
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    }
+  ],
+  "exclusions": [],
+  "coverage_notes": [
+    "target_sale: extracted (evt_005)",
+    "target_sale_public: extracted (evt_006)",
+    "bidder_sale: NOT FOUND -- no acquirer-initiated sale process marker was identified.",
+    "bidder_interest: extracted (evt_004)",
+    "activist_sale: extracted (evt_001, evt_002)",
+    "sale_press_release: NOT FOUND -- no separate press-release event was extracted in this first pass.",
+    "bid_press_release: NOT FOUND -- execution block references a press release but the deal-signing event is captured as executed.",
+    "ib_retention: extracted (evt_003)",
+    "nda: extracted (evt_013)",
+    "proposal: extracted (evt_009, evt_010, evt_014, evt_015)",
+    "drop: extracted (evt_006, evt_011)",
+    "final_round_inf_ann: NOT FOUND -- no informal final round announcement identified.",
+    "final_round_inf: NOT FOUND -- no informal final round deadline identified.",
+    "final_round_ann: extracted (evt_007)",
+    "final_round: extracted (evt_008)",
+    "final_round_ext_ann: extracted (evt_012)",
+    "final_round_ext: NOT FOUND -- the extract records the extension announcement and the resulting December 12 proposals without a separate deadline-only event.",
+    "executed: extracted (evt_016)",
+    "terminated: NOT FOUND -- the sale process ended in a signed merger agreement rather than a termination.",
+    "restarted: NOT FOUND -- no restarted process marker identified."
+  ]
+}

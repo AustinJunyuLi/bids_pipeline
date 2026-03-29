@@ -45,6 +45,12 @@ def _event_has_evidence(artifacts: LoadedExtractArtifacts, event) -> bool:
     return bool(event.evidence_span_ids)
 
 
+def _counted_bidder_weight(actor) -> int:
+    if actor.is_grouped and actor.group_size:
+        return actor.group_size
+    return 1
+
+
 def _check_proposal_terms(artifacts: LoadedExtractArtifacts) -> list[CheckFinding]:
     findings: list[CheckFinding] = []
     _, events = _get_actor_event_records(artifacts)
@@ -185,15 +191,17 @@ def _check_nda_count_gaps(artifacts: LoadedExtractArtifacts) -> list[CheckFindin
             continue
         # Use the strongest filing-backed count when the same subject is asserted multiple times.
         asserted_count = max(assertion.count for assertion in assertions)
-        grounded_actor_ids = sorted(
-            actor.actor_id
+        grounded_actors = [
+            actor
             for actor in actor_records
             if actor.role == "bidder"
             and actor.bidder_kind == kind
             and _actor_has_evidence(artifacts, actor)
             and actor.actor_id in nda_actor_ids
-        )
-        if asserted_count <= len(grounded_actor_ids):
+        ]
+        grounded_actor_ids = sorted(actor.actor_id for actor in grounded_actors)
+        grounded_actor_count = sum(_counted_bidder_weight(actor) for actor in grounded_actors)
+        if asserted_count <= grounded_actor_count:
             continue
 
         findings.append(
@@ -202,7 +210,7 @@ def _check_nda_count_gaps(artifacts: LoadedExtractArtifacts) -> list[CheckFindin
                 severity="blocker",
                 description=(
                     f"Count assertion {subject}={asserted_count} exceeds grounded bidder actors "
-                    f"with NDA evidence ({len(grounded_actor_ids)})."
+                    f"with NDA evidence ({grounded_actor_count})."
                 ),
                 actor_ids=grounded_actor_ids,
             )

@@ -1,0 +1,27 @@
+Read `CLAUDE.md`, `.claude/skills/deal-agent/SKILL.md`, and `.claude/skills/extract-deal/SKILL.md` before acting.
+
+Deal: `petsmart-inc`
+Model requirement: filing-grounded precision only.
+
+You are resuming a fresh rerun after an earlier extraction owner was terminated for stalling without any accepted extract artifacts. Use the current on-disk checkpoint instead of restarting from raw-fetch.
+
+Current safe checkpoint:
+- `data/skill/petsmart-inc/prompt/manifest.json` is in `mode=actors` and the actor prompt packet already exists.
+- No accepted `actors_raw.json` or `events_raw.json` exists yet.
+
+Your write scope is strictly limited to:
+- `/home/austinli/Projects/bids_pipeline/data/skill/petsmart-inc/extract/`
+- `/home/austinli/Projects/bids_pipeline/data/skill/petsmart-inc/prompt/`
+- `/home/austinli/Projects/bids_pipeline/quality_reports/session_logs/2026-03-29_rerun_petsmart-inc.md`
+
+Do not touch shared code, other deals, benchmark/reconcile materials, `data/pipeline.duckdb`, or any other file.
+Do not revert unrelated changes. You are not alone in the codebase.
+
+Task:
+1. Read the current actor prompt packet from `data/skill/petsmart-inc/prompt/packets/*/rendered.md` and produce filing-grounded `actors_raw.json` in quote-first schema.
+2. Run or reuse the deterministic event-prompt composition checkpoint needed for this deal (`skill-pipeline compose-prompts --deal petsmart-inc --mode events`) and validate prompt packets if appropriate.
+3. Read the resulting event prompt packet(s) and produce filing-grounded `events_raw.json`.
+4. Validate your outputs against the current repository schemas/scripts if possible.
+5. Append a concise audit trail to `quality_reports/session_logs/2026-03-29_rerun_petsmart-inc.md` including wall hits and fixes applied.
+
+Fail closed if the checkpoint is inconsistent or the schema cannot be satisfied. In your final answer, report status, whether both extract files were written, and the exact files you changed.

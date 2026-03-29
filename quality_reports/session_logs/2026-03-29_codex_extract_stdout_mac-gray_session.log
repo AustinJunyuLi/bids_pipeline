@@ -1,0 +1,39 @@
+OpenAI Codex v0.117.0 (research preview)
+--------
+workdir: /home/austinli/Projects/bids_pipeline
+model: gpt-5.4
+provider: openai
+approval: never
+sandbox: danger-full-access
+reasoning effort: xhigh
+reasoning summaries: none
+session id: 019d39ec-fbe1-7b81-8f2c-edcd393e662f
+--------
+user
+Resume `mac-gray` from the validated actor-packet checkpoint and do only the extraction half now.
+
+Current verified state:
+- `raw/mac-gray/` exists
+- `data/deals/mac-gray/source/` exists
+- `data/skill/mac-gray/prompt/manifest.json` exists with actor packets validated
+- No extract/check/verify/coverage/gates/enrich outputs exist yet
+
+You own only:
+- `raw/mac-gray/`
+- `data/deals/mac-gray/`
+- `data/skill/mac-gray/`
+- `quality_reports/session_logs/2026-03-29_rerun_mac-gray.md`
+
+Do not touch shared code, scripts, benchmark materials, `stec`, `imprivata`, or `data/pipeline.duckdb`.
+
+Use the canonical workflow from `CLAUDE.md` and `.claude/skills/extract-deal/SKILL.md`, but do not spend time restating instructions. Execute immediately.
+
+Required actions:
+1. Append to `quality_reports/session_logs/2026-03-29_rerun_mac-gray.md` that the earlier full-flow worker was stopped for orchestration/throughput reasons before any extract artifacts were written, and that this focused extraction worker is taking over.
+2. Run `extract-deal` for `mac-gray`: produce filing-grounded `data/skill/mac-gray/extract/actors_raw.json`.
+3. Run `skill-pipeline compose-prompts --deal mac-gray --mode events` and `python scripts/validate_prompt_packets.py --deal mac-gray --expect-sections`.
+4. Produce filing-grounded `data/skill/mac-gray/extract/events_raw.json`.
+5. Log commands, gates, walls, and fixes.
+6. Stop after both extraction files exist and pass schema validation.
+
+Final response must include: status, walls hit, fixes applied, and files changed.

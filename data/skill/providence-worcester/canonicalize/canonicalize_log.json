@@ -1,0 +1,38 @@
+{
+  "dedup_log": {},
+  "nda_gate_log": [
+    {
+      "removed_event_id": "evt_012",
+      "reason": "Drop actor(s) {'bidder_party_c', 'bidder_party_e', 'bidder_party_d', 'bidder_party_f'} have no prior NDA in the current cycle."
+    },
+    {
+      "removed_event_id": "evt_015",
+      "reason": "Drop actor(s) {'bidder_party_e'} have no prior NDA in the current cycle."
+    },
+    {
+      "removed_event_id": "evt_016",
+      "reason": "Drop actor(s) {'bidder_party_d'} have no prior NDA in the current cycle."
+    }
+  ],
+  "recovery_log": [
+    {
+      "kind": "financial",
+      "subject": "nda_signed_financial_buyers",
+      "asserted_count": 14,
+      "grounded_count": 0,
+      "gap": 14,
+      "status": "blocked_unresolved_gap",
+      "candidate_mentions": []
+    },
+    {
+      "kind": "strategic",
+      "subject": "nda_signed_strategic_buyers",
+      "asserted_count": 11,
+      "grounded_count": 1,
+      "gap": 10,
+      "status": "blocked_unresolved_gap",
+      "candidate_mentions": []
+    }
+  ],
+  "orphaned_quotes": []
+}
