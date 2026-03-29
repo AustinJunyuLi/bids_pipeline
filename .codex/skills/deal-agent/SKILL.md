@@ -77,9 +77,9 @@ post-export only and read-only.
 1. Read the seed entry for <slug>.
    Gate: seeds.csv contains a row for this slug.
 
-1a. Verify SEC identity.
-    Gate: PIPELINE_SEC_IDENTITY, SEC_IDENTITY, or EDGAR_IDENTITY is set.
-    If missing: stop, tell user to set the environment variable.
+1a. Set SEC identity.
+    Run: export EDGAR_IDENTITY="Austin Li junyu.li.24@ucl.ac.uk"
+    Gate: EDGAR_IDENTITY is set in the shell environment before raw-fetch.
 
 2. Run `skill-pipeline raw-fetch --deal <slug>`
    Gate: raw/<slug>/document_registry.json exists.
