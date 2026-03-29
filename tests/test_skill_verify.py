@@ -558,3 +558,28 @@ def test_verify_reports_structural_failure_for_empty_proposal_actor_ids(tmp_path
         and finding["description"] == "Proposal events must have non-empty actor_ids."
         for finding in findings
     )
+
+
+def test_verify_canonical_quote_findings_collected(tmp_path: Path) -> None:
+    """Canonical branch must propagate quote_verification findings to output."""
+    _write_verify_fixture_for_clean_pass(tmp_path)
+    run_canonicalize("imprivata", project_root=tmp_path)
+
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    spans_payload = json.loads(paths.spans_path.read_text(encoding="utf-8"))
+
+    # Corrupt one span's anchor_text so it cannot match filing text
+    for span in spans_payload["spans"]:
+        span["anchor_text"] = "ZZZZZ_NONEXISTENT_TEXT_ZZZZZ"
+        break  # corrupt just one span
+
+    paths.spans_path.write_text(json.dumps(spans_payload), encoding="utf-8")
+
+    exit_code = run_verify("imprivata", project_root=tmp_path)
+    findings = _read_findings_list(paths.verification_findings_path)
+
+    assert exit_code == 1
+    assert any(
+        finding["check_type"] == "quote_verification"
+        for finding in findings
+    )
