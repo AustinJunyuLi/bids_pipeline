@@ -79,6 +79,20 @@ def test_requirements_caps_edgartools_below_6() -> None:
     )
 
 
+def test_pyproject_declares_duckdb() -> None:
+    text = _read(PYPROJECT)
+    assert "duckdb" in text.lower(), (
+        "pyproject.toml must declare duckdb for db-load and db-export runtime support"
+    )
+
+
+def test_requirements_declares_duckdb() -> None:
+    text = _read(REQUIREMENTS)
+    assert "duckdb" in text.lower(), (
+        "requirements.txt must declare duckdb for db-load and db-export runtime support"
+    )
+
+
 # ---------------------------------------------------------------------------
 # Historical plan docs carry disclaimers
 # ---------------------------------------------------------------------------
