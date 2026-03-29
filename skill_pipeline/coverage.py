@@ -22,6 +22,18 @@ CRITICAL_CUE_FAMILIES = frozenset(
         "process_initiation",
     }
 )
+NON_SALE_NDA_MARKERS = (
+    "management rollover",
+    "rollover equity",
+    "rolled over",
+    "continuing equity",
+    "joint bid",
+    "consortium",
+    "teaming",
+    "partnered with",
+    "due diligence with respect to",
+    "engage in due diligence with respect to",
+)
 
 
 @dataclass
@@ -81,9 +93,18 @@ def _build_coverage_cues(
     return cues
 
 
+def _normalize_coverage_text(text: str) -> str:
+    return " ".join(text.lower().split())
+
+
+def _has_non_sale_nda_marker(text: str) -> bool:
+    normalized = _normalize_coverage_text(text)
+    return any(marker in normalized for marker in NON_SALE_NDA_MARKERS)
+
+
 def _classify_cue_family(item: EvidenceItem) -> str | None:
     text = item.raw_text.lower()
-    text_compact = " ".join(text.split())
+    text_compact = _normalize_coverage_text(item.raw_text)
     evidence_type = item.evidence_type.value
 
     has_nda_language = any(
@@ -117,10 +138,7 @@ def _classify_cue_family(item: EvidenceItem) -> str | None:
             "that had executed a confidentiality agreement",
         )
     )
-    has_target_due_diligence_confidentiality_language = (
-        "entered into a confidentiality agreement with" in text_compact
-        and "to engage in due diligence with respect to" in text_compact
-    )
+    has_non_sale_nda_language = _has_non_sale_nda_marker(text_compact)
     has_proposal_language = any(
         phrase in text
         for phrase in (
@@ -189,8 +207,8 @@ def _classify_cue_family(item: EvidenceItem) -> str | None:
     )
 
     if evidence_type == "process_signal":
-        if has_executed_nda_language and not (
-            references_prior_executed_nda or has_target_due_diligence_confidentiality_language
+        if has_nda_language and has_executed_nda_language and not (
+            references_prior_executed_nda or has_non_sale_nda_language
         ):
             return "nda"
         if has_process_initiation_language:
@@ -198,8 +216,8 @@ def _classify_cue_family(item: EvidenceItem) -> str | None:
         return None
 
     if evidence_type == "dated_action":
-        if has_executed_nda_language and not (
-            references_prior_executed_nda or has_target_due_diligence_confidentiality_language
+        if has_nda_language and has_executed_nda_language and not (
+            references_prior_executed_nda or has_non_sale_nda_language
         ):
             return "nda"
         # Some blocks mention a bidder's reluctance to proceed unless terms improve,
