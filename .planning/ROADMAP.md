@@ -34,7 +34,9 @@
   1. Running `skill-pipeline enrich-core` on stec, mac-gray, imprivata, penford, and providence-worcester produces `bid_type: Formal` for proposals occurring after the final round announcement
   2. Running `skill-pipeline enrich-core` on deals with early-stage IOIs (before any formal round) still produces `bid_type: Informal` -- the fix does not over-promote
   3. The `_classify_proposal()` function in enrich_core.py evaluates process-position rules before IOI-language rules, with regression tests covering both orderings
-**Plans**: TBD
+**Plans:** 1 plan
+Plans:
+- [ ] 07-01-PLAN.md -- Reorder _classify_proposal() rule priority with TDD regression tests
 
 ### Phase 8: Extraction Guidance + Enrichment Extensions
 **Goal**: Extraction skill docs cover round milestones, verbal indications, and NDA exclusions; enrichment adds deterministic DropTarget classification and contextual all_cash inference
@@ -69,7 +71,7 @@
 | 4. Enhanced Gates | v1.0 | 2/2 | Complete | 2026-03-28 |
 | 5. Integration + Calibration | v1.0 | 3/3 | Complete | 2026-03-28 |
 | 6. Deterministic Hardening | v1.1 | 3/3 | Complete | 2026-03-29 |
-| 7. bid_type Rule Priority | v1.1 | 0/? | Not started | - |
+| 7. bid_type Rule Priority | v1.1 | 0/1 | Planned | - |
 | 8. Extraction Guidance + Enrichment Extensions | v1.1 | 0/? | Not started | - |
 | 9. Deal-Specific Fixes + Revalidation | v1.1 | 0/? | Not started | - |
 
