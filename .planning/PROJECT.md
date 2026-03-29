@@ -30,7 +30,7 @@ elaborate extraction architecture.
   `canonicalize` stage
 - ✓ Deterministic structural, verification, coverage, and enrichment gates —
   existing `check`, `verify`, `coverage`, `enrich-core` stages
-- ✓ CSV-style review export — existing `/export-csv` skill
+- ✓ CSV-style review export — now `skill-pipeline db-export` (deterministic)
 - ✓ Reasoning-enabled extraction in local-agent workflows — confirmed
   operational
 - ✓ Pydantic schema-first artifact design with fail-fast validation — existing
@@ -122,7 +122,7 @@ deals.
 stages (`source-discover`, `raw-fetch`, `preprocess-source`, `compose-prompts`,
 `canonicalize`, `check`, `verify`, `coverage`, `gates`, `enrich-core`,
 `db-load`, `db-export`) plus 4 local-agent skills (`extract-deal`,
-`verify-extraction`, `enrich-deal`, `export-csv`). 8,967 LOC in
+`verify-extraction`, `enrich-deal`). 8,967 LOC in
 `skill_pipeline/`, 9,074 LOC in tests (265 passing). stec validated
 end-to-end through DuckDB export. 8 other deals await upstream extraction.
 
@@ -143,8 +143,8 @@ end-to-end through DuckDB export. 8 other deals await upstream extraction.
   on a specific LLM vendor, API, or SDK contract
 - **Python target**: 3.11+ with 4-space indentation, type hints on public
   functions, Pydantic-first schemas
-- **Benchmark separation**: Benchmark materials forbidden until `/export-csv`
-  completes
+- **Benchmark separation**: Benchmark materials forbidden until
+  `skill-pipeline db-export` completes
 
 ## Key Decisions
 
