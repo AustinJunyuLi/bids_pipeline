@@ -53,9 +53,9 @@ post-export only and read-only.
 | 3a | `gates` (deterministic) | `gates/gates_report.json` | Fail closed on blocker findings |
 | 4 | `verify-extraction` | updated extraction files + verify/coverage findings consumed | Fail closed (stop on round-2 errors) |
 | 5 | `enrich-core` (deterministic) | `enrich/deterministic_enrichment.json` | Fail closed |
-| 5a | `db-load` (deterministic) | DuckDB `data/pipeline.duckdb` updated | Fail closed |
-| 5b | `db-export` (deterministic) | `export/deal_events.csv` | Fail closed |
-| 6 | `enrich-deal` | `enrich/enrichment.json` | Fail closed |
+| 6 | `enrich-deal` (optional) | `enrich/enrichment.json` | Fail closed |
+| 6a | `db-load` (deterministic) | DuckDB `data/pipeline.duckdb` updated | Fail closed |
+| 6b | `db-export` (deterministic) | `export/deal_events.csv` | Fail closed |
 
 ## Procedure
 
@@ -123,22 +123,17 @@ post-export only and read-only.
 7. Run `skill-pipeline enrich-core --deal <slug>`
    Gate: deterministic_enrichment.json exists.
 
-7a. Run `skill-pipeline db-load --deal <slug>`
-    Gate: data/pipeline.duckdb exists and contains rows for this deal.
-
-7b. Run `skill-pipeline db-export --deal <slug>`
-    Gate: deal_events.csv exists and is non-empty.
-
 8. Run /enrich-deal <slug>
    Gate: enrichment.json exists.
+   Optional: skip if only deterministic enrichment is needed.
 
-8a. Re-run `skill-pipeline db-load --deal <slug>`
-    Note: Picks up enrichment.json overlay written by enrich-deal.
-    Gate: pipeline.duckdb updated with interpretive enrichment data.
+8a. Run `skill-pipeline db-load --deal <slug>`
+    Gate: data/pipeline.duckdb exists and contains rows for this deal.
+    Note: Loads deterministic enrichment baseline. If enrichment.json exists
+    (from enrich-deal above), overlays dropout_classifications automatically.
 
-8b. Re-run `skill-pipeline db-export --deal <slug>`
-    Note: Regenerates deal_events.csv with dropout_classifications from enrichment.
-    Gate: deal_events.csv updated and non-empty.
+8b. Run `skill-pipeline db-export --deal <slug>`
+    Gate: deal_events.csv exists and is non-empty.
 
 9. Report summary:
    - Actor count, event count, proposal count
