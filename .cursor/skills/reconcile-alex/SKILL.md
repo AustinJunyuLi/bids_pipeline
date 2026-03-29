@@ -26,7 +26,7 @@ problems from harmless granularity or formatting mismatches.
 ## When To Use
 
 Invoke as `/reconcile-alex <slug>` only after the full pipeline has completed
-for a deal through `/export-csv`.
+for a deal through `skill-pipeline db-export --deal <slug>`.
 
 Benchmark materials are forbidden during generation. This skill is post-export
 only and must not be used to steer extraction, verification, enrichment, or
@@ -38,12 +38,14 @@ Do not use this skill as a substitute for `check`, `verify`, or
 ## Cross-Machine Handoff
 
 - This is a read-only QA skill. It must not rewrite generation artifacts.
-- If a prior session consulted benchmark materials before `/export-csv` and then
-  generated `data/skill/<slug>/...` artifacts, treat those artifacts as tainted
-  for blind evaluation.
+- If a prior session consulted benchmark materials before
+  `skill-pipeline db-export --deal <slug>` and then generated
+  `data/skill/<slug>/...` artifacts, treat those artifacts as tainted for blind
+  evaluation.
 - A fresh agent on another machine should not continue generation from those
   tainted artifacts. Regenerate from the filing-grounded workflow, complete
-  `/export-csv`, and only then run `/reconcile-alex`.
+  `skill-pipeline db-export --deal <slug>`, and only then run
+  `/reconcile-alex`.
 
 ## Prerequisites
 

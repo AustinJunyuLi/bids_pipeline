@@ -30,8 +30,8 @@ source. The skill defines its own JSON format as specified below.
 
 Benchmark materials are forbidden during generation. Do not consult benchmark
 files, benchmark notes, `example/`, `diagnosis/`,
-`data/skill/<slug>/reconcile/*`, or `/reconcile-alex` before `/export-csv`
-completes.
+`data/skill/<slug>/reconcile/*`, or `/reconcile-alex` before
+`skill-pipeline db-export --deal <slug>` completes.
 
 Use only filing-grounded source artifacts during extraction. Benchmark
 comparison is post-export only and read-only.

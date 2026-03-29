@@ -36,8 +36,8 @@ classification is `Uncertain`, not forced `Informal`. The interpretive remainder
 
 Benchmark materials are forbidden during generation. Do not consult benchmark
 files, benchmark notes, `example/`, `diagnosis/`,
-`data/skill/<slug>/reconcile/*`, or `/reconcile-alex` before `/export-csv`
-completes.
+`data/skill/<slug>/reconcile/*`, or `/reconcile-alex` before
+`skill-pipeline db-export --deal <slug>` completes.
 
 Use only filing-grounded extract and source artifacts during enrichment.
 Benchmark comparison is post-export only and read-only.

@@ -36,8 +36,8 @@ only when **all** error-level findings across both deterministic artifacts are
 
 Benchmark materials are forbidden during generation. Do not consult benchmark
 files, benchmark notes, `example/`, `diagnosis/`,
-`data/skill/<slug>/reconcile/*`, or `/reconcile-alex` before `/export-csv`
-completes.
+`data/skill/<slug>/reconcile/*`, or `/reconcile-alex` before
+`skill-pipeline db-export --deal <slug>` completes.
 
 Use only filing-grounded source artifacts during verification. Benchmark
 comparison is post-export only and read-only.
