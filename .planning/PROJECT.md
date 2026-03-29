@@ -69,7 +69,7 @@ elaborate extraction architecture.
 
 ### Active
 
-(No active requirements — next milestone defines new scope via `/gsd:new-milestone`)
+(Defined in REQUIREMENTS.md for current milestone)
 
 ### Out of Scope
 
@@ -116,15 +116,54 @@ export surface. A full deterministic 9-deal DB rerun still depends on upstream
 canonical extract plus deterministic enrichment artifacts for eight active
 deals.
 
+## Current Milestone: v1.1 Reconciliation + Execution-Log Quality Fixes
+
+**Goal:** Fix systematic pipeline bugs and close extraction/enrichment gaps
+identified by the 9-deal cross-deal reconciliation analysis and the 7-deal
+fresh-rerun execution logs.
+
+**Target features:**
+
+Reconciliation-driven fixes:
+- Fix bid_type enrichment rule priority (final-round proposals misclassified as
+  Informal across 5+ deals)
+- Fix Zep NMC actor error (NMC incorrectly included in evt_005/evt_008)
+- Fix Medivation missing drops (evt_013/evt_017 referenced but absent)
+- Add round milestone event types (Final Round Inf Ann, deadlines)
+- Add DropTarget events (committee-driven field narrowing)
+- Improve all_cash inference (contextual, not just explicit-mention)
+- Add verbal/oral price indication extraction support
+
+Execution-log-driven fixes:
+- Harden canonicalize against duplicate quote_id collisions
+- Harden coverage against false positives on contextual
+  confidentiality-agreement mentions
+- Harden check.py grouped NDA count assertions
+- Fix gates rejecting rollover-side confidentiality agreements modeled as
+  sale-process NDAs
+- Harden extraction orchestration against concurrent artifact writes
+- Fix DuckDB transient lock on db-export after db-load
+
+**Key reference artifacts:**
+- `data/reconciliation_cross_deal_analysis.md`
+- `quality_reports/session_logs/2026-03-29_7-deal-rerun_master.md`
+- Per-deal reconciliation reports under `data/skill/<slug>/reconcile/`
+
 ## Current State
 
-**v1.0 shipped 2026-03-28.** The live runtime includes 12 deterministic CLI
-stages (`source-discover`, `raw-fetch`, `preprocess-source`, `compose-prompts`,
+**v1.0 shipped 2026-03-28.** All 9 deals now have complete pipeline artifacts
+through DuckDB export. The live runtime includes 12 deterministic CLI stages
+(`source-discover`, `raw-fetch`, `preprocess-source`, `compose-prompts`,
 `canonicalize`, `check`, `verify`, `coverage`, `gates`, `enrich-core`,
 `db-load`, `db-export`) plus 4 local-agent skills (`extract-deal`,
-`verify-extraction`, `enrich-deal`). 8,967 LOC in
-`skill_pipeline/`, 9,074 LOC in tests (265 passing). stec validated
-end-to-end through DuckDB export. 8 other deals await upstream extraction.
+`verify-extraction`, `enrich-deal`). 265 tests passing.
+
+The 9-deal cross-deal reconciliation found the pipeline wins filing arbitrations
+45:16 vs Alex's hand-coded spreadsheet, but identified systematic enrichment
+bugs (bid_type rule priority), extraction errors (actor misattribution), and
+coverage gaps (round milestones, DropTarget events). The 7-deal fresh rerun
+logged runtime walls including duplicate quote_id collisions, coverage false
+positives, grouped NDA count assertion failures, and concurrent write corruption.
 
 ## Constraints
 
@@ -179,4 +218,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-28 after v1.0 milestone completion*
+*Last updated: 2026-03-29 — v1.1 milestone started*
