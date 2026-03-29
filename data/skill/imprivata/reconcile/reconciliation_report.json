@@ -1,0 +1,704 @@
+{
+  "schema_version": "1.0.0",
+  "deal_slug": "imprivata",
+  "created_at": "2026-03-29T00:00:00Z",
+  "matched_pairs": [
+    {
+      "pipeline_event": {
+        "csv_bidder_id": "0.5",
+        "bid_note": "NA",
+        "bidder_name": "Thoma Bravo",
+        "bid_date_precise": "2016-03-09",
+        "bid_value_pershare": 15,
+        "bid_type": "Informal",
+        "event_id": "evt_004"
+      },
+      "alex_event": {
+        "bidder_id": 1,
+        "bid_note": "NA",
+        "bidder_name": "Thoma Bravo",
+        "bid_date_precise": "2016-03-09",
+        "bid_value_pershare": 15,
+        "bid_type": "Informal"
+      },
+      "field_mismatches": [],
+      "arbitration": "Full match on all substantive fields: bidder, date, price $15/share, Informal type. BidderID numbering differs (pipeline 0.5 vs Alex 1) but this is a sequencing convention, not a data disagreement."
+    },
+    {
+      "pipeline_event": {
+        "csv_bidder_id": "0.7",
+        "bid_note": "IB",
+        "bidder_name": "Barclays",
+        "bid_date_precise": "2016-04-19",
+        "event_id": "evt_005"
+      },
+      "alex_event": {
+        "bidder_id": 1.5,
+        "bid_note": "IB",
+        "bidder_name": "Barclays",
+        "bid_date_precise": "2016-03-09",
+        "bid_date_rough": "2016-04-15"
+      },
+      "field_mismatches": [
+        {
+          "field": "bid_date_precise",
+          "pipeline_value": "2016-04-19",
+          "alex_value": "2016-03-09",
+          "arbitration": "Filing says the Company countersigned Barclays engagement letter on April 19, 2016. Alex's precise date of 2016-03-09 does not correspond to any Barclays engagement event; Alex's rough date of 2016-04-15 is close (the April 15 Board meeting authorized the engagement). Pipeline's 2016-04-19 is filing-grounded and correct."
+        }
+      ],
+      "arbitration": "Pipeline date is correct per filing. Alex recorded the precise date incorrectly as 2016-03-09 (which is the Thoma Bravo IOI date). Alex's rough date of 2016-04-15 tracks the Board authorization date, not the countersigning date."
+    },
+    {
+      "pipeline_event": {
+        "csv_bidder_id": "0.8",
+        "bid_note": "Target Sale",
+        "bidder_name": "NA",
+        "bid_date_precise": "2016-05-05",
+        "event_id": "evt_006"
+      },
+      "alex_event": {
+        "bidder_id": 0.7,
+        "bid_note": "Bidder Sale",
+        "bidder_name": "Thoma Bravo",
+        "bid_date_precise": "2016-03-09",
+        "bid_date_rough": "2016-03-09"
+      },
+      "field_mismatches": [
+        {
+          "field": "bid_note",
+          "pipeline_value": "Target Sale",
+          "alex_value": "Bidder Sale",
+          "arbitration": "These represent different events. The pipeline's Target Sale on 2016-05-05 is the Board's launch of the strategic process. Alex's Bidder Sale on 2016-03-09 codes Thoma Bravo's unsolicited approach as initiating a sale process. Both are defensible framings but refer to different moments in the narrative. The filing supports both: Thoma Bravo's March 9 IOI triggered the Board's eventual May 5 strategic process launch."
+        },
+        {
+          "field": "bid_date_precise",
+          "pipeline_value": "2016-05-05",
+          "alex_value": "2016-03-09",
+          "arbitration": "Pipeline dates the target_sale to May 5, 2016 (Board formally authorized the process). Alex dates the Bidder Sale to March 9 (Thoma Bravo's unsolicited letter). Both are filing-grounded but code different trigger concepts."
+        }
+      ],
+      "arbitration": "Conceptual mismatch rather than factual error. Pipeline codes the Board's formal process launch (May 5); Alex codes Thoma Bravo's unsolicited IOI (March 9) as a 'Bidder Sale' trigger. Neither is wrong; they describe different aspects of the sale initiation."
+    },
+    {
+      "pipeline_event": {
+        "csv_bidder_id": "1",
+        "bid_note": "NDA",
+        "bidder_name": "Sponsor A",
+        "bid_date_precise": "2016-05-06",
+        "bidder_type": "F",
+        "event_id": "evt_008"
+      },
+      "alex_event": {
+        "bidder_id": 5,
+        "bid_note": "NDA",
+        "bidder_name": "Sponsor A",
+        "bid_date_rough": "2016-05-06",
+        "bidder_type_note": "F"
+      },
+      "field_mismatches": [],
+      "arbitration": "Full match. Both record NDA for Sponsor A with date anchored to the May 6 - June 9 window start."
+    },
+    {
+      "pipeline_event": {
+        "csv_bidder_id": "2",
+        "bid_note": "NDA",
+        "bidder_name": "Sponsor B",
+        "bid_date_precise": "2016-05-06",
+        "bidder_type": "F",
+        "event_id": "evt_009"
+      },
+      "alex_event": {
+        "bidder_id": 6,
+        "bid_note": "NDA",
+        "bidder_name": "Sponsor B",
+        "bid_date_rough": "2016-05-06",
+        "bidder_type_note": "F"
+      },
+      "field_mismatches": [],
+      "arbitration": "Full match."
+    },
+    {
+      "pipeline_event": {
+        "csv_bidder_id": "3",
+        "bid_note": "NDA",
+        "bidder_name": "Strategic 1",
+        "bid_date_precise": "2016-05-06",
+        "bidder_type": "S",
+        "event_id": "evt_010"
+      },
+      "alex_event": {
+        "bidder_id": 2,
+        "bid_note": "NDA",
+        "bidder_name": "Strategic 1",
+        "bid_date_rough": "2016-05-06",
+        "bidder_type_note": "S"
+      },
+      "field_mismatches": [],
+      "arbitration": "Full match."
+    },
+    {
+      "pipeline_event": {
+        "csv_bidder_id": "4",
+        "bid_note": "NDA",
+        "bidder_name": "Strategic 2",
+        "bid_date_precise": "2016-05-06",
+        "bidder_type": "S",
+        "event_id": "evt_011"
+      },
+      "alex_event": {
+        "bidder_id": 3,
+        "bid_note": "NDA",
+        "bidder_name": "Strategic 2",
+        "bid_date_rough": "2016-05-06",
+        "bidder_type_note": "S"
+      },
+      "field_mismatches": [],
+      "arbitration": "Full match."
+    },
+    {
+      "pipeline_event": {
+        "csv_bidder_id": "5",
+        "bid_note": "NDA",
+        "bidder_name": "Strategic 3",
+        "bid_date_precise": "2016-05-06",
+        "bidder_type": "S",
+        "event_id": "evt_012"
+      },
+      "alex_event": {
+        "bidder_id": 4,
+        "bid_note": "NDA",
+        "bidder_name": "Strategic 3",
+        "bid_date_rough": "2016-05-06",
+        "bidder_type_note": "S"
+      },
+      "field_mismatches": [],
+      "arbitration": "Full match."
+    },
+    {
+      "pipeline_event": {
+        "csv_bidder_id": "6",
+        "bid_note": "NDA",
+        "bidder_name": "Unnamed Financial Sponsor",
+        "bid_date_precise": "2016-05-06",
+        "bidder_type": "F",
+        "event_id": "evt_013"
+      },
+      "alex_event": {
+        "bidder_id": 7,
+        "bid_note": "NDA",
+        "bidder_name": "Another financial sponsor",
+        "bid_date_rough": "2016-05-06",
+        "bidder_type_note": "F"
+      },
+      "field_mismatches": [
+        {
+          "field": "bidder_name",
+          "pipeline_value": "Unnamed Financial Sponsor",
+          "alex_value": "Another financial sponsor",
+          "arbitration": "Both refer to the same entity: the unnamed financial sponsor that signed an NDA and declined shortly after. Name difference is a labeling convention, not a factual disagreement."
+        }
+      ],
+      "arbitration": "Match. Name difference is cosmetic."
+    },
+    {
+      "pipeline_event": {
+        "csv_bidder_id": "7",
+        "bid_note": "Drop",
+        "bidder_name": "Unnamed Financial Sponsor",
+        "bid_date_precise": "2016-05-06",
+        "event_id": "evt_014"
+      },
+      "alex_event": {
+        "bidder_id": 9,
+        "bid_note": "Drop",
+        "bidder_name": "Another financial sponsor",
+        "bid_date_rough": "2016-05-07"
+      },
+      "field_mismatches": [
+        {
+          "field": "bidder_name",
+          "pipeline_value": "Unnamed Financial Sponsor",
+          "alex_value": "Another financial sponsor",
+          "arbitration": "Cosmetic name difference; same entity."
+        },
+        {
+          "field": "bid_date",
+          "pipeline_value": "2016-05-06 (range start)",
+          "alex_value": "2016-05-07 (rough)",
+          "arbitration": "Filing says the sponsor declined 'shortly after' executing its NDA during the May 6 - June 9 window. Pipeline uses the range start 2016-05-06. Alex uses 2016-05-07 to represent 'shortly after'. Both are reasonable approximations of the vague filing language. No filing-grounded precise date exists."
+        }
+      ],
+      "arbitration": "Match. Minor date approximation difference for the same vague filing passage."
+    },
+    {
+      "pipeline_event": {
+        "csv_bidder_id": "8",
+        "bid_note": "NDA",
+        "bidder_name": "Thoma Bravo",
+        "bid_date_precise": "2016-05-10",
+        "event_id": "evt_007"
+      },
+      "alex_event": {
+        "bidder_id": 8,
+        "bid_note": "NDA",
+        "bidder_name": "Thoma Bravo",
+        "bid_date_precise": "2016-05-10"
+      },
+      "field_mismatches": [],
+      "arbitration": "Full match."
+    },
+    {
+      "pipeline_event": {
+        "csv_bidder_id": "9",
+        "bid_note": "Drop",
+        "bidder_name": "Strategic 1",
+        "bid_date_precise": "2016-06-08",
+        "event_id": "evt_018"
+      },
+      "alex_event": {
+        "bidder_id": 10,
+        "bid_note": "Drop",
+        "bidder_name": "Strategic 1",
+        "bid_date_precise": "2016-06-08"
+      },
+      "field_mismatches": [],
+      "arbitration": "Full match."
+    },
+    {
+      "pipeline_event": {
+        "csv_bidder_id": "10",
+        "bid_note": "NA",
+        "bidder_name": "Sponsor A",
+        "bid_date_precise": "2016-06-09",
+        "bid_value_pershare": 16.5,
+        "bid_type": "Informal",
+        "all_cash": 1,
+        "event_id": "evt_015"
+      },
+      "alex_event": {
+        "bidder_id": 11,
+        "bid_note": "NA",
+        "bidder_name": "Sponsor A",
+        "bid_date_precise": "2016-06-09",
+        "bid_value_pershare": 16.5,
+        "bid_type": "Informal",
+        "all_cash": "NA"
+      },
+      "field_mismatches": [
+        {
+          "field": "all_cash",
+          "pipeline_value": 1,
+          "alex_value": "NA",
+          "arbitration": "Filing says each indication 'provided for equity commitments from fund sponsors for the entire purchase price and none of these indications of interest were contingent on financing.' Alex's comment says 'F bidder, so all cash' but coded all_cash as NA. Pipeline's 1 is more consistent with the filing's statement of full equity commitments (i.e., cash consideration). Pipeline is correct."
+        }
+      ],
+      "arbitration": "Match with minor all_cash coding difference. Pipeline is more filing-accurate."
+    },
+    {
+      "pipeline_event": {
+        "csv_bidder_id": "11",
+        "bid_note": "NA",
+        "bidder_name": "Sponsor B",
+        "bid_date_precise": "2016-06-09",
+        "bid_value_pershare": "NA",
+        "bid_range": "17-18",
+        "bid_type": "Informal",
+        "all_cash": 1,
+        "event_id": "evt_016"
+      },
+      "alex_event": {
+        "bidder_id": 12,
+        "bid_note": "NA",
+        "bidder_name": "Sponsor B",
+        "bid_date_precise": "2016-06-09",
+        "bid_value_pershare": 17,
+        "bid_value_lower": 17,
+        "bid_value_upper": 18,
+        "bid_type": "Informal",
+        "all_cash": "NA"
+      },
+      "field_mismatches": [
+        {
+          "field": "all_cash",
+          "pipeline_value": 1,
+          "alex_value": "NA",
+          "arbitration": "Same as Sponsor A: filing says equity commitments for entire purchase price. Pipeline's 1 is filing-grounded."
+        }
+      ],
+      "arbitration": "Match. Range $17-18 agrees. Alex uses bid_value=17 as representative point price; pipeline uses NA for per_share with range 17-18. Both valid."
+    },
+    {
+      "pipeline_event": {
+        "csv_bidder_id": "12",
+        "bid_note": "NA",
+        "bidder_name": "Thoma Bravo",
+        "bid_date_precise": "2016-06-09",
+        "bid_value_pershare": 17.25,
+        "bid_type": "Informal",
+        "all_cash": 1,
+        "event_id": "evt_017"
+      },
+      "alex_event": {
+        "bidder_id": 13,
+        "bid_note": "NA",
+        "bidder_name": "Thoma Bravo",
+        "bid_date_precise": "2016-06-09",
+        "bid_value_pershare": 17.25,
+        "bid_type": "Informal",
+        "all_cash": 1
+      },
+      "field_mismatches": [],
+      "arbitration": "Full match on all fields."
+    },
+    {
+      "pipeline_event": {
+        "csv_bidder_id": "13",
+        "bid_note": "Drop",
+        "bidder_name": "Strategic 2",
+        "bid_date_precise": "2016-06-12",
+        "event_id": "evt_019"
+      },
+      "alex_event": {
+        "bidder_id": 14,
+        "bid_note": "Drop",
+        "bidder_name": "Strategic 2",
+        "bid_date_precise": "2016-06-12"
+      },
+      "field_mismatches": [],
+      "arbitration": "Full match."
+    },
+    {
+      "pipeline_event": {
+        "csv_bidder_id": "14",
+        "bid_note": "Drop",
+        "bidder_name": "Strategic 3",
+        "bid_date_precise": "2016-06-14",
+        "event_id": "evt_020"
+      },
+      "alex_event": {
+        "bidder_id": 15,
+        "bid_note": "Drop",
+        "bidder_name": "Strategic 3",
+        "bid_date_precise": "2016-06-14"
+      },
+      "field_mismatches": [],
+      "arbitration": "Full match."
+    },
+    {
+      "pipeline_event": {
+        "csv_bidder_id": "15",
+        "bid_note": "DropAtInf",
+        "bidder_name": "Sponsor A",
+        "bid_date_precise": "2016-06-15",
+        "event_id": "evt_023"
+      },
+      "alex_event": {
+        "bidder_id": 16,
+        "bid_note": "DropAtInf",
+        "bidder_name": "Sponsor A",
+        "bid_date_precise": "2016-06-15"
+      },
+      "field_mismatches": [],
+      "arbitration": "Full match."
+    },
+    {
+      "pipeline_event": {
+        "csv_bidder_id": "16",
+        "bid_note": "Final Round Ann",
+        "bidder_name": "NA",
+        "bid_date_precise": "2016-06-24",
+        "event_id": "evt_021"
+      },
+      "alex_event": {
+        "bidder_id": 17,
+        "bid_note": "Final Round",
+        "bidder_name": "NA",
+        "bid_date_precise": "2016-06-24"
+      },
+      "field_mismatches": [
+        {
+          "field": "bid_note",
+          "pipeline_value": "Final Round Ann",
+          "alex_value": "Final Round",
+          "arbitration": "Pipeline distinguishes between the announcement (Final Round Ann, June 24) and the deadline (Final Round, July 8). Alex uses 'Final Round' on June 24 (the announcement date). This is a taxonomy difference: pipeline has more granular event types. Filing says on June 24 Barclays sent final bid process letters setting a July 8 deadline. Pipeline's finer distinction is more precise."
+        }
+      ],
+      "arbitration": "Matched by date and concept. Pipeline's taxonomy is more granular (Ann vs deadline)."
+    },
+    {
+      "pipeline_event": {
+        "csv_bidder_id": "17",
+        "bid_note": "DropBelowInf",
+        "bidder_name": "Sponsor B",
+        "bid_date_precise": "2016-06-29",
+        "event_id": "evt_024"
+      },
+      "alex_event": {
+        "bidder_id": 18,
+        "bid_note": "DropBelowInf",
+        "bidder_name": "Sponsor B",
+        "bid_date_precise": "2016-06-29"
+      },
+      "field_mismatches": [],
+      "arbitration": "Full match."
+    },
+    {
+      "pipeline_event": {
+        "csv_bidder_id": "18",
+        "bid_note": "NA",
+        "bidder_name": "Thoma Bravo",
+        "bid_date_precise": "2016-07-08",
+        "bid_value_pershare": 19,
+        "bid_type": "Formal",
+        "all_cash": 1,
+        "event_id": "evt_025"
+      },
+      "alex_event": {
+        "bidder_id": 19,
+        "bid_note": "NA",
+        "bidder_name": "Thoma Bravo",
+        "bid_date_precise": "2016-07-08",
+        "bid_value_pershare": 19,
+        "bid_type": "Formal",
+        "all_cash": 1
+      },
+      "field_mismatches": [],
+      "arbitration": "Full match on all fields including Formal classification."
+    },
+    {
+      "pipeline_event": {
+        "csv_bidder_id": "19",
+        "bid_note": "Final Round",
+        "bidder_name": "NA",
+        "bid_date_precise": "2016-07-08",
+        "event_id": "evt_022"
+      },
+      "alex_event": null,
+      "field_mismatches": [],
+      "arbitration": "No direct Alex counterpart as a standalone row. Alex's BidderID 17 (Final Round on June 24) serves as the round event; Alex does not have a separate row for the July 8 deadline. See pipeline_only section."
+    },
+    {
+      "pipeline_event": {
+        "csv_bidder_id": "20",
+        "bid_note": "NA",
+        "bidder_name": "Thoma Bravo",
+        "bid_date_precise": "2016-07-09",
+        "bid_value_pershare": 19.25,
+        "bid_type": "Informal",
+        "all_cash": 1,
+        "event_id": "evt_026"
+      },
+      "alex_event": {
+        "bidder_id": 20,
+        "bid_note": "NA",
+        "bidder_name": "Thoma Bravo",
+        "bid_date_precise": "2016-07-09",
+        "bid_value_pershare": 19.25,
+        "bid_type": "Formal",
+        "all_cash": 1
+      },
+      "field_mismatches": [
+        {
+          "field": "bid_type",
+          "pipeline_value": "Informal",
+          "alex_value": "Formal",
+          "arbitration": "Pipeline classifies the $19.25 best-and-final as Informal because the filing calls it a 'revised written, non-binding proposal.' Alex classifies it as Formal because it came after the final round deadline and was the decisive closing bid. Filing says 'non-binding' but it was clearly solicited by the process letter's best-and-final mechanism. Pipeline's enrichment labels it Informal based on the 'non-binding' signal; Alex's Formal classification reflects the post-final-round, best-and-final nature. Alex's coding is the more conventional M&A classification for a best-and-final offer requested via process letter."
+        }
+      ],
+      "arbitration": "Price and date match exactly. Bid_type is the only disagreement: Pipeline=Informal (based on 'non-binding' text signal), Alex=Formal (based on post-final-round, best-and-final context). Alex's Formal classification is more conventional for M&A purposes."
+    },
+    {
+      "pipeline_event": {
+        "csv_bidder_id": "21",
+        "bid_note": "Bid Press Release",
+        "bidder_name": "Thoma Bravo",
+        "bid_date_precise": "2016-07-13",
+        "event_id": "evt_028"
+      },
+      "alex_event": null,
+      "field_mismatches": [],
+      "arbitration": "No direct Alex counterpart. Alex does not have a separate Bid Press Release row. See pipeline_only section."
+    },
+    {
+      "pipeline_event": {
+        "csv_bidder_id": "22",
+        "bid_note": "Executed",
+        "bidder_name": "Thoma Bravo",
+        "bid_date_precise": "2016-07-13",
+        "event_id": "evt_027"
+      },
+      "alex_event": {
+        "bidder_id": 20.5,
+        "bid_note": "Executed",
+        "bidder_name": "Thoma Bravo",
+        "bid_date_precise": "2016-07-09",
+        "bid_date_rough": "2016-07-13"
+      },
+      "field_mismatches": [
+        {
+          "field": "bid_date_precise",
+          "pipeline_value": "2016-07-13",
+          "alex_value": "2016-07-09",
+          "arbitration": "Filing clearly states 'On July 13, 2016, before the stock market opened, the parties finalized and executed the merger agreement.' Pipeline's 2016-07-13 is correct. Alex's precise date of 2016-07-09 appears to be the date of the $19.25 best-and-final offer, not the execution date. Alex's rough date of 2016-07-13 is correct. Pipeline is filing-accurate."
+        }
+      ],
+      "arbitration": "Match. Pipeline's execution date (July 13) is filing-correct. Alex's precise date (July 9) is wrong -- that is the best-and-final offer date, not execution."
+    }
+  ],
+  "pipeline_only": [
+    {
+      "pipeline_event": {
+        "csv_bidder_id": "0.2",
+        "bid_note": "Bidder Interest",
+        "bidder_name": "Thoma Bravo",
+        "bid_date_precise": "2015-06-01",
+        "event_id": "evt_002"
+      },
+      "grounding_verdict": "Filing-grounded. Filing says 'In early 2015, and again in June 2015, representatives of Thoma Bravo informally approached and had brief meetings.' Pipeline extracted this as a separate June 2015 event. Alex collapsed all pre-IOI Thoma Bravo interest into BidderID 0.5 (Bidder Interest with rough date 2016-01-31). Pipeline is more granular."
+    },
+    {
+      "pipeline_event": {
+        "csv_bidder_id": "0.3",
+        "bid_note": "Bidder Interest",
+        "bidder_name": "Thoma Bravo",
+        "bid_date_precise": "2016-01-01",
+        "event_id": "evt_003"
+      },
+      "grounding_verdict": "Filing-grounded. Filing says 'In January 2016, representatives of Thoma Bravo met with members of Company management during an industry conference and reiterated Thoma Bravo's interest.' Alex captured this as part of BidderID 0.5. Pipeline granularity is superior."
+    },
+    {
+      "pipeline_event": {
+        "csv_bidder_id": "19",
+        "bid_note": "Final Round",
+        "bidder_name": "NA",
+        "bid_date_precise": "2016-07-08",
+        "event_id": "evt_022"
+      },
+      "grounding_verdict": "Filing-grounded. The July 8, 2016 final bid deadline is explicit in the filing. Alex recorded a Final Round row on June 24 (the announcement date, BidderID 17) but did not create a separate row for the July 8 deadline itself. Pipeline's separation of announcement vs. deadline is more precise."
+    },
+    {
+      "pipeline_event": {
+        "csv_bidder_id": "21",
+        "bid_note": "Bid Press Release",
+        "bidder_name": "Thoma Bravo",
+        "bid_date_precise": "2016-07-13",
+        "event_id": "evt_028"
+      },
+      "grounding_verdict": "Filing-grounded. Filing says 'Later on July 13, 2016, before the stock market opened, the Company and Thoma Bravo issued a joint press release.' Alex does not have a separate Bid Press Release row. This is a coverage difference; pipeline is more granular."
+    },
+    {
+      "pipeline_event": {
+        "csv_bidder_id": "23",
+        "bid_note": "Bidder Interest",
+        "bidder_name": "Thoma Bravo",
+        "bid_date_precise": null,
+        "event_id": "evt_001"
+      },
+      "grounding_verdict": "Filing-grounded. Filing says 'In early 2015 ... representatives of Thoma Bravo informally approached.' This is the earliest undated approach. Alex consolidated this into BidderID 0.5. Pipeline is more granular, treating each separate approach as its own event."
+    }
+  ],
+  "alex_only": [
+    {
+      "alex_event": {
+        "bidder_id": 0.5,
+        "bid_note": "Bidder Interest",
+        "bidder_name": "Thoma Bravo",
+        "bid_date_precise": "2016-03-09",
+        "bid_date_rough": "2016-01-31"
+      },
+      "grounding_verdict": "Partially filing-grounded but conflates multiple timeline events. Alex uses BidderID 0.5 as a composite Bidder Interest row with precise date 2016-03-09 (the March 9 IOI date) and rough date 2016-01-31 (end of January 2016 meeting). The pipeline extracts three separate bidder_interest events (early 2015, June 2015, January 2016) plus a separate proposal for March 9. Alex's approach merges pre-IOI interest and the IOI into one row, losing temporal resolution. Filing supports the pipeline's more granular decomposition."
+    },
+    {
+      "alex_event": {
+        "bidder_id": 9.5,
+        "bid_note": "Final Round Inf Ann",
+        "bidder_name": "NA",
+        "bid_date_precise": "2016-06-09",
+        "bid_date_rough": "2016-06-03"
+      },
+      "grounding_verdict": "Weakly filing-grounded. Alex treats the June 3 bid instruction letter (which set a June 9 deadline for first-round IOIs) as a 'Final Round Inf Ann' -- an informal final round announcement. The filing describes this as the initial bid instruction letter for first-round indications of interest, not a final round. The pipeline does not extract this as a separate event because it is not a final-round construct. Alex's taxonomy maps the first-round IOI deadline to informal final round terminology. The filing does not call this a 'final round.'"
+    },
+    {
+      "alex_event": {
+        "bidder_id": 13.5,
+        "bid_note": "Final Round Inf",
+        "bidder_name": "NA",
+        "bid_date_precise": "2016-06-09",
+        "bid_date_rough": "2016-06-09"
+      },
+      "grounding_verdict": "Weakly filing-grounded. Alex codes the June 9 first-round IOI deadline as 'Final Round Inf' (informal final round deadline). Filing says the Board 'approved requesting initial non-binding indications of interest from bidders by June 9, 2016.' This is a first-round IOI deadline, not a final round. Pipeline does not model this as a final_round event. Alex's taxonomy interpretation differs from the filing's characterization."
+    },
+    {
+      "alex_event": {
+        "bidder_id": 14.5,
+        "bid_note": "Final Round Ann",
+        "bidder_name": "NA",
+        "bid_date_precise": "2016-06-09",
+        "bid_date_rough": "2016-06-12"
+      },
+      "grounding_verdict": "Weakly filing-grounded. Alex codes a 'Final Round Ann' at the June 9/June 12 boundary, apparently representing the Board's June 12 decision to advance three parties to the second phase. The filing describes this as the Board authorizing advancement to the second phase, not as a formal final round announcement. The pipeline's Final Round Ann on June 24 (when Barclays sent formal final bid process letters) is the more filing-accurate coding of the formal final round announcement."
+    },
+    {
+      "alex_event": {
+        "bidder_id": 17.5,
+        "bid_note": "Final Round Ext Ann",
+        "bidder_name": "NA",
+        "bid_date_precise": "2016-06-24",
+        "bid_date_rough": "2016-06-24"
+      },
+      "grounding_verdict": "Not filing-grounded. Alex codes a 'Final Round Ext Ann' (extension round announcement) on June 24. The filing does not describe any extension of the final round. June 24 is when the original final bid process letters were sent with a July 8 deadline. There was no prior deadline that was being extended. The pipeline correctly models this as the single Final Round Ann."
+    },
+    {
+      "alex_event": {
+        "bidder_id": 19.5,
+        "bid_note": "Final Round Ext",
+        "bidder_name": "NA",
+        "bid_date_precise": "2016-06-24",
+        "bid_date_rough": "2016-07-08"
+      },
+      "grounding_verdict": "Not filing-grounded. Alex codes a 'Final Round Ext' (extension deadline) with precise=June 24 and rough=July 8. The filing does not describe any extension. The July 8 deadline was the original and only final bid deadline. There was no extension. This row appears to be an artifact of Alex's taxonomy mapping the two-phase process (informal first round + formal final round) onto a round-extension model."
+    }
+  ],
+  "aggregate_rows": [],
+  "summary": {
+    "total_pipeline": 28,
+    "total_alex": 29,
+    "matched": 23,
+    "pipeline_only_count": 5,
+    "alex_only_count": 6,
+    "aggregate_count": 0,
+    "match_rate_percent": 79.3,
+    "filing_contradicted_pipeline_claims": 0,
+    "filing_contradicted_alex_claims": 2,
+    "key_disagreements": [
+      {
+        "topic": "bid_type for $19.25 best-and-final (evt_026 vs Alex BidderID 20)",
+        "description": "Pipeline=Informal, Alex=Formal. Alex's coding is more conventional for a best-and-final offer solicited via process letter, despite the filing's 'non-binding' language.",
+        "severity": "moderate"
+      },
+      {
+        "topic": "Executed date (evt_027 vs Alex BidderID 20.5)",
+        "description": "Pipeline=2016-07-13 (correct per filing), Alex precise=2016-07-09 (incorrect, this is the best-and-final offer date).",
+        "severity": "low"
+      },
+      {
+        "topic": "IB retention date (evt_005 vs Alex BidderID 1.5)",
+        "description": "Pipeline=2016-04-19 (correct per filing), Alex precise=2016-03-09 (incorrect).",
+        "severity": "low"
+      },
+      {
+        "topic": "Round taxonomy",
+        "description": "Alex models the process with informal final rounds (Final Round Inf Ann/Inf at June 3/June 9) and extension rounds (Final Round Ext Ann/Ext at June 24/July 8). Pipeline models a single formal final round (Ann June 24, deadline July 8). Filing supports the pipeline's simpler model: the June 3-9 period was a first-round IOI solicitation, not a final round.",
+        "severity": "moderate"
+      },
+      {
+        "topic": "Sale initiation framing",
+        "description": "Pipeline codes Target Sale on May 5 (Board launches process). Alex codes Bidder Sale on March 9 (Thoma Bravo's unsolicited IOI). Both are filing-defensible but represent different conceptual framings.",
+        "severity": "low"
+      }
+    ],
+    "status": "attention",
+    "status_rationale": "Match rate of 79.3% (23 matched out of 29 max rows) falls in the 70-90% attention range. No pipeline claims are contradicted by the filing. Two Alex date fields are filing-contradicted. The most substantive disagreement is the bid_type classification for the $19.25 best-and-final offer and the round taxonomy differences."
+  }
+}

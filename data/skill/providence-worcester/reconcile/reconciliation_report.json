@@ -1,0 +1,635 @@
+{
+  "deal_slug": "providence-worcester",
+  "pipeline_event_count": 18,
+  "alex_total_row_count": 36,
+  "alex_atomic_row_count": 25,
+  "alex_aggregate_row_count": 4,
+  "alex_process_row_count": 7,
+  "matched_atomic_pairs": 15,
+  "pipeline_only_count": 3,
+  "alex_only_count": 10,
+  "atomic_match_rate": "15/18 pipeline events matched to Alex atomic rows (83%)",
+
+  "matched_pairs": [
+    {
+      "pipeline_event_id": "evt_001",
+      "pipeline_type": "target_sale",
+      "alex_bidder_id": 0.7,
+      "alex_bid_note": "Target Sale",
+      "match_key": "target_sale / 2016-03-14",
+      "field_comparisons": {
+        "date": {"pipeline": "2016-03-14", "alex": "2016-03-14", "match": true},
+        "actor": {"pipeline": "target_board + advisor + Party A", "alex": "NA", "match": true, "note": "Target sale rows typically have no bidder actor"}
+      },
+      "disagreements": []
+    },
+    {
+      "pipeline_event_id": "evt_002",
+      "pipeline_type": "nda",
+      "alex_bidder_id": 1,
+      "alex_bid_note": "NDA",
+      "match_key": "nda / 2016-03-28",
+      "field_comparisons": {
+        "date": {"pipeline": "2016-03-28", "alex": "2016-03-28", "match": true},
+        "actor": {"pipeline": "Party A + Other strategic NDA signers + Financial NDA signers", "alex": "25 parties, including Parties A, B", "match": true, "note": "Pipeline splits into grouped actors (11S + 14F = 25); Alex uses aggregate label"},
+        "bidder_type": {"pipeline": "S+S+F", "alex": "11S, 14F (mixed)", "match": true}
+      },
+      "disagreements": []
+    },
+    {
+      "pipeline_event_id": "evt_003",
+      "pipeline_type": "bidder_interest",
+      "alex_bidder_id": null,
+      "alex_bid_note": null,
+      "match_key": "bidder_interest / 2016-04-21 / Party B",
+      "field_comparisons": {
+        "note": "No direct Alex match for Party B bidder_interest on 2016-04-21. The export CSV row 2 (Bidder Interest, Party B, S, 2016-04-21) is pipeline-only; Alex has BidderID 2 (G&W, date 2016-04-13) as a different event"
+      },
+      "disagreements": [],
+      "status": "pipeline_only_see_below"
+    },
+    {
+      "pipeline_event_id": "evt_004",
+      "pipeline_type": "final_round_ann",
+      "alex_bidder_id": 6,
+      "alex_bid_note": "Final Round Inf Ann",
+      "match_key": "final_round_ann / mid-June 2016",
+      "field_comparisons": {
+        "date": {"pipeline": "2016-06-15 (mid-June)", "alex": "2016-06-15", "match": true},
+        "round_label": {"pipeline": "final_round_ann", "alex": "Final Round Inf Ann", "match": false, "note": "Alex labels this 'Final Round Inf Ann' (informal round announcement). Pipeline labels it final_round_ann with round_scope=formal."}
+      },
+      "disagreements": [
+        {
+          "field": "round_scope",
+          "pipeline_value": "formal (LOI deadline + merger agreement mark-ups)",
+          "alex_value": "Informal round announcement",
+          "filing_snippet": "representatives of GHF instructed all potential buyers to submit non-binding letters of intent (LOIs) by July 20, 2016, together with mark-ups of the forms of merger agreement",
+          "filing_supports": "pipeline",
+          "arbitration_note": "Filing says LOIs with merger-agreement mark-ups were requested -- this is a formal-round signal. Alex's 'Inf' label appears to be a judgment call that the process had informal characteristics, but the structural signal (LOI + mark-up deadline) supports formal."
+        }
+      ]
+    },
+    {
+      "pipeline_event_id": "evt_005",
+      "pipeline_type": "proposal",
+      "alex_bidder_id": 8,
+      "alex_bid_note": "NA (proposal)",
+      "match_key": "proposal / 2016-07-12 / Party C / $21.00",
+      "field_comparisons": {
+        "date": {"pipeline": "2016-07-12", "alex": "2016-07-12", "match": true},
+        "actor": {"pipeline": "Party C", "alex": "Party C", "match": true},
+        "bidder_type": {"pipeline": "strategic", "alex": "S", "match": true},
+        "price": {"pipeline": "21.00", "alex": "21", "match": true},
+        "bid_type": {"pipeline": "Informal (IOI)", "alex": "Informal", "match": true}
+      },
+      "disagreements": []
+    },
+    {
+      "pipeline_event_id": "evt_006",
+      "pipeline_type": "proposal",
+      "alex_bidder_id": 9,
+      "alex_bid_note": "NA (proposal)",
+      "match_key": "proposal / late July / Party B / $24.00",
+      "field_comparisons": {
+        "date": {"pipeline": "2016-07-25 (late July)", "alex": "2016-07-20", "match": false},
+        "actor": {"pipeline": "Party B", "alex": "Party B", "match": true},
+        "bidder_type": {"pipeline": "strategic", "alex": "S", "match": true},
+        "price": {"pipeline": "24.00", "alex": "24", "match": true},
+        "bid_type": {"pipeline": "Informal", "alex": "Formal", "match": false}
+      },
+      "disagreements": [
+        {
+          "field": "date",
+          "pipeline_value": "2016-07-25 (sort_date for 'late July 2016')",
+          "alex_value": "2016-07-20",
+          "filing_snippet": "In late July 2016, the Company received six LOIs ... Party B submitted an LOI to acquire the Company for a price of $24.00 per share",
+          "filing_supports": "pipeline",
+          "arbitration_note": "Filing says 'In late July 2016' for the batch of six LOIs. Alex uses 2016-07-20, which was the LOI deadline date; the LOIs were received after the deadline. Pipeline's 'late July' normalization is more faithful to the text."
+        },
+        {
+          "field": "bid_type",
+          "pipeline_value": "Informal",
+          "alex_value": "Formal",
+          "filing_snippet": "representatives of GHF instructed all potential buyers to submit non-binding letters of intent (LOIs) by July 20, 2016 ... Party B submitted an LOI to acquire the Company for a price of $24.00 per share (subject to an expedited diligence review)",
+          "filing_supports": "inconclusive",
+          "arbitration_note": "Filing describes these as 'non-binding letters of intent' which is an informal/non-binding signal. Alex calls Formal because it was submitted in response to a process letter with merger-agreement mark-ups. Party B also provided mark-ups (evident from later merger-agreement negotiation). Pipeline classifies as Informal based on 'non-binding' LOI label. Both interpretations are defensible; this is a definitional gray area where LOIs submitted with mark-ups in response to a formal process letter could go either way."
+        }
+      ]
+    },
+    {
+      "pipeline_event_id": "evt_007",
+      "pipeline_type": "proposal",
+      "alex_bidder_id": 14,
+      "alex_bid_note": "NA (proposal)",
+      "match_key": "proposal / 2016-07-21 / G&W / $21.15",
+      "field_comparisons": {
+        "date": {"pipeline": "2016-07-21", "alex": "2016-07-21", "match": true},
+        "actor": {"pipeline": "G&W", "alex": "G&W", "match": true},
+        "bidder_type": {"pipeline": "strategic", "alex": "S", "match": true},
+        "price": {"pipeline": "21.15", "alex": "21.15", "match": true},
+        "bid_type": {"pipeline": "Informal", "alex": "Informal", "match": true},
+        "all_cash": {"pipeline": "null (no consideration_type)", "alex": "1", "match": false}
+      },
+      "disagreements": [
+        {
+          "field": "all_cash",
+          "pipeline_value": "null (consideration_type not set)",
+          "alex_value": "1 (all_cash)",
+          "filing_snippet": "G&W submitted an LOI on July 21, 2016 to acquire the Company for a price of $21.15 per share ... The price included $20.02 cash at closing and $1.13 in the form of a contingent value right",
+          "filing_supports": "neither",
+          "arbitration_note": "Filing says $20.02 cash + $1.13 CVR = $21.15. This is technically NOT all-cash since it includes a CVR component. Alex marks all_cash=1, which is questionable. Pipeline has null. Neither is precisely right: the correct value would be 0 (not all-cash) since CVR is not cash. Pipeline's null is less wrong than Alex's 1."
+        }
+      ]
+    },
+    {
+      "pipeline_event_id": "evt_008",
+      "pipeline_type": "proposal",
+      "alex_bidder_id": 10,
+      "alex_bid_note": "NA (proposal)",
+      "match_key": "proposal / late July / Party E / $21.26",
+      "field_comparisons": {
+        "date": {"pipeline": "2016-07-25 (late July)", "alex": "2016-07-20", "match": false},
+        "actor": {"pipeline": "Party E", "alex": "Party E", "match": true},
+        "bidder_type": {"pipeline": "strategic", "alex": "S", "match": true},
+        "price": {"pipeline": "21.26", "alex": "21.26", "match": true},
+        "bid_type": {"pipeline": "Informal", "alex": "Informal", "match": true}
+      },
+      "disagreements": [
+        {
+          "field": "date",
+          "pipeline_value": "2016-07-25 (sort_date for 'late July 2016')",
+          "alex_value": "2016-07-20",
+          "filing_snippet": "In late July 2016, the Company received six LOIs ... Party E (a strategic buyer) submitted an LOI to acquire the Company for a price of $21.26 per share",
+          "filing_supports": "pipeline",
+          "arbitration_note": "Same as Party B. Filing says 'late July 2016'. Alex uses the LOI deadline date July 20, but the filing text says the LOIs were received in late July."
+        }
+      ]
+    },
+    {
+      "pipeline_event_id": "evt_009",
+      "pipeline_type": "proposal",
+      "alex_bidder_id": 11,
+      "alex_bid_note": "NA (proposal)",
+      "match_key": "proposal / late July / Party D / $21.00",
+      "field_comparisons": {
+        "date": {"pipeline": "2016-07-25 (late July)", "alex": "2016-07-20", "match": false},
+        "actor": {"pipeline": "Party D", "alex": "Party D", "match": true},
+        "bidder_type": {"pipeline": "financial", "alex": "F", "match": true},
+        "price": {"pipeline": "21.00", "alex": "21", "match": true},
+        "bid_type": {"pipeline": "Informal", "alex": "Informal", "match": true}
+      },
+      "disagreements": [
+        {
+          "field": "date",
+          "pipeline_value": "2016-07-25 (sort_date for 'late July 2016')",
+          "alex_value": "2016-07-20",
+          "filing_snippet": "In late July 2016, the Company received six LOIs ... Party D (a financial buyer) submitted an LOI to acquire the Company for a price of $21.00 per share",
+          "filing_supports": "pipeline",
+          "arbitration_note": "Same batch. Filing says 'late July 2016'. Pipeline is more faithful."
+        }
+      ]
+    },
+    {
+      "pipeline_event_id": "evt_010",
+      "pipeline_type": "proposal",
+      "alex_bidder_id": 12,
+      "alex_bid_note": "NA (proposal)",
+      "match_key": "proposal / late July / Party C / $19.30",
+      "field_comparisons": {
+        "date": {"pipeline": "2016-07-25 (late July)", "alex": "2016-07-20", "match": false},
+        "actor": {"pipeline": "Party C", "alex": "Party C", "match": true},
+        "bidder_type": {"pipeline": "strategic", "alex": "S", "match": true},
+        "price": {"pipeline": "19.30", "alex": "19.3", "match": true},
+        "bid_type": {"pipeline": "Informal", "alex": "Informal", "match": true}
+      },
+      "disagreements": [
+        {
+          "field": "date",
+          "pipeline_value": "2016-07-25 (sort_date for 'late July 2016')",
+          "alex_value": "2016-07-20",
+          "filing_snippet": "In late July 2016, the Company received six LOIs ... Party C submitted an LOI to acquire the Company for a price of $19.30 per share",
+          "filing_supports": "pipeline",
+          "arbitration_note": "Same batch."
+        }
+      ]
+    },
+    {
+      "pipeline_event_id": "evt_011",
+      "pipeline_type": "proposal",
+      "alex_bidder_id": 13,
+      "alex_bid_note": "NA (proposal)",
+      "match_key": "proposal / late July / Party F / $19.20",
+      "field_comparisons": {
+        "date": {"pipeline": "2016-07-25 (late July)", "alex": "2016-07-20", "match": false},
+        "actor": {"pipeline": "Party F", "alex": "Party F", "match": true},
+        "bidder_type": {"pipeline": "strategic", "alex": "F", "match": false},
+        "price": {"pipeline": "19.20", "alex": "19.2", "match": true},
+        "bid_type": {"pipeline": "Informal", "alex": "Informal", "match": true}
+      },
+      "disagreements": [
+        {
+          "field": "date",
+          "pipeline_value": "2016-07-25 (sort_date for 'late July 2016')",
+          "alex_value": "2016-07-20",
+          "filing_snippet": "Party F (a strategic buyer) submitted an LOI to acquire the Company for a price of $19.20 per share",
+          "filing_supports": "pipeline",
+          "arbitration_note": "Same batch."
+        },
+        {
+          "field": "bidder_type",
+          "pipeline_value": "strategic",
+          "alex_value": "F (financial)",
+          "filing_snippet": "Party F (a strategic buyer) submitted an LOI to acquire the Company for a price of $19.20 per share",
+          "filing_supports": "pipeline",
+          "arbitration_note": "Filing explicitly calls Party F 'a strategic buyer'. Alex codes Party F as financial (F). This is a clear Alex error."
+        }
+      ]
+    },
+    {
+      "pipeline_event_id": "evt_013",
+      "pipeline_type": "proposal",
+      "alex_bidder_id": 22,
+      "alex_bid_note": "NA (proposal)",
+      "match_key": "proposal / 2016-08-01 / Party D / $24.00",
+      "field_comparisons": {
+        "date": {"pipeline": "2016-08-01", "alex": "2016-08-01", "match": true},
+        "actor": {"pipeline": "Party D", "alex": "Party D", "match": true},
+        "bidder_type": {"pipeline": "financial", "alex": "F", "match": true},
+        "price": {"pipeline": "24.00", "alex": "24", "match": true},
+        "bid_type": {"pipeline": "Informal", "alex": "Informal", "match": true}
+      },
+      "disagreements": []
+    },
+    {
+      "pipeline_event_id": "evt_014",
+      "pipeline_type": "proposal",
+      "alex_bidder_id": 23,
+      "alex_bid_note": "NA (proposal)",
+      "match_key": "proposal / 2016-08-01 / Party E+F / $23.81",
+      "field_comparisons": {
+        "date": {"pipeline": "2016-08-01", "alex": "2016-08-01", "match": true},
+        "actor": {"pipeline": "Party E + Party F", "alex": "Party E/F", "match": true},
+        "bidder_type": {"pipeline": "strategic + strategic", "alex": "S/F (mixed)", "match": false},
+        "price": {"pipeline": "23.81", "alex": "23.81", "match": true},
+        "bid_type": {"pipeline": "Informal", "alex": "Informal", "match": true}
+      },
+      "disagreements": [
+        {
+          "field": "bidder_type",
+          "pipeline_value": "strategic (Party E) + strategic (Party F)",
+          "alex_value": "S/F mixed",
+          "filing_snippet": "Party E (a strategic buyer) submitted an LOI ... Party E submitted a revised LOI, along with financing support, from Party F, at a price of $23.81 per share",
+          "filing_supports": "inconclusive",
+          "arbitration_note": "Filing calls Party E 'a strategic buyer'. Party F's role here is financing support for Party E's bid. Alex codes Party F as financial (F), creating a S/F mixed label. The filing itself says 'Party F (a strategic buyer)' in the LOI table (BidderID 13 context), so Party F is strategic. Pipeline labels both as strategic. The 'financing support' role does not change Party F's bidder_kind. Pipeline is more consistent with filing text."
+        }
+      ]
+    },
+    {
+      "pipeline_event_id": "evt_015",
+      "pipeline_type": "drop",
+      "alex_bidder_id": 25,
+      "alex_bid_note": "Drop",
+      "match_key": "drop / 2016-08-02 / Party D",
+      "field_comparisons": {
+        "date": {"pipeline": "2016-08-02", "alex": "2016-08-02", "match": true},
+        "actor": {"pipeline": "Party D", "alex": "Party D", "match": true},
+        "bidder_type": {"pipeline": "financial", "alex": "F", "match": true}
+      },
+      "disagreements": []
+    },
+    {
+      "pipeline_event_id": "evt_018",
+      "pipeline_type": "proposal",
+      "alex_bidder_id": 26,
+      "alex_bid_note": "NA (proposal)",
+      "match_key": "proposal / 2016-08-12 / G&W / $25.00",
+      "field_comparisons": {
+        "date": {"pipeline": "2016-08-12", "alex": "2016-08-12", "match": true},
+        "actor": {"pipeline": "G&W", "alex": "G&W", "match": true},
+        "bidder_type": {"pipeline": "strategic", "alex": "S", "match": true},
+        "price": {"pipeline": "25.00", "alex": "25", "match": true},
+        "bid_type": {"pipeline": "Informal", "alex": "Formal", "match": false},
+        "all_cash": {"pipeline": "cash", "alex": "1", "match": true}
+      },
+      "disagreements": [
+        {
+          "field": "bid_type",
+          "pipeline_value": "Informal",
+          "alex_value": "Formal",
+          "filing_snippet": "G&W submitted a revised LOI to acquire the Company for a price of $25.00 per share in cash, which excluded the previously proposed CVR, together with mark-ups of the merger agreement and the voting agreement. G&W's LOI further indicated that the offer would expire at 6:00 p.m. on the following day.",
+          "filing_supports": "alex",
+          "arbitration_note": "This revised LOI was submitted with mark-ups of the merger agreement and voting agreement, a binding deadline (expiry at 6pm next day), and was the penultimate step before execution. The formality signals (mark-ups + expiry deadline) strongly suggest Formal. Pipeline's Informal classification appears to be a pipeline error -- the enrichment classified all proposals as Informal based on 'non-binding' LOI label, but this revised LOI with merger-agreement mark-ups and an expiry is functionally a formal/binding offer."
+        }
+      ]
+    },
+    {
+      "pipeline_event_id": "evt_019",
+      "pipeline_type": "executed",
+      "alex_bidder_id": 28.5,
+      "alex_bid_note": "Executed",
+      "match_key": "executed / 2016-08-15 / G&W",
+      "field_comparisons": {
+        "date": {"pipeline": "2016-08-15", "alex_precise": "2016-08-15", "match": true},
+        "actor": {"pipeline": "target_board + G&W", "alex": "G&W", "match": true}
+      },
+      "disagreements": []
+    }
+  ],
+
+  "field_mismatches": [
+    {
+      "field": "date (late-July LOI batch)",
+      "count": 5,
+      "pipeline_pattern": "2016-07-25 (sort_date for 'late July 2016')",
+      "alex_pattern": "2016-07-20 (LOI deadline date)",
+      "filing_supports": "pipeline",
+      "note": "Filing says 'In late July 2016, the Company received six LOIs'. Alex uses the deadline date; pipeline uses the filing's explicit time reference."
+    },
+    {
+      "field": "bid_type (Party B $24 LOI)",
+      "count": 1,
+      "pipeline_value": "Informal",
+      "alex_value": "Formal",
+      "filing_supports": "inconclusive",
+      "note": "LOI is labeled 'non-binding' in filing (informal signal) but submitted with merger-agreement mark-ups in response to a formal process letter (formal signal). Definitional gray area."
+    },
+    {
+      "field": "bid_type (G&W $25 revised LOI)",
+      "count": 1,
+      "pipeline_value": "Informal",
+      "alex_value": "Formal",
+      "filing_supports": "alex",
+      "note": "Revised LOI with merger-agreement mark-ups and 24-hour expiry deadline is functionally formal. Pipeline's blanket Informal classification is a pipeline enrichment gap."
+    },
+    {
+      "field": "bidder_type (Party F)",
+      "count": 1,
+      "pipeline_value": "strategic",
+      "alex_value": "financial",
+      "filing_supports": "pipeline",
+      "note": "Filing explicitly calls Party F 'a strategic buyer'. Alex error."
+    },
+    {
+      "field": "bidder_type (Party E/F consortium)",
+      "count": 1,
+      "pipeline_value": "strategic + strategic",
+      "alex_value": "S/F mixed",
+      "filing_supports": "pipeline",
+      "note": "Filing identifies both as strategic. Alex appears to infer F from Party F's financing role."
+    },
+    {
+      "field": "all_cash (G&W $21.15 LOI)",
+      "count": 1,
+      "pipeline_value": "null",
+      "alex_value": "1",
+      "filing_supports": "neither",
+      "note": "Filing says $20.02 cash + $1.13 CVR. Neither all-cash nor null captures this correctly. Correct answer would be 0 (not all-cash)."
+    }
+  ],
+
+  "pipeline_only": [
+    {
+      "pipeline_event_id": "evt_003",
+      "pipeline_type": "bidder_interest",
+      "date": "2016-04-21",
+      "actor": "Party B",
+      "summary": "Introductory meeting with Party B",
+      "evidence_span_ids": ["span_0008"],
+      "filing_grounded": true,
+      "verdict": "grounded",
+      "note": "Filing says 'on April 21, 2016, the Company and representatives of GHF held an introductory meeting with another potential strategic buyer (Party B)'. Alex does not record this as a separate event. Alex has BidderID 2 for G&W with date 2016-04-13 instead, which is a different event (Connections Convention meetings). Pipeline is filing-grounded."
+    },
+    {
+      "pipeline_event_id": "evt_017",
+      "pipeline_type": "bidder_interest",
+      "date": "2016-08-11",
+      "actor": "G&W",
+      "summary": "G&W indicated possible intention to submit revised LOI",
+      "evidence_span_ids": ["span_0033"],
+      "filing_grounded": true,
+      "verdict": "grounded",
+      "note": "Filing says 'On August 11, 2016, G&W indicated its possible intention to submit a revised LOI on August 12, 2016'. Alex does not capture this as a separate event. Pipeline is filing-grounded."
+    },
+    {
+      "pipeline_event_id": "evt_020",
+      "pipeline_type": "bid_press_release",
+      "date": "2016-08-15",
+      "actor": "target_board + G&W",
+      "summary": "Press release announcing transaction",
+      "evidence_span_ids": ["span_0036"],
+      "filing_grounded": true,
+      "verdict": "grounded",
+      "note": "Filing says 'The Company issued a press release publicly announcing the transaction on Monday, August 15, 2016'. Alex does not have a separate press release row (the Executed row covers it). Pipeline granularity is finer."
+    }
+  ],
+
+  "alex_only": [
+    {
+      "alex_bidder_id": 0.3,
+      "bid_note": "Bidder Interest",
+      "bidder": "Party A",
+      "date_rough": "2015-12-31",
+      "verdict": "likely_grounded",
+      "note": "Filing describes Party A suggesting joint ventures and expressing interest in Q4 2015. This is the initial contact event. Pipeline captures Party A's involvement in evt_001 (target_sale) and evt_002 (nda) but does not have a standalone bidder_interest event for Party A's initial expression of interest."
+    },
+    {
+      "alex_bidder_id": 0.5,
+      "bid_note": "IB",
+      "bidder": "Greene Holcomb & Fisher",
+      "date_rough": "2016-01-27",
+      "verdict": "likely_grounded",
+      "note": "Investment banker engagement. Filing confirms GHF was retained. Pipeline captures this via advisor actor (advisor_bmo_capital_markets) but does not extract an IB-engagement event. This is a process/advisor row, not a bid event."
+    },
+    {
+      "alex_bidder_id": 2,
+      "bid_note": "NA (interest)",
+      "bidder": "G&W",
+      "date": "2016-04-13",
+      "verdict": "likely_grounded",
+      "note": "Filing says GHF and management met five strategic buyers including G&W at the 2016 Connections Convention (April 3-6, 2016). Alex date of 2016-04-13 may represent a different contact or follow-up. Pipeline does not capture G&W's initial contact as a separate bidder_interest event, only later events."
+    },
+    {
+      "alex_bidder_id": 7,
+      "bid_note": "NDA",
+      "bidder": "Party C",
+      "date_rough": "2016-07-01",
+      "verdict": "likely_grounded",
+      "note": "Filing says 'In early July 2016, a potential strategic buyer (Party C) approached the Company's management'. Party C was a late entrant who executed a confidentiality agreement separately. Pipeline does not extract a separate NDA event for Party C."
+    },
+    {
+      "alex_bidder_id": 15,
+      "bid_note": "Drop",
+      "bidder": "Party A",
+      "date": "2016-07-22",
+      "verdict": "likely_grounded",
+      "note": "Party A is mentioned in the filing as one of 11 strategic NDA signers but never submitted a bid. The filing says 'One strategic buyer and one financial buyer elected not to submit an LOI.' Party A's drop is inferred since they never bid. Pipeline does not have a drop event for Party A."
+    },
+    {
+      "alex_bidder_id": 16,
+      "bid_note": "Drop",
+      "bidder": "1 party",
+      "date": "2016-07-22",
+      "verdict": "likely_grounded",
+      "note": "Filing says 'One strategic buyer and one financial buyer elected not to submit an LOI.' This anonymous financial buyer drop is captured by Alex. Pipeline does not extract this."
+    },
+    {
+      "alex_bidder_id": 17,
+      "bid_note": "NA (proposal)",
+      "bidder": "G&W",
+      "price": 22.15,
+      "date": "2016-07-26",
+      "bid_type": "Formal",
+      "verdict": "likely_grounded",
+      "note": "Filing says 'On July 26, 2016, in response to feedback from representatives of GHF indicating its price and CVR structure were not competitive, G&W submitted a revised LOI, which increased its offer to $22.15 per share (including $21.02 in cash and $1.13 CVR).' Pipeline does NOT extract this revised LOI as a separate event. This is a pipeline extraction gap."
+    },
+    {
+      "alex_bidder_id": 24,
+      "bid_note": "NA (proposal)",
+      "bidder": "Party E/F",
+      "price": 21.26,
+      "date": "2016-08-02",
+      "bid_type": "Informal",
+      "verdict": "likely_grounded",
+      "note": "Filing says 'Party E withdrew its revised proposal on August 2, 2016 (but confirmed its original proposal of $21.26 per share)'. Alex records this as a separate bid confirmation event. Pipeline does not extract this withdrawal-plus-confirmation as a separate event."
+    },
+    {
+      "alex_bidder_id": 25.5,
+      "bid_note": "Executed",
+      "bidder": "Party B",
+      "price": 24,
+      "date_precise": "2016-07-20",
+      "date_rough": "2016-08-04",
+      "bid_type": "Formal",
+      "verdict": "likely_grounded",
+      "note": "Alex records Party B's bid as 'Executed' at $24, meaning their LOI terms were confirmed after DD and became the draft merger agreement terms. Pipeline does not have a separate 'executed' event for Party B -- only for G&W. Party B's bid was being negotiated up to August 12 when G&W's higher bid overtook it."
+    },
+    {
+      "alex_bidder_id": 27,
+      "bid_note": "Drop",
+      "bidder": "Party B",
+      "date": "2016-08-12",
+      "verdict": "likely_grounded",
+      "note": "Filing says 'Party B indicated that it would not increase its price.' Alex records this as a drop on 2016-08-12. Pipeline does not extract a drop event for Party B. This is a pipeline extraction gap."
+    }
+  ],
+
+  "aggregate_rows": [
+    {
+      "alex_bidder_id": 1,
+      "description": "25 parties NDA (11S, 14F)",
+      "date_rough": "2016-03-28",
+      "pipeline_counterpart": "evt_002 (NDA with Party A + grouped actors)",
+      "pipeline_count": "11 strategic + 14 financial = 25",
+      "verdict": "exact_count_match",
+      "note": "Pipeline extracts count_assertions: 11 strategic NDA signers, 14 financial NDA signers = 25. Matches Alex."
+    },
+    {
+      "alex_bidder_id": 3,
+      "description": "9 parties IOIs, $17.93-$26.50",
+      "date_rough": "2016-05-19",
+      "pipeline_counterpart": "no direct event",
+      "verdict": "soft_match",
+      "note": "Filing says 'the Company received nine written indications of interest (IOIs) from potential buyers, with offer prices per share ranging from $17.93 to $26.50'. Pipeline does not extract the IOI round as a batch event. The IOIs are a distinct stage from the later LOIs. Pipeline skips this round entirely and jumps to Party C's July 12 IOI and the late-July LOI batch."
+    },
+    {
+      "alex_bidder_id": 4,
+      "description": "16 parties Drop",
+      "date_rough": "2016-06-01",
+      "pipeline_counterpart": "no direct event",
+      "verdict": "soft_match",
+      "note": "Filing says 25 NDA signers minus 9 IOI submitters = 16 who dropped before IOI stage. Alex records this as a cohort drop. Pipeline does not extract this implicit dropout cohort."
+    },
+    {
+      "alex_bidder_id": 5,
+      "description": "2 parties DropTarget",
+      "date_rough": "2016-06-01",
+      "pipeline_counterpart": "no direct event",
+      "verdict": "soft_match",
+      "note": "Filing says 'the Transaction Committee concluded that the two low bidders should be excluded from that process.' Alex records this target-initiated exclusion of 2 IOI bidders. Pipeline does not extract this."
+    }
+  ],
+
+  "alex_process_rows_not_matched": [
+    {
+      "alex_bidder_id": 13.5,
+      "bid_note": "Final Round Inf",
+      "date_rough": "2016-07-20",
+      "note": "Alex marks the LOI deadline as an informal final-round boundary. Pipeline does not have a separate final-round event here; the LOI deadline was already captured in evt_004 (mid-June announcement with July 20 deadline)."
+    },
+    {
+      "alex_bidder_id": 17.5,
+      "bid_note": "Final Round Ann",
+      "date_rough": "2016-07-27",
+      "note": "Alex marks the July 27 committee decision to narrow to G&W and Party B as a formal round announcement. Pipeline does not have this as a separate event."
+    },
+    {
+      "alex_bidder_id": 18,
+      "bid_note": "DropTarget (Party E)",
+      "date": "2016-07-27",
+      "note": "Target-initiated drop of Party E from the post-LOI narrowing. Pipeline does not extract separate DropTarget events for the July 27 narrowing."
+    },
+    {
+      "alex_bidder_id": 19,
+      "bid_note": "DropTarget (Party D)",
+      "date": "2016-07-27",
+      "note": "Target-initiated drop of Party D from the post-LOI narrowing."
+    },
+    {
+      "alex_bidder_id": 20,
+      "bid_note": "DropTarget (Party C)",
+      "date": "2016-07-27",
+      "note": "Target-initiated drop of Party C from the post-LOI narrowing."
+    },
+    {
+      "alex_bidder_id": 21,
+      "bid_note": "DropTarget (Party F)",
+      "date": "2016-07-27",
+      "note": "Target-initiated drop of Party F from the post-LOI narrowing."
+    },
+    {
+      "alex_bidder_id": 28,
+      "bid_note": "Drop (Party E/F)",
+      "date": "2016-08-12",
+      "note": "Party E/F final drop. Pipeline does not record this."
+    },
+    {
+      "alex_bidder_id": 28.3,
+      "bid_note": "Final Round",
+      "date_rough": "2016-08-12",
+      "note": "Alex marks the final-round close when G&W's offer was accepted."
+    }
+  ],
+
+  "export_regressions": [],
+
+  "summary": {
+    "status": "attention",
+    "pipeline_events": 18,
+    "alex_atomic_rows": 25,
+    "alex_aggregate_rows": 4,
+    "alex_process_rows": 7,
+    "alex_total_rows": 36,
+    "matched_pairs": 15,
+    "atomic_match_rate_pct": 83,
+    "field_mismatch_count": 10,
+    "filing_supports_pipeline": 7,
+    "filing_supports_alex": 1,
+    "filing_inconclusive": 2,
+    "pipeline_only_grounded": 3,
+    "alex_only_likely_grounded": 10,
+    "key_pipeline_gaps": [
+      "Missing G&W $22.15 revised LOI (July 26, 2016) -- filing-grounded event not extracted",
+      "Missing Party B drop (August 12, 2016) -- Party B refused to increase price",
+      "Missing Party A drop (never bid, inferred from 'one strategic buyer elected not to submit an LOI')",
+      "Missing IOI-round aggregate event (9 IOIs, May 19 - June 1, 2016)",
+      "Missing DropTarget events for July 27 narrowing (Party C, D, E, F excluded by Transaction Committee)",
+      "Missing Party E withdrawal/confirmation event (August 2, 2016)",
+      "bid_type enrichment classifies all proposals as Informal, missing formal signals on G&W $25 revised LOI"
+    ],
+    "key_alex_errors": [
+      "Party F bidder_type coded as F (financial) -- filing explicitly says 'a strategic buyer'",
+      "G&W $21.15 LOI coded as all_cash=1 -- filing shows $20.02 cash + $1.13 CVR (not all-cash)",
+      "Late-July LOI dates pinned to deadline 2016-07-20 -- filing says 'In late July 2016'"
+    ]
+  }
+}

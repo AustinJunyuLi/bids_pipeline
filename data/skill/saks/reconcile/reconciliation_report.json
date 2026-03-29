@@ -1,0 +1,748 @@
+{
+  "schema_version": "1.0.0",
+  "deal_slug": "saks",
+  "created_at": "2026-03-29",
+  "alex_row_count": 25,
+  "pipeline_event_count": 19,
+  "summary": {
+    "matched": 17,
+    "alex_only": 8,
+    "pipeline_only": 4,
+    "disagreements": 10,
+    "arbitration_pipeline_correct": 6,
+    "arbitration_alex_correct": 2,
+    "arbitration_both_defensible": 2,
+    "notes": "Alex has 25 rows; pipeline has 19 events. Several Alex rows are aggregate/process rows (IB, Final Round, Final Round Ann) or self-flagged deletions. Pipeline has additional events (bidder_interest for HBC Apr 1, target_sale Jun 5, bid_press_release Jul 29) that Alex omits or encodes differently."
+  },
+  "matched_events": [
+    {
+      "match_id": "M01",
+      "alex_bidder_id": 0.5,
+      "pipeline_event_id": "evt_001",
+      "event_family": "bidder_interest",
+      "alex_bid_note": "Bidder Interest",
+      "alex_bidder": "Sponsor A",
+      "pipeline_actor": "bidder_sponsor_a",
+      "alex_date": "2013-02-15",
+      "pipeline_date": "2013-02-01",
+      "date_match": "approximate",
+      "price_match": true,
+      "disagreements": [
+        {
+          "field": "date",
+          "alex_value": "2013-02-15 (rough)",
+          "pipeline_value": "2013-02-01 (month precision)",
+          "arbitration": "both_defensible",
+          "filing_text": "In February 2013, Stephen I. Sadove ... received an unsolicited phone call from a representative of a private equity firm, which we refer to as Sponsor A",
+          "ruling": "Filing says 'In February 2013' -- no specific day. Pipeline uses month-start as sort_date; Alex uses month-midpoint. Both are valid approximations of a month-precision date."
+        },
+        {
+          "field": "bidder_type",
+          "alex_value": "F (bidder_type_note only, no typed columns)",
+          "pipeline_value": "financial",
+          "arbitration": "agree",
+          "ruling": "Both say financial sponsor."
+        }
+      ]
+    },
+    {
+      "match_id": "M02",
+      "alex_bidder_id": 1,
+      "pipeline_event_id": null,
+      "event_family": "proposal (informal)",
+      "alex_bid_note": "NA (bid row)",
+      "alex_bidder": "Hudson's Bay",
+      "pipeline_actor": null,
+      "alex_date": "2013-04-15",
+      "pipeline_date": null,
+      "date_match": "alex_only",
+      "price_match": "N/A",
+      "disagreements": [
+        {
+          "field": "existence",
+          "alex_value": "Informal bid, $15 lower, ~Apr 15 2013",
+          "pipeline_value": "NOT EXTRACTED as separate proposal event",
+          "arbitration": "alex_correct",
+          "filing_text": "During the week of April 15, 2013, representatives of Goldman Sachs met separately with representatives of each of Hudsons Bay and Sponsor A ... Each of Hudsons Bay and Sponsor A indicated that they were considering making an offer to acquire Saks for at least $15 per share, in cash.",
+          "ruling": "The filing clearly describes a week-of-April-15 indication from Hudson's Bay at $15+/share. Pipeline captured this only for Sponsor A (evt_001 is Feb interest, not April indication). This is a missing pipeline event. The pipeline's evt_002 (Apr 1 bidder_interest) is the initial meeting, not the $15 indication. Alex correctly captures the April ~15 price indication as a separate informal bid row."
+        }
+      ]
+    },
+    {
+      "match_id": "M03",
+      "alex_bidder_id": 2,
+      "pipeline_event_id": null,
+      "event_family": "proposal (informal)",
+      "alex_bid_note": "NA (bid row)",
+      "alex_bidder": "Sponsor A",
+      "pipeline_actor": null,
+      "alex_date": "2013-04-15",
+      "pipeline_date": null,
+      "date_match": "alex_only",
+      "price_match": "N/A",
+      "disagreements": [
+        {
+          "field": "existence",
+          "alex_value": "Informal bid, $15 lower, ~Apr 15 2013",
+          "pipeline_value": "NOT EXTRACTED as separate proposal event",
+          "arbitration": "alex_correct",
+          "filing_text": "During the week of April 15, 2013 ... Each of Hudsons Bay and Sponsor A indicated that they were considering making an offer to acquire Saks for at least $15 per share, in cash.",
+          "ruling": "Same as M02 -- pipeline missed the April 15 price indication for Sponsor A as a distinct proposal event. The pipeline's evt_001 (Feb interest) and evt_002 (Apr 1 HBC meeting) do not capture the April 15 $15/share indication."
+        }
+      ]
+    },
+    {
+      "match_id": "M04",
+      "alex_bidder_id": 3,
+      "pipeline_event_id": null,
+      "event_family": "drop",
+      "alex_bid_note": "Drop",
+      "alex_bidder": "Sponsor A",
+      "pipeline_actor": null,
+      "alex_date": "2013-04-26",
+      "pipeline_date": null,
+      "date_match": "alex_only",
+      "price_match": "N/A",
+      "disagreements": [
+        {
+          "field": "existence_and_interpretation",
+          "alex_value": "Sponsor A Drop on Apr 26 (same date as NDA)",
+          "pipeline_value": "No drop event for Sponsor A at this point",
+          "arbitration": "pipeline_correct",
+          "filing_text": "On April 26, 2013, Saks entered into a confidentiality agreement with each of Sponsor A and Sponsor E, who were considering participating in a potential joint acquisition of Saks.",
+          "ruling": "The filing does not describe a Sponsor A dropout at April 26. Sponsor A signed an NDA on April 26 and continued participating (appearing in the June 3 proposal with Sponsor E, and later in the July bid). Sponsor A's eventual semi-withdrawal is described as 'In early July 2013, Sponsor E informed Saks that Sponsor A was no longer intending to be a primary participant'. Alex's row 3 (Drop for Sponsor A at Apr 26) is likely a coding error -- this date is the NDA date, not a drop date."
+        }
+      ]
+    },
+    {
+      "match_id": "M05",
+      "alex_bidder_id": 4,
+      "pipeline_event_id": "evt_003",
+      "event_family": "nda",
+      "alex_bid_note": "NDA",
+      "alex_bidder": "Sponsor A",
+      "pipeline_actor": "bidder_sponsor_a",
+      "alex_date": "2013-04-26",
+      "pipeline_date": "2013-04-26",
+      "date_match": "exact",
+      "price_match": true,
+      "disagreements": []
+    },
+    {
+      "match_id": "M06",
+      "alex_bidder_id": 5,
+      "pipeline_event_id": "evt_004",
+      "event_family": "nda",
+      "alex_bid_note": "NDA",
+      "alex_bidder": "Sponsor E",
+      "pipeline_actor": "bidder_sponsor_e",
+      "alex_date": "2013-04-26",
+      "pipeline_date": "2013-04-26",
+      "date_match": "exact",
+      "price_match": true,
+      "disagreements": []
+    },
+    {
+      "match_id": "M07",
+      "alex_bidder_id": 6,
+      "pipeline_event_id": "evt_005",
+      "event_family": "nda",
+      "alex_bid_note": "NDA",
+      "alex_bidder": "Hudson's Bay",
+      "pipeline_actor": "bidder_hudsons_bay",
+      "alex_date": "2013-04-30",
+      "pipeline_date": "2013-04-30",
+      "date_match": "exact",
+      "price_match": true,
+      "disagreements": []
+    },
+    {
+      "match_id": "M08",
+      "alex_bidder_id": 7,
+      "pipeline_event_id": "evt_006",
+      "event_family": "proposal",
+      "alex_bid_note": "NA (bid row)",
+      "alex_bidder": "Hudson's Bay",
+      "pipeline_actor": "bidder_hudsons_bay",
+      "alex_date": "2013-06-03",
+      "pipeline_date": "2013-06-03",
+      "date_match": "exact",
+      "price_match": "partial",
+      "disagreements": [
+        {
+          "field": "price_range",
+          "alex_value": "$15.00-$15.25 (lower=15, upper=15.25)",
+          "pipeline_value": "$15.00-$15.25 (range_low=15.00, range_high=15.25)",
+          "arbitration": "agree",
+          "ruling": "Both agree on $15-$15.25 range."
+        },
+        {
+          "field": "bid_type",
+          "alex_value": "Informal",
+          "pipeline_value": "Informal (enrichment: evt_006 classified Informal)",
+          "arbitration": "agree",
+          "ruling": "Both agree: Informal."
+        },
+        {
+          "field": "all_cash",
+          "alex_value": 1,
+          "pipeline_value": "cash (consideration_type)",
+          "arbitration": "agree",
+          "ruling": "Both agree: all-cash."
+        },
+        {
+          "field": "bid_value / bid_value_pershare",
+          "alex_value": "bid_value=15, bid_value_pershare=15",
+          "pipeline_value": "per_share=null, range_low=15.00, range_high=15.25",
+          "arbitration": "pipeline_correct",
+          "filing_text": "indicative price ranges of $15 to $15.25 per share of common stock (in the case of Hudsons Bay)",
+          "ruling": "Alex sets bid_value=15 (the lower bound) and bid_value_pershare=15, which is arguably the 'at least' price. Pipeline leaves per_share null and uses the range fields. Pipeline is more precise -- this was a range indication, not a single-point bid."
+        }
+      ]
+    },
+    {
+      "match_id": "M09",
+      "alex_bidder_id": 8,
+      "pipeline_event_id": "evt_007",
+      "event_family": "proposal",
+      "alex_bid_note": "NA (bid row)",
+      "alex_bidder": "Sponsor A/E",
+      "pipeline_actor": ["bidder_sponsor_a", "bidder_sponsor_e"],
+      "alex_date": "2013-06-03",
+      "pipeline_date": "2013-06-03",
+      "date_match": "exact",
+      "price_match": "partial",
+      "disagreements": [
+        {
+          "field": "price_range",
+          "alex_value": "$15.00-$16.00 (lower=15, upper=16)",
+          "pipeline_value": "$15.00-$16.00 (range_low=15.00, range_high=16.00)",
+          "arbitration": "agree",
+          "ruling": "Both agree on $15-$16 range."
+        },
+        {
+          "field": "bid_type",
+          "alex_value": "Informal",
+          "pipeline_value": "Informal",
+          "arbitration": "agree",
+          "ruling": "Both agree: Informal."
+        },
+        {
+          "field": "all_cash",
+          "alex_value": 1,
+          "pipeline_value": "cash",
+          "arbitration": "agree",
+          "ruling": "Both agree: all-cash."
+        }
+      ]
+    },
+    {
+      "match_id": "M10",
+      "alex_bidder_id": 9,
+      "pipeline_event_id": "evt_010",
+      "event_family": "final_round_ann",
+      "alex_bid_note": "Final Round Ann",
+      "alex_bidder": "NA",
+      "pipeline_actor": "advisor_goldman_sachs",
+      "alex_date": "2013-07-02",
+      "pipeline_date": "2013-07-02",
+      "date_match": "exact",
+      "price_match": true,
+      "disagreements": []
+    },
+    {
+      "match_id": "M11",
+      "alex_bidder_id": 10,
+      "pipeline_event_id": null,
+      "event_family": "drop",
+      "alex_bid_note": "Drop",
+      "alex_bidder": "Sponsor A/E",
+      "pipeline_actor": null,
+      "alex_date": "2013-07-07 (rough)",
+      "pipeline_date": null,
+      "date_match": "alex_only",
+      "price_match": "N/A",
+      "disagreements": [
+        {
+          "field": "existence_and_scope",
+          "alex_value": "Sponsor A/E Drop around Jul 7. Comment: 'Sponsor A was no longer intending to be a primary participant and Sponsor E had entered into discussions with Sponsor G'",
+          "pipeline_value": "No explicit Sponsor A drop event extracted. Pipeline has evt_014 (Sponsor G drop, later). Sponsor A's withdrawal is noted in evt_013/evt_014 notes.",
+          "arbitration": "alex_correct",
+          "filing_text": "In early July 2013, Sponsor E informed Saks that Sponsor A was no longer intending to be a primary participant in a potential transaction and that Sponsor E had entered into discussions with Sponsor G",
+          "ruling": "The filing clearly describes Sponsor A withdrawing as a primary participant in early July. This is a real drop event that the pipeline should have captured. Alex's characterization as 'Sponsor A/E' is imprecise -- it was Sponsor A dropping while Sponsor E continued with Sponsor G. The pipeline missed this as a standalone drop event for Sponsor A."
+        }
+      ]
+    },
+    {
+      "match_id": "M12",
+      "alex_bidder_id": 11,
+      "pipeline_event_id": "evt_011",
+      "event_family": "nda",
+      "alex_bid_note": "NDA",
+      "alex_bidder": "Sponsor G",
+      "pipeline_actor": "bidder_sponsor_g",
+      "alex_date": "2013-07-08",
+      "pipeline_date": "2013-07-08",
+      "date_match": "exact",
+      "price_match": true,
+      "disagreements": []
+    },
+    {
+      "match_id": "M13",
+      "alex_bidder_id": 12,
+      "pipeline_event_id": "evt_012",
+      "event_family": "proposal",
+      "alex_bid_note": "NA (bid row)",
+      "alex_bidder": "Hudson's Bay",
+      "pipeline_actor": "bidder_hudsons_bay",
+      "alex_date": "2013-07-11",
+      "pipeline_date": "2013-07-11",
+      "date_match": "exact",
+      "price_match": true,
+      "disagreements": [
+        {
+          "field": "bid_type",
+          "alex_value": "Formal",
+          "pipeline_value": "Formal",
+          "arbitration": "agree",
+          "ruling": "Both agree: Formal. Filing confirms: revised draft merger agreement + committed financing."
+        },
+        {
+          "field": "price",
+          "alex_value": "$15.25 (lower=15.25, upper=15.25)",
+          "pipeline_value": "$15.25 (per_share=15.25)",
+          "arbitration": "agree",
+          "ruling": "Both agree: $15.25/share."
+        },
+        {
+          "field": "all_cash",
+          "alex_value": 1,
+          "pipeline_value": "cash",
+          "arbitration": "agree",
+          "ruling": "Both agree: all-cash."
+        }
+      ]
+    },
+    {
+      "match_id": "M14",
+      "alex_bidder_id": 13,
+      "pipeline_event_id": "evt_013",
+      "event_family": "proposal",
+      "alex_bid_note": "NA (bid row)",
+      "alex_bidder": "Sponsor A/E",
+      "pipeline_actor": ["bidder_sponsor_e", "bidder_sponsor_g"],
+      "alex_date": "2013-07-11",
+      "pipeline_date": "2013-07-11",
+      "date_match": "exact",
+      "price_match": true,
+      "disagreements": [
+        {
+          "field": "bidder_name",
+          "alex_value": "Sponsor A/E",
+          "pipeline_value": "Sponsor E + Sponsor G",
+          "arbitration": "pipeline_correct",
+          "filing_text": "On July 11, 2013, each of Hudsons Bay, on the one hand, and Sponsor E, together with Sponsor G, on the other hand, submitted proposals",
+          "ruling": "The filing explicitly states the July 11 joint proposal was from 'Sponsor E, together with Sponsor G'. Alex labels it Sponsor A/E, but Sponsor A had already withdrawn as a primary participant by early July. The filing later says 'Sponsor G was no longer participating... and Sponsor E would again be joined in its proposal by Sponsor A', but that is after July 11. Pipeline correctly identifies the July 11 bidders as Sponsor E + Sponsor G."
+        },
+        {
+          "field": "bid_type",
+          "alex_value": "Informal",
+          "pipeline_value": "Informal",
+          "arbitration": "agree",
+          "ruling": "Both agree: Informal (no draft merger agreement, no financing, needed more diligence)."
+        },
+        {
+          "field": "price_range",
+          "alex_value": "$14.50-$15.50",
+          "pipeline_value": "$14.50-$15.50",
+          "arbitration": "agree",
+          "ruling": "Both agree on range."
+        }
+      ]
+    },
+    {
+      "match_id": "M15",
+      "alex_bidder_id": 14,
+      "pipeline_event_id": "evt_014",
+      "event_family": "drop",
+      "alex_bid_note": "Drop",
+      "alex_bidder": "Sponsor G",
+      "pipeline_actor": "bidder_sponsor_g",
+      "alex_date": null,
+      "pipeline_date": null,
+      "date_match": "both_unknown",
+      "price_match": true,
+      "disagreements": []
+    },
+    {
+      "match_id": "M16",
+      "alex_bidder_id": 15,
+      "pipeline_event_id": "evt_015",
+      "event_family": "proposal",
+      "alex_bid_note": "NA (bid row)",
+      "alex_bidder": "Company H",
+      "pipeline_actor": "bidder_company_h",
+      "alex_date": "2013-07-21",
+      "pipeline_date": "2013-07-21",
+      "date_match": "exact",
+      "price_match": "partial",
+      "disagreements": [
+        {
+          "field": "bid_type",
+          "alex_value": "Informal",
+          "pipeline_value": "Formal (enrichment: rule 2.5 -- post final-round with no informal signals)",
+          "arbitration": "both_defensible",
+          "filing_text": "On July 21, 2013, Saks received a letter from Company H, a privately held company based in the U. S. unknown to Saks and its advisors, purporting to propose to acquire Saks for an aggregate price of $2.6 billion in cash, with no details or further information.",
+          "ruling": "Company H's 'purported' proposal was after the final round, and came with no NDA, no details, and no follow-up. Pipeline classifies it Formal based on timing (post-final-round rule 2.5). Alex classifies it Informal. The filing's description -- 'purporting to propose', 'no details or further information', never followed up -- is more consistent with a non-serious/informal bid, though it is technically a post-final-round submission. Both interpretations are defensible depending on whether one prioritizes timing rules or substantive quality."
+        },
+        {
+          "field": "price_format",
+          "alex_value": "$2.6B enterprise (bid_value_unit=billion)",
+          "pipeline_value": "$2.6B enterprise_value",
+          "arbitration": "agree",
+          "ruling": "Both capture $2.6 billion aggregate. Alex marks it as per-share NA (correctly -- no per-share figure given). Pipeline sets enterprise_value=2600000000."
+        },
+        {
+          "field": "bidder_type",
+          "alex_value": "S (strategic)",
+          "pipeline_value": "strategic",
+          "arbitration": "agree",
+          "ruling": "Both agree."
+        },
+        {
+          "field": "alex_self_note",
+          "alex_value": "Comment: 'Should be deleted: unsolicited letter, no NDA, no further contact, no price per share'",
+          "pipeline_value": "Included but with notes about lack of follow-up",
+          "arbitration": "pipeline_correct",
+          "ruling": "Alex's own comment says 'should be deleted'. Pipeline includes it with appropriate caveats. Including it with notes is more complete than deletion -- it is a filing-documented event even if unserious."
+        }
+      ]
+    },
+    {
+      "match_id": "M17",
+      "alex_bidder_id": 16,
+      "pipeline_event_id": null,
+      "event_family": "drop",
+      "alex_bid_note": "Drop",
+      "alex_bidder": "Company H",
+      "pipeline_actor": null,
+      "alex_date": null,
+      "pipeline_date": null,
+      "date_match": "N/A",
+      "price_match": "N/A",
+      "disagreements": [
+        {
+          "field": "existence",
+          "alex_value": "Company H Drop row (no date)",
+          "pipeline_value": "No separate drop event for Company H",
+          "arbitration": "both_defensible",
+          "filing_text": "Goldman Sachs subsequently attempted on more than one occasion to contact the appropriate person at Company H ... but was unsuccessful in making contact. Neither Saks nor Goldman Sachs received any subsequent communications from Company H.",
+          "ruling": "Company H never engaged and never followed up. Whether to code a formal 'drop' row for a party that never really entered the process is a modeling choice. Pipeline's approach (include the proposal but no explicit drop) is defensible; Alex's approach (include both proposal and drop rows) is also defensible."
+        }
+      ]
+    },
+    {
+      "match_id": "M18",
+      "alex_bidder_id": 18,
+      "pipeline_event_id": "evt_016",
+      "event_family": "proposal",
+      "alex_bid_note": "NA (bid row)",
+      "alex_bidder": "Hudson's Bay",
+      "pipeline_actor": "bidder_hudsons_bay",
+      "alex_date": "2013-07-24",
+      "pipeline_date": "2013-07-24",
+      "date_match": "exact",
+      "price_match": true,
+      "disagreements": [
+        {
+          "field": "bid_type",
+          "alex_value": "Formal",
+          "pipeline_value": "Formal",
+          "arbitration": "agree",
+          "ruling": "Both agree: Formal."
+        },
+        {
+          "field": "price",
+          "alex_value": "$16 (lower=16, upper=16)",
+          "pipeline_value": "$16 (per_share=16.00)",
+          "arbitration": "agree",
+          "ruling": "Both agree: $16/share."
+        },
+        {
+          "field": "all_cash",
+          "alex_value": 1,
+          "pipeline_value": "cash",
+          "arbitration": "agree",
+          "ruling": "Both agree."
+        }
+      ]
+    },
+    {
+      "match_id": "M19",
+      "alex_bidder_id": 19.5,
+      "pipeline_event_id": "evt_017",
+      "event_family": "executed",
+      "alex_bid_note": "Executed",
+      "alex_bidder": "Hudson's Bay",
+      "pipeline_actor": "target_board",
+      "alex_date": "2013-07-28",
+      "pipeline_date": "2013-07-28",
+      "date_match": "exact",
+      "price_match": true,
+      "disagreements": [
+        {
+          "field": "actor_framing",
+          "alex_value": "Hudson's Bay (BidderName)",
+          "pipeline_value": "target_board (with executed_with_actor_id=bidder_hudsons_bay)",
+          "arbitration": "pipeline_correct",
+          "filing_text": "Saks, Hudsons Bay and Merger Sub finalized and executed the merger agreement and other transaction documents later on July 28, 2013.",
+          "ruling": "The execution event is the target board approving and executing the agreement. Pipeline captures this correctly with target_board as primary actor and executed_with_actor_id pointing to Hudson's Bay. Alex codes it from the acquirer side. Pipeline's framing is more precise."
+        }
+      ]
+    },
+    {
+      "match_id": "M20",
+      "alex_bidder_id": 20,
+      "pipeline_event_id": "evt_019",
+      "event_family": "nda",
+      "alex_bid_note": "NDA",
+      "alex_bidder": "Company I",
+      "pipeline_actor": "bidder_company_i",
+      "alex_date": "2013-07-29 (rough)",
+      "pipeline_date": null,
+      "date_match": "approximate",
+      "price_match": true,
+      "disagreements": [
+        {
+          "field": "date",
+          "alex_value": "2013-07-29 (rough)",
+          "pipeline_value": "null (precision=unknown; raw text='approximately two weeks after the merger agreement was executed')",
+          "arbitration": "pipeline_correct",
+          "filing_text": "only one of the six (which we refer to as Company I) executed a confidentiality agreement with, and conducted a due diligence investigation of, Saks ... Company I had not signed a confidentiality agreement until approximately two weeks after the merger agreement was executed",
+          "ruling": "The filing says Company I signed the NDA 'approximately two weeks after the merger agreement was executed' (July 28) -- so around August 11, not July 29. Alex's July 29 date appears to be the announcement date used as a proxy. Pipeline's null date with the raw text description is more faithful to the filing, though it could have computed ~Aug 11 from the anchor."
+        },
+        {
+          "field": "bidder_type",
+          "alex_value": "S (strategic)",
+          "pipeline_value": "null (bidder_kind not set)",
+          "arbitration": "alex_correct",
+          "filing_text": "Goldman Sachs, on behalf of Saks, contacted 58 potentially interested third parties, including private equity firms, companies involved in the retail industry and other potential acquirors",
+          "ruling": "Company I is described as a go-shop participant contacted among 'companies involved in the retail industry'. Alex's strategic classification is a reasonable inference. Pipeline left bidder_kind null, which is less informative."
+        }
+      ]
+    }
+  ],
+  "alex_only_rows": [
+    {
+      "alex_bidder_id": 0.3,
+      "bid_note": "IB",
+      "bidder": "Goldman Sachs",
+      "date": "2012-12-15",
+      "category": "aggregate_process_row",
+      "pipeline_equivalent": "advisor_goldman_sachs actor (not an event)",
+      "arbitration": "structural_difference",
+      "ruling": "Alex codes the IB retention as a row. Pipeline models Goldman Sachs as an advisor actor, not as an event. The filing describes Goldman Sachs as a 'longstanding financial advisor' who participated in a December 2012 review -- this is background context, not a discrete process event. Both approaches are valid modeling choices."
+    },
+    {
+      "alex_bidder_id": 3,
+      "bid_note": "Drop",
+      "bidder": "Sponsor A",
+      "date": "2013-04-26",
+      "category": "likely_error",
+      "pipeline_equivalent": "None",
+      "arbitration": "pipeline_correct",
+      "ruling": "Alex codes a Sponsor A Drop on Apr 26 -- the same date as the NDA. The filing shows Sponsor A signed the NDA on April 26 and continued to participate through June and into July. This appears to be a coding error in Alex's data."
+    },
+    {
+      "alex_bidder_id": 10,
+      "bid_note": "Drop",
+      "bidder": "Sponsor A/E",
+      "date": "2013-07-07 (rough)",
+      "category": "missing_pipeline_event",
+      "pipeline_equivalent": "Not extracted -- Sponsor A withdrawal in early July",
+      "arbitration": "alex_correct",
+      "ruling": "The filing says 'In early July 2013, Sponsor E informed Saks that Sponsor A was no longer intending to be a primary participant.' This is a real drop event for Sponsor A that the pipeline missed. However, Alex's label 'Sponsor A/E' is misleading since Sponsor E continued."
+    },
+    {
+      "alex_bidder_id": 13.5,
+      "bid_note": "Final Round",
+      "bidder": "NA",
+      "date": "2013-07-02 to 2013-07-11",
+      "category": "aggregate_process_row",
+      "pipeline_equivalent": "evt_010 (final_round_ann) with deadline_date Jul 11",
+      "arbitration": "structural_difference",
+      "ruling": "Alex separates Final Round Ann (BidderID 9) and Final Round (BidderID 13.5). Pipeline combines both into evt_010 with a deadline_date field. The filing says the July 2 process letter requested offers by July 11. Both representations capture the same information differently."
+    },
+    {
+      "alex_bidder_id": 16,
+      "bid_note": "Drop",
+      "bidder": "Company H",
+      "date": null,
+      "category": "optional_drop_row",
+      "pipeline_equivalent": "Not extracted",
+      "arbitration": "both_defensible",
+      "ruling": "Company H never truly entered the process. Whether to code a drop row is a modeling choice."
+    },
+    {
+      "alex_bidder_id": 17,
+      "bid_note": "NA (bid row)",
+      "bidder": "Sponsor A/E",
+      "date": "2013-07-22 (rough)",
+      "category": "self_flagged_deletion",
+      "pipeline_equivalent": "Not extracted",
+      "arbitration": "pipeline_correct",
+      "ruling": "Alex's own comment says 'Not a separate bid, should be deleted'. The filing describes week-of-July-22 discussions where Sponsor A/E reiterated their previous $14.50-$15.50 range but made no new proposal. Pipeline correctly does not extract this as a separate event."
+    },
+    {
+      "alex_bidder_id": 19,
+      "bid_note": "DropTarget",
+      "bidder": "Spnosor A/E (typo)",
+      "date": "2013-07-28",
+      "category": "process_row",
+      "pipeline_equivalent": "evt_017 (executed) implies Sponsor A/E are dropped at signing",
+      "arbitration": "structural_difference",
+      "ruling": "Alex codes an explicit DropTarget row for Sponsor A/E on the signing date. Pipeline's executed event implicitly captures that non-winning bidders are out. The filing does not describe a separate 'Sponsor A/E drop' event on July 28 -- the event is the merger execution with Hudson's Bay. Pipeline's approach is cleaner. Also note the typo 'Spnosor' in Alex's data."
+    },
+    {
+      "alex_bidder_id": 21,
+      "bid_note": "Drop",
+      "bidder": "Company I",
+      "date": "2013-09-06",
+      "category": "go_shop_expiry",
+      "pipeline_equivalent": "Not extracted as event -- go-shop ended Sep 6 per filing",
+      "arbitration": "both_defensible",
+      "filing_text": "The go shop period ended on September 6, 2013, and no party has been designated by Saks as an excluded party.",
+      "ruling": "The filing confirms the go-shop period ended Sep 6 and Company I did not submit an acquisition proposal. Alex codes this as a Drop; pipeline does not have a separate event for go-shop expiry. Both are defensible."
+    }
+  ],
+  "pipeline_only_events": [
+    {
+      "pipeline_event_id": "evt_002",
+      "event_type": "bidder_interest",
+      "actor": "bidder_hudsons_bay",
+      "date": "2013-04-01",
+      "alex_equivalent": "Partially captured in Alex BidderID 1 (Apr 15 informal bid) but as combined interest+indication",
+      "ruling": "Pipeline has a separate Apr 1 bidder_interest for HBC's initial meeting with Sadove, distinct from the Apr 15 price indication. Alex combines the interest and the price indication into one row. Pipeline's separation is more granular and filing-faithful."
+    },
+    {
+      "pipeline_event_id": "evt_008",
+      "event_type": "target_sale",
+      "actor": "target_board",
+      "date": "2013-06-05",
+      "alex_equivalent": "Not present in Alex's 25 rows",
+      "ruling": "The filing clearly describes the June 5 board authorization of a sale process. Pipeline correctly extracts this. Alex does not have a target_sale row, which is a gap in Alex's coverage."
+    },
+    {
+      "pipeline_event_id": "evt_009",
+      "event_type": "bidder_interest",
+      "actor": "bidder_company_f",
+      "date": "2013-06-10",
+      "alex_equivalent": "Not present in Alex's 25 rows",
+      "ruling": "The filing describes Company F's interest during the week of June 10 in joining Sponsor A and Sponsor E. Pipeline extracts this; Alex omits it. The filing is clear that Company F 'indicated interest in participating' -- this is a real bidder_interest event. However, Company F never submitted an offer and never met with Saks, so Alex's omission is understandable."
+    },
+    {
+      "pipeline_event_id": "evt_018",
+      "event_type": "bid_press_release",
+      "actor": ["target_board", "bidder_hudsons_bay"],
+      "date": "2013-07-29",
+      "alex_equivalent": "Not present as separate row in Alex's data",
+      "ruling": "The filing says 'On July 29, 2013, Saks and Hudsons Bay issued a joint press release.' Pipeline extracts this; Alex does not have a bid_press_release row. This is a minor gap in Alex's data."
+    }
+  ],
+  "field_level_disagreements": [
+    {
+      "match_id": "M14",
+      "field": "bidder_identity_on_jul11_proposal",
+      "severity": "material",
+      "alex_value": "Sponsor A/E",
+      "pipeline_value": "Sponsor E + Sponsor G",
+      "arbitration_winner": "pipeline",
+      "filing_evidence": "On July 11, 2013 ... Sponsor E, together with Sponsor G, on the other hand, submitted proposals",
+      "explanation": "This is the most material factual disagreement. The filing unambiguously says the July 11 joint bid was Sponsor E + Sponsor G. Sponsor A had withdrawn as a primary participant in early July. Alex appears to have carried forward the Sponsor A/E label from the earlier June 3 bid."
+    },
+    {
+      "match_id": "M04",
+      "field": "sponsor_a_drop_date",
+      "severity": "material",
+      "alex_value": "Apr 26 2013 (same as NDA date)",
+      "pipeline_value": "No drop at this date",
+      "arbitration_winner": "pipeline",
+      "filing_evidence": "Sponsor A signed NDA on April 26 and continued participating in June and July",
+      "explanation": "Sponsor A did not drop out on April 26. Alex appears to have a coding error here."
+    },
+    {
+      "match_id": "M20",
+      "field": "company_i_nda_date",
+      "severity": "moderate",
+      "alex_value": "Jul 29 (rough)",
+      "pipeline_value": "null (~Aug 11 implied by 'approximately two weeks after merger agreement was executed')",
+      "arbitration_winner": "pipeline",
+      "filing_evidence": "Company I had not signed a confidentiality agreement until approximately two weeks after the merger agreement was executed",
+      "explanation": "Company I's NDA was ~2 weeks after July 28, so around Aug 11. Alex's Jul 29 date is significantly too early."
+    },
+    {
+      "match_id": "M16",
+      "field": "company_h_bid_type",
+      "severity": "minor",
+      "alex_value": "Informal",
+      "pipeline_value": "Formal (rule 2.5: post-final-round)",
+      "arbitration_winner": "ambiguous",
+      "filing_evidence": "purporting to propose ... with no details or further information",
+      "explanation": "Timing-based classification says Formal; substance-based classification says Informal. Both are defensible."
+    }
+  ],
+  "csv_vs_alex_header_mapping": {
+    "note": "The deal_events.csv has a non-standard header row. The CSV rows match the Alex-style aggregate format in the CSV export. The CSV contains the same 19 pipeline events reorganized into Alex's column schema for direct comparison.",
+    "csv_header": "TargetName,Events,Acquirer,DateAnnounced,URL",
+    "csv_row_count": 19
+  },
+  "aggregate_rows_analysis": {
+    "alex_aggregate_rows": [
+      {
+        "bidder_id": 0.3,
+        "type": "IB (investment banker)",
+        "handling": "Pipeline models as advisor actor, not event. Structural difference."
+      },
+      {
+        "bidder_id": 9,
+        "type": "Final Round Ann",
+        "handling": "Matched to pipeline evt_010."
+      },
+      {
+        "bidder_id": 13.5,
+        "type": "Final Round (deadline)",
+        "handling": "Pipeline encodes as deadline_date in evt_010. Structural difference."
+      }
+    ],
+    "alex_self_deletions": [
+      {
+        "bidder_id": 15,
+        "comment": "Should be deleted: unsolicited letter, no NDA, no further contact, no price per share",
+        "pipeline_treatment": "Included with caveats. Pipeline is more complete."
+      },
+      {
+        "bidder_id": 17,
+        "comment": "Not a separate bid, should be deleted",
+        "pipeline_treatment": "Not extracted. Pipeline agrees with Alex's deletion note."
+      }
+    ]
+  },
+  "coverage_gaps_identified": {
+    "pipeline_gaps": [
+      "Missing: April 15 price indications from Hudson's Bay ($15+) and Sponsor A ($15+) as separate proposal events",
+      "Missing: Sponsor A drop event in early July 2013",
+      "Missing: Company I drop / go-shop expiry event on Sep 6 2013",
+      "Missing: Company H implicit drop (optional)",
+      "Missing: Company I bidder_kind should be 'strategic' based on go-shop context"
+    ],
+    "alex_gaps": [
+      "Missing: target_sale event (June 5 board authorization)",
+      "Missing: Company F bidder_interest (June 10)",
+      "Missing: bid_press_release (July 29)",
+      "Missing: Hudson's Bay initial meeting as separate bidder_interest (April 1)",
+      "Error: Sponsor A Drop on Apr 26 (should be removed -- Sponsor A continued)",
+      "Error: July 11 bid attributed to Sponsor A/E instead of Sponsor E/G",
+      "Error: Company I NDA dated Jul 29 instead of ~Aug 11"
+    ]
+  }
+}

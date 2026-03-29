@@ -1,0 +1,714 @@
+{
+  "deal_slug": "medivation",
+  "reconciliation_date": "2026-03-29",
+  "alex_row_count": 16,
+  "pipeline_csv_event_count": 33,
+  "pipeline_events_raw_count": 33,
+  "summary": {
+    "matched": 12,
+    "matched_with_disagreements": 7,
+    "unmatched_alex_only": 2,
+    "unmatched_pipeline_only": 19,
+    "aggregate_alex_rows": 2,
+    "total_disagreements": 17,
+    "arbitration_favors_pipeline": 10,
+    "arbitration_favors_alex": 3,
+    "arbitration_draw_or_coding_difference": 4
+  },
+  "row_matches": [
+    {
+      "alex_row_id": "6050.7",
+      "alex_bidder_id": 0.7,
+      "alex_bid_note": "Bidder Sale",
+      "alex_bidder_name": "Sanofi",
+      "alex_date_precise": "2016-04-13",
+      "alex_date_rough": "2016-04-13",
+      "alex_price": "NA",
+      "alex_bid_type": "NA",
+      "alex_all_cash": "NA",
+      "pipeline_match": null,
+      "pipeline_csv_row": null,
+      "match_quality": "unmatched_alex_only",
+      "notes": "Alex codes Sanofi's hostile consent solicitation campaign as a 'Bidder Sale' event dated 2016-04-13. The pipeline does not extract a separate bidder_sale event. The filing documents Sanofi's consent solicitation filed May 25, 2016, which threatened board replacement. The April 13 date corresponds to Sanofi's $52.50 proposal letter, not the consent solicitation filing itself.",
+      "arbitration": {
+        "verdict": "alex_coding_convention",
+        "explanation": "Alex uses 'Bidder Sale' as an aggregate/category row to flag that Sanofi initiated a hostile process. The pipeline has no bidder_sale event type for Sanofi. The filing supports that Sanofi pursued hostile tactics (consent solicitation filed May 25, 2016). The date assignment to April 13 is Alex's convention linking it to the first proposal date. This is a coding-convention difference, not a factual error in either system."
+      }
+    },
+    {
+      "alex_row_id": "6051",
+      "alex_bidder_id": 1,
+      "alex_bid_note": "NA",
+      "alex_bidder_name": "Sanofi",
+      "alex_date_precise": "2016-04-13",
+      "alex_date_rough": "2016-04-13",
+      "alex_price": 52.5,
+      "alex_bid_type": "Informal",
+      "alex_all_cash": "NA",
+      "pipeline_match": "evt_003",
+      "pipeline_csv_row": "0.4",
+      "pipeline_event_type": "proposal",
+      "pipeline_bidder": "Sanofi",
+      "pipeline_date": "2016-04-13",
+      "pipeline_price": 52.5,
+      "pipeline_bid_type": "Informal",
+      "pipeline_all_cash": "NA",
+      "match_quality": "exact",
+      "disagreements": [
+        {
+          "field": "all_cash",
+          "alex_value": "NA",
+          "pipeline_value": "consideration_type=cash",
+          "arbitration": {
+            "verdict": "pipeline_correct",
+            "explanation": "Filing: 'non-binding proposal from Sanofi to acquire Medivation for $52.50 per share of Medivation's Common Stock'. The proposal was all-cash, no CVR. Pipeline correctly records consideration_type=cash. Alex codes NA, which is defensible as 'not specified' but the filing does state cash terms."
+          }
+        }
+      ],
+      "notes": "Perfect match on bidder, date, price, and bid_type. Both agree Informal at $52.50 on April 13."
+    },
+    {
+      "alex_row_id": "6051.3",
+      "alex_bidder_id": 1.3,
+      "alex_bid_note": "Bid Press Release",
+      "alex_bidder_name": "NA",
+      "alex_date_precise": "2016-04-13",
+      "alex_date_rough": "2016-04-28",
+      "alex_price": "NA",
+      "alex_bid_type": "NA",
+      "alex_all_cash": "NA",
+      "pipeline_match": "evt_004",
+      "pipeline_csv_row": "0.8",
+      "pipeline_event_type": "bid_press_release",
+      "pipeline_bidder": "Sanofi",
+      "pipeline_date": "2016-04-28",
+      "pipeline_price": "NA",
+      "pipeline_bid_type": "NA",
+      "match_quality": "matched_with_disagreements",
+      "disagreements": [
+        {
+          "field": "date_precise",
+          "alex_value": "2016-04-13",
+          "pipeline_value": "2016-04-28",
+          "arbitration": {
+            "verdict": "pipeline_correct",
+            "explanation": "Filing: 'On April 28, 2016, Sanofi issued a press release publicly announcing Sanofi's $52.50 proposal.' The press release was issued April 28. Alex's date_precise of April 13 appears to be the date of the underlying proposal, not the press release itself. Pipeline's April 28 is correct for the press release event."
+          }
+        },
+        {
+          "field": "bidder_name",
+          "alex_value": "NA",
+          "pipeline_value": "Sanofi",
+          "arbitration": {
+            "verdict": "pipeline_correct",
+            "explanation": "Filing clearly identifies Sanofi as the party that issued the press release. Pipeline correctly attributes the event to Sanofi."
+          }
+        }
+      ],
+      "notes": "Both identify this as a Bid Press Release around April 28. Alex's date_rough matches pipeline date. Alex leaves bidder NA (convention for press release rows)."
+    },
+    {
+      "alex_row_id": "6051.5",
+      "alex_bidder_id": 1.5,
+      "alex_bid_note": "IB",
+      "alex_bidder_name": "J.P. Morgan",
+      "alex_date_precise": "2016-06-29",
+      "alex_date_rough": "2016-05-02",
+      "alex_price": "NA",
+      "alex_bid_type": "NA",
+      "alex_all_cash": "NA",
+      "pipeline_match": "evt_002",
+      "pipeline_csv_row": "0.1",
+      "pipeline_event_type": "ib_retention",
+      "pipeline_bidder": "Medivation Board of Directors/J. P. Morgan Securities LLC",
+      "pipeline_date": "2016-03-24",
+      "pipeline_price": "NA",
+      "pipeline_bid_type": "NA",
+      "match_quality": "matched_with_disagreements",
+      "disagreements": [
+        {
+          "field": "date_precise",
+          "alex_value": "2016-06-29",
+          "pipeline_value": "2016-03-24",
+          "arbitration": {
+            "verdict": "pipeline_correct",
+            "explanation": "Filing: 'On March 24, 2016, the Medivation board of directors held a special meeting attended by management of Medivation and representatives of Cooley LLP... and J. P. Morgan Securities LLC... retained as independent financial advisor to Medivation in connection with routine advanced preparedness for defense.' J. P. Morgan was retained by March 24. Alex's date_precise of June 29 and date_rough of May 2 do not match the filing's clear March 24 retention date. Alex's comment mentions 'May 2: Pfizer's contact that was viewed well by the target' which conflates a Pfizer contact event with J.P. Morgan's retention."
+          }
+        },
+        {
+          "field": "date_rough",
+          "alex_value": "2016-05-02",
+          "pipeline_value": "2016-03-24",
+          "arbitration": {
+            "verdict": "pipeline_correct",
+            "explanation": "Same as above. Pipeline's March 24 date is correct per filing text."
+          }
+        }
+      ],
+      "notes": "Both identify J.P. Morgan IB retention. Pipeline also extracts a second IB retention for Evercore (evt_006, April 22). Alex appears to combine or mislabel the J.P. Morgan retention date."
+    },
+    {
+      "alex_row_id": "6052",
+      "alex_bidder_id": 2,
+      "alex_bid_note": "NDA",
+      "alex_bidder_name": "Pfizer",
+      "alex_date_precise": "2016-06-29",
+      "alex_date_rough": "2016-06-29",
+      "alex_price": "NA",
+      "alex_bid_type": "NA",
+      "alex_all_cash": "NA",
+      "pipeline_match": "evt_009",
+      "pipeline_csv_row": "1",
+      "pipeline_event_type": "nda",
+      "pipeline_bidder": "Pfizer",
+      "pipeline_date": "2016-06-29",
+      "pipeline_price": "NA",
+      "pipeline_bid_type": "NA",
+      "match_quality": "exact",
+      "disagreements": [],
+      "notes": "Perfect match. Filing: 'On June 29, 2016, Medivation entered into confidentiality agreements with Pfizer and one additional party.'"
+    },
+    {
+      "alex_row_id": "6053",
+      "alex_bidder_id": 3,
+      "alex_bid_note": "NDA",
+      "alex_bidder_name": "Several parties, including Sanofi",
+      "alex_date_precise": "NA",
+      "alex_date_rough": "2016-07-05",
+      "alex_price": "NA",
+      "alex_bid_type": "NA",
+      "alex_all_cash": "NA",
+      "pipeline_match": "evt_010",
+      "pipeline_csv_row": "2",
+      "pipeline_event_type": "nda",
+      "pipeline_bidder": "Sanofi",
+      "pipeline_date": "2016-07-05",
+      "pipeline_price": "NA",
+      "pipeline_bid_type": "NA",
+      "match_quality": "matched_with_disagreements",
+      "disagreements": [
+        {
+          "field": "bidder_name",
+          "alex_value": "Several parties, including Sanofi",
+          "pipeline_value": "Sanofi",
+          "arbitration": {
+            "verdict": "coding_difference",
+            "explanation": "Alex aggregates the Sanofi NDA (July 5) with other NDAs into one row labeled 'Several parties, including Sanofi'. The pipeline disaggregates each NDA into separate events: evt_009 (Pfizer + one other, June 29), evt_010 (Sanofi, July 5), evt_011 (fourth party, July 9), evt_012 (fifth party, July 13). The filing supports both approaches. Pipeline is more granular. Alex's aggregation is a coding convention."
+          }
+        }
+      ],
+      "notes": "Alex aggregates multiple NDAs into one row. Pipeline splits them into 4 separate events. The July 5 date matches the Sanofi NDA specifically."
+    },
+    {
+      "alex_row_id": "6053.5_a",
+      "alex_bidder_id": 5,
+      "alex_bid_note": "Final Round Inf Ann",
+      "alex_bidder_name": "NA",
+      "alex_date_precise": "2016-08-14",
+      "alex_date_rough": "2016-07-19",
+      "alex_price": "NA",
+      "alex_bid_type": "NA",
+      "alex_all_cash": "NA",
+      "pipeline_match": null,
+      "pipeline_csv_row": null,
+      "match_quality": "unmatched_alex_only",
+      "notes": "Alex codes a 'Final Round Inf Ann' (informal final round announcement) with date_rough 2016-07-19 and date_precise 2016-08-14. The filing describes on July 19-20 that J. P. Morgan and Evercore sent process letters to interested parties requesting preliminary proposals by August 8. The pipeline does not extract this as a separate final_round_inf_ann event; instead it is implicitly part of the process leading to the August 8 proposals. The pipeline coverage_notes confirm: 'final_round_inf_ann: NOT FOUND'.",
+      "arbitration": {
+        "verdict": "alex_correct",
+        "explanation": "The filing clearly describes a July 19-20 process letter requesting preliminary proposals by August 8. This qualifies as an informal final round announcement under Alex's coding schema. The pipeline's coverage_notes acknowledge it was not found. This is a pipeline extraction gap."
+      }
+    },
+    {
+      "alex_row_id": "6054",
+      "alex_bidder_id": 4,
+      "alex_bid_note": "NA",
+      "alex_bidder_name": "Pfizer",
+      "alex_date_precise": "2016-08-08",
+      "alex_date_rough": "2016-08-08",
+      "alex_price": 65,
+      "alex_bid_type": "Informal",
+      "alex_all_cash": 1,
+      "pipeline_match": "evt_013",
+      "pipeline_csv_row": "5",
+      "pipeline_event_type": "proposal",
+      "pipeline_bidder": "Pfizer",
+      "pipeline_date": "2016-08-08",
+      "pipeline_price": 65,
+      "pipeline_bid_type": "Informal",
+      "pipeline_all_cash": 1,
+      "match_quality": "exact",
+      "disagreements": [],
+      "notes": "Perfect match. Filing: 'Pfizer submitted a preliminary proposal for the all-cash acquisition of Medivation for $65.00 per Share.' Both agree on Informal, $65, all-cash, August 8."
+    },
+    {
+      "alex_row_id": "6053.5_b",
+      "alex_bidder_id": 4.5,
+      "alex_bid_note": "Final Round Inf",
+      "alex_bidder_name": "NA",
+      "alex_date_precise": "2016-08-14",
+      "alex_date_rough": "2016-08-08",
+      "alex_price": "NA",
+      "alex_bid_type": "NA",
+      "alex_all_cash": "NA",
+      "pipeline_match": "evt_018",
+      "pipeline_csv_row": "10",
+      "pipeline_event_type": "final_round_ann",
+      "pipeline_bidder": "NA",
+      "pipeline_date": "2016-08-10",
+      "pipeline_price": "NA",
+      "pipeline_bid_type": "NA",
+      "match_quality": "matched_with_disagreements",
+      "disagreements": [
+        {
+          "field": "event_type",
+          "alex_value": "Final Round Inf",
+          "pipeline_value": "final_round_ann",
+          "arbitration": {
+            "verdict": "coding_difference",
+            "explanation": "Alex codes the August 10 second-round selection as 'Final Round Inf' (informal final round deadline). The pipeline codes it as 'final_round_ann' (formal final round announcement). The filing describes: 'On August 10, 2016, the Medivation board of directors... authorized Medivation's financial advisors to advance Pfizer, Company 1, and Company 4 into a second and confirmatory round.' This is a coding classification difference. Alex views the Aug 8 preliminary proposals deadline as the informal final round, while pipeline treats the Aug 10 selection event as a formal round announcement."
+          }
+        },
+        {
+          "field": "date",
+          "alex_value": "2016-08-08 (rough), 2016-08-14 (precise)",
+          "pipeline_value": "2016-08-10",
+          "arbitration": {
+            "verdict": "pipeline_correct",
+            "explanation": "Filing: 'On August 10, 2016, the Medivation board of directors met telephonically...' The selection/advancement decision was August 10. Alex's rough date of Aug 8 refers to the preliminary proposal deadline, and Alex's precise of Aug 14 refers to the later formal final round instructions. Pipeline's August 10 is the most accurate date for this specific selection event."
+          }
+        }
+      ],
+      "notes": "This maps to the pipeline's round-selection event on August 10. Alex codes it as the informal final round result, pipeline codes it as the first formal round announcement. Both capture the same underlying process step."
+    },
+    {
+      "alex_row_id": "6053.7",
+      "alex_bidder_id": 4.7,
+      "alex_bid_note": "Final Round Ann",
+      "alex_bidder_name": "NA",
+      "alex_date_precise": "2016-08-14",
+      "alex_date_rough": "2016-08-10",
+      "alex_price": "NA",
+      "alex_bid_type": "NA",
+      "alex_all_cash": "NA",
+      "pipeline_match": "evt_021",
+      "pipeline_csv_row": "13",
+      "pipeline_event_type": "final_round_ann",
+      "pipeline_bidder": "NA",
+      "pipeline_date": "2016-08-14",
+      "pipeline_price": "NA",
+      "pipeline_bid_type": "NA",
+      "match_quality": "exact",
+      "disagreements": [],
+      "notes": "Perfect match. Filing: 'On August 14, 2016, J. P. Morgan and Evercore sent a written instruction letter to each Interested Party, requiring a definitive written proposal by 12:00 p. m. Pacific Time on Friday, August 19, 2016.' Both agree on Final Round Ann at August 14."
+    },
+    {
+      "alex_row_id": "6055",
+      "alex_bidder_id": 5,
+      "alex_bid_note": "Final Round",
+      "alex_bidder_name": "NA",
+      "alex_date_precise": "2016-08-14",
+      "alex_date_rough": "2016-08-14",
+      "alex_price": "NA",
+      "alex_bid_type": "NA",
+      "alex_all_cash": "NA",
+      "pipeline_match": "evt_022",
+      "pipeline_csv_row": "18",
+      "pipeline_event_type": "final_round",
+      "pipeline_bidder": "NA",
+      "pipeline_date": "2016-08-19",
+      "pipeline_price": "NA",
+      "pipeline_bid_type": "NA",
+      "match_quality": "matched_with_disagreements",
+      "disagreements": [
+        {
+          "field": "date",
+          "alex_value": "2016-08-14",
+          "pipeline_value": "2016-08-19",
+          "arbitration": {
+            "verdict": "pipeline_correct",
+            "explanation": "The formal final round deadline was August 19 at noon Pacific Time, not August 14. August 14 was when the instructions were sent (the announcement). Filing: 'requiring a definitive written proposal by 12:00 p. m. Pacific Time on Friday, August 19, 2016'. Pipeline correctly distinguishes the announcement (Aug 14, evt_021) from the deadline (Aug 19, evt_022). Alex appears to conflate the announcement date with the deadline date."
+          }
+        }
+      ],
+      "notes": "Alex codes the Final Round with date August 14. Pipeline correctly places the final round deadline at August 19. The announcement was August 14 (captured separately by both as Final Round Ann)."
+    },
+    {
+      "alex_row_id": "6056",
+      "alex_bidder_id": 6,
+      "alex_bid_note": "NA",
+      "alex_bidder_name": "Pfizer",
+      "alex_date_precise": "2016-08-19",
+      "alex_date_rough": "2016-08-19",
+      "alex_price": 77,
+      "alex_bid_type": "Formal",
+      "alex_all_cash": 1,
+      "pipeline_match": "evt_026",
+      "pipeline_csv_row": "17",
+      "pipeline_event_type": "proposal",
+      "pipeline_bidder": "Pfizer",
+      "pipeline_date": "2016-08-19",
+      "pipeline_price": 77,
+      "pipeline_bid_type": "Formal",
+      "pipeline_all_cash": 1,
+      "match_quality": "exact",
+      "disagreements": [],
+      "notes": "Perfect match. Filing: 'Pfizer for $77.00 per Share in cash.' Both agree on Formal, $77, all-cash, August 19."
+    },
+    {
+      "alex_row_id": "6057",
+      "alex_bidder_id": 7,
+      "alex_bid_note": "NA",
+      "alex_bidder_name": "Pfizer",
+      "alex_date_precise": "2016-08-20",
+      "alex_date_rough": "2016-08-20",
+      "alex_price": 81.5,
+      "alex_bid_type": "Formal",
+      "alex_all_cash": 1,
+      "pipeline_match": "evt_031",
+      "pipeline_csv_row": "20",
+      "pipeline_event_type": "proposal",
+      "pipeline_bidder": "Pfizer",
+      "pipeline_date": "2016-08-20",
+      "pipeline_price": 81.5,
+      "pipeline_bid_type": "Formal",
+      "pipeline_all_cash": 1,
+      "match_quality": "exact",
+      "disagreements": [],
+      "notes": "Perfect match. Filing: 'Pfizer submitted a revised final proposal to acquire Medivation for $81.50 per share.' Both agree on Formal, $81.50, all-cash, August 20."
+    },
+    {
+      "alex_row_id": "6057.5",
+      "alex_bidder_id": 7.5,
+      "alex_bid_note": "Executed",
+      "alex_bidder_name": "Pfizer",
+      "alex_date_precise": "2016-08-20",
+      "alex_date_rough": "2016-08-20",
+      "alex_price": "NA",
+      "alex_bid_type": "NA",
+      "alex_all_cash": "NA",
+      "pipeline_match": "evt_034",
+      "pipeline_csv_row": "24",
+      "pipeline_event_type": "executed",
+      "pipeline_bidder": "Pfizer/Medivation Board of Directors",
+      "pipeline_date": "2016-08-20",
+      "pipeline_price": "NA",
+      "pipeline_bid_type": "NA",
+      "match_quality": "exact",
+      "disagreements": [],
+      "notes": "Perfect match. Filing: 'Pfizer and Medivation executed the merger agreement.' Both agree on Executed, Pfizer, August 20."
+    },
+    {
+      "alex_row_id": "6058",
+      "alex_bidder_id": 8,
+      "alex_bid_note": "Drop",
+      "alex_bidder_name": "Sanofi",
+      "alex_date_precise": "2016-08-20",
+      "alex_date_rough": "2016-08-20",
+      "alex_price": "NA",
+      "alex_bid_type": "NA",
+      "alex_all_cash": "NA",
+      "pipeline_match": null,
+      "pipeline_csv_row": null,
+      "match_quality": "matched_with_disagreements",
+      "disagreements": [
+        {
+          "field": "event_existence",
+          "alex_value": "Sanofi Drop on 2016-08-20",
+          "pipeline_value": "Not in CSV; evt_027/029 referenced in coverage_notes but not in events array",
+          "arbitration": {
+            "verdict": "alex_correct",
+            "explanation": "The filing documents that Sanofi entered the process on July 5 with a standstill agreement and was an active participant, but Sanofi was not among the parties submitting final round proposals on August 19 or 20. Sanofi effectively dropped out or was excluded. The pipeline's coverage notes reference drop events (evt_027, evt_029) but they are not in the events array, suggesting they were removed during canonicalization or were placeholders. Alex correctly codes a Sanofi drop."
+          }
+        },
+        {
+          "field": "date",
+          "alex_value": "2016-08-20",
+          "pipeline_value": "NA",
+          "arbitration": {
+            "verdict": "uncertain",
+            "explanation": "The exact date Sanofi dropped is ambiguous. Sanofi signed the standstill July 5 but never submitted a preliminary proposal by August 8. August 20 (Alex's date) is the final resolution date. The filing does not state an explicit Sanofi drop date."
+          }
+        }
+      ],
+      "notes": "Alex codes a Sanofi drop. The pipeline references drop events in coverage_notes but they are not present in the events array. Sanofi was bound by standstill and never submitted a formal bid in the auction."
+    },
+    {
+      "alex_row_id": "6059",
+      "alex_bidder_id": 9,
+      "alex_bid_note": "Drop",
+      "alex_bidder_name": "Several parties",
+      "alex_date_precise": "2016-08-20",
+      "alex_date_rough": "2016-08-20",
+      "alex_price": "NA",
+      "alex_bid_type": "NA",
+      "alex_all_cash": "NA",
+      "pipeline_match": null,
+      "pipeline_csv_row": null,
+      "match_quality": "matched_with_disagreements",
+      "disagreements": [
+        {
+          "field": "event_existence",
+          "alex_value": "Aggregate drop for several parties on 2016-08-20",
+          "pipeline_value": "Pipeline has individual drops but they are missing from the events array",
+          "arbitration": {
+            "verdict": "alex_coding_convention",
+            "explanation": "Alex aggregates all non-winning bidder drops into a single row. The pipeline references drop events in coverage_notes. The filing confirms Company 4 declined to submit a definitive proposal on August 19, and Company 3 withdrew from the extension round on August 19 evening. Company 1 and Company 2 submitted final proposals August 20 but did not win. The date of August 20 represents the resolution of the full process. This is Alex's aggregate coding convention."
+          }
+        }
+      ],
+      "notes": "Alex uses a single aggregate row for all non-Pfizer bidder drops. Pipeline has granular drop events referenced in coverage but absent from the events array."
+    }
+  ],
+  "pipeline_events_not_in_alex": [
+    {
+      "event_id": "evt_001",
+      "csv_row": "0.2",
+      "event_type": "bidder_interest",
+      "date": "2016-03-25",
+      "actor": "Sanofi",
+      "explanation": "Alex does not separately code Sanofi's initial interest expression. Alex jumps to the $52.50 proposal. The filing supports this event: 'On March 25, 2016, Drs. Brandicourt and Hung had an initial telephone discussion during which Dr. Brandicourt expressed interest in pursuing a possible strategic transaction.'"
+    },
+    {
+      "event_id": "evt_005",
+      "csv_row": "0.5",
+      "event_type": "bidder_interest",
+      "date": "2016-04-20",
+      "actor": "Pfizer",
+      "explanation": "Alex does not code Pfizer's initial expression of interest. Filing: 'On April 20, 2016, Douglas Giordano... at Pfizer contacted Dr. Hung to indicate an interest in participating in any strategic discussions Medivation might initiate.'"
+    },
+    {
+      "event_id": "evt_006",
+      "csv_row": "0.6",
+      "event_type": "ib_retention",
+      "date": "2016-04-22",
+      "actor": "Evercore",
+      "explanation": "Alex does not separately code the Evercore IB retention. Alex's single IB row covers J.P. Morgan only."
+    },
+    {
+      "event_id": "evt_007",
+      "csv_row": null,
+      "event_type": "target_sale",
+      "date": "2016-06-21/22",
+      "actor": "Medivation Board",
+      "explanation": "The board's decision to run a controlled sale process. Alex codes 'Bidder Sale' for Sanofi's hostile push but not the target's responsive decision to run an auction. Pipeline extracts this as a target_sale event."
+    },
+    {
+      "event_id": "evt_008",
+      "csv_row": "0.9",
+      "event_type": "proposal",
+      "date": "2016-06-27",
+      "actor": "Sanofi",
+      "price": 58.0,
+      "explanation": "Sanofi's revised $58 proposal. Alex does not code this as a separate bid row. Filing: 'On June 27, 2016, Medivation received a private letter with an increased proposal from Sanofi of $58.00 per share in cash plus a CVR of up to $3.00 per share.' This is a genuine pipeline extraction that Alex omits."
+    },
+    {
+      "event_id": "evt_011",
+      "csv_row": "3",
+      "event_type": "nda",
+      "date": "2016-07-09",
+      "actor": "unnamed fourth party",
+      "explanation": "Alex aggregates all NDAs into one row. Pipeline disaggregates."
+    },
+    {
+      "event_id": "evt_012",
+      "csv_row": "4",
+      "event_type": "nda",
+      "date": "2016-07-13",
+      "actor": "unnamed fifth party",
+      "explanation": "Alex aggregates all NDAs into one row. Pipeline disaggregates."
+    },
+    {
+      "event_id": "evt_014",
+      "csv_row": "6",
+      "event_type": "proposal",
+      "date": "2016-08-08",
+      "actor": "Company 1",
+      "price": 71.0,
+      "explanation": "Alex does not code the individual August 8 preliminary proposals from Companies 1-4. These are pipeline extractions of the full bidding round."
+    },
+    {
+      "event_id": "evt_015",
+      "csv_row": "7",
+      "event_type": "proposal",
+      "date": "2016-08-08",
+      "actor": "Company 2",
+      "price_range": "62-64",
+      "explanation": "Company 2's preliminary proposal. Not in Alex."
+    },
+    {
+      "event_id": "evt_016",
+      "csv_row": "8",
+      "event_type": "proposal",
+      "date": "2016-08-08",
+      "actor": "Company 3",
+      "price": 60.0,
+      "explanation": "Company 3's preliminary proposal. Not in Alex."
+    },
+    {
+      "event_id": "evt_017",
+      "csv_row": "9",
+      "event_type": "proposal",
+      "date": "2016-08-08",
+      "actor": "Company 4",
+      "price": 63.0,
+      "explanation": "Company 4's preliminary proposal. Not in Alex."
+    },
+    {
+      "event_id": "evt_019",
+      "csv_row": "11",
+      "event_type": "proposal",
+      "date": "2016-08-12",
+      "actor": "Company 2",
+      "price": 70.0,
+      "explanation": "Company 2's revised proposal at $70. Not in Alex."
+    },
+    {
+      "event_id": "evt_020",
+      "csv_row": "12",
+      "event_type": "proposal",
+      "date": "2016-08-12",
+      "actor": "Company 3",
+      "price": 70.5,
+      "explanation": "Company 3's revised proposal at $70.50. Not in Alex."
+    },
+    {
+      "event_id": "evt_023",
+      "csv_row": "14",
+      "event_type": "proposal",
+      "date": "2016-08-19",
+      "actor": "Company 3",
+      "price": 72.5,
+      "explanation": "Company 3's definitive proposal at $72.50. Not in Alex."
+    },
+    {
+      "event_id": "evt_024",
+      "csv_row": "15",
+      "event_type": "proposal",
+      "date": "2016-08-19",
+      "actor": "Company 1",
+      "price": 73.0,
+      "explanation": "Company 1's definitive proposal at $73.00. Not in Alex."
+    },
+    {
+      "event_id": "evt_025",
+      "csv_row": "16",
+      "event_type": "proposal",
+      "date": "2016-08-19",
+      "actor": "Company 2",
+      "price": 75.5,
+      "explanation": "Company 2's definitive proposal at $75.50. Not in Alex."
+    },
+    {
+      "event_id": "evt_028",
+      "csv_row": "19",
+      "event_type": "final_round_ext_ann",
+      "date": "2016-08-19",
+      "actor": "NA",
+      "explanation": "Best-and-final round extension announcement. Not in Alex."
+    },
+    {
+      "event_id": "evt_030",
+      "csv_row": "23",
+      "event_type": "final_round_ext",
+      "date": "2016-08-20",
+      "actor": "NA",
+      "explanation": "Best-and-final round extension deadline. Not in Alex."
+    },
+    {
+      "event_id": "evt_032",
+      "csv_row": "21",
+      "event_type": "proposal",
+      "date": "2016-08-20",
+      "actor": "Company 1",
+      "price": 80.25,
+      "explanation": "Company 1's final proposal at $80.25. Not in Alex."
+    },
+    {
+      "event_id": "evt_033",
+      "csv_row": "22",
+      "event_type": "proposal",
+      "date": "2016-08-20",
+      "actor": "Company 2",
+      "price": 80.0,
+      "explanation": "Company 2's final proposal at $80.00. Not in Alex."
+    },
+    {
+      "event_id": "evt_035",
+      "csv_row": "25",
+      "event_type": "bid_press_release",
+      "date": "2016-08-22",
+      "actor": "Pfizer/Medivation Board",
+      "explanation": "Joint press release announcing the transaction. Not in Alex."
+    }
+  ],
+  "aggregate_row_analysis": [
+    {
+      "alex_row_id": "6053",
+      "alex_bidder_name": "Several parties, including Sanofi",
+      "alex_bid_note": "NDA",
+      "aggregate_type": "multi_party_nda",
+      "pipeline_disaggregated_events": ["evt_009", "evt_010", "evt_011", "evt_012"],
+      "explanation": "Alex bundles all NDA events into a single aggregate row. Pipeline splits into 4 separate NDA events spanning June 29 to July 13. Both are valid representations. The pipeline's disaggregated form is more precise."
+    },
+    {
+      "alex_row_id": "6059",
+      "alex_bidder_name": "Several parties",
+      "alex_bid_note": "Drop",
+      "aggregate_type": "multi_party_drop",
+      "pipeline_disaggregated_events": ["evt_027 (referenced)", "evt_029 (referenced)"],
+      "explanation": "Alex bundles all non-winner drops into a single row dated August 20. The pipeline references drop events in coverage_notes but they are absent from the events array, suggesting an extraction or canonicalization gap."
+    }
+  ],
+  "key_findings": [
+    {
+      "finding": "Pipeline extracts significantly more events (33) than Alex codes (16 rows). Most of the difference comes from the pipeline's granular extraction of Company 1-4 bids across three rounds, which Alex omits entirely.",
+      "severity": "informational"
+    },
+    {
+      "finding": "Alex omits Sanofi's $58 revised proposal (June 27). The filing clearly documents this bid. This is a material coverage gap in Alex's coding.",
+      "severity": "material"
+    },
+    {
+      "finding": "Alex omits all Company 1-4 bids (August 8 preliminaries, August 12 revisions, August 19 definitives, August 20 finals). These are 13 filing-grounded events. Alex's focus on the winning bidder misses the competitive auction dynamics.",
+      "severity": "material"
+    },
+    {
+      "finding": "Alex's J.P. Morgan IB retention date (June 29 / May 2) is incorrect. The filing clearly places J.P. Morgan's retention at March 24, 2016.",
+      "severity": "material"
+    },
+    {
+      "finding": "Alex's Final Round date of August 14 conflates the announcement with the deadline. The deadline was August 19.",
+      "severity": "minor"
+    },
+    {
+      "finding": "Pipeline is missing a final_round_inf_ann event for the July 19-20 process letter. Alex correctly identifies this.",
+      "severity": "minor"
+    },
+    {
+      "finding": "Pipeline drop events (evt_027, evt_029) are referenced in coverage_notes but absent from the events array. This is a pipeline data integrity issue.",
+      "severity": "minor"
+    },
+    {
+      "finding": "Alex's 'Bidder Sale' row for Sanofi is a valid coding convention for hostile activity but has no pipeline equivalent.",
+      "severity": "informational"
+    },
+    {
+      "finding": "Where both systems code the same event with the same fields, agreement is very high. Pfizer's $65 (Aug 8), $77 (Aug 19), $81.50 (Aug 20), Sanofi's $52.50 (Apr 13), the Executed event, the Final Round Ann (Aug 14), and the Pfizer NDA (Jun 29) all match exactly.",
+      "severity": "informational"
+    }
+  ],
+  "bidder_type_comparison": {
+    "sanofi": {
+      "alex": {"financial": 0, "strategic": 1, "mixed": 0, "nonUS": 1, "note": "Non-US public S"},
+      "pipeline": {"bidder_kind": "strategic", "geography": null, "listing_status": null},
+      "disagreement": "Alex codes Sanofi as non-US strategic. Pipeline codes strategic but does not capture geography or listing status. Filing identifies Sanofi as a French company (CEO address: 54 rue La Boetie, 75008 Paris, France). Alex is more complete.",
+      "arbitration": "alex_more_complete"
+    },
+    "pfizer": {
+      "alex": {"financial": 0, "strategic": 1, "mixed": 0, "nonUS": 0, "note": "S"},
+      "pipeline": {"bidder_kind": "strategic", "geography": null, "listing_status": null},
+      "disagreement": "Both agree Pfizer is strategic. Alex codes nonUS=0 (US-based). Pipeline does not capture geography. Consistent.",
+      "arbitration": "match"
+    }
+  }
+}

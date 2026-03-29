@@ -1,0 +1,490 @@
+{
+  "deal_slug": "petsmart-inc",
+  "generated_at": "2026-03-29T00:00:00Z",
+  "pipeline_event_count": 14,
+  "alex_total_row_count": 53,
+  "alex_atomic_row_count": 22,
+  "alex_aggregate_row_count": 31,
+  "matched_atomic_count": 12,
+  "pipeline_only_count": 2,
+  "alex_only_atomic_count": 10,
+  "atomic_match_rate": "12/22 = 0.55",
+
+  "classification_notes": [
+    "Alex has 53 rows. 22 are treated as atomic events (specific process milestones, named-bidder proposals, named-bidder drops, and execution). 31 are treated as aggregate/per-party-expansion rows (15 NDA rows, 6 IOI informal bid rows for per-party detail, 8 IOI-round Drop rows for unnamed parties eliminated before Nov 3, and 2 DropTarget rows for unnamed IOI submitters cut on Nov 3).",
+    "The pipeline exports 14 rows. Two pipeline events (Longview Activist Sale, Industry Participant Bidder Interest) have no Alex atomic counterpart.",
+    "Alex's per-party NDA, per-party IOI, and per-party early-round drop rows track individual auction participants. The pipeline intentionally does not extract these at per-party granularity."
+  ],
+
+  "matched_events": [
+    {
+      "pipeline_row": 1,
+      "pipeline_event_id": "evt_001",
+      "alex_bidder_id": 0.8,
+      "family": "Activist Sale",
+      "pipeline_date": "2014-07-03",
+      "alex_date": "2014-07-03",
+      "pipeline_actor": "JANA Partners",
+      "alex_actor": "NA",
+      "field_mismatches": [],
+      "verdict": "exact_match",
+      "note": "Alex does not name the activist. Pipeline names JANA Partners. Both agree on date."
+    },
+    {
+      "pipeline_row": 4,
+      "pipeline_event_id": "evt_005",
+      "alex_bidder_id": 0.9,
+      "family": "Target Sale / Target Sale Public",
+      "pipeline_date": "2014-08-13",
+      "alex_date": "2014-08-13",
+      "pipeline_actor": "NA",
+      "alex_actor": "NA",
+      "field_mismatches": [
+        {
+          "field": "bid_note_label",
+          "pipeline_value": "Target Sale",
+          "alex_value": "Target Sale Public",
+          "filing_supports": "pipeline",
+          "filing_snippet": "On August 13, 2014, the board ... (1) determined to explore strategic alternatives (including a possible sale of the Company)",
+          "note": "Aug 13 is the private board decision. The public announcement was Aug 19. Pipeline correctly labels this Target Sale. Alex mislabels it Target Sale Public."
+        }
+      ],
+      "verdict": "match_with_field_disagreement"
+    },
+    {
+      "pipeline_row": 5,
+      "pipeline_event_id": "evt_006",
+      "alex_bidder_id": 0.95,
+      "family": "Target Sale Public / Sale Press Release",
+      "pipeline_date": "2014-08-19",
+      "alex_date": "2014-08-19",
+      "pipeline_actor": "NA",
+      "alex_actor": "NA",
+      "field_mismatches": [
+        {
+          "field": "bid_note_label",
+          "pipeline_value": "Target Sale Public",
+          "alex_value": "Sale Press Release",
+          "filing_supports": "both",
+          "filing_snippet": "the Company issued a press release announcing that it determined to explore strategic alternatives",
+          "note": "Both labels describe the same Aug 19 press release event. Taxonomic difference only."
+        }
+      ],
+      "verdict": "match_with_label_difference"
+    },
+    {
+      "pipeline_row": 6,
+      "pipeline_event_id": "evt_007",
+      "alex_bidder_id": 34.5,
+      "family": "Final Round Ann",
+      "pipeline_date": "2014-11-03",
+      "alex_date": "2014-11-15",
+      "pipeline_actor": "NA",
+      "alex_actor": "NA",
+      "field_mismatches": [
+        {
+          "field": "date",
+          "pipeline_value": "2014-11-03",
+          "alex_value": "2014-11-15",
+          "filing_supports": "pipeline",
+          "filing_snippet": "On November 3, 2014, the board met in person ... The board determined to allow the four bidders that had indicated a price or range at or above $80.00 per share to proceed to the final round",
+          "note": "Filing explicitly states November 3. Alex's November 15 is incorrect."
+        }
+      ],
+      "verdict": "match_with_field_disagreement"
+    },
+    {
+      "pipeline_row": 7,
+      "pipeline_event_id": "evt_009",
+      "alex_bidder_id": 36,
+      "family": "proposal",
+      "pipeline_date": "2014-12-10",
+      "alex_date": "2014-12-10",
+      "pipeline_actor": "Buyer Group",
+      "alex_actor": "Buyer Group",
+      "pipeline_price": 80.7,
+      "alex_price": 80.7,
+      "pipeline_bid_type": "Formal",
+      "alex_bid_type": "Formal",
+      "pipeline_bidder_type_note": "F",
+      "alex_bidder_type_note": "F",
+      "pipeline_all_cash": 1,
+      "alex_all_cash": 1,
+      "field_mismatches": [],
+      "verdict": "exact_match"
+    },
+    {
+      "pipeline_row": 8,
+      "pipeline_event_id": "evt_010",
+      "alex_bidder_id": 37,
+      "family": "proposal",
+      "pipeline_date": "2014-12-10",
+      "alex_date": "2014-12-10",
+      "pipeline_actor": "Bidder 2",
+      "alex_actor": "Bidder 2",
+      "pipeline_price": 80.35,
+      "alex_price": 80.35,
+      "pipeline_bid_type": "Formal",
+      "alex_bid_type": "Formal",
+      "pipeline_bidder_type_note": "F",
+      "alex_bidder_type_note": "F",
+      "pipeline_all_cash": 1,
+      "alex_all_cash": 1,
+      "field_mismatches": [],
+      "verdict": "exact_match"
+    },
+    {
+      "pipeline_row": 9,
+      "pipeline_event_id": "evt_008",
+      "alex_bidder_id": 38.5,
+      "family": "Final Round",
+      "pipeline_date": "2014-12-10",
+      "alex_date": "2014-12-10",
+      "field_mismatches": [],
+      "verdict": "exact_match"
+    },
+    {
+      "pipeline_row": 10,
+      "pipeline_event_id": "evt_012",
+      "alex_bidder_id": 38.7,
+      "family": "Final Round Ext Ann",
+      "pipeline_date": "2014-12-10",
+      "alex_date": "2014-12-10",
+      "field_mismatches": [],
+      "verdict": "exact_match"
+    },
+    {
+      "pipeline_row": 11,
+      "pipeline_event_id": "evt_014",
+      "alex_bidder_id": 39,
+      "family": "proposal",
+      "pipeline_date": "2014-12-12",
+      "alex_date": "2014-12-12",
+      "pipeline_actor": "Bidder 2",
+      "alex_actor": "Bidder 2",
+      "pipeline_price": 81.5,
+      "alex_price": 81.5,
+      "pipeline_bid_type": "Formal",
+      "alex_bid_type": "Formal",
+      "pipeline_bidder_type_note": "F",
+      "alex_bidder_type_note": "F",
+      "pipeline_all_cash": 1,
+      "alex_all_cash": 1,
+      "field_mismatches": [],
+      "verdict": "exact_match"
+    },
+    {
+      "pipeline_row": 12,
+      "pipeline_event_id": "evt_015",
+      "alex_bidder_id": 40.3,
+      "family": "proposal",
+      "pipeline_date": "2014-12-12",
+      "alex_date": "2014-12-12",
+      "pipeline_actor": "Buyer Group",
+      "alex_actor": "Buyer Group",
+      "pipeline_price": 83.0,
+      "alex_price": 83.0,
+      "pipeline_bid_type": "Formal",
+      "alex_bid_type": "Formal",
+      "pipeline_bidder_type_note": "F",
+      "alex_bidder_type_note": "F",
+      "pipeline_all_cash": 1,
+      "alex_all_cash": 1,
+      "field_mismatches": [],
+      "verdict": "exact_match",
+      "note": "Alex also records the $82.50 oral offer as a separate row (BidderID 40). Pipeline collapses to $83.00 best-and-final only."
+    },
+    {
+      "pipeline_row": 13,
+      "pipeline_event_id": "evt_016",
+      "alex_bidder_id": 43.5,
+      "family": "Executed",
+      "pipeline_date": "2014-12-14",
+      "alex_date": "2014-12-14",
+      "pipeline_actor": "PetSmart board and ad hoc committee/Buyer Group",
+      "alex_actor": "Buyer Group",
+      "pipeline_bidder_type_note": "F",
+      "alex_bidder_type_note": "F",
+      "pipeline_all_cash": null,
+      "alex_all_cash": 1,
+      "field_mismatches": [
+        {
+          "field": "all_cash",
+          "pipeline_value": "NA",
+          "alex_value": 1,
+          "filing_supports": "alex",
+          "note": "The deal was all-cash at $83.00 per share. Pipeline does not populate all_cash on the Executed row. Alex records it. Filing supports all-cash."
+        }
+      ],
+      "verdict": "match_with_field_disagreement"
+    },
+    {
+      "pipeline_row": 14,
+      "pipeline_event_id": "evt_003",
+      "alex_bidder_id": 0.7,
+      "family": "IB",
+      "pipeline_date": null,
+      "alex_date": "2014-07-01",
+      "pipeline_actor": "J. P. Morgan/PetSmart board and ad hoc committee",
+      "alex_actor": "J.P. Morgan",
+      "field_mismatches": [
+        {
+          "field": "date",
+          "pipeline_value": null,
+          "alex_value": "2014-07-01",
+          "filing_supports": "inconclusive",
+          "filing_snippet": "In July, after interviewing several potential financial advisors, the Company retained J. P. Morgan as financial advisor",
+          "note": "Filing says 'In July' without exact date. Pipeline records null. Alex approximates Jul 1. Both are reasonable."
+        }
+      ],
+      "verdict": "match_with_field_disagreement"
+    }
+  ],
+
+  "pipeline_only": [
+    {
+      "pipeline_row": 2,
+      "pipeline_event_id": "evt_002",
+      "family": "Activist Sale",
+      "date": "2014-07-07",
+      "actor": "Longview",
+      "filing_grounded": true,
+      "filing_snippet": "On July 7, 2014, Longview made public a letter to the board in which Longview stated that the board should consider the a sale of the Company",
+      "verdict": "grounded",
+      "note": "Alex has only one Activist Sale row (JANA on Jul 3). The pipeline correctly extracts Longview's separate Jul 7 activist push. Alex undercounts."
+    },
+    {
+      "pipeline_row": 3,
+      "pipeline_event_id": "evt_004",
+      "family": "Bidder Interest",
+      "date": "2014-08-07",
+      "actor": "Industry Participant",
+      "filing_grounded": true,
+      "filing_snippet": "On August 7, 2014, a representative of Industry Participant contacted a representative of J. P. Morgan",
+      "verdict": "grounded",
+      "note": "Alex does not track the Industry Participant interest event. Industry Participant was ultimately excluded but the interest expression is explicitly in the filing."
+    }
+  ],
+
+  "alex_only": [
+    {
+      "alex_bidder_id": 40,
+      "family": "proposal",
+      "date": "2014-12-12",
+      "actor": "Buyer Group",
+      "price": 82.5,
+      "bid_type": "Formal",
+      "all_cash": 1,
+      "filing_grounded": true,
+      "filing_snippet": "The Buyer Group initially submitted an oral offer of $82.50 per share, in cash",
+      "verdict": "likely_grounded",
+      "note": "The $82.50 oral offer is explicitly in the filing. Pipeline collapses to $83.00 final only. Genuine pipeline extraction gap."
+    },
+    {
+      "alex_bidder_id": 38,
+      "family": "proposal",
+      "date": "2014-12-10",
+      "actor": "Bidder 3",
+      "price": 78.0,
+      "bid_type": "Informal",
+      "filing_grounded": true,
+      "filing_snippet": "Bidder 3 verbally communicated to J. P. Morgan that their valuation would not be above the current stock price of approximately $78 per share",
+      "verdict": "likely_grounded",
+      "note": "Pipeline does not export Bidder 3's verbal indication. Filing explicitly describes it."
+    },
+    {
+      "alex_bidder_id": 40.5,
+      "family": "Final Round Ext",
+      "date": "2014-12-12",
+      "filing_grounded": true,
+      "verdict": "likely_grounded",
+      "note": "Pipeline records Final Round Ext Ann (announcement) but not the separate deadline event. Alex captures both. Dec 12 deadline is filing-grounded."
+    },
+    {
+      "alex_bidder_id": 15.5,
+      "family": "Final Round Inf Ann",
+      "date": "2014-10-15",
+      "filing_grounded": false,
+      "verdict": "ungrounded",
+      "note": "No distinct informal final round announcement on Oct 15 in the filing. The IOI instructions were communicated during October but no specific Oct 15 event is described."
+    },
+    {
+      "alex_bidder_id": 21.5,
+      "family": "Final Round Inf",
+      "date": "2014-10-30",
+      "filing_grounded": true,
+      "verdict": "likely_grounded",
+      "note": "IOI deadline was Oct 30 per filing. Alex characterizes this as an informal final round. Reasonable interpretation."
+    },
+    {
+      "alex_bidder_id": 42,
+      "family": "Drop",
+      "date": "2014-12-14",
+      "actor": "Bidder 2",
+      "filing_grounded": true,
+      "verdict": "likely_grounded",
+      "note": "Bidder 2 was not selected. Implicit drop when Buyer Group was chosen. Pipeline does not extract explicit drop events at deal close."
+    },
+    {
+      "alex_bidder_id": 43,
+      "family": "Drop",
+      "date": "2014-12-14",
+      "actor": "Bidder 3",
+      "filing_grounded": true,
+      "verdict": "likely_grounded",
+      "note": "Bidder 3 dropped after verbal ~$78 indication on Dec 10. Alex dates final drop at Dec 14 (execution date). Filing-grounded by implication."
+    },
+    {
+      "alex_bidder_id": 22,
+      "family": "proposal",
+      "date": "2014-11-02",
+      "actor": "Bidder 2",
+      "price_range": "81-84",
+      "bid_type": "Informal",
+      "filing_grounded": true,
+      "filing_snippet": "another bidder (which we refer to as 'Bidder 2'), which had initially indicated a price of $78.00, increased its indication to a range of $81.00 to $84.00 per share",
+      "verdict": "likely_grounded",
+      "note": "Bidder 2 revised IOI after J.P. Morgan discussions (Oct 30 - Nov 2). Pipeline does not extract informal IOI bids. Alex captures this."
+    },
+    {
+      "alex_bidder_id": 38.2,
+      "family": "Drop",
+      "date": "2014-12-10",
+      "actor": "Unnamed party 1",
+      "filing_grounded": true,
+      "verdict": "likely_grounded",
+      "note": "Fourth final-round invitee who did not submit a competitive bid on Dec 10. Filing implies this party dropped when only Buyer Group, Bidder 2, and Bidder 3 submitted on Dec 10."
+    },
+    {
+      "alex_bidder_id": 38.3,
+      "family": "Drop",
+      "date": "2014-12-10",
+      "actor": "Unnamed party 4",
+      "filing_grounded": false,
+      "verdict": "ambiguous",
+      "note": "The filing describes four bidders entering the final round, but the fourth slot is occupied by Bidder 3 (two bidders working together). It is unclear whether Alex's Unnamed party 4 represents an additional entity or double-counts Bidder 3's second member. Ambiguous."
+    }
+  ],
+
+  "aggregate_rows": [
+    {
+      "category": "NDA",
+      "alex_count": 15,
+      "alex_bidder_ids": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+      "filing_count": 15,
+      "filing_snippet": "the Company entered into confidentiality and standstill agreements with 15 potentially interested financial buyers",
+      "verdict": "exact_count_match",
+      "note": "15 NDA rows match the filing's 15 financial buyers exactly. Pipeline does not extract per-party NDAs. Alex names 12 as 'Unnamed party 1-12' plus Bidder 1, Bidder 2, and Buyer Group."
+    },
+    {
+      "category": "IOI informal bids (Oct 30)",
+      "alex_count": 6,
+      "alex_bidder_ids": [16, 17, 18, 19, 20, 21],
+      "filing_count": 6,
+      "filing_snippet": "On October 30, six of the potentially interested parties submitted indications of interest",
+      "verdict": "exact_count_match",
+      "note": "Six IOI rows match the filing's six parties exactly. Named prices: Buyer Group $81-$83, another bidder $80-$85, Bidder 2 $78 initial. Three unnamed parties submitted IOIs with undisclosed prices."
+    },
+    {
+      "category": "IOI-round drops (Oct 30 - Nov 3)",
+      "alex_count": 8,
+      "alex_bidder_ids": [22.5, 23, 24, 25, 26, 27, 28, 29],
+      "filing_count": "9 non-submitters",
+      "filing_snippet": "15 potentially interested financial buyers ... six of the potentially interested parties submitted indications of interest",
+      "verdict": "soft_match",
+      "note": "15 NDA parties minus 6 IOI submitters = 9 who did not submit IOIs. Alex records 8 Drop rows for unnamed parties at the IOI stage. The 9th non-submitter may be absorbed into a later-stage row or simply not tracked. Soft match."
+    },
+    {
+      "category": "DropTarget (Nov 3)",
+      "alex_count": 2,
+      "alex_bidder_ids": [31, 32],
+      "filing_count": 2,
+      "filing_snippet": "The board determined to allow the four bidders ... to proceed to the final round",
+      "verdict": "exact_count_match",
+      "note": "Six IOI submitters minus four final-round invitees = two IOI submitters eliminated on Nov 3. Alex records exactly 2 DropTarget rows. Exact count match."
+    }
+  ],
+
+  "field_mismatches": [
+    {
+      "match_id": "target_sale_aug13",
+      "field": "bid_note_label",
+      "pipeline_value": "Target Sale",
+      "alex_value": "Target Sale Public",
+      "filing_supports": "pipeline",
+      "arbitration": "Aug 13 is a private board decision. Public announcement was Aug 19. Pipeline correctly separates them."
+    },
+    {
+      "match_id": "target_sale_public_aug19",
+      "field": "bid_note_label",
+      "pipeline_value": "Target Sale Public",
+      "alex_value": "Sale Press Release",
+      "filing_supports": "both",
+      "arbitration": "Same Aug 19 event. Taxonomic difference only."
+    },
+    {
+      "match_id": "final_round_ann",
+      "field": "date",
+      "pipeline_value": "2014-11-03",
+      "alex_value": "2014-11-15",
+      "filing_supports": "pipeline",
+      "arbitration": "Filing says November 3. Alex's November 15 is incorrect."
+    },
+    {
+      "match_id": "ib_retention",
+      "field": "date",
+      "pipeline_value": null,
+      "alex_value": "2014-07-01",
+      "filing_supports": "inconclusive",
+      "arbitration": "Filing says 'In July' without exact date. Both approaches are defensible."
+    },
+    {
+      "match_id": "executed",
+      "field": "all_cash",
+      "pipeline_value": "NA",
+      "alex_value": 1,
+      "filing_supports": "alex",
+      "arbitration": "The deal was all-cash at $83/share. Pipeline does not populate all_cash on the Executed row. Minor omission."
+    },
+    {
+      "match_id": "buyer_group_dec12",
+      "field": "intermediate_price",
+      "pipeline_value": "83.00 only (collapses $82.50 oral)",
+      "alex_value": "82.50 (row 40) and 83.00 (row 40.3) as separate rows",
+      "filing_supports": "both",
+      "arbitration": "Filing explicitly mentions both the $82.50 oral offer and the $83.00 final. Alex captures both. Pipeline extraction gap."
+    }
+  ],
+
+  "export_regressions": [],
+
+  "summary": {
+    "status": "attention",
+    "overall_agreement": "Pipeline and Alex agree on all major deal events with exact matches on the four formal-round proposals (date, actor, price, bid_type, all_cash). Key disagreements are limited to (1) Alex's Final Round Ann date of Nov 15 vs pipeline's filing-grounded Nov 3, (2) Alex labels Aug 13 as Target Sale Public vs pipeline's correct Target Sale, and (3) broader per-party granularity that Alex tracks but the pipeline intentionally omits.",
+    "pipeline_strengths": [
+      "All 4 formal proposals match Alex exactly on date, actor, price, bid_type, and all_cash",
+      "Final Round Ann correctly dated Nov 3 per filing vs Alex's incorrect Nov 15",
+      "Target Sale correctly separated from Target Sale Public (Aug 13 private vs Aug 19 public)",
+      "Executed event matches on date and winning bidder",
+      "Longview Activist Sale and Industry Participant interest correctly extracted (Alex omits both)"
+    ],
+    "pipeline_gaps": [
+      "Missing Buyer Group $82.50 oral offer on Dec 12 (only captures $83.00 final)",
+      "Missing Bidder 3 verbal ~$78 indication on Dec 10",
+      "No per-party NDA events (15 parties)",
+      "No per-party IOI informal bid events (6 parties on Oct 30)",
+      "No per-party early-round drop events (8-9 parties)",
+      "No Bidder 2 revised IOI ($81-$84) after initial $78",
+      "No Final Round Inf Ann or Final Round Inf events for the IOI round",
+      "No Final Round Ext deadline event (only captures the announcement)",
+      "No explicit drop events for Bidder 2 and Bidder 3 at deal close",
+      "all_cash not populated on Executed row"
+    ],
+    "alex_errors": [
+      "Final Round Ann dated Nov 15 -- filing says Nov 3",
+      "Aug 13 event labeled Target Sale Public -- this is the private board decision, not the public announcement",
+      "Final Round Inf Ann on Oct 15 has no direct filing support"
+    ],
+    "filing_arbitration_summary": "Of 6 field mismatches: pipeline correct on 2 (Final Round Ann date, Target Sale label), Alex correct on 1 (all_cash on Executed), both valid on 2 (Sale Press Release label, intermediate $82.50 price), inconclusive on 1 (IB retention date)."
+  }
+}
