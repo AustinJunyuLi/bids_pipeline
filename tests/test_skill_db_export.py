@@ -1,13 +1,17 @@
 from __future__ import annotations
 
 import csv
+from multiprocessing import Event, Process
 from pathlib import Path
+import threading
 
+import duckdb
 import pytest
 
 from skill_pipeline import cli
 from skill_pipeline.db_export import run_db_export
 from skill_pipeline.db_load import run_db_load
+from skill_pipeline import db_schema
 from skill_pipeline.db_schema import open_pipeline_db
 from skill_pipeline.paths import build_skill_paths
 from tests.test_skill_db_load import (
@@ -44,6 +48,15 @@ def _load_fixture(
 def _read_rows(path: Path) -> list[list[str]]:
     with path.open("r", newline="", encoding="utf-8") as handle:
         return list(csv.reader(handle))
+
+
+def _hold_duckdb_write_lock(db_path: str, ready: Event, release: Event) -> None:
+    con = duckdb.connect(db_path)
+    con.execute("CREATE TABLE IF NOT EXISTS export_lock_probe(x INTEGER)")
+    con.execute("INSERT INTO export_lock_probe VALUES (1)")
+    ready.set()
+    release.wait(timeout=5)
+    con.close()
 
 
 def test_run_db_export_writes_deal_events_csv(tmp_path: Path) -> None:
@@ -354,6 +367,39 @@ def test_run_db_export_renders_null_values_as_na(tmp_path: Path) -> None:
     assert executed_row[4] == "NA"
     assert executed_row[5] == "NA"
     assert executed_row[13] == "NA"
+
+
+def test_run_db_export_retries_transient_duckdb_lock_contention(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    output_path = _load_fixture(tmp_path)
+    db_path = build_skill_paths("imprivata", project_root=tmp_path).database_path
+    ready = Event()
+    release = Event()
+    lock_holder = Process(target=_hold_duckdb_write_lock, args=(str(db_path), ready, release))
+
+    monkeypatch.setattr(db_schema, "LOCK_RETRY_BACKOFF_SECONDS", (0.05, 0.1, 0.2))
+    lock_holder.start()
+    assert ready.wait(timeout=5)
+
+    release_timer = threading.Timer(0.08, release.set)
+    release_timer.start()
+    try:
+        exit_code = run_db_export("imprivata", project_root=tmp_path)
+    finally:
+        release.set()
+        release_timer.cancel()
+        lock_holder.join(timeout=5)
+        if lock_holder.is_alive():
+            lock_holder.terminate()
+            lock_holder.join(timeout=5)
+
+    rows = _read_rows(output_path)
+
+    assert lock_holder.exitcode == 0
+    assert exit_code == 0
+    assert rows[0][0] == "TargetName"
 
 
 def test_run_db_export_requires_existing_database(tmp_path: Path) -> None:

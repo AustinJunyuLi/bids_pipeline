@@ -4,9 +4,10 @@ import json
 from datetime import date
 from pathlib import Path
 
+import duckdb
 import pytest
 
-from skill_pipeline import cli
+from skill_pipeline import cli, db_schema
 from skill_pipeline.db_load import run_db_load
 from skill_pipeline.db_schema import open_pipeline_db
 from skill_pipeline.paths import build_skill_paths
@@ -520,6 +521,85 @@ def test_open_pipeline_db_supports_read_only(tmp_path: Path) -> None:
     con = open_pipeline_db(db_path, read_only=True)
     assert con.execute("SELECT COUNT(*) FROM actors").fetchone()[0] == 0
     con.close()
+
+
+def test_open_pipeline_db_retries_lock_contention_then_succeeds(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    attempts: list[tuple[str, bool]] = []
+    sleep_calls: list[float] = []
+    db_path = tmp_path / "data" / "pipeline.duckdb"
+    expected_con = object()
+
+    def fake_connect(path: str, *, read_only: bool = False):
+        attempts.append((path, read_only))
+        if len(attempts) < 3:
+            raise duckdb.IOException(
+                'IO Error: Could not set lock on file "/tmp/pipeline.duckdb": Conflicting lock is held'
+            )
+        return expected_con
+
+    monkeypatch.setattr(db_schema.duckdb, "connect", fake_connect)
+    monkeypatch.setattr(db_schema.time, "sleep", sleep_calls.append)
+
+    con = db_schema.open_pipeline_db(db_path, read_only=True)
+
+    assert db_schema.LOCK_RETRY_ATTEMPTS == 3
+    assert db_schema.LOCK_RETRY_BACKOFF_SECONDS == (0.25, 0.5, 1.0)
+    assert con is expected_con
+    assert attempts == [
+        (str(db_path), True),
+        (str(db_path), True),
+        (str(db_path), True),
+    ]
+    assert sleep_calls == [0.25, 0.5]
+
+
+def test_open_pipeline_db_raises_after_exhausting_lock_retries(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    attempts: list[tuple[str, bool]] = []
+    sleep_calls: list[float] = []
+    db_path = tmp_path / "data" / "pipeline.duckdb"
+
+    def fake_connect(path: str, *, read_only: bool = False):
+        attempts.append((path, read_only))
+        raise duckdb.IOException(
+            'IO Error: Could not set lock on file "/tmp/pipeline.duckdb": Conflicting lock is held'
+        )
+
+    monkeypatch.setattr(db_schema.duckdb, "connect", fake_connect)
+    monkeypatch.setattr(db_schema.time, "sleep", sleep_calls.append)
+
+    with pytest.raises(duckdb.IOException, match="Could not set lock on file"):
+        db_schema.open_pipeline_db(db_path, read_only=True)
+
+    assert len(attempts) == 3
+    assert sleep_calls == [0.25, 0.5]
+
+
+def test_open_pipeline_db_does_not_retry_non_lock_errors(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    attempts: list[tuple[str, bool]] = []
+    sleep_calls: list[float] = []
+    db_path = tmp_path / "data" / "pipeline.duckdb"
+
+    def fake_connect(path: str, *, read_only: bool = False):
+        attempts.append((path, read_only))
+        raise duckdb.ConnectionException("Connection Error: invalid connection setup")
+
+    monkeypatch.setattr(db_schema.duckdb, "connect", fake_connect)
+    monkeypatch.setattr(db_schema.time, "sleep", sleep_calls.append)
+
+    with pytest.raises(duckdb.ConnectionException, match="invalid connection setup"):
+        db_schema.open_pipeline_db(db_path, read_only=True)
+
+    assert attempts == [(str(db_path), True)]
+    assert sleep_calls == []
 
 
 def test_run_db_load_loads_canonical_artifacts(tmp_path: Path) -> None:
