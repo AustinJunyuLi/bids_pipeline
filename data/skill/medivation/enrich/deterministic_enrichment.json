@@ -9,8 +9,8 @@
         "bidder_company_1",
         "bidder_company_4"
       ],
-      "active_bidders_at_time": 2,
-      "is_selective": false
+      "active_bidders_at_time": 5,
+      "is_selective": true
     },
     {
       "announcement_event_id": "evt_021",
@@ -23,7 +23,7 @@
         "bidder_company_3",
         "bidder_company_4"
       ],
-      "active_bidders_at_time": 2,
+      "active_bidders_at_time": 5,
       "is_selective": false
     },
     {
@@ -36,7 +36,7 @@
         "bidder_company_2",
         "bidder_company_3"
       ],
-      "active_bidders_at_time": 2,
+      "active_bidders_at_time": 4,
       "is_selective": false
     }
   ],
@@ -135,5 +135,7 @@
       "event_id": "evt_019",
       "basis": "First formal proposal in cycle: evt_019."
     }
-  }
+  },
+  "dropout_classifications": {},
+  "all_cash_overrides": {}
 }
