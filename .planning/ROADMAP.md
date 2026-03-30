@@ -8,8 +8,8 @@
 ## Phases
 
 - [x] **Phase 6: Deterministic Hardening** - Fix runtime walls from 7-deal rerun: mixed-schema loader guard, canonicalize collisions, gates+coverage rollover-CA tolerance, DuckDB lock retry (HARD-02/03 already satisfied)
-- [ ] **Phase 7: bid_type Rule Priority** - Fix highest-impact enrichment bug: final-round proposals misclassified as Informal across 5+ deals
-- [ ] **Phase 8: Extraction Guidance + Enrichment Extensions** - Update skill docs for round milestones, verbal indications, NDA exclusion; add DropTarget classification and contextual all_cash inference
+- [x] **Phase 7: bid_type Rule Priority** - Fix highest-impact enrichment bug: final-round proposals misclassified as Informal across 5+ deals
+- [x] **Phase 8: Extraction Guidance + Enrichment Extensions** - Update skill docs for round milestones, verbal indications, NDA exclusion; add DropTarget classification and contextual all_cash inference
 - [ ] **Phase 9: Deal-Specific Fixes + Revalidation** - Fix Zep/Medivation extraction errors, re-extract affected deals, validate improved match rate across 9-deal corpus
 
 ## Phase Details
@@ -18,7 +18,7 @@
 **Goal**: Pipeline deterministic stages handle all documented edge cases from the 7-deal rerun without crashing, producing false findings, or accepting corrupt inputs
 **Depends on**: Nothing (independent fixes)
 **Requirements**: HARD-06, HARD-01, HARD-04, HARD-05 (HARD-02 and HARD-03 already satisfied during 7-deal rerun)
-**Execution order**: HARD-06 → HARD-01 → HARD-04 → HARD-05
+**Execution order**: HARD-06 -> HARD-01 -> HARD-04 -> HARD-05
 **Success Criteria** (what must be TRUE):
   1. Loading extract artifacts where actors are canonical but events are quote-first (or vice versa) raises a dedicated `MixedSchemaError` before any stage processes them
   2. Running `skill-pipeline canonicalize` on a deal with overlapping actor/event quote_id namespaces completes without crash, produces unique cross-array quote_ids, rewrites all references consistently, and is idempotent on reruns; same-array duplicates still fail-fast
@@ -44,15 +44,15 @@ Plans:
 **Requirements**: EXTRACT-01, EXTRACT-02, EXTRACT-03, ENRICH-02, ENRICH-03
 **Success Criteria** (what must be TRUE):
   1. Extraction skill docs contain explicit guidance and filing-grounded examples for round milestone events (Final Round Inf Ann, Final Round Inf, deadlines) such that a new extraction run can produce them
-  2. Extraction skill docs contain explicit guidance and examples for verbal/oral price indications drawn from stec and petsmart-inc filing patterns
+  2. Extraction skill docs contain explicit guidance and examples for verbal/oral price indications drawn from mac-gray and penford filing patterns
   3. Extraction skill docs contain explicit NDA exclusion guidance that distinguishes rollover-side and non-target confidentiality agreements from sale-process NDAs
-  4. Running `skill-pipeline enrich-core` on a deal with committee-driven field narrowing produces deterministic DropTarget dropout classifications based on drop_reason_text signals
+  4. Running `skill-pipeline enrich-core` on a deal with committee-driven field narrowing produces deterministic DropTarget dropout classifications from round invitation context while preserving bidder-withdrawal-first directionality
   5. Running `skill-pipeline enrich-core` on a deal where the executed event has explicit cash consideration propagates all_cash=true to proposals that lack explicit per-proposal mention, while deals with mixed consideration (e.g., cash+CVR) are not falsely tagged
 **Plans:** 3 plans
 Plans:
-- [ ] 08-01-PLAN.md -- Add round milestone, verbal indication, and NDA exclusion guidance to extraction skill docs
-- [ ] 08-02-PLAN.md -- Add DropTarget classification and all_cash inference to enrich_core.py
-- [ ] 08-03-PLAN.md -- Wire dropout_classifications and all_cash_overrides through DB schema, load, and export
+- [x] 08-01-PLAN.md -- Add round milestone, verbal indication, and NDA exclusion guidance to extraction skill docs
+- [x] 08-02-PLAN.md -- Add DropTarget classification and all_cash inference to enrich_core.py
+- [x] 08-03-PLAN.md -- Wire dropout_classifications and all_cash_overrides through DB schema, load, and export
 
 ### Phase 9: Deal-Specific Fixes + Revalidation
 **Goal**: Known extraction errors in Zep and Medivation are corrected, affected deals are re-extracted with updated skill docs, and cross-deal reconciliation shows measurable improvement
@@ -63,7 +63,11 @@ Plans:
   2. Medivation events_raw.json contains evt_013 and evt_017 with filing-grounded evidence quotes
   3. All affected deals have been re-extracted and successfully pass the full deterministic pipeline (canonicalize through db-export) without errors
   4. 9-deal reconciliation re-run shows a higher atomic match rate and fewer filing-contradicted pipeline claims compared to the pre-v1.1 baseline
-**Plans**: TBD
+**Plans:** 3 plans
+Plans:
+- [ ] 09-01-PLAN.md -- Re-extract Zep and run full deterministic pipeline through db-export
+- [ ] 09-02-PLAN.md -- Re-extract Medivation and run full deterministic pipeline through db-export
+- [ ] 09-03-PLAN.md -- Run 9-deal reconciliation and measure improvement against baseline
 
 ## Progress
 
@@ -75,9 +79,9 @@ Plans:
 | 4. Enhanced Gates | v1.0 | 2/2 | Complete | 2026-03-28 |
 | 5. Integration + Calibration | v1.0 | 3/3 | Complete | 2026-03-28 |
 | 6. Deterministic Hardening | v1.1 | 3/3 | Complete | 2026-03-29 |
-| 7. bid_type Rule Priority | v1.1 | 0/1 | Planned | - |
-| 8. Extraction Guidance + Enrichment Extensions | v1.1 | 0/3 | Planned | - |
-| 9. Deal-Specific Fixes + Revalidation | v1.1 | 0/? | Not started | - |
+| 7. bid_type Rule Priority | v1.1 | 1/1 | Complete | 2026-03-30 |
+| 8. Extraction Guidance + Enrichment Extensions | v1.1 | 3/3 | Complete | 2026-03-30 |
+| 9. Deal-Specific Fixes + Revalidation | v1.1 | 0/3 | Planned | - |
 
 ---
 *Roadmap created: 2026-03-29*
