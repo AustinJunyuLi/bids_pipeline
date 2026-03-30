@@ -1,9 +1,9 @@
 {
   "schema_version": "2.0.0",
   "artifact_type": "prompt_packet_manifest",
-  "created_at": "2026-03-29T13:59:07.122171Z",
+  "created_at": "2026-03-30T15:18:20.159735Z",
   "pipeline_version": "0.1.0",
-  "run_id": "compose-74ddbe5e",
+  "run_id": "compose-dfd9bdf9",
   "deal_slug": "medivation",
   "source_accession_number": "0001193125-16-696911",
   "packets": [
@@ -12,9 +12,9 @@
       "packet_family": "events",
       "chunk_mode": "chunked",
       "window_id": "w0",
-      "prefix_path": "/home/austinli/Projects/bids_pipeline/data/skill/medivation/prompt/packets/events-w0/prefix.md",
-      "body_path": "/home/austinli/Projects/bids_pipeline/data/skill/medivation/prompt/packets/events-w0/body.md",
-      "rendered_path": "/home/austinli/Projects/bids_pipeline/data/skill/medivation/prompt/packets/events-w0/rendered.md",
+      "prefix_path": "/mnt/d/Projects/bids_data/data/skill/medivation/prompt/packets/events-w0/prefix.md",
+      "body_path": "/mnt/d/Projects/bids_data/data/skill/medivation/prompt/packets/events-w0/body.md",
+      "rendered_path": "/mnt/d/Projects/bids_data/data/skill/medivation/prompt/packets/events-w0/rendered.md",
       "evidence_ids": [
         "0001193125-16-696911:E0096",
         "0001193125-16-696911:E0097",
@@ -150,16 +150,16 @@
         "0001193125-16-696911:E0227",
         "0001193125-16-696911:E0228"
       ],
-      "actor_roster_source_path": "/home/austinli/Projects/bids_pipeline/data/skill/medivation/extract/actors_raw.json"
+      "actor_roster_source_path": "/mnt/d/Projects/bids_data/data/skill/medivation/extract/actors_raw.json"
     },
     {
       "packet_id": "events-w1",
       "packet_family": "events",
       "chunk_mode": "chunked",
       "window_id": "w1",
-      "prefix_path": "/home/austinli/Projects/bids_pipeline/data/skill/medivation/prompt/packets/events-w1/prefix.md",
-      "body_path": "/home/austinli/Projects/bids_pipeline/data/skill/medivation/prompt/packets/events-w1/body.md",
-      "rendered_path": "/home/austinli/Projects/bids_pipeline/data/skill/medivation/prompt/packets/events-w1/rendered.md",
+      "prefix_path": "/mnt/d/Projects/bids_data/data/skill/medivation/prompt/packets/events-w1/prefix.md",
+      "body_path": "/mnt/d/Projects/bids_data/data/skill/medivation/prompt/packets/events-w1/body.md",
+      "rendered_path": "/mnt/d/Projects/bids_data/data/skill/medivation/prompt/packets/events-w1/rendered.md",
       "evidence_ids": [
         "0001193125-16-696911:E0218",
         "0001193125-16-696911:E0219",
@@ -234,12 +234,12 @@
         "0001193125-16-696911:E0288",
         "0001193125-16-696911:E0289"
       ],
-      "actor_roster_source_path": "/home/austinli/Projects/bids_pipeline/data/skill/medivation/extract/actors_raw.json"
+      "actor_roster_source_path": "/mnt/d/Projects/bids_data/data/skill/medivation/extract/actors_raw.json"
     }
   ],
   "asset_files": [
-    "/home/austinli/Projects/bids_pipeline/skill_pipeline/prompt_assets/events_prefix.md",
-    "/home/austinli/Projects/bids_pipeline/skill_pipeline/prompt_assets/event_examples.md"
+    "/mnt/d/Projects/bids_data/skill_pipeline/prompt_assets/events_prefix.md",
+    "/mnt/d/Projects/bids_data/skill_pipeline/prompt_assets/event_examples.md"
   ],
   "notes": [
     "mode=events",

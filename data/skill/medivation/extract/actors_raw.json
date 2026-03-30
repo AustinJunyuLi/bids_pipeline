@@ -1,4 +1,71 @@
 {
+  "quotes": [
+    {
+      "quote_id": "Q001",
+      "block_id": "B002",
+      "text": "The Medivation board of directors"
+    },
+    {
+      "quote_id": "Q002",
+      "block_id": "B004",
+      "text": "Cooley LLP"
+    },
+    {
+      "quote_id": "Q003",
+      "block_id": "B004",
+      "text": "J. P. Morgan Securities LLC"
+    },
+    {
+      "quote_id": "Q004",
+      "block_id": "B003",
+      "text": "Chief Executive Officer of Sanofi"
+    },
+    {
+      "quote_id": "Q005",
+      "block_id": "B012",
+      "text": "at Pfizer"
+    },
+    {
+      "quote_id": "Q006",
+      "block_id": "B013",
+      "text": "Evercore Group L. L. C."
+    },
+    {
+      "quote_id": "Q007",
+      "block_id": "B016",
+      "text": "Wachtell, Lipton, Rosen & Katz"
+    },
+    {
+      "quote_id": "Q008",
+      "block_id": "B017",
+      "text": "Richards, Layton & Finger, P. A."
+    },
+    {
+      "quote_id": "Q009",
+      "block_id": "B021",
+      "text": "Weil Gotshal & Manges LLP"
+    },
+    {
+      "quote_id": "Q010",
+      "block_id": "B057",
+      "text": "Company 1"
+    },
+    {
+      "quote_id": "Q011",
+      "block_id": "B057",
+      "text": "Company 2"
+    },
+    {
+      "quote_id": "Q012",
+      "block_id": "B057",
+      "text": "Company 3"
+    },
+    {
+      "quote_id": "Q013",
+      "block_id": "B057",
+      "text": "Company 4"
+    }
+  ],
   "actors": [
     {
       "actor_id": "target_board",
@@ -16,8 +83,8 @@
       "is_grouped": false,
       "group_size": null,
       "group_label": null,
-      "evidence_span_ids": [
-        "span_0001"
+      "quote_ids": [
+        "Q001"
       ],
       "notes": []
     },
@@ -37,8 +104,8 @@
       "is_grouped": false,
       "group_size": null,
       "group_label": null,
-      "evidence_span_ids": [
-        "span_0002"
+      "quote_ids": [
+        "Q002"
       ],
       "notes": []
     },
@@ -58,8 +125,8 @@
       "is_grouped": false,
       "group_size": null,
       "group_label": null,
-      "evidence_span_ids": [
-        "span_0003"
+      "quote_ids": [
+        "Q003"
       ],
       "notes": []
     },
@@ -77,8 +144,8 @@
       "is_grouped": false,
       "group_size": null,
       "group_label": null,
-      "evidence_span_ids": [
-        "span_0004"
+      "quote_ids": [
+        "Q004"
       ],
       "notes": []
     },
@@ -96,8 +163,8 @@
       "is_grouped": false,
       "group_size": null,
       "group_label": null,
-      "evidence_span_ids": [
-        "span_0005"
+      "quote_ids": [
+        "Q005"
       ],
       "notes": []
     },
@@ -117,8 +184,8 @@
       "is_grouped": false,
       "group_size": null,
       "group_label": null,
-      "evidence_span_ids": [
-        "span_0006"
+      "quote_ids": [
+        "Q006"
       ],
       "notes": []
     },
@@ -138,8 +205,8 @@
       "is_grouped": false,
       "group_size": null,
       "group_label": null,
-      "evidence_span_ids": [
-        "span_0007"
+      "quote_ids": [
+        "Q007"
       ],
       "notes": []
     },
@@ -157,8 +224,8 @@
       "is_grouped": false,
       "group_size": null,
       "group_label": null,
-      "evidence_span_ids": [
-        "span_0008"
+      "quote_ids": [
+        "Q008"
       ],
       "notes": []
     },
@@ -178,8 +245,8 @@
       "is_grouped": false,
       "group_size": null,
       "group_label": null,
-      "evidence_span_ids": [
-        "span_0009"
+      "quote_ids": [
+        "Q009"
       ],
       "notes": []
     },
@@ -197,8 +264,8 @@
       "is_grouped": false,
       "group_size": null,
       "group_label": null,
-      "evidence_span_ids": [
-        "span_0010"
+      "quote_ids": [
+        "Q010"
       ],
       "notes": []
     },
@@ -216,8 +283,8 @@
       "is_grouped": false,
       "group_size": null,
       "group_label": null,
-      "evidence_span_ids": [
-        "span_0011"
+      "quote_ids": [
+        "Q011"
       ],
       "notes": []
     },
@@ -235,8 +302,8 @@
       "is_grouped": false,
       "group_size": null,
       "group_label": null,
-      "evidence_span_ids": [
-        "span_0012"
+      "quote_ids": [
+        "Q012"
       ],
       "notes": []
     },
@@ -254,8 +321,8 @@
       "is_grouped": false,
       "group_size": null,
       "group_label": null,
-      "evidence_span_ids": [
-        "span_0013"
+      "quote_ids": [
+        "Q013"
       ],
       "notes": []
     }
