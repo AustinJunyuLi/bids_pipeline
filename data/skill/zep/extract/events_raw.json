@@ -1,170 +1,134 @@
 {
-  "quotes": [
-    {
-      "quote_id": "Q001",
-      "block_id": "B010",
-      "text": "Our board of directors unanimously agreed to proceed with certain initial steps related to exploring our strategic alternatives, including a potential sale of the Company."
-    },
-    {
-      "quote_id": "Q002",
-      "block_id": "B025",
-      "text": "our board of directors decided to engage in a process to consider strategic alternatives."
-    },
-    {
-      "quote_id": "Q003",
-      "block_id": "B028",
-      "text": "Merrill Lynch to act as our financial advisor in connection with reviewing our strategic alternatives."
-    },
-    {
-      "quote_id": "Q004",
-      "block_id": "B040",
-      "text": "We entered into a confidentiality agreement with New Mountain Capital on March 19, 2014."
-    },
-    {
-      "quote_id": "Q005",
-      "block_id": "B038",
-      "text": "we executed confidentiality agreements with a number of the potential buyers."
-    },
-    {
-      "quote_id": "Q006",
-      "block_id": "B044",
-      "text": "twenty-five potential buyers executed confidentiality agreements with us, received a copy of the marketing materials and/or met with the Company's management."
-    },
-    {
-      "quote_id": "Q007",
-      "block_id": "B046",
-      "text": "five parties, comprising four financial buyers and one strategic buyer, submitted preliminary and non-binding indications of interest."
-    },
-    {
-      "quote_id": "Q008",
-      "block_id": "B050",
-      "text": "two additional parties, comprising one financial party (\"Party X\") and one strategic party (\"Party Y\"), contacted representatives of BofA Merrill Lynch on an unsolicited basis to inquire about the process."
-    },
-    {
-      "quote_id": "Q009",
-      "block_id": "B054",
-      "text": "Party X submitted a preliminary and non-binding indication of interest to BofA Merrill Lynch"
-    },
-    {
-      "quote_id": "Q010",
-      "block_id": "B056",
-      "text": "Party X informed representatives of BofA Merrill Lynch that it was no longer interested in pursuing a potential transaction with the Company."
-    },
-    {
-      "quote_id": "Q011",
-      "block_id": "B058",
-      "text": "Party Y submitted a preliminary and non-binding indication of interest"
-    },
-    {
-      "quote_id": "Q012",
-      "block_id": "B064",
-      "text": "five of the remaining six interested parties communicated to representatives of BofA Merrill Lynch that they were unable to proceed with the process due to concerns regarding valuation and, in some cases, the interested parties' own internal initiatives and strategic priorities. The sixth remaining interested party declined to respond to BofA Merrill Lynch's communications regarding a potential transaction."
-    },
-    {
-      "quote_id": "Q013",
-      "block_id": "B068",
-      "text": "our board of directors decided to terminate the process to explore potential strategic alternatives at that time"
-    },
-    {
-      "quote_id": "Q014",
-      "block_id": "B075",
-      "text": "early February 2015, New Mountain Capital contacted representatives of BofA Merrill Lynch and requested a meeting."
-    },
-    {
-      "quote_id": "Q015",
-      "block_id": "B075",
-      "text": "On February 10, 2015, New Mountain Capital met with representatives of BofA Merrill Lynch and expressed its interest in discussions with the Company regarding a potential transaction."
-    },
-    {
-      "quote_id": "Q016",
-      "block_id": "B075",
-      "text": "On February 19, 2015, New Mountain Capital delivered an unsolicited indication of interest to the Company to acquire us for a per share price of $19.25."
-    },
-    {
-      "quote_id": "Q017",
-      "block_id": "B079",
-      "text": "On February 26, 2015, New Mountain Capital delivered a revised indication of interest reflecting an increased per share price of $20.05, and indicated that this was the highest price it was willing to offer."
-    },
-    {
-      "quote_id": "Q018",
-      "block_id": "B091",
-      "text": "March 13, 2015, New Mountain Capital communicated that the $20.05 per share offer price was New Mountain Capital's \"best and final\" offer."
-    },
-    {
-      "quote_id": "Q019",
-      "block_id": "B101",
-      "text": "March 29, 2015, we received a revised draft of the merger agreement from New Mountain Capital."
-    },
-    {
-      "quote_id": "Q020",
-      "block_id": "B113",
-      "text": "the parties executed the merger agreement and the related transaction documents"
-    },
-    {
-      "quote_id": "Q021",
-      "block_id": "B113",
-      "text": "issued a press release announcing the transaction on the morning of April 8, 2015."
-    }
-  ],
   "events": [
     {
       "event_id": "evt_001",
       "event_type": "target_sale",
       "date": {
-        "raw_text": "July 1, 2013"
+        "raw_text": "July 1, 2013",
+        "normalized_start": "2013-07-01",
+        "normalized_end": "2013-07-01",
+        "sort_date": "2013-07-01",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
       },
       "actor_ids": [
         "target_board"
       ],
       "summary": "The board agreed to begin exploring strategic alternatives, including a potential sale of the Company.",
-      "quote_ids": [
-        "Q001"
+      "evidence_span_ids": [
+        "span_0009"
       ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
       "notes": []
     },
     {
       "event_id": "evt_002",
       "event_type": "target_sale",
       "date": {
-        "raw_text": "January 28, 2014"
+        "raw_text": "January 28, 2014",
+        "normalized_start": "2014-01-28",
+        "normalized_end": "2014-01-28",
+        "sort_date": "2014-01-28",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
       },
       "actor_ids": [
         "target_board"
       ],
       "summary": "The board decided to engage in a process to consider strategic alternatives.",
-      "quote_ids": [
-        "Q002"
+      "evidence_span_ids": [
+        "span_0010"
       ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
       "notes": []
     },
     {
       "event_id": "evt_003",
       "event_type": "ib_retention",
       "date": {
-        "raw_text": "January 28, 2014"
+        "raw_text": "January 28, 2014",
+        "normalized_start": "2014-01-28",
+        "normalized_end": "2014-01-28",
+        "sort_date": "2014-01-28",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
       },
       "actor_ids": [
         "advisor_bofa_merrill_lynch"
       ],
       "summary": "BofA Merrill Lynch was engaged as the Company's financial advisor for the strategic alternatives review.",
-      "quote_ids": [
-        "Q003"
+      "evidence_span_ids": [
+        "span_0011"
       ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
       "notes": []
     },
     {
       "event_id": "evt_004",
       "event_type": "nda",
       "date": {
-        "raw_text": "March 19, 2014"
+        "raw_text": "March 19, 2014",
+        "normalized_start": "2014-03-19",
+        "normalized_end": "2014-03-19",
+        "sort_date": "2014-03-19",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
       },
       "actor_ids": [
         "bidder_new_mountain_capital"
       ],
       "summary": "New Mountain Capital executed a confidentiality agreement with the Company.",
-      "quote_ids": [
-        "Q004"
+      "evidence_span_ids": [
+        "span_0012"
       ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
       "nda_signed": true,
       "notes": []
     },
@@ -172,17 +136,34 @@
       "event_id": "evt_005",
       "event_type": "nda",
       "date": {
-        "raw_text": "March 27, 2014"
+        "raw_text": "March 27, 2014",
+        "normalized_start": "2014-03-27",
+        "normalized_end": "2014-03-27",
+        "sort_date": "2014-03-27",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
       },
       "actor_ids": [
         "grouped_other_financial_bidders",
         "grouped_initial_strategic_bidder"
       ],
       "summary": "The tracked unnamed 2014 bidder cohort had executed confidentiality agreements and received sale-process materials by the first-round deadline.",
-      "quote_ids": [
-        "Q005",
-        "Q006"
+      "evidence_span_ids": [
+        "span_0013",
+        "span_0014"
       ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
       "nda_signed": true,
       "notes": [
         "Represents the unnamed bidders later captured in the April 14 preliminary indication group."
@@ -192,19 +173,30 @@
       "event_id": "evt_006",
       "event_type": "proposal",
       "date": {
-        "raw_text": "April 14, 2014"
+        "raw_text": "April 14, 2014",
+        "normalized_start": "2014-04-14",
+        "normalized_end": "2014-04-14",
+        "sort_date": "2014-04-14",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
       },
       "actor_ids": [
         "grouped_other_financial_bidders",
         "grouped_initial_strategic_bidder"
       ],
       "summary": "Four unnamed financial buyers and one unnamed strategic buyer submitted preliminary and non-binding indications of interest ranging from $20.00 to $22.00 per share.",
-      "quote_ids": [
-        "Q007"
+      "evidence_span_ids": [
+        "span_0015"
       ],
       "terms": {
+        "per_share": null,
         "range_low": "20.00",
-        "range_high": "22.00"
+        "range_high": "22.00",
+        "enterprise_value": null,
+        "consideration_type": null
       },
       "formality_signals": {
         "contains_range": true,
@@ -220,6 +212,13 @@
         "is_subject_to_financing": null
       },
       "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
       "notes": [
         "New Mountain Capital is excluded because the filing states that it decided not to submit a preliminary indication of interest in the 2014 cycle."
       ]
@@ -228,34 +227,63 @@
       "event_id": "evt_007",
       "event_type": "bidder_interest",
       "date": {
-        "raw_text": "the next few weeks"
+        "raw_text": "the next few weeks",
+        "normalized_start": null,
+        "normalized_end": null,
+        "sort_date": null,
+        "precision": "unknown",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": "Unable to parse date deterministically.",
+        "is_inferred": false
       },
       "actor_ids": [
         "bidder_party_x",
         "bidder_party_y"
       ],
       "summary": "Party X and Party Y contacted BofA Merrill Lynch on an unsolicited basis to inquire about the process.",
-      "quote_ids": [
-        "Q008"
+      "evidence_span_ids": [
+        "span_0016"
       ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
       "notes": []
     },
     {
       "event_id": "evt_008",
       "event_type": "proposal",
       "date": {
-        "raw_text": "May 9, 2014"
+        "raw_text": "May 9, 2014",
+        "normalized_start": "2014-05-09",
+        "normalized_end": "2014-05-09",
+        "sort_date": "2014-05-09",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
       },
       "actor_ids": [
         "bidder_party_x"
       ],
       "summary": "Party X submitted a preliminary and non-binding indication of interest at $21.50 to $23.00 per share.",
-      "quote_ids": [
-        "Q009"
+      "evidence_span_ids": [
+        "span_0017"
       ],
       "terms": {
+        "per_share": null,
         "range_low": "21.50",
-        "range_high": "23.00"
+        "range_high": "23.00",
+        "enterprise_value": null,
+        "consideration_type": null
       },
       "formality_signals": {
         "contains_range": true,
@@ -271,40 +299,42 @@
         "is_subject_to_financing": null
       },
       "whole_company_scope": true,
-      "notes": []
-    },
-    {
-      "event_id": "evt_009",
-      "event_type": "drop",
-      "date": {
-        "raw_text": "May 14, 2014"
-      },
-      "actor_ids": [
-        "bidder_party_x"
-      ],
-      "summary": "Party X withdrew from the process before receiving data-room access or meeting with management.",
-      "quote_ids": [
-        "Q010"
-      ],
-      "drop_reason_text": "Party X informed representatives of BofA Merrill Lynch that it was no longer interested in pursuing a potential transaction with the Company.",
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
       "notes": []
     },
     {
       "event_id": "evt_010",
       "event_type": "proposal",
       "date": {
-        "raw_text": "May 20, 2014"
+        "raw_text": "May 20, 2014",
+        "normalized_start": "2014-05-20",
+        "normalized_end": "2014-05-20",
+        "sort_date": "2014-05-20",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
       },
       "actor_ids": [
         "bidder_party_y"
       ],
       "summary": "Party Y submitted a preliminary and non-binding indication of interest at $19.50 to $20.50 per share.",
-      "quote_ids": [
-        "Q011"
+      "evidence_span_ids": [
+        "span_0019"
       ],
       "terms": {
+        "per_share": null,
         "range_low": "19.50",
-        "range_high": "20.50"
+        "range_high": "20.50",
+        "enterprise_value": null,
+        "consideration_type": null
       },
       "formality_signals": {
         "contains_range": true,
@@ -320,90 +350,141 @@
         "is_subject_to_financing": null
       },
       "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
       "notes": []
-    },
-    {
-      "event_id": "evt_011",
-      "event_type": "drop",
-      "date": {
-        "raw_text": "June 19, 2014"
-      },
-      "actor_ids": [
-        "grouped_other_financial_bidders",
-        "grouped_initial_strategic_bidder",
-        "bidder_party_y"
-      ],
-      "summary": "The remaining 2014 bidders communicated that they could not proceed because of valuation concerns or stopped responding to BofA Merrill Lynch.",
-      "quote_ids": [
-        "Q012"
-      ],
-      "drop_reason_text": "five of the remaining six interested parties communicated to representatives of BofA Merrill Lynch that they were unable to proceed with the process due to concerns regarding valuation and, in some cases, the interested parties' own internal initiatives and strategic priorities. The sixth remaining interested party declined to respond to BofA Merrill Lynch's communications regarding a potential transaction.",
-      "notes": [
-        "Party X is excluded because it had already withdrawn on May 14, 2014."
-      ]
     },
     {
       "event_id": "evt_012",
       "event_type": "terminated",
       "date": {
-        "raw_text": "June 26, 2014"
+        "raw_text": "June 26, 2014",
+        "normalized_start": "2014-06-26",
+        "normalized_end": "2014-06-26",
+        "sort_date": "2014-06-26",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
       },
       "actor_ids": [
         "target_board"
       ],
       "summary": "The board terminated the 2014 strategic alternatives process.",
-      "quote_ids": [
-        "Q013"
+      "evidence_span_ids": [
+        "span_0021"
       ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
       "boundary_note": "Board terminated the 2014 process because of limited buyer interest and operational uncertainty after the Marietta facility fire.",
+      "nda_signed": null,
       "notes": []
     },
     {
       "event_id": "evt_013",
       "event_type": "restarted",
       "date": {
-        "raw_text": "early February 2015"
+        "raw_text": "early February 2015",
+        "normalized_start": "2015-02-01",
+        "normalized_end": "2015-02-10",
+        "sort_date": "2015-02-05",
+        "precision": "month_early",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
       },
       "actor_ids": [
         "bidder_new_mountain_capital"
       ],
       "summary": "New Mountain Capital reopened sale discussions after the 2014 process had been terminated.",
-      "quote_ids": [
-        "Q014"
+      "evidence_span_ids": [
+        "span_0022"
       ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
       "boundary_note": "New Mountain Capital's unsolicited re-engagement marked the start of a new process cycle.",
+      "nda_signed": null,
       "notes": []
     },
     {
       "event_id": "evt_014",
       "event_type": "bidder_interest",
       "date": {
-        "raw_text": "February 10, 2015"
+        "raw_text": "February 10, 2015",
+        "normalized_start": "2015-02-10",
+        "normalized_end": "2015-02-10",
+        "sort_date": "2015-02-10",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
       },
       "actor_ids": [
         "bidder_new_mountain_capital"
       ],
       "summary": "New Mountain Capital met with BofA Merrill Lynch and expressed interest in a potential transaction.",
-      "quote_ids": [
-        "Q015"
+      "evidence_span_ids": [
+        "span_0023"
       ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
       "notes": []
     },
     {
       "event_id": "evt_015",
       "event_type": "proposal",
       "date": {
-        "raw_text": "February 19, 2015"
+        "raw_text": "February 19, 2015",
+        "normalized_start": "2015-02-19",
+        "normalized_end": "2015-02-19",
+        "sort_date": "2015-02-19",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
       },
       "actor_ids": [
         "bidder_new_mountain_capital"
       ],
       "summary": "New Mountain Capital delivered an unsolicited indication of interest at $19.25 per share.",
-      "quote_ids": [
-        "Q016"
+      "evidence_span_ids": [
+        "span_0024"
       ],
       "terms": {
-        "per_share": "19.25"
+        "per_share": "19.25",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": null
       },
       "formality_signals": {
         "contains_range": false,
@@ -419,6 +500,13 @@
         "is_subject_to_financing": null
       },
       "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
       "notes": [
         "The filing says the indication of interest was supported by a highly confident financing letter."
       ]
@@ -427,17 +515,29 @@
       "event_id": "evt_016",
       "event_type": "proposal",
       "date": {
-        "raw_text": "February 26, 2015"
+        "raw_text": "February 26, 2015",
+        "normalized_start": "2015-02-26",
+        "normalized_end": "2015-02-26",
+        "sort_date": "2015-02-26",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
       },
       "actor_ids": [
         "bidder_new_mountain_capital"
       ],
       "summary": "New Mountain Capital delivered a revised indication of interest at $20.05 per share and said that was the highest price it was willing to offer.",
-      "quote_ids": [
-        "Q017"
+      "evidence_span_ids": [
+        "span_0025"
       ],
       "terms": {
-        "per_share": "20.05"
+        "per_share": "20.05",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": null
       },
       "formality_signals": {
         "contains_range": false,
@@ -453,23 +553,42 @@
         "is_subject_to_financing": null
       },
       "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
       "notes": []
     },
     {
       "event_id": "evt_017",
       "event_type": "proposal",
       "date": {
-        "raw_text": "March 13, 2015"
+        "raw_text": "March 13, 2015",
+        "normalized_start": "2015-03-13",
+        "normalized_end": "2015-03-13",
+        "sort_date": "2015-03-13",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
       },
       "actor_ids": [
         "bidder_new_mountain_capital"
       ],
       "summary": "New Mountain Capital stated that $20.05 per share was its best and final offer.",
-      "quote_ids": [
-        "Q018"
+      "evidence_span_ids": [
+        "span_0026"
       ],
       "terms": {
-        "per_share": "20.05"
+        "per_share": "20.05",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": null
       },
       "formality_signals": {
         "contains_range": false,
@@ -485,6 +604,13 @@
         "is_subject_to_financing": null
       },
       "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
       "notes": [
         "The filing also says New Mountain Capital requested an exclusivity extension while working toward a definitive merger agreement."
       ]
@@ -493,16 +619,30 @@
       "event_id": "evt_018",
       "event_type": "proposal",
       "date": {
-        "raw_text": "March 29, 2015"
+        "raw_text": "March 29, 2015",
+        "normalized_start": "2015-03-29",
+        "normalized_end": "2015-03-29",
+        "sort_date": "2015-03-29",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
       },
       "actor_ids": [
         "bidder_new_mountain_capital"
       ],
       "summary": "New Mountain Capital returned a revised draft merger agreement.",
-      "quote_ids": [
-        "Q019"
+      "evidence_span_ids": [
+        "span_0027"
       ],
-      "terms": {},
+      "terms": {
+        "per_share": null,
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": null
+      },
       "formality_signals": {
         "contains_range": false,
         "mentions_indication_of_interest": false,
@@ -517,6 +657,13 @@
         "is_subject_to_financing": null
       },
       "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
       "notes": [
         "A revised draft merger agreement is a formal proposal signal."
       ]
@@ -525,20 +672,39 @@
       "event_id": "evt_019",
       "event_type": "executed",
       "date": {
-        "raw_text": "April 8, 2015"
+        "raw_text": "April 8, 2015",
+        "normalized_start": "2015-04-08",
+        "normalized_end": "2015-04-08",
+        "sort_date": "2015-04-08",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
       },
       "actor_ids": [
         "bidder_new_mountain_capital"
       ],
       "summary": "The parties executed the merger agreement and related transaction documents.",
-      "quote_ids": [
-        "Q020"
+      "evidence_span_ids": [
+        "span_0028"
       ],
       "terms": {
         "per_share": "20.05",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
         "consideration_type": "cash"
       },
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
       "executed_with_actor_id": "bidder_new_mountain_capital",
+      "boundary_note": null,
+      "nda_signed": null,
       "notes": [
         "The merger agreement summary outside the chronology states that each outstanding share would be converted into the right to receive $20.05 in cash."
       ]
@@ -547,15 +713,33 @@
       "event_id": "evt_020",
       "event_type": "bid_press_release",
       "date": {
-        "raw_text": "April 8, 2015"
+        "raw_text": "April 8, 2015",
+        "normalized_start": "2015-04-08",
+        "normalized_end": "2015-04-08",
+        "sort_date": "2015-04-08",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
       },
       "actor_ids": [
         "target_board"
       ],
       "summary": "The parties issued a press release announcing the transaction.",
-      "quote_ids": [
-        "Q021"
+      "evidence_span_ids": [
+        "span_0029"
       ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
       "notes": []
     }
   ],
