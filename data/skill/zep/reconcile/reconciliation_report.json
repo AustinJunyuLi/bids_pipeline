@@ -1,623 +1,107 @@
 {
   "deal_slug": "zep",
   "target_name": "ZEP INC",
-  "acquirer": "NEW MOUNTAIN CAPITAL",
+  "benchmark_source": "example/deal_details_Alex_2026.xlsx",
+  "reconciliation_date": "2026-03-30",
+  "method_note": "Phase 09 refresh. The Zep benchmark audit re-read the refreshed export/extract artifacts and carried forward prior filing arbitration where the compared rows were unchanged.",
+  "pipeline_event_count": 18,
+  "pipeline_csv_event_count": 18,
   "alex_row_count": 23,
-  "pipeline_event_count": 16,
-  "pipeline_csv_event_count": 16,
-  "reconciliation_date": "2026-03-29",
-  "filing_accession": "0001047469-15-004989",
-
+  "aggregate_row_count": 3,
+  "matched_count": 14,
+  "pipeline_only_count": 4,
+  "alex_only_count": 8,
+  "arbitration": {
+    "pipeline": 4,
+    "alex": 2,
+    "both_or_inconclusive": 3
+  },
+  "baseline_comparison": {
+    "pipeline_event_count": 16,
+    "alex_row_count": 23,
+    "matched_count": 14,
+    "pipeline_only_count": 1,
+    "alex_only_count": 9,
+    "aggregate_row_count": 3
+  },
+  "field_mismatches": [
+    {
+      "topic": "2014 grouped proposal actor set",
+      "filing_supports": "pipeline",
+      "verdict": "pipeline_improved",
+      "detail": "The refreshed grouped April 14, 2014 proposal no longer includes New Mountain Capital. That brings the pipeline back in line with the filing language describing five actual IOI submitters."
+    },
+    {
+      "topic": "2014 grouped drop coverage",
+      "filing_supports": "alex",
+      "verdict": "attention",
+      "detail": "Alex still has better explicit surface coverage for Party X / Party Y withdrawal rows. The refreshed pipeline chronology remains benchmark-clean on the proposal grouping, but the drop surface is still thinner than Alex's benchmark view."
+    },
+    {
+      "topic": "Restarted event framing",
+      "filing_supports": "pipeline",
+      "verdict": "pipeline_correct",
+      "detail": "The filing supports the board's February 26, 2015 decision to move forward with New Mountain Capital as the restart boundary, rather than Alex's February 19 IOI date."
+    }
+  ],
+  "pipeline_only": [
+    {
+      "category": "extra_granularity",
+      "detail": "Separate bidder-interest/restart framing around New Mountain Capital in February 2015 remains more granular than Alex's tracker rows."
+    },
+    {
+      "category": "extra_granularity",
+      "detail": "The refreshed export still includes a separate bid-press-release row for April 8, 2015."
+    },
+    {
+      "category": "structural_framing",
+      "detail": "The export now carries both early board-sale framing rows, which is more detailed than Alex's single target-sale tracker row."
+    },
+    {
+      "category": "grouped_interest_surface",
+      "detail": "The grouped Party X / Party Y bidder-interest row has no direct Alex analogue."
+    }
+  ],
+  "alex_only": [
+    {
+      "category": "round_milestone",
+      "detail": "Alex still tracks the March 27 process-letter milestone and related informal-round framing as benchmark rows."
+    },
+    {
+      "category": "withdrawal_surface",
+      "detail": "Alex still carries explicit Party X and Party Y withdrawal rows that the refreshed pipeline does not surface separately."
+    },
+    {
+      "category": "schema_gap",
+      "detail": "Alex keeps the February 27, 2015 exclusivity row, which remains outside the pipeline event vocabulary."
+    }
+  ],
+  "aggregate_rows": [
+    {
+      "category": "nda_cohort",
+      "detail": "Alex's aggregate NDA cohort row remains a soft benchmark match rather than a 1:1 atomic match."
+    },
+    {
+      "category": "proposal_cohort",
+      "detail": "Alex's '5 parties, 4F and 1S' proposal row now aligns better with the refreshed grouped pipeline proposal after the NMC fix."
+    },
+    {
+      "category": "drop_cohort",
+      "detail": "Alex's aggregate dropout framing remains more explicit than the refreshed pipeline surface."
+    }
+  ],
+  "export_regressions": [
+    {
+      "category": "extract_integrity",
+      "detail": "The refreshed Zep coverage notes still cite drop ids evt_009 and evt_011 even though those ids are not materialized in the current events array. This did not block export, but it remains a reconciliation attention item."
+    }
+  ],
   "summary": {
+    "status": "attention",
     "matched": 14,
-    "alex_only": 9,
-    "pipeline_only": 1,
-    "disagreements": 6,
+    "pipeline_only": 4,
+    "alex_only": 8,
     "aggregate_rows_in_alex": 3,
-    "verdict": "Pipeline covers the core chronology accurately. Alex has 9 additional rows including 3 aggregate/count rows, 2 final-round process rows, 1 exclusivity row, 1 Party X drop, 1 NDA for Party Y, and 1 aggregate drop for 19 parties. The pipeline omitted final-round process events, the Party X drop, some NDAs, and an exclusivity row. Six field-level disagreements were found and arbitrated."
-  },
-
-  "matched_events": [
-    {
-      "match_id": "M01",
-      "alex_bidder_id": 0.5,
-      "alex_bid_note": "IB",
-      "pipeline_event_id": "evt_002",
-      "pipeline_event_type": "ib_retention",
-      "match_basis": "bid_note=IB, date=2014-01-28",
-      "alex_date_rough": "2014-01-28",
-      "pipeline_date": "2014-01-28",
-      "alex_bidder_name": "BofA Merrill Lynch",
-      "pipeline_bidder_name": "Zep Board of Directors / BofA Merrill Lynch",
-      "disagreements": [
-        {
-          "field": "bidder_name",
-          "alex_value": "BofA Merrill Lynch",
-          "pipeline_value": "Zep Board of Directors / BofA Merrill Lynch",
-          "filing_says": "Board unanimously approved an engagement letter with BofA Merrill Lynch (line 1780-1781).",
-          "arbitration": "Both correct. Alex lists only the advisor; pipeline includes the retaining party. No material error.",
-          "verdict": "agree_both"
-        }
-      ]
-    },
-    {
-      "match_id": "M02",
-      "alex_bidder_id": 0.7,
-      "alex_bid_note": "Target Sale",
-      "pipeline_event_id": "evt_001",
-      "pipeline_event_type": "target_sale",
-      "match_basis": "bid_note=Target Sale, date close to 2014-01-28",
-      "alex_date_rough": "2014-01-31",
-      "pipeline_date": "2014-01-28",
-      "disagreements": [
-        {
-          "field": "date",
-          "alex_value": "2014-01-31",
-          "pipeline_value": "2014-01-28",
-          "filing_says": "At a January 28, 2014 board meeting, our board of directors decided to engage in a process to consider strategic alternatives (line 1776-1777). The January 31 date is a separate follow-up meeting to review strategic alternatives (line 1792).",
-          "arbitration": "Pipeline is correct: the board decision to explore strategic alternatives was January 28. Alex may have coded the Jan 31 follow-up meeting date.",
-          "verdict": "pipeline_correct"
-        }
-      ]
-    },
-    {
-      "match_id": "M03",
-      "alex_bidder_id": 1,
-      "alex_bid_note": "NDA",
-      "pipeline_event_id": "evt_004",
-      "pipeline_event_type": "nda",
-      "match_basis": "bid_note=NDA, aggregate NDA row",
-      "alex_date_rough": "2014-02-27",
-      "pipeline_date": null,
-      "alex_bidder_name": "24 parties",
-      "pipeline_bidder_name": "Three Other Financial Buyers / One Initial Strategic Buyer",
-      "disagreements": [
-        {
-          "field": "bidder_name",
-          "alex_value": "24 parties",
-          "pipeline_value": "Three Other Financial Buyers / One Initial Strategic Buyer",
-          "filing_says": "BofA Merrill Lynch contacted fifty potential buyers; twenty-five executed confidentiality agreements (line 1818-1842).",
-          "arbitration": "Alex says 24 parties. Filing says 25 potential buyers executed confidentiality agreements. Pipeline models only the named subset (the 4 who submitted IOIs minus NMC separately). Alex undercounts by 1 vs. the filing's 25.",
-          "verdict": "alex_approximate_pipeline_narrow"
-        },
-        {
-          "field": "date",
-          "alex_value": "2014-02-27",
-          "pipeline_value": null,
-          "filing_says": "The board approved contacting buyers at the February 27, 2014 meeting. NDAs were executed 'during the next several weeks' (line 1817-1818).",
-          "arbitration": "Alex used the board approval date. Pipeline has null because the filing says 'during the next several weeks' without an exact NDA date for these parties. Alex's date is an approximation. Neither is exactly filing-grounded.",
-          "verdict": "alex_approximate"
-        },
-        {
-          "field": "bidder_type_note",
-          "alex_value": "S and F",
-          "pipeline_value": "financial / strategic (grouped)",
-          "arbitration": "Both capture the mixed type. Filing says 28 strategic + 22 financial contacted. Agree.",
-          "verdict": "agree_both"
-        }
-      ],
-      "is_aggregate": true,
-      "aggregate_note": "Alex row represents 24 aggregate NDA signers. Pipeline has a grouped NDA event (evt_004) for the unnamed subset. The filing counts 25 NDA signers total."
-    },
-    {
-      "match_id": "M04",
-      "alex_bidder_id": 2,
-      "alex_bid_note": "NDA",
-      "pipeline_event_id": "evt_003",
-      "pipeline_event_type": "nda",
-      "match_basis": "bid_note=NDA, actor=New Mountain Capital, date=2014-03-19",
-      "alex_date_precise": "2014-03-19",
-      "pipeline_date": "2014-03-19",
-      "alex_bidder_name": "New Mountain Capital",
-      "pipeline_bidder_name": "New Mountain Capital",
-      "disagreements": [],
-      "note": "Perfect match. Filing confirms NDA with New Mountain Capital on March 19, 2014 (line 1828)."
-    },
-    {
-      "match_id": "M05",
-      "alex_bidder_id": 3,
-      "alex_bid_note": "NA (proposal)",
-      "pipeline_event_id": "evt_005",
-      "pipeline_event_type": "proposal",
-      "match_basis": "date=2014-04-14, proposal event",
-      "alex_date_precise": "2014-04-14",
-      "pipeline_date": "2014-04-14",
-      "alex_bidder_name": "5 parties, 4F and 1S",
-      "pipeline_bidder_name": "New Mountain Capital / Three Other Financial Buyers / One Initial Strategic Buyer",
-      "alex_price_range": "20-22",
-      "pipeline_price_range": "20-22",
-      "alex_bid_type": "Informal",
-      "pipeline_bid_type": "Informal",
-      "disagreements": [
-        {
-          "field": "bidder_name",
-          "alex_value": "5 parties, 4F and 1S",
-          "pipeline_value": "New Mountain Capital / Three Other Financial Buyers / One Initial Strategic Buyer",
-          "filing_says": "Five parties, comprising four financial buyers and one strategic buyer, submitted preliminary and non-binding indications of interest (line 1846). NMC received materials but decided not to submit a preliminary IOI (line 1843).",
-          "arbitration": "Filing says NMC did NOT submit an IOI on April 14. The 5 parties are other participants. Pipeline incorrectly includes NMC as an actor on evt_005. Alex correctly identifies 5 parties = 4F+1S excluding NMC.",
-          "verdict": "alex_correct_pipeline_wrong"
-        }
-      ],
-      "is_aggregate": true,
-      "aggregate_note": "Alex uses aggregate labeling (5 parties). Pipeline incorrectly includes NMC who did not submit an IOI. Alex comment notes the field needs expansion to 5 individual bidders."
-    },
-    {
-      "match_id": "M06",
-      "alex_bidder_id": 6,
-      "alex_bid_note": "NA (proposal)",
-      "pipeline_event_id": "evt_006",
-      "pipeline_event_type": "proposal",
-      "match_basis": "actor=Party X, date=2014-05-09",
-      "alex_date_precise": "2014-05-09",
-      "pipeline_date": "2014-05-09",
-      "alex_bidder_name": "Party X",
-      "pipeline_bidder_name": "Party X",
-      "alex_price_range": "21.5-23",
-      "pipeline_price_range": "21.5-23",
-      "alex_bid_type": "Informal",
-      "pipeline_bid_type": "Informal",
-      "alex_bidder_type": "F",
-      "pipeline_bidder_type": "financial",
-      "disagreements": [],
-      "note": "Perfect match on all fields."
-    },
-    {
-      "match_id": "M07",
-      "alex_bidder_id": 8,
-      "alex_bid_note": "NA (proposal)",
-      "pipeline_event_id": "evt_007",
-      "pipeline_event_type": "proposal",
-      "match_basis": "actor=Party Y, date=2014-05-20",
-      "alex_date_precise": "2014-05-20",
-      "pipeline_date": "2014-05-20",
-      "alex_bidder_name": "Party Y",
-      "pipeline_bidder_name": "Party Y",
-      "alex_price_range": "19.5-20.5",
-      "pipeline_price_range": "19.5-20.5",
-      "alex_bid_type": "Informal",
-      "pipeline_bid_type": "Informal",
-      "alex_bidder_type": "S",
-      "pipeline_bidder_type": "strategic",
-      "disagreements": [],
-      "note": "Perfect match on all fields."
-    },
-    {
-      "match_id": "M08",
-      "alex_bidder_id": 9,
-      "alex_bid_note": "Drop",
-      "pipeline_event_id": "evt_008",
-      "pipeline_event_type": "drop",
-      "match_basis": "bid_note=Drop, aggregate dropout row",
-      "alex_date_rough": "2014-05-23",
-      "pipeline_date": "2014-06-19",
-      "alex_bidder_name": "5 parties",
-      "pipeline_bidder_name": "New Mountain Capital / Three Other Financial Buyers / One Initial Strategic Buyer",
-      "is_aggregate": true,
-      "disagreements": [
-        {
-          "field": "date",
-          "alex_value": "2014-05-23",
-          "pipeline_value": "2014-06-19",
-          "filing_says": "Over the next few weeks [after May 22/23], five of the remaining six interested parties communicated... (line 1889-1892). On June 19, the Board Representatives held a meeting reviewing the dropout situation (line 1895).",
-          "arbitration": "Alex used the approximate start of the dropout period (after the May 23 fire). Pipeline used June 19 when the board formally reviewed the situation. The filing says dropouts happened 'over the next few weeks' after May 22-23. Neither date is precisely correct; June 19 is the board review date, not the dropout date. Alex's date is too early; pipeline's date is too late for the actual dropout communications.",
-          "verdict": "both_approximate"
-        },
-        {
-          "field": "bidder_name",
-          "alex_value": "5 parties",
-          "pipeline_value": "New Mountain Capital / Three Other Financial Buyers / One Initial Strategic Buyer",
-          "filing_says": "Five of the remaining six interested parties communicated they were unable to proceed; the sixth declined to respond. NMC is mentioned separately as having not submitted an IOI in round 1, but it received the process letter. All seven preliminary IOI submitters expressed valuation concerns by June 19 (line 1896-1897).",
-          "arbitration": "Alex's '5 parties' matches the filing text directly. Pipeline incorrectly includes NMC (who did not submit an IOI on April 14 and should not be in the dropout pool for this event). The filing describes 5 of 6 remaining bidders dropping; the 6th stopped responding.",
-          "verdict": "alex_correct_pipeline_wrong"
-        }
-      ],
-      "aggregate_note": "Alex says 5 parties. Filing says 5 of the remaining 6 interested parties. Pipeline erroneously groups NMC with the dropouts."
-    },
-    {
-      "match_id": "M09",
-      "alex_bidder_id": 10.5,
-      "alex_bid_note": "Terminated",
-      "pipeline_event_id": "evt_009",
-      "pipeline_event_type": "terminated",
-      "match_basis": "bid_note=Terminated, date=2014-06-26",
-      "alex_date_rough": "2014-06-26",
-      "pipeline_date": "2014-06-26",
-      "disagreements": [],
-      "note": "Perfect match. Filing confirms board terminated process at June 26 meeting (line 1905-1907)."
-    },
-    {
-      "match_id": "M10",
-      "alex_bidder_id": 10.7,
-      "alex_bid_note": "Restarted",
-      "pipeline_event_id": "evt_012",
-      "pipeline_event_type": "restarted",
-      "match_basis": "bid_note=Restarted",
-      "alex_date_rough": "2015-02-19",
-      "pipeline_date": "2015-02-26",
-      "alex_bidder_name": "New Mountain Capital",
-      "pipeline_bidder_name": "Zep Board of Directors",
-      "disagreements": [
-        {
-          "field": "date",
-          "alex_value": "2015-02-19",
-          "pipeline_value": "2015-02-26",
-          "filing_says": "Feb 10: NMC met with BofA and expressed interest. Feb 19: NMC delivered unsolicited IOI at $19.25. Feb 26: board met and determined to move forward with negotiations with NMC (line 1949-1954).",
-          "arbitration": "Pipeline date (Feb 26) is when the board decided to restart. Alex date (Feb 19) is when NMC submitted the IOI. The restart decision was the board's action on Feb 26. Pipeline is more precise for the 'restarted' event.",
-          "verdict": "pipeline_correct"
-        },
-        {
-          "field": "bidder_name",
-          "alex_value": "New Mountain Capital",
-          "pipeline_value": "Zep Board of Directors",
-          "filing_says": "Our board of directors determined to move forward with negotiations with New Mountain Capital (line 1954).",
-          "arbitration": "The restarted event is a board decision. Pipeline correctly attributes to the board. Alex attributes to NMC (who initiated contact but did not 'restart' the process unilaterally).",
-          "verdict": "pipeline_correct"
-        }
-      ]
-    },
-    {
-      "match_id": "M11",
-      "alex_bidder_id": 11,
-      "alex_bid_note": "NA (proposal)",
-      "pipeline_event_id": "evt_011",
-      "pipeline_event_type": "proposal",
-      "match_basis": "actor=NMC, price=$19.25",
-      "alex_date_precise": "2015-02-10",
-      "alex_date_rough": "2015-02-19",
-      "pipeline_date": "2015-02-19",
-      "alex_bidder_name": "New Mountain Capital",
-      "pipeline_bidder_name": "New Mountain Capital",
-      "alex_bid_value": 19.25,
-      "pipeline_per_share": "19.25",
-      "alex_bid_type": "Informal",
-      "pipeline_bid_type": "Informal",
-      "disagreements": [
-        {
-          "field": "bid_date_precise",
-          "alex_value": "2015-02-10",
-          "pipeline_value": "2015-02-19",
-          "filing_says": "Feb 10: NMC met with BofA and expressed interest in discussions (line 1925). Feb 19: NMC delivered unsolicited IOI at $19.25 (line 1926-1927).",
-          "arbitration": "Alex uses Feb 10 (interest expression) as the precise date, Feb 19 as rough. The IOI with the $19.25 price was delivered Feb 19. Pipeline uses Feb 19 as the proposal date. For a priced proposal event, Feb 19 is the correct date.",
-          "verdict": "pipeline_correct"
-        }
-      ],
-      "note": "Pipeline has a separate bidder_interest event (evt_010) for Feb 10. Alex collapses the interest and IOI into one row with dual dating."
-    },
-    {
-      "match_id": "M12",
-      "alex_bidder_id": 12,
-      "alex_bid_note": "NA (proposal)",
-      "pipeline_event_id": "evt_013",
-      "pipeline_event_type": "proposal",
-      "match_basis": "actor=NMC, price=$20.05, date=2015-02-26",
-      "alex_date_precise": "2015-02-26",
-      "pipeline_date": "2015-02-26",
-      "alex_bid_value": 20.05,
-      "pipeline_per_share": "20.05",
-      "alex_bid_type": "Informal",
-      "pipeline_bid_type": "Informal",
-      "disagreements": [],
-      "note": "Perfect match on all fields."
-    },
-    {
-      "match_id": "M13",
-      "alex_bidder_id": 14,
-      "alex_bid_note": "NA (proposal)",
-      "pipeline_event_id": "evt_014",
-      "pipeline_event_type": "proposal",
-      "match_basis": "actor=NMC, price=$20.05, best-and-final",
-      "alex_date_precise": "2015-03-29",
-      "alex_date_rough": "2015-03-13",
-      "pipeline_date": "2015-03-13",
-      "alex_bid_value": 20.05,
-      "pipeline_per_share": "20.05",
-      "alex_bid_type": "Formal",
-      "pipeline_bid_type": "Uncertain",
-      "alex_all_cash": 1,
-      "pipeline_all_cash": "NA",
-      "disagreements": [
-        {
-          "field": "bid_type",
-          "alex_value": "Formal",
-          "pipeline_value": "Uncertain",
-          "filing_says": "Mar 13: NMC communicated $20.05 was 'best and final' offer (line 1981). Mar 29: revised draft merger agreement received from NMC (line 2010). No formal final-round process letter or binding offer was described.",
-          "arbitration": "Alex treats the March 29 revised merger agreement as making this a 'Formal' bid. Pipeline classifies as 'Uncertain' because no deterministic formal signal was found. The filing describes ongoing negotiations without a distinct formal bid event. Alex's Formal classification reflects the later merger-agreement draft stage; pipeline's Uncertain is based on the March 13 'best and final' communication alone. Alex's interpretation is reasonable for the final merger-agreement-stage economics, but the pipeline's conservative read is defensible.",
-          "verdict": "alex_reasonable_pipeline_defensible"
-        },
-        {
-          "field": "bid_date_precise",
-          "alex_value": "2015-03-29",
-          "pipeline_value": "2015-03-13",
-          "filing_says": "Mar 13: NMC said $20.05 was 'best and final' (line 1981). Mar 29: revised draft merger agreement received (line 2010).",
-          "arbitration": "Alex treats Mar 29 (draft merger agreement) as the precise date. Pipeline uses Mar 13 (best-and-final communication). Both dates represent different milestones for the same $20.05 offer.",
-          "verdict": "both_defensible"
-        },
-        {
-          "field": "all_cash",
-          "alex_value": 1,
-          "pipeline_value": "NA",
-          "filing_says": "The merger agreement provides for all-cash consideration (implied throughout; NMC is PE firm with financing letter).",
-          "arbitration": "Alex correctly identifies all-cash. Pipeline does not populate consideration_type for this event. Pipeline gap.",
-          "verdict": "alex_correct_pipeline_gap"
-        }
-      ]
-    },
-    {
-      "match_id": "M14",
-      "alex_bidder_id": 14.5,
-      "alex_bid_note": "Executed",
-      "pipeline_event_id": "evt_015",
-      "pipeline_event_type": "executed",
-      "match_basis": "bid_note=Executed",
-      "alex_date_rough": "2015-04-08",
-      "pipeline_date": "2015-04-07",
-      "alex_bidder_name": "New Mountain Capital",
-      "pipeline_bidder_name": "Zep Board of Directors / New Mountain Capital",
-      "disagreements": [
-        {
-          "field": "date",
-          "alex_value": "2015-04-08",
-          "pipeline_value": "2015-04-07",
-          "filing_says": "On April 7, 2015, our board of directors met... unanimously determined... the merger agreement (lines 2041-2057). The parties executed the merger agreement and issued a press release on the morning of April 8, 2015 (lines 2059-2061).",
-          "arbitration": "Filing says execution happened after the April 7 board meeting with the press release on the morning of April 8. The merger agreement is dated April 7, 2015 (line 51). Pipeline uses April 7 (the agreement date); Alex uses April 8 (the morning announcement/execution). Pipeline is correct per the agreement date; Alex may be using the announcement date.",
-          "verdict": "pipeline_correct"
-        }
-      ]
-    }
-  ],
-
-  "alex_only_events": [
-    {
-      "alex_bidder_id": 2.5,
-      "alex_bid_note": "Final Round Inf Ann",
-      "alex_date_rough": "2014-03-27",
-      "alex_bidder_name": "NA",
-      "filing_says": "On March 27, 2014, BofA Merrill Lynch distributed a first round process letter informing potential buyers that non-binding preliminary IOIs would be due no later than April 14 (line 1838-1839).",
-      "pipeline_coverage_note": "Pipeline events_raw.json coverage_notes state: 'final_round_inf_ann: NOT FOUND'.",
-      "assessment": "Alex correctly captures the March 27 process letter as an informal first-round announcement. Pipeline did not extract this event. This is a pipeline gap.",
-      "severity": "moderate",
-      "recommendation": "Add a final_round_inf_ann event for March 27, 2014."
-    },
-    {
-      "alex_bidder_id": 4,
-      "alex_bid_note": "Drop",
-      "alex_date_precise": "2014-04-14",
-      "alex_bidder_name": "New Mountain Capital",
-      "alex_bidder_type": "F",
-      "filing_says": "NMC received the marketing materials and first round process letter but decided at the time not to submit a preliminary indication of interest (line 1842-1843).",
-      "pipeline_coverage_note": "Pipeline does not have an explicit drop event for NMC in round 1.",
-      "assessment": "Alex codes NMC's non-participation as a Drop on April 14. The filing says NMC 'decided at the time not to submit' an IOI. This is a non-participation rather than a formal withdrawal. Alex's coding is reasonable as a tracker-level convention. Pipeline does not track this as a distinct event.",
-      "severity": "minor",
-      "recommendation": "Consider whether NMC's round-1 non-participation warrants a drop event. Convention-dependent."
-    },
-    {
-      "alex_bidder_id": 5,
-      "alex_bid_note": "Drop",
-      "alex_date_precise": "2014-04-14",
-      "alex_bidder_name": "19 parties",
-      "filing_says": "25 parties signed NDAs. 5 submitted IOIs on April 14. So 20 NDA signers did not submit IOIs. (Filing does not provide an explicit dropout event for these parties.)",
-      "assessment": "Alex codes 19 parties as dropping on April 14 (25 NDA signers minus 5 IOI submitters minus NMC = 19). This is an aggregate inferred dropout. Pipeline does not track non-participants as dropouts. Alex's count appears to be 25-5-1(NMC) = 19.",
-      "severity": "minor",
-      "is_aggregate": true,
-      "recommendation": "Pipeline convention does not produce aggregate implied-dropout rows. Coding difference, not an error."
-    },
-    {
-      "alex_bidder_id": 5.5,
-      "alex_bid_note": "Final Round Inf",
-      "alex_date_rough": "2014-04-14",
-      "alex_bidder_name": "NA",
-      "filing_says": "The filing does not describe an explicit informal final round deadline on April 14. The preliminary IOIs were due April 14 per the March 27 process letter (line 1839).",
-      "assessment": "Alex codes April 14 as both the IOI deadline and an informal final round. Pipeline did not extract this. The filing only specifies this as the preliminary IOI deadline, not a final round.",
-      "severity": "low",
-      "recommendation": "Debatable. April 14 was the IOI deadline from the process letter, not a distinct final round."
-    },
-    {
-      "alex_bidder_id": 5.7,
-      "alex_bid_note": "Final Round",
-      "alex_date_rough": "2014-05-07",
-      "alex_bidder_name": "NA",
-      "filing_says": "On May 22, 2014, a draft of the merger agreement was distributed to the six remaining bidders (line 1882). No explicit 'final round' deadline on May 7 is mentioned in the filing.",
-      "assessment": "Alex codes May 7 as a formal final round. The filing does not provide this date as a deadline or formal round milestone. Alex may be interpreting the period before the merger agreement distribution.",
-      "severity": "low",
-      "recommendation": "Unclear filing basis for May 7 final round. Not in filing text."
-    },
-    {
-      "alex_bidder_id": 7,
-      "alex_bid_note": "Drop",
-      "alex_date_precise": "2014-05-14",
-      "alex_bidder_name": "Party X",
-      "alex_bidder_type": "F",
-      "filing_says": "Party X having withdrawn from the process on May 14, 2014 (line 1882). Party X informed representatives of BofA Merrill Lynch that it was no longer interested (line 1872-1874).",
-      "pipeline_coverage_note": "Pipeline exclusions note states Party X withdrawal was omitted because the filing did not provide explicit NDA evidence for Party X.",
-      "assessment": "Alex correctly captures Party X drop on May 14. Pipeline omitted this due to NDA-grounding concerns. However, the filing clearly states Party X submitted an IOI on May 9 and withdrew on May 14. Party X was participating in the process (submitted IOI), making a drop event warranted.",
-      "severity": "moderate",
-      "recommendation": "Add a drop event for Party X on May 14, 2014. The IOI submission implies process participation."
-    },
-    {
-      "alex_bidder_id": 8.5,
-      "alex_bid_note": "NDA",
-      "alex_date_rough": "2014-05-20",
-      "alex_bidder_name": "Party Y",
-      "alex_bidder_type": "S",
-      "filing_says": "Party Y submitted an IOI on May 20. The filing does not provide a specific NDA date for Party Y. Access to the electronic data room was 'subsequently made available' (line 1878).",
-      "assessment": "Alex infers an NDA for Party Y around the IOI submission date. Pipeline does not have a separate NDA event for Party Y. Filing does not explicitly state when Party Y signed an NDA but participation implies one existed.",
-      "severity": "low",
-      "recommendation": "Pipeline gap is minor. NDA for Party Y is inferred, not explicitly dated in filing."
-    },
-    {
-      "match_id": null,
-      "alex_bidder_id": 10,
-      "alex_bid_note": "Drop",
-      "alex_date_rough": "2014-05-23",
-      "alex_bidder_name": "Party Y",
-      "alex_bidder_type": "S",
-      "filing_says": "Over the next few weeks [after May 22-23], five of the remaining six interested parties communicated they were unable to proceed. The sixth declined to respond (lines 1889-1892). Filing does not name Party Y specifically as dropping separately.",
-      "assessment": "Alex codes a separate Party Y drop. Filing describes the dropouts as an aggregate 'five of the remaining six' without individually naming Party Y. Pipeline groups all dropouts into one event (evt_008). Alex's separate Party Y drop is an interpretation.",
-      "severity": "low",
-      "recommendation": "Convention difference. Alex separates Party Y from the group drop."
-    },
-    {
-      "alex_bidder_id": 13,
-      "alex_bid_note": "Exclusivity 30 days",
-      "alex_date_precise": "2015-02-27",
-      "alex_bidder_name": "New Mountain Capital",
-      "filing_says": "On February 27, 2015, we signed an agreement with New Mountain Capital extending confidentiality and providing for an exclusivity period through March 31, 2015 (line 1966-1967).",
-      "assessment": "Alex captures the exclusivity agreement signing. Pipeline does not have an exclusivity event type. This is a pipeline schema limitation.",
-      "severity": "minor",
-      "recommendation": "Pipeline does not model exclusivity events. Schema gap, not extraction error."
-    }
-  ],
-
-  "pipeline_only_events": [
-    {
-      "pipeline_event_id": "evt_010",
-      "pipeline_event_type": "bidder_interest",
-      "pipeline_date": "2015-02-10",
-      "pipeline_bidder_name": "New Mountain Capital",
-      "filing_says": "On February 10, 2015, New Mountain Capital met with representatives of BofA Merrill Lynch and expressed its interest in discussions (line 1925-1926).",
-      "assessment": "Pipeline correctly extracts Feb 10 as a separate bidder_interest event. Alex collapses this into the $19.25 proposal row (BidderID=11) using bid_date_precise=2015-02-10. Not a disagreement on facts, just on event granularity.",
-      "severity": "informational"
-    },
-    {
-      "pipeline_event_id": "evt_016",
-      "pipeline_event_type": "bid_press_release",
-      "pipeline_date": "2015-04-08",
-      "filing_says": "The parties issued a press release announcing the transaction on the morning of April 8, 2015 (line 2060-2061).",
-      "assessment": "Pipeline extracts the press release as a separate event. Alex does not have a separate bid_press_release row. Alex's Executed row at BidderID=14.5 uses April 8 as the date, possibly conflating execution and press release.",
-      "severity": "informational"
-    }
-  ],
-
-  "field_level_disagreement_summary": [
-    {
-      "disagreement_id": "D01",
-      "match_id": "M02",
-      "field": "target_sale date",
-      "alex": "2014-01-31",
-      "pipeline": "2014-01-28",
-      "verdict": "pipeline_correct",
-      "basis": "Board decision was January 28. January 31 was a follow-up meeting."
-    },
-    {
-      "disagreement_id": "D02",
-      "match_id": "M05",
-      "field": "April 14 proposal actors",
-      "alex": "5 parties (4F+1S), excluding NMC",
-      "pipeline": "Includes NMC",
-      "verdict": "alex_correct_pipeline_wrong",
-      "basis": "Filing explicitly says NMC did not submit an IOI on April 14."
-    },
-    {
-      "disagreement_id": "D03",
-      "match_id": "M08",
-      "field": "aggregate drop actors and date",
-      "alex": "5 parties, date ~2014-05-23",
-      "pipeline": "NMC + groups, date 2014-06-19",
-      "verdict": "alex_correct_on_actors_both_approximate_on_date",
-      "basis": "NMC should not be in the dropout pool for this event. Filing dates are approximate."
-    },
-    {
-      "disagreement_id": "D04",
-      "match_id": "M10",
-      "field": "restarted date and actor",
-      "alex": "2015-02-19, New Mountain Capital",
-      "pipeline": "2015-02-26, Zep Board of Directors",
-      "verdict": "pipeline_correct",
-      "basis": "Board decided to restart on Feb 26. Feb 19 was NMC's IOI delivery, not the restart decision."
-    },
-    {
-      "disagreement_id": "D05",
-      "match_id": "M13",
-      "field": "best-and-final bid_type",
-      "alex": "Formal",
-      "pipeline": "Uncertain",
-      "verdict": "alex_reasonable_pipeline_defensible",
-      "basis": "No explicit formal round mechanism, but Alex reasonably treats the merger-agreement stage offer as formal."
-    },
-    {
-      "disagreement_id": "D06",
-      "match_id": "M14",
-      "field": "executed date",
-      "alex": "2015-04-08",
-      "pipeline": "2015-04-07",
-      "verdict": "pipeline_correct",
-      "basis": "Merger agreement is dated April 7, 2015. Press release was morning of April 8."
-    }
-  ],
-
-  "pipeline_action_items": [
-    {
-      "priority": "high",
-      "action": "Remove bidder_new_mountain_capital from evt_005 actor_ids",
-      "reason": "Filing states NMC did not submit an IOI on April 14, 2014. NMC only received the process letter."
-    },
-    {
-      "priority": "high",
-      "action": "Remove bidder_new_mountain_capital from evt_008 actor_ids",
-      "reason": "NMC was not among the parties that dropped after the IOI round. NMC never submitted an IOI in round 1."
-    },
-    {
-      "priority": "moderate",
-      "action": "Add drop event for Party X on May 14, 2014",
-      "reason": "Filing clearly states Party X withdrew on May 14, 2014. Party X had submitted an IOI on May 9."
-    },
-    {
-      "priority": "moderate",
-      "action": "Consider adding final_round_inf_ann event for March 27, 2014",
-      "reason": "BofA distributed a process letter with April 14 IOI deadline."
-    },
-    {
-      "priority": "low",
-      "action": "Populate consideration_type for evt_014 or the executed event",
-      "reason": "The merger was all-cash. Alex correctly codes all_cash=1. Pipeline has NA."
-    },
-    {
-      "priority": "low",
-      "action": "Consider exclusivity event type for Feb 27, 2015 agreement",
-      "reason": "Pipeline schema does not model exclusivity events. Alex captures this."
-    }
-  ],
-
-  "aggregate_row_analysis": {
-    "alex_aggregate_rows": [
-      {
-        "alex_bidder_id": 1,
-        "type": "NDA aggregate",
-        "alex_count": "24 parties",
-        "filing_count": "25 NDA signers",
-        "note": "Alex undercounts by 1. Filing says 25 potential buyers executed confidentiality agreements."
-      },
-      {
-        "alex_bidder_id": 3,
-        "type": "proposal aggregate",
-        "alex_count": "5 parties, 4F and 1S",
-        "filing_count": "5 parties (4 financial + 1 strategic)",
-        "note": "Counts match. NMC not included (correct)."
-      },
-      {
-        "alex_bidder_id": 5,
-        "type": "drop aggregate (non-IOI parties)",
-        "alex_count": "19 parties",
-        "filing_count": "Inferred: 25 NDA - 5 IOI - 1 NMC = 19",
-        "note": "Alex's count is a derived calculation. Filing does not explicitly describe these dropouts."
-      },
-      {
-        "alex_bidder_id": 9,
-        "type": "drop aggregate (post-IOI parties)",
-        "alex_count": "5 parties",
-        "filing_count": "5 of 6 remaining parties",
-        "note": "Alex count matches filing."
-      }
-    ]
-  },
-
-  "scoreboard": {
-    "pipeline_correct_alex_wrong": 3,
-    "alex_correct_pipeline_wrong": 2,
-    "both_correct_different_convention": 3,
-    "both_approximate": 2,
-    "perfect_match": 5,
-    "pipeline_gaps": 4,
-    "notes": "Pipeline is more precise on dates (target_sale, restarted, executed). Alex is correct on NMC's non-participation in round 1 IOIs and dropouts. Pipeline has a structural error including NMC in evt_005 and evt_008."
+    "verdict": "The Phase 09 Zep rerun fixed the New Mountain Capital contamination in the grouped 2014 proposal cohort, but the refreshed benchmark still flags thinner dropout coverage and a remaining coverage-note integrity concern."
   }
 }
