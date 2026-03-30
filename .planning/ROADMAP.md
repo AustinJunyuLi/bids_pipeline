@@ -48,7 +48,7 @@ Plans:
   3. Extraction skill docs contain explicit NDA exclusion guidance that distinguishes rollover-side and non-target confidentiality agreements from sale-process NDAs
   4. Running `skill-pipeline enrich-core` on a deal with committee-driven field narrowing produces deterministic DropTarget dropout classifications from round invitation context while preserving bidder-withdrawal-first directionality
   5. Running `skill-pipeline enrich-core` on a deal where the executed event has explicit cash consideration propagates all_cash=true to proposals that lack explicit per-proposal mention, while deals with mixed consideration (e.g., cash+CVR) are not falsely tagged
-**Plans:** 3 plans
+**Plans:** 1/3 plans executed
 Plans:
 - [x] 08-01-PLAN.md -- Add round milestone, verbal indication, and NDA exclusion guidance to extraction skill docs
 - [x] 08-02-PLAN.md -- Add DropTarget classification and all_cash inference to enrich_core.py
@@ -65,7 +65,7 @@ Plans:
   4. 9-deal reconciliation re-run shows a higher atomic match rate and fewer filing-contradicted pipeline claims compared to the pre-v1.1 baseline
 **Plans:** 3 plans
 Plans:
-- [ ] 09-01-PLAN.md -- Re-extract Zep and run full deterministic pipeline through db-export
+- [x] 09-01-PLAN.md -- Re-extract Zep and run full deterministic pipeline through db-export
 - [ ] 09-02-PLAN.md -- Re-extract Medivation and run full deterministic pipeline through db-export
 - [ ] 09-03-PLAN.md -- Run 9-deal reconciliation and measure improvement against baseline
 
@@ -81,7 +81,7 @@ Plans:
 | 6. Deterministic Hardening | v1.1 | 3/3 | Complete | 2026-03-29 |
 | 7. bid_type Rule Priority | v1.1 | 1/1 | Complete | 2026-03-30 |
 | 8. Extraction Guidance + Enrichment Extensions | v1.1 | 3/3 | Complete | 2026-03-30 |
-| 9. Deal-Specific Fixes + Revalidation | v1.1 | 0/3 | Planned | - |
+| 9. Deal-Specific Fixes + Revalidation | v1.1 | 1/3 | In Progress |   |
 
 ---
 *Roadmap created: 2026-03-29*

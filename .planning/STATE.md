@@ -3,21 +3,21 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: reconciliation + execution-log quality fixes
 status: Ready to execute
-stopped_at: Phase 9 planned (3 plans in 3 waves); ready for execution
-last_updated: "2026-03-30T15:35:00.000Z"
+stopped_at: Completed 09-01-PLAN.md
+last_updated: "2026-03-30T15:07:14Z"
 progress:
   total_phases: 4
   completed_phases: 3
   total_plans: 10
-  completed_plans: 7
+  completed_plans: 8
 ---
 
 # Project State
 
 ## Current Position
 
-Phase: 9
-Plan: Not started
+Phase: 09 (deal-specific-fixes-revalidation) — EXECUTING
+Plan: 2 of 3
 
 ## Progress
 
@@ -104,6 +104,7 @@ Plan: Not started
 | 06-deterministic-hardening | 02 | 12m | 2 | 4 | 2026-03-29 |
 | 06-deterministic-hardening | 03 | 14 min | 1 | 6 | 2026-03-29 |
 | Phase 07-bid-type-rule-priority P01 | 2min | 2 tasks | 2 files |
+| Phase 09 P01 | 21m | 2 tasks | 17 files | 2026-03-30 |
 
 ## Decisions
 
@@ -119,16 +120,19 @@ Plan: Not started
   Zep and Medivation artifacts over stale roadmap wording; Medivation already
   has `evt_013` and `evt_017` proposals, while the live integrity mismatch is
   `coverage_notes` citing missing drop events `evt_027` and `evt_029`.
+
 - [Phase 09-deal-specific-fixes-revalidation]: rerun only Zep and Medivation
   through export during blind generation, then measure the refreshed 9-deal
   reconciliation against the 2026-03-29 baseline.
 
+- [Phase 09]: Zep was repaired by a clean extraction-forward rerun rather than hand-editing canonical artifacts — The refreshed extract removed New Mountain Capital from grouped 2014 proposal/drop events while preserving a clean canonicalize-through-export chain
+
 ## Session Continuity
 
-- **Last session:** 2026-03-30T15:35:00.000Z
-- **Stopped at:** Phase 9 planned (3 plans, 3 waves); ready for execution
-- **Resume file:** .planning/phases/09-deal-specific-fixes-revalidation/09-01-PLAN.md
-- **Next action:** Execute Phase 9 (`/gsd:execute-phase 9`).
+- **Last session:** 2026-03-30T15:07:14Z
+- **Stopped at:** Completed 09-01-PLAN.md
+- **Resume file:** .planning/phases/09-deal-specific-fixes-revalidation/09-02-PLAN.md
+- **Next action:** Continue Phase 9 with Wave 2 (`/gsd:execute-phase 9`).
 
 ## Accumulated Context
 
