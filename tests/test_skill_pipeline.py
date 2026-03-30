@@ -201,8 +201,7 @@ def _write_skill_outputs(tmp_path: Path, *, slug: str = "imprivata") -> Path:
         "warning_count": 1,
         "counts_by_cue_family": {"advisor": 1},
     }
-    enrichment_payload = {
-        "dropout_classifications": {},
+    deterministic_enrichment_payload = {
         "bid_classifications": {
             "evt_002": {
                 "label": "Formal",
@@ -225,6 +224,11 @@ def _write_skill_outputs(tmp_path: Path, *, slug: str = "imprivata") -> Path:
                 "basis": "First formal proposal in cycle_1",
             }
         },
+        "dropout_classifications": {},
+        "all_cash_overrides": {},
+    }
+    interpretive_enrichment_payload = {
+        "dropout_classifications": {},
         "initiation_judgment": {
             "type": "bidder_driven",
             "basis": "Party A initiated the process.",
@@ -246,7 +250,14 @@ def _write_skill_outputs(tmp_path: Path, *, slug: str = "imprivata") -> Path:
         json.dumps(verification_payload),
         encoding="utf-8",
     )
-    (enrich_dir / "enrichment.json").write_text(json.dumps(enrichment_payload), encoding="utf-8")
+    (enrich_dir / "deterministic_enrichment.json").write_text(
+        json.dumps(deterministic_enrichment_payload),
+        encoding="utf-8",
+    )
+    (enrich_dir / "enrichment.json").write_text(
+        json.dumps(interpretive_enrichment_payload),
+        encoding="utf-8",
+    )
     (export_dir / "deal_events.csv").write_text(
         (
             "TargetName,Events,Acquirer,DateAnnounced,URL\n"
@@ -527,9 +538,11 @@ def test_run_deal_agent_reports_deterministic_enrichment_when_interpretive_artif
                 "formal_boundary": {
                     "cycle_1": {
                         "event_id": "evt_002",
-                        "basis": "First formal proposal in cycle: evt_002.",
+                "basis": "First formal proposal in cycle: evt_002.",
                     }
                 },
+                "dropout_classifications": {},
+                "all_cash_overrides": {},
             }
         ),
         encoding="utf-8",
@@ -538,6 +551,27 @@ def test_run_deal_agent_reports_deterministic_enrichment_when_interpretive_artif
     summary = run_deal_agent("imprivata", project_root=tmp_path)
 
     assert summary.enrich.status == "pass"
+    assert summary.enrich.cycle_count == 1
+    assert summary.enrich.formal_bid_count == 1
+    assert summary.enrich.informal_bid_count == 0
+    assert summary.enrich.initiation_judgment_type is None
+    assert summary.enrich.review_flags_count == 0
+
+
+def test_run_deal_agent_marks_enrich_fail_when_interpretive_artifact_is_malformed(
+    tmp_path: Path,
+) -> None:
+    _write_shared_inputs(tmp_path)
+    skill_root = _write_skill_outputs(tmp_path)
+    enrich_dir = skill_root / "enrich"
+    (enrich_dir / "enrichment.json").write_text(
+        json.dumps({"dropout_classifications": {}}),
+        encoding="utf-8",
+    )
+
+    summary = run_deal_agent("imprivata", project_root=tmp_path)
+
+    assert summary.enrich.status == "fail"
     assert summary.enrich.cycle_count == 1
     assert summary.enrich.formal_bid_count == 1
     assert summary.enrich.informal_bid_count == 0

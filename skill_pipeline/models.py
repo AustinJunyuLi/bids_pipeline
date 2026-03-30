@@ -421,16 +421,25 @@ class CountReconciliationRecord(SkillModel):
     note: str
 
 
-class SkillEnrichmentArtifact(SkillModel):
-    dropout_classifications: dict[str, DropoutClassification]
-    bid_classifications: dict[str, BidClassification]
+class DeterministicEnrichmentArtifact(SkillModel):
     rounds: list[RoundRecord]
+    bid_classifications: dict[str, BidClassification]
     cycles: list[CycleRecord]
     formal_boundary: dict[str, FormalBoundaryRecord]
+    dropout_classifications: dict[str, DropoutClassification]
+    all_cash_overrides: dict[str, bool]
+
+
+class InterpretiveEnrichmentArtifact(SkillModel):
+    dropout_classifications: dict[str, DropoutClassification]
     initiation_judgment: InitiationJudgment
     advisory_verification: dict[str, AdvisoryVerificationRecord]
     count_reconciliation: list[CountReconciliationRecord]
     review_flags: list[str]
+
+
+class SkillEnrichmentArtifact(InterpretiveEnrichmentArtifact):
+    """Backward-compatible name for the interpretive enrichment artifact."""
 
 
 class CheckFinding(SkillModel):

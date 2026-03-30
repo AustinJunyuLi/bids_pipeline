@@ -12,6 +12,7 @@ from skill_pipeline.models import (
     CoverageStageSummary,
     CoverageSummary,
     DealAgentSummary,
+    DeterministicEnrichmentArtifact,
     DbExportStageSummary,
     DbLoadStageSummary,
     EnrichStageSummary,
@@ -158,48 +159,67 @@ def _summarize_verify(paths) -> VerifyStageSummary:
 
 
 def _summarize_enrich(paths) -> EnrichStageSummary:
+    deterministic_enrichment = None
+    if paths.deterministic_enrichment_path.exists():
+        try:
+            deterministic_enrichment = DeterministicEnrichmentArtifact.model_validate(
+                _read_json(paths.deterministic_enrichment_path)
+            )
+        except Exception:
+            return EnrichStageSummary(status=StageStatus.FAIL)
+
     if paths.enrichment_path.exists():
-        enrichment = SkillEnrichmentArtifact.model_validate(_read_json(paths.enrichment_path))
-        formal_bid_count = sum(
-            classification.label == "Formal"
-            for classification in enrichment.bid_classifications.values()
-        )
-        informal_bid_count = sum(
-            classification.label == "Informal"
-            for classification in enrichment.bid_classifications.values()
-        )
-        return EnrichStageSummary(
-            status=StageStatus.PASS,
-            cycle_count=len(enrichment.cycles),
-            formal_bid_count=formal_bid_count,
-            informal_bid_count=informal_bid_count,
+        try:
+            enrichment = SkillEnrichmentArtifact.model_validate(_read_json(paths.enrichment_path))
+        except Exception:
+            if deterministic_enrichment is not None:
+                return _build_enrich_summary(
+                    deterministic_enrichment,
+                    status=StageStatus.FAIL,
+                )
+            return EnrichStageSummary(status=StageStatus.FAIL)
+
+        if deterministic_enrichment is None:
+            return EnrichStageSummary(
+                status=StageStatus.FAIL,
+                initiation_judgment_type=enrichment.initiation_judgment.type,
+                review_flags_count=len(enrichment.review_flags),
+            )
+        return _build_enrich_summary(
+            deterministic_enrichment,
             initiation_judgment_type=enrichment.initiation_judgment.type,
             review_flags_count=len(enrichment.review_flags),
         )
 
-    if paths.deterministic_enrichment_path.exists():
-        enrichment = _read_json(paths.deterministic_enrichment_path)
-        bid_classifications = enrichment.get("bid_classifications", {})
-        formal_bid_count = sum(
-            classification.get("label") == "Formal"
-            for classification in bid_classifications.values()
-            if isinstance(classification, dict)
-        )
-        informal_bid_count = sum(
-            classification.get("label") == "Informal"
-            for classification in bid_classifications.values()
-            if isinstance(classification, dict)
-        )
-        return EnrichStageSummary(
-            status=StageStatus.PASS,
-            cycle_count=len(enrichment.get("cycles", [])),
-            formal_bid_count=formal_bid_count,
-            informal_bid_count=informal_bid_count,
-            initiation_judgment_type=None,
-            review_flags_count=0,
-        )
+    if deterministic_enrichment is not None:
+        return _build_enrich_summary(deterministic_enrichment)
 
     return EnrichStageSummary(status=StageStatus.MISSING)
+
+
+def _build_enrich_summary(
+    enrichment: DeterministicEnrichmentArtifact,
+    *,
+    status: StageStatus = StageStatus.PASS,
+    initiation_judgment_type: str | None = None,
+    review_flags_count: int = 0,
+) -> EnrichStageSummary:
+    formal_bid_count = sum(
+        classification.label == "Formal"
+        for classification in enrichment.bid_classifications.values()
+    )
+    informal_bid_count = sum(
+        classification.label == "Informal"
+        for classification in enrichment.bid_classifications.values()
+    )
+    return EnrichStageSummary(
+        status=status,
+        cycle_count=len(enrichment.cycles),
+        formal_bid_count=formal_bid_count,
+        informal_bid_count=informal_bid_count,
+        initiation_judgment_type=initiation_judgment_type,
+        review_flags_count=review_flags_count,
+    )
 
 
 def _summarize_db_load(paths) -> DbLoadStageSummary:

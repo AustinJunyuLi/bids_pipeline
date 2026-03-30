@@ -55,9 +55,8 @@ Before starting, confirm all of these exist:
 - `data/skill/<slug>/extract/events_raw.json`
 - `data/skill/<slug>/extract/spans.json`
 - `data/skill/<slug>/export/deal_events.csv`
-- at least one of:
-  - `data/skill/<slug>/enrich/enrichment.json`
-  - `data/skill/<slug>/enrich/deterministic_enrichment.json`
+- `data/skill/<slug>/enrich/enrichment.json`
+- `data/skill/<slug>/enrich/deterministic_enrichment.json`
 - `data/deals/<slug>/source/chronology_blocks.jsonl`
 - `raw/<slug>/document_registry.json`
 - `raw/<slug>/filings/*.txt`
@@ -128,8 +127,13 @@ Read:
 - `data/skill/<slug>/extract/actors_raw.json`
 - `data/skill/<slug>/extract/spans.json`
 - `data/skill/<slug>/export/deal_events.csv`
+- `data/skill/<slug>/enrich/deterministic_enrichment.json`
+  - authoritative for `bid_classifications`, `rounds`, `cycles`,
+    `formal_boundary`, sparse `DropTarget`, and `all_cash_overrides`
 - `data/skill/<slug>/enrich/enrichment.json`
-  - fallback: `deterministic_enrichment.json` for `bid_classifications` only
+  - interpretive-only layer for `dropout_classifications`,
+    `initiation_judgment`, `advisory_verification`,
+    `count_reconciliation`, and `review_flags`
 
 The export CSV is the primary comparison surface. Extract and enrich provide
 canonical IDs, provenance, and fallback details when the CSV intentionally
@@ -265,8 +269,8 @@ Print a concise summary covering:
 | `data/skill/<slug>/extract/actors_raw.json` | pipeline actors with names, types, and evidence span IDs |
 | `data/skill/<slug>/extract/events_raw.json` | pipeline events with dates, amounts, and evidence span IDs |
 | `data/skill/<slug>/extract/spans.json` | resolved span registry |
-| `data/skill/<slug>/enrich/enrichment.json` | full enrichment including bid and dropout classifications |
-| `data/skill/<slug>/enrich/deterministic_enrichment.json` | fallback for bid classifications only |
+| `data/skill/<slug>/enrich/deterministic_enrichment.json` | Deterministic enrichment baseline: bid classifications, rounds, cycles, formal boundary, sparse DropTarget labels, all-cash overrides |
+| `data/skill/<slug>/enrich/enrichment.json` | Interpretive enrichment layer: dropout classifications, initiation judgment, advisory verification, count reconciliation, review flags |
 | `data/deals/<slug>/source/chronology_blocks.jsonl` | block to filing mapping |
 | `raw/<slug>/document_registry.json` | document ID to filing path mapping |
 | `raw/<slug>/filings/*.txt` | raw SEC filing text |

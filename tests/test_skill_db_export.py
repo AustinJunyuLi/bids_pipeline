@@ -239,6 +239,8 @@ def test_run_db_export_assigns_fractional_and_integer_bidder_ids(tmp_path: Path)
         "formal_boundary": {
             "cycle_1": {"event_id": "evt_004", "basis": "First formal proposal"}
         },
+        "dropout_classifications": {},
+        "all_cash_overrides": {},
     }
     output_path = _load_fixture(
         tmp_path,
@@ -348,6 +350,8 @@ def test_run_db_export_formats_exact_imprecise_and_unknown_dates(tmp_path: Path)
         "formal_boundary": {
             "cycle_1": {"event_id": "evt_002", "basis": "First formal proposal"}
         },
+        "dropout_classifications": {},
+        "all_cash_overrides": {},
     }
     output_path = _load_fixture(
         tmp_path,

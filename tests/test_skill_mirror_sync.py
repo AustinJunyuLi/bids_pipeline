@@ -136,3 +136,32 @@ def test_canonical_extract_skill_contains_nda_exclusion_guidance() -> None:
     assert "Rollover equity agreements" in text
     assert "Bidder-bidder teaming agreements" in text
     assert "Non-target diligence agreements" in text
+
+
+def test_canonical_reconcile_skill_documents_split_enrichment_contract() -> None:
+    """The canonical reconcile skill must preserve the deterministic/interpretive split."""
+    skill_path = PROJECT_ROOT / ".claude" / "skills" / "reconcile-alex" / "SKILL.md"
+    text = skill_path.read_text(encoding="utf-8")
+    assert "Deterministic enrichment baseline" in text
+    assert "Interpretive enrichment layer" in text
+    assert "full enrichment including bid and dropout classifications" not in text
+
+
+def test_codex_mirror_matches_canonical_reconcile_skill() -> None:
+    """The .codex reconcile skill mirror matches the canonical .claude version."""
+    canonical = PROJECT_ROOT / ".claude" / "skills" / "reconcile-alex" / "SKILL.md"
+    mirror = PROJECT_ROOT / ".codex" / "skills" / "reconcile-alex" / "SKILL.md"
+    assert mirror.exists(), ".codex reconcile-alex mirror must exist"
+    assert canonical.read_bytes() == mirror.read_bytes(), (
+        ".codex reconcile-alex SKILL.md has drifted from .claude canonical"
+    )
+
+
+def test_cursor_mirror_matches_canonical_reconcile_skill() -> None:
+    """The .cursor reconcile skill mirror matches the canonical .claude version."""
+    canonical = PROJECT_ROOT / ".claude" / "skills" / "reconcile-alex" / "SKILL.md"
+    mirror = PROJECT_ROOT / ".cursor" / "skills" / "reconcile-alex" / "SKILL.md"
+    assert mirror.exists(), ".cursor reconcile-alex mirror must exist"
+    assert canonical.read_bytes() == mirror.read_bytes(), (
+        ".cursor reconcile-alex SKILL.md has drifted from .claude canonical"
+    )

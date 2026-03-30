@@ -409,6 +409,8 @@ def _default_deterministic_enrichment() -> dict:
                 "basis": "First formal proposal in cycle_1.",
             }
         },
+        "dropout_classifications": {},
+        "all_cash_overrides": {},
     }
 
 
@@ -735,6 +737,16 @@ def test_run_db_load_requires_enrichment(tmp_path: Path) -> None:
     paths.enrichment_path.unlink()
 
     with pytest.raises(FileNotFoundError, match="enrichment.json"):
+        run_db_load("imprivata", project_root=tmp_path)
+
+
+def test_run_db_load_rejects_malformed_interpretive_enrichment(tmp_path: Path) -> None:
+    _write_canonical_fixture(
+        tmp_path,
+        enrichment={"dropout_classifications": {}},
+    )
+
+    with pytest.raises(ValueError, match="initiation_judgment"):
         run_db_load("imprivata", project_root=tmp_path)
 
 

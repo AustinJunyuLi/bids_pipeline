@@ -7,7 +7,13 @@ from typing import Any
 from skill_pipeline.config import PROJECT_ROOT
 from skill_pipeline.db_schema import open_pipeline_db
 from skill_pipeline.extract_artifacts import load_extract_artifacts
-from skill_pipeline.models import SkillActorsArtifact, SkillEventsArtifact, SpanRegistryArtifact
+from skill_pipeline.models import (
+    DeterministicEnrichmentArtifact,
+    SkillActorsArtifact,
+    SkillEnrichmentArtifact,
+    SkillEventsArtifact,
+    SpanRegistryArtifact,
+)
 from skill_pipeline.paths import build_skill_paths
 
 
@@ -197,23 +203,30 @@ def _load_spans(con, deal_slug: str, artifact: SpanRegistryArtifact) -> None:
         )
 
 
-def _load_enrichment(con, deal_slug: str, paths) -> dict[str, Any]:
-    deterministic_data = _read_json(paths.deterministic_enrichment_path)
+def _load_enrichment(
+    con,
+    deal_slug: str,
+    paths,
+) -> DeterministicEnrichmentArtifact:
+    deterministic_data = DeterministicEnrichmentArtifact.model_validate(
+        _read_json(paths.deterministic_enrichment_path)
+    )
+    interpretive_data = SkillEnrichmentArtifact.model_validate(_read_json(paths.enrichment_path))
     rows_by_event_id: dict[str, dict[str, Any]] = {}
 
-    for event_id, classification in deterministic_data.get("bid_classifications", {}).items():
+    for event_id, classification in deterministic_data.bid_classifications.items():
         rows_by_event_id[event_id] = {
             "deal_slug": deal_slug,
             "event_id": event_id,
             "dropout_label": None,
             "dropout_basis": None,
-            "bid_label": classification["label"],
-            "bid_rule_applied": classification.get("rule_applied"),
-            "bid_basis": classification.get("basis"),
+            "bid_label": classification.label,
+            "bid_rule_applied": classification.rule_applied,
+            "bid_basis": classification.basis,
             "all_cash_override": None,
         }
 
-    for event_id, classification in deterministic_data.get("dropout_classifications", {}).items():
+    for event_id, classification in deterministic_data.dropout_classifications.items():
         row = rows_by_event_id.setdefault(
             event_id,
             {
@@ -227,10 +240,10 @@ def _load_enrichment(con, deal_slug: str, paths) -> dict[str, Any]:
                 "all_cash_override": None,
             },
         )
-        row["dropout_label"] = classification["label"]
-        row["dropout_basis"] = classification.get("basis")
+        row["dropout_label"] = classification.label
+        row["dropout_basis"] = classification.basis
 
-    for event_id, override_value in deterministic_data.get("all_cash_overrides", {}).items():
+    for event_id, override_value in deterministic_data.all_cash_overrides.items():
         row = rows_by_event_id.setdefault(
             event_id,
             {
@@ -246,24 +259,22 @@ def _load_enrichment(con, deal_slug: str, paths) -> dict[str, Any]:
         )
         row["all_cash_override"] = override_value
 
-    if paths.enrichment_path.exists():
-        interpretive_data = _read_json(paths.enrichment_path)
-        for event_id, classification in interpretive_data.get("dropout_classifications", {}).items():
-            row = rows_by_event_id.setdefault(
-                event_id,
-                {
-                    "deal_slug": deal_slug,
-                    "event_id": event_id,
-                    "dropout_label": None,
-                    "dropout_basis": None,
-                    "bid_label": None,
-                    "bid_rule_applied": None,
-                    "bid_basis": None,
-                    "all_cash_override": None,
-                },
-            )
-            row["dropout_label"] = classification["label"]
-            row["dropout_basis"] = classification.get("basis")
+    for event_id, classification in interpretive_data.dropout_classifications.items():
+        row = rows_by_event_id.setdefault(
+            event_id,
+            {
+                "deal_slug": deal_slug,
+                "event_id": event_id,
+                "dropout_label": None,
+                "dropout_basis": None,
+                "bid_label": None,
+                "bid_rule_applied": None,
+                "bid_basis": None,
+                "all_cash_override": None,
+            },
+        )
+        row["dropout_label"] = classification.label
+        row["dropout_basis"] = classification.basis
 
     rows = [
         (
@@ -298,16 +309,20 @@ def _load_enrichment(con, deal_slug: str, paths) -> dict[str, Any]:
     return deterministic_data
 
 
-def _load_cycles(con, deal_slug: str, data: dict[str, Any]) -> None:
+def _load_cycles(
+    con,
+    deal_slug: str,
+    data: DeterministicEnrichmentArtifact,
+) -> None:
     rows = [
         (
             deal_slug,
-            cycle["cycle_id"],
-            cycle["start_event_id"],
-            cycle["end_event_id"],
-            cycle["boundary_basis"],
+            cycle.cycle_id,
+            cycle.start_event_id,
+            cycle.end_event_id,
+            cycle.boundary_basis,
         )
-        for cycle in data.get("cycles", [])
+        for cycle in data.cycles
     ]
     if rows:
         con.executemany(
@@ -325,18 +340,22 @@ def _load_cycles(con, deal_slug: str, data: dict[str, Any]) -> None:
         )
 
 
-def _load_rounds(con, deal_slug: str, data: dict[str, Any]) -> None:
+def _load_rounds(
+    con,
+    deal_slug: str,
+    data: DeterministicEnrichmentArtifact,
+) -> None:
     rows = [
         (
             deal_slug,
-            round_record["announcement_event_id"],
-            round_record.get("deadline_event_id"),
-            round_record["round_scope"],
-            round_record.get("invited_actor_ids", []),
-            round_record["active_bidders_at_time"],
-            round_record["is_selective"],
+            round_record.announcement_event_id,
+            round_record.deadline_event_id,
+            round_record.round_scope,
+            round_record.invited_actor_ids,
+            round_record.active_bidders_at_time,
+            round_record.is_selective,
         )
-        for round_record in data.get("rounds", [])
+        for round_record in data.rounds
     ]
     if rows:
         con.executemany(

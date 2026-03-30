@@ -206,7 +206,7 @@ database is a single multi-deal file keyed by `(deal_slug, <entity_id>)`.
 `db-load` uses two-tier enrichment loading:
 
 - `deterministic_enrichment.json` (required) -- bid classifications, rounds, cycles, dropout_classifications (sparse DropTarget), all_cash_overrides
-- `enrichment.json` (required) -- interpretive dropout classifications overlaid on deterministic baseline
+- `enrichment.json` (required) -- interpretive layer with exactly 5 top-level keys: dropout_classifications, initiation_judgment, advisory_verification, count_reconciliation, review_flags
 
 `skill-pipeline db-export --deal <slug>` writes:
 
@@ -257,6 +257,10 @@ data/seeds.csv
 - `db-load` requires canonical extract artifacts with `spans.json`,
   `deterministic_enrichment.json`, and `enrichment.json`. It refuses
   quote-first or incomplete data.
+- `enrichment.json` is interpretive-only and must contain all 5 required
+  top-level keys. Deterministic bid classifications, rounds, cycles, formal
+  boundary, sparse `DropTarget` labels, and all-cash overrides remain owned by
+  `deterministic_enrichment.json`.
 - `db-export` generates CSV from DuckDB, not JSON artifacts. It is the only
   filing-grounded export boundary in this worktree.
 - `verify` only treats `EXACT` and `NORMALIZED` quote matches as passing.
