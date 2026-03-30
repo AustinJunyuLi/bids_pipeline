@@ -16,32 +16,32 @@
   "bid_classifications": {
     "evt_006": {
       "label": "Informal",
-      "rule_applied": 1.0,
+      "rule_applied": 3.0,
       "basis": "Observable informal signal from formality_signals."
     },
     "evt_007": {
       "label": "Informal",
-      "rule_applied": 1.0,
+      "rule_applied": 3.0,
       "basis": "Observable informal signal from formality_signals."
     },
     "evt_012": {
       "label": "Formal",
-      "rule_applied": 2.0,
+      "rule_applied": 1.0,
       "basis": "Observable formal signal from formality_signals."
     },
     "evt_013": {
       "label": "Informal",
-      "rule_applied": 1.0,
+      "rule_applied": 3.0,
       "basis": "Observable informal signal from formality_signals."
     },
     "evt_015": {
       "label": "Formal",
-      "rule_applied": 2.5,
-      "basis": "Proposal after final round announcement/deadline with no informal signals."
+      "rule_applied": 2.0,
+      "basis": "Proposal after final round announcement/deadline; process position overrides informal language."
     },
     "evt_016": {
       "label": "Formal",
-      "rule_applied": 2.0,
+      "rule_applied": 1.0,
       "basis": "Observable formal signal from formality_signals."
     }
   },

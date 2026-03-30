@@ -26,33 +26,33 @@
   "bid_classifications": {
     "evt_013": {
       "label": "Informal",
-      "rule_applied": 1.0,
+      "rule_applied": 3.0,
       "basis": "Observable informal signal from formality_signals."
     },
     "evt_015": {
       "label": "Informal",
-      "rule_applied": 1.0,
+      "rule_applied": 3.0,
       "basis": "Observable informal signal from formality_signals."
     },
     "evt_016": {
       "label": "Informal",
-      "rule_applied": 1.0,
+      "rule_applied": 3.0,
       "basis": "Observable informal signal from formality_signals."
     },
     "evt_020": {
-      "label": "Informal",
+      "label": "Formal",
       "rule_applied": 1.0,
-      "basis": "Observable informal signal from formality_signals."
+      "basis": "Observable formal signal from formality_signals."
     },
     "evt_025": {
       "label": "Informal",
-      "rule_applied": 1.0,
+      "rule_applied": 3.0,
       "basis": "Observable informal signal from formality_signals."
     },
     "evt_026": {
-      "label": "Informal",
-      "rule_applied": 1.0,
-      "basis": "Observable informal signal from formality_signals."
+      "label": "Formal",
+      "rule_applied": 2.0,
+      "basis": "Proposal after final round announcement/deadline; process position overrides informal language."
     }
   },
   "cycles": [
@@ -65,8 +65,8 @@
   ],
   "formal_boundary": {
     "cycle_1": {
-      "event_id": null,
-      "basis": "No formal proposals in this cycle."
+      "event_id": "evt_020",
+      "basis": "First formal proposal in cycle: evt_020."
     }
   }
 }

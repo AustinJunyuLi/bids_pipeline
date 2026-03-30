@@ -522,8 +522,8 @@ def test_process_position_overrides_informal_signals(tmp_path: Path) -> None:
     assert classification["rule_applied"] == 2
 
 
-def test_process_position_overrides_range_proposal(tmp_path: Path) -> None:
-    """Range proposal after final round announcement -> Formal via Rule 2 (mac-gray pattern, per D-04/D-09)."""
+def test_best_and_final_range_offer_after_final_round_is_formal(tmp_path: Path) -> None:
+    """Range best-and-final offer after final round announcement stays Formal via Rule 2 (mac-gray pattern)."""
     formality_signals = {
         "contains_range": True,
         "mentions_indication_of_interest": True,
@@ -540,7 +540,13 @@ def test_process_position_overrides_range_proposal(tmp_path: Path) -> None:
     events = [
         _base_event("evt_001", "target_sale"),
         _base_event("evt_002", "nda", actor_ids=["party_a"]),
-        _base_event("evt_003", "proposal", actor_ids=["party_a"], formality_signals=formality_signals),
+        _base_event(
+            "evt_003",
+            "proposal",
+            actor_ids=["party_a"],
+            summary="Party A reiterated that its prior $18.00 to $19.00 per share indication of interest was its best and final offer.",
+            formality_signals=formality_signals,
+        ),
         _base_event("evt_004", "executed", actor_ids=["party_a"], executed_with_actor_id="party_a"),
     ]
     _write_enrich_core_fixture(tmp_path, events_override=events)
@@ -552,6 +558,82 @@ def test_process_position_overrides_range_proposal(tmp_path: Path) -> None:
     classification = artifact["bid_classifications"]["evt_003"]
     assert classification["label"] == "Formal"
     assert classification["rule_applied"] == 2
+
+
+def test_range_ioi_after_final_round_without_finality_stays_informal(tmp_path: Path) -> None:
+    """Range IOI after final-round flags stays Informal when the event text lacks best-and-final language (stec evt_025 pattern)."""
+    formality_signals = {
+        "contains_range": True,
+        "mentions_indication_of_interest": True,
+        "mentions_preliminary": False,
+        "mentions_non_binding": False,
+        "mentions_binding_offer": False,
+        "includes_draft_merger_agreement": False,
+        "includes_marked_up_agreement": False,
+        "requested_binding_offer_via_process_letter": False,
+        "after_final_round_announcement": True,
+        "after_final_round_deadline": True,
+        "is_subject_to_financing": None,
+    }
+    events = [
+        _base_event("evt_001", "target_sale"),
+        _base_event("evt_002", "nda", actor_ids=["party_a"]),
+        _base_event(
+            "evt_003",
+            "proposal",
+            actor_ids=["party_a"],
+            summary="WDC returned with a revised written $6.60 to $7.10 per share indication of interest.",
+            formality_signals=formality_signals,
+        ),
+        _base_event("evt_004", "executed", actor_ids=["party_a"], executed_with_actor_id="party_a"),
+    ]
+    _write_enrich_core_fixture(tmp_path, events_override=events)
+    _write_gate_artifacts(tmp_path)
+    run_enrich_core("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    artifact = json.loads(paths.deterministic_enrichment_path.read_text(encoding="utf-8"))
+
+    classification = artifact["bid_classifications"]["evt_003"]
+    assert classification["label"] == "Informal"
+    assert classification["rule_applied"] == 3
+
+
+def test_range_process_letter_without_binding_docs_stays_informal(tmp_path: Path) -> None:
+    """Range proposal requested via process letter stays Informal when it expressly lacks binding docs (saks evt_013 pattern)."""
+    formality_signals = {
+        "contains_range": True,
+        "mentions_indication_of_interest": False,
+        "mentions_preliminary": False,
+        "mentions_non_binding": False,
+        "mentions_binding_offer": False,
+        "includes_draft_merger_agreement": False,
+        "includes_marked_up_agreement": False,
+        "requested_binding_offer_via_process_letter": True,
+        "after_final_round_announcement": True,
+        "after_final_round_deadline": False,
+        "is_subject_to_financing": None,
+    }
+    events = [
+        _base_event("evt_001", "target_sale"),
+        _base_event("evt_002", "nda", actor_ids=["party_a"]),
+        _base_event(
+            "evt_003",
+            "proposal",
+            actor_ids=["party_a"],
+            summary="Sponsor E and Sponsor G submitted a $14.50 to $15.50 per share joint proposal that required more diligence and did not include a draft merger agreement or financing support.",
+            formality_signals=formality_signals,
+        ),
+        _base_event("evt_004", "executed", actor_ids=["party_a"], executed_with_actor_id="party_a"),
+    ]
+    _write_enrich_core_fixture(tmp_path, events_override=events)
+    _write_gate_artifacts(tmp_path)
+    run_enrich_core("imprivata", project_root=tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    artifact = json.loads(paths.deterministic_enrichment_path.read_text(encoding="utf-8"))
+
+    classification = artifact["bid_classifications"]["evt_003"]
+    assert classification["label"] == "Informal"
+    assert classification["rule_applied"] == 3
 
 
 def test_early_ioi_without_final_round_stays_informal(tmp_path: Path) -> None:

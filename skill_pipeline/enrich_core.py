@@ -22,6 +22,12 @@ ROUND_PAIRS = [
     ("final_round_ann", "final_round", "formal"),
     ("final_round_ext_ann", "final_round_ext", "extension"),
 ]
+BEST_AND_FINAL_MARKERS = (
+    "best-and-final",
+    "best and final",
+    "last-and-best",
+    "last and best",
+)
 
 
 def _read_json(path: Path) -> dict:
@@ -206,6 +212,12 @@ def _pair_rounds(events: list[SkillEventRecord], actors) -> list[dict]:
     return rounds
 
 
+def _has_best_and_final_language(evt: SkillEventRecord) -> bool:
+    text_parts = [evt.summary, *evt.notes]
+    text = " ".join(part.lower() for part in text_parts if part)
+    return any(marker in text for marker in BEST_AND_FINAL_MARKERS)
+
+
 def _classify_proposal(
     evt: SkillEventRecord,
     rounds: list[dict],
@@ -232,13 +244,24 @@ def _classify_proposal(
             basis="Observable formal signal from formality_signals.",
         )
 
-    # Rule 2: Process position (final-round context overrides language)
-    if sig.after_final_round_deadline or sig.after_final_round_announcement:
+    # Rule 2: Process position unless the event is only a range IOI without finality language
+    if (sig.after_final_round_deadline or sig.after_final_round_announcement) and (
+        not sig.contains_range or _has_best_and_final_language(evt)
+    ):
+        if sig.contains_range:
+            basis = (
+                "Range proposal submitted in final-round context and described as "
+                "best-and-final."
+            )
+        else:
+            basis = (
+                "Proposal after final round announcement/deadline; "
+                "process position overrides informal language."
+            )
         return BidClassification(
             label="Formal",
             rule_applied=2,
-            basis="Proposal after final round announcement/deadline; "
-                  "process position overrides informal language.",
+            basis=basis,
         )
 
     # Rule 3: Informal signals
