@@ -34,7 +34,7 @@ Requirements for this milestone. Each maps to roadmap phases.
 ### Re-extraction & Validation
 
 - [x] **RERUN-01**: Affected deals re-extracted with updated skill docs and re-run through full deterministic pipeline (canonicalize through db-export)
-- [ ] **RERUN-02**: 9-deal reconciliation re-run shows improved atomic match rate and reduced filing-contradicted pipeline claims vs baseline
+- [x] **RERUN-02**: 9-deal reconciliation re-run shows improved atomic match rate and reduced filing-contradicted pipeline claims vs baseline
 
 ## Future Requirements
 
@@ -76,7 +76,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | EXTRACT-04 | Phase 9 | Complete |
 | EXTRACT-05 | Phase 9 | Complete |
 | RERUN-01 | Phase 9 | Complete |
-| RERUN-02 | Phase 9 | Pending |
+| RERUN-02 | Phase 9 | Complete |
 
 **Coverage:**
 - v1.1 requirements: 16 total
@@ -85,4 +85,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-03-29*
-*Last updated: 2026-03-30 after Phase 09 Plans 01-02 execution*
+*Last updated: 2026-03-30 after Phase 09 Plan 03 execution*
