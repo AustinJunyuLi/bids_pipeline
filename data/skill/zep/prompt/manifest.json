@@ -1,9 +1,9 @@
 {
   "schema_version": "2.0.0",
   "artifact_type": "prompt_packet_manifest",
-  "created_at": "2026-03-29T13:50:13.372472Z",
+  "created_at": "2026-03-30T14:46:43.613946Z",
   "pipeline_version": "0.1.0",
-  "run_id": "compose-0b130e43",
+  "run_id": "compose-961b3e3c",
   "deal_slug": "zep",
   "source_accession_number": "0001047469-15-004989",
   "packets": [
@@ -12,9 +12,9 @@
       "packet_family": "events",
       "chunk_mode": "single_pass",
       "window_id": "w0",
-      "prefix_path": "/home/austinli/Projects/bids_pipeline/data/skill/zep/prompt/packets/events-w0/prefix.md",
-      "body_path": "/home/austinli/Projects/bids_pipeline/data/skill/zep/prompt/packets/events-w0/body.md",
-      "rendered_path": "/home/austinli/Projects/bids_pipeline/data/skill/zep/prompt/packets/events-w0/rendered.md",
+      "prefix_path": "/mnt/d/Projects/bids_data/data/skill/zep/prompt/packets/events-w0/prefix.md",
+      "body_path": "/mnt/d/Projects/bids_data/data/skill/zep/prompt/packets/events-w0/body.md",
+      "rendered_path": "/mnt/d/Projects/bids_data/data/skill/zep/prompt/packets/events-w0/rendered.md",
       "evidence_ids": [
         "0001047469-15-004989:E0364",
         "0001047469-15-004989:E0365",
@@ -168,12 +168,12 @@
         "0001047469-15-004989:E0513",
         "0001047469-15-004989:E0514"
       ],
-      "actor_roster_source_path": "/home/austinli/Projects/bids_pipeline/data/skill/zep/extract/actors_raw.json"
+      "actor_roster_source_path": "/mnt/d/Projects/bids_data/data/skill/zep/extract/actors_raw.json"
     }
   ],
   "asset_files": [
-    "/home/austinli/Projects/bids_pipeline/skill_pipeline/prompt_assets/events_prefix.md",
-    "/home/austinli/Projects/bids_pipeline/skill_pipeline/prompt_assets/event_examples.md"
+    "/mnt/d/Projects/bids_data/skill_pipeline/prompt_assets/events_prefix.md",
+    "/mnt/d/Projects/bids_data/skill_pipeline/prompt_assets/event_examples.md"
   ],
   "notes": [
     "mode=events",

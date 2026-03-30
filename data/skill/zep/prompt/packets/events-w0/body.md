@@ -295,17 +295,17 @@ B114 [L2063-L2069]: Under the merger agreement, during the "go-shop period" that
     {
       "quote_id": "Q001",
       "block_id": "B025",
-      "text": "our board of directors"
+      "text": "our board of directors decided to engage in a process"
     },
     {
       "quote_id": "Q002",
       "block_id": "B028",
-      "text": "BofA Merrill Lynch"
+      "text": "Merrill Lynch to act as our financial advisor"
     },
     {
       "quote_id": "Q003",
       "block_id": "B015",
-      "text": "King & Spalding LLP"
+      "text": "\"King & Spalding\"), legal counsel to the Company"
     },
     {
       "quote_id": "Q004",
@@ -314,58 +314,33 @@ B114 [L2063-L2069]: Under the merger agreement, during the "go-shop period" that
     },
     {
       "quote_id": "Q005",
-      "block_id": "B050",
-      "text": "\"Party X\""
-    },
-    {
-      "quote_id": "Q006",
-      "block_id": "B050",
-      "text": "\"Party Y\""
-    },
-    {
-      "quote_id": "Q007",
       "block_id": "B046",
       "text": "four financial buyers"
     },
     {
-      "quote_id": "Q008",
+      "quote_id": "Q006",
       "block_id": "B046",
       "text": "one strategic buyer"
     },
     {
-      "quote_id": "Q009",
-      "block_id": "B064",
-      "text": "five of the remaining six interested parties"
+      "quote_id": "Q007",
+      "block_id": "B050",
+      "text": "\"Party X\""
     },
     {
-      "quote_id": "Q010",
-      "block_id": "B064",
-      "text": "The sixth remaining interested party"
-    },
-    {
-      "quote_id": "Q011",
-      "block_id": "B044",
-      "text": "twenty-five potential buyers executed confidentiality agreements"
-    },
-    {
-      "quote_id": "Q012",
-      "block_id": "B044",
-      "text": "twenty-five potential buyers informed us that they were not interested"
-    },
-    {
-      "quote_id": "Q013",
-      "block_id": "B114",
-      "text": "a total of fifty-eight parties"
+      "quote_id": "Q008",
+      "block_id": "B050",
+      "text": "\"Party Y\""
     }
   ],
   "actors": [
     {
       "actor_id": "target_board",
-      "display_name": "Zep board and management",
-      "canonical_name": "ZEP INC BOARD OF DIRECTORS",
+      "display_name": "Zep Board of Directors",
+      "canonical_name": "Zep Board of Directors",
       "aliases": [
-        "the Company",
-        "our board of directors"
+        "our board of directors",
+        "Board Representatives"
       ],
       "role": "target_board",
       "advisor_kind": null,
@@ -380,13 +355,13 @@ B114 [L2063-L2069]: Under the merger agreement, during the "go-shop period" that
         "Q001"
       ],
       "notes": [
-        "Represents the company-side board and management throughout the process."
+        "Board Representatives oversaw the 2014 sale process on behalf of the board."
       ]
     },
     {
       "actor_id": "advisor_bofa_merrill_lynch",
       "display_name": "BofA Merrill Lynch",
-      "canonical_name": "BOFA MERRILL LYNCH",
+      "canonical_name": "BofA Merrill Lynch",
       "aliases": [],
       "role": "advisor",
       "advisor_kind": "financial",
@@ -405,8 +380,10 @@ B114 [L2063-L2069]: Under the merger agreement, during the "go-shop period" that
     {
       "actor_id": "advisor_king_spalding",
       "display_name": "King & Spalding LLP",
-      "canonical_name": "KING & SPALDING LLP",
-      "aliases": [],
+      "canonical_name": "King & Spalding LLP",
+      "aliases": [
+        "King & Spalding"
+      ],
       "role": "advisor",
       "advisor_kind": "legal",
       "advised_actor_id": "target_board",
@@ -424,73 +401,31 @@ B114 [L2063-L2069]: Under the merger agreement, during the "go-shop period" that
     {
       "actor_id": "bidder_new_mountain_capital",
       "display_name": "New Mountain Capital",
-      "canonical_name": "NEW MOUNTAIN CAPITAL",
+      "canonical_name": "New Mountain Capital",
       "aliases": [],
       "role": "bidder",
       "advisor_kind": null,
       "advised_actor_id": null,
       "bidder_kind": "financial",
       "listing_status": "private",
-      "geography": null,
+      "geography": "domestic",
       "is_grouped": false,
       "group_size": null,
       "group_label": null,
       "quote_ids": [
         "Q004"
       ],
-      "notes": []
-    },
-    {
-      "actor_id": "bidder_party_x",
-      "display_name": "Party X",
-      "canonical_name": "PARTY X",
-      "aliases": [
-        "Party X"
-      ],
-      "role": "bidder",
-      "advisor_kind": null,
-      "advised_actor_id": null,
-      "bidder_kind": "financial",
-      "listing_status": null,
-      "geography": null,
-      "is_grouped": false,
-      "group_size": null,
-      "group_label": null,
-      "quote_ids": [
-        "Q005"
-      ],
       "notes": [
-        "Unidentified financial bidder."
+        "Signed an NDA in March 2014 but declined to submit a preliminary indication of interest in the 2014 cycle."
       ]
     },
     {
-      "actor_id": "bidder_party_y",
-      "display_name": "Party Y",
-      "canonical_name": "PARTY Y",
+      "actor_id": "grouped_other_financial_bidders",
+      "display_name": "Other Financial Bidders",
+      "canonical_name": "Other Financial Bidders",
       "aliases": [
-        "Party Y"
+        "four financial buyers"
       ],
-      "role": "bidder",
-      "advisor_kind": null,
-      "advised_actor_id": null,
-      "bidder_kind": "strategic",
-      "listing_status": null,
-      "geography": null,
-      "is_grouped": false,
-      "group_size": null,
-      "group_label": null,
-      "quote_ids": [
-        "Q006"
-      ],
-      "notes": [
-        "Unidentified strategic bidder."
-      ]
-    },
-    {
-      "actor_id": "bidder_unnamed_four_financial_buyers_2014",
-      "display_name": "Four unnamed financial buyers",
-      "canonical_name": "FOUR UNNAMED FINANCIAL BUYERS",
-      "aliases": [],
       "role": "bidder",
       "advisor_kind": null,
       "advised_actor_id": null,
@@ -499,17 +434,21 @@ B114 [L2063-L2069]: Under the merger agreement, during the "go-shop period" that
       "geography": null,
       "is_grouped": true,
       "group_size": 4,
-      "group_label": "Four unnamed financial buyers that submitted April 14, 2014 preliminary indications of interest",
+      "group_label": "other financial buyers",
       "quote_ids": [
-        "Q007"
+        "Q005"
       ],
-      "notes": []
+      "notes": [
+        "Represents the four unnamed financial buyers that submitted preliminary indications of interest on April 14, 2014."
+      ]
     },
     {
-      "actor_id": "bidder_unnamed_one_strategic_buyer_2014",
-      "display_name": "One unnamed strategic buyer",
-      "canonical_name": "ONE UNNAMED STRATEGIC BUYER",
-      "aliases": [],
+      "actor_id": "grouped_initial_strategic_bidder",
+      "display_name": "Initial Strategic Bidder",
+      "canonical_name": "Initial Strategic Bidder",
+      "aliases": [
+        "one strategic buyer"
+      ],
       "role": "bidder",
       "advisor_kind": null,
       "advised_actor_id": null,
@@ -518,78 +457,55 @@ B114 [L2063-L2069]: Under the merger agreement, during the "go-shop period" that
       "geography": null,
       "is_grouped": true,
       "group_size": 1,
-      "group_label": "One unnamed strategic buyer that submitted an April 14, 2014 preliminary indication of interest",
+      "group_label": "initial strategic bidder",
+      "quote_ids": [
+        "Q006"
+      ],
+      "notes": [
+        "Represents the unnamed strategic bidder included in the April 14, 2014 preliminary indication group."
+      ]
+    },
+    {
+      "actor_id": "bidder_party_x",
+      "display_name": "Party X",
+      "canonical_name": "Party X",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "quote_ids": [
+        "Q007"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_party_y",
+      "display_name": "Party Y",
+      "canonical_name": "Party Y",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
       "quote_ids": [
         "Q008"
       ],
       "notes": []
-    },
-    {
-      "actor_id": "bidder_unnamed_five_remaining_2014",
-      "display_name": "Five unnamed remaining bidders",
-      "canonical_name": "FIVE UNNAMED REMAINING BIDDERS",
-      "aliases": [],
-      "role": "bidder",
-      "advisor_kind": null,
-      "advised_actor_id": null,
-      "bidder_kind": null,
-      "listing_status": null,
-      "geography": null,
-      "is_grouped": true,
-      "group_size": 5,
-      "group_label": "Five of the remaining six interested parties that later withdrew during the 2014 process",
-      "quote_ids": [
-        "Q009"
-      ],
-      "notes": []
-    },
-    {
-      "actor_id": "bidder_unnamed_one_nonresponsive_2014",
-      "display_name": "One unnamed nonresponsive bidder",
-      "canonical_name": "ONE UNNAMED NONRESPONSIVE BIDDER",
-      "aliases": [],
-      "role": "bidder",
-      "advisor_kind": null,
-      "advised_actor_id": null,
-      "bidder_kind": null,
-      "listing_status": null,
-      "geography": null,
-      "is_grouped": true,
-      "group_size": 1,
-      "group_label": "The sixth remaining interested party that stopped responding during the 2014 process",
-      "quote_ids": [
-        "Q010"
-      ],
-      "notes": []
     }
   ],
-  "count_assertions": [
-    {
-      "subject": "buyers_declined_confidentiality_2014",
-      "count": 25,
-      "quote_ids": [
-        "Q012"
-      ]
-    },
-    {
-      "subject": "buyers_executed_confidentiality_2014",
-      "count": 25,
-      "quote_ids": [
-        "Q011"
-      ]
-    },
-    {
-      "subject": "go_shop_contacts_2015",
-      "count": 58,
-      "quote_ids": [
-        "Q013"
-      ]
-    }
-  ],
-  "unresolved_mentions": [
-    "Jefferies Finance LLC appears only as a financing source and is not included because the actor taxonomy is limited to bidders, advisors, activists, and target-board entities.",
-    "Board Representatives and Mr. Morgan are absorbed into the target_board actor because the extraction schema does not define separate officer or director actor roles."
-  ]
+  "count_assertions": [],
+  "unresolved_mentions": []
 }
 </actor_roster>
 
