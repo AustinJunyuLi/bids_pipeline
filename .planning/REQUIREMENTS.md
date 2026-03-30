@@ -20,20 +20,20 @@ Requirements for this milestone. Each maps to roadmap phases.
 ### Enrichment Improvements
 
 - [x] **ENRICH-01**: bid_type classification promotes final-round proposals to Formal when process position (after final round announcement) overrides IOI filing language
-- [ ] **ENRICH-02**: Deterministic DropTarget classification for committee-driven field narrowing based on drop_reason_text signals in enrich-core
-- [ ] **ENRICH-03**: Contextual all_cash inference from deal-level consideration patterns when explicit per-proposal mention is absent
+- [x] **ENRICH-02**: Deterministic DropTarget classification for committee-driven field narrowing based on round invitation deltas with bidder-withdrawal-first directionality in enrich-core
+- [x] **ENRICH-03**: Contextual all_cash inference from deal-level consideration patterns when explicit per-proposal mention is absent, wired through deterministic enrichment, DB load, and export
 
 ### Extraction & Skill Docs
 
-- [ ] **EXTRACT-01**: Extraction skill docs include round milestone event guidance (Final Round Inf Ann, Final Round Inf, deadlines) with filing-grounded examples
-- [ ] **EXTRACT-02**: Extraction skill docs include verbal/oral price indication guidance with examples from stec and petsmart-inc patterns
-- [ ] **EXTRACT-03**: Extraction skill docs include NDA exclusion guidance for rollover-side and non-target confidentiality agreements
-- [ ] **EXTRACT-04**: Zep NMC actor error corrected -- remove NMC from evt_005 and evt_008 actor_ids
-- [ ] **EXTRACT-05**: Medivation missing drops restored -- evt_013 and evt_017 present in events_raw.json with filing-grounded evidence
+- [x] **EXTRACT-01**: Extraction skill docs include round milestone event guidance (Final Round Inf Ann, Final Round Inf, deadlines) with filing-grounded examples
+- [x] **EXTRACT-02**: Extraction skill docs include verbal/oral price indication guidance with examples from mac-gray and penford patterns
+- [x] **EXTRACT-03**: Extraction skill docs include NDA exclusion guidance for rollover-side and non-target confidentiality agreements
+- [x] **EXTRACT-04**: Zep NMC actor error corrected -- remove NMC from evt_005 and evt_008 actor_ids
+- [x] **EXTRACT-05**: Medivation missing drops restored -- evt_013 and evt_017 present in events_raw.json with filing-grounded evidence
 
 ### Re-extraction & Validation
 
-- [ ] **RERUN-01**: Affected deals re-extracted with updated skill docs and re-run through full deterministic pipeline (canonicalize through db-export)
+- [x] **RERUN-01**: Affected deals re-extracted with updated skill docs and re-run through full deterministic pipeline (canonicalize through db-export)
 - [ ] **RERUN-02**: 9-deal reconciliation re-run shows improved atomic match rate and reduced filing-contradicted pipeline claims vs baseline
 
 ## Future Requirements
@@ -68,14 +68,14 @@ Which phases cover which requirements. Updated during roadmap creation.
 | HARD-05 | Phase 6 | Complete |
 | HARD-06 | Phase 6 | Complete |
 | ENRICH-01 | Phase 7 | Complete |
-| ENRICH-02 | Phase 8 | Pending |
-| ENRICH-03 | Phase 8 | Pending |
-| EXTRACT-01 | Phase 8 | Pending |
-| EXTRACT-02 | Phase 8 | Pending |
-| EXTRACT-03 | Phase 8 | Pending |
-| EXTRACT-04 | Phase 9 | Pending |
-| EXTRACT-05 | Phase 9 | Pending |
-| RERUN-01 | Phase 9 | Pending |
+| ENRICH-02 | Phase 8 | Complete |
+| ENRICH-03 | Phase 8 | Complete |
+| EXTRACT-01 | Phase 8 | Complete |
+| EXTRACT-02 | Phase 8 | Complete |
+| EXTRACT-03 | Phase 8 | Complete |
+| EXTRACT-04 | Phase 9 | Complete |
+| EXTRACT-05 | Phase 9 | Complete |
+| RERUN-01 | Phase 9 | Complete |
 | RERUN-02 | Phase 9 | Pending |
 
 **Coverage:**
@@ -85,4 +85,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-03-29*
-*Last updated: 2026-03-29 after Phase 06 verification and completion*
+*Last updated: 2026-03-30 after Phase 09 Plans 01-02 execution*

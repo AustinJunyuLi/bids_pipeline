@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: reconciliation + execution-log quality fixes
 status: Ready to execute
-stopped_at: Completed 09-01-PLAN.md
-last_updated: "2026-03-30T15:07:14Z"
+stopped_at: Completed 09-02-PLAN.md
+last_updated: "2026-03-30T15:28:15Z"
 progress:
   total_phases: 4
   completed_phases: 3
   total_plans: 10
-  completed_plans: 8
+  completed_plans: 9
 ---
 
 # Project State
@@ -17,7 +17,7 @@ progress:
 ## Current Position
 
 Phase: 09 (deal-specific-fixes-revalidation) — EXECUTING
-Plan: 2 of 3
+Plan: 3 of 3
 
 ## Progress
 
@@ -105,6 +105,7 @@ Plan: 2 of 3
 | 06-deterministic-hardening | 03 | 14 min | 1 | 6 | 2026-03-29 |
 | Phase 07-bid-type-rule-priority P01 | 2min | 2 tasks | 2 files |
 | Phase 09 P01 | 21m | 2 tasks | 17 files | 2026-03-30 |
+| Phase 09 P02 | 13m | 2 tasks | 10 files | 2026-03-30 |
 
 ## Decisions
 
@@ -126,13 +127,14 @@ Plan: 2 of 3
   reconciliation against the 2026-03-29 baseline.
 
 - [Phase 09]: Zep was repaired by a clean extraction-forward rerun rather than hand-editing canonical artifacts — The refreshed extract removed New Mountain Capital from grouped 2014 proposal/drop events while preserving a clean canonicalize-through-export chain
+- [Phase 09]: Medivation was repaired by regenerating events and coverage_notes together from filing text — The refreshed extract keeps bidder-round chronology intact while ensuring every evt_NNN reference in coverage_notes resolves against the event array
 
 ## Session Continuity
 
-- **Last session:** 2026-03-30T15:07:14Z
-- **Stopped at:** Completed 09-01-PLAN.md
-- **Resume file:** .planning/phases/09-deal-specific-fixes-revalidation/09-02-PLAN.md
-- **Next action:** Continue Phase 9 with Wave 2 (`/gsd:execute-phase 9`).
+- **Last session:** 2026-03-30T15:28:15Z
+- **Stopped at:** Completed 09-02-PLAN.md
+- **Resume file:** .planning/phases/09-deal-specific-fixes-revalidation/09-03-PLAN.md
+- **Next action:** Continue Phase 9 with Wave 3 (`/gsd:execute-phase 9`).
 
 ## Accumulated Context
 

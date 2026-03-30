@@ -63,10 +63,10 @@ Plans:
   2. Medivation events_raw.json contains evt_013 and evt_017 with filing-grounded evidence quotes
   3. All affected deals have been re-extracted and successfully pass the full deterministic pipeline (canonicalize through db-export) without errors
   4. 9-deal reconciliation re-run shows a higher atomic match rate and fewer filing-contradicted pipeline claims compared to the pre-v1.1 baseline
-**Plans:** 3 plans
+**Plans:** 2/3 plans executed
 Plans:
 - [x] 09-01-PLAN.md -- Re-extract Zep and run full deterministic pipeline through db-export
-- [ ] 09-02-PLAN.md -- Re-extract Medivation and run full deterministic pipeline through db-export
+- [x] 09-02-PLAN.md -- Re-extract Medivation and run full deterministic pipeline through db-export
 - [ ] 09-03-PLAN.md -- Run 9-deal reconciliation and measure improvement against baseline
 
 ## Progress
@@ -81,7 +81,7 @@ Plans:
 | 6. Deterministic Hardening | v1.1 | 3/3 | Complete | 2026-03-29 |
 | 7. bid_type Rule Priority | v1.1 | 1/1 | Complete | 2026-03-30 |
 | 8. Extraction Guidance + Enrichment Extensions | v1.1 | 3/3 | Complete | 2026-03-30 |
-| 9. Deal-Specific Fixes + Revalidation | v1.1 | 1/3 | In Progress |   |
+| 9. Deal-Specific Fixes + Revalidation | v1.1 | 2/3 | In Progress |   |
 
 ---
 *Roadmap created: 2026-03-29*
