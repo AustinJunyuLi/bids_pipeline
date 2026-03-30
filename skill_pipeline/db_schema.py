@@ -74,6 +74,7 @@ CREATE TABLE IF NOT EXISTS enrichment (
     bid_label TEXT,
     bid_rule_applied DOUBLE,
     bid_basis TEXT,
+    all_cash_override BOOLEAN,
     PRIMARY KEY (deal_slug, event_id)
 );
 
@@ -124,8 +125,18 @@ def open_pipeline_db(
 
 
 def _is_lock_contention_error(exc: Exception) -> bool:
-    return isinstance(exc, duckdb.IOException) and "Could not set lock on file" in str(exc)
+    if not isinstance(exc, duckdb.IOException):
+        return False
+    message = str(exc)
+    return (
+        "Could not set lock on file" in message
+        or "used by another process" in message
+        or "file is already open" in message
+    )
 
 
 def _ensure_schema(con: duckdb.DuckDBPyConnection) -> None:
     con.execute(SCHEMA_DDL)
+    con.execute(
+        "ALTER TABLE enrichment ADD COLUMN IF NOT EXISTS all_cash_override BOOLEAN"
+    )

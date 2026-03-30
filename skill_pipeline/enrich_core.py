@@ -482,6 +482,213 @@ def _populate_invited_from_count_assertions(
             events[best_idx].invited_actor_ids = matched_ids
 
 
+_BIDDER_WITHDRAWAL_SIGNALS = (
+    "could not improve",
+    "would not improve",
+    "would not be in a position",
+    "no longer interested",
+    "unable to proceed",
+    "would not move forward",
+    "not prepared to move forward",
+    "declined to improve",
+    "was not able to increase",
+    "not in a position to actively conduct",
+    "could not increase",
+    "would not continue",
+    "cannot proceed",
+    "would not proceed",
+)
+
+_TARGET_EXCLUSION_SIGNALS = (
+    "did not invite",
+    "determined not to invite",
+    "determined not to include",
+    "excluded from",
+    "not selected to participate",
+    "was not invited",
+    "were not invited",
+    "not included in",
+    "narrowed the field",
+    "reduced the group",
+)
+
+
+def _is_bidder_signaled_withdrawal(drop_reason_text: str | None) -> bool:
+    """Return True when the filing grounds the drop in bidder-initiated withdrawal."""
+    if not drop_reason_text:
+        return False
+    lower = drop_reason_text.lower()
+    return any(signal in lower for signal in _BIDDER_WITHDRAWAL_SIGNALS)
+
+
+def _has_target_exclusion_language(drop_reason_text: str | None) -> bool:
+    if not drop_reason_text:
+        return False
+    lower = drop_reason_text.lower()
+    return any(signal in lower for signal in _TARGET_EXCLUSION_SIGNALS)
+
+
+def _cycle_range_for_index(
+    cycle_ranges: list[tuple[int, int]],
+    idx: int,
+) -> tuple[int, int] | None:
+    for cycle_start, cycle_end in cycle_ranges:
+        if cycle_start <= idx <= cycle_end:
+            return cycle_start, cycle_end
+    return None
+
+
+def _was_actor_active_before_index(
+    events: list[SkillEventRecord],
+    *,
+    actor_id: str,
+    cycle_start: int,
+    target_idx: int,
+) -> bool:
+    """Track NDA/drop state for one bidder within a cycle up to a target event."""
+    active = False
+    for idx in range(cycle_start, target_idx):
+        evt = events[idx]
+        if evt.event_type == "restarted":
+            active = False
+            continue
+        if actor_id not in evt.actor_ids:
+            continue
+        if evt.event_type == "nda":
+            active = True
+        elif evt.event_type == "drop":
+            active = False
+    return active
+
+
+def _classify_dropouts(
+    events: list[SkillEventRecord],
+    rounds: list[dict],
+) -> dict[str, dict]:
+    """Deterministically emit sparse DropTarget labels from filing-grounded exclusion."""
+    if not events:
+        return {}
+
+    event_order = [evt.event_id for evt in events]
+    index_by_event = {event_id: idx for idx, event_id in enumerate(event_order)}
+    cycle_ranges = _cycle_ranges(events)
+    result: dict[str, dict] = {}
+
+    for drop_idx, evt in enumerate(events):
+        if evt.event_type != "drop":
+            continue
+        if _is_bidder_signaled_withdrawal(evt.drop_reason_text):
+            continue
+        if not evt.actor_ids:
+            continue
+
+        cycle_range = _cycle_range_for_index(cycle_ranges, drop_idx)
+        if cycle_range is None:
+            continue
+        cycle_start, _ = cycle_range
+
+        prior_rounds: list[tuple[int, dict]] = []
+        for round_record in rounds:
+            ann_id = round_record.get("announcement_event_id")
+            ann_idx = index_by_event.get(ann_id)
+            if ann_idx is None or ann_idx < cycle_start or ann_idx >= drop_idx:
+                continue
+            if not round_record.get("invited_actor_ids"):
+                continue
+            prior_rounds.append((ann_idx, round_record))
+
+        if prior_rounds:
+            _, round_record = max(prior_rounds, key=lambda item: item[0])
+            invited = set(round_record.get("invited_actor_ids") or [])
+            excluded_actors = [
+                actor_id
+                for actor_id in evt.actor_ids
+                if actor_id not in invited
+                and _was_actor_active_before_index(
+                    events,
+                    actor_id=actor_id,
+                    cycle_start=cycle_start,
+                    target_idx=index_by_event[round_record["announcement_event_id"]],
+                )
+            ]
+            if excluded_actors:
+                result[evt.event_id] = {
+                    "label": "DropTarget",
+                    "basis": (
+                        "Actor(s) "
+                        + ", ".join(excluded_actors)
+                        + " were active before round announcement "
+                        + str(round_record["announcement_event_id"])
+                        + " but absent from invited_actor_ids."
+                    ),
+                    "source_text": evt.drop_reason_text or "",
+                }
+                continue
+
+        if _has_target_exclusion_language(evt.drop_reason_text):
+            result[evt.event_id] = {
+                "label": "DropTarget",
+                "basis": "Drop reason text contains explicit target-exclusion language.",
+                "source_text": evt.drop_reason_text or "",
+            }
+
+    return result
+
+
+def _infer_all_cash_overrides(
+    events: list[SkillEventRecord],
+    cycles: list[dict],
+) -> dict[str, bool]:
+    """Infer cycle-local all-cash overrides when the filing context is unambiguous."""
+    if not events or not cycles:
+        return {}
+
+    event_order = [evt.event_id for evt in events]
+    index_by_event = {event_id: idx for idx, event_id in enumerate(event_order)}
+    result: dict[str, bool] = {}
+
+    for cycle in cycles:
+        start_id = cycle.get("start_event_id")
+        end_id = cycle.get("end_event_id")
+        start_idx = index_by_event.get(start_id)
+        end_idx = index_by_event.get(end_id)
+        if start_idx is None or end_idx is None:
+            continue
+
+        cycle_events = events[start_idx : end_idx + 1]
+        executed_events = [evt for evt in cycle_events if evt.event_type == "executed"]
+        untyped_proposals = [
+            evt
+            for evt in cycle_events
+            if evt.event_type == "proposal"
+            and (evt.terms is None or evt.terms.consideration_type is None)
+        ]
+        if not untyped_proposals:
+            continue
+
+        if executed_events:
+            executed = executed_events[-1]
+            if executed.terms and executed.terms.consideration_type == "cash":
+                for evt in untyped_proposals:
+                    result[evt.event_id] = True
+            continue
+
+        typed_proposals = [
+            evt
+            for evt in cycle_events
+            if evt.event_type == "proposal"
+            and evt.terms is not None
+            and evt.terms.consideration_type is not None
+        ]
+        if typed_proposals and all(
+            evt.terms.consideration_type == "cash" for evt in typed_proposals
+        ):
+            for evt in untyped_proposals:
+                result[evt.event_id] = True
+
+    return result
+
+
 def run_enrich_core(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> int:
     """Run deterministic enrich-core. Writes enrich/deterministic_enrichment.json.
 
@@ -511,6 +718,8 @@ def run_enrich_core(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> int
         bid_classifications = _classify_proposals(events, rounds)
         cycles = _segment_cycles(events)
         formal_boundary = _compute_formal_boundary(cycles, bid_classifications, events)
+        dropout_classifications = _classify_dropouts(events, rounds)
+        all_cash_overrides = _infer_all_cash_overrides(events, cycles)
 
         ensure_output_directories(paths)
         _write_json(
@@ -520,6 +729,8 @@ def run_enrich_core(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> int
                 "bid_classifications": bid_classifications,
                 "cycles": cycles,
                 "formal_boundary": formal_boundary,
+                "dropout_classifications": dropout_classifications,
+                "all_cash_overrides": all_cash_overrides,
             },
         )
     except Exception:

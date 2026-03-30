@@ -18,6 +18,8 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 PYPROJECT = PROJECT_ROOT / "pyproject.toml"
 REQUIREMENTS = PROJECT_ROOT / "requirements.txt"
+GITIGNORE = PROJECT_ROOT / ".gitignore"
+ENV_LOCAL_EXAMPLE = PROJECT_ROOT / ".env.local.example"
 
 HISTORICAL_PLAN_DOCS = [
     PROJECT_ROOT / "docs/plans/2026-03-16-pipeline-design-v3.md",
@@ -177,7 +179,27 @@ def test_claude_md_documents_db_load_and_db_export_contract() -> None:
     )
 
 
-def test_claude_md_db_stages_follow_enrich_core_before_optional_local_agent_enrichment() -> None:
+def test_claude_md_documents_split_cross_os_env_setup() -> None:
+    text = _read(CLAUDE_MD)
+    normalized = " ".join(text.split())
+    assert ".claude/LOCAL.md" in text, (
+        "CLAUDE.md must point agents to the machine-local workstation note"
+    )
+    assert "read it immediately after this file before taking action" in normalized, (
+        "CLAUDE.md must instruct agents to read the local workstation note before acting"
+    )
+    assert ".env.local" in text, (
+        "CLAUDE.md must document the local tooling config file"
+    )
+    assert "PIPELINE_SEC_IDENTITY" in text, (
+        "CLAUDE.md must keep PIPELINE_SEC_IDENTITY as the preferred runtime variable"
+    )
+    assert ".venv-win" not in text and ".venv-wsl" not in text, (
+        "CLAUDE.md must not hard-code workstation-specific virtualenv names"
+    )
+
+
+def test_claude_md_enrich_deal_is_mandatory_gate_between_enrich_core_and_db_load() -> None:
     text = _read(CLAUDE_MD)
     flow_start = text.find("## End-To-End Flow")
     flow_end = text.find("## Hard Invariants", flow_start)
@@ -186,17 +208,43 @@ def test_claude_md_db_stages_follow_enrich_core_before_optional_local_agent_enri
     )
     flow_text = text[flow_start:flow_end]
     enrich_core_pos = flow_text.find("skill-pipeline enrich-core --deal <slug>")
+    enrich_deal_pos = flow_text.find("/enrich-deal")
     db_load_pos = flow_text.find("skill-pipeline db-load --deal <slug>")
     db_export_pos = flow_text.find("skill-pipeline db-export --deal <slug>")
-    enrich_deal_pos = flow_text.find("/enrich-deal", db_export_pos)
-    assert -1 not in (enrich_core_pos, db_load_pos, db_export_pos, enrich_deal_pos), (
-        "CLAUDE.md must include enrich-core, db-load, db-export, and /enrich-deal"
+    assert -1 not in (enrich_core_pos, enrich_deal_pos, db_load_pos, db_export_pos), (
+        "CLAUDE.md must include enrich-core, /enrich-deal, db-load, and db-export"
     )
-    assert enrich_core_pos < db_load_pos < db_export_pos < enrich_deal_pos, (
-        "CLAUDE.md must place db-load and db-export after enrich-core and before /enrich-deal"
+    assert enrich_core_pos < enrich_deal_pos < db_load_pos < db_export_pos, (
+        "CLAUDE.md must place /enrich-deal after enrich-core and before db-load"
+    )
+    assert "mandatory" in flow_text[enrich_deal_pos:enrich_deal_pos + 80].lower(), (
+        "CLAUDE.md must mark /enrich-deal as mandatory in the flow"
     )
     assert "/export-csv" not in flow_text, (
         "CLAUDE.md must not include /export-csv in the live end-to-end flow"
+    )
+
+
+def test_gitignore_supports_split_cross_os_envs_and_template() -> None:
+    text = _read(GITIGNORE)
+    assert ".venv-*/" in text, (
+        ".gitignore must ignore host-specific virtualenv directory names"
+    )
+    assert "!.env.local.example" in text, (
+        ".gitignore must keep .env.local.example tracked"
+    )
+    assert ".claude/LOCAL.md" in text, (
+        ".gitignore must ignore the local workstation note"
+    )
+
+
+def test_env_local_example_guides_runtime_identity_to_shell_profile() -> None:
+    text = _read(ENV_LOCAL_EXAMPLE)
+    assert "PIPELINE_SEC_IDENTITY" in text, (
+        ".env.local.example must direct runtime SEC identity to the shell profile"
+    )
+    assert "NEWAPI_API_KEY=" in text, (
+        ".env.local.example must provide a machine-local tooling placeholder"
     )
 
 

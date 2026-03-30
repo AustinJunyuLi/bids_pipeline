@@ -1126,3 +1126,472 @@ def test_enrich_core_invalidates_stale_output_when_gate_fails_on_rerun(tmp_path:
         run_enrich_core("imprivata", project_root=tmp_path)
 
     assert not paths.deterministic_enrichment_path.exists()
+
+
+def _build_bidder_actors_payload(actor_ids: list[str]) -> dict:
+    quotes = []
+    actors = []
+    for idx, actor_id in enumerate(actor_ids, start=1):
+        label = actor_id.replace("_", " ").title()
+        quote_id = f"QACT{idx:03d}"
+        quotes.append({
+            "quote_id": quote_id,
+            "block_id": f"BA{idx:03d}",
+            "text": label,
+        })
+        actors.append({
+            "actor_id": actor_id,
+            "display_name": label,
+            "canonical_name": label.upper(),
+            "aliases": [],
+            "role": "bidder",
+            "advisor_kind": None,
+            "advised_actor_id": None,
+            "bidder_kind": "financial",
+            "listing_status": "private",
+            "geography": "domestic",
+            "is_grouped": False,
+            "group_size": None,
+            "group_label": None,
+            "quote_ids": [quote_id],
+            "notes": [],
+        })
+    return {
+        "quotes": quotes,
+        "actors": actors,
+        "count_assertions": [],
+        "unresolved_mentions": [],
+    }
+
+
+def _write_multi_bidder_enrich_core_fixture(
+    tmp_path: Path,
+    *,
+    events: list[dict],
+    actor_ids: list[str],
+    slug: str = "imprivata",
+) -> None:
+    _write_quote_first_extract_fixture(
+        tmp_path,
+        slug=slug,
+        actors_payload=_build_bidder_actors_payload(actor_ids),
+        events=events,
+    )
+
+
+def _read_deterministic_enrichment(tmp_path: Path, *, slug: str = "imprivata") -> dict:
+    paths = build_skill_paths(slug, project_root=tmp_path)
+    return json.loads(paths.deterministic_enrichment_path.read_text(encoding="utf-8"))
+
+
+def test_drop_target_classified_when_bidder_active_but_not_invited_to_round(tmp_path: Path) -> None:
+    events = [
+        _base_event("evt_001", "target_sale"),
+        _base_event("evt_002", "nda", actor_ids=["party_a"]),
+        _base_event("evt_003", "nda", actor_ids=["party_b"]),
+        _base_event("evt_004", "final_round_ann", invited_actor_ids=["party_a"]),
+        _base_event("evt_005", "final_round"),
+        _base_event(
+            "evt_006",
+            "drop",
+            actor_ids=["party_b"],
+            drop_reason_text="Party B was no longer participating in the process",
+        ),
+        _base_event(
+            "evt_007",
+            "executed",
+            actor_ids=["party_a"],
+            executed_with_actor_id="party_a",
+        ),
+    ]
+    _write_multi_bidder_enrich_core_fixture(
+        tmp_path,
+        events=events,
+        actor_ids=["party_a", "party_b"],
+    )
+    _write_gate_artifacts(tmp_path)
+
+    run_enrich_core("imprivata", project_root=tmp_path)
+    artifact = _read_deterministic_enrichment(tmp_path)
+
+    classification = artifact["dropout_classifications"]["evt_006"]
+    assert classification["label"] == "DropTarget"
+    assert "invited_actor_ids" in classification["basis"]
+
+
+def test_drop_target_not_classified_when_bidder_signaled_withdrawal(tmp_path: Path) -> None:
+    events = [
+        _base_event("evt_001", "target_sale"),
+        _base_event("evt_002", "nda", actor_ids=["party_a"]),
+        _base_event("evt_003", "nda", actor_ids=["party_b"]),
+        _base_event("evt_004", "final_round_ann", invited_actor_ids=["party_a"]),
+        _base_event("evt_005", "final_round"),
+        _base_event(
+            "evt_006",
+            "drop",
+            actor_ids=["party_b"],
+            drop_reason_text="Party B indicated it would not be in a position to improve its proposal",
+        ),
+    ]
+    _write_multi_bidder_enrich_core_fixture(
+        tmp_path,
+        events=events,
+        actor_ids=["party_a", "party_b"],
+    )
+    _write_gate_artifacts(tmp_path)
+
+    run_enrich_core("imprivata", project_root=tmp_path)
+    artifact = _read_deterministic_enrichment(tmp_path)
+
+    assert artifact["dropout_classifications"] == {}
+
+
+def test_drop_target_not_classified_when_drop_has_bidder_withdrawal_and_target_exclusion(
+    tmp_path: Path,
+) -> None:
+    events = [
+        _base_event("evt_001", "target_sale"),
+        _base_event("evt_002", "nda", actor_ids=["party_a"]),
+        _base_event("evt_003", "nda", actor_ids=["party_b"]),
+        _base_event("evt_004", "final_round_ann", invited_actor_ids=["party_a"]),
+        _base_event("evt_005", "final_round"),
+        _base_event(
+            "evt_006",
+            "drop",
+            actor_ids=["party_b"],
+            drop_reason_text=(
+                "Party B could not improve its offer and the Committee determined not to include "
+                "Party B in the final round"
+            ),
+        ),
+    ]
+    _write_multi_bidder_enrich_core_fixture(
+        tmp_path,
+        events=events,
+        actor_ids=["party_a", "party_b"],
+    )
+    _write_gate_artifacts(tmp_path)
+
+    run_enrich_core("imprivata", project_root=tmp_path)
+    artifact = _read_deterministic_enrichment(tmp_path)
+
+    assert artifact["dropout_classifications"] == {}
+
+
+def test_drop_target_not_classified_when_no_round_context(tmp_path: Path) -> None:
+    events = [
+        _base_event("evt_001", "target_sale"),
+        _base_event("evt_002", "nda", actor_ids=["party_a"]),
+        _base_event("evt_003", "nda", actor_ids=["party_b"]),
+        _base_event(
+            "evt_004",
+            "drop",
+            actor_ids=["party_b"],
+            drop_reason_text="Party B was no longer participating in the process",
+        ),
+    ]
+    _write_multi_bidder_enrich_core_fixture(
+        tmp_path,
+        events=events,
+        actor_ids=["party_a", "party_b"],
+    )
+    _write_gate_artifacts(tmp_path)
+
+    run_enrich_core("imprivata", project_root=tmp_path)
+    artifact = _read_deterministic_enrichment(tmp_path)
+
+    assert artifact["dropout_classifications"] == {}
+
+
+def test_drop_target_sparse_output_only_contains_classified_events(tmp_path: Path) -> None:
+    events = [
+        _base_event("evt_001", "target_sale"),
+        _base_event("evt_002", "nda", actor_ids=["party_a"]),
+        _base_event("evt_003", "nda", actor_ids=["party_b"]),
+        _base_event("evt_004", "nda", actor_ids=["party_c"]),
+        _base_event("evt_005", "final_round_ann", invited_actor_ids=["party_a", "party_c"]),
+        _base_event("evt_006", "final_round"),
+        _base_event(
+            "evt_007",
+            "drop",
+            actor_ids=["party_b"],
+            drop_reason_text="Party B was no longer participating in the process",
+        ),
+        _base_event(
+            "evt_008",
+            "drop",
+            actor_ids=["party_a"],
+            drop_reason_text="Party A would not continue in the process",
+        ),
+        _base_event(
+            "evt_009",
+            "drop",
+            actor_ids=["party_c"],
+            drop_reason_text="Party C was unable to proceed with the transaction",
+        ),
+    ]
+    _write_multi_bidder_enrich_core_fixture(
+        tmp_path,
+        events=events,
+        actor_ids=["party_a", "party_b", "party_c"],
+    )
+    _write_gate_artifacts(tmp_path)
+
+    run_enrich_core("imprivata", project_root=tmp_path)
+    artifact = _read_deterministic_enrichment(tmp_path)
+
+    assert set(artifact["dropout_classifications"]) == {"evt_007"}
+
+
+def test_drop_target_empty_when_all_drops_bidder_initiated(tmp_path: Path) -> None:
+    events = [
+        _base_event("evt_001", "target_sale"),
+        _base_event("evt_002", "nda", actor_ids=["party_a"]),
+        _base_event("evt_003", "nda", actor_ids=["party_b"]),
+        _base_event("evt_004", "final_round_ann", invited_actor_ids=["party_a"]),
+        _base_event("evt_005", "final_round"),
+        _base_event(
+            "evt_006",
+            "drop",
+            actor_ids=["party_b"],
+            drop_reason_text="Party B could not improve its proposal",
+        ),
+        _base_event(
+            "evt_007",
+            "drop",
+            actor_ids=["party_a"],
+            drop_reason_text="Party A would not continue in the process",
+        ),
+    ]
+    _write_multi_bidder_enrich_core_fixture(
+        tmp_path,
+        events=events,
+        actor_ids=["party_a", "party_b"],
+    )
+    _write_gate_artifacts(tmp_path)
+
+    run_enrich_core("imprivata", project_root=tmp_path)
+    artifact = _read_deterministic_enrichment(tmp_path)
+
+    assert artifact["dropout_classifications"] == {}
+
+
+def test_all_cash_inferred_when_executed_event_is_cash(tmp_path: Path) -> None:
+    events = [
+        _base_event("evt_001", "target_sale"),
+        _base_event("evt_002", "nda", actor_ids=["party_a"]),
+        _base_event(
+            "evt_003",
+            "proposal",
+            actor_ids=["party_a"],
+            terms={
+                "per_share": 25.0,
+                "range_low": None,
+                "range_high": None,
+                "enterprise_value": None,
+                "consideration_type": "cash",
+            },
+        ),
+        _base_event("evt_004", "proposal", actor_ids=["party_a"], terms=None),
+        _base_event(
+            "evt_005",
+            "executed",
+            actor_ids=["party_a"],
+            executed_with_actor_id="party_a",
+            terms={
+                "per_share": 26.0,
+                "range_low": None,
+                "range_high": None,
+                "enterprise_value": None,
+                "consideration_type": "cash",
+            },
+        ),
+    ]
+    _write_enrich_core_fixture(tmp_path, events_override=events)
+    _write_gate_artifacts(tmp_path)
+
+    run_enrich_core("imprivata", project_root=tmp_path)
+    artifact = _read_deterministic_enrichment(tmp_path)
+
+    assert artifact["all_cash_overrides"] == {"evt_004": True}
+
+
+def test_all_cash_inferred_when_all_typed_proposals_are_cash(tmp_path: Path) -> None:
+    events = [
+        _base_event("evt_001", "target_sale"),
+        _base_event("evt_002", "nda", actor_ids=["party_a"]),
+        _base_event(
+            "evt_003",
+            "proposal",
+            actor_ids=["party_a"],
+            terms={
+                "per_share": 25.0,
+                "range_low": None,
+                "range_high": None,
+                "enterprise_value": None,
+                "consideration_type": "cash",
+            },
+        ),
+        _base_event("evt_004", "proposal", actor_ids=["party_a"], terms=None),
+    ]
+    _write_enrich_core_fixture(tmp_path, events_override=events)
+    _write_gate_artifacts(tmp_path)
+
+    run_enrich_core("imprivata", project_root=tmp_path)
+    artifact = _read_deterministic_enrichment(tmp_path)
+
+    assert artifact["all_cash_overrides"] == {"evt_004": True}
+
+
+def test_all_cash_not_inferred_when_any_proposal_is_mixed(tmp_path: Path) -> None:
+    events = [
+        _base_event("evt_001", "target_sale"),
+        _base_event("evt_002", "nda", actor_ids=["party_a"]),
+        _base_event(
+            "evt_003",
+            "proposal",
+            actor_ids=["party_a"],
+            terms={
+                "per_share": 25.0,
+                "range_low": None,
+                "range_high": None,
+                "enterprise_value": None,
+                "consideration_type": "cash",
+            },
+        ),
+        _base_event(
+            "evt_004",
+            "proposal",
+            actor_ids=["party_a"],
+            terms={
+                "per_share": 26.0,
+                "range_low": None,
+                "range_high": None,
+                "enterprise_value": None,
+                "consideration_type": "mixed",
+            },
+        ),
+        _base_event("evt_005", "proposal", actor_ids=["party_a"], terms=None),
+    ]
+    _write_enrich_core_fixture(tmp_path, events_override=events)
+    _write_gate_artifacts(tmp_path)
+
+    run_enrich_core("imprivata", project_root=tmp_path)
+    artifact = _read_deterministic_enrichment(tmp_path)
+
+    assert artifact["all_cash_overrides"] == {}
+
+
+def test_all_cash_not_inferred_for_proposals_with_explicit_type(tmp_path: Path) -> None:
+    events = [
+        _base_event("evt_001", "target_sale"),
+        _base_event("evt_002", "nda", actor_ids=["party_a"]),
+        _base_event(
+            "evt_003",
+            "proposal",
+            actor_ids=["party_a"],
+            terms={
+                "per_share": 25.0,
+                "range_low": None,
+                "range_high": None,
+                "enterprise_value": None,
+                "consideration_type": "cash",
+            },
+        ),
+        _base_event("evt_004", "proposal", actor_ids=["party_a"], terms=None),
+        _base_event(
+            "evt_005",
+            "executed",
+            actor_ids=["party_a"],
+            executed_with_actor_id="party_a",
+            terms={
+                "per_share": 26.0,
+                "range_low": None,
+                "range_high": None,
+                "enterprise_value": None,
+                "consideration_type": "cash",
+            },
+        ),
+    ]
+    _write_enrich_core_fixture(tmp_path, events_override=events)
+    _write_gate_artifacts(tmp_path)
+
+    run_enrich_core("imprivata", project_root=tmp_path)
+    artifact = _read_deterministic_enrichment(tmp_path)
+
+    assert "evt_003" not in artifact["all_cash_overrides"]
+    assert artifact["all_cash_overrides"]["evt_004"] is True
+
+
+def test_all_cash_cycle_local_not_crossing_restart(tmp_path: Path) -> None:
+    events = [
+        _base_event("evt_001", "target_sale"),
+        _base_event("evt_002", "nda", actor_ids=["party_a"]),
+        _base_event("evt_003", "proposal", actor_ids=["party_a"], terms=None),
+        _base_event(
+            "evt_004",
+            "executed",
+            actor_ids=["party_a"],
+            executed_with_actor_id="party_a",
+            terms={
+                "per_share": 26.0,
+                "range_low": None,
+                "range_high": None,
+                "enterprise_value": None,
+                "consideration_type": "cash",
+            },
+        ),
+        _base_event("evt_005", "restarted"),
+        _base_event("evt_006", "proposal", actor_ids=["party_a"], terms=None),
+    ]
+    _write_enrich_core_fixture(tmp_path, events_override=events)
+    _write_gate_artifacts(tmp_path)
+
+    run_enrich_core("imprivata", project_root=tmp_path)
+    artifact = _read_deterministic_enrichment(tmp_path)
+
+    assert artifact["all_cash_overrides"] == {"evt_003": True}
+
+
+def test_all_cash_not_inferred_providence_worcester_guardrail(tmp_path: Path) -> None:
+    events = [_base_event("evt_001", "target_sale"), _base_event("evt_002", "nda", actor_ids=["party_a"])]
+    for idx in range(3, 13):
+        terms = None
+        if idx == 3:
+            terms = {
+                "per_share": 25.0,
+                "range_low": None,
+                "range_high": None,
+                "enterprise_value": None,
+                "consideration_type": "cash",
+            }
+        events.append(
+            _base_event(
+                f"evt_{idx:03d}",
+                "proposal",
+                actor_ids=["party_a"],
+                terms=terms,
+            )
+        )
+    events.append(
+        _base_event(
+            "evt_013",
+            "executed",
+            actor_ids=["party_a"],
+            executed_with_actor_id="party_a",
+            terms={
+                "per_share": 26.0,
+                "range_low": None,
+                "range_high": None,
+                "enterprise_value": None,
+                "consideration_type": None,
+            },
+        )
+    )
+    _write_enrich_core_fixture(tmp_path, events_override=events)
+    _write_gate_artifacts(tmp_path)
+
+    run_enrich_core("imprivata", project_root=tmp_path)
+    artifact = _read_deterministic_enrichment(tmp_path)
+
+    assert artifact["all_cash_overrides"] == {}

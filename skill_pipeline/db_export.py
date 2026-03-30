@@ -168,7 +168,7 @@ def _query_enrichment(con, deal_slug: str) -> dict[str, dict[str, Any]]:
         "bid_rule_applied",
         "bid_basis",
     ]
-    for optional_column in ("c1", "c2", "c3", "review_flags"):
+    for optional_column in ("all_cash_override", "c1", "c2", "c3", "review_flags"):
         if optional_column in columns:
             selected_columns.append(optional_column)
     rows = _fetch_dicts(
@@ -300,7 +300,13 @@ def _format_event_row(
     value = _format_number(event.get("terms_per_share"))
     range_value = _range_value(event)
     date_r, date_p = _format_dates(event)
-    cash_value = "1" if event.get("terms_consideration_type") == "cash" else "NA"
+    all_cash_override = enrichment_row.get("all_cash_override") if enrichment_row else None
+    if all_cash_override is True:
+        cash_value = "1"
+    elif event.get("terms_consideration_type") == "cash":
+        cash_value = "1"
+    else:
+        cash_value = "NA"
     review_flags = _optional_enrichment_value(enrichment_row, "review_flags")
     return [
         bidder_id,

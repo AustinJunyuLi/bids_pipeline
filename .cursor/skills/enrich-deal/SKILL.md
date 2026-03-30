@@ -1,6 +1,6 @@
 ---
 name: enrich-deal
-description: Use when enriching verified skill extraction artifacts with bid classification, cycle structure, initiation judgment, and advisory or count review.
+description: Use when enriching verified extraction artifacts with interpretive dropout labels, initiation judgment, advisory verification, and count reconciliation.
 ---
 
 # enrich-deal
@@ -9,28 +9,37 @@ description: Use when enriching verified skill extraction artifacts with bid cla
 
 1. The filing is the single source of truth. Every judgment must cite verbatim
    filing text.
-2. Classification rules have strict priority order. Do not skip or reorder.
+2. Deterministic enrichment is authoritative for bid_classifications, rounds,
+   cycles, formal_boundary, sparse DropTarget labels, and all_cash_overrides.
+   This skill fills interpretive gaps that require filing reading comprehension.
 3. Diagnostic outputs (count reconciliation) never alter data.
-4. Facts come from extract-deal. Judgments come from this skill.
+4. Facts come from extract-deal. Deterministic classifications come from
+   enrich-core. Interpretive judgments come from this skill.
 
 ## Purpose
 
-Analyze what the extracted facts mean. Classify bids, segment cycles, determine
-initiation, verify advisory links. This is where reading comprehension matters
-most.
+Provide the interpretive enrichment layer that deterministic rules cannot.
+Classify dropout reasons that require reading the filing narrative, judge who
+initiated the sale process, verify advisory attribution links, and reconcile
+filing count assertions against extracted totals.
 
 ## When To Use
 
-- Called by deal-agent after verify-extraction, or independently via
+- This skill is a **mandatory pipeline gate**. It runs after
+  `skill-pipeline enrich-core` and before `skill-pipeline db-load` /
+  `skill-pipeline db-export`. Do not skip.
+- Called by deal-agent as a required step, or independently via
   `/enrich-deal <slug>`.
 - Prerequisite: verified `actors_raw.json` and `events_raw.json` exist in
-  `data/skill/<slug>/extract/`.
+  `data/skill/<slug>/extract/`, and `deterministic_enrichment.json` exists in
+  `data/skill/<slug>/enrich/`.
 
-**Deterministic core:** Run `skill-pipeline enrich-core --deal <slug>` first.
-This writes `enrich/deterministic_enrichment.json` with `rounds`,
-`bid_classifications`, `cycles`, and `formal_boundary`. Residual bid
-classification is `Uncertain`, not forced `Informal`. The interpretive remainder
-(initiation, advisory verification, count reconciliation) stays in this skill.
+**Deterministic baseline:** Run `skill-pipeline enrich-core --deal <slug>`
+first. It writes `enrich/deterministic_enrichment.json` with six sections:
+`rounds`, `bid_classifications`, `cycles`, `formal_boundary`,
+`dropout_classifications` (sparse DropTarget labels only), and
+`all_cash_overrides`. This skill reads that baseline and adds what deterministic
+rules cannot produce.
 
 ## Benchmark Boundary
 
@@ -47,25 +56,30 @@ Benchmark comparison is post-export only and read-only.
 | File | What it provides |
 |---|---|
 | `data/skill/<slug>/extract/actors_raw.json` | Verified actor roster with roles, advisory links, count_assertions |
-| `data/skill/<slug>/extract/events_raw.json` | Verified event timeline with evidence_refs, terms, formality_signals |
+| `data/skill/<slug>/extract/events_raw.json` | Verified event timeline with quote_ids, terms, formality_signals |
+| `data/skill/<slug>/enrich/deterministic_enrichment.json` | Deterministic baseline: rounds, bid_classifications, cycles, formal_boundary, dropout_classifications (sparse DropTarget), all_cash_overrides |
 | `data/deals/<slug>/source/chronology_blocks.jsonl` | Narrative blocks for rereading filing context |
 | `data/deals/<slug>/source/evidence_items.jsonl` | Pre-tagged evidence anchors |
 | `raw/<slug>/filings/*.txt` | Frozen filing text for verbatim citation |
 
 ## Enrichment Tasks
 
-All 8 tasks must be completed in this order. Do not skip any task. Do not
-reorder. Tasks 1-2 depend on Task 3's output, so compute Task 3 first even
-though it appears third in the output schema.
-
-**Execution order: 3 -> 4 -> 5 -> 1 -> 2 -> 6 -> 7 -> 8.**
+All 4 tasks must be completed. No internal ordering dependency.
 
 ---
 
-### Task 1: Dropout Classification
+### Task 1: Interpretive Dropout Classification
 
-For each `drop` event in events_raw.json, read `drop_reason_text` and the full
-event history for that actor. Classify into exactly one of 5 labels:
+**Scope:** Classify drop events that `enrich-core` did NOT already label as
+DropTarget. Read `deterministic_enrichment.json` first. For each `drop` event
+in events_raw.json:
+
+- If the event_id already appears in `deterministic_enrichment.json`'s
+  `dropout_classifications` with label `DropTarget`, **do not override it**.
+  Skip this event.
+- If the event_id is NOT in the deterministic dropout_classifications, read
+  `drop_reason_text` and the full event history for that actor. Classify into
+  exactly one of 4 labels:
 
 | Label | Condition |
 |---|---|
@@ -73,14 +87,6 @@ event history for that actor. Classify into exactly one of 5 labels:
 | `DropBelowM` | Filing says the valuation was below market or trading price. Use filing language only. If the filing does not explicitly mention a market-price comparison, classify as `Drop` and add `dropout_needs_market_data:evt_XXX` to review_flags. |
 | `DropBelowInf` | Filing says the valuation was below the bidder's earlier informal bid. Verify by comparing the drop event's value (if stated) against the actor's extracted proposal values from earlier events. If no prior proposal is extracted for this actor, classify as `Drop` and flag. |
 | `DropAtInf` | Filing says the valuation was at the bidder's earlier informal bid (no improvement). Verify by comparing against the actor's extracted proposal values from earlier events. If no prior proposal is extracted for this actor, classify as `Drop` and flag. |
-| `DropTarget` | Target excluded the bidder from continuing (did not invite to next round). The filing must indicate target-initiated exclusion, not bidder-initiated withdrawal. |
-
-**DropTarget directionality:** DropTarget requires the TARGET to initiate
-exclusion without the bidder first signaling withdrawal. If the sequence is:
-(1) bidder says it cannot improve its bid, then (2) target confirms
-disinterest — classify based on the bidder's stated position (DropAtInf or
-DropBelowInf), not as DropTarget. DropTarget applies only when the target
-proactively excludes a bidder who has not signaled withdrawal.
 
 **DropBelowM rule:** Use filing language only. Do not infer market-price
 comparisons from external data. If the filing says something like "below the
@@ -101,107 +107,7 @@ review_flags.
 
 ---
 
-### Task 2: Bid Classification (Formal/Informal)
-
-For each `proposal` event in events_raw.json, apply classification rules in
-strict priority order. First matching rule wins. Do not skip to a later rule
-if an earlier rule matches.
-
-| Priority | Rule | Label | Basis |
-|---|---|---|---|
-| 1 | Range bid (`contains_range=true`) OR explicit informal language: `mentions_indication_of_interest=true`, `mentions_preliminary=true`, or `mentions_non_binding=true` | `Informal` | Observable text signal from formality_signals |
-| 2 | Draft/marked-up agreement (`includes_draft_merger_agreement=true` or `includes_marked_up_agreement=true`) OR explicit binding offer (`mentions_binding_offer=true`) | `Formal` | Observable text signal from formality_signals |
-| 3 | Proposal follows a selective final round: `invited_actor_ids` is a strict subset of active bidders at that point in time | `Formal` | Round context + selectivity test |
-| 4 | Residual case: none of the above rules matched | `Uncertain` | Conflicting signals; do not force Informal |
-
-**Rule 3 selectivity test:**
-1. From the `rounds` output (Task 3), find the most recent round announcement
-   that precedes this proposal chronologically.
-2. Count active bidders at the time of that round announcement: actors who have
-   an NDA event and no prior drop event as of that date.
-3. Compare `active_bidders_at_time` to `len(invited_actor_ids)`.
-4. If `len(invited_actor_ids) < active_bidders_at_time`, the round is
-   selective, and this rule applies.
-
-**Fallback when invited_actor_ids is missing or incomplete:** If the round
-announcement event does not have `invited_actor_ids` populated, fall back to
-the post-announcement heuristic: check whether only a subset of previously
-active bidders submitted proposals after the announcement. This is weaker
-evidence. Apply the Formal label but add
-`bid_classification_uncertain:evt_XXX` to review_flags.
-
----
-
-### Task 3: Round Structure
-
-**This task must be computed BEFORE Tasks 1 and 2** because dropout
-classification and bid classification depend on round context.
-
-Pair each round announcement event with its corresponding deadline event.
-Round announcement types and their paired deadline types:
-
-| Announcement Type | Deadline Type |
-|---|---|
-| `final_round_inf_ann` | `final_round_inf` |
-| `final_round_ann` | `final_round` |
-| `final_round_ext_ann` | `final_round_ext` |
-
-For each paired round, record:
-
-- `announcement_event_id`: the event_id of the announcement event
-- `deadline_event_id`: the event_id of the deadline event (null if no
-  corresponding deadline was extracted)
-- `round_scope`: `formal`, `informal`, or `extension`, taken from the announcement
-  event's `round_scope` field (extension rounds use `final_round_ext_ann`/`final_round_ext`)
-- `invited_actor_ids`: from the announcement event (empty list if not
-  identifiable)
-- `active_bidders_at_time`: count of actors who have an NDA event and no prior
-  drop event as of the announcement date
-- `is_selective`: true when `len(invited_actor_ids) < active_bidders_at_time`
-  and `invited_actor_ids` is non-empty; false otherwise
-
----
-
-### Task 4: Cycle Segmentation
-
-Identify process cycles from `terminated` and `restarted` events:
-
-- **Single cycle:** No `terminated` or `restarted` events exist. The entire
-  event timeline is one cycle.
-- **Multi-cycle:** Each `terminated` event followed by a `restarted` event
-  defines a cycle boundary. The cycle before the termination is one cycle; the
-  cycle starting at the restart is the next.
-
-For each cycle, record:
-- `cycle_id`: `cycle_1`, `cycle_2`, etc.
-- `start_event_id`: first event in this cycle (first event overall for cycle_1,
-  restarted event_id for subsequent cycles)
-- `end_event_id`: last event in this cycle (terminated event_id, or final event
-  overall for the last cycle)
-- `boundary_basis`: verbatim filing text or description of what triggered the
-  boundary. For single-cycle deals, use `Single cycle -- no termination events`.
-
----
-
-### Task 5: Formal Boundary
-
-For each cycle, identify the first formal proposal. This is the event where the
-deal shifted from exploratory to serious.
-
-A proposal is formal if its bid classification (Task 2) is `Formal`.
-
-Record:
-- Key: the cycle_id (e.g., `cycle_1`)
-- `event_id`: the event_id of the first formal proposal in that cycle
-- `basis`: one-sentence explanation of why this is the formal boundary, citing
-  the classification rule that applied
-
-If a cycle has no formal proposals, record `event_id: null` and
-`basis: "No formal proposals in this cycle"`.
-
----
-
-### Task 6: Initiation Judgment
+### Task 2: Initiation Judgment
 
 Determine who started the sale process. Read the earliest events in the
 timeline and the surrounding filing narrative.
@@ -227,7 +133,7 @@ filing is ambiguous or contradictory and you are making an inference.
 
 ---
 
-### Task 7: Advisory Attribution Verification
+### Task 3: Advisory Attribution Verification
 
 For each actor with `role: "advisor"` in actors_raw.json:
 1. Read the `advised_actor_id` field.
@@ -245,7 +151,7 @@ For each actor with `role: "advisor"` in actors_raw.json:
 
 ---
 
-### Task 8: Count Reconciliation (Diagnostic Only)
+### Task 4: Count Reconciliation (Diagnostic Only)
 
 **This output is diagnostic. It never alters data. It informs review_flags.**
 
@@ -273,14 +179,16 @@ confirming the match.
 
 ## Writes
 
-- `data/skill/<slug>/enrich/deterministic_enrichment.json` — from
-  `skill-pipeline enrich-core` (rounds, bid_classifications, cycles, formal_boundary)
-- `data/skill/<slug>/enrich/enrichment.json` — full enrichment including
-  initiation_judgment, advisory_verification, count_reconciliation, review_flags
+- `data/skill/<slug>/enrich/enrichment.json` -- interpretive enrichment with
+  5 top-level keys: `dropout_classifications`, `initiation_judgment`,
+  `advisory_verification`, `count_reconciliation`, `review_flags`
+
+This skill does NOT write `deterministic_enrichment.json`. That file is
+produced by `skill-pipeline enrich-core` and is read-only input to this skill.
 
 ## JSON Format
 
-The output must contain all 8 sections. Use `event_id` keys (e.g., `evt_016`,
+The output must contain all 5 sections. Use `event_id` keys (e.g., `evt_016`,
 `evt_011`), NOT event_index or positional references.
 
 ```json
@@ -291,69 +199,10 @@ The output must contain all 8 sections. Use `event_id` keys (e.g., `evt_016`,
       "basis": "Party C's revised indication of $18.50 was below their earlier informal bid of $19.25",
       "source_text": "Party C submitted a revised indication..."
     },
-    "evt_023": {
-      "label": "DropTarget",
-      "basis": "Target did not invite Party D to the final round",
-      "source_text": "the Special Committee determined not to invite Party D..."
-    },
     "evt_025": {
       "label": "Drop",
       "basis": "Party E informed the Company it was no longer interested",
       "source_text": "On October 3, Party E informed representatives of the Company..."
-    }
-  },
-  "bid_classifications": {
-    "evt_011": {
-      "label": "Formal",
-      "rule_applied": 2,
-      "basis": "Proposal included marked-up merger agreement"
-    },
-    "evt_008": {
-      "label": "Informal",
-      "rule_applied": 1,
-      "basis": "Proposal described as preliminary indication of interest"
-    },
-    "evt_019": {
-      "label": "Formal",
-      "rule_applied": 3,
-      "basis": "Proposal submitted after selective final round (3 of 7 active bidders invited)"
-    },
-    "evt_022": {
-      "label": "Uncertain",
-      "rule_applied": null,
-      "basis": "Residual case; conflicting signals"
-    }
-  },
-  "rounds": [
-    {
-      "announcement_event_id": "evt_009",
-      "deadline_event_id": "evt_012",
-      "round_scope": "informal",
-      "invited_actor_ids": [],
-      "active_bidders_at_time": 8,
-      "is_selective": false
-    },
-    {
-      "announcement_event_id": "evt_014",
-      "deadline_event_id": "evt_018",
-      "round_scope": "formal",
-      "invited_actor_ids": ["bidder_sponsor_a", "bidder_sponsor_b", "bidder_thoma_bravo"],
-      "active_bidders_at_time": 5,
-      "is_selective": true
-    }
-  ],
-  "cycles": [
-    {
-      "cycle_id": "cycle_1",
-      "start_event_id": "evt_001",
-      "end_event_id": "evt_029",
-      "boundary_basis": "Single cycle -- no termination events"
-    }
-  ],
-  "formal_boundary": {
-    "cycle_1": {
-      "event_id": "evt_020",
-      "basis": "First formal proposal per Rule 2 (includes_draft_merger_agreement=true)"
     }
   },
   "initiation_judgment": {
@@ -390,23 +239,21 @@ The output must contain all 8 sections. Use `event_id` keys (e.g., `evt_016`,
   ],
   "review_flags": [
     "dropout_needs_market_data:evt_016",
-    "bid_classification_uncertain:evt_022",
     "advisory_mismatch:advisor_wachtell"
   ]
 }
 ```
 
+Note: `dropout_classifications` here contains ONLY events not already
+classified as DropTarget by `deterministic_enrichment.json`. Events with
+deterministic DropTarget labels are omitted from this output; db-load merges
+both sources.
+
 ### Field Reference
 
-- **dropout_classifications**: keyed by drop event_id. Every drop event must
-  have an entry.
-- **bid_classifications**: keyed by proposal event_id. Every proposal event
-  must have an entry.
-- **rounds**: ordered list of round pairs. May be empty if no round events
-  exist.
-- **cycles**: ordered list of cycles. Always at least one entry.
-- **formal_boundary**: keyed by cycle_id. Every cycle must have an entry (use
-  `event_id: null` if no formal proposals in that cycle).
+- **dropout_classifications**: keyed by drop event_id. Only events NOT already
+  classified as DropTarget by deterministic enrichment. Events with
+  deterministic DropTarget labels must not appear here.
 - **initiation_judgment**: single object. Always present.
 - **advisory_verification**: keyed by advisor actor_id. Every advisor actor
   must have an entry.
@@ -417,5 +264,6 @@ The output must contain all 8 sections. Use `event_id` keys (e.g., `evt_016`,
 
 ## Gate
 
-`enrichment.json` exists and contains all 8 top-level keys. Fail closed if
-any key is missing.
+`enrichment.json` exists and contains all 5 top-level keys:
+`dropout_classifications`, `initiation_judgment`, `advisory_verification`,
+`count_reconciliation`, `review_flags`. Fail closed if any key is missing.

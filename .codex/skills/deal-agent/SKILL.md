@@ -60,7 +60,7 @@ post-export only and read-only.
 | 3a | `gates` (deterministic) | `gates/gates_report.json` | Fail closed on blocker findings |
 | 4 | `verify-extraction` (LLM) | updated extraction files | Fail closed (stop on round-2 errors) |
 | 5 | `enrich-core` (deterministic) | `enrich/deterministic_enrichment.json` | Fail closed |
-| 6 | `enrich-deal` (LLM, optional) | `enrich/enrichment.json` | Fail closed |
+| 6 | `enrich-deal` (LLM, mandatory) | `enrich/enrichment.json` | Fail closed |
 | 6a | `db-load` (deterministic) | DuckDB `data/pipeline.duckdb` updated | Fail closed |
 | 6b | `db-export` (deterministic) | `export/deal_events.csv` | Fail closed |
 
@@ -146,13 +146,15 @@ post-export only and read-only.
    Gate: deterministic_enrichment.json exists.
 
 9. Run /enrich-deal <slug>
-   Gate: enrichment.json exists.
-   Optional: skip if only deterministic enrichment is needed.
+   Gate: enrichment.json exists and contains 5 required keys
+   (dropout_classifications, initiation_judgment, advisory_verification,
+   count_reconciliation, review_flags). This is a mandatory step.
 
 9a. Run `skill-pipeline db-load --deal <slug>`
     Gate: data/pipeline.duckdb exists and contains rows for this deal.
-    Note: Loads deterministic enrichment baseline. If enrichment.json exists
-    (from enrich-deal above), overlays dropout_classifications automatically.
+    Note: Requires both deterministic_enrichment.json and enrichment.json.
+    Loads deterministic enrichment baseline and overlays interpretive
+    dropout_classifications from enrichment.json.
 
 9b. Run `skill-pipeline db-export --deal <slug>`
     Gate: deal_events.csv exists and is non-empty.

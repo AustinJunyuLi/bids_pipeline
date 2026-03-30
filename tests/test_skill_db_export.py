@@ -16,6 +16,8 @@ from skill_pipeline.db_schema import open_pipeline_db
 from skill_pipeline.paths import build_skill_paths
 from tests.test_skill_db_load import (
     _default_actors,
+    _default_deterministic_enrichment,
+    _default_events,
     _resolved_date,
     _span,
     _write_canonical_fixture,
@@ -48,6 +50,16 @@ def _load_fixture(
 def _read_rows(path: Path) -> list[list[str]]:
     with path.open("r", newline="", encoding="utf-8") as handle:
         return list(csv.reader(handle))
+
+
+def _events_with_untyped_cash_proposal() -> list[dict]:
+    events = _default_events()
+    proposal = dict(events[1])
+    proposal_terms = dict(proposal["terms"])
+    proposal_terms["consideration_type"] = None
+    proposal["terms"] = proposal_terms
+    events[1] = proposal
+    return events
 
 
 def _hold_duckdb_write_lock(db_path: str, ready, release) -> None:
@@ -417,6 +429,79 @@ def test_run_db_export_requires_events_for_deal(tmp_path: Path) -> None:
 
     with pytest.raises(ValueError, match="No events found for deal 'imprivata'"):
         run_db_export("imprivata", project_root=tmp_path)
+
+
+def test_all_cash_override_produces_1_in_export(tmp_path: Path) -> None:
+    deterministic_enrichment = _default_deterministic_enrichment()
+    deterministic_enrichment["all_cash_overrides"] = {"evt_002": True}
+    output_path = _load_fixture(
+        tmp_path,
+        events=_events_with_untyped_cash_proposal(),
+        deterministic_enrichment=deterministic_enrichment,
+    )
+
+    run_db_export("imprivata", project_root=tmp_path)
+    rows = _read_rows(output_path)
+
+    proposal_rows = [row for row in rows[2:] if row[4] == "Formal"]
+    assert len(proposal_rows) == 1
+    assert proposal_rows[0][9] == "1"
+
+
+def test_all_cash_fallback_to_explicit_terms_when_no_override(tmp_path: Path) -> None:
+    output_path = _load_fixture(tmp_path)
+
+    run_db_export("imprivata", project_root=tmp_path)
+    rows = _read_rows(output_path)
+
+    proposal_rows = [row for row in rows[2:] if row[4] == "Formal"]
+    assert len(proposal_rows) == 1
+    assert proposal_rows[0][9] == "1"
+
+
+def test_all_cash_na_when_no_override_and_no_explicit_terms(tmp_path: Path) -> None:
+    output_path = _load_fixture(
+        tmp_path,
+        events=_events_with_untyped_cash_proposal(),
+    )
+
+    run_db_export("imprivata", project_root=tmp_path)
+    rows = _read_rows(output_path)
+
+    proposal_rows = [row for row in rows[2:] if row[4] == "Formal"]
+    assert len(proposal_rows) == 1
+    assert proposal_rows[0][9] == "NA"
+
+
+def test_drop_target_label_in_note_column(tmp_path: Path) -> None:
+    deterministic_enrichment = _default_deterministic_enrichment()
+    deterministic_enrichment["dropout_classifications"] = {
+        "evt_003": {
+            "label": "DropTarget",
+            "basis": "Bidder not invited to round.",
+            "source_text": "no longer participating",
+        }
+    }
+    output_path = _load_fixture(
+        tmp_path,
+        deterministic_enrichment=deterministic_enrichment,
+    )
+
+    run_db_export("imprivata", project_root=tmp_path)
+    rows = _read_rows(output_path)
+
+    drop_rows = [row for row in rows[2:] if row[1] == "DropTarget"]
+    assert len(drop_rows) == 1
+
+
+def test_drop_without_enrichment_shows_generic_drop(tmp_path: Path) -> None:
+    output_path = _load_fixture(tmp_path)
+
+    run_db_export("imprivata", project_root=tmp_path)
+    rows = _read_rows(output_path)
+
+    drop_rows = [row for row in rows[2:] if row[1] == "Drop"]
+    assert len(drop_rows) == 1
 
 
 def test_db_export_cli_subcommand_dispatches(tmp_path: Path) -> None:

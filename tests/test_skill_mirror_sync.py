@@ -89,3 +89,50 @@ def test_cursor_mirror_matches_canonical_extract_skill() -> None:
     assert canonical.read_bytes() == mirror.read_bytes(), (
         ".cursor extract-deal SKILL.md has drifted from .claude canonical"
     )
+
+
+def test_legacy_agents_skill_tree_is_absent() -> None:
+    """Only .claude is canonical; .codex/.cursor are mirrors; .agents is retired."""
+    legacy_tree = PROJECT_ROOT / ".agents" / "skills"
+    assert not legacy_tree.exists(), ".agents/skills should not exist in this repo"
+
+
+def test_canonical_extract_skill_contains_round_milestone_guidance() -> None:
+    """EXTRACT-01: Canonical skill doc includes round milestone event guidance."""
+    skill_path = PROJECT_ROOT / ".claude" / "skills" / "extract-deal" / "SKILL.md"
+    text = skill_path.read_text(encoding="utf-8")
+    assert "### Round Milestone Events" in text, (
+        "extract-deal SKILL.md must contain round milestone event guidance"
+    )
+    assert "final_round_inf_ann" in text
+    assert "invited_actor_ids" in text
+    assert "evt_017" in text, (
+        "round milestone guidance must include stec example"
+    )
+
+
+def test_canonical_extract_skill_contains_verbal_indication_guidance() -> None:
+    """EXTRACT-02: Canonical skill doc includes verbal/oral indication guidance."""
+    skill_path = PROJECT_ROOT / ".claude" / "skills" / "extract-deal" / "SKILL.md"
+    text = skill_path.read_text(encoding="utf-8")
+    assert "### Verbal/Oral Price Indications" in text, (
+        "extract-deal SKILL.md must contain verbal indication guidance"
+    )
+    assert "evt_013" in text, (
+        "verbal indication guidance must include mac-gray example"
+    )
+    assert "evt_005" in text, (
+        "verbal indication guidance must include penford example"
+    )
+
+
+def test_canonical_extract_skill_contains_nda_exclusion_guidance() -> None:
+    """EXTRACT-03: Canonical skill doc includes NDA exclusion guidance."""
+    skill_path = PROJECT_ROOT / ".claude" / "skills" / "extract-deal" / "SKILL.md"
+    text = skill_path.read_text(encoding="utf-8")
+    assert "### NDA Exclusion Guidance" in text, (
+        "extract-deal SKILL.md must contain NDA exclusion guidance"
+    )
+    assert "Rollover equity agreements" in text
+    assert "Bidder-bidder teaming agreements" in text
+    assert "Non-target diligence agreements" in text

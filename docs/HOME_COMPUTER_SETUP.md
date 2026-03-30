@@ -14,9 +14,11 @@ Benchmark materials are post-export only. Do not consult `example/`,
 ## Minimum Setup
 
 - Install a standalone CPython: `uv python install 3.13`
-- Create the local virtual environment: `uv venv --python 3.13 --managed-python --seed .venv`
-- Activate it in PowerShell: `.\.venv\Scripts\Activate.ps1`
+- Create a local virtual environment with a host-appropriate directory name: `uv venv --python 3.13 --managed-python --seed <local-venv-dir>`
+- Activate it according to your host shell.
 - Install the package in editable mode from the active venv: `python -m pip install -e .`
-- Use an EDGAR identity environment variable when running live SEC fetches.
+- Set `PIPELINE_SEC_IDENTITY` in your shell profile for live SEC fetches.
+- Keep `.env.local` for machine-local tooling or editor settings only.
+- If this checkout has `.claude/LOCAL.md`, treat it as the machine-local override for venv naming and shell-specific workflow details.
 - Keep generated artifacts under `data/skill/<slug>/` separate from read-only
   source inputs under `data/deals/<slug>/source/` and `raw/<slug>/`.

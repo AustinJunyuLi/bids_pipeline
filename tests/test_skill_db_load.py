@@ -82,8 +82,10 @@ def _write_canonical_fixture(
         json.dumps(deterministic_enrichment or _default_deterministic_enrichment()),
         encoding="utf-8",
     )
-    if enrichment is not None:
-        paths.enrichment_path.write_text(json.dumps(enrichment), encoding="utf-8")
+    paths.enrichment_path.write_text(
+        json.dumps(enrichment if enrichment is not None else _minimal_enrichment()),
+        encoding="utf-8",
+    )
     return paths.database_path
 
 
@@ -220,6 +222,10 @@ def _write_quote_first_fixture(tmp_path: Path, slug: str = "imprivata") -> None:
     paths.spans_path.write_text(json.dumps({"spans": []}), encoding="utf-8")
     paths.deterministic_enrichment_path.write_text(
         json.dumps(_default_deterministic_enrichment()),
+        encoding="utf-8",
+    )
+    paths.enrichment_path.write_text(
+        json.dumps(_minimal_enrichment()),
         encoding="utf-8",
     )
 
@@ -406,31 +412,10 @@ def _default_deterministic_enrichment() -> dict:
     }
 
 
-def _default_interpretive_enrichment() -> dict:
+def _minimal_enrichment() -> dict:
+    """Minimal enrichment.json with 5 required keys but no dropout data."""
     return {
-        "dropout_classifications": {
-            "evt_003": {
-                "label": "DropAtInf",
-                "basis": "Party A stayed at its earlier informal price.",
-                "source_text": "Party A declined to improve its proposal.",
-            }
-        },
-        "bid_classifications": {},
-        "rounds": [],
-        "cycles": [
-            {
-                "cycle_id": "cycle_1",
-                "start_event_id": "evt_001",
-                "end_event_id": "evt_004",
-                "boundary_basis": "Single cycle -- no termination events",
-            }
-        ],
-        "formal_boundary": {
-            "cycle_1": {
-                "event_id": "evt_002",
-                "basis": "First formal proposal in cycle_1.",
-            }
-        },
+        "dropout_classifications": {},
         "initiation_judgment": {
             "type": "target_driven",
             "basis": "The board initiated a sale review.",
@@ -441,6 +426,19 @@ def _default_interpretive_enrichment() -> dict:
         "count_reconciliation": [],
         "review_flags": [],
     }
+
+
+def _default_interpretive_enrichment() -> dict:
+    """Enrichment.json with interpretive dropout classifications."""
+    base = _minimal_enrichment()
+    base["dropout_classifications"] = {
+        "evt_003": {
+            "label": "DropAtInf",
+            "basis": "Party A stayed at its earlier informal price.",
+            "source_text": "Party A declined to improve its proposal.",
+        }
+    }
+    return base
 
 
 def _resolved_date(raw_text: str | None, sort_date: str | None, precision: str) -> dict:
@@ -731,7 +729,16 @@ def test_run_db_load_requires_deterministic_enrichment(tmp_path: Path) -> None:
         run_db_load("imprivata", project_root=tmp_path)
 
 
-def test_run_db_load_leaves_dropout_columns_null_without_overlay(tmp_path: Path) -> None:
+def test_run_db_load_requires_enrichment(tmp_path: Path) -> None:
+    _write_canonical_fixture(tmp_path)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    paths.enrichment_path.unlink()
+
+    with pytest.raises(FileNotFoundError, match="enrichment.json"):
+        run_db_load("imprivata", project_root=tmp_path)
+
+
+def test_run_db_load_leaves_dropout_columns_null_with_minimal_enrichment(tmp_path: Path) -> None:
     db_path = _write_canonical_fixture(tmp_path)
     run_db_load("imprivata", project_root=tmp_path)
 
@@ -772,6 +779,114 @@ def test_run_db_load_overlays_dropout_classification_when_present(tmp_path: Path
         "DropAtInf",
         "Party A stayed at its earlier informal price.",
     )
+
+
+def test_run_db_load_loads_deterministic_dropout_classifications(tmp_path: Path) -> None:
+    enrichment_data = _default_deterministic_enrichment()
+    enrichment_data["dropout_classifications"] = {
+        "evt_003": {
+            "label": "DropTarget",
+            "basis": "Bidder active but not in invited_actor_ids for round.",
+            "source_text": "Party A was no longer participating.",
+        }
+    }
+    db_path = _write_canonical_fixture(
+        tmp_path,
+        deterministic_enrichment=enrichment_data,
+    )
+
+    run_db_load("imprivata", project_root=tmp_path)
+
+    con = open_pipeline_db(db_path, read_only=True)
+    row = con.execute(
+        "SELECT dropout_label, dropout_basis FROM enrichment WHERE deal_slug = ? AND event_id = ?",
+        ["imprivata", "evt_003"],
+    ).fetchone()
+    con.close()
+
+    assert row[0] == "DropTarget"
+    assert "invited_actor_ids" in row[1]
+
+
+def test_run_db_load_deterministic_dropout_overlaid_by_interpretive(tmp_path: Path) -> None:
+    enrichment_data = _default_deterministic_enrichment()
+    enrichment_data["dropout_classifications"] = {
+        "evt_003": {
+            "label": "DropTarget",
+            "basis": "Bidder active but not in invited_actor_ids for round.",
+            "source_text": "Party A was no longer participating.",
+        }
+    }
+    db_path = _write_canonical_fixture(
+        tmp_path,
+        deterministic_enrichment=enrichment_data,
+        enrichment=_default_interpretive_enrichment(),
+    )
+
+    run_db_load("imprivata", project_root=tmp_path)
+
+    con = open_pipeline_db(db_path, read_only=True)
+    row = con.execute(
+        "SELECT dropout_label, dropout_basis FROM enrichment WHERE deal_slug = ? AND event_id = ?",
+        ["imprivata", "evt_003"],
+    ).fetchone()
+    con.close()
+
+    assert row == (
+        "DropAtInf",
+        "Party A stayed at its earlier informal price.",
+    )
+
+
+def test_run_db_load_loads_all_cash_overrides(tmp_path: Path) -> None:
+    enrichment_data = _default_deterministic_enrichment()
+    enrichment_data["all_cash_overrides"] = {"evt_002": True}
+    db_path = _write_canonical_fixture(
+        tmp_path,
+        deterministic_enrichment=enrichment_data,
+    )
+
+    run_db_load("imprivata", project_root=tmp_path)
+
+    con = open_pipeline_db(db_path, read_only=True)
+    row = con.execute(
+        "SELECT all_cash_override FROM enrichment WHERE deal_slug = ? AND event_id = ?",
+        ["imprivata", "evt_002"],
+    ).fetchone()
+    con.close()
+
+    assert row[0] is True
+
+
+def test_run_db_load_all_cash_override_null_when_not_in_overrides(tmp_path: Path) -> None:
+    db_path = _write_canonical_fixture(tmp_path)
+
+    run_db_load("imprivata", project_root=tmp_path)
+
+    con = open_pipeline_db(db_path, read_only=True)
+    row = con.execute(
+        "SELECT all_cash_override FROM enrichment WHERE deal_slug = ? AND event_id = ?",
+        ["imprivata", "evt_002"],
+    ).fetchone()
+    con.close()
+
+    assert row[0] is None
+
+
+def test_run_db_load_backward_compatible_without_new_enrichment_keys(tmp_path: Path) -> None:
+    db_path = _write_canonical_fixture(tmp_path)
+
+    run_db_load("imprivata", project_root=tmp_path)
+
+    con = open_pipeline_db(db_path, read_only=True)
+    rows = con.execute(
+        "SELECT event_id, all_cash_override FROM enrichment WHERE deal_slug = ?",
+        ["imprivata"],
+    ).fetchall()
+    con.close()
+
+    assert len(rows) > 0
+    assert all(row[1] is None for row in rows)
 
 
 def test_db_load_cli_subcommand_dispatches(tmp_path: Path) -> None:

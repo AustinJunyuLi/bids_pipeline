@@ -13,7 +13,7 @@ It has two distinct parts:
 - `skill_pipeline/`: the only active Python package and the only installed CLI
   in this worktree
 - local-agent workflow documents under `.claude/skills/`: the canonical
-  instructions for extraction, repair, and optional interpretive enrichment
+  instructions for extraction, repair, and interpretive enrichment
 
 LLM-driven stages are orchestrated by a local agent working against repository artifacts
 and skill instructions. Keep that orchestration agent-agnostic.
@@ -38,6 +38,16 @@ Important non-authorities unless explicitly updated to match the code:
 
 `.claude/skills/` is the canonical workflow tree. `.codex/skills/` and
 `.cursor/skills/` are derived mirrors and should be synced from `.claude/skills/`.
+
+## Local Machine Notes
+
+If `.claude/LOCAL.md` exists, read it immediately after this file before taking
+action. It is a git-ignored workstation note for machine-local setup details
+such as virtualenv naming, shell activation, and editor or tool integration.
+
+Do not promote `.claude/LOCAL.md` content into repository-wide facts unless the
+user explicitly wants that policy documented for everyone.
+`.agents/skills/` is retired in this repo and should not be recreated.
 
 ## Runtime Split
 
@@ -195,18 +205,14 @@ database is a single multi-deal file keyed by `(deal_slug, <entity_id>)`.
 
 `db-load` uses two-tier enrichment loading:
 
-- `deterministic_enrichment.json` (required) — bid classifications, rounds, cycles
-- `enrichment.json` (optional) — dropout classifications overlaid when present
+- `deterministic_enrichment.json` (required) -- bid classifications, rounds, cycles, dropout_classifications (sparse DropTarget), all_cash_overrides
+- `enrichment.json` (required) -- interpretive dropout classifications overlaid on deterministic baseline
 
 `skill-pipeline db-export --deal <slug>` writes:
 
 - `data/skill/<slug>/export/deal_events.csv`
 
 The CSV is generated from DuckDB queries, not from JSON artifacts.
-
-Optional later-stage artifacts written by local-agent workflows:
-
-- `data/skill/<slug>/enrich/enrichment.json`
 
 ## End-To-End Flow
 
@@ -228,9 +234,9 @@ data/seeds.csv
   -> skill-pipeline gates --deal <slug>
   -> /verify-extraction <slug>        (only if deterministic findings are repairable)
   -> skill-pipeline enrich-core --deal <slug>
+  -> /enrich-deal <slug>              (mandatory interpretive enrichment)
   -> skill-pipeline db-load --deal <slug>
   -> skill-pipeline db-export --deal <slug>
-  -> /enrich-deal <slug>              (optional interpretive layer; rerun db-load/db-export if overlay should reach DuckDB/CSV)
   -> /reconcile-alex <slug>           (optional post-export diagnostic)
 ```
 
@@ -248,8 +254,9 @@ data/seeds.csv
 - `check`, `verify`, and `coverage` are blocker gates before `enrich-core`.
 - `gates` is a blocker gate before `enrich-core`. Semantic findings with
   severity `blocker` prevent enrichment.
-- `db-load` requires canonical extract artifacts with `spans.json` and
-  `deterministic_enrichment.json`. It refuses quote-first or incomplete data.
+- `db-load` requires canonical extract artifacts with `spans.json`,
+  `deterministic_enrichment.json`, and `enrichment.json`. It refuses
+  quote-first or incomplete data.
 - `db-export` generates CSV from DuckDB, not JSON artifacts. It is the only
   filing-grounded export boundary in this worktree.
 - `verify` only treats `EXACT` and `NORMALIZED` quote matches as passing.
@@ -287,6 +294,9 @@ access:
 
 Use `PIPELINE_SEC_IDENTITY` as the preferred setting when present.
 
+Keep `.env.local` for machine-local tooling, editor, or agent config only. Do
+not treat `.env.local` as the Python runtime contract.
+
 Do not document provider API keys or provider/model selector variables here as
 repository runtime facts. Agent-specific credentials, editor integrations, and
 external tool setup live outside the Python package contract.
@@ -295,8 +305,8 @@ external tool setup live outside the Python package contract.
 
 ```bash
 uv python install 3.13
-uv venv --python 3.13 --managed-python --seed .venv
-.\.venv\Scripts\Activate.ps1
+uv venv --python 3.13 --managed-python --seed <local-venv-dir>
+# activate according to your host shell or local workstation note
 
 python -m pip install -e .
 python -m pytest -q

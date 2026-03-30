@@ -18,6 +18,7 @@ def run_db_load(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> int:
         paths.events_raw_path,
         paths.spans_path,
         paths.deterministic_enrichment_path,
+        paths.enrichment_path,
     ]
     for path in required_paths:
         if not path.exists():
@@ -209,7 +210,41 @@ def _load_enrichment(con, deal_slug: str, paths) -> dict[str, Any]:
             "bid_label": classification["label"],
             "bid_rule_applied": classification.get("rule_applied"),
             "bid_basis": classification.get("basis"),
+            "all_cash_override": None,
         }
+
+    for event_id, classification in deterministic_data.get("dropout_classifications", {}).items():
+        row = rows_by_event_id.setdefault(
+            event_id,
+            {
+                "deal_slug": deal_slug,
+                "event_id": event_id,
+                "dropout_label": None,
+                "dropout_basis": None,
+                "bid_label": None,
+                "bid_rule_applied": None,
+                "bid_basis": None,
+                "all_cash_override": None,
+            },
+        )
+        row["dropout_label"] = classification["label"]
+        row["dropout_basis"] = classification.get("basis")
+
+    for event_id, override_value in deterministic_data.get("all_cash_overrides", {}).items():
+        row = rows_by_event_id.setdefault(
+            event_id,
+            {
+                "deal_slug": deal_slug,
+                "event_id": event_id,
+                "dropout_label": None,
+                "dropout_basis": None,
+                "bid_label": None,
+                "bid_rule_applied": None,
+                "bid_basis": None,
+                "all_cash_override": None,
+            },
+        )
+        row["all_cash_override"] = override_value
 
     if paths.enrichment_path.exists():
         interpretive_data = _read_json(paths.enrichment_path)
@@ -224,6 +259,7 @@ def _load_enrichment(con, deal_slug: str, paths) -> dict[str, Any]:
                     "bid_label": None,
                     "bid_rule_applied": None,
                     "bid_basis": None,
+                    "all_cash_override": None,
                 },
             )
             row["dropout_label"] = classification["label"]
@@ -238,6 +274,7 @@ def _load_enrichment(con, deal_slug: str, paths) -> dict[str, Any]:
             row["bid_label"],
             row["bid_rule_applied"],
             row["bid_basis"],
+            row["all_cash_override"],
         )
         for row in rows_by_event_id.values()
     ]
@@ -251,9 +288,10 @@ def _load_enrichment(con, deal_slug: str, paths) -> dict[str, Any]:
                 dropout_basis,
                 bid_label,
                 bid_rule_applied,
-                bid_basis
+                bid_basis,
+                all_cash_override
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             """,
             rows,
         )

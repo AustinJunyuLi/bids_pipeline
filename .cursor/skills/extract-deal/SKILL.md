@@ -157,6 +157,102 @@ tactic (consent solicitation, proxy fight) as a condition of joining the
 friendly process is NOT a `terminated` event. Note it in the NDA event's
 `notes` field instead.
 
+### Round Milestone Events
+
+The six round event types form announcement/deadline pairs within
+restart-delimited cycles:
+
+| Announcement | Deadline | Scope |
+|---|---|---|
+| `final_round_inf_ann` | `final_round_inf` | informal |
+| `final_round_ann` | `final_round` | formal |
+| `final_round_ext_ann` | `final_round_ext` | extension |
+
+Extract every filing reference to a round milestone. Do not invent new
+event types or new round fields beyond the existing schema.
+
+**Paired extraction:** When the filing describes both an announcement and
+a deadline for the same round, extract both events. The announcement
+event should precede the deadline event chronologically.
+
+**`invited_actor_ids`:** On announcement events (`final_round_inf_ann`,
+`final_round_ann`, `final_round_ext_ann`), populate `invited_actor_ids`
+when the filing names or clearly identifies which parties were invited.
+If the filing says "three parties were invited to submit final bids"
+without naming them, leave `invited_actor_ids` empty and note the count
+in the event summary.
+
+**`round_scope`:** Set to `"formal"` for `final_round_ann` /
+`final_round`, `"informal"` for `final_round_inf_ann` /
+`final_round_inf`, and leave implicit for extension types (the scope
+is inherited from the parent round).
+
+**Example (stec):**
+
+- `evt_017` (`final_round_ann`): "The Special Committee directed Morgan
+  Stanley to request Hynix and WDC to submit best and final offers by
+  September 22, 2009." `invited_actor_ids`: [bidder_hynix, bidder_wdc].
+  `round_scope`: "formal".
+- `evt_018` (`final_round`): Deadline date September 22, 2009.
+- `evt_021` (`final_round_ext_ann`): Extension round announced after
+  Hynix's revised offer. `invited_actor_ids`: [bidder_hynix, bidder_wdc].
+- `evt_022` (`final_round_ext`): Extension deadline.
+
+### Verbal/Oral Price Indications
+
+An oral or verbal whole-company bid with explicit economics is still a
+`proposal` event. "Oral" or "verbal" affects the event summary, notes,
+and formality signals; it does not make the event ineligible for
+extraction.
+
+Extract the event as `proposal` with:
+- `terms.per_share` or `terms.range_low`/`terms.range_high` populated
+  from the stated economics
+- `formality_signals` reflecting the informal nature (typically
+  `mentions_indication_of_interest: true` or
+  `mentions_preliminary: true`)
+- Event summary and notes noting the oral/verbal delivery
+
+**Boundary:** An oral or verbal remark without explicit price economics
+(e.g., "Party B expressed continued interest") is not a `proposal`. It
+may be a `bidder_interest` event or noted in an adjacent event's notes.
+
+**Examples:**
+
+- mac-gray `evt_013`: Party A orally indicated a revised price of $17.65
+  per share. Extracted as `proposal` with `terms.per_share: 17.65`.
+- mac-gray `evt_020`: Party A orally indicated a revised price of $18.50
+  per share. Extracted as `proposal` with `terms.per_share: 18.50`.
+- penford `evt_005`: Party D made an oral indication at $17.00 per
+  share. Extracted as `proposal` with `terms.per_share: 17.0`.
+
+### NDA Exclusion Guidance
+
+Only extract `nda` events for confidentiality agreements tied to the
+target sale-process diligence. The following agreement types are NOT
+`nda` events and should not be extracted as such:
+
+- **Rollover equity agreements:** Agreements where an existing
+  shareholder or management team agrees to roll equity into the
+  acquisition vehicle. These govern post-transaction participation, not
+  sale-process diligence access.
+- **Bidder-bidder teaming agreements:** Confidentiality agreements
+  between two potential bidders exploring a joint bid. These are
+  bilateral bidder arrangements, not target-granted diligence access.
+- **Non-target diligence agreements:** Agreements for diligence on
+  assets or entities other than the target (e.g., a bidder's own
+  subsidiary or a portfolio company).
+
+If the filing clearly ties a confidentiality agreement to target
+sale-process diligence access, even if the party later rolls equity or
+teams with another bidder, extract the NDA. The exclusion applies to
+agreements whose primary purpose is something other than target
+sale-process access.
+
+When the filing language is ambiguous about whether an agreement grants
+target diligence access, do not extract it as an `nda` event. Note it
+in `coverage_notes` with a `NOT FOUND` entry explaining the ambiguity.
+
 ### Pass 2 — Gap Re-Read (Always Runs)
 
 1. For each of the 20 event types, list extracted events or write

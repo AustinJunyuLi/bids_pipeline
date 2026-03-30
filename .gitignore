@@ -17,11 +17,14 @@ __pycache__/
 .env
 .env.*
 .env.local
+!.env.local.example
 .venv/
+.venv-*/
 .venv.linux-backup-*/
 
 # Local agent state
 .agents/
+.claude/LOCAL.md
 .claude/settings.json
 
 # Local git worktrees
