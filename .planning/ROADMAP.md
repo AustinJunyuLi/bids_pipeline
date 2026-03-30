@@ -3,14 +3,14 @@
 ## Milestones
 
 - **v1.0 Filing-Grounded Pipeline Redesign** -- Phases 1-5 (shipped 2026-03-28) -- [archive](milestones/v1.0-ROADMAP.md)
-- **v1.1 Reconciliation + Execution-Log Quality Fixes** -- Phases 6-9
+- **v1.1 Reconciliation + Execution-Log Quality Fixes** -- Phases 6-9 (complete 2026-03-30)
 
 ## Phases
 
 - [x] **Phase 6: Deterministic Hardening** - Fix runtime walls from 7-deal rerun: mixed-schema loader guard, canonicalize collisions, gates+coverage rollover-CA tolerance, DuckDB lock retry (HARD-02/03 already satisfied)
 - [x] **Phase 7: bid_type Rule Priority** - Fix highest-impact enrichment bug: final-round proposals misclassified as Informal across 5+ deals
 - [x] **Phase 8: Extraction Guidance + Enrichment Extensions** - Update skill docs for round milestones, verbal indications, NDA exclusion; add DropTarget classification and contextual all_cash inference
-- [ ] **Phase 9: Deal-Specific Fixes + Revalidation** - Fix Zep/Medivation extraction errors, re-extract affected deals, validate improved match rate across 9-deal corpus
+- [x] **Phase 9: Deal-Specific Fixes + Revalidation** - Fix Zep/Medivation extraction errors, re-extract affected deals, validate improved match rate across 9-deal corpus
 
 ## Phase Details
 
@@ -48,7 +48,7 @@ Plans:
   3. Extraction skill docs contain explicit NDA exclusion guidance that distinguishes rollover-side and non-target confidentiality agreements from sale-process NDAs
   4. Running `skill-pipeline enrich-core` on a deal with committee-driven field narrowing produces deterministic DropTarget dropout classifications from round invitation context while preserving bidder-withdrawal-first directionality
   5. Running `skill-pipeline enrich-core` on a deal where the executed event has explicit cash consideration propagates all_cash=true to proposals that lack explicit per-proposal mention, while deals with mixed consideration (e.g., cash+CVR) are not falsely tagged
-**Plans:** 1/3 plans executed
+**Plans:** 3/3 plans executed
 Plans:
 - [x] 08-01-PLAN.md -- Add round milestone, verbal indication, and NDA exclusion guidance to extraction skill docs
 - [x] 08-02-PLAN.md -- Add DropTarget classification and all_cash inference to enrich_core.py
@@ -81,7 +81,7 @@ Plans:
 | 6. Deterministic Hardening | v1.1 | 3/3 | Complete | 2026-03-29 |
 | 7. bid_type Rule Priority | v1.1 | 1/1 | Complete | 2026-03-30 |
 | 8. Extraction Guidance + Enrichment Extensions | v1.1 | 3/3 | Complete | 2026-03-30 |
-| 9. Deal-Specific Fixes + Revalidation | v1.1 | 3/3 | In Progress |   |
+| 9. Deal-Specific Fixes + Revalidation | v1.1 | 3/3 | Complete | 2026-03-30 |
 
 ---
 *Roadmap created: 2026-03-29*

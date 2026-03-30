@@ -77,10 +77,27 @@ elaborate extraction architecture.
 - ✓ bid_type classification evaluates process position before IOI language so
   final-round proposals are correctly classified as Formal — validated in
   Phase 7
+- ✓ extract-deal guidance now explicitly covers round milestones, verbal/oral
+  priced proposals, and NDA exclusions for non-sale-process agreements —
+  validated in Phase 8
+- ✓ deterministic enrichment now emits sparse `DropTarget` labels and
+  cycle-local `all_cash` overrides without mutating canonical extract
+  artifacts — validated in Phase 8
+- ✓ deterministic `all_cash` and deterministic dropout labels now flow through
+  DuckDB load/export to the CSV surface — validated in Phase 8
+- ✓ Zep rerun removed New Mountain Capital from the grouped 2014 proposal/drop
+  actor sets and regenerated the deterministic artifact chain through export —
+  validated in Phase 9
+- ✓ Medivation rerun restored filing-grounded proposal/drop coverage and
+  eliminated dangling `coverage_notes` event references without flattening the
+  bidder-round chronology — validated in Phase 9
+- ✓ 9-deal reconciliation rerun improved the corpus benchmark from
+  `70.3% (156/222)` to `70.7% (157/222)` atomic match rate and reduced
+  Alex-favored contradictions from `16` to `13` — validated in Phase 9
 
 ### Active
 
-(Defined in REQUIREMENTS.md for current milestone)
+None — v1.1 milestone requirements are fully validated after Phase 9.
 
 ### Out of Scope
 
@@ -127,11 +144,11 @@ export surface. A full deterministic 9-deal DB rerun still depends on upstream
 canonical extract plus deterministic enrichment artifacts for eight active
 deals.
 
-## Current Milestone: v1.1 Reconciliation + Execution-Log Quality Fixes
+## Current Milestone: v1.1 Reconciliation + Execution-Log Quality Fixes (Complete)
 
 **Goal:** Fix systematic pipeline bugs and close extraction/enrichment gaps
 identified by the 9-deal cross-deal reconciliation analysis and the 7-deal
-fresh-rerun execution logs.
+fresh-rerun execution logs. Completed on 2026-03-30.
 
 **Target features:**
 
@@ -162,22 +179,31 @@ Execution-log-driven fixes:
 
 ## Current State
 
-**v1.0 shipped 2026-03-28. Phase 6 shipped 2026-03-29. Phase 7 shipped
-2026-03-29.** All 9 deals now have
-complete pipeline artifacts through DuckDB export. The live runtime includes 12
-deterministic CLI stages (`source-discover`, `raw-fetch`,
+**v1.0 shipped 2026-03-28. v1.1 reached 100% completion on 2026-03-30.** All 9
+deals have complete pipeline artifacts through DuckDB export. The live runtime
+includes 12 deterministic CLI stages (`source-discover`, `raw-fetch`,
 `preprocess-source`, `compose-prompts`, `canonicalize`, `check`, `verify`,
 `coverage`, `gates`, `enrich-core`, `db-load`, `db-export`) plus 4 local-agent
-skills (`extract-deal`, `verify-extraction`, `enrich-deal`). Phase 6 hardened
-the shared extract loader, canonicalize quote-ID handling, non-sale NDA
-tolerance, and DuckDB lock retry behavior. 288 tests passing.
+skills (`extract-deal`, `verify-extraction`, `enrich-deal`,
+`reconcile-alex`). Phases 6-8 hardened mixed-schema loading, canonicalize
+quote-ID handling, non-sale NDA tolerance, DuckDB lock retry behavior, bid_type
+rule priority, extraction guidance for round milestones/verbal bids, and the
+deterministic `DropTarget` / `all_cash` path through DuckDB export. Phase 9
+then re-extracted Zep and Medivation end-to-end from extract through
+reconciliation, repairing Zep's grouped-actor contamination and Medivation's
+dangling `coverage_notes` event references. A targeted regression slice across
+skill mirror sync, enrichment, DB load, and DB export remained green (`79
+passed`).
 
-The 9-deal cross-deal reconciliation found the pipeline wins filing arbitrations
-45:16 vs Alex's hand-coded spreadsheet, but identified systematic enrichment
-bugs (bid_type rule priority), extraction errors (actor misattribution), and
-coverage gaps (round milestones, DropTarget events). The 7-deal fresh rerun
-logged runtime walls including duplicate quote_id collisions, coverage false
-positives, grouped NDA count assertion failures, and concurrent write corruption.
+The refreshed 9-deal cross-deal reconciliation now records 46
+pipeline-favored arbitrations versus 13 Alex-favored arbitrations, with 24
+inconclusive rows. Atomic match rate improved from `70.3% (156/222)` on
+2026-03-29 to `70.7% (157/222)` on 2026-03-30. The biggest correctness wins
+were removal of New Mountain Capital from Zep's grouped 2014 proposal/drop
+surface and restoration of Medivation drop-event coverage. A residual Zep
+attention item around thin dropout coverage / unmaterialized `evt_009` /
+`evt_011` references remains explicitly documented for any future follow-up
+phase.
 
 ## Constraints
 
@@ -232,4 +258,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-29 — Phase 7 complete; Phase 8 next*
+*Last updated: 2026-03-30 — Phase 9 complete; v1.1 ready for milestone archival*
