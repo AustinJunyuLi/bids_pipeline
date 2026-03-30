@@ -147,9 +147,10 @@ current preprocess output in this worktree.
 - `data/skill/<slug>/prompt/packets/<packet-id>/body.md`
 - `data/skill/<slug>/prompt/packets/<packet-id>/rendered.md`
 
-Use `--mode actors` for actor extraction packets, `--mode events` for event
-extraction packets (requires `actors_raw.json`), or `--mode all` for actor
-packets only (event packets require a separate call after actor extraction).
+Use `--mode actors` before `/extract-deal` for actor extraction packets. After
+actor extraction creates `actors_raw.json`, rerun with `--mode events` for the
+event extraction pass. `--mode all` is only the actor-packet shortcut; event
+packets still require the separate `--mode events` call.
 
 ### Extract Outputs
 
@@ -319,7 +320,9 @@ skill-pipeline source-discover --deal imprivata
 skill-pipeline raw-fetch --deal imprivata
 skill-pipeline preprocess-source --deal imprivata
 
-skill-pipeline compose-prompts --deal imprivata
+skill-pipeline compose-prompts --deal imprivata --mode actors
+# after actor extraction creates actors_raw.json:
+skill-pipeline compose-prompts --deal imprivata --mode events
 
 skill-pipeline canonicalize --deal imprivata
 skill-pipeline check --deal imprivata

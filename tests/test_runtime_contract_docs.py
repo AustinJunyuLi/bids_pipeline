@@ -160,6 +160,39 @@ def test_claude_md_compose_prompts_before_extract_deal() -> None:
     )
 
 
+def test_design_md_enrich_deal_is_mandatory_gate_between_enrich_core_and_db_load() -> None:
+    text = _read(DESIGN_MD)
+    sequence_start = text.find("Operational sequence:")
+    artifact_start = text.find("Artifact flow:", sequence_start)
+    assert sequence_start != -1 and artifact_start != -1, (
+        "docs/design.md must include the operational sequence section"
+    )
+    sequence_text = text[sequence_start:artifact_start]
+    enrich_core_pos = sequence_text.find("skill-pipeline enrich-core --deal <slug>")
+    enrich_deal_pos = sequence_text.find("/enrich-deal <slug>")
+    db_load_pos = sequence_text.find("skill-pipeline db-load --deal <slug>")
+    db_export_pos = sequence_text.find("skill-pipeline db-export --deal <slug>")
+    assert -1 not in (enrich_core_pos, enrich_deal_pos, db_load_pos, db_export_pos), (
+        "docs/design.md must include enrich-core, /enrich-deal, db-load, and db-export"
+    )
+    assert enrich_core_pos < enrich_deal_pos < db_load_pos < db_export_pos, (
+        "docs/design.md must place /enrich-deal after enrich-core and before db-load"
+    )
+    assert "mandatory" in sequence_text[enrich_deal_pos:enrich_deal_pos + 80].lower(), (
+        "docs/design.md must mark /enrich-deal as mandatory in the operational sequence"
+    )
+
+
+def test_design_md_documents_split_enrichment_contract() -> None:
+    text = _read(DESIGN_MD)
+    assert "deterministic_enrichment.json" in text, (
+        "docs/design.md must mention deterministic_enrichment.json"
+    )
+    assert "interpretive `enrichment.json`" in text or "interpretive-only `enrichment.json`" in text, (
+        "docs/design.md must describe enrichment.json as the interpretive layer"
+    )
+
+
 def test_claude_md_documents_db_load_and_db_export_contract() -> None:
     text = _read(CLAUDE_MD)
     normalized = " ".join(text.split())

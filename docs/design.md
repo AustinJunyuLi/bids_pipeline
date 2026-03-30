@@ -9,8 +9,8 @@ Operational sequence:
 
 1. `skill-pipeline raw-fetch --deal <slug>`
 2. `skill-pipeline preprocess-source --deal <slug>`
-3. `skill-pipeline compose-prompts --deal <slug>`
-4. `/extract-deal <slug>`
+3. `skill-pipeline compose-prompts --deal <slug> --mode actors`
+4. `/extract-deal <slug>` (two-pass actor/event extraction; the event pass may regenerate prompt packets with `--mode events` after actor extraction creates `actors_raw.json`)
 5. `skill-pipeline canonicalize --deal <slug>`
 6. `skill-pipeline check --deal <slug>`
 7. `skill-pipeline verify --deal <slug>`
@@ -18,9 +18,9 @@ Operational sequence:
 9. `skill-pipeline gates --deal <slug>`
 10. `/verify-extraction <slug>`
 11. `skill-pipeline enrich-core --deal <slug>`
-12. `skill-pipeline db-load --deal <slug>`
-13. `skill-pipeline db-export --deal <slug>`
-14. `/enrich-deal <slug>` (optional interpretive layer)
+12. `/enrich-deal <slug>` (mandatory interpretive layer)
+13. `skill-pipeline db-load --deal <slug>`
+14. `skill-pipeline db-export --deal <slug>`
 
 Artifact flow:
 
@@ -28,13 +28,17 @@ Artifact flow:
 - `data/deals/<slug>/source/` contains `chronology_blocks.jsonl` and `evidence_items.jsonl`.
 - `data/skill/<slug>/prompt/` contains composed prompt packet artifacts (`manifest.json` and per-packet `rendered.md`).
 - `data/skill/<slug>/extract/` contains raw or canonical actors/events plus `spans.json`.
-- `data/skill/<slug>/{check,verify,coverage,enrich,export}/` contains downstream deterministic outputs.
+- `data/skill/<slug>/enrich/` contains `deterministic_enrichment.json` from `enrich-core` plus required interpretive `enrichment.json` from `/enrich-deal`.
+- `data/skill/<slug>/{check,verify,coverage,export}/` contains downstream deterministic QA and export outputs.
 
 Current design constraints:
 
 - Upstream source preparation is seed-only and single-primary-document.
+- Prompt composition is actors-first; `skill-pipeline compose-prompts --deal <slug> --mode events` requires `actors_raw.json` from actor extraction.
 - Canonical extract artifacts require a valid `spans.json` sidecar.
 - `enrich-core` must only run after passing `check`, `verify`, `coverage`, and `gates`.
+- `/enrich-deal` is a mandatory interpretive gate after `enrich-core` and before `db-load` / `db-export`.
+- `db-load` requires both `deterministic_enrichment.json` and interpretive-only `enrichment.json`.
 - `skill-pipeline deal-agent` is preflight/summary only, not the end-to-end runner.
 
 ## Notes

@@ -165,3 +165,31 @@ def test_cursor_mirror_matches_canonical_reconcile_skill() -> None:
     assert canonical.read_bytes() == mirror.read_bytes(), (
         ".cursor reconcile-alex SKILL.md has drifted from .claude canonical"
     )
+
+
+def test_canonical_deal_agent_skill_marks_interpretive_enrichment_as_mandatory() -> None:
+    """The canonical deal-agent skill must describe enrich-deal as mandatory."""
+    skill_path = PROJECT_ROOT / ".claude" / "skills" / "deal-agent" / "SKILL.md"
+    text = skill_path.read_text(encoding="utf-8")
+    assert "mandatory interpretive enrichment" in text
+    assert "optional interpretive enrichment" not in text
+
+
+def test_codex_mirror_matches_canonical_deal_agent_skill() -> None:
+    """The .codex deal-agent skill mirror matches the canonical .claude version."""
+    canonical = PROJECT_ROOT / ".claude" / "skills" / "deal-agent" / "SKILL.md"
+    mirror = PROJECT_ROOT / ".codex" / "skills" / "deal-agent" / "SKILL.md"
+    assert mirror.exists(), ".codex deal-agent mirror must exist"
+    assert canonical.read_bytes() == mirror.read_bytes(), (
+        ".codex deal-agent SKILL.md has drifted from .claude canonical"
+    )
+
+
+def test_cursor_mirror_matches_canonical_deal_agent_skill() -> None:
+    """The .cursor deal-agent skill mirror matches the canonical .claude version."""
+    canonical = PROJECT_ROOT / ".claude" / "skills" / "deal-agent" / "SKILL.md"
+    mirror = PROJECT_ROOT / ".cursor" / "skills" / "deal-agent" / "SKILL.md"
+    assert mirror.exists(), ".cursor deal-agent mirror must exist"
+    assert canonical.read_bytes() == mirror.read_bytes(), (
+        ".cursor deal-agent SKILL.md has drifted from .claude canonical"
+    )

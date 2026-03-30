@@ -29,7 +29,7 @@ environment variable (`PIPELINE_SEC_IDENTITY`, `SEC_IDENTITY`, or
 ## When To Use
 
 Invoke as `/deal-agent <slug>` for end-to-end pipeline from filing fetch through
-DuckDB export, plus optional interpretive enrichment and post-export
+mandatory interpretive enrichment, DuckDB export, and optional post-export
 reconciliation. Use individual skills when re-running a specific stage.
 
 Re-running `/deal-agent <slug>` on a previously processed deal cleans all
@@ -153,8 +153,9 @@ post-export only and read-only.
 9a. Run `skill-pipeline db-load --deal <slug>`
     Gate: data/pipeline.duckdb exists and contains rows for this deal.
     Note: Requires both deterministic_enrichment.json and enrichment.json.
-    Loads deterministic enrichment baseline and overlays interpretive
-    dropout_classifications from enrichment.json.
+    Loads deterministic enrichment baseline, overlays interpretive
+    dropout_classifications from enrichment.json, and enforces the full
+    5-key interpretive enrichment contract.
 
 9b. Run `skill-pipeline db-export --deal <slug>`
     Gate: deal_events.csv exists and is non-empty.
@@ -177,7 +178,7 @@ Each skill is independently callable:
 
 - `skill-pipeline raw-fetch --deal <slug>` -- fetch and freeze SEC filing
 - `skill-pipeline preprocess-source --deal <slug>` -- build source artifacts from frozen filings
-- `skill-pipeline compose-prompts --deal <slug>` -- build prompt packets for extraction
+- `skill-pipeline compose-prompts --deal <slug> --mode actors|events` -- build prompt packets for extraction
 - `skill-pipeline canonicalize --deal <slug>` -- upgrade extraction into canonical span-backed artifacts
 - `skill-pipeline check --deal <slug>` -- run deterministic structural check
 - `skill-pipeline verify --deal <slug>` -- run deterministic verification
