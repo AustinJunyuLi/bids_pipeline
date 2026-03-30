@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: reconciliation + execution-log quality fixes
 status: completed
-stopped_at: Completed Phase 09 verification and repaired milestone bookkeeping
-last_updated: "2026-03-30T16:00:41Z"
+stopped_at: Completed quick task 260330-o5x repairing the split enrich-deal contract
+last_updated: "2026-03-30T16:34:37Z"
 progress:
   total_phases: 4
   completed_phases: 4
@@ -20,7 +20,7 @@ progress:
 Phase: 09 (deal-specific-fixes-revalidation) — COMPLETE
 Plan: 3 of 3
 Status: Milestone complete
-Last activity: 2026-03-30 — Phase 09 verification passed and milestone bookkeeping was repaired after helper drift
+Last activity: 2026-03-30 — Quick task 260330-o5x enforced the split enrich-deal contract and synced the official docs
 
 ## Progress
 
@@ -42,6 +42,7 @@ Last activity: 2026-03-30 — Phase 09 verification passed and milestone bookkee
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
 | 260329-hyh | Fix 4 deal-agent orchestrator issues | 2026-03-29 | 0aa4254 | [260329-hyh-fix-4-deal-agent-orchestrator-issues](./quick/260329-hyh-fix-4-deal-agent-orchestrator-issues/) |
+| 260330-o5x | Repair mandatory interpretive enrich-deal contract and align runtime docs | 2026-03-30 | 1aaa572 | [260330-o5x-repair-mandatory-interpretive-enrich-dea](./quick/260330-o5x-repair-mandatory-interpretive-enrich-dea/) |
 
 ## Historical Decisions
 
@@ -133,11 +134,12 @@ Last activity: 2026-03-30 — Phase 09 verification passed and milestone bookkee
 - [Phase 09]: Zep was repaired by a clean extraction-forward rerun rather than hand-editing canonical artifacts — The refreshed extract removed New Mountain Capital from grouped 2014 proposal/drop events while preserving a clean canonicalize-through-export chain
 - [Phase 09]: Medivation was repaired by regenerating events and coverage_notes together from filing text — The refreshed extract keeps bidder-round chronology intact while ensuring every evt_NNN reference in coverage_notes resolves against the event array
 - [Phase 09]: The 9-deal benchmark refresh was completed incrementally — only Zep and Medivation were re-audited, while the seven untouched deals carried forward their frozen 2026-03-29 metrics
+- Quick task 260330-o5x locked the enrichment boundary to the intended design: deterministic bid classifications, rounds, cycles, formal boundary, sparse DropTarget labels, and all-cash overrides remain in `deterministic_enrichment.json`, while `enrichment.json` is now enforced as the mandatory 5-key interpretive layer
 
 ## Session Continuity
 
-- **Last session:** 2026-03-30T16:00:41Z
-- **Stopped at:** Completed Phase 09 verification and repaired the phase-completion docs after helper drift.
+- **Last session:** 2026-03-30T16:34:37Z
+- **Stopped at:** Completed quick task 260330-o5x repairing the split enrich-deal contract and logging it officially.
 - **Resume file:** None
 - **Next action:** Run `$gsd-complete-milestone v1.1` to archive the finished milestone, unless you want to open a follow-up gap phase for the residual Zep reconciliation attention item first.
 
