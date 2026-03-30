@@ -1,22 +1,22 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.0
-milestone_name: milestone
-status: Ready to plan
-stopped_at: Phase 8 context gathered
-last_updated: "2026-03-30T10:13:43.351Z"
+milestone: v1.1
+milestone_name: reconciliation + execution-log quality fixes
+status: Ready to execute
+stopped_at: Phase 9 planned (3 plans in 3 waves); ready for execution
+last_updated: "2026-03-30T15:35:00.000Z"
 progress:
   total_phases: 4
-  completed_phases: 2
-  total_plans: 4
-  completed_plans: 4
+  completed_phases: 3
+  total_plans: 10
+  completed_plans: 7
 ---
 
 # Project State
 
 ## Current Position
 
-Phase: 8
+Phase: 9
 Plan: Not started
 
 ## Progress
@@ -27,11 +27,11 @@ Plan: Not started
 - [x] ROADMAP.md created (4 phases: 6-9)
 - [x] Phase 6 planned
 - [x] Phase 6 executed
-- [ ] Phase 7 planned
-- [ ] Phase 7 executed
-- [ ] Phase 8 planned
-- [ ] Phase 8 executed
-- [ ] Phase 9 planned
+- [x] Phase 7 planned
+- [x] Phase 7 executed
+- [x] Phase 8 planned
+- [x] Phase 8 executed
+- [x] Phase 9 planned
 - [ ] Phase 9 executed
 
 ## Quick Tasks Completed
@@ -112,13 +112,23 @@ Plan: Not started
 - Keep DuckDB lock retry in `open_pipeline_db()` so `db-load` and `db-export` share the same bounded connection policy.
 - Retry only lock-specific `duckdb.IOException` failures containing `Could not set lock on file`, and re-raise all other connection errors immediately.
 - [Phase 07-bid-type-rule-priority]: Process position (after_final_round_*) overrides informal language signals in bid_type classification; rules renumbered 1-5 without fractional 2.5
+- [Phase 08-extraction-guidance-enrichment-extensions]: extract-deal guidance now explicitly covers round milestones, verbal/oral priced proposals, and NDA exclusions from non-sale-process agreements.
+- [Phase 08-extraction-guidance-enrichment-extensions]: deterministic enrichment emits sparse `DropTarget` labels and cycle-local `all_cash_overrides` without mutating canonical extract artifacts.
+- [Phase 08-extraction-guidance-enrichment-extensions]: DuckDB export now prefers deterministic `all_cash_override`, and Windows DuckDB lock-contention detection accepts the newer "used by another process" error text.
+- [Phase 09-deal-specific-fixes-revalidation]: planning should trust the live
+  Zep and Medivation artifacts over stale roadmap wording; Medivation already
+  has `evt_013` and `evt_017` proposals, while the live integrity mismatch is
+  `coverage_notes` citing missing drop events `evt_027` and `evt_029`.
+- [Phase 09-deal-specific-fixes-revalidation]: rerun only Zep and Medivation
+  through export during blind generation, then measure the refreshed 9-deal
+  reconciliation against the 2026-03-29 baseline.
 
 ## Session Continuity
 
-- **Last session:** 2026-03-30T10:13:43.349Z
-- **Stopped at:** Phase 8 context gathered
-- **Resume file:** .planning/phases/08-extraction-guidance-enrichment-extensions/08-CONTEXT.md
-- **Next action:** Plan Phase 08 using `.planning/phases/08-extraction-guidance-enrichment-extensions/08-CONTEXT.md` (`$gsd-plan-phase 8`).
+- **Last session:** 2026-03-30T15:35:00.000Z
+- **Stopped at:** Phase 9 planned (3 plans, 3 waves); ready for execution
+- **Resume file:** .planning/phases/09-deal-specific-fixes-revalidation/09-01-PLAN.md
+- **Next action:** Execute Phase 9 (`/gsd:execute-phase 9`).
 
 ## Accumulated Context
 
