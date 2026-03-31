@@ -6,9 +6,30 @@ from skill_pipeline.config import PROJECT_ROOT
 from skill_pipeline.db_schema import DEFAULT_DB_NAME
 from skill_pipeline.models import SkillPathSet
 
+V1_SKILL_ARCHIVE_DIR_NAMES = (
+    "canonicalize",
+    "check",
+    "coverage",
+    "enrich",
+    "export",
+    "extract",
+    "gates",
+    "prompt",
+    "verify",
+)
+
+V1_RECONCILE_ARCHIVE_FILE_NAMES = (
+    "alex_rows_codex_blind_round2.json",
+    "reconciliation_report_codex_blind_round2.json",
+)
+
 
 def build_skill_paths(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> SkillPathSet:
     data_dir = project_root / "data"
+    legacy_root = data_dir / "legacy"
+    legacy_v1_root = legacy_root / "v1"
+    legacy_v1_skill_root = legacy_v1_root / "skill"
+    legacy_v1_skill_deal_root = legacy_v1_skill_root / deal_slug
     deals_root = data_dir / "deals"
     skill_data_root = data_dir / "skill"
     raw_root = project_root / "raw"
@@ -33,6 +54,12 @@ def build_skill_paths(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> S
     return SkillPathSet(
         project_root=project_root,
         data_dir=data_dir,
+        legacy_root=legacy_root,
+        legacy_v1_root=legacy_v1_root,
+        legacy_v1_skill_root=legacy_v1_skill_root,
+        legacy_v1_skill_deal_root=legacy_v1_skill_deal_root,
+        legacy_v1_manifest_path=legacy_v1_root / "archive_manifest.json",
+        legacy_v1_database_path=legacy_v1_root / "pipeline_precutover.duckdb",
         database_path=data_dir / DEFAULT_DB_NAME,
         deals_root=deals_root,
         skill_data_root=skill_data_root,
@@ -92,25 +119,48 @@ def build_skill_paths(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> S
     )
 
 
-def ensure_output_directories(paths: SkillPathSet) -> None:
-    paths.extract_dir.mkdir(parents=True, exist_ok=True)
-    paths.check_dir.mkdir(parents=True, exist_ok=True)
-    paths.verify_dir.mkdir(parents=True, exist_ok=True)
-    paths.coverage_dir.mkdir(parents=True, exist_ok=True)
-    paths.gates_dir.mkdir(parents=True, exist_ok=True)
-    paths.enrich_dir.mkdir(parents=True, exist_ok=True)
-    paths.export_dir.mkdir(parents=True, exist_ok=True)
+def ensure_output_directories(paths: SkillPathSet, *, include_legacy: bool = False) -> None:
+    if include_legacy:
+        paths.extract_dir.mkdir(parents=True, exist_ok=True)
+        paths.check_dir.mkdir(parents=True, exist_ok=True)
+        paths.verify_dir.mkdir(parents=True, exist_ok=True)
+        paths.coverage_dir.mkdir(parents=True, exist_ok=True)
+        paths.gates_dir.mkdir(parents=True, exist_ok=True)
+        paths.enrich_dir.mkdir(parents=True, exist_ok=True)
+        paths.export_dir.mkdir(parents=True, exist_ok=True)
+        paths.canonicalize_dir.mkdir(parents=True, exist_ok=True)
+        paths.prompt_dir.mkdir(parents=True, exist_ok=True)
+        paths.prompt_packets_dir.mkdir(parents=True, exist_ok=True)
     paths.extract_v2_dir.mkdir(parents=True, exist_ok=True)
     paths.check_v2_dir.mkdir(parents=True, exist_ok=True)
     paths.coverage_v2_dir.mkdir(parents=True, exist_ok=True)
     paths.gates_v2_dir.mkdir(parents=True, exist_ok=True)
     paths.derive_dir.mkdir(parents=True, exist_ok=True)
     paths.export_v2_dir.mkdir(parents=True, exist_ok=True)
-    paths.canonicalize_dir.mkdir(parents=True, exist_ok=True)
-    paths.prompt_dir.mkdir(parents=True, exist_ok=True)
-    paths.prompt_packets_dir.mkdir(parents=True, exist_ok=True)
     paths.prompt_v2_dir.mkdir(parents=True, exist_ok=True)
     paths.prompt_v2_packets_dir.mkdir(parents=True, exist_ok=True)
+
+
+def ensure_legacy_directories(paths: SkillPathSet) -> None:
+    paths.legacy_v1_root.mkdir(parents=True, exist_ok=True)
+    paths.legacy_v1_skill_root.mkdir(parents=True, exist_ok=True)
+    paths.legacy_v1_skill_deal_root.mkdir(parents=True, exist_ok=True)
+
+
+def legacy_v1_skill_archive_map(paths: SkillPathSet) -> dict[Path, Path]:
+    return {
+        paths.skill_root / dir_name: paths.legacy_v1_skill_deal_root / dir_name
+        for dir_name in V1_SKILL_ARCHIVE_DIR_NAMES
+    }
+
+
+def legacy_v1_reconcile_archive_map(paths: SkillPathSet) -> dict[Path, Path]:
+    reconcile_dir = paths.skill_root / "reconcile"
+    legacy_reconcile_dir = paths.legacy_v1_skill_deal_root / "reconcile"
+    return {
+        reconcile_dir / file_name: legacy_reconcile_dir / file_name
+        for file_name in V1_RECONCILE_ARCHIVE_FILE_NAMES
+    }
 
 
 def missing_required_inputs(paths: SkillPathSet) -> list[Path]:

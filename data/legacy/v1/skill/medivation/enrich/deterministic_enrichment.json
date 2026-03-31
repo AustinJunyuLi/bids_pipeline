@@ -1,0 +1,134 @@
+{
+  "rounds": [
+    {
+      "announcement_event_id": "evt_027",
+      "deadline_event_id": "evt_033",
+      "round_scope": "formal",
+      "invited_actor_ids": [
+        "bidder_pfizer",
+        "bidder_company_1",
+        "bidder_company_2",
+        "bidder_company_3",
+        "bidder_company_4"
+      ],
+      "active_bidders_at_time": 2,
+      "is_selective": false
+    },
+    {
+      "announcement_event_id": "evt_034",
+      "deadline_event_id": "evt_039",
+      "round_scope": "extension",
+      "invited_actor_ids": [
+        "bidder_pfizer",
+        "bidder_company_1",
+        "bidder_company_2",
+        "bidder_company_3"
+      ],
+      "active_bidders_at_time": 2,
+      "is_selective": false
+    }
+  ],
+  "bid_classifications": {
+    "evt_003": {
+      "label": "Informal",
+      "rule_applied": 3.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_013": {
+      "label": "Uncertain",
+      "rule_applied": null,
+      "basis": "No deterministic rule matched; residual case."
+    },
+    "evt_017": {
+      "label": "Informal",
+      "rule_applied": 3.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_018": {
+      "label": "Informal",
+      "rule_applied": 3.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_019": {
+      "label": "Informal",
+      "rule_applied": 3.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_020": {
+      "label": "Informal",
+      "rule_applied": 3.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_021": {
+      "label": "Informal",
+      "rule_applied": 3.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_024": {
+      "label": "Uncertain",
+      "rule_applied": null,
+      "basis": "No deterministic rule matched; residual case."
+    },
+    "evt_025": {
+      "label": "Uncertain",
+      "rule_applied": null,
+      "basis": "No deterministic rule matched; residual case."
+    },
+    "evt_026": {
+      "label": "Uncertain",
+      "rule_applied": null,
+      "basis": "No deterministic rule matched; residual case."
+    },
+    "evt_028": {
+      "label": "Formal",
+      "rule_applied": 1.0,
+      "basis": "Observable formal signal from formality_signals."
+    },
+    "evt_029": {
+      "label": "Formal",
+      "rule_applied": 1.0,
+      "basis": "Observable formal signal from formality_signals."
+    },
+    "evt_030": {
+      "label": "Formal",
+      "rule_applied": 2.0,
+      "basis": "Proposal after final round announcement/deadline; process position overrides informal language."
+    },
+    "evt_031": {
+      "label": "Formal",
+      "rule_applied": 2.0,
+      "basis": "Proposal after final round announcement/deadline; process position overrides informal language."
+    },
+    "evt_036": {
+      "label": "Formal",
+      "rule_applied": 1.0,
+      "basis": "Observable formal signal from formality_signals."
+    },
+    "evt_037": {
+      "label": "Formal",
+      "rule_applied": 1.0,
+      "basis": "Observable formal signal from formality_signals."
+    },
+    "evt_038": {
+      "label": "Formal",
+      "rule_applied": 1.0,
+      "basis": "Observable formal signal from formality_signals."
+    }
+  },
+  "cycles": [
+    {
+      "cycle_id": "cycle_1",
+      "start_event_id": "evt_001",
+      "end_event_id": "evt_041",
+      "boundary_basis": "Single cycle -- no termination events"
+    }
+  ],
+  "formal_boundary": {
+    "cycle_1": {
+      "event_id": "evt_028",
+      "basis": "First formal proposal in cycle: evt_028."
+    }
+  },
+  "dropout_classifications": {},
+  "all_cash_overrides": {}
+}

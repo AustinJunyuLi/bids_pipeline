@@ -1,0 +1,61 @@
+{
+  "rounds": [],
+  "bid_classifications": {
+    "evt_005": {
+      "label": "Informal",
+      "rule_applied": 3.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_008": {
+      "label": "Informal",
+      "rule_applied": 3.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_010": {
+      "label": "Informal",
+      "rule_applied": 3.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_015": {
+      "label": "Informal",
+      "rule_applied": 3.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_017": {
+      "label": "Informal",
+      "rule_applied": 3.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_018": {
+      "label": "Uncertain",
+      "rule_applied": null,
+      "basis": "No deterministic rule matched; residual case."
+    }
+  },
+  "cycles": [
+    {
+      "cycle_id": "cycle_1",
+      "start_event_id": "evt_001",
+      "end_event_id": "evt_015",
+      "boundary_basis": "Restarted event."
+    },
+    {
+      "cycle_id": "cycle_2",
+      "start_event_id": "evt_016",
+      "end_event_id": "evt_020",
+      "boundary_basis": "Final cycle."
+    }
+  ],
+  "formal_boundary": {
+    "cycle_1": {
+      "event_id": null,
+      "basis": "No formal proposals in this cycle."
+    },
+    "cycle_2": {
+      "event_id": null,
+      "basis": "No formal proposals in this cycle."
+    }
+  },
+  "dropout_classifications": {},
+  "all_cash_overrides": {}
+}

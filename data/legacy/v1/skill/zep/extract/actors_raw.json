@@ -1,0 +1,259 @@
+{
+  "actors": [
+    {
+      "actor_id": "target_board_zep",
+      "display_name": "Zep Inc. board of directors",
+      "canonical_name": "ZEP INC. BOARD OF DIRECTORS",
+      "aliases": [
+        "our board of directors"
+      ],
+      "role": "target_board",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0001"
+      ],
+      "notes": [
+        "Includes board-led process actions and actions taken through the Board Representatives when the filing attributes them to the board process."
+      ]
+    },
+    {
+      "actor_id": "advisor_bofa_merrill_lynch",
+      "display_name": "BofA Merrill Lynch",
+      "canonical_name": "BOFA MERRILL LYNCH",
+      "aliases": [],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "target_board_zep",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0002"
+      ],
+      "notes": [
+        "The board engaged BofA Merrill Lynch as financial advisor in the strategic alternatives review."
+      ]
+    },
+    {
+      "actor_id": "advisor_king_spalding",
+      "display_name": "King & Spalding LLP",
+      "canonical_name": "KING & SPALDING LLP",
+      "aliases": [
+        "King & Spalding"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": "target_board_zep",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0003"
+      ],
+      "notes": [
+        "The filing identifies King & Spalding as legal counsel to the Company."
+      ]
+    },
+    {
+      "actor_id": "bidder_new_mountain_capital",
+      "display_name": "New Mountain Capital",
+      "canonical_name": "NEW MOUNTAIN CAPITAL",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0004"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_party_x",
+      "display_name": "Party X",
+      "canonical_name": "PARTY X",
+      "aliases": [
+        "one financial party"
+      ],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0005"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_party_y",
+      "display_name": "Party Y",
+      "canonical_name": "PARTY Y",
+      "aliases": [
+        "one strategic party"
+      ],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0006"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_group_four_financial_buyers",
+      "display_name": "Four unnamed financial buyers",
+      "canonical_name": "FOUR UNNAMED FINANCIAL BUYERS",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": true,
+      "group_size": 4,
+      "group_label": "four financial buyers",
+      "evidence_span_ids": [
+        "span_0007"
+      ],
+      "notes": [
+        "Unnamed members of the April 14, 2014 preliminary-bid cohort."
+      ]
+    },
+    {
+      "actor_id": "bidder_group_one_strategic_buyer",
+      "display_name": "One unnamed strategic buyer",
+      "canonical_name": "ONE UNNAMED STRATEGIC BUYER",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": true,
+      "group_size": 1,
+      "group_label": "one strategic buyer",
+      "evidence_span_ids": [
+        "span_0008"
+      ],
+      "notes": [
+        "Unnamed member of the April 14, 2014 preliminary-bid cohort."
+      ]
+    }
+  ],
+  "count_assertions": [
+    {
+      "subject": "potential buyers contacted in the 2014 sale process",
+      "count": 50,
+      "evidence_span_ids": [
+        "span_0009"
+      ]
+    },
+    {
+      "subject": "strategic buyers contacted in the 2014 sale process",
+      "count": 28,
+      "evidence_span_ids": [
+        "span_0010"
+      ]
+    },
+    {
+      "subject": "financial buyers contacted in the 2014 sale process",
+      "count": 22,
+      "evidence_span_ids": [
+        "span_0011"
+      ]
+    },
+    {
+      "subject": "potential buyers that declined to enter a confidentiality agreement by March 27, 2014",
+      "count": 25,
+      "evidence_span_ids": [
+        "span_0012"
+      ]
+    },
+    {
+      "subject": "potential buyers that executed confidentiality agreements by March 27, 2014",
+      "count": 25,
+      "evidence_span_ids": [
+        "span_0013"
+      ]
+    },
+    {
+      "subject": "preliminary indications of interest received on April 14, 2014",
+      "count": 5,
+      "evidence_span_ids": [
+        "span_0014"
+      ]
+    },
+    {
+      "subject": "preliminary indications of interest received by May 9, 2014",
+      "count": 6,
+      "evidence_span_ids": [
+        "span_0015"
+      ]
+    },
+    {
+      "subject": "preliminary indications of interest received by May 20, 2014",
+      "count": 7,
+      "evidence_span_ids": [
+        "span_0016"
+      ]
+    },
+    {
+      "subject": "remaining bidders after Party X withdrew",
+      "count": 6,
+      "evidence_span_ids": [
+        "span_0017"
+      ]
+    },
+    {
+      "subject": "remaining interested parties unable to proceed after the fire",
+      "count": 5,
+      "evidence_span_ids": [
+        "span_0018"
+      ]
+    },
+    {
+      "subject": "parties contacted during the go-shop process",
+      "count": 58,
+      "evidence_span_ids": [
+        "span_0019"
+      ]
+    }
+  ],
+  "unresolved_mentions": [
+    "three other investment banks",
+    "two other investment banks",
+    "Jefferies Finance LLC",
+    "New Mountain Capital's advisors"
+  ]
+}

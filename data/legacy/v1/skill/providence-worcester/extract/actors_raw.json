@@ -1,0 +1,318 @@
+{
+  "actors": [
+    {
+      "actor_id": "target_board_board",
+      "display_name": "Board of Directors",
+      "canonical_name": "BOARD OF DIRECTORS",
+      "aliases": [
+        "Board"
+      ],
+      "role": "target_board",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0001"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "target_board_transaction_committee",
+      "display_name": "Transaction Committee",
+      "canonical_name": "TRANSACTION COMMITTEE",
+      "aliases": [],
+      "role": "target_board",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0002"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_party_a",
+      "display_name": "Party A",
+      "canonical_name": "PARTY A",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0003"
+      ],
+      "notes": [
+        "The filing describes Party A as one of the Companys Class I rail partners."
+      ]
+    },
+    {
+      "actor_id": "advisor_bmo_capital_markets",
+      "display_name": "BMO Capital Markets Corp. / Greene Holcomb & Fisher LLC",
+      "canonical_name": "BMO CAPITAL MARKETS CORP.",
+      "aliases": [
+        "Greene Holcomb & Fisher LLC",
+        "GHF",
+        "BMO"
+      ],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "target_board_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0004"
+      ],
+      "notes": [
+        "The filing refers to this advisor as GHF before August 1, 2016 and BMO thereafter."
+      ]
+    },
+    {
+      "actor_id": "advisor_hinckley_allen",
+      "display_name": "Hinckley, Allen & Snyder LLP",
+      "canonical_name": "HINCKLEY, ALLEN & SNYDER LLP",
+      "aliases": [
+        "Hinckley Allen"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": "target_board_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0005"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_gw",
+      "display_name": "G& W",
+      "canonical_name": "G& W",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0006"
+      ],
+      "notes": [
+        "The chronology uses the abbreviation G& W without expanding it."
+      ]
+    },
+    {
+      "actor_id": "bidder_party_b",
+      "display_name": "Party B",
+      "canonical_name": "PARTY B",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0007"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_party_c",
+      "display_name": "Party C",
+      "canonical_name": "PARTY C",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0008"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_party_d",
+      "display_name": "Party D",
+      "canonical_name": "PARTY D",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0009"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_party_e",
+      "display_name": "Party E",
+      "canonical_name": "PARTY E",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0010"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_party_f",
+      "display_name": "Party F",
+      "canonical_name": "PARTY F",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0011"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_simpson_thacher",
+      "display_name": "Simpson Thacher & Bartlett LLP",
+      "canonical_name": "SIMPSON THACHER & BARTLETT LLP",
+      "aliases": [
+        "Simpson Thacher"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": "bidder_gw",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0012"
+      ],
+      "notes": []
+    }
+  ],
+  "count_assertions": [
+    {
+      "subject": "potential strategic buyers contacted",
+      "count": 11,
+      "evidence_span_ids": [
+        "span_0013"
+      ]
+    },
+    {
+      "subject": "potential financial buyers contacted",
+      "count": 18,
+      "evidence_span_ids": [
+        "span_0014"
+      ]
+    },
+    {
+      "subject": "potential strategic buyers that executed confidentiality agreements",
+      "count": 11,
+      "evidence_span_ids": [
+        "span_0015"
+      ]
+    },
+    {
+      "subject": "potential financial buyers that executed confidentiality agreements",
+      "count": 14,
+      "evidence_span_ids": [
+        "span_0016"
+      ]
+    },
+    {
+      "subject": "written indications of interest received",
+      "count": 9,
+      "evidence_span_ids": [
+        "span_0017"
+      ]
+    },
+    {
+      "subject": "potential buyers advanced to management presentations and additional due diligence",
+      "count": 7,
+      "evidence_span_ids": [
+        "span_0018"
+      ]
+    },
+    {
+      "subject": "letters of intent received in late July 2016",
+      "count": 6,
+      "evidence_span_ids": [
+        "span_0019"
+      ]
+    },
+    {
+      "subject": "buyers that declined to submit a late-July LOI",
+      "count": 2,
+      "evidence_span_ids": [
+        "span_0020"
+      ]
+    },
+    {
+      "subject": "low bidders excluded after the IOI round",
+      "count": 2,
+      "evidence_span_ids": [
+        "span_0021"
+      ]
+    }
+  ],
+  "unresolved_mentions": [
+    "The filing refers to additional unidentified potential strategic buyers beyond the named parties.",
+    "The filing refers to additional unidentified potential financial buyers beyond Party D.",
+    "The filing references the Company's STB counsel without naming that advisor."
+  ]
+}

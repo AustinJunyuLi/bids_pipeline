@@ -4,23 +4,7 @@
 
 **Phases completed:** 5 phases, 16 plans, 36 tasks
 
-**Key accomplishments:**
-
-- Required date/entity/density/phase metadata on ChronologyBlock with deterministic annotation helpers and preprocess-source integration
-- Removed unused anthropic SDK, capped edgartools<6.0, added historical disclaimers to stale design docs, and regression tests for runtime-contract boundary
-- Provider-neutral prompt packet schemas, deterministic artifact paths under data/skill/<slug>/prompt/, and compose-prompts CLI stage shell with contract tests
-- Deterministic chunk planner with 2-block overlap, active evidence checklist, and chronology-first XML packet renderer producing real file-backed prompt artifacts
-- Prompt packet validator, deal-agent prompt-stage status, runtime doc integration, skill mirror sync, and stec validation baseline
-- QuoteEntry raw schema, quote-first extract loading, and suite-wide quote-linked raw test fixtures
-- Quote-first canonicalization now resolves quote text directly to spans, logs orphaned quotes, and hands enrich-core canonical span-backed artifacts only
-- Quote-first verify rounds for filing-text validation and quote_id integrity, plus quote-backed check gate cleanup
-- Quote-first extraction guidance in compose-prompts, prompt assets, event examples, and the extract-deal skill contract
-- Quote-first downstream consumers in deal_agent and coverage now accept the live extract contract, and the full pytest suite is green again
-- Semantic gate stage for temporal mismatches, cross-event invariants, NDA lifecycle gaps, and verification attention decay diagnostics
-- End-to-end semantic gate integration through the CLI, deal-agent status surface, enrich-core blockers, and regression coverage against real `stec` artifacts
-- DuckDB-backed canonical store with transactional db-load ingestion and deterministic db-export CSV generation
-- Block-count-based compose-prompts routing with explicit single-pass windows and five filing-grounded quote-first event examples
-- Deal-agent db_load/db_export stage summaries with synced orchestration docs and stec DuckDB export validation
+**Archive:** [v1.0 roadmap](milestones/v1.0-ROADMAP.md), [v1.0 requirements](milestones/v1.0-REQUIREMENTS.md), [v1.0 audit](milestones/v1.0-MILESTONE-AUDIT.md)
 
 ---
 
@@ -30,16 +14,37 @@
 
 **Key accomplishments:**
 
-- Mixed-schema loader guard, canonicalize collision handling, NDA tolerance, DuckDB lock retry
-- bid_type rule priority fix for final-round proposal classification
-- Extraction skill doc updates for round milestones, verbal indications, NDA exclusions
-- Deterministic DropTarget classification and contextual all_cash inference
-- Zep and Medivation re-extraction with 9-deal reconciliation improvement (70.3% -> 70.7%)
+- mixed-schema hardening and canonicalization fixes
+- bid-type rule priority correction
+- extraction guidance and deterministic enrichment improvements
+- 9-deal reconciliation uplift
 
 ---
 
-## v2.0 Observation Graph Architecture (In Progress)
+## v2.0 Observation Graph Architecture (Shipped: 2026-03-31)
 
-**Phases:** 7 phases (10-16), 28 requirements
+**Phases completed:** 7 phases (10-16), 19 plans
 
-**Goal:** Replace the event-first extraction contract with an observation graph that separates filing-literal facts from analyst-derived rows, enabling correct capture of cohort lifecycles, process structure, agreement chains, and consideration regimes.
+**Archive:** [v2.0 roadmap](milestones/v2.0-ROADMAP.md), [v2.0 requirements](milestones/v2.0-REQUIREMENTS.md), [v2.0 audit](milestones/v2.0-MILESTONE-AUDIT.md)
+
+**Key accomplishments:**
+
+- quote-first observation graph with typed parties, cohorts, and observations
+- canonical v2 validation stack
+- deterministic derivation engine
+- additive DuckDB `v2_*` schema and triple export surface
+- 9-deal migration to the v2 extraction contract
+
+---
+
+## v2.1 V2 Default Cutover + Legacy Archive (Complete: 2026-03-31)
+
+**Phases completed:** 3 phases (17-19)
+
+**Key accomplishments:**
+
+- `/deal-agent` and `/reconcile-alex` now point at the live v2 workflow
+- explicit legacy skills preserve the retired v1 path
+- v1 outputs archived under `data/legacy/v1/`
+- live `data/pipeline.duckdb` rebuilt from v2 artifacts only
+- repo docs and tests now enforce the live/legacy split

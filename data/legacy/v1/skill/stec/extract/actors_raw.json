@@ -1,0 +1,497 @@
+{
+  "actors": [
+    {
+      "actor_id": "target_board_stec_board",
+      "display_name": "sTec board of directors",
+      "canonical_name": "S T E C INC BOARD OF DIRECTORS",
+      "aliases": [
+        "our board of directors",
+        "the board of directors"
+      ],
+      "role": "target_board",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0001"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "target_board_special_committee",
+      "display_name": "special committee of the board of directors",
+      "canonical_name": "S T E C INC SPECIAL COMMITTEE",
+      "aliases": [
+        "the special committee",
+        "special committee"
+      ],
+      "role": "target_board",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0002"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_gibson_dunn",
+      "display_name": "Gibson Dunn",
+      "canonical_name": "GIBSON, DUNN & CRUTCHER LLP",
+      "aliases": [
+        "Gibson Dunn"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": "target_board_stec_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0003"
+      ],
+      "notes": [
+        "Outside corporate counsel to sTec."
+      ]
+    },
+    {
+      "actor_id": "advisor_bofa_merrill_lynch",
+      "display_name": "BofA Merrill Lynch",
+      "canonical_name": "BOFA MERRILL LYNCH",
+      "aliases": [],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "target_board_stec_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0004"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_mackenzie_partners",
+      "display_name": "MacKenzie Partners",
+      "canonical_name": "MACKENZIE PARTNERS",
+      "aliases": [],
+      "role": "advisor",
+      "advisor_kind": "other",
+      "advised_actor_id": "target_board_stec_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0005"
+      ],
+      "notes": [
+        "Proxy solicitor to sTec."
+      ]
+    },
+    {
+      "actor_id": "advisor_latham_watkins",
+      "display_name": "Latham & Watkins",
+      "canonical_name": "LATHAM & WATKINS LLP",
+      "aliases": [
+        "Latham & Watkins"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0006"
+      ],
+      "notes": [
+        "Litigation counsel to sTec and Mr. Manouch Moshayedi."
+      ]
+    },
+    {
+      "actor_id": "advisor_paul_hastings",
+      "display_name": "Paul Hastings",
+      "canonical_name": "PAUL HASTINGS LLP",
+      "aliases": [
+        "Paul Hastings"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0007"
+      ],
+      "notes": [
+        "Counsel to Messrs. Moshayedi."
+      ]
+    },
+    {
+      "actor_id": "advisor_shearman_sterling",
+      "display_name": "Shearman",
+      "canonical_name": "SHEARMAN & STERLING LLP",
+      "aliases": [
+        "Shearman"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": "bidder_wdc",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0008"
+      ],
+      "notes": [
+        "Counsel to WDC."
+      ]
+    },
+    {
+      "actor_id": "activist_balch_hill",
+      "display_name": "Balch Hill",
+      "canonical_name": "BALCH HILL PARTNERS, L. P.",
+      "aliases": [
+        "Balch Hill"
+      ],
+      "role": "activist",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0009"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "activist_potomac",
+      "display_name": "Potomac",
+      "canonical_name": "POTOMAC CAPITAL PARTNERS II, L. P.",
+      "aliases": [
+        "Potomac"
+      ],
+      "role": "activist",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0010"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_company_a_financial_advisor",
+      "display_name": "Company A financial advisor",
+      "canonical_name": "COMPANY A FINANCIAL ADVISOR",
+      "aliases": [
+        "investment bank representing Company A"
+      ],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "bidder_company_a",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0011"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_a",
+      "display_name": "Company A",
+      "canonical_name": "COMPANY A",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0012"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_b",
+      "display_name": "Company B",
+      "canonical_name": "COMPANY B",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0013"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_c",
+      "display_name": "Company C",
+      "canonical_name": "COMPANY C",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0014"
+      ],
+      "notes": [
+        "Expressed interest in particular assets of sTec."
+      ]
+    },
+    {
+      "actor_id": "bidder_company_d",
+      "display_name": "Company D",
+      "canonical_name": "COMPANY D",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0015"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_e",
+      "display_name": "Company E",
+      "canonical_name": "COMPANY E",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0016"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_f",
+      "display_name": "Company F",
+      "canonical_name": "COMPANY F",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0017"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_g",
+      "display_name": "Company G",
+      "canonical_name": "COMPANY G",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0018"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_h",
+      "display_name": "Company H",
+      "canonical_name": "COMPANY H",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0019"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_wdc",
+      "display_name": "WDC",
+      "canonical_name": "WESTERN DIGITAL CORPORATION",
+      "aliases": [
+        "WDC"
+      ],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0020",
+        "span_0021"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_financial_sponsor_1",
+      "display_name": "Unnamed financial sponsor",
+      "canonical_name": "UNNAMED FINANCIAL SPONSOR",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": true,
+      "group_size": 1,
+      "group_label": "Unnamed financial sponsor",
+      "evidence_span_ids": [
+        "span_0022"
+      ],
+      "notes": []
+    }
+  ],
+  "count_assertions": [
+    {
+      "subject": "investment banking firms identified by the board of directors",
+      "count": 9,
+      "evidence_span_ids": [
+        "span_0023"
+      ]
+    },
+    {
+      "subject": "prospective acquirers contacted by BofA Merrill Lynch",
+      "count": 18,
+      "evidence_span_ids": [
+        "span_0024"
+      ]
+    },
+    {
+      "subject": "technology company prospective acquirers",
+      "count": 17,
+      "evidence_span_ids": [
+        "span_0025"
+      ]
+    },
+    {
+      "subject": "financial sponsor prospective acquirers",
+      "count": 1,
+      "evidence_span_ids": [
+        "span_0022"
+      ]
+    },
+    {
+      "subject": "complete-purchase written indication submitters",
+      "count": 3,
+      "evidence_span_ids": [
+        "span_0026"
+      ]
+    },
+    {
+      "subject": "strategic acquirers interested in limited, select assets",
+      "count": 6,
+      "evidence_span_ids": [
+        "span_0027"
+      ]
+    },
+    {
+      "subject": "prospective acquirers not interested in a potential transaction",
+      "count": 9,
+      "evidence_span_ids": [
+        "span_0028"
+      ]
+    },
+    {
+      "subject": "executed non-disclosure agreements related to exploration of a potential sale",
+      "count": 6,
+      "evidence_span_ids": [
+        "span_0029"
+      ]
+    }
+  ],
+  "unresolved_mentions": []
+}

@@ -1,0 +1,70 @@
+{
+  "round_1": {
+    "findings": [
+      {
+        "check_type": "coverage_audit",
+        "severity": "error",
+        "repairability": "repairable",
+        "description": "High-confidence nda cue was not covered by extracted artifacts.",
+        "actor_ids": [],
+        "event_ids": [],
+        "actor_id": null,
+        "event_id": null,
+        "anchor_text": null,
+        "span_ids": [],
+        "block_ids": [
+          "B054",
+          "B055"
+        ],
+        "evidence_ids": [
+          "0001193125-16-696911:E0170"
+        ]
+      },
+      {
+        "check_type": "coverage_audit",
+        "severity": "error",
+        "repairability": "repairable",
+        "description": "High-confidence nda cue was not covered by extracted artifacts.",
+        "actor_ids": [],
+        "event_ids": [],
+        "actor_id": null,
+        "event_id": null,
+        "anchor_text": null,
+        "span_ids": [],
+        "block_ids": [
+          "B056"
+        ],
+        "evidence_ids": [
+          "0001193125-16-696911:E0173"
+        ]
+      }
+    ],
+    "fixes_applied": [
+      {
+        "finding_index": 0,
+        "action": "Added NDA event evt_042 and span_0063 for the July 9, 2016 confidentiality agreement while leaving actor_ids empty because the filing does not map that date to a specific Company 1-4 actor.",
+        "old_value": null,
+        "new_value": "evt_042 / span_0063"
+      },
+      {
+        "finding_index": 1,
+        "action": "Added NDA event evt_043 and span_0064 for the July 13 confidentiality agreement with an inferred 2016 year from the surrounding chronology while leaving actor_ids empty because the filing does not map that date to a specific Company 1-4 actor.",
+        "old_value": null,
+        "new_value": "evt_043 / span_0064"
+      }
+    ]
+  },
+  "round_2": {
+    "findings": [],
+    "status": "pass"
+  },
+  "summary": {
+    "total_checks": 192,
+    "round_1_errors": 2,
+    "round_1_warnings": 0,
+    "fixes_applied": 2,
+    "round_2_errors": 0,
+    "round_2_warnings": 0,
+    "status": "pass"
+  }
+}

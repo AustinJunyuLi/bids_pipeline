@@ -6,29 +6,25 @@ from pathlib import Path
 
 from skill_pipeline.config import PROJECT_ROOT
 from skill_pipeline.db_schema import open_pipeline_db
-from skill_pipeline.extract_artifacts import load_extract_artifacts
+from skill_pipeline.extract_artifacts_v2 import load_observation_artifacts
 from skill_pipeline.models import (
     CheckStageSummary,
     CoverageStageSummary,
     CoverageSummary,
     DealAgentSummary,
-    DeterministicEnrichmentArtifact,
     DbExportStageSummary,
     DbLoadStageSummary,
-    EnrichStageSummary,
+    DeriveStageSummary,
     ExportStageSummary,
     ExtractStageSummary,
-    GateReport,
     GatesStageSummary,
     PromptStageSummary,
-    SkillCheckReport,
-    SkillEnrichmentArtifact,
-    SkillVerificationLog,
     StageStatus,
-    VerifyStageSummary,
 )
 from skill_pipeline.paths import build_skill_paths, ensure_output_directories, missing_required_inputs
+from skill_pipeline.pipeline_models.prompt import PromptPacketManifest
 from skill_pipeline.seeds import load_seed_entry
+from skill_pipeline.models_v2 import DerivedArtifactV2, GateReportV2, SkillCheckReportV2
 
 
 def run_deal_agent(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> DealAgentSummary:
@@ -51,8 +47,7 @@ def run_deal_agent(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> Deal
         check=_summarize_check(paths),
         coverage=_summarize_coverage(paths),
         gates=_summarize_gates(paths),
-        verify=_summarize_verify(paths),
-        enrich=_summarize_enrich(paths),
+        derive=_summarize_derive(paths),
         db_load=_summarize_db_load(paths),
         db_export=_summarize_db_export(paths),
         export=_summarize_export(paths),
@@ -60,56 +55,68 @@ def run_deal_agent(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> Deal
 
 
 def _summarize_prompt(paths) -> PromptStageSummary:
-    if not paths.prompt_manifest_path.exists():
+    if not paths.prompt_v2_manifest_path.exists():
         return PromptStageSummary(status=StageStatus.MISSING)
 
     try:
-        from skill_pipeline.pipeline_models.prompt import PromptPacketManifest
-
-        manifest = PromptPacketManifest.model_validate(_read_json(paths.prompt_manifest_path))
+        manifest = PromptPacketManifest.model_validate(_read_json(paths.prompt_v2_manifest_path))
     except Exception:
         return PromptStageSummary(status=StageStatus.FAIL)
 
     packet_count = len(manifest.packets)
-    actor_packet_count = sum(1 for p in manifest.packets if p.packet_family == "actors")
-    event_packet_count = sum(1 for p in manifest.packets if p.packet_family == "events")
+    observation_packet_count = sum(
+        1 for packet in manifest.packets if packet.packet_family == "observations_v2"
+    )
     status = StageStatus.PASS if packet_count > 0 else StageStatus.FAIL
     return PromptStageSummary(
         status=status,
         packet_count=packet_count,
-        actor_packet_count=actor_packet_count,
-        event_packet_count=event_packet_count,
+        observation_packet_count=observation_packet_count,
     )
 
 
 def _summarize_extract(paths) -> ExtractStageSummary:
-    if not paths.actors_raw_path.exists() or not paths.events_raw_path.exists():
+    if not paths.observations_raw_path.exists() and not paths.observations_path.exists():
         return ExtractStageSummary(status=StageStatus.MISSING)
 
-    artifacts = load_extract_artifacts(paths)
+    try:
+        artifacts = load_observation_artifacts(paths)
+    except Exception:
+        return ExtractStageSummary(status=StageStatus.FAIL)
+
     if artifacts.mode == "quote_first":
-        actors = artifacts.raw_actors.actors
-        events = artifacts.raw_events.events
+        raw_artifact = artifacts.raw_artifact
+        parties = raw_artifact.parties
+        cohorts = raw_artifact.cohorts
+        observations = raw_artifact.observations
     else:
-        actors = artifacts.actors.actors
-        events = artifacts.events.events
-    actor_count = len(actors)
-    event_count = len(events)
-    proposal_count = sum(event.event_type == "proposal" for event in events)
-    status = StageStatus.PASS if actor_count > 0 and event_count > 0 else StageStatus.FAIL
+        canonical = artifacts.observations
+        parties = canonical.parties
+        cohorts = canonical.cohorts
+        observations = canonical.observations
+    party_count = len(parties)
+    cohort_count = len(cohorts)
+    observation_count = len(observations)
+    proposal_count = sum(observation.obs_type == "proposal" for observation in observations)
+    status = StageStatus.PASS if party_count > 0 and observation_count > 0 else StageStatus.FAIL
     return ExtractStageSummary(
         status=status,
-        actor_count=actor_count,
-        event_count=event_count,
+        party_count=party_count,
+        cohort_count=cohort_count,
+        observation_count=observation_count,
         proposal_count=proposal_count,
     )
 
 
 def _summarize_check(paths) -> CheckStageSummary:
-    if not paths.check_report_path.exists():
+    if not paths.check_v2_report_path.exists():
         return CheckStageSummary(status=StageStatus.MISSING)
 
-    report = SkillCheckReport.model_validate(_read_json(paths.check_report_path))
+    try:
+        report = SkillCheckReportV2.model_validate(_read_json(paths.check_v2_report_path))
+    except Exception:
+        return CheckStageSummary(status=StageStatus.FAIL)
+
     status = StageStatus.PASS if report.summary.status == "pass" else StageStatus.FAIL
     return CheckStageSummary(
         status=status,
@@ -119,10 +126,14 @@ def _summarize_check(paths) -> CheckStageSummary:
 
 
 def _summarize_coverage(paths) -> CoverageStageSummary:
-    if not paths.coverage_summary_path.exists():
+    if not paths.coverage_v2_summary_path.exists():
         return CoverageStageSummary(status=StageStatus.MISSING)
 
-    summary = CoverageSummary.model_validate(_read_json(paths.coverage_summary_path))
+    try:
+        summary = CoverageSummary.model_validate(_read_json(paths.coverage_v2_summary_path))
+    except Exception:
+        return CoverageStageSummary(status=StageStatus.FAIL)
+
     status = StageStatus.PASS if summary.status == "pass" else StageStatus.FAIL
     return CoverageStageSummary(
         status=status,
@@ -132,10 +143,14 @@ def _summarize_coverage(paths) -> CoverageStageSummary:
 
 
 def _summarize_gates(paths) -> GatesStageSummary:
-    if not paths.gates_report_path.exists():
+    if not paths.gates_v2_report_path.exists():
         return GatesStageSummary(status=StageStatus.MISSING)
 
-    report = GateReport.model_validate(_read_json(paths.gates_report_path))
+    try:
+        report = GateReportV2.model_validate(_read_json(paths.gates_v2_report_path))
+    except Exception:
+        return GatesStageSummary(status=StageStatus.FAIL)
+
     status = StageStatus.PASS if report.summary.status == "pass" else StageStatus.FAIL
     return GatesStageSummary(
         status=status,
@@ -144,81 +159,28 @@ def _summarize_gates(paths) -> GatesStageSummary:
     )
 
 
-def _summarize_verify(paths) -> VerifyStageSummary:
-    if not paths.verification_log_path.exists():
-        return VerifyStageSummary(status=StageStatus.MISSING)
+def _summarize_derive(paths) -> DeriveStageSummary:
+    if not paths.derivations_path.exists():
+        return DeriveStageSummary(status=StageStatus.MISSING)
 
-    log = SkillVerificationLog.model_validate(_read_json(paths.verification_log_path))
-    status = StageStatus.PASS if log.summary.status == "pass" else StageStatus.FAIL
-    return VerifyStageSummary(
+    try:
+        derivations = DerivedArtifactV2.model_validate(_read_json(paths.derivations_path))
+    except Exception:
+        return DeriveStageSummary(status=StageStatus.FAIL)
+
+    phase_count = len(derivations.phases)
+    transition_count = len(derivations.transitions)
+    analyst_row_count = len(derivations.analyst_rows)
+    judgment_count = len(derivations.judgments)
+    status = StageStatus.PASS if any(
+        count > 0 for count in (phase_count, transition_count, analyst_row_count, judgment_count)
+    ) else StageStatus.FAIL
+    return DeriveStageSummary(
         status=status,
-        round_1_errors=log.summary.round_1_errors,
-        fixes_applied=log.summary.fixes_applied,
-        round_2_status=log.round_2.status,
-    )
-
-
-def _summarize_enrich(paths) -> EnrichStageSummary:
-    deterministic_enrichment = None
-    if paths.deterministic_enrichment_path.exists():
-        try:
-            deterministic_enrichment = DeterministicEnrichmentArtifact.model_validate(
-                _read_json(paths.deterministic_enrichment_path)
-            )
-        except Exception:
-            return EnrichStageSummary(status=StageStatus.FAIL)
-
-    if paths.enrichment_path.exists():
-        try:
-            enrichment = SkillEnrichmentArtifact.model_validate(_read_json(paths.enrichment_path))
-        except Exception:
-            if deterministic_enrichment is not None:
-                return _build_enrich_summary(
-                    deterministic_enrichment,
-                    status=StageStatus.FAIL,
-                )
-            return EnrichStageSummary(status=StageStatus.FAIL)
-
-        if deterministic_enrichment is None:
-            return EnrichStageSummary(
-                status=StageStatus.FAIL,
-                initiation_judgment_type=enrichment.initiation_judgment.type,
-                review_flags_count=len(enrichment.review_flags),
-            )
-        return _build_enrich_summary(
-            deterministic_enrichment,
-            initiation_judgment_type=enrichment.initiation_judgment.type,
-            review_flags_count=len(enrichment.review_flags),
-        )
-
-    if deterministic_enrichment is not None:
-        return _build_enrich_summary(deterministic_enrichment)
-
-    return EnrichStageSummary(status=StageStatus.MISSING)
-
-
-def _build_enrich_summary(
-    enrichment: DeterministicEnrichmentArtifact,
-    *,
-    status: StageStatus = StageStatus.PASS,
-    initiation_judgment_type: str | None = None,
-    review_flags_count: int = 0,
-) -> EnrichStageSummary:
-    formal_bid_count = sum(
-        classification.label == "Formal"
-        for classification in enrichment.bid_classifications.values()
-    )
-    informal_bid_count = sum(
-        classification.label == "Informal"
-        for classification in enrichment.bid_classifications.values()
-    )
-    return EnrichStageSummary(
-        status=status,
-        cycle_count=len(enrichment.cycles),
-        formal_bid_count=formal_bid_count,
-        informal_bid_count=informal_bid_count,
-        initiation_judgment_type=initiation_judgment_type,
-        review_flags_count=review_flags_count,
+        phase_count=phase_count,
+        transition_count=transition_count,
+        analyst_row_count=analyst_row_count,
+        judgment_count=judgment_count,
     )
 
 
@@ -226,63 +188,102 @@ def _summarize_db_load(paths) -> DbLoadStageSummary:
     if not paths.database_path.exists():
         return DbLoadStageSummary(status=StageStatus.MISSING)
 
-    con = open_pipeline_db(paths.database_path, read_only=True)
     try:
-        actor_rows = _count_deal_rows(con, "actors", paths.deal_slug)
-        event_rows = _count_deal_rows(con, "events", paths.deal_slug)
-        span_rows = _count_deal_rows(con, "spans", paths.deal_slug)
+        con = open_pipeline_db(paths.database_path, read_only=True)
+    except Exception:
+        return DbLoadStageSummary(status=StageStatus.FAIL)
+
+    try:
+        try:
+            party_rows = _count_deal_rows(con, "v2_parties", paths.deal_slug)
+            cohort_rows = _count_deal_rows(con, "v2_cohorts", paths.deal_slug)
+            observation_rows = _count_deal_rows(con, "v2_observations", paths.deal_slug)
+            derivation_rows = _count_deal_rows(con, "v2_derivations", paths.deal_slug)
+            coverage_rows = _count_deal_rows(con, "v2_coverage_checks", paths.deal_slug)
+        except Exception:
+            return DbLoadStageSummary(status=StageStatus.FAIL)
     finally:
         con.close()
 
-    if actor_rows == 0 and event_rows == 0 and span_rows == 0:
+    if all(count == 0 for count in (party_rows, cohort_rows, observation_rows, derivation_rows, coverage_rows)):
         return DbLoadStageSummary(status=StageStatus.MISSING)
-    if actor_rows == 0 or event_rows == 0 or span_rows == 0:
+    if party_rows == 0 or observation_rows == 0 or derivation_rows == 0:
         return DbLoadStageSummary(
             status=StageStatus.FAIL,
-            actor_rows=actor_rows,
-            event_rows=event_rows,
-            span_rows=span_rows,
+            party_rows=party_rows,
+            cohort_rows=cohort_rows,
+            observation_rows=observation_rows,
+            derivation_rows=derivation_rows,
+            coverage_rows=coverage_rows,
         )
     return DbLoadStageSummary(
         status=StageStatus.PASS,
-        actor_rows=actor_rows,
-        event_rows=event_rows,
-        span_rows=span_rows,
+        party_rows=party_rows,
+        cohort_rows=cohort_rows,
+        observation_rows=observation_rows,
+        derivation_rows=derivation_rows,
+        coverage_rows=coverage_rows,
     )
 
 
 def _summarize_db_export(paths) -> DbExportStageSummary:
-    if not paths.deal_events_path.exists():
+    if not paths.analyst_rows_path.exists():
         return DbExportStageSummary(
             status=StageStatus.MISSING,
-            output_path=paths.deal_events_path,
+            output_path=paths.analyst_rows_path,
+            literal_output_path=paths.literal_observations_path,
+            benchmark_output_path=paths.benchmark_rows_expanded_path,
         )
 
-    with paths.deal_events_path.open(newline="", encoding="utf-8") as handle:
+    with paths.analyst_rows_path.open(newline="", encoding="utf-8") as handle:
         rows = list(csv.reader(handle))
 
     if len(rows) < 2:
         return DbExportStageSummary(
             status=StageStatus.FAIL,
-            event_rows=0,
-            output_path=paths.deal_events_path,
+            row_count=0,
+            output_path=paths.analyst_rows_path,
+            literal_output_path=paths.literal_observations_path,
+            benchmark_output_path=paths.benchmark_rows_expanded_path,
         )
 
-    event_rows = len(rows) - 2
-    status = StageStatus.PASS if event_rows > 0 else StageStatus.FAIL
+    row_count = len(rows) - 1
+    status = StageStatus.PASS if row_count > 0 else StageStatus.FAIL
     return DbExportStageSummary(
         status=status,
-        event_rows=event_rows,
-        output_path=paths.deal_events_path,
+        row_count=row_count,
+        output_path=paths.analyst_rows_path,
+        literal_output_path=paths.literal_observations_path,
+        benchmark_output_path=paths.benchmark_rows_expanded_path,
     )
 
 
 def _summarize_export(paths) -> ExportStageSummary:
-    if not paths.deal_events_path.exists():
-        return ExportStageSummary(status=StageStatus.MISSING, output_path=paths.deal_events_path)
-    if paths.deal_events_path.stat().st_size == 0:
-        return ExportStageSummary(status=StageStatus.FAIL, output_path=paths.deal_events_path)
-    return ExportStageSummary(status=StageStatus.PASS, output_path=paths.deal_events_path)
+    required_paths = (
+        paths.literal_observations_path,
+        paths.analyst_rows_path,
+        paths.benchmark_rows_expanded_path,
+    )
+    if any(not path.exists() for path in required_paths):
+        return ExportStageSummary(
+            status=StageStatus.MISSING,
+            output_path=paths.analyst_rows_path,
+            literal_output_path=paths.literal_observations_path,
+            benchmark_output_path=paths.benchmark_rows_expanded_path,
+        )
+    if any(path.stat().st_size == 0 for path in required_paths):
+        return ExportStageSummary(
+            status=StageStatus.FAIL,
+            output_path=paths.analyst_rows_path,
+            literal_output_path=paths.literal_observations_path,
+            benchmark_output_path=paths.benchmark_rows_expanded_path,
+        )
+    return ExportStageSummary(
+        status=StageStatus.PASS,
+        output_path=paths.analyst_rows_path,
+        literal_output_path=paths.literal_observations_path,
+        benchmark_output_path=paths.benchmark_rows_expanded_path,
+    )
 
 
 def _count_deal_rows(con, table_name: str, deal_slug: str) -> int:

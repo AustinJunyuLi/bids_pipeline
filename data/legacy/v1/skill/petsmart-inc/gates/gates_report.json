@@ -1,0 +1,244 @@
+{
+  "findings": [
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_001 type ib_retention is grounded only in ['bidding'] blocks.",
+      "event_ids": [
+        "evt_001"
+      ],
+      "actor_ids": [
+        "advisor_jp_morgan",
+        "target_board_petsmart"
+      ],
+      "block_ids": [
+        "B006"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_002 type bidder_interest is grounded only in ['bidding'] blocks.",
+      "event_ids": [
+        "evt_002"
+      ],
+      "actor_ids": [
+        "bidder_industry_participant"
+      ],
+      "block_ids": [
+        "B008"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_003 type target_sale is grounded only in ['bidding'] blocks.",
+      "event_ids": [
+        "evt_003"
+      ],
+      "actor_ids": [
+        "target_board_petsmart"
+      ],
+      "block_ids": [
+        "B009"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_004 type sale_press_release is grounded only in ['bidding'] blocks.",
+      "event_ids": [
+        "evt_004"
+      ],
+      "actor_ids": [
+        "target_board_petsmart"
+      ],
+      "block_ids": [
+        "B011"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_011 type final_round is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_011"
+      ],
+      "actor_ids": [
+        "target_board_petsmart_ad_hoc_committee"
+      ],
+      "block_ids": [
+        "B025"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_012 type proposal is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_012"
+      ],
+      "actor_ids": [
+        "bidder_buyer_group"
+      ],
+      "block_ids": [
+        "B029"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_013 type proposal is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_013"
+      ],
+      "actor_ids": [
+        "bidder_2"
+      ],
+      "block_ids": [
+        "B029"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_014 type proposal is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_014"
+      ],
+      "actor_ids": [
+        "bidder_3"
+      ],
+      "block_ids": [
+        "B029"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_016 type final_round_ext_ann is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_016"
+      ],
+      "actor_ids": [
+        "advisor_jp_morgan",
+        "target_board_petsmart_ad_hoc_committee"
+      ],
+      "block_ids": [
+        "B030"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_017 type final_round_ext is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_017"
+      ],
+      "actor_ids": [
+        "target_board_petsmart_ad_hoc_committee"
+      ],
+      "block_ids": [
+        "B030"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_018 type proposal is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_018"
+      ],
+      "actor_ids": [
+        "bidder_2"
+      ],
+      "block_ids": [
+        "B034"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_019 type proposal is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_019"
+      ],
+      "actor_ids": [
+        "bidder_buyer_group"
+      ],
+      "block_ids": [
+        "B034"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_020 type proposal is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_020"
+      ],
+      "actor_ids": [
+        "bidder_buyer_group"
+      ],
+      "block_ids": [
+        "B034"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_022 type bid_press_release is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_022"
+      ],
+      "actor_ids": [
+        "bidder_buyer_group",
+        "target_board_petsmart"
+      ],
+      "block_ids": [
+        "B036"
+      ]
+    },
+    {
+      "gate_id": "actor_lifecycle",
+      "rule_id": "nda_signer_no_downstream",
+      "severity": "warning",
+      "description": "NDA signer bidder_financial_buyers_15 does not appear in any downstream proposal, drop, executed, or terminated event.",
+      "event_ids": [],
+      "actor_ids": [
+        "bidder_financial_buyers_15"
+      ],
+      "block_ids": []
+    }
+  ],
+  "attention_decay": {
+    "quartile_counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "hot_spots": [],
+    "decay_score": 1.0,
+    "note": null
+  },
+  "summary": {
+    "blocker_count": 0,
+    "warning_count": 15,
+    "status": "pass"
+  }
+}

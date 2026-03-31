@@ -1,0 +1,418 @@
+{
+  "actors": [
+    {
+      "actor_id": "target_board_board",
+      "display_name": "Board",
+      "canonical_name": "BOARD",
+      "aliases": [
+        "Board"
+      ],
+      "role": "target_board",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0001"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "target_board_special_committee",
+      "display_name": "Special Committee",
+      "canonical_name": "SPECIAL COMMITTEE",
+      "aliases": [
+        "Special Committee"
+      ],
+      "role": "target_board",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0002",
+        "span_0003"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "target_board_advisory_committee",
+      "display_name": "Advisory Committee",
+      "canonical_name": "ADVISORY COMMITTEE",
+      "aliases": [
+        "advisory committee"
+      ],
+      "role": "target_board",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0020"
+      ],
+      "notes": [
+        "Informal advisory committee of directors authorized on March 10, 2016 to recommend a financial advisor."
+      ]
+    },
+    {
+      "actor_id": "bidder_thoma_bravo",
+      "display_name": "Thoma Bravo",
+      "canonical_name": "THOMA BRAVO",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0004",
+        "span_0005"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_barclays",
+      "display_name": "Barclays",
+      "canonical_name": "BARCLAYS",
+      "aliases": [],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "target_board_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0006",
+        "span_0007"
+      ],
+      "notes": [
+        "Later advised the Special Committee during the strategic process."
+      ]
+    },
+    {
+      "actor_id": "advisor_goodwin",
+      "display_name": "Goodwin Procter LLP",
+      "canonical_name": "GOODWIN PROCTER LLP",
+      "aliases": [
+        "Goodwin"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": "target_board_board",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0008",
+        "span_0009"
+      ],
+      "notes": [
+        "Also advised the Special Committee after it was formed."
+      ]
+    },
+    {
+      "actor_id": "advisor_chip_linnemann",
+      "display_name": "Chip Linnemann",
+      "canonical_name": "CHIP LINNEMANN",
+      "aliases": [
+        "Mr. Linnemann"
+      ],
+      "role": "advisor",
+      "advisor_kind": "other",
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0010",
+        "span_0011"
+      ],
+      "notes": [
+        "Consultant to the Company; later designated to liaise between the Special Committee and Barclays."
+      ]
+    },
+    {
+      "actor_id": "advisor_kirkland",
+      "display_name": "Kirkland & Ellis LLP",
+      "canonical_name": "KIRKLAND & ELLIS LLP",
+      "aliases": [
+        "Kirkland"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": "bidder_thoma_bravo",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0019"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_strategic_1",
+      "display_name": "Strategic 1",
+      "canonical_name": "STRATEGIC 1",
+      "aliases": [
+        "Strategic 1"
+      ],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0012"
+      ],
+      "notes": [
+        "Described as a telecommunications enterprise company."
+      ]
+    },
+    {
+      "actor_id": "bidder_strategic_2",
+      "display_name": "Strategic 2",
+      "canonical_name": "STRATEGIC 2",
+      "aliases": [
+        "Strategic 2"
+      ],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0013"
+      ],
+      "notes": [
+        "Described as a large software company."
+      ]
+    },
+    {
+      "actor_id": "bidder_strategic_3",
+      "display_name": "Strategic 3",
+      "canonical_name": "STRATEGIC 3",
+      "aliases": [
+        "Strategic 3"
+      ],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0013"
+      ],
+      "notes": [
+        "Described as a large software company."
+      ]
+    },
+    {
+      "actor_id": "bidder_strategic_4",
+      "display_name": "Strategic 4",
+      "canonical_name": "STRATEGIC 4",
+      "aliases": [
+        "Strategic 4"
+      ],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0018"
+      ],
+      "notes": [
+        "Described as an enterprise software company."
+      ]
+    },
+    {
+      "actor_id": "bidder_sponsor_a",
+      "display_name": "Sponsor A",
+      "canonical_name": "SPONSOR A",
+      "aliases": [
+        "Sponsor A"
+      ],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0014"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_sponsor_b",
+      "display_name": "Sponsor B",
+      "canonical_name": "SPONSOR B",
+      "aliases": [
+        "Sponsor B"
+      ],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0014"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_unnamed_financial_sponsor",
+      "display_name": "Unnamed financial sponsor",
+      "canonical_name": "UNNAMED FINANCIAL SPONSOR",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0015"
+      ],
+      "notes": [
+        "Executed a confidentiality agreement and declined interest shortly afterward."
+      ]
+    },
+    {
+      "actor_id": "bidder_unnamed_strategic_party_1",
+      "display_name": "Unnamed strategic party 1",
+      "canonical_name": "UNNAMED STRATEGIC PARTY 1",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0016"
+      ],
+      "notes": [
+        "Did not execute a confidentiality agreement or receive a bid process letter."
+      ]
+    },
+    {
+      "actor_id": "bidder_unnamed_strategic_party_2",
+      "display_name": "Unnamed strategic party 2",
+      "canonical_name": "UNNAMED STRATEGIC PARTY 2",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0017"
+      ],
+      "notes": [
+        "Did not execute a confidentiality agreement or receive a bid process letter."
+      ]
+    }
+  ],
+  "count_assertions": [
+    {
+      "subject": "initial strategic companies considered by Barclays",
+      "count": 11,
+      "evidence_span_ids": [
+        "span_0021"
+      ]
+    },
+    {
+      "subject": "initial financial sponsors considered by Barclays",
+      "count": 4,
+      "evidence_span_ids": [
+        "span_0021"
+      ]
+    },
+    {
+      "subject": "parties on the Board-approved indicative list",
+      "count": 15,
+      "evidence_span_ids": [
+        "span_0022"
+      ]
+    },
+    {
+      "subject": "parties that executed confidentiality agreements with the Company",
+      "count": 7,
+      "evidence_span_ids": [
+        "span_0023"
+      ]
+    },
+    {
+      "subject": "parties sent the June 3 bid instruction letter",
+      "count": 6,
+      "evidence_span_ids": [
+        "span_0024"
+      ]
+    }
+  ],
+  "unresolved_mentions": [
+    "Five additional strategic companies on Barclays' initial list of 11 strategic companies were not individually identified elsewhere in the filing."
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "dropout_classifications": {},
+  "initiation_judgment": {
+    "type": "bidder_driven",
+    "basis": "Sanofi's unsolicited March 22, 2016 outreach preceded any board-directed sale process and started the sequence that later became Medivation's controlled strategic process.",
+    "source_text": "On March 22, 2016, Olivier Brandicourt, Chief Executive Officer of Sanofi, contacted David Hung, M. D., President and Chief Executive Officer of Medivation, on an unsolicited basis, and requested a telephone discussion.",
+    "confidence": "medium"
+  },
+  "advisory_verification": {
+    "advisor_cooley": {
+      "advised_actor_id": "board_medivation",
+      "verified": true,
+      "source_text": "Cooley LLP (\" Cooley\"), Medivation's legal advisor"
+    },
+    "advisor_j_p_morgan": {
+      "advised_actor_id": "board_medivation",
+      "verified": true,
+      "source_text": "J. P. Morgan Securities LLC (\" J. P. Morgan\"), retained as independent financial advisor to Medivation"
+    },
+    "advisor_evercore": {
+      "advised_actor_id": "board_medivation",
+      "verified": true,
+      "source_text": "determined to engage Evercore Group L. L. C. (\" Evercore\") as an additional independent financial advisor to Medivation"
+    },
+    "advisor_wachtell_lipton": {
+      "advised_actor_id": "board_medivation",
+      "verified": true,
+      "source_text": "Wachtell, Lipton, Rosen & Katz (\" Wachtell Lipton\"), which Medivation had retained as an additional legal advisor"
+    },
+    "advisor_richards_layton_finger": {
+      "advised_actor_id": "board_medivation",
+      "verified": true,
+      "source_text": "Richards, Layton & Finger, P. A., Medivation's Delaware counsel"
+    },
+    "advisor_weil_gotshal": {
+      "advised_actor_id": "bidder_sanofi",
+      "verified": true,
+      "source_text": "Weil Gotshal & Manges LLP (\" Weil Gotshal\"), Sanofi's legal counsel"
+    }
+  },
+  "count_reconciliation": [
+    {
+      "assertion": "4 companies contacted J. P. Morgan and Dr. Hung in late March 2016",
+      "extracted_count": 4,
+      "classification": null,
+      "note": "Counts match numerically through the four extracted Company 1-4 bidder placeholders, although the filing does not explicitly map the late-March contacts to those later labels."
+    },
+    {
+      "assertion": "11 industry participants contacted by J. P. Morgan and Evercore in late June through early July 2016",
+      "extracted_count": 5,
+      "classification": "unnamed_aggregate",
+      "note": "Only Pfizer and Company 1-4 are individually represented among the advisor-contacted parties; the filing leaves six additional contacted participants unnamed."
+    },
+    {
+      "assertion": "1 industry participant contacted directly by Medivation in late June through early July 2016",
+      "extracted_count": 0,
+      "classification": "unnamed_aggregate",
+      "note": "The twelfth participant contacted directly by Medivation is never individually identified in the chronology."
+    },
+    {
+      "assertion": "5 Interested Parties",
+      "extracted_count": 5,
+      "classification": null,
+      "note": "Counts match exactly: Pfizer plus Company 1, Company 2, Company 3, and Company 4."
+    },
+    {
+      "assertion": "15 parties contacted during the process",
+      "extracted_count": 6,
+      "classification": "unnamed_aggregate",
+      "note": "Only six bidder counterparties are individually represented in extraction (Sanofi, Pfizer, and Company 1-4); the filing counts the remaining parties only in aggregate."
+    },
+    {
+      "assertion": "4 other bidders below Pfizer's final price",
+      "extracted_count": 4,
+      "classification": null,
+      "note": "Counts match exactly: the four non-Pfizer bidder actors in the extract are Company 1, Company 2, Company 3, and Company 4."
+    }
+  ],
+  "review_flags": []
+}

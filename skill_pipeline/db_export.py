@@ -95,7 +95,7 @@ def run_db_export(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> int:
     finally:
         con.close()
 
-    ensure_output_directories(paths)
+    ensure_output_directories(paths, include_legacy=True)
     with paths.deal_events_path.open("w", newline="", encoding="utf-8") as handle:
         writer = csv.writer(handle)
         writer.writerow(["TargetName", "Events", "Acquirer", "DateAnnounced", "URL"])

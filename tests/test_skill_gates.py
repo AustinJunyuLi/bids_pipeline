@@ -535,7 +535,7 @@ def test_build_skill_paths_includes_gates_dir(tmp_path: Path) -> None:
     assert paths.gates_dir == tmp_path / "data" / "skill" / "example" / "gates"
     assert paths.gates_report_path == paths.gates_dir / "gates_report.json"
 
-    ensure_output_directories(paths)
+    ensure_output_directories(paths, include_legacy=True)
 
     assert paths.gates_dir.exists()
 
@@ -1190,7 +1190,21 @@ def test_deal_agent_gates_missing(tmp_path: Path) -> None:
 
 def test_deal_agent_gates_pass(tmp_path: Path) -> None:
     _write_gates_fixture(tmp_path)
-    _write_stage_gatekeepers(tmp_path, gate_warning_count=2)
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    paths.gates_v2_dir.mkdir(parents=True, exist_ok=True)
+    paths.gates_v2_report_path.write_text(
+        json.dumps(
+            {
+                "findings": [],
+                "summary": {
+                    "blocker_count": 0,
+                    "warning_count": 2,
+                    "status": "pass",
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
 
     summary = run_deal_agent("imprivata", project_root=tmp_path)
 

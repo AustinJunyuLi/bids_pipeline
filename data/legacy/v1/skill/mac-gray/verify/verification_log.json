@@ -1,0 +1,434 @@
+{
+  "round_1": {
+    "findings": [
+      {
+        "check_type": "coverage_advisor",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "High-confidence advisor cue was not covered by extracted artifacts.",
+        "block_ids": [
+          "B016",
+          "B017"
+        ],
+        "evidence_ids": [
+          "0001047469-13-010973:E0369"
+        ]
+      },
+      {
+        "check_type": "coverage_advisor",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "Medium-confidence advisor cue was not covered by extracted artifacts.",
+        "block_ids": [
+          "B016",
+          "B017"
+        ],
+        "evidence_ids": [
+          "0001047469-13-010973:E0370"
+        ]
+      },
+      {
+        "check_type": "coverage_advisor",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "High-confidence advisor cue was not covered by extracted artifacts.",
+        "block_ids": [
+          "B018",
+          "B019"
+        ],
+        "evidence_ids": [
+          "0001047469-13-010973:E0372"
+        ]
+      },
+      {
+        "check_type": "coverage_advisor",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "High-confidence advisor cue was not covered by extracted artifacts.",
+        "block_ids": [
+          "B018",
+          "B019"
+        ],
+        "evidence_ids": [
+          "0001047469-13-010973:E0373"
+        ]
+      },
+      {
+        "check_type": "coverage_advisor",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "High-confidence advisor cue was not covered by extracted artifacts.",
+        "block_ids": [
+          "B021",
+          "B022"
+        ],
+        "evidence_ids": [
+          "0001047469-13-010973:E0375"
+        ]
+      },
+      {
+        "check_type": "coverage_advisor",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "High-confidence advisor cue was not covered by extracted artifacts.",
+        "block_ids": [
+          "B021",
+          "B022"
+        ],
+        "evidence_ids": [
+          "0001047469-13-010973:E0376"
+        ]
+      },
+      {
+        "check_type": "coverage_advisor",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "Medium-confidence advisor cue was not covered by extracted artifacts.",
+        "block_ids": [
+          "B029",
+          "B030"
+        ],
+        "evidence_ids": [
+          "0001047469-13-010973:E0385"
+        ]
+      },
+      {
+        "check_type": "coverage_advisor",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "Medium-confidence advisor cue was not covered by extracted artifacts.",
+        "block_ids": [
+          "B029",
+          "B030"
+        ],
+        "evidence_ids": [
+          "0001047469-13-010973:E0386"
+        ]
+      },
+      {
+        "check_type": "coverage_advisor",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "High-confidence advisor cue was not covered by extracted artifacts.",
+        "block_ids": [
+          "B031",
+          "B032"
+        ],
+        "evidence_ids": [
+          "0001047469-13-010973:E0388"
+        ]
+      },
+      {
+        "check_type": "coverage_advisor",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "High-confidence advisor cue was not covered by extracted artifacts.",
+        "block_ids": [
+          "B031",
+          "B032"
+        ],
+        "evidence_ids": [
+          "0001047469-13-010973:E0389"
+        ]
+      },
+      {
+        "check_type": "coverage_process_initiation",
+        "severity": "error",
+        "repairability": "repairable",
+        "description": "High-confidence process_initiation cue was not covered by extracted artifacts.",
+        "block_ids": [
+          "B041",
+          "B042"
+        ],
+        "evidence_ids": [
+          "0001047469-13-010973:E0402"
+        ]
+      },
+      {
+        "check_type": "coverage_advisor",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "High-confidence advisor cue was not covered by extracted artifacts.",
+        "block_ids": [
+          "B068",
+          "B069"
+        ],
+        "evidence_ids": [
+          "0001047469-13-010973:E0430"
+        ]
+      },
+      {
+        "check_type": "coverage_advisor",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "Medium-confidence advisor cue was not covered by extracted artifacts.",
+        "block_ids": [
+          "B068",
+          "B069"
+        ],
+        "evidence_ids": [
+          "0001047469-13-010973:E0431"
+        ]
+      },
+      {
+        "check_type": "coverage_advisor",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "Medium-confidence advisor cue was not covered by extracted artifacts.",
+        "block_ids": [
+          "B133",
+          "B134"
+        ],
+        "evidence_ids": [
+          "0001047469-13-010973:E0519"
+        ]
+      },
+      {
+        "check_type": "coverage_advisor",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "Medium-confidence advisor cue was not covered by extracted artifacts.",
+        "block_ids": [
+          "B133",
+          "B134"
+        ],
+        "evidence_ids": [
+          "0001047469-13-010973:E0520"
+        ]
+      },
+      {
+        "check_type": "coverage_advisor",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "Medium-confidence advisor cue was not covered by extracted artifacts.",
+        "block_ids": [
+          "B142",
+          "B143"
+        ],
+        "evidence_ids": [
+          "0001047469-13-010973:E0534"
+        ]
+      }
+    ],
+    "fixes_applied": [
+      {
+        "finding_index": 10,
+        "action": "Added target_sale event evt_026 and supporting span_0050 for the June 24, 2013 Board authorization creating the Special Committee to explore strategic alternatives.",
+        "old_value": null,
+        "new_value": {
+          "event_id": "evt_026",
+          "span_id": "span_0050"
+        }
+      }
+    ]
+  },
+  "round_2": {
+    "findings": [
+      {
+        "check_type": "coverage_advisor",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "High-confidence advisor cue was not covered by extracted artifacts.",
+        "block_ids": [
+          "B016",
+          "B017"
+        ],
+        "evidence_ids": [
+          "0001047469-13-010973:E0369"
+        ]
+      },
+      {
+        "check_type": "coverage_advisor",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "Medium-confidence advisor cue was not covered by extracted artifacts.",
+        "block_ids": [
+          "B016",
+          "B017"
+        ],
+        "evidence_ids": [
+          "0001047469-13-010973:E0370"
+        ]
+      },
+      {
+        "check_type": "coverage_advisor",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "High-confidence advisor cue was not covered by extracted artifacts.",
+        "block_ids": [
+          "B018",
+          "B019"
+        ],
+        "evidence_ids": [
+          "0001047469-13-010973:E0372"
+        ]
+      },
+      {
+        "check_type": "coverage_advisor",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "High-confidence advisor cue was not covered by extracted artifacts.",
+        "block_ids": [
+          "B018",
+          "B019"
+        ],
+        "evidence_ids": [
+          "0001047469-13-010973:E0373"
+        ]
+      },
+      {
+        "check_type": "coverage_advisor",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "High-confidence advisor cue was not covered by extracted artifacts.",
+        "block_ids": [
+          "B021",
+          "B022"
+        ],
+        "evidence_ids": [
+          "0001047469-13-010973:E0375"
+        ]
+      },
+      {
+        "check_type": "coverage_advisor",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "High-confidence advisor cue was not covered by extracted artifacts.",
+        "block_ids": [
+          "B021",
+          "B022"
+        ],
+        "evidence_ids": [
+          "0001047469-13-010973:E0376"
+        ]
+      },
+      {
+        "check_type": "coverage_advisor",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "Medium-confidence advisor cue was not covered by extracted artifacts.",
+        "block_ids": [
+          "B029",
+          "B030"
+        ],
+        "evidence_ids": [
+          "0001047469-13-010973:E0385"
+        ]
+      },
+      {
+        "check_type": "coverage_advisor",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "Medium-confidence advisor cue was not covered by extracted artifacts.",
+        "block_ids": [
+          "B029",
+          "B030"
+        ],
+        "evidence_ids": [
+          "0001047469-13-010973:E0386"
+        ]
+      },
+      {
+        "check_type": "coverage_advisor",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "High-confidence advisor cue was not covered by extracted artifacts.",
+        "block_ids": [
+          "B031",
+          "B032"
+        ],
+        "evidence_ids": [
+          "0001047469-13-010973:E0388"
+        ]
+      },
+      {
+        "check_type": "coverage_advisor",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "High-confidence advisor cue was not covered by extracted artifacts.",
+        "block_ids": [
+          "B031",
+          "B032"
+        ],
+        "evidence_ids": [
+          "0001047469-13-010973:E0389"
+        ]
+      },
+      {
+        "check_type": "coverage_advisor",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "High-confidence advisor cue was not covered by extracted artifacts.",
+        "block_ids": [
+          "B068",
+          "B069"
+        ],
+        "evidence_ids": [
+          "0001047469-13-010973:E0430"
+        ]
+      },
+      {
+        "check_type": "coverage_advisor",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "Medium-confidence advisor cue was not covered by extracted artifacts.",
+        "block_ids": [
+          "B068",
+          "B069"
+        ],
+        "evidence_ids": [
+          "0001047469-13-010973:E0431"
+        ]
+      },
+      {
+        "check_type": "coverage_advisor",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "Medium-confidence advisor cue was not covered by extracted artifacts.",
+        "block_ids": [
+          "B133",
+          "B134"
+        ],
+        "evidence_ids": [
+          "0001047469-13-010973:E0519"
+        ]
+      },
+      {
+        "check_type": "coverage_advisor",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "Medium-confidence advisor cue was not covered by extracted artifacts.",
+        "block_ids": [
+          "B133",
+          "B134"
+        ],
+        "evidence_ids": [
+          "0001047469-13-010973:E0520"
+        ]
+      },
+      {
+        "check_type": "coverage_advisor",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "Medium-confidence advisor cue was not covered by extracted artifacts.",
+        "block_ids": [
+          "B142",
+          "B143"
+        ],
+        "evidence_ids": [
+          "0001047469-13-010973:E0534"
+        ]
+      }
+    ],
+    "status": "pass"
+  },
+  "summary": {
+    "total_checks": 140,
+    "round_1_errors": 1,
+    "round_1_warnings": 15,
+    "fixes_applied": 1,
+    "round_2_errors": 0,
+    "round_2_warnings": 15,
+    "status": "pass"
+  }
+}

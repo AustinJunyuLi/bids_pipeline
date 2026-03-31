@@ -1,9 +1,14 @@
 ---
 name: extract-deal
-description: Use when extracting skill-workflow actor and event artifacts from preprocessed SEC filing source for a specific deal.
+description: Legacy-only v1 skill for extracting event-first actor and event artifacts from preprocessed SEC filing source.
 ---
 
 # extract-deal
+
+## Status
+
+This is the retired v1 extraction contract. The live default is
+`/extract-deal-v2` via `/deal-agent`.
 
 ## Design Principles
 
@@ -21,7 +26,7 @@ source. The skill defines its own JSON format as specified below.
 
 ## When To Use
 
-- Called by the deal-agent orchestrator, or independently via
+- Called by `/deal-agent-legacy`, or independently via
   `/extract-deal <slug>`.
 - Prerequisite: `skill-pipeline raw-fetch` +
   `skill-pipeline preprocess-source` already ran.

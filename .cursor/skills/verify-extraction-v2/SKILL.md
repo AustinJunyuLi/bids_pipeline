@@ -26,7 +26,7 @@ the deterministic v2 stages can pass:
 
 ## When To Use
 
-- Called independently via `/verify-extraction-v2 <slug>`.
+- Called by `/deal-agent <slug>` when deterministic v2 findings are repairable, or independently via `/verify-extraction-v2 <slug>`.
 - Prerequisite: `/extract-deal-v2 <slug>` already produced
   `data/skill/<slug>/extract_v2/observations_raw.json`.
 

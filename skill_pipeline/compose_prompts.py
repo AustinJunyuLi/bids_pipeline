@@ -469,7 +469,7 @@ def run_compose_prompts(
         )
 
     # Ensure output directories exist
-    ensure_output_directories(paths)
+    ensure_output_directories(paths, include_legacy=(contract == "v1"))
 
     # Load source artifacts
     blocks = _load_blocks(paths.chronology_blocks_path)

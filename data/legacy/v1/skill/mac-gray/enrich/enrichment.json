@@ -1,0 +1,79 @@
+{
+  "dropout_classifications": {
+    "evt_022": {
+      "label": "Drop",
+      "basis": "Party C dropped because it failed to submit or reiterate a proposal by the September 18 final-indication deadline and the filing states that it gave no reason.",
+      "source_text": "Party C did not submit a revised indication of interest or reiterate its prior indication of interest of an all-cash purchase price of $16.00 to $17.00 per share nor did it specify any reasons in connection therewith"
+    }
+  },
+  "initiation_judgment": {
+    "type": "target_driven",
+    "basis": "The Board started the process by authorizing management and BofA Merrill Lynch to explore strategic transactions before any bidder approach appears in the timeline.",
+    "source_text": "authorized Mac-Gray management to work with BofA Merrill Lynch to explore transactional opportunities that might be available to Mac-Gray",
+    "confidence": "high"
+  },
+  "advisory_verification": {
+    "advisor_bofa_merrill_lynch": {
+      "advised_actor_id": "target_mac_gray_board",
+      "verified": true,
+      "source_text": "On May 31, 2013, Mac-Gray entered into an engagement letter with BofA Merrill Lynch with respect to the Board's undertaking a review of strategic alternatives, including a potential sale process"
+    },
+    "advisor_goodwin_procter": {
+      "advised_actor_id": "target_mac_gray_board",
+      "verified": true,
+      "source_text": "Goodwin Procter LLP, outside legal counsel to Mac-Gray"
+    },
+    "advisor_kirkland": {
+      "advised_actor_id": null,
+      "verified": false,
+      "source_text": "Kirkland & Ellis LLP, outside legal counsel to CSC/Pamplona"
+    }
+  },
+  "count_reconciliation": [
+    {
+      "assertion": "50 parties were solicited for potential interest in a transaction with Mac-Gray",
+      "extracted_count": 4,
+      "classification": "unnamed_aggregate",
+      "note": "The filing counts 50 solicited parties, but the extracted chronology names only four bidder groups: Party A, Party B, Party C, and CSC/Pamplona."
+    },
+    {
+      "assertion": "15 potential strategic buyers were solicited",
+      "extracted_count": 2,
+      "classification": "unnamed_aggregate",
+      "note": "Only Party A and CSC/Pamplona are individually named as strategic bidder groups; the remaining strategic parties are unnamed in the filing."
+    },
+    {
+      "assertion": "35 potential financial buyers were solicited",
+      "extracted_count": 2,
+      "classification": "unnamed_aggregate",
+      "note": "Only Party B and Party C are individually named as financial bidder groups in the extracted chronology; the remaining financial buyers are unnamed."
+    },
+    {
+      "assertion": "20 potential bidders entered confidentiality agreements with Mac-Gray",
+      "extracted_count": 4,
+      "classification": "unnamed_aggregate",
+      "note": "The extracted chronology identifies four named NDA counterparties or bidder groups: Party A, Party B, Party C, and CSC/Pamplona; the remaining NDA counterparties are unnamed."
+    },
+    {
+      "assertion": "2 strategic bidders entered confidentiality agreements with Mac-Gray",
+      "extracted_count": 2,
+      "classification": null,
+      "note": "Counts match exactly: the named strategic NDA counterparties are Party A and CSC/Pamplona."
+    },
+    {
+      "assertion": "18 financial bidders entered confidentiality agreements with Mac-Gray",
+      "extracted_count": 2,
+      "classification": "unnamed_aggregate",
+      "note": "Only Party B and Party C are individually named as financial NDA counterparties; the remaining financial bidders are unnamed in the filing."
+    },
+    {
+      "assertion": "3 nationally recognized investment banks were invited to submit proposals",
+      "extracted_count": 1,
+      "classification": "unnamed_aggregate",
+      "note": "The filing says three investment banks were invited, but only BofA Merrill Lynch is later individually identified; the other invited banks remain unnamed."
+    }
+  ],
+  "review_flags": [
+    "advisory_missing_link:advisor_kirkland"
+  ]
+}

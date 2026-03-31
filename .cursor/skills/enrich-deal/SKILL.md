@@ -1,9 +1,14 @@
 ---
 name: enrich-deal
-description: Use when enriching verified extraction artifacts with interpretive dropout labels, initiation judgment, advisory verification, and count reconciliation.
+description: Legacy-only v1 skill for adding interpretive enrichment to verified event-first extraction artifacts.
 ---
 
 # enrich-deal
+
+## Status
+
+This is the retired v1 interpretive enrichment step. The live v2 default has no
+analogous mandatory enrichment stage.
 
 ## Design Principles
 
@@ -28,7 +33,7 @@ filing count assertions against extracted totals.
 - This skill is a **mandatory pipeline gate**. It runs after
   `skill-pipeline enrich-core` and before `skill-pipeline db-load` /
   `skill-pipeline db-export`. Do not skip.
-- Called by deal-agent as a required step, or independently via
+- Called by `/deal-agent-legacy` as a required step, or independently via
   `/enrich-deal <slug>`.
 - Prerequisite: verified `actors_raw.json` and `events_raw.json` exist in
   `data/skill/<slug>/extract/`, and `deterministic_enrichment.json` exists in

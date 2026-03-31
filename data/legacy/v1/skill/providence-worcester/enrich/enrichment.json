@@ -1,0 +1,89 @@
+{
+  "dropout_classifications": {
+    "evt_022": {
+      "label": "Drop",
+      "basis": "Party D stopped pursuing the transaction after the Company refused to commit that it would not enter into an agreement with another bidder during Party D's requested diligence period.",
+      "source_text": "In light of the active interest of Party B and G& W, the Company declined to make such a commitment, at which point Party D indicated that it would not proceed with further due diligence at that time."
+    }
+  },
+  "initiation_judgment": {
+    "type": "bidder_driven",
+    "basis": "Party A's unsolicited expression of acquisition interest prompted the Board to hire an advisor and start a sale process.",
+    "source_text": "Upon receiving a report of this meeting, in recognition of its public company obligations, the Board appointed a subcommittee of two independent directors, Frank W. Barrett and Richard W. Anderson, to interview potential investment bankers to represent the Company in possible negotiations with Party A and to assist the Board in evaluating additional strategic options for the realization of shareholder value, including potential change in control transactions.",
+    "confidence": "high"
+  },
+  "advisory_verification": {
+    "advisor_bmo_capital_markets": {
+      "advised_actor_id": "target_board_board",
+      "verified": true,
+      "source_text": "Following this presentation, the Board approved the subcommittee's recommendation and the Company engaged GHF."
+    },
+    "advisor_hinckley_allen": {
+      "advised_actor_id": "target_board_board",
+      "verified": true,
+      "source_text": "Members of management and representatives of each of GHF and the Company's legal counsel, Hinckley, Allen & Snyder LLP (which we refer to as \"Hinckley Allen\"), participated in all meetings of the Transaction Committee, except as otherwise indicated."
+    },
+    "advisor_simpson_thacher": {
+      "advised_actor_id": "bidder_gw",
+      "verified": true,
+      "source_text": "On August 10, 2016, representatives of Hinckley Allen and Simpson Thacher & Bartlett LLP (which we refer to as \"Simpson Thacher\"), G& W's legal counsel, discussed various provisions of the draft merger agreement and voting agreement that had been provided to G& W on August 3, 2016."
+    }
+  },
+  "count_reconciliation": [
+    {
+      "assertion": "potential strategic buyers contacted",
+      "extracted_count": 5,
+      "classification": "unnamed_aggregate",
+      "note": "The extract names five strategic buyers tied to the original outreach cohort (Party A, G& W, Party B, Party E, and Party F); the filing's total of 11 includes six unnamed strategic buyers, and Party C joined later outside that March outreach."
+    },
+    {
+      "assertion": "potential financial buyers contacted",
+      "extracted_count": 1,
+      "classification": "unnamed_aggregate",
+      "note": "Only Party D is individually identified as a financial bidder in the extract; the other contacted financial buyers are unnamed in the filing."
+    },
+    {
+      "assertion": "potential strategic buyers that executed confidentiality agreements",
+      "extracted_count": 3,
+      "classification": "unnamed_aggregate",
+      "note": "The extract has explicit NDA events for Party A, G& W, and Party B from the original contacted strategic cohort; the remaining strategic NDA signers are unnamed, and Party C signed later as a separate entrant."
+    },
+    {
+      "assertion": "potential financial buyers that executed confidentiality agreements",
+      "extracted_count": 0,
+      "classification": "unnamed_aggregate",
+      "note": "The filing gives only an aggregate count of 14 financial NDA signers; no financial bidder NDA event is individually extracted."
+    },
+    {
+      "assertion": "written indications of interest received",
+      "extracted_count": 0,
+      "classification": "unnamed_aggregate",
+      "note": "The May 19 to June 1, 2016 IOI round is reported only in aggregate, so no bidder-specific event from that nine-IOI set is individually extracted; Party C's July 12 IOI falls outside this assertion."
+    },
+    {
+      "assertion": "potential buyers advanced to management presentations and additional due diligence",
+      "extracted_count": 5,
+      "classification": "unnamed_aggregate",
+      "note": "Five later-named bidders can be traced to this stage (G& W, Party B, Party D, Party E, and Party F); two additional advancing bidders are unnamed, and Party C joined later outside the original seven."
+    },
+    {
+      "assertion": "letters of intent received in late July 2016",
+      "extracted_count": 6,
+      "classification": null,
+      "note": "Counts match exactly: the extract has six late-July LOI proposal events for G& W, Party B, Party C, Party D, Party E, and Party F."
+    },
+    {
+      "assertion": "buyers that declined to submit a late-July LOI",
+      "extracted_count": 0,
+      "classification": "unnamed_aggregate",
+      "note": "The filing states that one strategic buyer and one financial buyer declined to submit an LOI, but neither bidder is individually identified in the extract."
+    },
+    {
+      "assertion": "low bidders excluded after the IOI round",
+      "extracted_count": 0,
+      "classification": "unnamed_aggregate",
+      "note": "The two low bidders excluded after the IOI round are described only in aggregate and are not individually identifiable in the extract."
+    }
+  ],
+  "review_flags": []
+}

@@ -1,0 +1,1184 @@
+{
+  "events": [
+    {
+      "event_id": "evt_001",
+      "event_type": "target_sale",
+      "date": {
+        "raw_text": "April 5, 2013",
+        "normalized_start": "2013-04-05",
+        "normalized_end": "2013-04-05",
+        "sort_date": "2013-04-05",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "target_mac_gray_board"
+      ],
+      "summary": "The Mac-Gray Board authorized management and BofA Merrill Lynch to explore transactional opportunities for Mac-Gray.",
+      "evidence_span_ids": [
+        "span_0020"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_002",
+      "event_type": "bidder_interest",
+      "date": {
+        "raw_text": "April 8, 2013",
+        "normalized_start": "2013-04-08",
+        "normalized_end": "2013-04-08",
+        "sort_date": "2013-04-08",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_party_a"
+      ],
+      "summary": "Party A indicated that it might consider a business combination with Mac-Gray.",
+      "evidence_span_ids": [
+        "span_0021"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_003",
+      "event_type": "ib_retention",
+      "date": {
+        "raw_text": "May 31, 2013",
+        "normalized_start": "2013-05-31",
+        "normalized_end": "2013-05-31",
+        "sort_date": "2013-05-31",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "advisor_bofa_merrill_lynch"
+      ],
+      "summary": "Mac-Gray entered into an engagement letter with BofA Merrill Lynch for its strategic alternatives review.",
+      "evidence_span_ids": [
+        "span_0022"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_004",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "June 21, 2013",
+        "normalized_start": "2013-06-21",
+        "normalized_end": "2013-06-21",
+        "sort_date": "2013-06-21",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_party_a"
+      ],
+      "summary": "Party A submitted an unsolicited all-cash proposal of $17.00 to $19.00 per share for Mac-Gray.",
+      "evidence_span_ids": [
+        "span_0023",
+        "span_0024"
+      ],
+      "terms": {
+        "per_share": null,
+        "range_low": "17.00",
+        "range_high": "19.00",
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": true,
+        "mentions_indication_of_interest": false,
+        "mentions_preliminary": false,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": false,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_026",
+      "event_type": "target_sale",
+      "date": {
+        "raw_text": "June 24, 2013",
+        "normalized_start": "2013-06-24",
+        "normalized_end": "2013-06-24",
+        "sort_date": "2013-06-24",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "target_mac_gray_board",
+        "target_special_committee"
+      ],
+      "summary": "The Mac-Gray Board established the Special Committee and authorized it to explore strategic alternatives and evaluate possible sale transactions.",
+      "evidence_span_ids": [
+        "span_0050"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_005",
+      "event_type": "nda",
+      "date": {
+        "raw_text": "June 28, 2013",
+        "normalized_start": "2013-06-28",
+        "normalized_end": "2013-06-28",
+        "sort_date": "2013-06-28",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_party_b"
+      ],
+      "summary": "Party B entered into a confidentiality and standstill agreement with Mac-Gray.",
+      "evidence_span_ids": [
+        "span_0025"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": []
+    },
+    {
+      "event_id": "evt_006",
+      "event_type": "nda",
+      "date": {
+        "raw_text": "June 30, 2013",
+        "normalized_start": "2013-06-30",
+        "normalized_end": "2013-06-30",
+        "sort_date": "2013-06-30",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_party_c"
+      ],
+      "summary": "Party C entered into a confidentiality and standstill agreement with Mac-Gray.",
+      "evidence_span_ids": [
+        "span_0026"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": []
+    },
+    {
+      "event_id": "evt_007",
+      "event_type": "nda",
+      "date": {
+        "raw_text": "July 11, 2013",
+        "normalized_start": "2013-07-11",
+        "normalized_end": "2013-07-11",
+        "sort_date": "2013-07-11",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_csc",
+        "bidder_pamplona"
+      ],
+      "summary": "CSC/Pamplona entered into a confidentiality and standstill agreement with Mac-Gray.",
+      "evidence_span_ids": [
+        "span_0027"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": []
+    },
+    {
+      "event_id": "evt_008",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "July 23, 2013",
+        "normalized_start": "2013-07-23",
+        "normalized_end": "2013-07-23",
+        "sort_date": "2013-07-23",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_csc",
+        "bidder_pamplona"
+      ],
+      "summary": "CSC/Pamplona submitted a preliminary all-cash indication of interest at $18.50 per share.",
+      "evidence_span_ids": [
+        "span_0028"
+      ],
+      "terms": {
+        "per_share": "18.50",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": true,
+        "mentions_preliminary": true,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": false,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_009",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "July 24, 2013",
+        "normalized_start": "2013-07-24",
+        "normalized_end": "2013-07-24",
+        "sort_date": "2013-07-24",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_party_b"
+      ],
+      "summary": "Party B submitted a preliminary all-cash indication of interest at $17.00 to $18.00 per share.",
+      "evidence_span_ids": [
+        "span_0029"
+      ],
+      "terms": {
+        "per_share": null,
+        "range_low": "17.00",
+        "range_high": "18.00",
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": true,
+        "mentions_indication_of_interest": true,
+        "mentions_preliminary": true,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": false,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_010",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "July 24, 2013",
+        "normalized_start": "2013-07-24",
+        "normalized_end": "2013-07-24",
+        "sort_date": "2013-07-24",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_party_c"
+      ],
+      "summary": "Party C presented an oral preliminary all-cash indication of interest at $15.00 to $17.00 per share.",
+      "evidence_span_ids": [
+        "span_0030"
+      ],
+      "terms": {
+        "per_share": null,
+        "range_low": "15.00",
+        "range_high": "17.00",
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": true,
+        "mentions_indication_of_interest": true,
+        "mentions_preliminary": true,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": false,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": [
+        "Delivered orally in a telephone call to BofA Merrill Lynch."
+      ]
+    },
+    {
+      "event_id": "evt_011",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "July 25, 2013",
+        "normalized_start": "2013-07-25",
+        "normalized_end": "2013-07-25",
+        "sort_date": "2013-07-25",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_party_c"
+      ],
+      "summary": "Party C submitted a written all-cash indication of interest at $16.00 to $16.50 per share.",
+      "evidence_span_ids": [
+        "span_0031"
+      ],
+      "terms": {
+        "per_share": null,
+        "range_low": "16.00",
+        "range_high": "16.50",
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": true,
+        "mentions_indication_of_interest": true,
+        "mentions_preliminary": false,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": false,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": [
+        "This written indication followed Party C's July 24 oral preliminary indication."
+      ]
+    },
+    {
+      "event_id": "evt_012",
+      "event_type": "nda",
+      "date": {
+        "raw_text": "August 5, 2013",
+        "normalized_start": "2013-08-05",
+        "normalized_end": "2013-08-05",
+        "sort_date": "2013-08-05",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_party_a"
+      ],
+      "summary": "Party A entered into a confidentiality and standstill agreement with Mac-Gray.",
+      "evidence_span_ids": [
+        "span_0032"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": true,
+      "notes": []
+    },
+    {
+      "event_id": "evt_013",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "September 9, 2013",
+        "normalized_start": "2013-09-09",
+        "normalized_end": "2013-09-09",
+        "sort_date": "2013-09-09",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_csc",
+        "bidder_pamplona"
+      ],
+      "summary": "CSC/Pamplona submitted a revised all-cash indication of interest at $19.50 per share.",
+      "evidence_span_ids": [
+        "span_0033",
+        "span_0034"
+      ],
+      "terms": {
+        "per_share": "19.50",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": true,
+        "mentions_preliminary": false,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": false,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": false
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": [
+        "The proposal requested two weeks of exclusive negotiations."
+      ]
+    },
+    {
+      "event_id": "evt_014",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "September 9, 2013",
+        "normalized_start": "2013-09-09",
+        "normalized_end": "2013-09-09",
+        "sort_date": "2013-09-09",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_party_b"
+      ],
+      "summary": "Party B submitted a revised all-cash indication of interest at $18.50 per share.",
+      "evidence_span_ids": [
+        "span_0035",
+        "span_0036"
+      ],
+      "terms": {
+        "per_share": "18.50",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": true,
+        "mentions_preliminary": false,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": false,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": [
+        "Party B proposed to finance the transaction with equity from affiliated funds and third party debt.",
+        "The filing states that Party B's revised indication did not include a firm financing commitment."
+      ]
+    },
+    {
+      "event_id": "evt_015",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "September 10, 2013",
+        "normalized_start": "2013-09-10",
+        "normalized_end": "2013-09-10",
+        "sort_date": "2013-09-10",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_party_a"
+      ],
+      "summary": "Party A submitted a revised all-cash indication of interest at $18.00 to $19.00 per share.",
+      "evidence_span_ids": [
+        "span_0037"
+      ],
+      "terms": {
+        "per_share": null,
+        "range_low": "18.00",
+        "range_high": "19.00",
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": true,
+        "mentions_indication_of_interest": true,
+        "mentions_preliminary": false,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": false,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": [
+        "The filing says the proposal would be financed by outstanding credit facilities or affiliated equity sources."
+      ]
+    },
+    {
+      "event_id": "evt_016",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "September 10, 2013",
+        "normalized_start": "2013-09-10",
+        "normalized_end": "2013-09-10",
+        "sort_date": "2013-09-10",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_party_c"
+      ],
+      "summary": "Party C submitted a revised oral all-cash indication of interest at $16.00 to $17.00 per share.",
+      "evidence_span_ids": [
+        "span_0038"
+      ],
+      "terms": {
+        "per_share": null,
+        "range_low": "16.00",
+        "range_high": "17.00",
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": true,
+        "mentions_indication_of_interest": true,
+        "mentions_preliminary": false,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": false,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": [
+        "Delivered orally in a telephone call to a representative of BofA Merrill Lynch."
+      ]
+    },
+    {
+      "event_id": "evt_017",
+      "event_type": "final_round_inf_ann",
+      "date": {
+        "raw_text": "September 11, 2013",
+        "normalized_start": "2013-09-11",
+        "normalized_end": "2013-09-11",
+        "sort_date": "2013-09-11",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "target_special_committee",
+        "advisor_bofa_merrill_lynch"
+      ],
+      "summary": "The Special Committee directed BofA Merrill Lynch to request final indications of interest from Party A, Party B, Party C and CSC/Pamplona.",
+      "evidence_span_ids": [
+        "span_0039"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": "informal",
+      "invited_actor_ids": [
+        "bidder_party_a",
+        "bidder_party_b",
+        "bidder_party_c",
+        "bidder_csc",
+        "bidder_pamplona"
+      ],
+      "deadline_date": {
+        "raw_text": "September 18, 2013",
+        "normalized_start": "2013-09-18",
+        "normalized_end": "2013-09-18",
+        "sort_date": "2013-09-18",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": [
+        "The filing requested final indications of interest rather than formal final-round bid packages."
+      ]
+    },
+    {
+      "event_id": "evt_018",
+      "event_type": "final_round_inf",
+      "date": {
+        "raw_text": "September 18, 2013",
+        "normalized_start": "2013-09-18",
+        "normalized_end": "2013-09-18",
+        "sort_date": "2013-09-18",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [],
+      "summary": "Final indications of interest were due from Party A, Party B, Party C and CSC/Pamplona.",
+      "evidence_span_ids": [
+        "span_0039"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": "informal",
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_019",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "September 18, 2013",
+        "normalized_start": "2013-09-18",
+        "normalized_end": "2013-09-18",
+        "sort_date": "2013-09-18",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_csc",
+        "bidder_pamplona"
+      ],
+      "summary": "CSC/Pamplona submitted an all-cash proposal at $20.75 per share.",
+      "evidence_span_ids": [
+        "span_0040",
+        "span_0041"
+      ],
+      "terms": {
+        "per_share": "20.75",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": false,
+        "mentions_preliminary": false,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": true,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": false
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": [
+        "The proposal requested exclusive negotiations for two weeks."
+      ]
+    },
+    {
+      "event_id": "evt_020",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "September 18, 2013",
+        "normalized_start": "2013-09-18",
+        "normalized_end": "2013-09-18",
+        "sort_date": "2013-09-18",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_party_a"
+      ],
+      "summary": "Party A reiterated its $18.00 to $19.00 per share indication as its best and final offer.",
+      "evidence_span_ids": [
+        "span_0042"
+      ],
+      "terms": {
+        "per_share": null,
+        "range_low": "18.00",
+        "range_high": "19.00",
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": true,
+        "mentions_indication_of_interest": true,
+        "mentions_preliminary": false,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": true,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": [
+        "The filing describes this as Party A's best and final offer."
+      ]
+    },
+    {
+      "event_id": "evt_021",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "September 18, 2013",
+        "normalized_start": "2013-09-18",
+        "normalized_end": "2013-09-18",
+        "sort_date": "2013-09-18",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_party_b"
+      ],
+      "summary": "Party B submitted a revised proposal valued at $21.50 per share, consisting of cash plus options.",
+      "evidence_span_ids": [
+        "span_0043",
+        "span_0044",
+        "span_0045"
+      ],
+      "terms": {
+        "per_share": "21.50",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "mixed"
+      },
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": true,
+        "mentions_preliminary": false,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": true,
+        "after_final_round_deadline": false,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": [
+        "The proposal included $19.00 of cash at closing and the remaining value in options."
+      ]
+    },
+    {
+      "event_id": "evt_022",
+      "event_type": "drop",
+      "date": {
+        "raw_text": "September 18, 2013",
+        "normalized_start": "2013-09-18",
+        "normalized_end": "2013-09-18",
+        "sort_date": "2013-09-18",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_party_c"
+      ],
+      "summary": "Party C failed to submit or reiterate a proposal by the final-indication deadline and dropped from the process.",
+      "evidence_span_ids": [
+        "span_0046"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": "Party C did not submit a revised indication of interest or reiterate its prior indication of interest of an all-cash purchase price of $16.00 to $17.00 per share nor did it specify any reasons in connection therewith",
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    },
+    {
+      "event_id": "evt_023",
+      "event_type": "proposal",
+      "date": {
+        "raw_text": "September 21, 2013",
+        "normalized_start": "2013-09-21",
+        "normalized_end": "2013-09-21",
+        "sort_date": "2013-09-21",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_csc",
+        "bidder_pamplona"
+      ],
+      "summary": "CSC/Pamplona increased its all-cash price to $21.25 per share as a last and best offer.",
+      "evidence_span_ids": [
+        "span_0047"
+      ],
+      "terms": {
+        "per_share": "21.25",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "formality_signals": {
+        "contains_range": false,
+        "mentions_indication_of_interest": false,
+        "mentions_preliminary": false,
+        "mentions_non_binding": false,
+        "mentions_binding_offer": false,
+        "includes_draft_merger_agreement": false,
+        "includes_marked_up_agreement": false,
+        "requested_binding_offer_via_process_letter": false,
+        "after_final_round_announcement": true,
+        "after_final_round_deadline": true,
+        "is_subject_to_financing": null
+      },
+      "whole_company_scope": true,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": [
+        "The filing describes this as CSC/Pamplona's last and best offer."
+      ]
+    },
+    {
+      "event_id": "evt_024",
+      "event_type": "executed",
+      "date": {
+        "raw_text": "October 14, 2013",
+        "normalized_start": "2013-10-14",
+        "normalized_end": "2013-10-14",
+        "sort_date": "2013-10-14",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_csc",
+        "bidder_parent"
+      ],
+      "summary": "The merger agreement was executed.",
+      "evidence_span_ids": [
+        "span_0048"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": [
+        "The same filing passage states that the Pamplona commitment letter was delivered the same day."
+      ]
+    },
+    {
+      "event_id": "evt_025",
+      "event_type": "bid_press_release",
+      "date": {
+        "raw_text": "October 15, 2013",
+        "normalized_start": "2013-10-15",
+        "normalized_end": "2013-10-15",
+        "sort_date": "2013-10-15",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "actor_ids": [
+        "bidder_csc"
+      ],
+      "summary": "Mac-Gray and CSC jointly announced the execution of the merger agreement before the U.S. stock markets opened.",
+      "evidence_span_ids": [
+        "span_0049"
+      ],
+      "terms": null,
+      "formality_signals": null,
+      "whole_company_scope": null,
+      "drop_reason_text": null,
+      "round_scope": null,
+      "invited_actor_ids": [],
+      "deadline_date": null,
+      "executed_with_actor_id": null,
+      "boundary_note": null,
+      "nda_signed": null,
+      "notes": []
+    }
+  ],
+  "exclusions": [
+    {
+      "category": "stale_process_reference",
+      "block_ids": [
+        "B005",
+        "B022",
+        "B024"
+      ],
+      "explanation": "These references concern Mac-Gray's earlier 2011-2012 effort to acquire CSC and the related BofA Merrill Lynch mandate, not the 2013 sale process for Mac-Gray."
+    }
+  ],
+  "coverage_notes": [
+    "target_sale: extracted (evt_001, evt_026)",
+    "target_sale_public: NOT FOUND -- no public announcement of a strategic review was described in the filing",
+    "bidder_sale: NOT FOUND -- no acquirer-initiated sale process was described in the filing",
+    "bidder_interest: extracted (evt_002)",
+    "activist_sale: NOT FOUND -- Moab appears as an activist stockholder, but the filing does not say activist pressure triggered the sale process",
+    "sale_press_release: NOT FOUND -- no press release announcing strategic alternatives was described in the filing",
+    "bid_press_release: extracted (evt_025)",
+    "ib_retention: extracted (evt_003)",
+    "nda: extracted (evt_005, evt_006, evt_007, evt_012)",
+    "proposal: extracted (evt_004, evt_008, evt_009, evt_010, evt_011, evt_013, evt_014, evt_015, evt_016, evt_019, evt_020, evt_021, evt_023)",
+    "drop: extracted (evt_022)",
+    "final_round_inf_ann: extracted (evt_017)",
+    "final_round_inf: extracted (evt_018)",
+    "final_round_ann: NOT FOUND -- the filing requested final indications of interest, not formal final-round bid packages or draft merger agreement responses",
+    "final_round: NOT FOUND -- no formal final-round deadline separate from the informal final-indication deadline was described in the filing",
+    "final_round_ext_ann: NOT FOUND -- the filing describes exclusivity extensions, not a final-round extension announcement",
+    "final_round_ext: NOT FOUND -- no final-round extension deadline was described in the filing",
+    "executed: extracted (evt_024)",
+    "terminated: NOT FOUND -- the filing does not describe the sale process being terminated",
+    "restarted: NOT FOUND -- the filing does not describe a restarted sale process after termination",
+    "Party A lifecycle: no explicit withdrawal or exclusion was described after Party A's September 18, 2013 best and final offer before CSC/Pamplona exclusivity.",
+    "Party B lifecycle: no explicit withdrawal or exclusion was described after Party B's September 18, 2013 revised proposal before CSC/Pamplona exclusivity."
+  ]
+}

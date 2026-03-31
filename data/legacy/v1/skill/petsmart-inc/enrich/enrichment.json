@@ -1,0 +1,54 @@
+{
+  "dropout_classifications": {},
+  "initiation_judgment": {
+    "type": "mixed",
+    "basis": "The August 13 sale-process decision followed updates on both stockholder activism and third-party bidder interest rather than a single stated trigger.",
+    "source_text": "to receive an update on communications from stockholders and other interested parties, including Industry Participant. As a result of this meeting, the board (1) determined to explore strategic alternatives (including a possible sale of the Company)",
+    "confidence": "medium"
+  },
+  "advisory_verification": {
+    "advisor_wachtell_lipton": {
+      "advised_actor_id": "target_board_petsmart",
+      "verified": true,
+      "source_text": "with Wachtell, Lipton, Rosen & Katz (“ Wachtell Lipton”), its legal advisor"
+    },
+    "advisor_jp_morgan": {
+      "advised_actor_id": "target_board_petsmart",
+      "verified": true,
+      "source_text": "In July, after interviewing several potential financial advisors, the Company retained J. P. Morgan as financial advisor"
+    }
+  },
+  "count_reconciliation": [
+    {
+      "assertion": "27 potential participants in a sale process",
+      "extracted_count": 15,
+      "classification": "unnamed_aggregate",
+      "note": "Extraction preserves the grouped 15-party NDA cohort, but the filing's 27 also includes three unnamed strategic parties and nine additional unnamed financial participants that were never individualized in the chronology."
+    },
+    {
+      "assertion": "approximately 15 parties had expressed interest in participating in the process",
+      "extracted_count": 15,
+      "classification": null,
+      "note": "Counts match the grouped 15-party bidder cohort reflected in the October NDA event; the filing describes the figure as approximate."
+    },
+    {
+      "assertion": "15 potentially interested financial buyers entered confidentiality and standstill agreements",
+      "extracted_count": 15,
+      "classification": null,
+      "note": "Counts match exactly through grouped bidder_financial_buyers_15 and evt_006."
+    },
+    {
+      "assertion": "six of the potentially interested parties submitted indications of interest",
+      "extracted_count": 2,
+      "classification": "unnamed_aggregate",
+      "note": "Extraction individually grounds Buyer Group and Bidder 2's October 30 indications; four additional submitting parties were not individualized, including the unnamed bidder discussed in B019."
+    },
+    {
+      "assertion": "the four bidders that had indicated a price or range at or above $80.00 per share",
+      "extracted_count": 4,
+      "classification": null,
+      "note": "Counts match after counting bidder_3's grouped actor as two underlying invitees alongside Buyer Group and Bidder 2."
+    }
+  ],
+  "review_flags": []
+}

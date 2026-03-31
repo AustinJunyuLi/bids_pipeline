@@ -1,0 +1,276 @@
+{
+  "actors": [
+    {
+      "actor_id": "target_board_petsmart",
+      "display_name": "PetSmart Board of Directors",
+      "canonical_name": "PETSMART BOARD OF DIRECTORS",
+      "aliases": [
+        "the board"
+      ],
+      "role": "target_board",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0002"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "target_board_petsmart_ad_hoc_committee",
+      "display_name": "PetSmart Ad Hoc Committee",
+      "canonical_name": "PETSMART AD HOC COMMITTEE",
+      "aliases": [
+        "ad hoc committee",
+        "ad hoc advisory subcommittee"
+      ],
+      "role": "target_board",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0003"
+      ],
+      "notes": [
+        "The filing states the ad hoc committee oversaw the sale exploration process between full board meetings."
+      ]
+    },
+    {
+      "actor_id": "advisor_wachtell_lipton",
+      "display_name": "Wachtell, Lipton, Rosen & Katz",
+      "canonical_name": "WACHTELL, LIPTON, ROSEN & KATZ",
+      "aliases": [
+        "Wachtell Lipton"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": "target_board_petsmart",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0004"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_jp_morgan",
+      "display_name": "J.P. Morgan",
+      "canonical_name": "J. P. MORGAN",
+      "aliases": [
+        "J. P. Morgan"
+      ],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "target_board_petsmart",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0005"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "activist_jana_partners",
+      "display_name": "JANA Partners",
+      "canonical_name": "JANA PARTNERS",
+      "aliases": [
+        "JANA"
+      ],
+      "role": "activist",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0006"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "activist_longview",
+      "display_name": "Longview",
+      "canonical_name": "LONGVIEW",
+      "aliases": [],
+      "role": "activist",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0007"
+      ],
+      "notes": [
+        "The filing describes Longview as a stockholder that advocated for a sale process and discussed a possible rollover."
+      ]
+    },
+    {
+      "actor_id": "bidder_industry_participant",
+      "display_name": "Industry Participant",
+      "canonical_name": "INDUSTRY PARTICIPANT",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": "private",
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0001"
+      ],
+      "notes": [
+        "The filing describes Industry Participant as a privately held company in PetSmart's industry."
+      ]
+    },
+    {
+      "actor_id": "bidder_financial_buyers_15",
+      "display_name": "15 Potentially Interested Financial Buyers",
+      "canonical_name": "15 POTENTIALLY INTERESTED FINANCIAL BUYERS",
+      "aliases": [
+        "potential bidders"
+      ],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": true,
+      "group_size": 15,
+      "group_label": "15 potentially interested financial buyers",
+      "evidence_span_ids": [
+        "span_0008"
+      ],
+      "notes": [
+        "These buyers executed confidentiality and standstill agreements in the first week of October 2014."
+      ]
+    },
+    {
+      "actor_id": "bidder_buyer_group",
+      "display_name": "Buyer Group",
+      "canonical_name": "BUYER GROUP",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0009"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_2",
+      "display_name": "Bidder 2",
+      "canonical_name": "BIDDER 2",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0010"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_3",
+      "display_name": "Bidder 3",
+      "canonical_name": "BIDDER 3",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "financial",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": true,
+      "group_size": 2,
+      "group_label": "two bidders working together as Bidder 3",
+      "evidence_span_ids": [
+        "span_0011"
+      ],
+      "notes": []
+    }
+  ],
+  "count_assertions": [
+    {
+      "subject": "potential participants in the sale process",
+      "count": 27,
+      "evidence_span_ids": [
+        "span_0012"
+      ]
+    },
+    {
+      "subject": "parties that had expressed interest in participating in the process",
+      "count": 15,
+      "evidence_span_ids": [
+        "span_0013"
+      ]
+    },
+    {
+      "subject": "financial buyers that entered confidentiality and standstill agreements",
+      "count": 15,
+      "evidence_span_ids": [
+        "span_0008"
+      ]
+    },
+    {
+      "subject": "parties that submitted indications of interest on October 30, 2014",
+      "count": 6,
+      "evidence_span_ids": [
+        "span_0014"
+      ]
+    },
+    {
+      "subject": "bidders advanced to the final round",
+      "count": 4,
+      "evidence_span_ids": [
+        "span_0015"
+      ]
+    }
+  ],
+  "unresolved_mentions": [
+    "Some stockholders and interested parties suggested strategic or financial alternatives in late May and June 2014, but the filing does not identify them individually.",
+    "The filing references three strategic parties and 24 financial participants contacted by J. P. Morgan without fully individualizing them.",
+    "Another bidder suggested a range of $80.00 to $85.00 per share on October 30, 2014, but the filing does not assign that bidder an alias."
+  ]
+}

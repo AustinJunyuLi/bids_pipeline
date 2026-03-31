@@ -1,0 +1,18 @@
+{
+  "findings": [
+    {
+      "check_id": "bidder_kind_missing",
+      "severity": "warning",
+      "description": "Bidder actors should have bidder_kind.",
+      "actor_ids": [
+        "bidder_parent"
+      ],
+      "event_ids": []
+    }
+  ],
+  "summary": {
+    "blocker_count": 0,
+    "warning_count": 1,
+    "status": "pass"
+  }
+}

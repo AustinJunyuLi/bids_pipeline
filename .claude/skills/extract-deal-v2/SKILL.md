@@ -26,7 +26,7 @@ quote-first `observations_raw.json` payload containing:
 
 ## When To Use
 
-- Called independently via `/extract-deal-v2 <slug>`.
+- Called by `/deal-agent <slug>` as the live default extraction step, or independently via `/extract-deal-v2 <slug>`.
 - Prerequisite: `skill-pipeline raw-fetch`, `skill-pipeline preprocess-source`,
   and `skill-pipeline compose-prompts --deal <slug> --contract v2 --mode observations`
   have already run.

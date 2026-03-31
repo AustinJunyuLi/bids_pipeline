@@ -583,7 +583,7 @@ def run_canonicalize(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> in
     )
     span_registry = SpanRegistryArtifact.model_validate({"spans": spans})
 
-    ensure_output_directories(paths)
+    ensure_output_directories(paths, include_legacy=True)
     paths.actors_raw_path.write_text(
         canonical_actors.model_dump_json(indent=2),
         encoding="utf-8",

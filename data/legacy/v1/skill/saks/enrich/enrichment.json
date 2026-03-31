@@ -1,0 +1,34 @@
+{
+  "dropout_classifications": {
+    "evt_017": {
+      "label": "Drop",
+      "basis": "The filing states Sponsor G exited the process and does not tie the exit to market price or to Sponsor G remaining at or below an earlier informal bid.",
+      "source_text": "Saks was subsequently informed that Sponsor G was no longer participating in the process"
+    }
+  },
+  "initiation_judgment": {
+    "type": "bidder_driven",
+    "basis": "Sponsor A's unsolicited February 2013 approach preceded the board's June 5, 2013 authorization of a sale process.",
+    "source_text": "In February 2013, Stephen I. Sadove, Saks Chairman and Chief Executive Officer, received an unsolicited phone call from a representative of a private equity firm, which we refer to as Sponsor A, expressing interest in a potential acquisition of Saks.",
+    "confidence": "high"
+  },
+  "advisory_verification": {
+    "advisor_goldman_sachs": {
+      "advised_actor_id": "target_board_saks",
+      "verified": true,
+      "source_text": "Goldman Sachs, one of Saks longstanding financial advisors, has participated in these reviews."
+    },
+    "advisor_wachtell_lipton": {
+      "advised_actor_id": "target_board_saks",
+      "verified": true,
+      "source_text": "Wachtell, Lipton, Rosen & Katz, referred to as Wachtell Lipton, Saks external counsel."
+    },
+    "advisor_morgan_stanley": {
+      "advised_actor_id": "target_board_saks",
+      "verified": true,
+      "source_text": "Morgan Stanley & Co. LLC (a long-time advisor to Saks, referred to as  Morgan Stanley)"
+    }
+  },
+  "count_reconciliation": [],
+  "review_flags": []
+}

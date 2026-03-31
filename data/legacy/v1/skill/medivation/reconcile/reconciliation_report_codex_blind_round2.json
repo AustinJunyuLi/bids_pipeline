@@ -1,0 +1,478 @@
+{
+  "deal_slug": "medivation",
+  "primary_document_id": "0001193125-16-696911",
+  "primary_filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+  "summary_row": {
+    "TargetName": "MEDIVATION INC",
+    "Events": "39",
+    "Acquirer": "PFIZER INC",
+    "DateAnnounced": "2016-08-22 00:00:00",
+    "URL": "https://www.sec.gov/Archives/edgar/data/1011835/0001193125-16-696911-index.htm"
+  },
+  "counts": {
+    "pipeline": 39,
+    "alex": 15,
+    "matches": 12,
+    "pipeline_only": 27,
+    "alex_only": 3,
+    "aggregate_rows": 1
+  },
+  "field_mismatches": [
+    {
+      "event_id": "evt_040",
+      "alex_row_id": "7.5",
+      "field": "bidder_name",
+      "pipeline_value": "Medivation board of directors/Pfizer",
+      "alex_value": "Pfizer",
+      "filing_supports": "both",
+      "filing_snippet": "940: Rights Agreement (the \u0093 Rights Amendment\u0094). Representatives of J. P. Morgan and Evercore reviewed the financial analyses supporting their fairness opinions. Representatives of Cooley provided a review for the board of the board\u0092s\n941: fiduciary duties. Following the delivery of such oral opinions, and after further discussion, including as to the matters discussed in the section entitled \u0093\u0097 Reasons for the Merger; Recommendation of the Medivation Board of\n942: Directors,\u0094 the Medivation board of directors unanimously determined that to enter into the Pfizer merger agreement would be advisable, fair, and in the best interests of Medivation and its stockholders and unanimously approved that merger\n943: agreement and the merger.\n944: \n945: Also on August 20, 2016, following approval of the Medivation board of directors, Pfizer and Medivation\n946: executed the merger agreement and Medivation executed the Rights Amendment. On August 22, 2016, the parties issued a joint press release announcing the transaction.\n947: \n948:   (ii)      Reasons for Recommendation  \n949: \n950: Our Board of Directors, with the assistance of\n951: Medivation\u0092s senior management and its financial and legal advisors, evaluated the Merger Agreement and the Transactions and unanimously (i) determined that the Merger Agreement and the Transactions, including the Offer and the Merger, are fair",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "export_regression": false,
+      "match_score": 78.18181818181819
+    },
+    {
+      "event_id": "evt_015",
+      "alex_row_id": "3",
+      "field": "bidder_name",
+      "pipeline_value": "Sanofi",
+      "alex_value": "Several parties, including Sanofi",
+      "filing_supports": "pipeline",
+      "filing_snippet": "814: \n815: \n816: determination to Sanofi while at the same time offering Sanofi the opportunity to enter into a confidentiality and standstill agreement with Medivation on substantially the same terms being\n817: offered to (and entered into) by other interested parties.\n818: \n819: On July 5, 2016, Medivation entered into a confidentiality agreement with\n820: Sanofi, pursuant to which Sanofi agreed to terminate its Consent Solicitation and be bound by a six-month standstill, subject to limited termination events, in order to facilitate friendly confidential discussions and a due diligence investigation.\n821: Later that day, Medivation announced in a press release that, among other things: (1) Medivation had entered into confidentiality agreements with Sanofi and a number of other parties, and (2) prior to entering into the confidentiality agreement with\n822: Sanofi, Medivation had received the revised unsolicited proposal from Sanofi for $58.00 per share and a CVR of up to $3.00 per share and the board of directors of Medivation had unanimously rejected it as not in the best interests of Medivation and\n823: its stockholders.\n824: \n825: On July 7, 2016, Medivation granted Pfizer, and the other interested parties that had executed confidentiality",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "export_regression": false,
+      "match_score": 52.368421052631575
+    },
+    {
+      "event_id": "evt_015",
+      "alex_row_id": "3",
+      "field": "bidder_type",
+      "pipeline_value": "non-US S",
+      "alex_value": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "814: \n815: \n816: determination to Sanofi while at the same time offering Sanofi the opportunity to enter into a confidentiality and standstill agreement with Medivation on substantially the same terms being\n817: offered to (and entered into) by other interested parties.\n818: \n819: On July 5, 2016, Medivation entered into a confidentiality agreement with\n820: Sanofi, pursuant to which Sanofi agreed to terminate its Consent Solicitation and be bound by a six-month standstill, subject to limited termination events, in order to facilitate friendly confidential discussions and a due diligence investigation.\n821: Later that day, Medivation announced in a press release that, among other things: (1) Medivation had entered into confidentiality agreements with Sanofi and a number of other parties, and (2) prior to entering into the confidentiality agreement with\n822: Sanofi, Medivation had received the revised unsolicited proposal from Sanofi for $58.00 per share and a CVR of up to $3.00 per share and the board of directors of Medivation had unanimously rejected it as not in the best interests of Medivation and\n823: its stockholders.\n824: \n825: On July 7, 2016, Medivation granted Pfizer, and the other interested parties that had executed confidentiality",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "export_regression": false,
+      "match_score": 52.368421052631575
+    },
+    {
+      "event_id": "evt_003",
+      "alex_row_id": "1",
+      "field": "bidder_type",
+      "pipeline_value": "non-US S",
+      "alex_value": "non-US PUBLIC S",
+      "filing_supports": "both",
+      "filing_snippet": "670: On April 3, 2016, Dr. Hung informed\n671: Dr. Brandicourt that the Medivation board of directors, following a review and discussion of Dr. Brandicourt\u0092s expression of interest, had determined that it was not an appropriate time for Medivation to engage in discussions relating\n672: to a possible strategic transaction.\n673: \n674: On April 15, 2016, Dr. Hung received an unsolicited letter, dated April 13, 2016,\n675: from Dr. Brandicourt, setting forth a non-binding proposal from Sanofi to acquire Medivation for $52.50 per share of Medivation\u0092s Common Stock, subject to the completion of due diligence, the negotiation and execution of definitive\n676: agreements, and the approval of Sanofi\u0092s board of directors (\u0093 Sanofi\u0092s $52.50 proposal\u0094).\n677: \n678: 16\n679: \n680: ",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "export_regression": false,
+      "match_score": 95.0
+    },
+    {
+      "event_id": "evt_003",
+      "alex_row_id": "1",
+      "field": "all_cash",
+      "pipeline_value": true,
+      "alex_value": null,
+      "filing_supports": "both",
+      "filing_snippet": "670: On April 3, 2016, Dr. Hung informed\n671: Dr. Brandicourt that the Medivation board of directors, following a review and discussion of Dr. Brandicourt\u0092s expression of interest, had determined that it was not an appropriate time for Medivation to engage in discussions relating\n672: to a possible strategic transaction.\n673: \n674: On April 15, 2016, Dr. Hung received an unsolicited letter, dated April 13, 2016,\n675: from Dr. Brandicourt, setting forth a non-binding proposal from Sanofi to acquire Medivation for $52.50 per share of Medivation\u0092s Common Stock, subject to the completion of due diligence, the negotiation and execution of definitive\n676: agreements, and the approval of Sanofi\u0092s board of directors (\u0093 Sanofi\u0092s $52.50 proposal\u0094).\n677: \n678: 16\n679: \n680: ",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "export_regression": false,
+      "match_score": 95.0
+    },
+    {
+      "event_id": "evt_004",
+      "alex_row_id": "0.7",
+      "field": "bidder_name",
+      "pipeline_value": "Pfizer",
+      "alex_value": "Sanofi",
+      "filing_supports": "pipeline",
+      "filing_snippet": "681: Later that day, the Medivation board of directors convened a special meeting to discuss, with\n682: management of Medivation and representatives of J. P. Morgan and Cooley, Sanofi\u0092s $52.50 proposal. The Medivation board of directors determined that additional review, discussion and analysis were required prior to any formal response to\n683: Sanofi.\n684: \n685: On April 20, 2016, Douglas Giordano, Senior Vice President, Worldwide Business Development at Pfizer contacted Dr. Hung to\n686: indicate an interest in participating in any strategic discussions Medivation might initiate.\n687: \n688: On April 22, 2016, the Medivation\n689: board of directors held a regular meeting at which, among other topics, the Medivation board of directors continued to discuss and evaluate Sanofi\u0092s $52.50 proposal with its legal advisors and determined to engage Evercore Group L. L. C.\n690: (\u0093 Evercore\u0094) as an additional independent financial advisor to Medivation, based on Evercore\u0092s historical work with key constituents in Medivation\u0092s industry and Evercore\u0092s reputation as a financial advisor to companies in\n691: unsolicited strategic transaction scenarios. At this meeting, the Medivation board of directors also scheduled special meetings of the Medivation board of directors to be held on April 27, 2016 and April 28, 2016 to further review and",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "export_regression": false,
+      "match_score": 52.25
+    },
+    {
+      "event_id": "evt_004",
+      "alex_row_id": "0.7",
+      "field": "bidder_type",
+      "pipeline_value": "S",
+      "alex_value": "non-US PUBLIC S",
+      "filing_supports": "pipeline",
+      "filing_snippet": "681: Later that day, the Medivation board of directors convened a special meeting to discuss, with\n682: management of Medivation and representatives of J. P. Morgan and Cooley, Sanofi\u0092s $52.50 proposal. The Medivation board of directors determined that additional review, discussion and analysis were required prior to any formal response to\n683: Sanofi.\n684: \n685: On April 20, 2016, Douglas Giordano, Senior Vice President, Worldwide Business Development at Pfizer contacted Dr. Hung to\n686: indicate an interest in participating in any strategic discussions Medivation might initiate.\n687: \n688: On April 22, 2016, the Medivation\n689: board of directors held a regular meeting at which, among other topics, the Medivation board of directors continued to discuss and evaluate Sanofi\u0092s $52.50 proposal with its legal advisors and determined to engage Evercore Group L. L. C.\n690: (\u0093 Evercore\u0094) as an additional independent financial advisor to Medivation, based on Evercore\u0092s historical work with key constituents in Medivation\u0092s industry and Evercore\u0092s reputation as a financial advisor to companies in\n691: unsolicited strategic transaction scenarios. At this meeting, the Medivation board of directors also scheduled special meetings of the Medivation board of directors to be held on April 27, 2016 and April 28, 2016 to further review and",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "export_regression": false,
+      "match_score": 52.25
+    },
+    {
+      "event_id": "evt_004",
+      "alex_row_id": "0.7",
+      "field": "date",
+      "pipeline_value": "2016-04-20",
+      "alex_value": "2016-04-13",
+      "filing_supports": "pipeline",
+      "filing_snippet": "681: Later that day, the Medivation board of directors convened a special meeting to discuss, with\n682: management of Medivation and representatives of J. P. Morgan and Cooley, Sanofi\u0092s $52.50 proposal. The Medivation board of directors determined that additional review, discussion and analysis were required prior to any formal response to\n683: Sanofi.\n684: \n685: On April 20, 2016, Douglas Giordano, Senior Vice President, Worldwide Business Development at Pfizer contacted Dr. Hung to\n686: indicate an interest in participating in any strategic discussions Medivation might initiate.\n687: \n688: On April 22, 2016, the Medivation\n689: board of directors held a regular meeting at which, among other topics, the Medivation board of directors continued to discuss and evaluate Sanofi\u0092s $52.50 proposal with its legal advisors and determined to engage Evercore Group L. L. C.\n690: (\u0093 Evercore\u0094) as an additional independent financial advisor to Medivation, based on Evercore\u0092s historical work with key constituents in Medivation\u0092s industry and Evercore\u0092s reputation as a financial advisor to companies in\n691: unsolicited strategic transaction scenarios. At this meeting, the Medivation board of directors also scheduled special meetings of the Medivation board of directors to be held on April 27, 2016 and April 28, 2016 to further review and",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "export_regression": false,
+      "match_score": 52.25
+    },
+    {
+      "event_id": "evt_034",
+      "alex_row_id": "5",
+      "field": "date",
+      "pipeline_value": "2016-08-19",
+      "alex_value": "2016-08-14",
+      "filing_supports": "pipeline",
+      "filing_snippet": "900: That afternoon, the Medivation board of directors met telephonically with Medivation\u0092s senior management and legal and financial advisors\n901: to discuss the definitive proposals and marked agreements received from Pfizer, Company 1, Company 2 and Company 3. Medivation\u0092s management team provided an overview of the conversations and meetings with the Interested Parties over the course\n902: of the diligence process. The financial advisors presented to the board of directors a review of the bidding process and positions of the Interested Parties over the course of the bidding process. Cooley and Wachtell Lipton summarized and compared\n903: the revised drafts of the merger agreements provided by the relevant Interested Parties, including a thorough discussion of the material adverse effect provision and other conditions to closing the proposed transaction. After further discussions,\n904: including as to the matters discussed in the section entitled \u0093\u0097 Reasons for the Merger; Recommendation of the Medivation Board of Directors,\u0094 the Medivation board of directors authorized Medivation\u0092s financial advisors to\n905: communicate to the remaining Interested Parties that best and final proposals (to include confirmation that no further diligence would be required) would be due on August 20, 2016, by 12:00 p. m. Pacific Time. The Medivation board of directors\n906: authorized Medivation\u0092s financial advisors to inform the Interested Parties that the Medivation board of directors intended to review the proposals promptly after the deadline at a meeting scheduled for the afternoon of Saturday, August 20,\n907: 2016, with the intention of identifying a successful bidder and executing a merger agreement promptly following the completion of that meeting. The Medivation board of directors authorized Medivation\u0092s financial advisors to inform each\n908: Interested Party that such Interested Party should assume that it would not receive a call or other notification on August 20, 2016, if its proposal was not the highest, and, accordingly, each Interested Party was urged to put forward its best\n909: proposal at that time. Following the meeting, Medivation\u0092s financial advisors delivered that message to each of Pfizer, Company 1, Company 2 and Company 3.\n910: \n911: During the evening of Friday, August 19, 2016 and early morning of Saturday, August 20, 2016, Wachtell Lipton and Cooley sent revised drafts\n912: of the merger agreement to each of Pfizer, Company 1, Company 2 and Company 3. In the evening of August 19, 2016, Company 3 notified Medivation\u0092s financial advisors that Company 3 would not be submitting a revised proposal.\n913: \n914: On the morning of Saturday, August 20, 2016, at the request of legal advisors of Pfizer and Company 2, Wachtell Lipton and Cooley met",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "export_regression": false,
+      "match_score": 38.5
+    },
+    {
+      "event_id": "evt_033",
+      "alex_row_id": "5",
+      "field": "date",
+      "pipeline_value": "2016-08-19",
+      "alex_value": "2016-08-14",
+      "filing_supports": "both",
+      "filing_snippet": "880: revised proposal in writing.\n881: \n882: On August 12, 2016, Company 2 and Company 3 submitted written revised proposals for an all-cash acquisition\n883: of Medivation, at $70.00 per Share and $70.50 per Share, respectively. Later that day, Medivation\u0092s financial advisors provided Company 2 and Company 3 with the draft merger agreement and access to the second stage of confirmatory diligence.\n884: \n885: On August 14, 2016, J. P. Morgan and Evercore sent a written instruction letter to each Interested Party, requiring a definitive written\n886: proposal by 12:00 p. m. Pacific Time on Friday, August 19, 2016. The instructions also requested that each Interested Party submit any comments on the draft of the merger agreement by 5:00 p. m. Pacific Time on Thursday, August 18, 2016.\n887: \n888: On August 18, 2016, each Interested Party submitted a revised draft of the merger agreement to Medivation representatives. That evening,\n889: Medivation\u0092s legal advisors met telephonically with members of Medivation\u0092s management team to review the marked agreements and to discuss response strategy.\n890: \n891: On Friday, August 19, 2016, each of Pfizer, Company 1, Company 2, and Company 3 submitted a definitive proposal for an all-cash acquisition of\n892: Medivation. Company 4 declined to submit a definitive proposal and\n893: \n894: 21\n895: \n896: \n897: ceased participation in the strategic transaction process. The definitive proposals, in order of increasing valuation, were from Company 3 for $72.50 per Share in cash, Company 1 for $73.00 per",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "export_regression": false,
+      "match_score": 61.0
+    },
+    {
+      "event_id": "evt_039",
+      "alex_row_id": "4.5",
+      "field": "date",
+      "pipeline_value": "2016-08-20",
+      "alex_value": "2016-08-14",
+      "filing_supports": "pipeline",
+      "filing_snippet": "900: That afternoon, the Medivation board of directors met telephonically with Medivation\u0092s senior management and legal and financial advisors\n901: to discuss the definitive proposals and marked agreements received from Pfizer, Company 1, Company 2 and Company 3. Medivation\u0092s management team provided an overview of the conversations and meetings with the Interested Parties over the course\n902: of the diligence process. The financial advisors presented to the board of directors a review of the bidding process and positions of the Interested Parties over the course of the bidding process. Cooley and Wachtell Lipton summarized and compared\n903: the revised drafts of the merger agreements provided by the relevant Interested Parties, including a thorough discussion of the material adverse effect provision and other conditions to closing the proposed transaction. After further discussions,\n904: including as to the matters discussed in the section entitled \u0093\u0097 Reasons for the Merger; Recommendation of the Medivation Board of Directors,\u0094 the Medivation board of directors authorized Medivation\u0092s financial advisors to\n905: communicate to the remaining Interested Parties that best and final proposals (to include confirmation that no further diligence would be required) would be due on August 20, 2016, by 12:00 p. m. Pacific Time. The Medivation board of directors\n906: authorized Medivation\u0092s financial advisors to inform the Interested Parties that the Medivation board of directors intended to review the proposals promptly after the deadline at a meeting scheduled for the afternoon of Saturday, August 20,\n907: 2016, with the intention of identifying a successful bidder and executing a merger agreement promptly following the completion of that meeting. The Medivation board of directors authorized Medivation\u0092s financial advisors to inform each\n908: Interested Party that such Interested Party should assume that it would not receive a call or other notification on August 20, 2016, if its proposal was not the highest, and, accordingly, each Interested Party was urged to put forward its best\n909: proposal at that time. Following the meeting, Medivation\u0092s financial advisors delivered that message to each of Pfizer, Company 1, Company 2 and Company 3.\n910: \n911: During the evening of Friday, August 19, 2016 and early morning of Saturday, August 20, 2016, Wachtell Lipton and Cooley sent revised drafts\n912: of the merger agreement to each of Pfizer, Company 1, Company 2 and Company 3. In the evening of August 19, 2016, Company 3 notified Medivation\u0092s financial advisors that Company 3 would not be submitting a revised proposal.\n913: \n914: On the morning of Saturday, August 20, 2016, at the request of legal advisors of Pfizer and Company 2, Wachtell Lipton and Cooley met\n915: telephonically with those legal advisors to answer questions concerning the form of merger agreement provided by Medivation\u0092s legal advisors the previous evening. In each of these separate discussions, the representatives of Pfizer and the\n916: representatives of Company 2 indicated that Pfizer and Company 2, respectively, were prepared to accept and enter into a merger agreement substantially in the form proposed by Medivation the previous evening. During these conversations,\n917: Medivation\u0092s legal advisors also repeated the instructions previously given to the Interested Parties to the effect that the Interested Party should expect that Medivation would enter into a merger agreement with the party submitting the best\n918: proposal at the noon deadline, and the Interested Party should not assume it would have any further opportunity to improve or increase its proposal should its proposal not be the highest and best.\n919: \n920: Later that morning, on August 20, 2016, beginning at 11:51 a. m. Pacific Time, each of Pfizer, Company 1, and Company 2 submitted a final\n921: proposal, each of which had been approved by the board of directors of the respective bidding party and each of which included confirmation that it was not subject to further diligence, and a revised draft of the merger agreement. Pfizer submitted a\n922: revised final proposal to acquire Medivation for $81.50 per share. Company 1 submitted a revised final proposal to acquire Medivation for $80.25 per share. Company 2 submitted a revised final proposal to acquire Medivation for $80.00 per share.\n923: \n924: Immediately thereafter, at 12:15 p. m. Pacific Time on August 20, 2016, the Medivation board of directors met telephonically with\n925: representatives of Medivation\u0092s senior management and the Company\u0092s legal and\n926: ",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "export_regression": false,
+      "match_score": 31.75
+    }
+  ],
+  "pipeline_only": [
+    {
+      "event_id": "evt_002",
+      "bidder_id": "0.2",
+      "note": "IB",
+      "actor_name": "Medivation board of directors/J. P. Morgan Securities LLC",
+      "date": "2016-03-24",
+      "verdict": "grounded",
+      "filing_snippet": "646: \n647: On March 22, 2016, Olivier Brandicourt, Chief Executive\n648: Officer of Sanofi, contacted David Hung, M. D., President and Chief Executive Officer of Medivation, on an unsolicited basis, and requested a telephone discussion.\n649: \n650: On March 24, 2016, the Medivation board of directors held a special meeting attended by management of Medivation and representatives of\n651: Cooley LLP (\u0093 Cooley\u0094), Medivation\u0092s legal advisor, and J. P. Morgan Securities LLC (\u0093 J. P. Morgan\u0094), retained as independent financial advisor to Medivation in connection with routine advanced preparedness for defense and\n652: general strategic advice and based on J. P. Morgan\u0092s long history with the Company and expertise in Medivation\u0092s general industry (see Item 5. \u0093 Person/Assets Retained, Employed Compensated or Used\u0094below). At this meeting,\n653: the Medivation board of directors discussed Dr. Brandicourt\u0092s request for a call and meeting. At the conclusion of the meeting, the Medivation board of directors directed Dr. Hung to proceed with an initial call and report any\n654: relevant discussion.\n655: \n656: On March 25, 2016, Drs. Brandicourt and Hung had an initial telephone discussion during which",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt"
+    },
+    {
+      "event_id": "evt_005",
+      "bidder_id": "0.4",
+      "note": "IB",
+      "actor_name": "Medivation board of directors/Evercore Group L. L. C.",
+      "date": "2016-04-22",
+      "verdict": "grounded",
+      "filing_snippet": "684: \n685: On April 20, 2016, Douglas Giordano, Senior Vice President, Worldwide Business Development at Pfizer contacted Dr. Hung to\n686: indicate an interest in participating in any strategic discussions Medivation might initiate.\n687: \n688: On April 22, 2016, the Medivation\n689: board of directors held a regular meeting at which, among other topics, the Medivation board of directors continued to discuss and evaluate Sanofi\u0092s $52.50 proposal with its legal advisors and determined to engage Evercore Group L. L. C.\n690: (\u0093 Evercore\u0094) as an additional independent financial advisor to Medivation, based on Evercore\u0092s historical work with key constituents in Medivation\u0092s industry and Evercore\u0092s reputation as a financial advisor to companies in\n691: unsolicited strategic transaction scenarios. At this meeting, the Medivation board of directors also scheduled special meetings of the Medivation board of directors to be held on April 27, 2016 and April 28, 2016 to further review and\n692: analyze Sanofi\u0092s $52.50 proposal.\n693: \n694: At a special meeting of the Medivation board of directors on April 27, 2016, the Medivation",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt"
+    },
+    {
+      "event_id": "evt_007",
+      "bidder_id": "0.5",
+      "note": "IB",
+      "actor_name": "Medivation board of directors/Wachtell, Lipton, Rosen & Katz",
+      "date": "2016-04-28",
+      "verdict": "grounded",
+      "filing_snippet": "695: board of directors continued its review of Sanofi\u0092s $52.50 proposal with input from management of Medivation and representatives of J. P. Morgan and Cooley.\n696: \n697: On April 28, 2016, Sanofi issued a press release publicly announcing Sanofi\u0092s $52.50 proposal.\n698: \n699: Later that morning, the Medivation board of directors held its previously scheduled special meeting at which it continued its review of\n700: Sanofi\u0092s $52.50 proposal with input from management of Medivation and representatives of Evercore, J. P. Morgan, Cooley and Wachtell, Lipton, Rosen & Katz (\u0093 Wachtell Lipton\u0094), which Medivation had retained as an additional\n701: legal advisor. Following those discussions, the Medivation board of directors unanimously rejected Sanofi\u0092s $52.50 proposal, concluding that Sanofi\u0092s $52.50 proposal substantially undervalued Medivation, and was not in the best interests\n702: of Medivation and its stockholders.\n703: \n704: On April 29, 2016, Medivation issued a press release announcing the Medivation board of\n705: directors\u0092 determination. Later that same day, the Medivation board of directors held a special meeting attended by management of Medivation and representatives of Cooley, Wachtell Lipton and Richards, Layton & Finger, P. A.,\n706: Medivation\u0092s Delaware counsel, at which it approved amendments to the Medivation Bylaws in order to (i) put in place certain procedural requirements in connection with any stockholder action by written consent (including the appointment by",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt"
+    },
+    {
+      "event_id": "evt_042",
+      "bidder_id": "4",
+      "note": "NDA",
+      "actor_name": "NA",
+      "date": "2016-07-09",
+      "verdict": "grounded",
+      "filing_snippet": "828: \n829: Also on July 7, 2016, Dr. Hung\n830: met with Ian Read, Chief Executive Officer of Pfizer, Dr. Mace Rothenberg, Chief Development Officer, Oncology at Pfizer and Dr. Mikael Dolsten, President of Worldwide Research and Development at Pfizer. During this meeting, the Pfizer\n831: management team expressed Pfizer\u0092s continued interest in exploring a potential negotiated strategic transaction with Medivation.\n832: \n833: On\n834: July 9, 2016, Medivation entered into a confidentiality agreement with a fourth industry participant initially contacted by Medivation\u0092s financial advisors.\n835: \n836: On July 13, Medivation entered into a confidentiality agreement with a fifth industry participant initially contacted by Medivation\u0092s\n837: financial advisors.\n838: \n839: For reference, other than Pfizer, the industry participants with which Medivation entered into confidentiality",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt"
+    },
+    {
+      "event_id": "evt_043",
+      "bidder_id": "5",
+      "note": "NDA",
+      "actor_name": "NA",
+      "date": "2016-07-13",
+      "verdict": "grounded",
+      "filing_snippet": "831: management team expressed Pfizer\u0092s continued interest in exploring a potential negotiated strategic transaction with Medivation.\n832: \n833: On\n834: July 9, 2016, Medivation entered into a confidentiality agreement with a fourth industry participant initially contacted by Medivation\u0092s financial advisors.\n835: \n836: On July 13, Medivation entered into a confidentiality agreement with a fifth industry participant initially contacted by Medivation\u0092s\n837: financial advisors.\n838: \n839: For reference, other than Pfizer, the industry participants with which Medivation entered into confidentiality\n840: agreements as described above are hereinafter referred to as \u0093 Company 1,\u0094 \u0093 Company 2,\u0094 \u0093 Company 3,\u0094 and \u0093 Company 4.\u0094 Together, Pfizer, Company 1, Company 2, Company 3 and Company 4 are referred to as the\n841: \u0093 Interested Parties.\u0094\n842: ",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt"
+    },
+    {
+      "event_id": "evt_013",
+      "bidder_id": "0.9",
+      "note": "NA",
+      "actor_name": "Sanofi",
+      "date": "2016-06-27",
+      "verdict": "grounded",
+      "filing_snippet": "797: \n798: From late June 2016 through early July 2016, J. P. Morgan and Evercore contacted eleven\n799: industry participants, which included Pfizer and the four companies that had initially indicated interest in late March 2016. Medivation also contacted a twelfth industry participant to explore preliminary interest in a potential strategic\n800: transaction.\n801: \n802: On June 27, 2016, Medivation received a private letter with an increased proposal from Sanofi of $58.00 per share in cash\n803: plus a contingent value right (\u0093 CVR\u0094) of up to $3.00 per share, conditioned on certain revenue metrics.\n804: \n805: On June 29, 2016,\n806: Medivation entered into confidentiality agreements with Pfizer and one additional party initially contacted by Medivation\u0092s financial advisors.\n807: \n808: On June 30, 2016, the Medivation board of directors met telephonically to discuss Sanofi\u0092s revised unsolicited proposal, together with",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt"
+    },
+    {
+      "event_id": "evt_018",
+      "bidder_id": "7",
+      "note": "NA",
+      "actor_name": "Company 1",
+      "date": "2016-08-08",
+      "verdict": "grounded",
+      "filing_snippet": "859: \n860: Also in that five week period, the Medivation board of directors met five times telephonically.\n861: During each of those meetings, the Medivation board of directors discussed the course of due diligence and the potential strategic transaction process with Medivation\u0092s management team and advisors.\n862: \n863: On August 8, 2016, each of the Interested Parties submitted non-binding written preliminary proposals for the acquisition of Medivation.\n864: Pfizer submitted a preliminary proposal for the all-cash acquisition of Medivation for $65.00 per Share. Company 1 submitted a preliminary proposal for the all-cash acquisition of Medivation for $71.00 per Share. Company 2 submitted a preliminary\n865: proposal for the all-cash acquisition of Medivation for $62.00\u0097$64.00 per Share. Company 3 submitted a preliminary proposal to acquire Medivation for $60.00 per Share in cash, plus CVRs of up to $10.00 per Share, conditioned on certain revenue\n866: metrics. Company 4 submitted a preliminary proposal to acquire Medivation for $63.00 per Share in cash, plus CVRs of up to $5.00 per Share conditioned on certain regulatory milestones for pipeline assets.\n867: \n868: On August 10, 2016, the Medivation board of directors met telephonically with Medivation\u0092s senior management and legal and financial\n869: advisors to discuss the preliminary proposals. After a presentation from the financial advisors, including a review of the Company\u0092s stock price and a comparison of the non-binding proposals, the Medivation board of directors discussed",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt"
+    },
+    {
+      "event_id": "evt_019",
+      "bidder_id": "8",
+      "note": "NA",
+      "actor_name": "Company 2",
+      "date": "2016-08-08",
+      "verdict": "grounded",
+      "filing_snippet": "859: \n860: Also in that five week period, the Medivation board of directors met five times telephonically.\n861: During each of those meetings, the Medivation board of directors discussed the course of due diligence and the potential strategic transaction process with Medivation\u0092s management team and advisors.\n862: \n863: On August 8, 2016, each of the Interested Parties submitted non-binding written preliminary proposals for the acquisition of Medivation.\n864: Pfizer submitted a preliminary proposal for the all-cash acquisition of Medivation for $65.00 per Share. Company 1 submitted a preliminary proposal for the all-cash acquisition of Medivation for $71.00 per Share. Company 2 submitted a preliminary\n865: proposal for the all-cash acquisition of Medivation for $62.00\u0097$64.00 per Share. Company 3 submitted a preliminary proposal to acquire Medivation for $60.00 per Share in cash, plus CVRs of up to $10.00 per Share, conditioned on certain revenue\n866: metrics. Company 4 submitted a preliminary proposal to acquire Medivation for $63.00 per Share in cash, plus CVRs of up to $5.00 per Share conditioned on certain regulatory milestones for pipeline assets.\n867: \n868: On August 10, 2016, the Medivation board of directors met telephonically with Medivation\u0092s senior management and legal and financial\n869: advisors to discuss the preliminary proposals. After a presentation from the financial advisors, including a review of the Company\u0092s stock price and a comparison of the non-binding proposals, the Medivation board of directors discussed\n870: strategies for next steps and a proposed timeline for the transaction process. Following that discussion, the Medivation board of directors authorized Medivation\u0092s financial advisors to advance Pfizer, Company 1, and Company 4 into a second and",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt"
+    },
+    {
+      "event_id": "evt_020",
+      "bidder_id": "9",
+      "note": "NA",
+      "actor_name": "Company 3",
+      "date": "2016-08-08",
+      "verdict": "grounded",
+      "filing_snippet": "860: Also in that five week period, the Medivation board of directors met five times telephonically.\n861: During each of those meetings, the Medivation board of directors discussed the course of due diligence and the potential strategic transaction process with Medivation\u0092s management team and advisors.\n862: \n863: On August 8, 2016, each of the Interested Parties submitted non-binding written preliminary proposals for the acquisition of Medivation.\n864: Pfizer submitted a preliminary proposal for the all-cash acquisition of Medivation for $65.00 per Share. Company 1 submitted a preliminary proposal for the all-cash acquisition of Medivation for $71.00 per Share. Company 2 submitted a preliminary\n865: proposal for the all-cash acquisition of Medivation for $62.00\u0097$64.00 per Share. Company 3 submitted a preliminary proposal to acquire Medivation for $60.00 per Share in cash, plus CVRs of up to $10.00 per Share, conditioned on certain revenue\n866: metrics. Company 4 submitted a preliminary proposal to acquire Medivation for $63.00 per Share in cash, plus CVRs of up to $5.00 per Share conditioned on certain regulatory milestones for pipeline assets.\n867: \n868: On August 10, 2016, the Medivation board of directors met telephonically with Medivation\u0092s senior management and legal and financial\n869: advisors to discuss the preliminary proposals. After a presentation from the financial advisors, including a review of the Company\u0092s stock price and a comparison of the non-binding proposals, the Medivation board of directors discussed\n870: strategies for next steps and a proposed timeline for the transaction process. Following that discussion, the Medivation board of directors authorized Medivation\u0092s financial advisors to advance Pfizer, Company 1, and Company 4 into a second and\n871: confirmatory round of due diligence and the continuation of the strategic transaction process, including negotiation of a proposed acquisition agreement. The Medivation board of directors also authorized Medivation\u0092s financial advisors to",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt"
+    },
+    {
+      "event_id": "evt_021",
+      "bidder_id": "10",
+      "note": "NA",
+      "actor_name": "Company 4",
+      "date": "2016-08-08",
+      "verdict": "grounded",
+      "filing_snippet": "861: During each of those meetings, the Medivation board of directors discussed the course of due diligence and the potential strategic transaction process with Medivation\u0092s management team and advisors.\n862: \n863: On August 8, 2016, each of the Interested Parties submitted non-binding written preliminary proposals for the acquisition of Medivation.\n864: Pfizer submitted a preliminary proposal for the all-cash acquisition of Medivation for $65.00 per Share. Company 1 submitted a preliminary proposal for the all-cash acquisition of Medivation for $71.00 per Share. Company 2 submitted a preliminary\n865: proposal for the all-cash acquisition of Medivation for $62.00\u0097$64.00 per Share. Company 3 submitted a preliminary proposal to acquire Medivation for $60.00 per Share in cash, plus CVRs of up to $10.00 per Share, conditioned on certain revenue\n866: metrics. Company 4 submitted a preliminary proposal to acquire Medivation for $63.00 per Share in cash, plus CVRs of up to $5.00 per Share conditioned on certain regulatory milestones for pipeline assets.\n867: \n868: On August 10, 2016, the Medivation board of directors met telephonically with Medivation\u0092s senior management and legal and financial\n869: advisors to discuss the preliminary proposals. After a presentation from the financial advisors, including a review of the Company\u0092s stock price and a comparison of the non-binding proposals, the Medivation board of directors discussed\n870: strategies for next steps and a proposed timeline for the transaction process. Following that discussion, the Medivation board of directors authorized Medivation\u0092s financial advisors to advance Pfizer, Company 1, and Company 4 into a second and\n871: confirmatory round of due diligence and the continuation of the strategic transaction process, including negotiation of a proposed acquisition agreement. The Medivation board of directors also authorized Medivation\u0092s financial advisors to",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt"
+    },
+    {
+      "event_id": "evt_024",
+      "bidder_id": "11",
+      "note": "NA",
+      "actor_name": "Company 2",
+      "date": "2016-08-11",
+      "verdict": "grounded",
+      "filing_snippet": "874: round of the potential strategic transaction process.\n875: \n876: On August 11, 2016, at the direction of Medivation\u0092s board of directors,\n877: Medivation\u0092s financial advisors distributed a draft merger agreement to Pfizer, Company 1, and Company 4. Later that day, Medivation\u0092s financial advisors communicated to Company 2 and Company 3 that their preliminary proposals had not been\n878: competitive from a valuation perspective and that Company 2 and Company 3 would not advance in the transaction process at their then-current valuation. At that time, Company 2 communicated by telephone to Medivation\u0092s financial advisors that\n879: Company 2 would submit a revised initial bid proposal for an all-cash acquisition of Medivation at $70.00 per Share. Medivation\u0092s financial advisors responded that Company 2 would not be advanced in the process in the absence of a competitive\n880: revised proposal in writing.\n881: \n882: On August 12, 2016, Company 2 and Company 3 submitted written revised proposals for an all-cash acquisition\n883: of Medivation, at $70.00 per Share and $70.50 per Share, respectively. Later that day, Medivation\u0092s financial advisors provided Company 2 and Company 3 with the draft merger agreement and access to the second stage of confirmatory diligence.\n884: ",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt"
+    },
+    {
+      "event_id": "evt_025",
+      "bidder_id": "12",
+      "note": "NA",
+      "actor_name": "Company 2",
+      "date": "2016-08-12",
+      "verdict": "grounded",
+      "filing_snippet": "877: Medivation\u0092s financial advisors distributed a draft merger agreement to Pfizer, Company 1, and Company 4. Later that day, Medivation\u0092s financial advisors communicated to Company 2 and Company 3 that their preliminary proposals had not been\n878: competitive from a valuation perspective and that Company 2 and Company 3 would not advance in the transaction process at their then-current valuation. At that time, Company 2 communicated by telephone to Medivation\u0092s financial advisors that\n879: Company 2 would submit a revised initial bid proposal for an all-cash acquisition of Medivation at $70.00 per Share. Medivation\u0092s financial advisors responded that Company 2 would not be advanced in the process in the absence of a competitive\n880: revised proposal in writing.\n881: \n882: On August 12, 2016, Company 2 and Company 3 submitted written revised proposals for an all-cash acquisition\n883: of Medivation, at $70.00 per Share and $70.50 per Share, respectively. Later that day, Medivation\u0092s financial advisors provided Company 2 and Company 3 with the draft merger agreement and access to the second stage of confirmatory diligence.\n884: \n885: On August 14, 2016, J. P. Morgan and Evercore sent a written instruction letter to each Interested Party, requiring a definitive written\n886: proposal by 12:00 p. m. Pacific Time on Friday, August 19, 2016. The instructions also requested that each Interested Party submit any comments on the draft of the merger agreement by 5:00 p. m. Pacific Time on Thursday, August 18, 2016.\n887: \n888: On August 18, 2016, each Interested Party submitted a revised draft of the merger agreement to Medivation representatives. That evening,",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt"
+    },
+    {
+      "event_id": "evt_026",
+      "bidder_id": "13",
+      "note": "NA",
+      "actor_name": "Company 3",
+      "date": "2016-08-12",
+      "verdict": "grounded",
+      "filing_snippet": "877: Medivation\u0092s financial advisors distributed a draft merger agreement to Pfizer, Company 1, and Company 4. Later that day, Medivation\u0092s financial advisors communicated to Company 2 and Company 3 that their preliminary proposals had not been\n878: competitive from a valuation perspective and that Company 2 and Company 3 would not advance in the transaction process at their then-current valuation. At that time, Company 2 communicated by telephone to Medivation\u0092s financial advisors that\n879: Company 2 would submit a revised initial bid proposal for an all-cash acquisition of Medivation at $70.00 per Share. Medivation\u0092s financial advisors responded that Company 2 would not be advanced in the process in the absence of a competitive\n880: revised proposal in writing.\n881: \n882: On August 12, 2016, Company 2 and Company 3 submitted written revised proposals for an all-cash acquisition\n883: of Medivation, at $70.00 per Share and $70.50 per Share, respectively. Later that day, Medivation\u0092s financial advisors provided Company 2 and Company 3 with the draft merger agreement and access to the second stage of confirmatory diligence.\n884: \n885: On August 14, 2016, J. P. Morgan and Evercore sent a written instruction letter to each Interested Party, requiring a definitive written\n886: proposal by 12:00 p. m. Pacific Time on Friday, August 19, 2016. The instructions also requested that each Interested Party submit any comments on the draft of the merger agreement by 5:00 p. m. Pacific Time on Thursday, August 18, 2016.\n887: \n888: On August 18, 2016, each Interested Party submitted a revised draft of the merger agreement to Medivation representatives. That evening,",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt"
+    },
+    {
+      "event_id": "evt_028",
+      "bidder_id": "15",
+      "note": "NA",
+      "actor_name": "Company 3",
+      "date": "2016-08-19",
+      "verdict": "grounded",
+      "filing_snippet": "886: proposal by 12:00 p. m. Pacific Time on Friday, August 19, 2016. The instructions also requested that each Interested Party submit any comments on the draft of the merger agreement by 5:00 p. m. Pacific Time on Thursday, August 18, 2016.\n887: \n888: On August 18, 2016, each Interested Party submitted a revised draft of the merger agreement to Medivation representatives. That evening,\n889: Medivation\u0092s legal advisors met telephonically with members of Medivation\u0092s management team to review the marked agreements and to discuss response strategy.\n890: \n891: On Friday, August 19, 2016, each of Pfizer, Company 1, Company 2, and Company 3 submitted a definitive proposal for an all-cash acquisition of\n892: Medivation. Company 4 declined to submit a definitive proposal and\n893: \n894: 21\n895: \n896: \n897: ceased participation in the strategic transaction process. The definitive proposals, in order of increasing valuation, were from Company 3 for $72.50 per Share in cash, Company 1 for $73.00 per\n898: Share in cash, Company 2 for $75.50 per Share in cash, and Pfizer for $77.00 per Share in cash. Together with their definitive proposals, each of Company 1 and Company 3 also submitted a revised version of the merger agreement.\n899: \n900: That afternoon, the Medivation board of directors met telephonically with Medivation\u0092s senior management and legal and financial advisors\n901: to discuss the definitive proposals and marked agreements received from Pfizer, Company 1, Company 2 and Company 3. Medivation\u0092s management team provided an overview of the conversations and meetings with the Interested Parties over the course\n902: of the diligence process. The financial advisors presented to the board of directors a review of the bidding process and positions of the Interested Parties over the course of the bidding process. Cooley and Wachtell Lipton summarized and compared",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt"
+    },
+    {
+      "event_id": "evt_029",
+      "bidder_id": "16",
+      "note": "NA",
+      "actor_name": "Company 1",
+      "date": "2016-08-19",
+      "verdict": "grounded",
+      "filing_snippet": "886: proposal by 12:00 p. m. Pacific Time on Friday, August 19, 2016. The instructions also requested that each Interested Party submit any comments on the draft of the merger agreement by 5:00 p. m. Pacific Time on Thursday, August 18, 2016.\n887: \n888: On August 18, 2016, each Interested Party submitted a revised draft of the merger agreement to Medivation representatives. That evening,\n889: Medivation\u0092s legal advisors met telephonically with members of Medivation\u0092s management team to review the marked agreements and to discuss response strategy.\n890: \n891: On Friday, August 19, 2016, each of Pfizer, Company 1, Company 2, and Company 3 submitted a definitive proposal for an all-cash acquisition of\n892: Medivation. Company 4 declined to submit a definitive proposal and\n893: \n894: 21\n895: \n896: \n897: ceased participation in the strategic transaction process. The definitive proposals, in order of increasing valuation, were from Company 3 for $72.50 per Share in cash, Company 1 for $73.00 per\n898: Share in cash, Company 2 for $75.50 per Share in cash, and Pfizer for $77.00 per Share in cash. Together with their definitive proposals, each of Company 1 and Company 3 also submitted a revised version of the merger agreement.\n899: \n900: That afternoon, the Medivation board of directors met telephonically with Medivation\u0092s senior management and legal and financial advisors\n901: to discuss the definitive proposals and marked agreements received from Pfizer, Company 1, Company 2 and Company 3. Medivation\u0092s management team provided an overview of the conversations and meetings with the Interested Parties over the course\n902: of the diligence process. The financial advisors presented to the board of directors a review of the bidding process and positions of the Interested Parties over the course of the bidding process. Cooley and Wachtell Lipton summarized and compared\n903: the revised drafts of the merger agreements provided by the relevant Interested Parties, including a thorough discussion of the material adverse effect provision and other conditions to closing the proposed transaction. After further discussions,",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt"
+    },
+    {
+      "event_id": "evt_030",
+      "bidder_id": "17",
+      "note": "NA",
+      "actor_name": "Company 2",
+      "date": "2016-08-19",
+      "verdict": "grounded",
+      "filing_snippet": "886: proposal by 12:00 p. m. Pacific Time on Friday, August 19, 2016. The instructions also requested that each Interested Party submit any comments on the draft of the merger agreement by 5:00 p. m. Pacific Time on Thursday, August 18, 2016.\n887: \n888: On August 18, 2016, each Interested Party submitted a revised draft of the merger agreement to Medivation representatives. That evening,\n889: Medivation\u0092s legal advisors met telephonically with members of Medivation\u0092s management team to review the marked agreements and to discuss response strategy.\n890: \n891: On Friday, August 19, 2016, each of Pfizer, Company 1, Company 2, and Company 3 submitted a definitive proposal for an all-cash acquisition of\n892: Medivation. Company 4 declined to submit a definitive proposal and\n893: \n894: 21\n895: \n896: \n897: ceased participation in the strategic transaction process. The definitive proposals, in order of increasing valuation, were from Company 3 for $72.50 per Share in cash, Company 1 for $73.00 per\n898: Share in cash, Company 2 for $75.50 per Share in cash, and Pfizer for $77.00 per Share in cash. Together with their definitive proposals, each of Company 1 and Company 3 also submitted a revised version of the merger agreement.\n899: \n900: That afternoon, the Medivation board of directors met telephonically with Medivation\u0092s senior management and legal and financial advisors\n901: to discuss the definitive proposals and marked agreements received from Pfizer, Company 1, Company 2 and Company 3. Medivation\u0092s management team provided an overview of the conversations and meetings with the Interested Parties over the course\n902: of the diligence process. The financial advisors presented to the board of directors a review of the bidding process and positions of the Interested Parties over the course of the bidding process. Cooley and Wachtell Lipton summarized and compared\n903: the revised drafts of the merger agreements provided by the relevant Interested Parties, including a thorough discussion of the material adverse effect provision and other conditions to closing the proposed transaction. After further discussions,",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt"
+    },
+    {
+      "event_id": "evt_037",
+      "bidder_id": "22",
+      "note": "NA",
+      "actor_name": "Company 1",
+      "date": "2016-08-20",
+      "verdict": "grounded",
+      "filing_snippet": "917: Medivation\u0092s legal advisors also repeated the instructions previously given to the Interested Parties to the effect that the Interested Party should expect that Medivation would enter into a merger agreement with the party submitting the best\n918: proposal at the noon deadline, and the Interested Party should not assume it would have any further opportunity to improve or increase its proposal should its proposal not be the highest and best.\n919: \n920: Later that morning, on August 20, 2016, beginning at 11:51 a. m. Pacific Time, each of Pfizer, Company 1, and Company 2 submitted a final\n921: proposal, each of which had been approved by the board of directors of the respective bidding party and each of which included confirmation that it was not subject to further diligence, and a revised draft of the merger agreement. Pfizer submitted a\n922: revised final proposal to acquire Medivation for $81.50 per share. Company 1 submitted a revised final proposal to acquire Medivation for $80.25 per share. Company 2 submitted a revised final proposal to acquire Medivation for $80.00 per share.\n923: \n924: Immediately thereafter, at 12:15 p. m. Pacific Time on August 20, 2016, the Medivation board of directors met telephonically with\n925: representatives of Medivation\u0092s senior management and the Company\u0092s legal and\n926: \n927: 22",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt"
+    },
+    {
+      "event_id": "evt_038",
+      "bidder_id": "23",
+      "note": "NA",
+      "actor_name": "Company 2",
+      "date": "2016-08-20",
+      "verdict": "grounded",
+      "filing_snippet": "917: Medivation\u0092s legal advisors also repeated the instructions previously given to the Interested Parties to the effect that the Interested Party should expect that Medivation would enter into a merger agreement with the party submitting the best\n918: proposal at the noon deadline, and the Interested Party should not assume it would have any further opportunity to improve or increase its proposal should its proposal not be the highest and best.\n919: \n920: Later that morning, on August 20, 2016, beginning at 11:51 a. m. Pacific Time, each of Pfizer, Company 1, and Company 2 submitted a final\n921: proposal, each of which had been approved by the board of directors of the respective bidding party and each of which included confirmation that it was not subject to further diligence, and a revised draft of the merger agreement. Pfizer submitted a\n922: revised final proposal to acquire Medivation for $81.50 per share. Company 1 submitted a revised final proposal to acquire Medivation for $80.25 per share. Company 2 submitted a revised final proposal to acquire Medivation for $80.00 per share.\n923: \n924: Immediately thereafter, at 12:15 p. m. Pacific Time on August 20, 2016, the Medivation board of directors met telephonically with\n925: representatives of Medivation\u0092s senior management and the Company\u0092s legal and\n926: \n927: 22",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt"
+    },
+    {
+      "event_id": "evt_006",
+      "bidder_id": "0.5",
+      "note": "Bid Press Release",
+      "actor_name": "Sanofi",
+      "date": "2016-04-28",
+      "verdict": "grounded",
+      "filing_snippet": "692: analyze Sanofi\u0092s $52.50 proposal.\n693: \n694: At a special meeting of the Medivation board of directors on April 27, 2016, the Medivation\n695: board of directors continued its review of Sanofi\u0092s $52.50 proposal with input from management of Medivation and representatives of J. P. Morgan and Cooley.\n696: \n697: On April 28, 2016, Sanofi issued a press release publicly announcing Sanofi\u0092s $52.50 proposal.\n698: \n699: Later that morning, the Medivation board of directors held its previously scheduled special meeting at which it continued its review of\n700: Sanofi\u0092s $52.50 proposal with input from management of Medivation and representatives of Evercore, J. P. Morgan, Cooley and Wachtell, Lipton, Rosen & Katz (\u0093 Wachtell Lipton\u0094), which Medivation had retained as an additional\n701: legal advisor. Following those discussions, the Medivation board of directors unanimously rejected Sanofi\u0092s $52.50 proposal, concluding that Sanofi\u0092s $52.50 proposal substantially undervalued Medivation, and was not in the best interests\n702: of Medivation and its stockholders.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt"
+    },
+    {
+      "event_id": "evt_009",
+      "bidder_id": "0.7",
+      "note": "Bid Press Release",
+      "actor_name": "Sanofi",
+      "date": "2016-05-05",
+      "verdict": "grounded",
+      "filing_snippet": "709: \n710: On May 2, 2016, Mr. Giordano and Dr. Hung spoke by phone and Mr. Giordano expressed Pfizer\u0092s\n711: continued interest in participating in any strategic discussions Medivation might initiate.\n712: \n713: Early on the morning of May 5, 2016,\n714: Sanofi issued a press release restating the terms of Sanofi\u0092s $52.50 proposal and threatening to commence a stockholder consent solicitation to remove and replace the Medivation board of directors if Medivation did not engage in discussions\n715: with Sanofi. Later that morning, Medivation issued a press release reiterating its rejection of Sanofi\u0092s \u0093substantially inadequate\u0094 proposal.\n716: \n717: On May 5, 2016, Medivation hosted a live teleconference in which members of Medivation\u0092s senior management team discussed\n718: Medivation\u0092s first quarter 2016 results and presented an overview of Medivation\u0092s business performance and future prospects.\n719: ",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt"
+    },
+    {
+      "event_id": "evt_041",
+      "bidder_id": "26",
+      "note": "Bid Press Release",
+      "actor_name": "Medivation board of directors/Pfizer",
+      "date": "2016-08-22",
+      "verdict": "grounded",
+      "filing_snippet": "941: fiduciary duties. Following the delivery of such oral opinions, and after further discussion, including as to the matters discussed in the section entitled \u0093\u0097 Reasons for the Merger; Recommendation of the Medivation Board of\n942: Directors,\u0094 the Medivation board of directors unanimously determined that to enter into the Pfizer merger agreement would be advisable, fair, and in the best interests of Medivation and its stockholders and unanimously approved that merger\n943: agreement and the merger.\n944: \n945: Also on August 20, 2016, following approval of the Medivation board of directors, Pfizer and Medivation\n946: executed the merger agreement and Medivation executed the Rights Amendment. On August 22, 2016, the parties issued a joint press release announcing the transaction.\n947: \n948:   (ii)      Reasons for Recommendation  \n949: \n950: Our Board of Directors, with the assistance of\n951: Medivation\u0092s senior management and its financial and legal advisors, evaluated the Merger Agreement and the Transactions and unanimously (i) determined that the Merger Agreement and the Transactions, including the Offer and the Merger, are fair",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt"
+    },
+    {
+      "event_id": "evt_001",
+      "bidder_id": "0.1",
+      "note": "Bidder Interest",
+      "actor_name": "Sanofi",
+      "date": "2016-03-22",
+      "verdict": "grounded",
+      "filing_snippet": "643: reviews, with Medivation\u0092s management, and with the assistance of its outside financial and legal advisors, Medivation\u0092s strategic and financial alternatives in light of developments in Medivation\u0092s business, in the sectors in which\n644: it competes, in the economy generally and in financial markets. The alternatives reviewed have included large and small acquisitions, mergers and a sale of Medivation, and, from time to time, Medivation has received inquiries from third parties\n645: seeking to determine Medivation\u0092s interest in a sale transaction.\n646: \n647: On March 22, 2016, Olivier Brandicourt, Chief Executive\n648: Officer of Sanofi, contacted David Hung, M. D., President and Chief Executive Officer of Medivation, on an unsolicited basis, and requested a telephone discussion.\n649: \n650: On March 24, 2016, the Medivation board of directors held a special meeting attended by management of Medivation and representatives of\n651: Cooley LLP (\u0093 Cooley\u0094), Medivation\u0092s legal advisor, and J. P. Morgan Securities LLC (\u0093 J. P. Morgan\u0094), retained as independent financial advisor to Medivation in connection with routine advanced preparedness for defense and\n652: general strategic advice and based on J. P. Morgan\u0092s long history with the Company and expertise in Medivation\u0092s general industry (see Item 5. \u0093 Person/Assets Retained, Employed Compensated or Used\u0094below). At this meeting,\n653: the Medivation board of directors discussed Dr. Brandicourt\u0092s request for a call and meeting. At the conclusion of the meeting, the Medivation board of directors directed Dr. Hung to proceed with an initial call and report any",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt"
+    },
+    {
+      "event_id": "evt_008",
+      "bidder_id": "0.6",
+      "note": "Bidder Interest",
+      "actor_name": "Pfizer",
+      "date": "2016-05-02",
+      "verdict": "grounded",
+      "filing_snippet": "706: Medivation\u0092s Delaware counsel, at which it approved amendments to the Medivation Bylaws in order to (i) put in place certain procedural requirements in connection with any stockholder action by written consent (including the appointment by\n707: Medivation of independent inspectors of election in the event of any stockholder consent solicitation) and (ii) select the Court of Chancery of the State of Delaware as the sole and exclusive forum for certain actions or proceedings brought on\n708: behalf of, or against, Medivation.\n709: \n710: On May 2, 2016, Mr. Giordano and Dr. Hung spoke by phone and Mr. Giordano expressed Pfizer\u0092s\n711: continued interest in participating in any strategic discussions Medivation might initiate.\n712: \n713: Early on the morning of May 5, 2016,\n714: Sanofi issued a press release restating the terms of Sanofi\u0092s $52.50 proposal and threatening to commence a stockholder consent solicitation to remove and replace the Medivation board of directors if Medivation did not engage in discussions\n715: with Sanofi. Later that morning, Medivation issued a press release reiterating its rejection of Sanofi\u0092s \u0093substantially inadequate\u0094 proposal.\n716: ",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt"
+    },
+    {
+      "event_id": "evt_010",
+      "bidder_id": "0.8",
+      "note": "Bidder Interest",
+      "actor_name": "Sanofi/Weil Gotshal & Manges LLP",
+      "date": "2016-05-09",
+      "verdict": "grounded",
+      "filing_snippet": "716: \n717: On May 5, 2016, Medivation hosted a live teleconference in which members of Medivation\u0092s senior management team discussed\n718: Medivation\u0092s first quarter 2016 results and presented an overview of Medivation\u0092s business performance and future prospects.\n719: \n720: From May 9, 2016 through May 17, 2016, Sanofi and Weil Gotshal & Manges LLP (\u0093 Weil Gotshal\u0094), Sanofi\u0092s legal counsel,\n721: contacted Medivation and its legal counsel, respectively, to express Sanofi\u0092s interest in signing a confidentiality agreement and receiving due diligence materials on Medivation. Weil Gotshal on behalf of Sanofi stated that Sanofi could pay\n722: more (but did not indicate how much more), but that Sanofi would need to\n723: \n724: 17\n725: \n726: ",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt"
+    },
+    {
+      "event_id": "evt_011",
+      "bidder_id": "0.8",
+      "note": "Bidder Interest",
+      "actor_name": "Pfizer",
+      "date": "2016-05-20",
+      "verdict": "grounded",
+      "filing_snippet": "773: \n774: 18\n775: \n776: \n777: On May 20, 2016, Mr. Giordano contacted Dr. Hung by telephone. During that conversation, Mr.\n778: Giordano reiterated Pfizer\u0092s interest in participating in any potential negotiated transaction process that Medivation might initiate and highlighted the strategic fit of Pfizer and Medivation.\n779: \n780: On May 25, 2016, Sanofi filed with the SEC a preliminary consent solicitation statement (as amended, the \u0093 Consent\n781: Solicitation\u0094), seeking the consent of Medivation stockholder to four proposals, including (1) the removal of each of the eight existing directors of the Medivation board and (2) the replacement of those directors with eight nominees selected\n782: by Sanofi (the \u0093 Sanofi Proposals\u0094).\n783: ",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt"
+    },
+    {
+      "event_id": "evt_016",
+      "bidder_id": "3",
+      "note": "Bidder Interest",
+      "actor_name": "Pfizer",
+      "date": "2016-07-07",
+      "verdict": "grounded",
+      "filing_snippet": "826: agreements with Medivation, access to an electronic data room containing certain information regarding Medivation\u0092s business and operations. Throughout the diligence process, Medivation engaged in diligence calls and responded to written\n827: diligence requests from each of the parties that entered into confidentiality agreements with Medivation.\n828: \n829: Also on July 7, 2016, Dr. Hung\n830: met with Ian Read, Chief Executive Officer of Pfizer, Dr. Mace Rothenberg, Chief Development Officer, Oncology at Pfizer and Dr. Mikael Dolsten, President of Worldwide Research and Development at Pfizer. During this meeting, the Pfizer\n831: management team expressed Pfizer\u0092s continued interest in exploring a potential negotiated strategic transaction with Medivation.\n832: \n833: On\n834: July 9, 2016, Medivation entered into a confidentiality agreement with a fourth industry participant initially contacted by Medivation\u0092s financial advisors.\n835: \n836: On July 13, Medivation entered into a confidentiality agreement with a fifth industry participant initially contacted by Medivation\u0092s",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt"
+    },
+    {
+      "event_id": "evt_012",
+      "bidder_id": "27",
+      "note": "Target Sale",
+      "actor_name": "NA",
+      "date": null,
+      "verdict": "grounded",
+      "filing_snippet": "785: (the \u0093 Consent Revocation\u0094), urging the Medivation stockholders to revoke consent to the Sanofi Proposals for the reasons set forth at length in the Consent Revocation.\n786: \n787: On June 21 and 22, 2016, the Medivation board of directors met with Medivation\u0092s senior management team, and Medivation\u0092s\n788: outside financial advisors and legal advisors to review and discuss, among other matters, the ongoing Consent Solicitation. The board considered the possibility that Sanofi would revise and make public an increased proposal offer, but that the offer\n789: would remain unattractive in terms of value. The Medivation board considered that an unattractive offer made at such time could result in market pressure to engage in a change of control transaction in which the Medivation stockholders would not\n790: receive appropriate value for their shares. In light of the foregoing, the Medivation board was of the view that it should seek to control any process to explore the value that might be obtained in a transaction with a third party. Accordingly, the\n791: Medivation board directed J. P. Morgan and Evercore to contact select industry participants, to determine respective levels of preliminary interest in a strategic process, with the objective of expeditiously entering into confidentiality\n792: agreements. These industry participants would include the four companies that had contacted J. P. Morgan and Dr. Hung in late March 2016, Pfizer, which had first contacted Dr. Hung on April 20, 2016, as well as a number of other parties selected\n793: by the Medivation board of directors based on perceived interest and ability to review and consummate a transaction. Cooley summarized for the board the principal terms of the contemplated form of confidentiality agreement, which included a\n794: customary standstill provision with a fall-away upon an alternative transaction. The Medivation board of directors determined that following execution of satisfactory confidentiality agreements with one or more other parties, Medivation\n795: would privately offer Sanofi the opportunity to enter into the process and receive confidential information, provided that Sanofi entered into a confidentiality and standstill agreement on substantially the same terms as the other interested\n796: parties, and terminate the Consent Solicitation.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt"
+    }
+  ],
+  "alex_only": [
+    {
+      "alex_row_id": "8",
+      "note": "Drop",
+      "actor_name": "Sanofi",
+      "date": "2016-08-20",
+      "verdict": "ungrounded",
+      "filing_snippet": null,
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt"
+    },
+    {
+      "alex_row_id": "1.5",
+      "note": "IB",
+      "actor_name": "J.P. Morgan",
+      "date": "2016-06-29",
+      "verdict": "ungrounded",
+      "filing_snippet": null,
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt"
+    },
+    {
+      "alex_row_id": "1.3",
+      "note": "Bid Press Release",
+      "actor_name": "NA",
+      "date": "2016-04-13",
+      "verdict": "ungrounded",
+      "filing_snippet": null,
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt"
+    }
+  ],
+  "aggregate_rows": [
+    {
+      "alex_row_id": "9",
+      "note": "Drop",
+      "actor_name": "Several parties",
+      "date": "2016-08-20",
+      "verdict": "soft_match",
+      "reason": "Interpretive count_reconciliation contains aggregate count notes.",
+      "filing_snippet": null,
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt"
+    }
+  ],
+  "export_regressions": [],
+  "summary": {
+    "status": "attention",
+    "atomic_match_rate": 0.3077,
+    "notes": [
+      "11 matched-pair field mismatches",
+      "27 pipeline-only atomic rows",
+      "3 Alex-only atomic rows",
+      "1 aggregate Alex rows"
+    ]
+  }
+}

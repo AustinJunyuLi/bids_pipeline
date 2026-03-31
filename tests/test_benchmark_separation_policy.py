@@ -6,11 +6,23 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 
-GENERATION_DOCS = [
+LIVE_GENERATION_DOCS = [
     PROJECT_ROOT / "CLAUDE.md",
     PROJECT_ROOT / ".claude/skills/deal-agent/SKILL.md",
     PROJECT_ROOT / ".codex/skills/deal-agent/SKILL.md",
     PROJECT_ROOT / ".cursor/skills/deal-agent/SKILL.md",
+    PROJECT_ROOT / ".claude/skills/extract-deal-v2/SKILL.md",
+    PROJECT_ROOT / ".codex/skills/extract-deal-v2/SKILL.md",
+    PROJECT_ROOT / ".cursor/skills/extract-deal-v2/SKILL.md",
+    PROJECT_ROOT / ".claude/skills/verify-extraction-v2/SKILL.md",
+    PROJECT_ROOT / ".codex/skills/verify-extraction-v2/SKILL.md",
+    PROJECT_ROOT / ".cursor/skills/verify-extraction-v2/SKILL.md",
+]
+
+LEGACY_GENERATION_DOCS = [
+    PROJECT_ROOT / ".claude/skills/deal-agent-legacy/SKILL.md",
+    PROJECT_ROOT / ".codex/skills/deal-agent-legacy/SKILL.md",
+    PROJECT_ROOT / ".cursor/skills/deal-agent-legacy/SKILL.md",
     PROJECT_ROOT / ".claude/skills/extract-deal/SKILL.md",
     PROJECT_ROOT / ".codex/skills/extract-deal/SKILL.md",
     PROJECT_ROOT / ".cursor/skills/extract-deal/SKILL.md",
@@ -22,15 +34,21 @@ GENERATION_DOCS = [
     PROJECT_ROOT / ".cursor/skills/enrich-deal/SKILL.md",
 ]
 
-SUPPORT_DOCS = [
-    PROJECT_ROOT / ".codex/skills/README.md",
-    PROJECT_ROOT / "docs/HOME_COMPUTER_SETUP.md",
-]
-
-RECONCILE_DOCS = [
+LIVE_RECONCILE_DOCS = [
     PROJECT_ROOT / ".claude/skills/reconcile-alex/SKILL.md",
     PROJECT_ROOT / ".codex/skills/reconcile-alex/SKILL.md",
     PROJECT_ROOT / ".cursor/skills/reconcile-alex/SKILL.md",
+]
+
+LEGACY_RECONCILE_DOCS = [
+    PROJECT_ROOT / ".claude/skills/reconcile-alex-legacy/SKILL.md",
+    PROJECT_ROOT / ".codex/skills/reconcile-alex-legacy/SKILL.md",
+    PROJECT_ROOT / ".cursor/skills/reconcile-alex-legacy/SKILL.md",
+]
+
+SUPPORT_DOCS = [
+    PROJECT_ROOT / ".codex/skills/README.md",
+    PROJECT_ROOT / "docs/HOME_COMPUTER_SETUP.md",
 ]
 
 WARNING_DOCS = [
@@ -51,7 +69,7 @@ def test_generation_docs_do_not_reference_benchmark_files() -> None:
     ]
 
     violations: list[str] = []
-    for path in GENERATION_DOCS:
+    for path in LIVE_GENERATION_DOCS + LEGACY_GENERATION_DOCS:
         text = _read(path)
         for term in forbidden_terms:
             if term in text:
@@ -62,13 +80,28 @@ def test_generation_docs_do_not_reference_benchmark_files() -> None:
     )
 
 
-def test_generation_docs_state_benchmark_boundary_explicitly() -> None:
+def test_live_generation_docs_state_benchmark_boundary_explicitly() -> None:
     violations: list[str] = []
-    for path in GENERATION_DOCS:
-        text = _read(path)
-        lowered = text.lower()
-        normalized = " ".join(text.split()).lower()
-        if "benchmark" not in lowered:
+    for path in LIVE_GENERATION_DOCS:
+        normalized = " ".join(_read(path).split()).lower()
+        if "benchmark" not in normalized:
+            violations.append(f"{path}: missing benchmark-separation language")
+        if (
+            "before `skill-pipeline db-export-v2 --deal <slug>` completes" not in normalized
+            and "before skill-pipeline db-export-v2 --deal <slug> completes" not in normalized
+        ):
+            violations.append(f"{path}: missing pre-db-export-v2 boundary")
+
+    assert not violations, "Live generation docs do not state the v2 benchmark boundary clearly:\n" + "\n".join(
+        violations
+    )
+
+
+def test_legacy_generation_docs_state_benchmark_boundary_explicitly() -> None:
+    violations: list[str] = []
+    for path in LEGACY_GENERATION_DOCS:
+        normalized = " ".join(_read(path).split()).lower()
+        if "benchmark" not in normalized:
             violations.append(f"{path}: missing benchmark-separation language")
         if (
             "before `skill-pipeline db-export --deal <slug>` completes" not in normalized
@@ -76,14 +109,14 @@ def test_generation_docs_state_benchmark_boundary_explicitly() -> None:
         ):
             violations.append(f"{path}: missing pre-db-export boundary")
 
-    assert not violations, "Generation docs do not state the benchmark boundary clearly:\n" + "\n".join(
+    assert not violations, "Legacy generation docs do not state the benchmark boundary clearly:\n" + "\n".join(
         violations
     )
 
 
-def test_generation_docs_treat_export_as_repo_review_contract() -> None:
+def test_generation_docs_do_not_frame_export_as_benchmark_matching() -> None:
     violations: list[str] = []
-    for path in GENERATION_DOCS:
+    for path in LIVE_GENERATION_DOCS + LEGACY_GENERATION_DOCS:
         text = _read(path)
         if "Alex-compatible" in text:
             violations.append(f"{path}: contains 'Alex-compatible'")
@@ -95,18 +128,32 @@ def test_generation_docs_treat_export_as_repo_review_contract() -> None:
     )
 
 
-def test_reconcile_docs_require_post_export_usage() -> None:
+def test_live_reconcile_docs_require_post_export_usage() -> None:
     violations: list[str] = []
-    for path in RECONCILE_DOCS:
+    for path in LIVE_RECONCILE_DOCS:
         text = _read(path)
-        if "It can also be run after extraction plus enrichment" in text:
-            violations.append(f"{path}: permits pre-export fallback")
-        if "data/skill/<slug>/export/deal_events.csv" not in text:
-            violations.append(f"{path}: missing export prerequisite")
+        if "skill-pipeline db-export-v2 --deal <slug>" not in text:
+            violations.append(f"{path}: missing db-export-v2 prerequisite")
+        if "data/skill/<slug>/export_v2/benchmark_rows_expanded.csv" not in text:
+            violations.append(f"{path}: missing v2 benchmark export prerequisite")
         if "forbidden during generation" not in text.lower():
             violations.append(f"{path}: missing explicit generation boundary language")
 
-    assert not violations, "Reconcile docs do not enforce post-export boundary:\n" + "\n".join(
+    assert not violations, "Live reconcile docs do not enforce post-export v2 boundary:\n" + "\n".join(
+        violations
+    )
+
+
+def test_legacy_reconcile_docs_require_post_export_usage() -> None:
+    violations: list[str] = []
+    for path in LEGACY_RECONCILE_DOCS:
+        text = _read(path)
+        if "skill-pipeline db-export --deal <slug>" not in text:
+            violations.append(f"{path}: missing db-export prerequisite")
+        if "data/skill/<slug>/export/deal_events.csv" not in text:
+            violations.append(f"{path}: missing legacy export prerequisite")
+
+    assert not violations, "Legacy reconcile docs do not enforce post-export boundary:\n" + "\n".join(
         violations
     )
 

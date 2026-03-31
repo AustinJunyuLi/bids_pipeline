@@ -1,0 +1,216 @@
+{
+  "findings": [
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_002 type ib_retention is grounded only in ['bidding'] blocks.",
+      "event_ids": [
+        "evt_002"
+      ],
+      "actor_ids": [
+        "advisor_bmo_capital_markets",
+        "target_board_board"
+      ],
+      "block_ids": [
+        "B002"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_003 type target_sale is grounded only in ['bidding'] blocks.",
+      "event_ids": [
+        "evt_003"
+      ],
+      "actor_ids": [
+        "target_board_board",
+        "target_board_transaction_committee"
+      ],
+      "block_ids": [
+        "B003",
+        "B005"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_004 type nda is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_004"
+      ],
+      "actor_ids": [
+        "bidder_party_a"
+      ],
+      "block_ids": [
+        "B010"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_005 type nda is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_005"
+      ],
+      "actor_ids": [
+        "bidder_gw"
+      ],
+      "block_ids": [
+        "B010"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_006 type nda is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_006"
+      ],
+      "actor_ids": [
+        "bidder_party_b"
+      ],
+      "block_ids": [
+        "B010"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_008 type final_round_ann is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_008"
+      ],
+      "actor_ids": [
+        "advisor_bmo_capital_markets",
+        "target_board_transaction_committee"
+      ],
+      "block_ids": [
+        "B014"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_009 type bidder_interest is grounded only in ['bidding'] blocks.",
+      "event_ids": [
+        "evt_009"
+      ],
+      "actor_ids": [
+        "bidder_party_c"
+      ],
+      "block_ids": [
+        "B016"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_012 type final_round is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_012"
+      ],
+      "actor_ids": [
+        "target_board_transaction_committee"
+      ],
+      "block_ids": [
+        "B014"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_013 type proposal is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_013"
+      ],
+      "actor_ids": [
+        "bidder_gw"
+      ],
+      "block_ids": [
+        "B014",
+        "B017",
+        "B019"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_023 type proposal is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_023"
+      ],
+      "actor_ids": [
+        "bidder_gw"
+      ],
+      "block_ids": [
+        "B032"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_025 type bid_press_release is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_025"
+      ],
+      "actor_ids": [
+        "target_board_board"
+      ],
+      "block_ids": [
+        "B039"
+      ]
+    },
+    {
+      "gate_id": "cross_event_logic",
+      "rule_id": "undated_event_in_sequence",
+      "severity": "warning",
+      "description": "Event evt_024 (executed) has no parseable date and was excluded from chronological sequence checks.",
+      "event_ids": [
+        "evt_024"
+      ],
+      "actor_ids": [
+        "bidder_gw",
+        "target_board_board"
+      ],
+      "block_ids": []
+    },
+    {
+      "gate_id": "actor_lifecycle",
+      "rule_id": "nda_signer_no_downstream",
+      "severity": "warning",
+      "description": "NDA signer bidder_party_a does not appear in any downstream proposal, drop, executed, or terminated event.",
+      "event_ids": [],
+      "actor_ids": [
+        "bidder_party_a"
+      ],
+      "block_ids": []
+    }
+  ],
+  "attention_decay": {
+    "quartile_counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "hot_spots": [],
+    "decay_score": 1.0,
+    "note": null
+  },
+  "summary": {
+    "blocker_count": 0,
+    "warning_count": 13,
+    "status": "pass"
+  }
+}

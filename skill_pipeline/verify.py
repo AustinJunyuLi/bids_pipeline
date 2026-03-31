@@ -573,7 +573,7 @@ def run_verify(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> int:
 
     findings, total_checks = _collect_verification_findings(paths)
 
-    ensure_output_directories(paths)
+    ensure_output_directories(paths, include_legacy=True)
     paths.verification_findings_path.write_text(
         json.dumps(_build_findings_artifact(findings), indent=2),
         encoding="utf-8",

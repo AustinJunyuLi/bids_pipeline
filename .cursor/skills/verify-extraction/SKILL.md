@@ -1,9 +1,14 @@
 ---
 name: verify-extraction
-description: Use when checking and repairing skill-workflow extraction artifacts against filing text before enrichment.
+description: Legacy-only v1 skill for checking and repairing event-first extraction artifacts before enrichment.
 ---
 
 # verify-extraction
+
+## Status
+
+This is the retired v1 repair loop. The live default is
+`/verify-extraction-v2` via `/deal-agent`.
 
 ## Design Principles
 
@@ -19,7 +24,7 @@ Log every finding, every fix, and the final disposition.
 
 ## When To Use
 
-- Called by deal-agent after extract-deal, or independently via
+- Called by `/deal-agent-legacy` after `/extract-deal`, or independently via
   `/verify-extraction <slug>`.
 - Prerequisite: `extract-deal` has already produced `actors_raw.json` and
   `events_raw.json`.

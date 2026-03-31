@@ -250,7 +250,7 @@ def run_check(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> int:
     findings.extend(_check_empty_anchor_text(artifacts))
 
     report = _build_report(findings)
-    ensure_output_directories(paths)
+    ensure_output_directories(paths, include_legacy=True)
     _write_json(paths.check_report_path, report)
 
     return 1 if report.summary.status == "fail" else 0

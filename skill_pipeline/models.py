@@ -24,6 +24,12 @@ class StageStatus(StrEnum):
 class SkillPathSet(SkillModel):
     project_root: Path
     data_dir: Path
+    legacy_root: Path
+    legacy_v1_root: Path
+    legacy_v1_skill_root: Path
+    legacy_v1_skill_deal_root: Path
+    legacy_v1_manifest_path: Path
+    legacy_v1_database_path: Path
     database_path: Path
     deals_root: Path
     skill_data_root: Path
@@ -547,8 +553,9 @@ class GateReport(SkillModel):
 
 class ExtractStageSummary(SkillModel):
     status: StageStatus
-    actor_count: int = 0
-    event_count: int = 0
+    party_count: int = 0
+    cohort_count: int = 0
+    observation_count: int = 0
     proposal_count: int = 0
 
 
@@ -564,20 +571,12 @@ class CoverageStageSummary(SkillModel):
     warning_count: int = 0
 
 
-class VerifyStageSummary(SkillModel):
+class DeriveStageSummary(SkillModel):
     status: StageStatus
-    round_1_errors: int = 0
-    fixes_applied: int = 0
-    round_2_status: Literal["pass", "fail"] | None = None
-
-
-class EnrichStageSummary(SkillModel):
-    status: StageStatus
-    cycle_count: int = 0
-    formal_bid_count: int = 0
-    informal_bid_count: int = 0
-    initiation_judgment_type: str | None = None
-    review_flags_count: int = 0
+    phase_count: int = 0
+    transition_count: int = 0
+    analyst_row_count: int = 0
+    judgment_count: int = 0
 
 
 class GatesStageSummary(SkillModel):
@@ -588,27 +587,32 @@ class GatesStageSummary(SkillModel):
 
 class DbLoadStageSummary(SkillModel):
     status: StageStatus
-    actor_rows: int = 0
-    event_rows: int = 0
-    span_rows: int = 0
+    party_rows: int = 0
+    cohort_rows: int = 0
+    observation_rows: int = 0
+    derivation_rows: int = 0
+    coverage_rows: int = 0
 
 
 class DbExportStageSummary(SkillModel):
     status: StageStatus
-    event_rows: int = 0
+    row_count: int = 0
     output_path: Path
+    literal_output_path: Path | None = None
+    benchmark_output_path: Path | None = None
 
 
 class ExportStageSummary(SkillModel):
     status: StageStatus
     output_path: Path
+    literal_output_path: Path | None = None
+    benchmark_output_path: Path | None = None
 
 
 class PromptStageSummary(SkillModel):
     status: StageStatus
     packet_count: int = 0
-    actor_packet_count: int = 0
-    event_packet_count: int = 0
+    observation_packet_count: int = 0
 
 
 class DealAgentSummary(SkillModel):
@@ -620,8 +624,7 @@ class DealAgentSummary(SkillModel):
     check: CheckStageSummary
     coverage: CoverageStageSummary
     gates: GatesStageSummary
-    verify: VerifyStageSummary
-    enrich: EnrichStageSummary
+    derive: DeriveStageSummary
     db_load: DbLoadStageSummary
     db_export: DbExportStageSummary
     export: ExportStageSummary

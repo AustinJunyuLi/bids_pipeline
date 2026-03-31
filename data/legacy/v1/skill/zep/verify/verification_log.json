@@ -1,0 +1,272 @@
+{
+  "round_1": {
+    "findings": [
+      {
+        "check_type": "coverage_audit",
+        "severity": "error",
+        "repairability": "repairable",
+        "description": "Party X's May 14, 2014 withdrawal was present in filing block B056 but missing from extracted events.",
+        "actor_ids": [
+          "bidder_party_x"
+        ],
+        "event_ids": [],
+        "actor_id": "bidder_party_x",
+        "event_id": null,
+        "anchor_text": "Party X informed representatives of BofA Merrill Lynch that it was no longer interested in pursuing a potential transaction with the Company.",
+        "span_ids": [
+          "span_0029"
+        ],
+        "block_ids": [
+          "B056"
+        ],
+        "evidence_ids": []
+      },
+      {
+        "check_type": "coverage_audit",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "High-confidence advisor cue was not covered by extracted artifacts.",
+        "actor_ids": [],
+        "event_ids": [],
+        "actor_id": null,
+        "event_id": null,
+        "anchor_text": null,
+        "span_ids": [],
+        "block_ids": [
+          "B011"
+        ],
+        "evidence_ids": [
+          "0001047469-15-004989:E0373"
+        ]
+      },
+      {
+        "check_type": "coverage_audit",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "High-confidence advisor cue was not covered by extracted artifacts.",
+        "actor_ids": [],
+        "event_ids": [],
+        "actor_id": null,
+        "event_id": null,
+        "anchor_text": null,
+        "span_ids": [],
+        "block_ids": [
+          "B011"
+        ],
+        "evidence_ids": [
+          "0001047469-15-004989:E0374"
+        ]
+      },
+      {
+        "check_type": "coverage_audit",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "High-confidence advisor cue was not covered by extracted artifacts.",
+        "actor_ids": [],
+        "event_ids": [],
+        "actor_id": null,
+        "event_id": null,
+        "anchor_text": null,
+        "span_ids": [],
+        "block_ids": [
+          "B016",
+          "B017"
+        ],
+        "evidence_ids": [
+          "0001047469-15-004989:E0379"
+        ]
+      },
+      {
+        "check_type": "coverage_audit",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "Medium-confidence advisor cue was not covered by extracted artifacts.",
+        "actor_ids": [],
+        "event_ids": [],
+        "actor_id": null,
+        "event_id": null,
+        "anchor_text": null,
+        "span_ids": [],
+        "block_ids": [
+          "B016",
+          "B017"
+        ],
+        "evidence_ids": [
+          "0001047469-15-004989:E0380"
+        ]
+      },
+      {
+        "check_type": "coverage_audit",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "High-confidence advisor cue was not covered by extracted artifacts.",
+        "actor_ids": [],
+        "event_ids": [],
+        "actor_id": null,
+        "event_id": null,
+        "anchor_text": null,
+        "span_ids": [],
+        "block_ids": [
+          "B024",
+          "B025"
+        ],
+        "evidence_ids": [
+          "0001047469-15-004989:E0388"
+        ]
+      },
+      {
+        "check_type": "coverage_audit",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "Medium-confidence withdrawal_or_drop cue was not covered by extracted artifacts.",
+        "actor_ids": [],
+        "event_ids": [],
+        "actor_id": null,
+        "event_id": null,
+        "anchor_text": null,
+        "span_ids": [],
+        "block_ids": [
+          "B059",
+          "B060"
+        ],
+        "evidence_ids": [
+          "0001047469-15-004989:E0432"
+        ]
+      }
+    ],
+    "fixes_applied": [
+      {
+        "finding_index": 0,
+        "action": "Added evt_009 as a drop event grounded in span_0029 and updated coverage_notes to match the repaired extract.",
+        "old_value": null,
+        "new_value": "evt_009"
+      }
+    ]
+  },
+  "round_2": {
+    "findings": [
+      {
+        "check_type": "coverage_audit",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "High-confidence advisor cue was not covered by extracted artifacts.",
+        "actor_ids": [],
+        "event_ids": [],
+        "actor_id": null,
+        "event_id": null,
+        "anchor_text": null,
+        "span_ids": [],
+        "block_ids": [
+          "B011"
+        ],
+        "evidence_ids": [
+          "0001047469-15-004989:E0373"
+        ]
+      },
+      {
+        "check_type": "coverage_audit",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "High-confidence advisor cue was not covered by extracted artifacts.",
+        "actor_ids": [],
+        "event_ids": [],
+        "actor_id": null,
+        "event_id": null,
+        "anchor_text": null,
+        "span_ids": [],
+        "block_ids": [
+          "B011"
+        ],
+        "evidence_ids": [
+          "0001047469-15-004989:E0374"
+        ]
+      },
+      {
+        "check_type": "coverage_audit",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "High-confidence advisor cue was not covered by extracted artifacts.",
+        "actor_ids": [],
+        "event_ids": [],
+        "actor_id": null,
+        "event_id": null,
+        "anchor_text": null,
+        "span_ids": [],
+        "block_ids": [
+          "B016",
+          "B017"
+        ],
+        "evidence_ids": [
+          "0001047469-15-004989:E0379"
+        ]
+      },
+      {
+        "check_type": "coverage_audit",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "Medium-confidence advisor cue was not covered by extracted artifacts.",
+        "actor_ids": [],
+        "event_ids": [],
+        "actor_id": null,
+        "event_id": null,
+        "anchor_text": null,
+        "span_ids": [],
+        "block_ids": [
+          "B016",
+          "B017"
+        ],
+        "evidence_ids": [
+          "0001047469-15-004989:E0380"
+        ]
+      },
+      {
+        "check_type": "coverage_audit",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "High-confidence advisor cue was not covered by extracted artifacts.",
+        "actor_ids": [],
+        "event_ids": [],
+        "actor_id": null,
+        "event_id": null,
+        "anchor_text": null,
+        "span_ids": [],
+        "block_ids": [
+          "B024",
+          "B025"
+        ],
+        "evidence_ids": [
+          "0001047469-15-004989:E0388"
+        ]
+      },
+      {
+        "check_type": "coverage_audit",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "Medium-confidence withdrawal_or_drop cue was not covered by extracted artifacts.",
+        "actor_ids": [],
+        "event_ids": [],
+        "actor_id": null,
+        "event_id": null,
+        "anchor_text": null,
+        "span_ids": [],
+        "block_ids": [
+          "B059",
+          "B060"
+        ],
+        "evidence_ids": [
+          "0001047469-15-004989:E0432"
+        ]
+      }
+    ],
+    "status": "pass"
+  },
+  "summary": {
+    "total_checks": 95,
+    "round_1_errors": 1,
+    "round_1_warnings": 6,
+    "fixes_applied": 1,
+    "round_2_errors": 0,
+    "round_2_warnings": 6,
+    "status": "pass"
+  }
+}

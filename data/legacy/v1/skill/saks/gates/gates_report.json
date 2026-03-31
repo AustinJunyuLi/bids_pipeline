@@ -1,0 +1,209 @@
+{
+  "findings": [
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_001 type bidder_interest is grounded only in ['bidding'] blocks.",
+      "event_ids": [
+        "evt_001"
+      ],
+      "actor_ids": [
+        "bidder_sponsor_a"
+      ],
+      "block_ids": [
+        "B003"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_002 type bidder_interest is grounded only in ['bidding'] blocks.",
+      "event_ids": [
+        "evt_002"
+      ],
+      "actor_ids": [
+        "bidder_hudsons_bay"
+      ],
+      "block_ids": [
+        "B005"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_010 type target_sale is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_010"
+      ],
+      "actor_ids": [
+        "target_board_saks"
+      ],
+      "block_ids": [
+        "B025"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_011 type bidder_interest is grounded only in ['bidding'] blocks.",
+      "event_ids": [
+        "evt_011"
+      ],
+      "actor_ids": [
+        "bidder_company_f",
+        "bidder_sponsor_a",
+        "bidder_sponsor_e"
+      ],
+      "block_ids": [
+        "B027"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_012 type final_round_ann is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_012"
+      ],
+      "actor_ids": [
+        "advisor_goldman_sachs"
+      ],
+      "block_ids": [
+        "B029"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_014 type final_round is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_014"
+      ],
+      "actor_ids": [],
+      "block_ids": [
+        "B029"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_015 type proposal is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_015"
+      ],
+      "actor_ids": [
+        "bidder_hudsons_bay"
+      ],
+      "block_ids": [
+        "B035"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_016 type proposal is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_016"
+      ],
+      "actor_ids": [
+        "bidder_sponsor_e",
+        "bidder_sponsor_g"
+      ],
+      "block_ids": [
+        "B035"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_019 type proposal is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_019"
+      ],
+      "actor_ids": [
+        "bidder_hudsons_bay"
+      ],
+      "block_ids": [
+        "B052"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_021 type bid_press_release is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_021"
+      ],
+      "actor_ids": [
+        "bidder_hudsons_bay",
+        "target_board_saks"
+      ],
+      "block_ids": [
+        "B061"
+      ]
+    },
+    {
+      "gate_id": "cross_event_logic",
+      "rule_id": "undated_event_in_sequence",
+      "severity": "warning",
+      "description": "Event evt_017 (drop) has no parseable date and was excluded from chronological sequence checks.",
+      "event_ids": [
+        "evt_017"
+      ],
+      "actor_ids": [
+        "bidder_sponsor_g"
+      ],
+      "block_ids": []
+    },
+    {
+      "gate_id": "cross_event_logic",
+      "rule_id": "undated_event_in_sequence",
+      "severity": "warning",
+      "description": "Event evt_022 (nda) has no parseable date and was excluded from chronological sequence checks.",
+      "event_ids": [
+        "evt_022"
+      ],
+      "actor_ids": [
+        "bidder_company_i"
+      ],
+      "block_ids": []
+    },
+    {
+      "gate_id": "actor_lifecycle",
+      "rule_id": "nda_signer_no_downstream",
+      "severity": "warning",
+      "description": "NDA signer bidder_company_i does not appear in any downstream proposal, drop, executed, or terminated event.",
+      "event_ids": [],
+      "actor_ids": [
+        "bidder_company_i"
+      ],
+      "block_ids": []
+    }
+  ],
+  "attention_decay": {
+    "quartile_counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "hot_spots": [],
+    "decay_score": 1.0,
+    "note": null
+  },
+  "summary": {
+    "blocker_count": 0,
+    "warning_count": 13,
+    "status": "pass"
+  }
+}

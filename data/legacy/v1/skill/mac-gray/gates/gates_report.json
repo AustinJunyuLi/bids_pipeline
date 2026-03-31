@@ -1,0 +1,142 @@
+{
+  "findings": [
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_001 type target_sale is grounded only in ['bidding'] blocks.",
+      "event_ids": [
+        "evt_001"
+      ],
+      "actor_ids": [
+        "target_mac_gray_board"
+      ],
+      "block_ids": [
+        "B007"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_002 type bidder_interest is grounded only in ['bidding'] blocks.",
+      "event_ids": [
+        "evt_002"
+      ],
+      "actor_ids": [
+        "bidder_party_a"
+      ],
+      "block_ids": [
+        "B009"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_003 type ib_retention is grounded only in ['bidding'] blocks.",
+      "event_ids": [
+        "evt_003"
+      ],
+      "actor_ids": [
+        "advisor_bofa_merrill_lynch"
+      ],
+      "block_ids": [
+        "B036"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_026 type target_sale is grounded only in ['bidding'] blocks.",
+      "event_ids": [
+        "evt_026"
+      ],
+      "actor_ids": [
+        "target_mac_gray_board",
+        "target_special_committee"
+      ],
+      "block_ids": [
+        "B042"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_019 type proposal is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_019"
+      ],
+      "actor_ids": [
+        "bidder_csc",
+        "bidder_pamplona"
+      ],
+      "block_ids": [
+        "B120"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_020 type proposal is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_020"
+      ],
+      "actor_ids": [
+        "bidder_party_a"
+      ],
+      "block_ids": [
+        "B120"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_021 type proposal is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_021"
+      ],
+      "actor_ids": [
+        "bidder_party_b"
+      ],
+      "block_ids": [
+        "B120"
+      ]
+    },
+    {
+      "gate_id": "temporal_consistency",
+      "rule_id": "temporal_phase_mismatch",
+      "severity": "warning",
+      "description": "Event evt_025 type bid_press_release is grounded only in ['outcome'] blocks.",
+      "event_ids": [
+        "evt_025"
+      ],
+      "actor_ids": [
+        "bidder_csc"
+      ],
+      "block_ids": [
+        "B179"
+      ]
+    }
+  ],
+  "attention_decay": {
+    "quartile_counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "hot_spots": [],
+    "decay_score": 1.0,
+    "note": null
+  },
+  "summary": {
+    "blocker_count": 0,
+    "warning_count": 8,
+    "status": "pass"
+  }
+}

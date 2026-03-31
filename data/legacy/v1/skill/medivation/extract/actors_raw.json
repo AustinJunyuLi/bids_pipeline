@@ -1,0 +1,310 @@
+{
+  "actors": [
+    {
+      "actor_id": "board_medivation",
+      "display_name": "Medivation board of directors",
+      "canonical_name": "MEDIVATION BOARD OF DIRECTORS",
+      "aliases": [],
+      "role": "target_board",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0001"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_sanofi",
+      "display_name": "Sanofi",
+      "canonical_name": "SANOFI",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": "non_us",
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0002"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_pfizer",
+      "display_name": "Pfizer",
+      "canonical_name": "PFIZER",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0003",
+        "span_0017"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_1",
+      "display_name": "Company 1",
+      "canonical_name": "COMPANY 1",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0004"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_2",
+      "display_name": "Company 2",
+      "canonical_name": "COMPANY 2",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0005"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_3",
+      "display_name": "Company 3",
+      "canonical_name": "COMPANY 3",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0006"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "bidder_company_4",
+      "display_name": "Company 4",
+      "canonical_name": "COMPANY 4",
+      "aliases": [],
+      "role": "bidder",
+      "advisor_kind": null,
+      "advised_actor_id": null,
+      "bidder_kind": "strategic",
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0007"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_cooley",
+      "display_name": "Cooley LLP",
+      "canonical_name": "COOLEY LLP",
+      "aliases": [
+        "Cooley"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": "board_medivation",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0008"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_j_p_morgan",
+      "display_name": "J. P. Morgan Securities LLC",
+      "canonical_name": "J. P. MORGAN SECURITIES LLC",
+      "aliases": [
+        "J. P. Morgan"
+      ],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "board_medivation",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0009"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_evercore",
+      "display_name": "Evercore Group L. L. C.",
+      "canonical_name": "EVERCORE GROUP L. L. C.",
+      "aliases": [
+        "Evercore"
+      ],
+      "role": "advisor",
+      "advisor_kind": "financial",
+      "advised_actor_id": "board_medivation",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0010"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_wachtell_lipton",
+      "display_name": "Wachtell, Lipton, Rosen & Katz",
+      "canonical_name": "WACHTELL, LIPTON, ROSEN & KATZ",
+      "aliases": [
+        "Wachtell Lipton"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": "board_medivation",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0011"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_richards_layton_finger",
+      "display_name": "Richards, Layton & Finger, P. A.",
+      "canonical_name": "RICHARDS, LAYTON & FINGER, P. A.",
+      "aliases": [],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": "board_medivation",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0012"
+      ],
+      "notes": []
+    },
+    {
+      "actor_id": "advisor_weil_gotshal",
+      "display_name": "Weil Gotshal & Manges LLP",
+      "canonical_name": "WEIL GOTSHAL & MANGES LLP",
+      "aliases": [
+        "Weil Gotshal"
+      ],
+      "role": "advisor",
+      "advisor_kind": "legal",
+      "advised_actor_id": "bidder_sanofi",
+      "bidder_kind": null,
+      "listing_status": null,
+      "geography": null,
+      "is_grouped": false,
+      "group_size": null,
+      "group_label": null,
+      "evidence_span_ids": [
+        "span_0013"
+      ],
+      "notes": []
+    }
+  ],
+  "count_assertions": [
+    {
+      "subject": "companies that contacted J. P. Morgan and Dr. Hung in late March 2016",
+      "count": 4,
+      "evidence_span_ids": [
+        "span_0014"
+      ]
+    },
+    {
+      "subject": "industry participants contacted by J. P. Morgan and Evercore in late June through early July 2016",
+      "count": 11,
+      "evidence_span_ids": [
+        "span_0015"
+      ]
+    },
+    {
+      "subject": "industry participant contacted directly by Medivation in late June through early July 2016",
+      "count": 1,
+      "evidence_span_ids": [
+        "span_0016"
+      ]
+    },
+    {
+      "subject": "Interested Parties",
+      "count": 5,
+      "evidence_span_ids": [
+        "span_0017"
+      ]
+    },
+    {
+      "subject": "parties contacted during the process",
+      "count": 15,
+      "evidence_span_ids": [
+        "span_0018"
+      ]
+    },
+    {
+      "subject": "other bidders below Pfizer's final price",
+      "count": 4,
+      "evidence_span_ids": [
+        "span_0019"
+      ]
+    }
+  ],
+  "unresolved_mentions": [
+    "The filing does not explicitly map the four unnamed late-March industry participants to Company 1, Company 2, Company 3, and Company 4.",
+    "The filing states that Medivation contacted 15 parties during the process but does not individually identify all 15 parties."
+  ]
+}

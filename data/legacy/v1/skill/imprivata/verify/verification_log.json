@@ -1,0 +1,109 @@
+{
+  "round_1": {
+    "findings": [
+      {
+        "check_type": "coverage_audit",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "High-confidence advisor cue was not covered by extracted artifacts.",
+        "actor_ids": [],
+        "event_ids": [],
+        "actor_id": null,
+        "event_id": null,
+        "anchor_text": null,
+        "span_ids": [],
+        "block_ids": [
+          "B025",
+          "B026"
+        ],
+        "evidence_ids": [
+          "0001193125-16-677939:E0369"
+        ]
+      },
+      {
+        "check_type": "coverage_audit",
+        "severity": "error",
+        "repairability": "repairable",
+        "description": "High-confidence nda cue was not covered by extracted artifacts.",
+        "actor_ids": [],
+        "event_ids": [],
+        "actor_id": null,
+        "event_id": null,
+        "anchor_text": null,
+        "span_ids": [],
+        "block_ids": [
+          "B045"
+        ],
+        "evidence_ids": [
+          "0001193125-16-677939:E0403"
+        ]
+      },
+      {
+        "check_type": "coverage_audit",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "Medium-confidence nda cue was not covered by extracted artifacts.",
+        "actor_ids": [],
+        "event_ids": [],
+        "actor_id": null,
+        "event_id": null,
+        "anchor_text": null,
+        "span_ids": [],
+        "block_ids": [
+          "B045"
+        ],
+        "evidence_ids": [
+          "0001193125-16-677939:E0405"
+        ]
+      }
+    ],
+    "fixes_applied": [
+      {
+        "finding_index": 1,
+        "action": "Added exact corroborating span_0072 for B045/E0403/E0405 and attached it to evt_010 so the existing Strategic 3 nda event covers the cited filing text.",
+        "old_value": [
+          "span_0036",
+          "span_0013"
+        ],
+        "new_value": [
+          "span_0036",
+          "span_0013",
+          "span_0072"
+        ]
+      }
+    ]
+  },
+  "round_2": {
+    "findings": [
+      {
+        "check_type": "coverage_audit",
+        "severity": "warning",
+        "repairability": "repairable",
+        "description": "High-confidence advisor cue was not covered by extracted artifacts.",
+        "actor_ids": [],
+        "event_ids": [],
+        "actor_id": null,
+        "event_id": null,
+        "anchor_text": null,
+        "span_ids": [],
+        "block_ids": [
+          "B025",
+          "B026"
+        ],
+        "evidence_ids": [
+          "0001193125-16-677939:E0369"
+        ]
+      }
+    ],
+    "status": "pass"
+  },
+  "summary": {
+    "total_checks": 177,
+    "round_1_errors": 1,
+    "round_1_warnings": 2,
+    "fixes_applied": 1,
+    "round_2_errors": 0,
+    "round_2_warnings": 1,
+    "status": "pass"
+  }
+}

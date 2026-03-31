@@ -419,7 +419,7 @@ def run_coverage(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> int:
     findings_artifact = CoverageFindingsArtifact(findings=findings)
     summary = _build_summary(findings)
 
-    ensure_output_directories(paths)
+    ensure_output_directories(paths, include_legacy=True)
     paths.coverage_findings_path.write_text(
         findings_artifact.model_dump_json(indent=2),
         encoding="utf-8",

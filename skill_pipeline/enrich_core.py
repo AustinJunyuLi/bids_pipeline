@@ -728,7 +728,7 @@ def run_enrich_core(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> int
         dropout_classifications = _classify_dropouts(events, rounds)
         all_cash_overrides = _infer_all_cash_overrides(events, cycles)
 
-        ensure_output_directories(paths)
+        ensure_output_directories(paths, include_legacy=True)
         _write_json(
             paths.deterministic_enrichment_path,
             {

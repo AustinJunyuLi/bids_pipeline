@@ -571,7 +571,7 @@ def run_gates(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> int:
     """Run semantic gates on extracted skill artifacts."""
 
     paths = build_skill_paths(deal_slug, project_root=project_root)
-    ensure_output_directories(paths)
+    ensure_output_directories(paths, include_legacy=True)
 
     artifacts = load_extract_artifacts(paths)
     blocks = _load_chronology_blocks(paths)

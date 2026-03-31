@@ -1,0 +1,343 @@
+{
+  "deal_slug": "penford",
+  "primary_document_id": "0001193125-14-455030",
+  "primary_filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt",
+  "summary_row": {
+    "TargetName": "PENFORD CORP",
+    "Events": "24",
+    "Acquirer": "INGREDION INC",
+    "DateAnnounced": "2014-10-15 00:00:00",
+    "URL": "https://www.sec.gov/Archives/edgar/data/739608/0001193125-14-455030-index.htm"
+  },
+  "counts": {
+    "pipeline": 24,
+    "alex": 23,
+    "matches": 13,
+    "pipeline_only": 11,
+    "alex_only": 10,
+    "aggregate_rows": 2
+  },
+  "field_mismatches": [
+    {
+      "event_id": "evt_025",
+      "alex_row_id": "21.5",
+      "field": "date",
+      "pipeline_value": "2014-10-14",
+      "alex_value": "2014-10-08",
+      "filing_supports": "pipeline",
+      "filing_snippet": "1650: \n1651: Believing they were fully informed, on October 14, 2014, the Penford board unanimously determined that the merger agreement, the voting\n1652: and support agreement, the merger and other transactions contemplated thereby were in the best interest of Penford and its shareholders and approved the merger agreement and the merger and recommended approval of the merger agreement to\n1653: Penford\u0092s shareholders.\n1654: \n1655: During the evening on October 14, 2014, Penford and Ingredion finalized and executed the merger\n1656: agreement, and Penford, Ingredion and SEACOR executed the voting and support agreement. Penford and Ingredion issued press releases announcing the transaction on October 15, 2014 prior to the opening of trading.\n1657: \n1658: Reasons for the Merger and Recommendation of Our Board of Directors\n1659: \n1660: Reasons for the Merger\n1661: ",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt",
+      "export_regression": false,
+      "match_score": 73.0
+    },
+    {
+      "event_id": "evt_005",
+      "alex_row_id": "6",
+      "field": "bid_type",
+      "pipeline_value": null,
+      "alex_value": "Informal",
+      "filing_supports": "both",
+      "filing_snippet": "1353: \n1354: On August 5, 2014, Mr. Malkoski followed up with Mr. Fortnum by text message,\n1355: asking if Mr. Fortnum was ready to set up a follow-up meeting as discussed on July 23, 2014. Mr. Malkoski and Mr. Fortnum scheduled a meeting for August 6, 2014.\n1356: \n1357: On August 6, 2014, Mr. Malkoski met with Mr. Fortnum, at which meeting Mr. Fortnum indicated Ingredion was prepared to\n1358: submit a proposal to acquire the Company. Mr. Fortnum suggested that a price of $17.00 per share on a fully diluted basis could likely get support from Ingredion\u0092s board. Mr. Malkoski responded that, in his opinion, the proposed price\n1359: would probably not be high enough to get support from Penford\u0092s board of directors.\n1360: \n1361: On August 10, 2014, Penford received a\n1362: letter from Mr. Fortnum, confirming Ingredion\u0092s interest in a possible business combination between Ingredion and the Company, citing certain strategic reasons for the proposed acquisition, and providing an indicative valuation of $18.00\n1363: per share in cash for all of the outstanding capital stock of Penford on a fully diluted basis. Based on the $12.10 per share closing price of Penford\u0092s common stock on August 8, 2014, the last business day prior to receiving this",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt",
+      "export_regression": false,
+      "match_score": 95.0
+    },
+    {
+      "event_id": "evt_014",
+      "alex_row_id": "10",
+      "field": "all_cash",
+      "pipeline_value": null,
+      "alex_value": true,
+      "filing_supports": "both",
+      "filing_snippet": "1482: 28\n1483: \n1484: \n1485: On September 17, 2014, Mr. Fortnum contacted Mr. Malkoski to update him on\n1486: Ingredion\u0092s board meeting that was held on September 16, 2014, reporting that Ingredion\u0092s board had discussed Ingredion\u0092s strategy, including the proposed acquisition of Penford. Mr. Fortnum indicated during the conversation\n1487: that Ingredion could potentially increase its proposal from $18.00 to $18.25 or $18.50 per share on a fully diluted basis. Based on the $14.70 per share closing price of Penford\u0092s common stock on September 16, 2014, the last business day\n1488: prior to receiving the revised indication of interest, a price of $18.25 to $18.50 represented a 24% premium and 26% premium, respectively. Mr. Fortnum and Mr. Malkoski discussed the status of due diligence, set dates for visits\n1489: by Ingredion\u0092s management team to Penford\u0092s facilities and also discussed a potential timeline for the transaction.\n1490: \n1491: On\n1492: September 19, 2014, members of management briefed the Executive Committee on the status of the operation of the business, including an update on fourth quarter fiscal 2014 and first quarter 2015. Perkins Coie and Deutsche Bank were also present",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt",
+      "export_regression": false,
+      "match_score": 95.0
+    },
+    {
+      "event_id": "evt_020",
+      "alex_row_id": "15",
+      "field": "date",
+      "pipeline_value": "2014-10-04",
+      "alex_value": "2014-10-03",
+      "filing_supports": "both",
+      "filing_snippet": "1565: \n1566: Later on October 3, 2014, Mr. Malkoski informed Mr. Fortnum that the Penford board had authorized management to move forward\n1567: with negotiating the draft merger agreement. Mr. Malkoski and Mr. Fortnum agreed that their teams should meet in person in Chicago the following week to review and negotiate the draft merger agreement.\n1568: \n1569: Later on October 3, 2014, Perkins Coie sent a revised draft of the merger agreement to Sidley Austin LLP (referred to as Sidley Austin),\n1570: Ingredion\u0092s legal counsel. On October 4, Deutsche Bank followed up with Party A regarding the potential transaction with Penford, pursuant to which Party A indicated any offer would be below $17.50 - $18.00 per share in cash. Deutsche Bank\n1571: encouraged Party A to submit a letter of interest that could be reviewed by the board of directors.\n1572: \n1573: On October 6, 2014, Perkins Coie\n1574: and Sidley Austin discussed the draft merger agreement and certain open issues, including, but not limited to, the requirement for significant shareholders to enter into voting and support agreements, the finalization of fiscal 2014 financial\n1575: statements and delivery thereof as a closing condition, the scope of certain representations and warranties of the Company, the scope of the restrictions on the operations of Penford prior to closing, the non-solicitation obligations of the Company",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt",
+      "export_regression": false,
+      "match_score": 83.0
+    },
+    {
+      "event_id": "evt_022",
+      "alex_row_id": "18",
+      "field": "all_cash",
+      "pipeline_value": null,
+      "alex_value": true,
+      "filing_supports": "both",
+      "filing_snippet": "1612: On October 13, 2014, Mr. Malkoski and Mr. Fortnum discussed the 2014 draft financial statements as compared with the\n1613: projections included in the materials provided to Ingredion from Penford\u0092s strategic plan. Mr. Fortnum stated that the figures reflected in the 2014 draft financial statements might have an adverse impact on Ingredion\u0092s view of the\n1614: valuation of the Company. Also on October 13, 2014, Milbank and Sidley Austin discussed and traded drafts of the voting and support agreement to be entered into by SEACOR.\n1615: \n1616: On October 13, 2014, Deutsche Bank had a discussion with representatives of Party A, who indicated that its value range for a potential\n1617: transaction had been reduced from $17.50 - $18.00 per share to $16.00 - $18.00 per share, due to increased volatility in the markets.\n1618: \n1619: Also on October 13, 2014, Sidley Austin circulated a revised draft of the merger agreement to Perkins Coie. Perkins Coie and Sidley\n1620: Austin also discussed the draft disclosure letter and later on October 13, 2014, Perkins Coie and Sidley Austin exchanged revised drafts of the disclosure letter.\n1621: \n1622: On October 14, 2014, Mr. Fortnum called Mr. Malkoski to confirm the proposed price of $19.00 and discuss finalizing the draft",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt",
+      "export_regression": false,
+      "match_score": 95.0
+    },
+    {
+      "event_id": "evt_024",
+      "alex_row_id": "19",
+      "field": "all_cash",
+      "pipeline_value": null,
+      "alex_value": true,
+      "filing_supports": "both",
+      "filing_snippet": "1623: merger agreement and proceeding with the transaction as previously planned.\n1624: \n1625: Also on October 14, 2014, Perkins Coie and Sidley Austin\n1626: exchanged successive drafts of the merger agreement and disclosure letter, and discussed the updated drafts, and Milbank and Sidley Austin finalized the voting and support agreement to be entered into by SEACOR.\n1627: \n1628: Later on October 14, 2014, Party A provided a formal letter with its indication of interest with respect to an acquisition of the Company\n1629: at a price of $16.00 per share, citing increased volatility in the markets as the reason for the decrease in the offer price. Based on the $11.07 per share closing price of Penford\u0092s common stock as of October 13, 2014, the day immediately\n1630: prior to receiving this indication of interest, the offer price of $16.00 per share represented a 45% premium.\n1631: \n1632: On\n1633: October 14, 2014, a meeting of the board was held, at which members of Penford\u0092s management and representatives of Penford\u0092s legal and financial advisors were present. Perkins Coie provided a review, and led a discussion, of the\n1634: fiduciary duties of Penford\u0092s board under Washington law, including in connection with strategic proposals involving a change in control of Penford. The board discussed these issues, asked questions of management and of Perkins Coie, and",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt",
+      "export_regression": false,
+      "match_score": 95.0
+    },
+    {
+      "event_id": "evt_001",
+      "alex_row_id": "4.5",
+      "field": "date",
+      "pipeline_value": "2014-07-17",
+      "alex_value": "2014-07-20",
+      "filing_supports": "pipeline",
+      "filing_snippet": "1295: On\n1296: July 11, 2014, SEACOR filed an amendment to its Schedule 13D (referred to as the SEACOR Filing) with the Securities and Exchange Commission (referred to as the SEC) in which SEACOR stated its intent to nominate four candidates for election as\n1297: directors of our board at Penford\u0092s next annual meeting of shareholders.\n1298: \n1299: On July 17, 2014, Mr. Malkoski and\n1300: Ms. Gordon met for lunch, during which meeting Ms. Gordon advised Mr. Malkoski of Ingredion\u0092s interest in acquiring Penford. Ms. Gordon noted that the business strategies of Ingredion and Penford were similar, with both\n1301: having success, and that Ingredion was impressed with Penford\u0092s execution of its specialty products business model. When Mr. Malkoski asked about potential valuation, Ms. Gordon did not cite a specific number but noted Penford\u0092s\n1302: 52-week high of approximately $16.00 per share and the current trading price of approximately $12.00 per share. Ms. Gordon noted the recent sales of shares of Penford common stock by the Zell funds, the owners of, prior to such sales,\n1303: approximately 9.80% of the Company\u0092s outstanding common stock, which Mr. Malkoski said might be putting downward pressure on the price of Penford\u0092s common stock, together with the recent removal of the stock from the Russell 3000\n1304: index. Ms. Gordon then asked if Mr. Malkoski would meet with Jack Fortnum, Ingredion\u0092s Chief Financial Officer, to discuss valuation of the Company.\n1305: ",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt",
+      "export_regression": false,
+      "match_score": 91.0
+    }
+  ],
+  "pipeline_only": [
+    {
+      "event_id": "evt_004",
+      "bidder_id": "3",
+      "note": "IB",
+      "actor_name": "Penford Board of Directors/Deutsche Bank",
+      "date": "2014-07-24",
+      "verdict": "grounded",
+      "filing_snippet": "1333: \n1334: On July 24, 2014, the Executive Committee of the Penford board held a telephonic meeting, at which all members of the Executive\n1335: Committee, as well as certain other directors, members of Penford\u0092s management and representatives of Perkins Coie LLP (referred to as Perkins Coie), Penford\u0092s legal counsel, were present. At the meeting, members of management updated the\n1336: Executive Committee on the recent Schedule 13D filings, including the SEACOR Filing. Mr. Malkoski also reported on the recent oral indication of interest he had received from Ingredion to acquire the Company. The Executive Committee discussed\n1337: the oral indication of interest from Ingredion. Mr. Hatfield recommended that the Executive Committee consider retaining a financial advisor on the Company\u0092s behalf in light of these developments, and management reviewed the credentials of\n1338: several firms and reported on interview meetings management had with certain firms regarding a potential engagement. Following discussion of potential financial advisors, the Executive Committee directed management to proceed to retain Deutsche Bank\n1339: as the Company\u0092s financial advisor and to advise on shareholder matters and to evaluate strategic alternatives, and directed management to negotiate a suitable engagement letter. An engagement letter with Deutsche Bank was executed on\n1340: September 11, 2014.\n1341: \n1342: On July 25, 2014, Mr. Lawlor, as secretary of the Company, provided notice to the Penford board of a\n1343: meeting to be held on July 30, 2014.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt"
+    },
+    {
+      "event_id": "evt_018",
+      "bidder_id": "15",
+      "note": "NA",
+      "actor_name": "Ingredion",
+      "date": "2014-10-02",
+      "verdict": "grounded",
+      "filing_snippet": "1542: On October 2, 2014, Mr. Malkoski and Mr. Fortnum had a call to discuss the\n1543: October 1 discussion between Deutsche Bank and J. P. Morgan Securities. Mr. Fortnum asked Mr. Malkoski to confirm whether Penford\u0092s board was unwilling to move forward with a transaction unless Ingredion was able to offer a price\n1544: in the $20.00 per share range. Mr. Malkoski clarified that the board wanted that offer price, but was willing to proceed with negotiations. However, Mr. Malkoski then stated that because Ingredion\u0092s proposal was below that preferred\n1545: price, Penford felt it necessary to provide more information and schedule additional meetings in order to provide Ingredion with the support it needed to increase the offer price. Mr. Malkoski noted that the impact of this would be to delay a\n1546: potential signing of a definitive agreement beyond Ingredion\u0092s preferred timing for announcement of a transaction. Mr. Fortnum stated that Ingredion was still struggling to justify the valuation for a transaction at a higher price.\n1547: Mr. Fortnum then stated that Ingredion was prepared to move forward based on a proposed price of $18.50 per share on a fully diluted basis. Mr. Malkoski responded that that price was unlikely to be high enough for Penford\u0092s board of\n1548: directors to recommend the transaction to shareholders.\n1549: \n1550: On October 2, 2014, Penford received a letter from Ingredion regarding\n1551: its indication of interest and increasing the proposed price to $19.00 per share of outstanding Penford capital stock on a fully diluted basis. Based on the $12.77 per share closing price of Penford\u0092s common stock on October 1, 2014, the\n1552: last business day prior to receiving this revised indication of interest, the proposed price of $19.00 represented a 49% premium.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt"
+    },
+    {
+      "event_id": "evt_019",
+      "bidder_id": "16",
+      "note": "NA",
+      "actor_name": "Ingredion",
+      "date": "2014-10-02",
+      "verdict": "grounded",
+      "filing_snippet": "1546: potential signing of a definitive agreement beyond Ingredion\u0092s preferred timing for announcement of a transaction. Mr. Fortnum stated that Ingredion was still struggling to justify the valuation for a transaction at a higher price.\n1547: Mr. Fortnum then stated that Ingredion was prepared to move forward based on a proposed price of $18.50 per share on a fully diluted basis. Mr. Malkoski responded that that price was unlikely to be high enough for Penford\u0092s board of\n1548: directors to recommend the transaction to shareholders.\n1549: \n1550: On October 2, 2014, Penford received a letter from Ingredion regarding\n1551: its indication of interest and increasing the proposed price to $19.00 per share of outstanding Penford capital stock on a fully diluted basis. Based on the $12.77 per share closing price of Penford\u0092s common stock on October 1, 2014, the\n1552: last business day prior to receiving this revised indication of interest, the proposed price of $19.00 represented a 49% premium.\n1553: \n1554: On October 3, 2014, the board met with members of management and representatives of Perkins Coie and representatives of Deutsche Bank.\n1555: Deutsche Bank reviewed with the board recent developments, including reviewing in detail the revised indication of interest from Ingredion increasing the proposed price per share of the Company\u0092s stock on a fully diluted basis to $19.00 per\n1556: share. Deutsche Bank also provided the board with an update on the status of the market check process, stating that based on transaction size and market conditions, it was unlikely Party A would submit any indication of interest that would reflect",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt"
+    },
+    {
+      "event_id": "evt_023",
+      "bidder_id": "20",
+      "note": "NA",
+      "actor_name": "Ingredion",
+      "date": "2014-10-14",
+      "verdict": "grounded",
+      "filing_snippet": "1617: transaction had been reduced from $17.50 - $18.00 per share to $16.00 - $18.00 per share, due to increased volatility in the markets.\n1618: \n1619: Also on October 13, 2014, Sidley Austin circulated a revised draft of the merger agreement to Perkins Coie. Perkins Coie and Sidley\n1620: Austin also discussed the draft disclosure letter and later on October 13, 2014, Perkins Coie and Sidley Austin exchanged revised drafts of the disclosure letter.\n1621: \n1622: On October 14, 2014, Mr. Fortnum called Mr. Malkoski to confirm the proposed price of $19.00 and discuss finalizing the draft\n1623: merger agreement and proceeding with the transaction as previously planned.\n1624: \n1625: Also on October 14, 2014, Perkins Coie and Sidley Austin\n1626: exchanged successive drafts of the merger agreement and disclosure letter, and discussed the updated drafts, and Milbank and Sidley Austin finalized the voting and support agreement to be entered into by SEACOR.\n1627: ",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt"
+    },
+    {
+      "event_id": "evt_026",
+      "bidder_id": "23",
+      "note": "Bid Press Release",
+      "actor_name": "Ingredion",
+      "date": "2014-10-15",
+      "verdict": "grounded",
+      "filing_snippet": "1651: Believing they were fully informed, on October 14, 2014, the Penford board unanimously determined that the merger agreement, the voting\n1652: and support agreement, the merger and other transactions contemplated thereby were in the best interest of Penford and its shareholders and approved the merger agreement and the merger and recommended approval of the merger agreement to\n1653: Penford\u0092s shareholders.\n1654: \n1655: During the evening on October 14, 2014, Penford and Ingredion finalized and executed the merger\n1656: agreement, and Penford, Ingredion and SEACOR executed the voting and support agreement. Penford and Ingredion issued press releases announcing the transaction on October 15, 2014 prior to the opening of trading.\n1657: \n1658: Reasons for the Merger and Recommendation of Our Board of Directors\n1659: \n1660: Reasons for the Merger\n1661: ",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt"
+    },
+    {
+      "event_id": "evt_003",
+      "bidder_id": "2",
+      "note": "Target Sale",
+      "actor_name": "NA",
+      "date": "2014-07-24",
+      "verdict": "grounded",
+      "filing_snippet": "1334: On July 24, 2014, the Executive Committee of the Penford board held a telephonic meeting, at which all members of the Executive\n1335: Committee, as well as certain other directors, members of Penford\u0092s management and representatives of Perkins Coie LLP (referred to as Perkins Coie), Penford\u0092s legal counsel, were present. At the meeting, members of management updated the\n1336: Executive Committee on the recent Schedule 13D filings, including the SEACOR Filing. Mr. Malkoski also reported on the recent oral indication of interest he had received from Ingredion to acquire the Company. The Executive Committee discussed\n1337: the oral indication of interest from Ingredion. Mr. Hatfield recommended that the Executive Committee consider retaining a financial advisor on the Company\u0092s behalf in light of these developments, and management reviewed the credentials of\n1338: several firms and reported on interview meetings management had with certain firms regarding a potential engagement. Following discussion of potential financial advisors, the Executive Committee directed management to proceed to retain Deutsche Bank\n1339: as the Company\u0092s financial advisor and to advise on shareholder matters and to evaluate strategic alternatives, and directed management to negotiate a suitable engagement letter. An engagement letter with Deutsche Bank was executed on\n1340: September 11, 2014.\n1341: \n1342: On July 25, 2014, Mr. Lawlor, as secretary of the Company, provided notice to the Penford board of a\n1343: meeting to be held on July 30, 2014.\n1344: ",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt"
+    },
+    {
+      "event_id": "evt_007",
+      "bidder_id": "6",
+      "note": "Bidder Interest",
+      "actor_name": "Party A",
+      "date": "2014-08-11",
+      "verdict": "grounded",
+      "filing_snippet": "1381: future board discussions related to a possible sale process due to the potential conflict between Mr. Behrens\u0092 duties to the Company\u0092s shareholders and his duties to SEACOR. The Executive Committee also determined that a meeting of\n1382: the board of directors be held to discuss the recent developments with respect to the Ingredion indication of interest.\n1383: \n1384: Also on\n1385: August 11, 2014, Mr. Malkoski met with the Chief Executive Officer of Party A. Mr. Malkoski and Party A\u0092s Chief Executive Officer briefly discussed the recent SEACOR Filing. Party A\u0092s Chief Executive Officer also informally\n1386: discussed Party A\u0092s potential interest in acquiring or combining with Penford. Party A noted that it saw value in Penford but only at a typical takeover premium based on current trading price, due to the fact that it would base any offer price\n1387: on Penford\u0092s performance over the last twelve months, instead of Penford\u0092s strategic plan and any synergies that could be realized in the future. On August 12, 2014, Mr. Hatfield discussed the Ingredion indication of interest\n1388: with Mr. Behrens to determine if SEACOR was interested in acquiring the Company. Mr. Behrens stated that SEACOR was not interested in participating in any potential sale process at that time.\n1389: \n1390: On August 13, 2014, the board of directors held a special meeting to discuss Ingredion\u0092s indication of interest. In addition to\n1391: members of management, representatives of Deutsche Bank and representatives of Perkins Coie attended the meeting. Prior to engaging in substantive discussions, Mr. Hatfield requested that Mr. Behrens confirm the position of SEACOR with",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt"
+    },
+    {
+      "event_id": "evt_008",
+      "bidder_id": "7",
+      "note": "Bidder Interest",
+      "actor_name": "Party A",
+      "date": "2014-09-09",
+      "verdict": "grounded",
+      "filing_snippet": "1456: On September 6, 2014, J. P. Morgan Securities provided Deutsche Bank with an initial draft of a merger agreement, that, among other\n1457: things, contemplated the entry by certain significant shareholders into a voting and support agreement with Ingredion.\n1458: \n1459: Throughout early-\n1460: to mid-September, in accordance with the board\u0092s authorization, Deutsche Bank contacted six potential strategic counterparties in the same or similar industries to gauge initial interest regarding a potential transaction with Penford. On\n1461: September 9, 2014, Party A expressed interest in having further discussions regarding a transaction and Deutsche Bank forwarded Party A a nondisclosure and standstill agreement. Also on September 9, 2014, another strategic counterparty\n1462: contacted by Deutsche Bank (referred to as Party B) expressed interest in further discussions, and Deutsche Bank forwarded a nondisclosure and standstill agreement to proceed with additional discussions with Party B.\n1463: \n1464: On September 10, 2014, a third potential strategic counterparty contacted by Deutsche Bank (referred to as Party C) expressed interest in\n1465: pursuing a transaction, and Deutsche Bank forwarded Party C a nondisclosure and standstill agreement on September 11, 2014. Also on September 10, 2014, Mr. Malkoski, Mr. Fortnum and Mr. Saucier had a telephone conversation\n1466: regarding certain diligence topics, including environmental matters, dates for Ingredion to visit Penford\u0092s facilities, antitrust considerations and other process-related items.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt"
+    },
+    {
+      "event_id": "evt_009",
+      "bidder_id": "8",
+      "note": "Bidder Interest",
+      "actor_name": "Party B",
+      "date": "2014-09-09",
+      "verdict": "grounded",
+      "filing_snippet": "1457: things, contemplated the entry by certain significant shareholders into a voting and support agreement with Ingredion.\n1458: \n1459: Throughout early-\n1460: to mid-September, in accordance with the board\u0092s authorization, Deutsche Bank contacted six potential strategic counterparties in the same or similar industries to gauge initial interest regarding a potential transaction with Penford. On\n1461: September 9, 2014, Party A expressed interest in having further discussions regarding a transaction and Deutsche Bank forwarded Party A a nondisclosure and standstill agreement. Also on September 9, 2014, another strategic counterparty\n1462: contacted by Deutsche Bank (referred to as Party B) expressed interest in further discussions, and Deutsche Bank forwarded a nondisclosure and standstill agreement to proceed with additional discussions with Party B.\n1463: \n1464: On September 10, 2014, a third potential strategic counterparty contacted by Deutsche Bank (referred to as Party C) expressed interest in\n1465: pursuing a transaction, and Deutsche Bank forwarded Party C a nondisclosure and standstill agreement on September 11, 2014. Also on September 10, 2014, Mr. Malkoski, Mr. Fortnum and Mr. Saucier had a telephone conversation\n1466: regarding certain diligence topics, including environmental matters, dates for Ingredion to visit Penford\u0092s facilities, antitrust considerations and other process-related items.\n1467: ",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt"
+    },
+    {
+      "event_id": "evt_010",
+      "bidder_id": "9",
+      "note": "Bidder Interest",
+      "actor_name": "Party C",
+      "date": "2014-09-10",
+      "verdict": "grounded",
+      "filing_snippet": "1459: Throughout early-\n1460: to mid-September, in accordance with the board\u0092s authorization, Deutsche Bank contacted six potential strategic counterparties in the same or similar industries to gauge initial interest regarding a potential transaction with Penford. On\n1461: September 9, 2014, Party A expressed interest in having further discussions regarding a transaction and Deutsche Bank forwarded Party A a nondisclosure and standstill agreement. Also on September 9, 2014, another strategic counterparty\n1462: contacted by Deutsche Bank (referred to as Party B) expressed interest in further discussions, and Deutsche Bank forwarded a nondisclosure and standstill agreement to proceed with additional discussions with Party B.\n1463: \n1464: On September 10, 2014, a third potential strategic counterparty contacted by Deutsche Bank (referred to as Party C) expressed interest in\n1465: pursuing a transaction, and Deutsche Bank forwarded Party C a nondisclosure and standstill agreement on September 11, 2014. Also on September 10, 2014, Mr. Malkoski, Mr. Fortnum and Mr. Saucier had a telephone conversation\n1466: regarding certain diligence topics, including environmental matters, dates for Ingredion to visit Penford\u0092s facilities, antitrust considerations and other process-related items.\n1467: \n1468: On September 11, 2014, a fourth potential strategic counterparty contacted by Deutsche Bank (referred to as Party D) expressed interest,\n1469: and Deutsche Bank forwarded a nondisclosure and standstill agreement to Party D.\n1470: ",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt"
+    },
+    {
+      "event_id": "evt_011",
+      "bidder_id": "10",
+      "note": "Bidder Interest",
+      "actor_name": "Party D",
+      "date": "2014-09-11",
+      "verdict": "grounded",
+      "filing_snippet": "1463: \n1464: On September 10, 2014, a third potential strategic counterparty contacted by Deutsche Bank (referred to as Party C) expressed interest in\n1465: pursuing a transaction, and Deutsche Bank forwarded Party C a nondisclosure and standstill agreement on September 11, 2014. Also on September 10, 2014, Mr. Malkoski, Mr. Fortnum and Mr. Saucier had a telephone conversation\n1466: regarding certain diligence topics, including environmental matters, dates for Ingredion to visit Penford\u0092s facilities, antitrust considerations and other process-related items.\n1467: \n1468: On September 11, 2014, a fourth potential strategic counterparty contacted by Deutsche Bank (referred to as Party D) expressed interest,\n1469: and Deutsche Bank forwarded a nondisclosure and standstill agreement to Party D.\n1470: \n1471: On September 12, 2014, Party B informed Deutsche\n1472: Bank that it had decided not to move forward with discussions or sign a nondisclosure agreement with respect to a potential transaction.\n1473: \n1474: Also on September 12, 2014, Deutsche Bank left a voicemail for another strategic counterparty (referred to as Party E) regarding a",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt"
+    }
+  ],
+  "alex_only": [
+    {
+      "alex_row_id": "4",
+      "note": "Drop",
+      "actor_name": "A diffferent party",
+      "date": "2009-01-15",
+      "verdict": "ungrounded",
+      "filing_snippet": null,
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt"
+    },
+    {
+      "alex_row_id": "20",
+      "note": "Drop",
+      "actor_name": "Party A",
+      "date": "2014-10-14",
+      "verdict": "likely_grounded",
+      "filing_snippet": "1623: merger agreement and proceeding with the transaction as previously planned.\n1624: \n1625: Also on October 14, 2014, Perkins Coie and Sidley Austin\n1626: exchanged successive drafts of the merger agreement and disclosure letter, and discussed the updated drafts, and Milbank and Sidley Austin finalized the voting and support agreement to be entered into by SEACOR.\n1627: \n1628: Later on October 14, 2014, Party A provided a formal letter with its indication of interest with respect to an acquisition of the Company\n1629: at a price of $16.00 per share, citing increased volatility in the markets as the reason for the decrease in the offer price. Based on the $11.07 per share closing price of Penford\u0092s common stock as of October 13, 2014, the day immediately\n1630: prior to receiving this indication of interest, the offer price of $16.00 per share represented a 45% premium.\n1631: \n1632: On\n1633: October 14, 2014, a meeting of the board was held, at which members of Penford\u0092s management and representatives of Penford\u0092s legal and financial advisors were present. Perkins Coie provided a review, and led a discussion, of the\n1634: fiduciary duties of Penford\u0092s board under Washington law, including in connection with strategic proposals involving a change in control of Penford. The board discussed these issues, asked questions of management and of Perkins Coie, and\n1635: received guidance and advice. Mr. Malkoski then reported to the board on recent discussions and negotiations with Ingredion regarding the proposed transaction, including the lower than expected figures reflected in the 2014 draft financial",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt"
+    },
+    {
+      "alex_row_id": "21",
+      "note": "Drop",
+      "actor_name": "Party C",
+      "date": "2014-10-14",
+      "verdict": "ungrounded",
+      "filing_snippet": null,
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt"
+    },
+    {
+      "alex_row_id": "5.5",
+      "note": "IB",
+      "actor_name": "Deutsche Bank",
+      "date": "2014-08-21",
+      "verdict": "likely_grounded",
+      "filing_snippet": "1423: product applications and technologies, end markets, supply chain and manufacturing, facilities, historical financial performance and financial projections, as well as additional information on key leadership, headcount, pension obligations and\n1424: information technology systems.\n1425: \n1426: On August 26, 2014, Ingredion provided Penford with an initial due diligence request list.\n1427: \n1428: On August 28, 2014, the board of directors held a regularly scheduled meeting. In addition to certain members of Penford\u0092s\n1429: management team, representatives of Deutsche Bank and representatives of Perkins Coie also attended the meeting. At that meeting, members of management reviewed with the board the estimated consolidated financial results, including financial\n1430: performance during the Company\u0092s fiscal fourth quarter, 2015 operating plans and proposed capital expenditures. Mr. Malkoski reported on the status of discussions and negotiations with Ingredion, noting that a management presentation had\n1431: been given to the Chairman and Chief Executive Officer of Ingredion, as well as to other senior management of Ingredion and Ingredion\u0092s financial advisor, on August 21, and that a nondisclosure and standstill agreement had been entered\n1432: into immediately preceding the presentation that replaced the Secrecy Agreement. Mr. Malkoski also informed the board that management was proceeding with plans to establish an electronic dataroom to enable Ingredion to conduct additional due\n1433: diligence. Deutsche Bank then described next steps and timing for the due diligence process. The board and Deutsche Bank also discussed the \u0093market check\u0094 process whereby companies other than Ingredion would be queried by Deutsche Bank\n1434: about their potential interest in acquiring the Company. Deutsche Bank again reviewed with the board the other potential counterparties and the basis for identifying such counterparties, including, but not limited to, financial capacity, perceived\n1435: level of interest, prior acquisition track record, strong strategic rationale and ability to timely execute a transaction. Deutsche Bank further noted that any inquiries to potential counterparties likely would be directed to the chief executive\n1436: officers of selected companies, with any substantive exchanges of information about the Company to be subject to an acceptable nondisclosure agreement. The board of directors discussed the due diligence and market check processes, including the\n1437: companies that would be contacted in the market check process and any risks of loss of confidentiality during the process. Following discussion, the board directed management to continue negotiations with Ingredion and engage in the due diligence\n1438: process with Ingredion. The board also authorized management and Deutsche Bank to proceed with the market check process as described at the meeting.\n1439: \n1440: 27\n1441: \n1442: \n1443: As part of the August 28, 2014 board meeting, Perkins Coie provided a review, and led a",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt"
+    },
+    {
+      "alex_row_id": "3",
+      "note": "NDA",
+      "actor_name": "A diffferent party",
+      "date": "2009-01-15",
+      "verdict": "ungrounded",
+      "filing_snippet": null,
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt"
+    },
+    {
+      "alex_row_id": "8",
+      "note": "NDA",
+      "actor_name": "Ingredion",
+      "date": "2014-08-21",
+      "verdict": "likely_grounded",
+      "filing_snippet": "1402: Ingredion\u0092s August 10, 2014 indication of interest and expressed that Penford\u0092s board found Ingredion\u0092s proposal interesting but did not\n1403: \n1404: 26\n1405: \n1406: \n1407: believe that it reflected the full value of Penford\u0092s business. However, the board authorized management to engage with Ingredion and provide additional information regarding the Company,\n1408: which the board believed would assist Ingredion in recognizing Penford\u0092s additional value and result in Ingredion raising its price. Therefore, to provide Ingredion with relevant information about the Company, Mr. Malkoski and\n1409: Mr. Fortnum agreed to schedule a management presentation by Penford to representatives of Ingredion and its advisors on August 21, 2014 and discussed the process for submitting and responding to due diligence requests. Mr. Fortnum\n1410: asked whether Penford would consider whether to enter into exclusive negotiations with Ingredion. Mr. Malkoski indicated that the current status of negotiations and the proposed price did not justify providing exclusivity.\n1411: \n1412: On August 15, 2014, Mr. Fortnum and Mr. Malkoski discussed a revised nondisclosure agreement, including the addition of a\n1413: standstill provision.\n1414: \n1415: On August 19, 2014, SEACOR filed an amendment to its Schedule 13D identifying its four nominees for election",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt"
+    },
+    {
+      "alex_row_id": "13",
+      "note": "NA",
+      "actor_name": "Ingredion",
+      "date": "2014-10-02",
+      "verdict": "likely_grounded",
+      "filing_snippet": "1480: performance and financial projections.\n1481: \n1482: 28\n1483: \n1484: \n1485: On September 17, 2014, Mr. Fortnum contacted Mr. Malkoski to update him on\n1486: Ingredion\u0092s board meeting that was held on September 16, 2014, reporting that Ingredion\u0092s board had discussed Ingredion\u0092s strategy, including the proposed acquisition of Penford. Mr. Fortnum indicated during the conversation\n1487: that Ingredion could potentially increase its proposal from $18.00 to $18.25 or $18.50 per share on a fully diluted basis. Based on the $14.70 per share closing price of Penford\u0092s common stock on September 16, 2014, the last business day\n1488: prior to receiving the revised indication of interest, a price of $18.25 to $18.50 represented a 24% premium and 26% premium, respectively. Mr. Fortnum and Mr. Malkoski discussed the status of due diligence, set dates for visits\n1489: by Ingredion\u0092s management team to Penford\u0092s facilities and also discussed a potential timeline for the transaction.\n1490: \n1491: On\n1492: September 19, 2014, members of management briefed the Executive Committee on the status of the operation of the business, including an update on fourth quarter fiscal 2014 and first quarter 2015. Perkins Coie and Deutsche Bank were also present\n1493: at the briefing. Deutsche Bank then reported on the status of the market check process and the ongoing due diligence process with Ingredion. The Executive Committee expressed disappointment with respect to Ingredion\u0092s proposed price, but\n1494: decided to proceed with the facility visits by Ingredion in an effort to provide Ingredion with additional information that would enhance Ingredion\u0092s valuation of the Company.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt"
+    },
+    {
+      "alex_row_id": "14",
+      "note": "NA",
+      "actor_name": "Ingredion",
+      "date": "2014-10-02",
+      "verdict": "likely_grounded",
+      "filing_snippet": "1307: recent discussions with Ms. Gordon regarding Ingredion\u0092s interest in acquiring the Company.\n1308: \n1309: On July 18, 2014,\n1310: Mr. Malkoski spoke with Mr. Fortnum by phone and they agreed to meet the following day to discuss Ingredion\u0092s interest in acquiring Penford.\n1311: \n1312: On July 19, 2014, Mr. Malkoski and Mr. Fortnum discussed general strategic considerations for a proposed transaction, such as\n1313: the food segment and the complimentary portfolios, value added green technologies, industrial products and production, reloading plants for efficiencies, technology development, including research and development of applications, and the specialty\n1314: products strategy. Mr. Malkoski and Mr. Fortnum also discussed potential synergies, including public company costs, consolidation of benefits, potential tax savings and Ingredion\u0092s lower cost of capital. Mr. Fortnum did not\n1315: discuss a potential purchase price, but like Ms. Gordon, referenced Penford\u0092s 52-week high of approximately $16.00 per share, stating that it could be a challenge for Ingredion to reach this value given the implied enterprise value and\n1316: EBITDA multiple at that price. Mr. Fortnum and Mr. Malkoski discussed considering Penford\u0092s adjusted EBITDA, which would take into account certain non-recurring events that affected results of operations of the Company, in order to\n1317: provide a more complete understanding of the results of operations and to support a valuation and offer a price that Penford\u0092s board would be willing to consider.\n1318: \n1319: Subsequently, Penford and Ingredion executed a Secrecy Agreement, effective as of July 20, 2014, providing for limited exchange of\n1320: confidential information and obligating the companies to keep their discussions confidential in order to facilitate the providing of confidential information of Penford to Ingredion.\n1321: \n1322: In order to update and gather insight from certain board members on an expedited basis, Mr. Hatfield decided to utilize the Executive",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt"
+    },
+    {
+      "alex_row_id": "18.5",
+      "note": "NA",
+      "actor_name": "Ingredion",
+      "date": "2014-10-08",
+      "verdict": "likely_grounded",
+      "filing_snippet": "1307: recent discussions with Ms. Gordon regarding Ingredion\u0092s interest in acquiring the Company.\n1308: \n1309: On July 18, 2014,\n1310: Mr. Malkoski spoke with Mr. Fortnum by phone and they agreed to meet the following day to discuss Ingredion\u0092s interest in acquiring Penford.\n1311: \n1312: On July 19, 2014, Mr. Malkoski and Mr. Fortnum discussed general strategic considerations for a proposed transaction, such as\n1313: the food segment and the complimentary portfolios, value added green technologies, industrial products and production, reloading plants for efficiencies, technology development, including research and development of applications, and the specialty\n1314: products strategy. Mr. Malkoski and Mr. Fortnum also discussed potential synergies, including public company costs, consolidation of benefits, potential tax savings and Ingredion\u0092s lower cost of capital. Mr. Fortnum did not\n1315: discuss a potential purchase price, but like Ms. Gordon, referenced Penford\u0092s 52-week high of approximately $16.00 per share, stating that it could be a challenge for Ingredion to reach this value given the implied enterprise value and\n1316: EBITDA multiple at that price. Mr. Fortnum and Mr. Malkoski discussed considering Penford\u0092s adjusted EBITDA, which would take into account certain non-recurring events that affected results of operations of the Company, in order to\n1317: provide a more complete understanding of the results of operations and to support a valuation and offer a price that Penford\u0092s board would be willing to consider.\n1318: \n1319: Subsequently, Penford and Ingredion executed a Secrecy Agreement, effective as of July 20, 2014, providing for limited exchange of\n1320: confidential information and obligating the companies to keep their discussions confidential in order to facilitate the providing of confidential information of Penford to Ingredion.\n1321: \n1322: In order to update and gather insight from certain board members on an expedited basis, Mr. Hatfield decided to utilize the Executive",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt"
+    },
+    {
+      "alex_row_id": "14.5",
+      "note": "Final Round Ann",
+      "actor_name": "NA",
+      "date": "2014-10-03",
+      "verdict": "ungrounded",
+      "filing_snippet": null,
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt"
+    }
+  ],
+  "aggregate_rows": [
+    {
+      "alex_row_id": "1",
+      "note": "NDA",
+      "actor_name": "1 party",
+      "date": "2007-01-15",
+      "verdict": "soft_match",
+      "reason": "Interpretive count_reconciliation contains aggregate count notes.",
+      "filing_snippet": null,
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt"
+    },
+    {
+      "alex_row_id": "2",
+      "note": "Drop",
+      "actor_name": "1 party",
+      "date": "2007-01-15",
+      "verdict": "exact_count_match",
+      "reason": "Pipeline has 1 rows in the same family.",
+      "filing_snippet": null,
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt"
+    }
+  ],
+  "export_regressions": [],
+  "summary": {
+    "status": "attention",
+    "atomic_match_rate": 0.5417,
+    "notes": [
+      "7 matched-pair field mismatches",
+      "11 pipeline-only atomic rows",
+      "10 Alex-only atomic rows",
+      "2 aggregate Alex rows"
+    ]
+  }
+}

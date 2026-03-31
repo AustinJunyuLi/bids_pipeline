@@ -1,0 +1,288 @@
+{
+  "deal_slug": "stec",
+  "primary_document_id": "0001193125-13-325730",
+  "primary_filing_path": "/home/austinli/Projects/bids_pipeline/raw/stec/filings/0001193125-13-325730.txt",
+  "summary_row": {
+    "TargetName": "S T E C INC",
+    "Events": "33",
+    "Acquirer": "WESTERN DIGITAL CORP",
+    "DateAnnounced": "2013-06-24 00:00:00",
+    "URL": "https://www.sec.gov/Archives/edgar/data/1102741/0001193125-13-325730-index.htm"
+  },
+  "counts": {
+    "pipeline": 33,
+    "alex": 28,
+    "matches": 20,
+    "pipeline_only": 13,
+    "alex_only": 8,
+    "aggregate_rows": 0
+  },
+  "field_mismatches": [
+    {
+      "event_id": "evt_014",
+      "alex_row_id": "6",
+      "field": "dropout_subtype",
+      "pipeline_value": "drop",
+      "alex_value": "drop_target",
+      "filing_supports": "both",
+      "filing_snippet": "1405: Company F and Company H, included a term prohibiting the counterparty from asking sTec to waive the standstill provision in the agreement (such provision, often referred to as a \u0093don\u0092t ask, don\u0092t waive\u0094 provision). None of the\n1406: other non-disclosure agreements contained such a \u0093don\u0092t ask, don\u0092t waive\u0094 provision that continued in effect after sTec entered into an acquisition agreement.\n1407: \n1408: During the weeks of April 8 through April 22, 2013, sTec held management presentations with representatives of WDC, Company D,\n1409: Company G and Company E. On April 15, 2013, Company C indicated that it was only interested in purchasing limited, select assets of the company, and as a result, the special committee decided not to continue discussions with Company C. In\n1410: addition, on April 24, Company F declined the invitation to schedule a management presentation, indicating it was only interested in purchasing limited, select assets of sTec, and Company F had no further communications with BofA Merrill Lynch\n1411: or sTec regarding a possible transaction. Shortly thereafter, Company E indicated it was also only interested in purchasing limited, select assets of sTec, and as a result the special committee decided not to continue discussions with Company E.\n1412: \n1413: On April 18, 2013, members of our management held a meeting with representatives of WDC, at which our management\n1414: provided a presentation on sTec, and the attendees discussed matters related to a possible transaction between the two companies.\n1415: ",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/stec/filings/0001193125-13-325730.txt",
+      "export_regression": false,
+      "match_score": 83.0
+    },
+    {
+      "event_id": "evt_015",
+      "alex_row_id": "15",
+      "field": "date",
+      "pipeline_value": null,
+      "alex_value": "2013-05-23",
+      "filing_supports": "pipeline",
+      "filing_snippet": "1406: other non-disclosure agreements contained such a \u0093don\u0092t ask, don\u0092t waive\u0094 provision that continued in effect after sTec entered into an acquisition agreement.\n1407: \n1408: During the weeks of April 8 through April 22, 2013, sTec held management presentations with representatives of WDC, Company D,\n1409: Company G and Company E. On April 15, 2013, Company C indicated that it was only interested in purchasing limited, select assets of the company, and as a result, the special committee decided not to continue discussions with Company C. In\n1410: addition, on April 24, Company F declined the invitation to schedule a management presentation, indicating it was only interested in purchasing limited, select assets of sTec, and Company F had no further communications with BofA Merrill Lynch\n1411: or sTec regarding a possible transaction. Shortly thereafter, Company E indicated it was also only interested in purchasing limited, select assets of sTec, and as a result the special committee decided not to continue discussions with Company E.\n1412: \n1413: On April 18, 2013, members of our management held a meeting with representatives of WDC, at which our management\n1414: provided a presentation on sTec, and the attendees discussed matters related to a possible transaction between the two companies.\n1415: \n1416: During the weeks of April 22 and April 29, 2013, sTec provided follow-up due diligence materials to, and at the direction of the special committee, BofA Merrill Lynch held additional discussions",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/stec/filings/0001193125-13-325730.txt",
+      "export_regression": false,
+      "match_score": 60.0
+    },
+    {
+      "event_id": "evt_007",
+      "alex_row_id": "0.8",
+      "field": "date",
+      "pipeline_value": "2013-03-28",
+      "alex_value": "2013-04-04",
+      "filing_supports": "pipeline",
+      "filing_snippet": "1375: and considerations related to potential sales or divestitures of assets of one or more business lines or functional areas. In light of these and other factors, our board of directors determined that it was in the best interests of the company and\n1376: its shareholders to confidentially approach strategic buyers that the board believed would be most likely to have interest in a potential acquisition of the company to explore their interest, but to also further conduct a limited confirmatory\n1377: exploration of interest of financial buyers. The directors then directed Messrs. Saman and Morales to finalize engagement terms with BofA Merrill Lynch and to advise BofA Merrill Lynch of the board\u0092s recommended approach for reviewing strategic\n1378: alternatives and exploring potential buyers of the company.\n1379: \n1380: On March 28, 2013, sTec entered into an engagement\n1381: letter with BofA Merrill Lynch to provide financial advisory services.\n1382: \n1383: In addition, in early April, the company began to\n1384: populate a virtual data room with certain financial and operational information.\n1385: \n1386: Our management thereafter discussed with",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/stec/filings/0001193125-13-325730.txt",
+      "export_regression": false,
+      "match_score": 66.0
+    },
+    {
+      "event_id": "evt_006",
+      "alex_row_id": "0.7",
+      "field": "date",
+      "pipeline_value": null,
+      "alex_value": "2013-04-04",
+      "filing_supports": "both",
+      "filing_snippet": "1360: \n1361: 26\n1362: \n1363: \n1364: In mid-March, 2013, the head of corporate development for Company D, a participant in the\n1365: storage industry, contacted our management to express the interest of Company D in exploring a potential acquisition of the company. At the direction of the special committee, members of our management met with representatives of Company D to\n1366: discuss their potential interest. On March 26, 2013, sTec received a draft non-disclosure agreement from Company D.\n1367: \n1368: On March 26, 2013, a regularly scheduled board meeting was held. Members of the company\u0092s senior management also attended\n1369: portions of the meeting. At the meeting, our board of directors discussed, among other matters, the company\u0092s 2013 annual operating plan, the state of the company\u0092s business and its strategic alternatives, including the company\u0092s\n1370: standalone financial plans, and considerations related to the potential engagement of a financial advisor. In addition, our board of directors added Mr. Bahri to the special committee. At the same meeting and upon the recommendation of the",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/stec/filings/0001193125-13-325730.txt",
+      "export_regression": false,
+      "match_score": 70.0
+    }
+  ],
+  "pipeline_only": [
+    {
+      "event_id": "evt_028",
+      "bidder_id": "20",
+      "note": "Drop",
+      "actor_name": "WDC",
+      "date": "2013-05-31",
+      "verdict": "grounded",
+      "filing_snippet": "1539: negotiation of the merger agreement and ancillary agreements to be in a position to announce a transaction on June 3, 2013. The board directed that representatives of BofA Merrill Lynch communicate the board\u0092s decision to WDC.\n1540: \n1541: Later, on May 30, 2013, as directed by the board, representatives of BofA Merrill Lynch informed WDC that sTec would move forward to\n1542: effect a transaction at a purchase price of $9.15 per share, subject to satisfactory negotiations of the merger agreement and ancillary agreements.\n1543: \n1544: On May 31, 2013, a representative of WDC communicated to BofA Merrill Lynch that WDC was reevaluating its interest in acquiring sTec, and that WDC was not prepared to move forward with a transaction\n1545: with sTec at that time. In addition, WDC discontinued their due diligence efforts with the company at that time. BofA Merrill Lynch then contacted the company\u0092s officers and Dr. Daly to report the communication from WDC.\n1546: \n1547: On May 31, 2013, our board of directors held a telephonic special meeting, attended by four independent directors, Dr. Daly and\n1548: Messrs. Bahri, Ball and Colpitts. Mr. Saman and a representative from Gibson Dunn were also in attendance. Dr. Daly reported on the communications from WDC that WDC had decided to reconsider its interest in acquiring sTec and that it was\n1549: not prepared to move forward with a transaction with sTec at that time. Our board of directors then discussed potential next steps. Gibson Dunn reviewed certain legal considerations related to the process.\n1550: \n1551: At the request of our board of directors, representatives of BofA Merrill Lynch had a call with representatives of Company D on which\n1552: they informed Company D\u0092s representatives that timing for sTec\u0092s process had been delayed, and that Company D had an opportunity to continue in the process. The Company D representatives indicated that they would consider this opportunity.\n1553: \n1554: On June 1, 2013, sTec posted materials responsive to the diligence requests of Company D to the data room.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/stec/filings/0001193125-13-325730.txt"
+    },
+    {
+      "event_id": "evt_032",
+      "bidder_id": "24",
+      "note": "Executed",
+      "actor_name": "sTec board of directors/WDC",
+      "date": "2013-06-23",
+      "verdict": "grounded",
+      "filing_snippet": "1666: and the shares subject to such agreements, and the ancillary agreements to be entered into by WDC with Messrs. Moshayedi, including the covenant not to sue and the consulting agreements, and the financial terms thereof. Finally, Gibson Dunn reviewed\n1667: the terms of the letter agreements proposed by Messrs. Moshayedi to be entered into relating to the terms and conditions of payments under their existing severance and change in control agreements. The directors discussed the terms of the merger\n1668: agreement, the ancillary agreements and the letter agreements. Following further discussion, our board of directors unanimously determined that the merger agreement and the transactions contemplated thereby, including the merger, were in the best\n1669: interests of the company\u0092s shareholders, and approved and adopted the merger agreement. Our board of directors also unanimously recommended that the company\u0092s shareholders approve and adopt the merger agreement.\n1670: \n1671: On June 23, 2013, sTec, WDC, and Merger Sub executed the merger agreement; each of our officers and directors executed their\n1672: respective voting agreements with WDC; Mr. Manouch Moshayedi and WDC executed the covenant not to sue, the consulting services agreement and a non-competition agreement; Mr. Mark Moshayedi and WDC executed the technical services agreement\n1673: and a non-competition agreement; sTec and Messrs. Moshayedi executed the letter agreements; and an affiliate of Messrs. Moshayedi and WDC executed a landlord\u0092s consent to assignment.\n1674: \n1675: On June 24, 2013, prior to the opening of trading on the U. S. stock exchanges, WDC and sTec announced in a joint press release the\n1676: execution of the merger agreement.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/stec/filings/0001193125-13-325730.txt"
+    },
+    {
+      "event_id": "evt_027",
+      "bidder_id": "18",
+      "note": "NA",
+      "actor_name": "WDC",
+      "date": "2013-05-30",
+      "verdict": "grounded",
+      "filing_snippet": "1524: 30\n1525: \n1526: \n1527: as directed by the board of directors, BofA Merrill Lynch requested a \u0093best and final\u0094 proposal from WDC and a \u0093best and final\u0094 written proposal from Company D.\n1528: \n1529: On May 30, 2013, representatives of WDC verbally indicated that WDC\u0092s indication of interest to acquire the company at a price\n1530: of $9.15 per share was WDC\u0092s best possible price, and reiterated the concern of WDC regarding the price. The WDC representative also stated that WDC continued to be focused on being in a position to announce a transaction on June 3, 2013.\n1531: \n1532: Also on May 30, 2013 representatives of Company D reconfirmed they would require additional time to submit a written\n1533: indication of interest, however, the Company D representatives also indicated they continued to believe they could be competitive on price if given additional time.\n1534: \n1535: Also on May 30, 2013, the board of directors held a telephonic special meeting. Messrs. Cook, Saman, Higa and Morales, and representatives from BofA Merrill Lynch, Latham & Watkins and",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/stec/filings/0001193125-13-325730.txt"
+    },
+    {
+      "event_id": "evt_033",
+      "bidder_id": "25",
+      "note": "Bid Press Release",
+      "actor_name": "WDC",
+      "date": "2013-06-24",
+      "verdict": "grounded",
+      "filing_snippet": "1670: \n1671: On June 23, 2013, sTec, WDC, and Merger Sub executed the merger agreement; each of our officers and directors executed their\n1672: respective voting agreements with WDC; Mr. Manouch Moshayedi and WDC executed the covenant not to sue, the consulting services agreement and a non-competition agreement; Mr. Mark Moshayedi and WDC executed the technical services agreement\n1673: and a non-competition agreement; sTec and Messrs. Moshayedi executed the letter agreements; and an affiliate of Messrs. Moshayedi and WDC executed a landlord\u0092s consent to assignment.\n1674: \n1675: On June 24, 2013, prior to the opening of trading on the U. S. stock exchanges, WDC and sTec announced in a joint press release the\n1676: execution of the merger agreement.\n1677: \n1678: sTec\u0092s Reasons for the Merger\n1679: \n1680: On June 23, 2013, our board of directors, upon the unanimous recommendation of the special committee:\n1681: ",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/stec/filings/0001193125-13-325730.txt"
+    },
+    {
+      "event_id": "evt_002",
+      "bidder_id": "0.2",
+      "note": "Bidder Interest",
+      "actor_name": "Company A/Company A financial advisor",
+      "date": "2012-11-14",
+      "verdict": "grounded",
+      "filing_snippet": "1277: directors determined that it would be beneficial to perform a market check to determine if potential acquirers would present a better opportunity to maximize shareholder value, than would result from continuing to operate the company on a standalone\n1278: basis under the cost reduction plan. Consequently, in mid-November, 2012, our board of directors authorized management to contact potential financial advisors to explore their interest in representing the company in its exploration of strategic\n1279: alternatives, including a potential sale of the company. During this timeframe, management contacted two financial advisors about the prospect of working with the company, however, both responded that they were not in a position to advise the\n1280: company at that time. Although sTec did not engage a financial advisor at that time, our board of directors made a determination to continue to review sTec\u0092s strategic alternatives.\n1281: \n1282: On November 14, 2012, an investment bank representing Company A, a participant in the storage industry, contacted our management to\n1283: request a preliminary meeting between sTec and Company A. Company A\u0092s financial advisor followed up on the preliminary contact to provide a proposed agenda for the meeting, covering topics related to our operations and technology, and a draft\n1284: non-disclosure agreement for the purpose of evaluating a possible business transaction between sTec and Company A. A meeting was scheduled between Company A and sTec, however, it was subsequently cancelled because of concerns expressed by\n1285: non-management board members, which were communicated to Company A, that the management of Company A had not demonstrated any involvement in the process.\n1286: \n1287: 24",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/stec/filings/0001193125-13-325730.txt"
+    },
+    {
+      "event_id": "evt_004",
+      "bidder_id": "0.3",
+      "note": "Activist Sale",
+      "actor_name": "Balch Hill",
+      "date": "2012-12-06",
+      "verdict": "grounded",
+      "filing_snippet": "1293: was present telephonically for a portion of the meeting and delivered a presentation that reviewed the company\u0092s defensive profile and the relevant fiduciary duties of the board of directors in connection with a review of strategic\n1294: alternatives. Management also reported to our board of directors on the feedback received from the two financial advisors that had declined to be engaged by sTec earlier in the month.\n1295: \n1296: Around this timeframe, Balch Hill Partners, L. P. (\u0093 Balch Hill\u0094), an activist investor in the technology sector, reported its\n1297: acquisition of 6.4% of sTec\u0092s outstanding shares. Balch Hill filed its first Schedule 13D with the SEC on November 16, 2012. Balch Hill was later joined by Potomac Capital Partners II, L. P. (\u0093 Potomac\u0094), and Balch Hill and Potomac\n1298: subsequently jointly increased their beneficial holdings to 9.8%. Then, on December 6, 2012, Balch Hill filed an amendment to its Schedule 13D, and concurrently issued a letter to our board of directors urging our board to reduce costs, focus\n1299: on products with a SAS interface, and explore strategic alternatives. Balch Hill, and later Potomac, advocated a reversal of sTec\u0092s new go-to-market strategy, at a critical period in the strategy transition. Until the time that the merger with\n1300: WDC was publicly announced, Balch Hill and Potomac continued this activist campaign, which also included the nomination of three persons for election to our board of directors at our 2013 annual meeting of shareholders.\n1301: \n1302: During the fourth quarter of 2012, in order to help reduce our losses and focus our business, we commenced a reduction in our workforce\n1303: by 42 employees worldwide, and in January of 2013, we further reduced our workforce by 23 employees, an aggregate reduction of approximately 7% of our workforce.\n1304: ",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/stec/filings/0001193125-13-325730.txt"
+    },
+    {
+      "event_id": "evt_005",
+      "bidder_id": "0.5",
+      "note": "Bidder Interest",
+      "actor_name": "Company B",
+      "date": "2013-02-13",
+      "verdict": "grounded",
+      "filing_snippet": "1307: sale of the company, as well as the alternative of continuing as a standalone company with further reductions in our workforce and other cost reduction initiatives. The board believed that it was prudent to appoint a special committee of independent\n1308: directors to provide an objective analysis of all strategic alternatives available to the company. The special committee was also authorized to engage advisors, including a financial advisor. At that meeting, the board of directors also delegated to\n1309: the non-management members of the board (Dr. Daly and Messrs. Bahri, Ball, Colpitts and Witte, or the \u0093independent directors\u0094), the review and evaluation of potential responses to Balch Hill and Potomac.\n1310: \n1311: On February 13, 2013, Mr. Manouch Moshayedi met with the President of Company B, a participant in the electronics industry.\n1312: Company B\u0092s President stated that the following week Company B was holding a management meeting at which Company B would be discussing its SSD opportunities, and the President intended to present sTec as a possible acquisition target to the\n1313: management of Company B.\n1314: \n1315: On February 14, 2013, the board of directors held a telephonic special meeting, which only the\n1316: independent directors attended. Mr. Robert M. Saman, our Chief Legal Officer, General Counsel and Secretary, and a representative from Gibson Dunn also attended the meeting. The directors discussed the appointment of the special committee,\n1317: and actions to be taken by the special committee in connection with reviewing the company\u0092s strategic alternatives. The representative from Gibson Dunn reviewed the fiduciary duties of the board of directors and the special committee under",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/stec/filings/0001193125-13-325730.txt"
+    },
+    {
+      "event_id": "evt_006a",
+      "bidder_id": "0.7",
+      "note": "Target Sale",
+      "actor_name": "NA",
+      "date": "2013-03-26",
+      "verdict": "grounded",
+      "filing_snippet": "1370: standalone financial plans, and considerations related to the potential engagement of a financial advisor. In addition, our board of directors added Mr. Bahri to the special committee. At the same meeting and upon the recommendation of the\n1371: special committee, the board approved retaining BofA Merrill Lynch to act as sTec\u0092s financial advisor in connection with the company\u0092s general review of strategic alternatives and defensive preparedness, subject to final engagement\n1372: term negotiations by Messrs. Saman and Morales. Our board of directors discussed a potential strategic review process. In addition, our board of directors discussed potential benefits and risks associated with approaching various potential\n1373: buyers, including the risk of leaks to the market and to the company\u0092s key employees, the company\u0092s prior communications with potential financial buyers and the lack of interest from financial buyers in light of the company\u0092s recent\n1374: financial performance and the potential difficulties this created for financial buyers to use debt to finance a purchase of the company, and the fact that strategic buyers would likely attribute the greatest value to the company and its business,\n1375: and considerations related to potential sales or divestitures of assets of one or more business lines or functional areas. In light of these and other factors, our board of directors determined that it was in the best interests of the company and\n1376: its shareholders to confidentially approach strategic buyers that the board believed would be most likely to have interest in a potential acquisition of the company to explore their interest, but to also further conduct a limited confirmatory\n1377: exploration of interest of financial buyers. The directors then directed Messrs. Saman and Morales to finalize engagement terms with BofA Merrill Lynch and to advise BofA Merrill Lynch of the board\u0092s recommended approach for reviewing strategic\n1378: alternatives and exploring potential buyers of the company.\n1379: \n1380: On March 28, 2013, sTec entered into an engagement\n1381: letter with BofA Merrill Lynch to provide financial advisory services.\n1382: ",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/stec/filings/0001193125-13-325730.txt"
+    },
+    {
+      "event_id": "evt_016",
+      "bidder_id": "8",
+      "note": "Bidder Interest",
+      "actor_name": "Company H",
+      "date": "2013-05-01",
+      "verdict": "grounded",
+      "filing_snippet": "1437: May 3, 2013.\n1438: \n1439: 28\n1440: \n1441: \n1442: On May 1, 2013, Company H contacted representatives of BofA Merrill Lynch expressing an\n1443: interest in a potential transaction with sTec. BofA Merrill Lynch reported that contact to our chairman and management, and, on May 2, 2013, at the direction of our chairman on behalf of the special committee, BofA Merrill Lynch sent a\n1444: non-disclosure agreement to Company H.\n1445: \n1446: On May 2, 2013, at the direction of the special committee, representatives of\n1447: BofA Merrill Lynch had discussions with representatives of Company D. Company D\u0092s representatives indicated they would need an additional week to confirm their verbal indication of interest in writing.\n1448: ",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/stec/filings/0001193125-13-325730.txt"
+    },
+    {
+      "event_id": "evt_001",
+      "bidder_id": "26",
+      "note": "Target Sale",
+      "actor_name": "NA",
+      "date": null,
+      "verdict": "grounded",
+      "filing_snippet": "1273: \n1274: In response, by the fourth quarter of 2012, our board of directors was considering a number of further strategic alternatives presented by management, including a plan to significantly reduce expenses to\n1275: align our cost structure with our reduced revenues by scaling down head count and resources in a number of functional areas, including operations, research and development, and general and administrative. As it evaluated the advisability and\n1276: potential long-term impacts of the cost reductions, our board of directors determined that it would be beneficial to undertake a formal review of strategic alternatives, including exploring a potential sale of sTec. In particular, our board of\n1277: directors determined that it would be beneficial to perform a market check to determine if potential acquirers would present a better opportunity to maximize shareholder value, than would result from continuing to operate the company on a standalone\n1278: basis under the cost reduction plan. Consequently, in mid-November, 2012, our board of directors authorized management to contact potential financial advisors to explore their interest in representing the company in its exploration of strategic\n1279: alternatives, including a potential sale of the company. During this timeframe, management contacted two financial advisors about the prospect of working with the company, however, both responded that they were not in a position to advise the\n1280: company at that time. Although sTec did not engage a financial advisor at that time, our board of directors made a determination to continue to review sTec\u0092s strategic alternatives.\n1281: \n1282: On November 14, 2012, an investment bank representing Company A, a participant in the storage industry, contacted our management to\n1283: request a preliminary meeting between sTec and Company A. Company A\u0092s financial advisor followed up on the preliminary contact to provide a proposed agenda for the meeting, covering topics related to our operations and technology, and a draft",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/stec/filings/0001193125-13-325730.txt"
+    },
+    {
+      "event_id": "evt_025",
+      "bidder_id": "17",
+      "note": "Final Round Ext Ann",
+      "actor_name": "NA",
+      "date": "2013-05-29",
+      "verdict": "grounded",
+      "filing_snippet": "1515: Senior Vice President of Finance, and representatives from BofA Merrill Lynch and Gibson Dunn also attended the meeting. The board discussed the company\u0092s updated financial model on a standalone basis. The BofA Merrill Lynch representative\n1516: reported on communications with both Company D and WDC in response to sTec\u0092s request for non-binding proposals on May 28, 2013, and on the most recent communications with Company H. BofA Merrill Lynch reported that WDC had presented an\n1517: indication of interest of $9.15 per share, which the representative of WDC had described as the highest price that WDC was willing to offer and that the WDC representative had also disclosed that there were internal concerns regarding the price at\n1518: WDC. BofA Merrill Lynch further reported that Company D had stated that it continued to be interested in an acquisition but that it needed approximately two weeks to continue its ongoing due diligence review and to submit a proposal. The board of\n1519: directors then discussed with BofA Merrill Lynch financial aspects of WDC\u0092s proposal. The board of directors discussed with Messrs. Moshayedi the terms of the ancillary agreements that WDC had requested be executed by Messrs. Moshayedi and\n1520: their affiliates. Finally, the board of directors also discussed the legal considerations related to the process with Gibson Dunn. After discussion, our board of directors directed BofA Merrill Lynch to request a \u0093best and final\u0094 proposal\n1521: from WDC and a \u0093best and final\u0094 written proposal from Company D by May 30, 2013. Messrs. Moshayedi were also reminded of the direction that had been discussed with them from time-to-time during the strategic review process that they\n1522: should not negotiate any financial terms relating to their agreements with an acquirer, including WDC, prior to final agreement with the potential acquirer on the price to be paid to the company\u0092s shareholders. Later that day,\n1523: \n1524: 30\n1525: \n1526: ",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/stec/filings/0001193125-13-325730.txt"
+    },
+    {
+      "event_id": "evt_023",
+      "bidder_id": "16",
+      "note": "Final Round",
+      "actor_name": "NA",
+      "date": "2013-05-28",
+      "verdict": "grounded",
+      "filing_snippet": "1494: On May 16, 2013, a regularly\n1495: scheduled board meeting was held. Messrs. Cook, Saman and Morales and representatives from BofA Merrill Lynch were in attendance. Our board of directors discussed with representatives of BofA Merrill Lynch the status of the process, preliminary\n1496: valuation considerations and next steps in the process.\n1497: \n1498: After the meeting, at the direction of the board, BofA Merrill\n1499: Lynch sent final round process letters and a draft merger agreement to WDC and Company D, requesting a response by May 28, 2013.\n1500: \n1501: On May 23, 2013, representatives of Company H contacted a representative of BofA Merrill Lynch and indicated that Company H remained interested in a potential acquisition of the company but that\n1502: Company H was not able to increase its indicated value range.\n1503: \n1504: On May 28, 2013, WDC submitted a written second-round",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/stec/filings/0001193125-13-325730.txt"
+    },
+    {
+      "event_id": "evt_026",
+      "bidder_id": "19",
+      "note": "Final Round Ext",
+      "actor_name": "NA",
+      "date": "2013-05-30",
+      "verdict": "grounded",
+      "filing_snippet": "1515: Senior Vice President of Finance, and representatives from BofA Merrill Lynch and Gibson Dunn also attended the meeting. The board discussed the company\u0092s updated financial model on a standalone basis. The BofA Merrill Lynch representative\n1516: reported on communications with both Company D and WDC in response to sTec\u0092s request for non-binding proposals on May 28, 2013, and on the most recent communications with Company H. BofA Merrill Lynch reported that WDC had presented an\n1517: indication of interest of $9.15 per share, which the representative of WDC had described as the highest price that WDC was willing to offer and that the WDC representative had also disclosed that there were internal concerns regarding the price at\n1518: WDC. BofA Merrill Lynch further reported that Company D had stated that it continued to be interested in an acquisition but that it needed approximately two weeks to continue its ongoing due diligence review and to submit a proposal. The board of\n1519: directors then discussed with BofA Merrill Lynch financial aspects of WDC\u0092s proposal. The board of directors discussed with Messrs. Moshayedi the terms of the ancillary agreements that WDC had requested be executed by Messrs. Moshayedi and\n1520: their affiliates. Finally, the board of directors also discussed the legal considerations related to the process with Gibson Dunn. After discussion, our board of directors directed BofA Merrill Lynch to request a \u0093best and final\u0094 proposal\n1521: from WDC and a \u0093best and final\u0094 written proposal from Company D by May 30, 2013. Messrs. Moshayedi were also reminded of the direction that had been discussed with them from time-to-time during the strategic review process that they\n1522: should not negotiate any financial terms relating to their agreements with an acquirer, including WDC, prior to final agreement with the potential acquirer on the price to be paid to the company\u0092s shareholders. Later that day,\n1523: \n1524: 30\n1525: \n1526: ",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/stec/filings/0001193125-13-325730.txt"
+    }
+  ],
+  "alex_only": [
+    {
+      "alex_row_id": "7",
+      "note": "DropTarget",
+      "actor_name": "Company E",
+      "date": "2013-04-24",
+      "verdict": "likely_grounded",
+      "filing_snippet": "1403: participant in the storage industry, and on April 17, it entered into a non-disclosure agreement with Company G, a participant in the storage industry. Also on April 17, 2013, sTec\n1404: entered into an addendum to its existing non-disclosure agreement with WDC. In total sTec executed six non-disclosure agreements related to the exploration of a potential sale of the company. Each of the non-disclosure agreements with Company E,\n1405: Company F and Company H, included a term prohibiting the counterparty from asking sTec to waive the standstill provision in the agreement (such provision, often referred to as a \u0093don\u0092t ask, don\u0092t waive\u0094 provision). None of the\n1406: other non-disclosure agreements contained such a \u0093don\u0092t ask, don\u0092t waive\u0094 provision that continued in effect after sTec entered into an acquisition agreement.\n1407: \n1408: During the weeks of April 8 through April 22, 2013, sTec held management presentations with representatives of WDC, Company D,\n1409: Company G and Company E. On April 15, 2013, Company C indicated that it was only interested in purchasing limited, select assets of the company, and as a result, the special committee decided not to continue discussions with Company C. In\n1410: addition, on April 24, Company F declined the invitation to schedule a management presentation, indicating it was only interested in purchasing limited, select assets of sTec, and Company F had no further communications with BofA Merrill Lynch\n1411: or sTec regarding a possible transaction. Shortly thereafter, Company E indicated it was also only interested in purchasing limited, select assets of sTec, and as a result the special committee decided not to continue discussions with Company E.\n1412: \n1413: On April 18, 2013, members of our management held a meeting with representatives of WDC, at which our management\n1414: provided a presentation on sTec, and the attendees discussed matters related to a possible transaction between the two companies.\n1415: \n1416: During the weeks of April 22 and April 29, 2013, sTec provided follow-up due diligence materials to, and at the direction of the special committee, BofA Merrill Lynch held additional discussions",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/stec/filings/0001193125-13-325730.txt"
+    },
+    {
+      "alex_row_id": "20",
+      "note": "Executed",
+      "actor_name": "WDC",
+      "date": "2013-06-14",
+      "verdict": "likely_grounded",
+      "filing_snippet": "1579: \n1580: Later that day, as\n1581: directed by the board of directors, representatives of BofA Merrill Lynch informed WDC that our board of directors would not consider a proposal with a range of value and requested that WDC submit a specific proposal reflecting its best offer and\n1582: provide confirmation that such offer was supported by WDC\u0092s senior management.\n1583: \n1584: On June 14, 2013, WDC submitted a\n1585: written indication of interest of $6.85 per share in cash and indicated it could be in a position to announce a transaction on June 24, 2013. In communicating the revised proposal to BofA Merrill Lynch, the WDC representative again stated that\n1586: WDC was only interested in proceeding with the transaction at a purchase price of $6.85 per share, WDC\u0092s best and final price, for the reasons previously noted, and otherwise on the transaction terms previously proposed on May 28, 2013.\n1587: \n1588: On June 15, 2013, the special committee of the board of directors held a telephonic meeting. Messrs. Cook, Saman and\n1589: Morales and representatives from BofA Merrill Lynch and Gibson Dunn were in attendance. BofA Merrill Lynch reported on their communications with WDC, including WDC\u0092s indication of interest on June 14, 2013 to acquire the company at a\n1590: purchase price of $6.85 per share in cash. The members of the special committee then discussed sTec\u0092s outlook for the second and third quarters of 2013 and over the next 12 to 24 months, including the timing and impact of sTec\u0092s proposed\n1591: cost reductions on the go-forward operations of the company, and the projected impact on sTec\u0092s cash position if sTec entered into an acquisition agreement with WDC and was contractually unable to make the proposed cost reductions. Gibson Dunn",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/stec/filings/0001193125-13-325730.txt"
+    },
+    {
+      "alex_row_id": "0.5",
+      "note": "Bidder Interest",
+      "actor_name": "Company B",
+      "date": "2013-04-04",
+      "verdict": "ungrounded",
+      "filing_snippet": null,
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/stec/filings/0001193125-13-325730.txt"
+    },
+    {
+      "alex_row_id": "5.5",
+      "note": "Final Round Inf Ann",
+      "actor_name": "NA",
+      "date": "2013-04-23",
+      "verdict": "ungrounded",
+      "filing_snippet": null,
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/stec/filings/0001193125-13-325730.txt"
+    },
+    {
+      "alex_row_id": "16.6",
+      "note": "Final Round Ext Ann",
+      "actor_name": "NA",
+      "date": "2013-05-16",
+      "verdict": "ungrounded",
+      "filing_snippet": null,
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/stec/filings/0001193125-13-325730.txt"
+    },
+    {
+      "alex_row_id": "10.5",
+      "note": "Final Round Inf",
+      "actor_name": "NA",
+      "date": "2013-04-23",
+      "verdict": "ungrounded",
+      "filing_snippet": null,
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/stec/filings/0001193125-13-325730.txt"
+    },
+    {
+      "alex_row_id": "16.5",
+      "note": "Final Round",
+      "actor_name": "NA",
+      "date": "2013-05-16",
+      "verdict": "ungrounded",
+      "filing_snippet": null,
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/stec/filings/0001193125-13-325730.txt"
+    },
+    {
+      "alex_row_id": "16.7",
+      "note": "Final Round Ext",
+      "actor_name": "NA",
+      "date": "2013-05-16",
+      "verdict": "ungrounded",
+      "filing_snippet": null,
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/stec/filings/0001193125-13-325730.txt"
+    }
+  ],
+  "aggregate_rows": [],
+  "export_regressions": [],
+  "summary": {
+    "status": "high_attention",
+    "atomic_match_rate": 0.6061,
+    "notes": [
+      "4 matched-pair field mismatches",
+      "13 pipeline-only atomic rows",
+      "8 Alex-only atomic rows",
+      "0 aggregate Alex rows"
+    ]
+  }
+}
