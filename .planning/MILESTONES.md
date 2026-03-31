@@ -23,3 +23,23 @@
 - Deal-agent db_load/db_export stage summaries with synced orchestration docs and stec DuckDB export validation
 
 ---
+
+## v1.1 Reconciliation + Execution-Log Quality Fixes (Complete: 2026-03-30)
+
+**Phases completed:** 4 phases (6-9), 10 plans
+
+**Key accomplishments:**
+
+- Mixed-schema loader guard, canonicalize collision handling, NDA tolerance, DuckDB lock retry
+- bid_type rule priority fix for final-round proposal classification
+- Extraction skill doc updates for round milestones, verbal indications, NDA exclusions
+- Deterministic DropTarget classification and contextual all_cash inference
+- Zep and Medivation re-extraction with 9-deal reconciliation improvement (70.3% -> 70.7%)
+
+---
+
+## v2.0 Observation Graph Architecture (In Progress)
+
+**Phases:** 7 phases (10-16), 28 requirements
+
+**Goal:** Replace the event-first extraction contract with an observation graph that separates filing-literal facts from analyst-derived rows, enabling correct capture of cohort lifecycles, process structure, agreement chains, and consideration regimes.

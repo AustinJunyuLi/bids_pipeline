@@ -4,72 +4,126 @@
 
 - **v1.0 Filing-Grounded Pipeline Redesign** -- Phases 1-5 (shipped 2026-03-28) -- [archive](milestones/v1.0-ROADMAP.md)
 - **v1.1 Reconciliation + Execution-Log Quality Fixes** -- Phases 6-9 (complete 2026-03-30)
+- **v2.0 Observation Graph Architecture** -- Phases 10-16 (in progress)
 
 ## Phases
 
-- [x] **Phase 6: Deterministic Hardening** - Fix runtime walls from 7-deal rerun: mixed-schema loader guard, canonicalize collisions, gates+coverage rollover-CA tolerance, DuckDB lock retry (HARD-02/03 already satisfied)
-- [x] **Phase 7: bid_type Rule Priority** - Fix highest-impact enrichment bug: final-round proposals misclassified as Informal across 5+ deals
-- [x] **Phase 8: Extraction Guidance + Enrichment Extensions** - Update skill docs for round milestones, verbal indications, NDA exclusion; add DropTarget classification and contextual all_cash inference
-- [x] **Phase 9: Deal-Specific Fixes + Revalidation** - Fix Zep/Medivation extraction errors, re-extract affected deals, validate improved match rate across 9-deal corpus
+<details>
+<summary>v1.0 Filing-Grounded Pipeline Redesign (Phases 1-5) -- SHIPPED 2026-03-28</summary>
+
+See [v1.0 archive](milestones/v1.0-ROADMAP.md) for full phase details.
+
+- [x] **Phase 1: Foundation + Annotation** - Block metadata enrichment in preprocessing
+- [x] **Phase 2: Prompt Architecture** - Provider-neutral prompt packet composition
+- [x] **Phase 3: Quote-Before-Extract** - Filing-grounded evidence protocol
+- [x] **Phase 4: Enhanced Gates** - Semantic validation stage
+- [x] **Phase 5: Integration + Calibration** - DuckDB storage, complexity routing, export
+
+</details>
+
+<details>
+<summary>v1.1 Reconciliation + Execution-Log Quality Fixes (Phases 6-9) -- COMPLETE 2026-03-30</summary>
+
+- [x] **Phase 6: Deterministic Hardening** - Mixed-schema guard, canonicalize collisions, NDA tolerance, DuckDB lock retry
+- [x] **Phase 7: bid_type Rule Priority** - Final-round proposal classification fix
+- [x] **Phase 8: Extraction Guidance + Enrichment Extensions** - Skill doc updates, DropTarget classification, all_cash inference
+- [x] **Phase 9: Deal-Specific Fixes + Revalidation** - Zep/Medivation re-extraction, 9-deal reconciliation improvement
+
+</details>
+
+### v2.0 Observation Graph Architecture
+
+- [ ] **Phase 10: Pre-Migration Fixes** - Isolate all-cash bug fix and structured coverage records before any v2 work
+- [ ] **Phase 11: Foundation Models + Path Contracts** - v2 Pydantic models and artifact directory structure
+- [ ] **Phase 12: Artifact Loading + Canonicalization** - v2 extract loading, mode detection, and span resolution
+- [ ] **Phase 13: Validation Stack** - Structural checks, structured coverage, and graph semantic gates for v2 observations
+- [ ] **Phase 14: Derivation Engine** - Rule-based derivation of analyst rows from observation graph
+- [ ] **Phase 15: DuckDB Integration + Export** - v2 tables, triple export surface, and legacy adapter
+- [ ] **Phase 16: Extraction Contract + Migration** - v2 prompt composition, skill docs, STEC validation, and 9-deal migration
 
 ## Phase Details
 
-### Phase 6: Deterministic Hardening
-**Goal**: Pipeline deterministic stages handle all documented edge cases from the 7-deal rerun without crashing, producing false findings, or accepting corrupt inputs
-**Depends on**: Nothing (independent fixes)
-**Requirements**: HARD-06, HARD-01, HARD-04, HARD-05 (HARD-02 and HARD-03 already satisfied during 7-deal rerun)
-**Execution order**: HARD-06 -> HARD-01 -> HARD-04 -> HARD-05
+### Phase 10: Pre-Migration Fixes
+**Goal**: Known v1 bugs are fixed and re-baselined in isolation so that v2 benchmark comparisons have a clean attribution boundary
+**Depends on**: Nothing (independent fixes against v1 codebase)
+**Requirements**: FIX-01, FIX-02
 **Success Criteria** (what must be TRUE):
-  1. Loading extract artifacts where actors are canonical but events are quote-first (or vice versa) raises a dedicated `MixedSchemaError` before any stage processes them
-  2. Running `skill-pipeline canonicalize` on a deal with overlapping actor/event quote_id namespaces completes without crash, produces unique cross-array quote_ids, rewrites all references consistently, and is idempotent on reruns; same-array duplicates still fail-fast
-  3. Running `skill-pipeline gates` and `skill-pipeline coverage` on deals with rollover-side confidentiality agreements does not produce false NDA findings (covers rollover, bidder-bidder teaming, and target-on-target diligence CAs)
-  4. Running `skill-pipeline db-export` immediately after `db-load` succeeds without DuckDB file-lock errors; bounded retry with exponential backoff on transient lock; non-lock errors not retried; exhausted retries surface a hard failure
-**Plans**: 06-01 (complete), 06-02 (complete), 06-03 (complete)
+  1. Running `skill-pipeline enrich-core` on deals with all-cash consideration no longer short-circuits incorrectly -- the `_infer_all_cash_overrides()` fix is verified by regression tests and affected deals are re-baselined through db-export
+  2. `CoverageCheckRecord` exists as a structured Pydantic model with status (observed/derived/not_found/ambiguous), reason codes, and observation references -- free-text `coverage_notes` is no longer the coverage output contract
+  3. The 9-deal benchmark match rate is re-measured after the bug fix so v2 comparisons start from a corrected baseline
+**Plans**: TBD
 
-### Phase 7: bid_type Rule Priority
-**Goal**: Enrichment correctly classifies final-round proposals as Formal when process position (after final round announcement) overrides IOI filing language
-**Depends on**: Phase 6 (hardened pipeline required for clean re-enrichment runs)
-**Requirements**: ENRICH-01
+### Phase 11: Foundation Models + Path Contracts
+**Goal**: All v2 Pydantic models exist as importable, tested schema definitions and v2 artifact paths are registered in `SkillPathSet`
+**Depends on**: Phase 10 (bug fixes establish clean baseline before v2 schema work)
+**Requirements**: MODEL-01, MODEL-02, MODEL-03, MODEL-04, MODEL-05, MODEL-06, INFRA-03
 **Success Criteria** (what must be TRUE):
-  1. Running `skill-pipeline enrich-core` on stec, mac-gray, imprivata, penford, and providence-worcester produces `bid_type: Formal` for proposals occurring after the final round announcement
-  2. Running `skill-pipeline enrich-core` on deals with early-stage IOIs (before any formal round) still produces `bid_type: Informal` -- the fix does not over-promote
-  3. The `_classify_proposal()` function in enrich_core.py evaluates process-position rules before IOI-language rules, with regression tests covering both orderings
-**Plans:** 1 plan
-Plans:
-- [x] 07-01-PLAN.md -- Reorder _classify_proposal() rule priority with TDD regression tests
+  1. `PartyRecord` can be instantiated with role, bidder_kind, advisor_kind, advised_party_id, and evidence_span_ids -- round-trip JSON serialization preserves all fields
+  2. `CohortRecord` can represent unnamed group lifecycles with exact_count, known_member_party_ids, unknown_member_count, and parent lineage -- validated against PetSmart-style nesting patterns
+  3. All 6 observation subtypes (Process, Agreement, Solicitation, Proposal, Status, Outcome) deserialize correctly via Pydantic discriminated union on `obs_type`, including observation-to-observation references (revises, supersedes, requested_by, related)
+  4. `DerivationBasis` and all derived record types (ProcessPhaseRecord, LifecycleTransitionRecord, CashRegimeRecord, JudgmentRecord, AnalystRowRecord) are defined with provenance fields
+  5. `SkillPathSet` exposes `extract_v2/` and `export_v2/` directory paths and v1 paths remain unchanged
+**Plans**: TBD
 
-### Phase 8: Extraction Guidance + Enrichment Extensions
-**Goal**: Extraction skill docs cover round milestones, verbal indications, and NDA exclusions; enrichment adds deterministic DropTarget classification and contextual all_cash inference
-**Depends on**: Phase 7 (skill docs must reference corrected bid_type behavior; enrichment extensions build on corrected rule infrastructure)
-**Requirements**: EXTRACT-01, EXTRACT-02, EXTRACT-03, ENRICH-02, ENRICH-03
+### Phase 12: Artifact Loading + Canonicalization
+**Goal**: v2 extract artifacts can be loaded, mode-detected (v1 vs v2), and canonicalized with span resolution using the existing span infrastructure
+**Depends on**: Phase 11 (v2 models must exist for loading and canonicalization)
+**Requirements**: INFRA-01, INFRA-02
 **Success Criteria** (what must be TRUE):
-  1. Extraction skill docs contain explicit guidance and filing-grounded examples for round milestone events (Final Round Inf Ann, Final Round Inf, deadlines) such that a new extraction run can produce them
-  2. Extraction skill docs contain explicit guidance and examples for verbal/oral price indications drawn from mac-gray and penford filing patterns
-  3. Extraction skill docs contain explicit NDA exclusion guidance that distinguishes rollover-side and non-target confidentiality agreements from sale-process NDAs
-  4. Running `skill-pipeline enrich-core` on a deal with committee-driven field narrowing produces deterministic DropTarget dropout classifications from round invitation context while preserving bidder-withdrawal-first directionality
-  5. Running `skill-pipeline enrich-core` on a deal where the executed event has explicit cash consideration propagates all_cash=true to proposals that lack explicit per-proposal mention, while deals with mixed consideration (e.g., cash+CVR) are not falsely tagged
-**Plans:** 3/3 plans executed
-Plans:
-- [x] 08-01-PLAN.md -- Add round milestone, verbal indication, and NDA exclusion guidance to extraction skill docs
-- [x] 08-02-PLAN.md -- Add DropTarget classification and all_cash inference to enrich_core.py
-- [x] 08-03-PLAN.md -- Wire dropout_classifications and all_cash_overrides through DB schema, load, and export
+  1. v2 artifact loading correctly distinguishes v1 and v2 payloads on disk and returns the appropriate typed objects without cross-contamination
+  2. v2 canonicalization resolves observation quotes to spans using the existing `_resolve_quotes_to_spans` machinery and writes a shared `spans.json` sidecar
+  3. A `canonicalize-v2` CLI command exists and completes successfully on synthetic v2 test fixtures
+**Plans**: TBD
 
-### Phase 9: Deal-Specific Fixes + Revalidation
-**Goal**: Known extraction errors in Zep and Medivation are corrected, affected deals are re-extracted with updated skill docs, and cross-deal reconciliation shows measurable improvement
-**Depends on**: Phase 8 (updated skill docs and enrichment extensions required before re-extraction)
-**Requirements**: EXTRACT-04, EXTRACT-05, RERUN-01, RERUN-02
+### Phase 13: Validation Stack
+**Goal**: v2 observations pass through structural, coverage, and semantic validation gates that catch schema errors, coverage gaps, and graph-level inconsistencies before derivation
+**Depends on**: Phase 12 (validated v2 loading required for check/coverage/gates to consume observations)
+**Requirements**: VALID-01, VALID-02, VALID-03
 **Success Criteria** (what must be TRUE):
-  1. Zep events_raw.json no longer lists NMC in the actor_ids for evt_005 and evt_008
-  2. Medivation events_raw.json contains evt_013 and evt_017 with filing-grounded evidence quotes
-  3. All affected deals have been re-extracted and successfully pass the full deterministic pipeline (canonicalize through db-export) without errors
-  4. 9-deal reconciliation re-run shows a higher atomic match rate and fewer filing-contradicted pipeline claims compared to the pre-v1.1 baseline
-**Plans:** 3/3 plans executed
-Plans:
-- [x] 09-01-PLAN.md -- Re-extract Zep and run full deterministic pipeline through db-export
-- [x] 09-02-PLAN.md -- Re-extract Medivation and run full deterministic pipeline through db-export
-- [x] 09-03-PLAN.md -- Run 9-deal reconciliation and measure improvement against baseline
+  1. `check_v2` rejects observations missing evidence spans, unresolved party/cohort references, and proposals without bidder subjects -- verified by failing-input test fixtures
+  2. `coverage_v2` generates structured `CoverageCheckRecord` entries for every expected observation with status and reason codes, replacing free-text coverage notes entirely for v2
+  3. `gates_v2` validates graph-level invariants: revision/supersession chains are acyclic, cohort child counts do not exceed parent, and deadlines occur after their solicitations
+  4. All three validation stages have CLI commands and produce JSON report artifacts under `data/skill/<slug>/`
+**Plans**: TBD
+
+### Phase 14: Derivation Engine
+**Goal**: A deterministic rule engine transforms validated observation graphs into derived analytical records (rounds, exits, cash regimes, agreements, analyst rows, judgments) with explicit provenance on every output
+**Depends on**: Phase 13 (derivation requires validated observation graph; validation gates must pass before derivation runs)
+**Requirements**: DERIVE-01, DERIVE-02, DERIVE-03, DERIVE-04, DERIVE-05, DERIVE-06
+**Success Criteria** (what must be TRUE):
+  1. Round derivation rules (ROUND-01 informal, ROUND-02 formal) produce `ProcessPhaseRecord` from `SolicitationObservation` with correct phase boundaries
+  2. Exit inference rules (EXIT-01 through EXIT-04) produce `LifecycleTransitionRecord` covering literal withdrawal, cannot-improve, not-invited, and lost-to-winner patterns
+  3. Cash regime rules (CASH-01 through CASH-03) produce `CashRegimeRecord` from explicit terms, merger agreements, and phase-level inference without the all-cash short-circuit bug
+  4. `AnalystRowRecord` compilation produces filing-grounded rows with origin classification (literal/derived/synthetic_anonymous) and `DerivationBasis` provenance tracing back to source observations and spans
+  5. `JudgmentRecord` captures genuinely ambiguous cases (initiation, advisory link, ambiguous exit, ambiguous phase) with explicit human-review flags rather than silent defaults
+**Plans**: TBD
+
+### Phase 15: DuckDB Integration + Export
+**Goal**: v2 observations and derived records load into DuckDB via additive schema and export through a triple CSV surface plus a legacy adapter that maps v2 analyst rows back to v1 CSV shape for benchmark regression
+**Depends on**: Phase 14 (derivation engine must produce the records that DB integration loads and exports)
+**Requirements**: EXPORT-01, EXPORT-02, EXPORT-03
+**Success Criteria** (what must be TRUE):
+  1. v2 DuckDB tables (`v2_parties`, `v2_cohorts`, `v2_observations`, `v2_derivations`, `v2_coverage_checks`) are created additively alongside v1 tables without modifying existing schema
+  2. Triple export produces `literal_observations.csv`, `analyst_rows.csv`, and `benchmark_rows_expanded.csv` from DuckDB queries under `data/skill/<slug>/export_v2/`
+  3. Legacy adapter maps v2 analyst rows to the v1 14-column CSV shape, verified by byte-level comparison tests against known v1 export outputs
+  4. `db-load-v2` and `db-export-v2` CLI commands exist and complete successfully on synthetic fixtures
+**Plans**: TBD
+
+### Phase 16: Extraction Contract + Migration
+**Goal**: The LLM extraction contract narrows to filing-literal observations, STEC validates end-to-end through the v2 pipeline, and all 9 deals are migrated with benchmark comparison against v1 baseline
+**Depends on**: Phase 15 (full deterministic v2 pipeline must be operational before extraction skill docs are finalized and deals are migrated)
+**Requirements**: EXTRACT-01, EXTRACT-02, EXTRACT-03, EXTRACT-04, EXTRACT-05
+**Success Criteria** (what must be TRUE):
+  1. v2 prompt composition mode produces extraction packets that instruct the LLM to emit parties, cohorts, and 6 observation types with quote/span support -- not analyst rows
+  2. `/extract-deal-v2` and `/verify-extraction-v2` skill docs exist under `.claude/skills/` with filing-grounded examples for each observation subtype
+  3. STEC is extracted end-to-end through the v2 pipeline (extract -> canonicalize-v2 -> check-v2 -> coverage-v2 -> gates-v2 -> derive -> db-load-v2 -> db-export-v2) and the legacy adapter output is compared against v1 STEC export
+  4. All 9 deals are extracted through v2 with per-deal validation and the legacy adapter benchmark comparison shows the observation graph captures information that the v1 flat event taxonomy structurally could not
+**Plans**: TBD
 
 ## Progress
+
+**Execution Order:**
+Phases execute in numeric order: 10 -> 11 -> 12 -> 13 -> 14 -> 15 -> 16
 
 | Phase | Milestone | Plans | Status | Completed |
 |-------|-----------|-------|--------|-----------|
@@ -82,7 +136,15 @@ Plans:
 | 7. bid_type Rule Priority | v1.1 | 1/1 | Complete | 2026-03-30 |
 | 8. Extraction Guidance + Enrichment Extensions | v1.1 | 3/3 | Complete | 2026-03-30 |
 | 9. Deal-Specific Fixes + Revalidation | v1.1 | 3/3 | Complete | 2026-03-30 |
+| 10. Pre-Migration Fixes | v2.0 | 0/TBD | Not started | - |
+| 11. Foundation Models + Path Contracts | v2.0 | 0/TBD | Not started | - |
+| 12. Artifact Loading + Canonicalization | v2.0 | 0/TBD | Not started | - |
+| 13. Validation Stack | v2.0 | 0/TBD | Not started | - |
+| 14. Derivation Engine | v2.0 | 0/TBD | Not started | - |
+| 15. DuckDB Integration + Export | v2.0 | 0/TBD | Not started | - |
+| 16. Extraction Contract + Migration | v2.0 | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-03-29*
+*v2.0 phases added: 2026-03-30*
 *For full v1.0 phase details, see [v1.0 archive](milestones/v1.0-ROADMAP.md).*
