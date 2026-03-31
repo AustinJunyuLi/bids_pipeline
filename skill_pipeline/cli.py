@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Sequence
 from uuid import uuid4
 
-from skill_pipeline.canonicalize import run_canonicalize
+from skill_pipeline.canonicalize import run_canonicalize, run_canonicalize_v2
 from skill_pipeline.compose_prompts import run_compose_prompts
 from skill_pipeline.check import run_check
 from skill_pipeline.config import PROJECT_ROOT, RAW_DIR, SKILL_PIPELINE_VERSION
@@ -161,6 +161,18 @@ def build_parser() -> argparse.ArgumentParser:
         help=argparse.SUPPRESS,
     )
 
+    canonicalize_v2_parser = subparsers.add_parser(
+        "canonicalize-v2",
+        help="Resolve quote-first v2 observation artifacts to canonical spans.",
+    )
+    canonicalize_v2_parser.add_argument("--deal", required=True)
+    canonicalize_v2_parser.add_argument(
+        "--project-root",
+        type=Path,
+        default=PROJECT_ROOT,
+        help=argparse.SUPPRESS,
+    )
+
     db_load_parser = subparsers.add_parser(
         "db-load",
         help="Load canonical extract and enrichment artifacts into the pipeline DuckDB store.",
@@ -286,6 +298,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         return run_enrich_core(args.deal, project_root=args.project_root)
     if args.command == "canonicalize":
         return run_canonicalize(args.deal, project_root=args.project_root)
+    if args.command == "canonicalize-v2":
+        return run_canonicalize_v2(args.deal, project_root=args.project_root)
     if args.command == "db-load":
         from skill_pipeline.db_load import run_db_load
 

@@ -11,15 +11,20 @@
       "rule_applied": 3.0,
       "basis": "Observable informal signal from formality_signals."
     },
-    "evt_015": {
+    "evt_014": {
       "label": "Informal",
       "rule_applied": 3.0,
       "basis": "Observable informal signal from formality_signals."
     },
-    "evt_019": {
+    "evt_018": {
       "label": "Uncertain",
       "rule_applied": null,
       "basis": "No deterministic rule matched; residual case."
+    },
+    "evt_019": {
+      "label": "Informal",
+      "rule_applied": 3.0,
+      "basis": "Observable informal signal from formality_signals."
     },
     "evt_020": {
       "label": "Informal",
@@ -32,6 +37,11 @@
       "basis": "Observable informal signal from formality_signals."
     },
     "evt_023": {
+      "label": "Uncertain",
+      "rule_applied": null,
+      "basis": "No deterministic rule matched; residual case."
+    },
+    "evt_024": {
       "label": "Informal",
       "rule_applied": 3.0,
       "basis": "Observable informal signal from formality_signals."
@@ -41,7 +51,7 @@
     {
       "cycle_id": "cycle_1",
       "start_event_id": "evt_001",
-      "end_event_id": "evt_025",
+      "end_event_id": "evt_026",
       "boundary_basis": "Single cycle -- no termination events"
     }
   ],
@@ -50,5 +60,15 @@
       "event_id": null,
       "basis": "No formal proposals in this cycle."
     }
+  },
+  "dropout_classifications": {},
+  "all_cash_overrides": {
+    "evt_005": true,
+    "evt_014": true,
+    "evt_018": true,
+    "evt_019": true,
+    "evt_022": true,
+    "evt_023": true,
+    "evt_024": true
   }
 }

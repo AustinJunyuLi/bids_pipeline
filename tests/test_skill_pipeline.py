@@ -582,6 +582,40 @@ def test_run_deal_agent_marks_enrich_fail_when_interpretive_artifact_is_malforme
 # --- Prompt path and compose-prompts tests ---
 
 
+def test_v2_paths_are_additive_to_build_skill_paths(tmp_path: Path) -> None:
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    skill_root = tmp_path / "data" / "skill" / "imprivata"
+
+    assert paths.extract_dir == skill_root / "extract"
+    assert paths.export_dir == skill_root / "export"
+    assert paths.prompt_dir == skill_root / "prompt"
+
+    assert paths.extract_v2_dir == skill_root / "extract_v2"
+    assert paths.observations_raw_path == skill_root / "extract_v2" / "observations_raw.json"
+    assert paths.observations_path == skill_root / "extract_v2" / "observations.json"
+    assert paths.spans_v2_path == skill_root / "extract_v2" / "spans.json"
+    assert paths.check_v2_dir == skill_root / "check_v2"
+    assert paths.check_v2_report_path == skill_root / "check_v2" / "check_report.json"
+    assert paths.coverage_v2_dir == skill_root / "coverage_v2"
+    assert paths.coverage_v2_findings_path == skill_root / "coverage_v2" / "coverage_findings.json"
+    assert paths.coverage_v2_summary_path == skill_root / "coverage_v2" / "coverage_summary.json"
+    assert paths.gates_v2_dir == skill_root / "gates_v2"
+    assert paths.gates_v2_report_path == skill_root / "gates_v2" / "gates_report.json"
+    assert paths.derive_dir == skill_root / "derive"
+    assert paths.derivations_path == skill_root / "derive" / "derivations.json"
+    assert paths.derive_log_path == skill_root / "derive" / "derive_log.json"
+    assert paths.export_v2_dir == skill_root / "export_v2"
+    assert paths.literal_observations_path == skill_root / "export_v2" / "literal_observations.csv"
+    assert paths.analyst_rows_path == skill_root / "export_v2" / "analyst_rows.csv"
+    assert (
+        paths.benchmark_rows_expanded_path
+        == skill_root / "export_v2" / "benchmark_rows_expanded.csv"
+    )
+    assert paths.prompt_v2_dir == skill_root / "prompt_v2"
+    assert paths.prompt_v2_packets_dir == skill_root / "prompt_v2" / "packets"
+    assert paths.prompt_v2_manifest_path == skill_root / "prompt_v2" / "manifest.json"
+
+
 def test_prompt_paths_exposed_by_build_skill_paths(tmp_path: Path) -> None:
     paths = build_skill_paths("imprivata", project_root=tmp_path)
     skill_root = tmp_path / "data" / "skill" / "imprivata"
@@ -595,6 +629,27 @@ def test_ensure_output_directories_creates_prompt_dirs(tmp_path: Path) -> None:
     ensure_output_directories(paths)
     assert paths.prompt_dir.is_dir()
     assert paths.prompt_packets_dir.is_dir()
+
+
+def test_ensure_output_directories_creates_v2_dirs(tmp_path: Path) -> None:
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    ensure_output_directories(paths)
+
+    assert paths.extract_v2_dir.is_dir()
+    assert paths.check_v2_dir.is_dir()
+    assert paths.coverage_v2_dir.is_dir()
+    assert paths.gates_v2_dir.is_dir()
+    assert paths.derive_dir.is_dir()
+    assert paths.export_v2_dir.is_dir()
+    assert paths.prompt_v2_dir.is_dir()
+    assert paths.prompt_v2_packets_dir.is_dir()
+
+
+def test_canonicalize_v2_cli_subcommand_parses() -> None:
+    parser = cli.build_parser()
+    args = parser.parse_args(["canonicalize-v2", "--deal", "stec"])
+    assert args.command == "canonicalize-v2"
+    assert args.deal == "stec"
 
 
 def test_compose_prompts_cli_subcommand_parses() -> None:

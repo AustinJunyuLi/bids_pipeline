@@ -21,8 +21,15 @@ def build_skill_paths(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> S
     gates_dir = skill_root / "gates"
     enrich_dir = skill_root / "enrich"
     export_dir = skill_root / "export"
+    extract_v2_dir = skill_root / "extract_v2"
+    check_v2_dir = skill_root / "check_v2"
+    coverage_v2_dir = skill_root / "coverage_v2"
+    gates_v2_dir = skill_root / "gates_v2"
+    derive_dir = skill_root / "derive"
+    export_v2_dir = skill_root / "export_v2"
     canonicalize_dir = skill_root / "canonicalize"
     prompt_dir = skill_root / "prompt"
+    prompt_v2_dir = skill_root / "prompt_v2"
     return SkillPathSet(
         project_root=project_root,
         data_dir=data_dir,
@@ -43,24 +50,45 @@ def build_skill_paths(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> S
         coverage_dir=coverage_dir,
         enrich_dir=enrich_dir,
         export_dir=export_dir,
+        extract_v2_dir=extract_v2_dir,
+        check_v2_dir=check_v2_dir,
+        coverage_v2_dir=coverage_v2_dir,
+        gates_v2_dir=gates_v2_dir,
+        derive_dir=derive_dir,
+        export_v2_dir=export_v2_dir,
+        prompt_v2_dir=prompt_v2_dir,
         actors_raw_path=extract_dir / "actors_raw.json",
         events_raw_path=extract_dir / "events_raw.json",
         spans_path=extract_dir / "spans.json",
+        observations_raw_path=extract_v2_dir / "observations_raw.json",
+        observations_path=extract_v2_dir / "observations.json",
+        spans_v2_path=extract_v2_dir / "spans.json",
         check_report_path=check_dir / "check_report.json",
+        check_v2_report_path=check_v2_dir / "check_report.json",
         verification_log_path=verify_dir / "verification_log.json",
         verification_findings_path=verify_dir / "verification_findings.json",
         coverage_findings_path=coverage_dir / "coverage_findings.json",
         coverage_summary_path=coverage_dir / "coverage_summary.json",
+        coverage_v2_findings_path=coverage_v2_dir / "coverage_findings.json",
+        coverage_v2_summary_path=coverage_v2_dir / "coverage_summary.json",
         gates_dir=gates_dir,
         gates_report_path=gates_dir / "gates_report.json",
+        gates_v2_report_path=gates_v2_dir / "gates_report.json",
         enrichment_path=enrich_dir / "enrichment.json",
         deterministic_enrichment_path=enrich_dir / "deterministic_enrichment.json",
+        derivations_path=derive_dir / "derivations.json",
+        derive_log_path=derive_dir / "derive_log.json",
         deal_events_path=export_dir / "deal_events.csv",
+        literal_observations_path=export_v2_dir / "literal_observations.csv",
+        analyst_rows_path=export_v2_dir / "analyst_rows.csv",
+        benchmark_rows_expanded_path=export_v2_dir / "benchmark_rows_expanded.csv",
         canonicalize_dir=canonicalize_dir,
         canonicalize_log_path=canonicalize_dir / "canonicalize_log.json",
         prompt_dir=prompt_dir,
         prompt_packets_dir=prompt_dir / "packets",
         prompt_manifest_path=prompt_dir / "manifest.json",
+        prompt_v2_packets_dir=prompt_v2_dir / "packets",
+        prompt_v2_manifest_path=prompt_v2_dir / "manifest.json",
     )
 
 
@@ -72,9 +100,17 @@ def ensure_output_directories(paths: SkillPathSet) -> None:
     paths.gates_dir.mkdir(parents=True, exist_ok=True)
     paths.enrich_dir.mkdir(parents=True, exist_ok=True)
     paths.export_dir.mkdir(parents=True, exist_ok=True)
+    paths.extract_v2_dir.mkdir(parents=True, exist_ok=True)
+    paths.check_v2_dir.mkdir(parents=True, exist_ok=True)
+    paths.coverage_v2_dir.mkdir(parents=True, exist_ok=True)
+    paths.gates_v2_dir.mkdir(parents=True, exist_ok=True)
+    paths.derive_dir.mkdir(parents=True, exist_ok=True)
+    paths.export_v2_dir.mkdir(parents=True, exist_ok=True)
     paths.canonicalize_dir.mkdir(parents=True, exist_ok=True)
     paths.prompt_dir.mkdir(parents=True, exist_ok=True)
     paths.prompt_packets_dir.mkdir(parents=True, exist_ok=True)
+    paths.prompt_v2_dir.mkdir(parents=True, exist_ok=True)
+    paths.prompt_v2_packets_dir.mkdir(parents=True, exist_ok=True)
 
 
 def missing_required_inputs(paths: SkillPathSet) -> list[Path]:

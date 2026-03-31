@@ -97,6 +97,7 @@ gates, enrichment, and DuckDB export with idempotent re-run support.
 - `raw/<slug>/`: frozen filing ingress and manifests
 - `data/deals/<slug>/source/`: shared source artifacts derived from raw filings
 - `data/skill/<slug>/`: extract, QA, enrichment, and export artifacts
+- `data/skill/<slug>/{extract_v2,check_v2,coverage_v2,gates_v2,derive,export_v2,prompt_v2}/`: additive v2 artifact locations reserved in `SkillPathSet`; they do not replace the live v1 surfaces
 - `tests/`: regression tests for runtime stages
 - `.claude/skills/`: canonical local-agent workflow instructions
 - `docs/`: design notes and specs; useful, but not automatically authoritative
@@ -175,6 +176,37 @@ Do not document the canonical extract contract as `actors.json` or
 `events.json`. The live filenames are still `actors_raw.json` and
 `events_raw.json`.
 
+### Additive v2 Path Surface
+
+Phase 11 registers additive v2 artifact paths in `SkillPathSet` and
+`ensure_output_directories()`. These locations are reserved beside the live v1
+surfaces; Phase 11 does not imply that all corresponding runtime writers exist
+yet.
+
+- `data/skill/<slug>/extract_v2/observations_raw.json`
+- `data/skill/<slug>/extract_v2/observations.json`
+- `data/skill/<slug>/extract_v2/spans.json`
+- `data/skill/<slug>/check_v2/check_report.json`
+- `data/skill/<slug>/coverage_v2/coverage_findings.json`
+- `data/skill/<slug>/coverage_v2/coverage_summary.json`
+- `data/skill/<slug>/gates_v2/gates_report.json`
+- `data/skill/<slug>/derive/derivations.json`
+- `data/skill/<slug>/derive/derive_log.json`
+- `data/skill/<slug>/export_v2/literal_observations.csv`
+- `data/skill/<slug>/export_v2/analyst_rows.csv`
+- `data/skill/<slug>/export_v2/benchmark_rows_expanded.csv`
+- `data/skill/<slug>/prompt_v2/manifest.json`
+- `data/skill/<slug>/prompt_v2/packets/*`
+
+The existing `extract/`, `check/`, `coverage/`, `gates/`, `enrich/`, `export/`,
+and `prompt/` contracts remain unchanged.
+
+`skill-pipeline canonicalize-v2 --deal <slug>` is now the live writer for the
+canonical v2 observation surface. It reads `extract_v2/observations_raw.json`
+when present, writes `extract_v2/observations.json`, and writes
+`extract_v2/spans.json`. The v1 `canonicalize` command and `extract/` contract
+remain unchanged.
+
 ### Deterministic QA And Enrichment Outputs
 
 - `data/skill/<slug>/check/check_report.json`
@@ -183,6 +215,11 @@ Do not document the canonical extract contract as `actors.json` or
 - `data/skill/<slug>/coverage/coverage_findings.json`
 - `data/skill/<slug>/coverage/coverage_summary.json`
 - `data/skill/<slug>/enrich/deterministic_enrichment.json`
+
+`coverage_findings.json` is a structured detail artifact. Its emitted findings
+use `CoverageCheckRecord` entries with `status`, `reason_code`, and supporting
+IDs; free-text `coverage_notes` is not the live coverage-output contract for
+that artifact.
 
 ### Semantic Gate Outputs
 

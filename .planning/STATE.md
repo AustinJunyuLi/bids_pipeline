@@ -1,16 +1,15 @@
 ---
 gsd_state_version: 1.0
 milestone: v2.0
-milestone_name: observation graph architecture
-status: active
-stopped_at: ""
-last_updated: "2026-03-30T23:00:00Z"
+milestone_name: Observation Graph Architecture
+status: Planning Phase 13
+stopped_at: Phase 12 complete; Phase 13 context and planning not started yet
+last_updated: "2026-03-31T09:14:38Z"
 progress:
   total_phases: 7
-  completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
-  percent: 0
+  completed_phases: 3
+  total_plans: 7
+  completed_plans: 7
 ---
 
 # Project State
@@ -20,29 +19,28 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-30)
 
 **Core value:** Produce the most correct filing-grounded structured deal record possible from raw text, by separating filing-literal observations from analyst-derived rows.
-**Current focus:** Phase 10 -- Pre-Migration Fixes
+**Current focus:** Phase 13 — Validation Stack
 
 ## Current Position
 
-Phase: 10 of 16 (Pre-Migration Fixes)
-Plan: --
-Status: Ready to plan
-Last activity: 2026-03-30 -- v2.0 roadmap created (7 phases, 28 requirements)
-
-Progress: [░░░░░░░░░░] 0%
+Phase: 13 (Validation Stack) — READY FOR CONTEXT/PLANNING
+Plan: 0 of TBD
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 0 (v2.0)
-- Average duration: --
-- Total execution time: 0 hours
+
+- Total plans completed: 7 (v2.0)
+- Average duration: 8.7 minutes
+- Total execution time: 61 minutes
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| - | - | - | - |
+| 10 | 3 | 26m | 8.7m |
+| 11 | 2 | 17m | 8.5m |
+| 12 | 2 | 18m | 9.0m |
 
 *Updated after each plan completion*
 
@@ -58,6 +56,9 @@ Recent decisions affecting current work:
 - STEC is the reference deal for v2 validation before 9-deal migration
 - Derivation rules have an explicit dependency DAG with topological execution order
 - Legacy adapter must produce byte-identical v1 CSV shape for benchmark regression
+- Phase 11 registers reserved v2 artifact paths in `SkillPathSet`; these are additive scaffolding beside v1, not proof that all v2 runtime writers already exist
+- Phase 12 keeps v1 and v2 artifact loaders separate and requires explicit version selection when both surfaces exist
+- `canonicalize-v2` is now the live writer for canonical v2 observation artifacts under `extract_v2/`
 
 ### Pending Todos
 
@@ -65,13 +66,15 @@ None yet.
 
 ### Blockers/Concerns
 
-- CohortRecord schema for approximate counts needs validation against real deal data during Phase 11
+- CohortRecord approximate-count limitations still need real-deal validation before migration closes, especially on PetSmart-style cohorts
+- v2 validation stages must now enforce graph/reference integrity on the canonical observation surface created in Phase 12
 - Derivation rule interaction testing requires formal dependency DAG (Phase 14)
 - v2 extraction prompt effectiveness is highest-uncertainty deliverable (Phase 16)
+- Reserved v2 paths now exist ahead of runtime implementations, so later phases must not confuse path registration with stage completion
 
 ## Session Continuity
 
 Last session: 2026-03-30
 Stopped at: v2.0 roadmap created with 7 phases (10-16), 28 requirements mapped
 Resume file: None
-Next action: `/gsd:plan-phase 10`
+Next action: `/gsd:plan-phase 13`

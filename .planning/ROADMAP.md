@@ -33,9 +33,9 @@ See [v1.0 archive](milestones/v1.0-ROADMAP.md) for full phase details.
 
 ### v2.0 Observation Graph Architecture
 
-- [ ] **Phase 10: Pre-Migration Fixes** - Isolate all-cash bug fix and structured coverage records before any v2 work
-- [ ] **Phase 11: Foundation Models + Path Contracts** - v2 Pydantic models and artifact directory structure
-- [ ] **Phase 12: Artifact Loading + Canonicalization** - v2 extract loading, mode detection, and span resolution
+- [x] **Phase 10: Pre-Migration Fixes** - Isolate all-cash bug fix and structured coverage records before any v2 work (completed 2026-03-31)
+- [x] **Phase 11: Foundation Models + Path Contracts** - v2 Pydantic models and artifact directory structure (completed 2026-03-31)
+- [x] **Phase 12: Artifact Loading + Canonicalization** - v2 extract loading, mode detection, and span resolution (completed 2026-03-31)
 - [ ] **Phase 13: Validation Stack** - Structural checks, structured coverage, and graph semantic gates for v2 observations
 - [ ] **Phase 14: Derivation Engine** - Rule-based derivation of analyst rows from observation graph
 - [ ] **Phase 15: DuckDB Integration + Export** - v2 tables, triple export surface, and legacy adapter
@@ -51,7 +51,10 @@ See [v1.0 archive](milestones/v1.0-ROADMAP.md) for full phase details.
   1. Running `skill-pipeline enrich-core` on deals with all-cash consideration no longer short-circuits incorrectly -- the `_infer_all_cash_overrides()` fix is verified by regression tests and affected deals are re-baselined through db-export
   2. `CoverageCheckRecord` exists as a structured Pydantic model with status (observed/derived/not_found/ambiguous), reason codes, and observation references -- free-text `coverage_notes` is no longer the coverage output contract
   3. The 9-deal benchmark match rate is re-measured after the bug fix so v2 comparisons start from a corrected baseline
-**Plans**: TBD
+**Plans**:
+  - `10-01` All-cash fallback control-flow fix plus regression coverage
+  - `10-02` Structured `CoverageCheckRecord` contract for coverage detail artifacts
+  - `10-03` Affected-deal reruns and corrected v1 baseline documentation
 
 ### Phase 11: Foundation Models + Path Contracts
 **Goal**: All v2 Pydantic models exist as importable, tested schema definitions and v2 artifact paths are registered in `SkillPathSet`
@@ -63,7 +66,9 @@ See [v1.0 archive](milestones/v1.0-ROADMAP.md) for full phase details.
   3. All 6 observation subtypes (Process, Agreement, Solicitation, Proposal, Status, Outcome) deserialize correctly via Pydantic discriminated union on `obs_type`, including observation-to-observation references (revises, supersedes, requested_by, related)
   4. `DerivationBasis` and all derived record types (ProcessPhaseRecord, LifecycleTransitionRecord, CashRegimeRecord, JudgmentRecord, AnalystRowRecord) are defined with provenance fields
   5. `SkillPathSet` exposes `extract_v2/` and `export_v2/` directory paths and v1 paths remain unchanged
-**Plans**: TBD
+**Plans**:
+  - `11-01` Additive `models_v2.py` schema module plus focused validation tests
+  - `11-02` Additive v2 `SkillPathSet` path contract, regression coverage, and `CLAUDE.md` memory update
 
 ### Phase 12: Artifact Loading + Canonicalization
 **Goal**: v2 extract artifacts can be loaded, mode-detected (v1 vs v2), and canonicalized with span resolution using the existing span infrastructure
@@ -73,7 +78,9 @@ See [v1.0 archive](milestones/v1.0-ROADMAP.md) for full phase details.
   1. v2 artifact loading correctly distinguishes v1 and v2 payloads on disk and returns the appropriate typed objects without cross-contamination
   2. v2 canonicalization resolves observation quotes to spans using the existing `_resolve_quotes_to_spans` machinery and writes a shared `spans.json` sidecar
   3. A `canonicalize-v2` CLI command exists and completes successfully on synthetic v2 test fixtures
-**Plans**: TBD
+**Plans**:
+  - `12-01` Separate v2 loader module plus explicit v1/v2 version routing
+  - `12-02` `canonicalize-v2` runtime path, CLI wiring, fixture tests, and memory update
 
 ### Phase 13: Validation Stack
 **Goal**: v2 observations pass through structural, coverage, and semantic validation gates that catch schema errors, coverage gaps, and graph-level inconsistencies before derivation
@@ -136,9 +143,9 @@ Phases execute in numeric order: 10 -> 11 -> 12 -> 13 -> 14 -> 15 -> 16
 | 7. bid_type Rule Priority | v1.1 | 1/1 | Complete | 2026-03-30 |
 | 8. Extraction Guidance + Enrichment Extensions | v1.1 | 3/3 | Complete | 2026-03-30 |
 | 9. Deal-Specific Fixes + Revalidation | v1.1 | 3/3 | Complete | 2026-03-30 |
-| 10. Pre-Migration Fixes | v2.0 | 0/TBD | Not started | - |
-| 11. Foundation Models + Path Contracts | v2.0 | 0/TBD | Not started | - |
-| 12. Artifact Loading + Canonicalization | v2.0 | 0/TBD | Not started | - |
+| 10. Pre-Migration Fixes | v2.0 | 3/3 | Complete   | 2026-03-31 |
+| 11. Foundation Models + Path Contracts | v2.0 | 2/2 | Complete   | 2026-03-31 |
+| 12. Artifact Loading + Canonicalization | v2.0 | 2/2 | Complete | 2026-03-31 |
 | 13. Validation Stack | v2.0 | 0/TBD | Not started | - |
 | 14. Derivation Engine | v2.0 | 0/TBD | Not started | - |
 | 15. DuckDB Integration + Export | v2.0 | 0/TBD | Not started | - |

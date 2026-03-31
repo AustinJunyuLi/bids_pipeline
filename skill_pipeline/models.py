@@ -41,24 +41,45 @@ class SkillPathSet(SkillModel):
     coverage_dir: Path
     enrich_dir: Path
     export_dir: Path
+    extract_v2_dir: Path
+    check_v2_dir: Path
+    coverage_v2_dir: Path
+    gates_v2_dir: Path
+    derive_dir: Path
+    export_v2_dir: Path
+    prompt_v2_dir: Path
     actors_raw_path: Path
     events_raw_path: Path
     spans_path: Path
+    observations_raw_path: Path
+    observations_path: Path
+    spans_v2_path: Path
     check_report_path: Path
+    check_v2_report_path: Path
     verification_log_path: Path
     verification_findings_path: Path
     coverage_findings_path: Path
     coverage_summary_path: Path
+    coverage_v2_findings_path: Path
+    coverage_v2_summary_path: Path
     gates_dir: Path
     gates_report_path: Path
+    gates_v2_report_path: Path
     enrichment_path: Path
     deterministic_enrichment_path: Path
+    derivations_path: Path
+    derive_log_path: Path
     deal_events_path: Path
+    literal_observations_path: Path
+    analyst_rows_path: Path
+    benchmark_rows_expanded_path: Path
     canonicalize_dir: Path
     canonicalize_log_path: Path
     prompt_dir: Path
     prompt_packets_dir: Path
     prompt_manifest_path: Path
+    prompt_v2_packets_dir: Path
+    prompt_v2_manifest_path: Path
 
 
 class SeedEntry(SkillModel):
@@ -461,20 +482,30 @@ class SkillCheckReport(SkillModel):
     summary: CheckReportSummary
 
 
-class CoverageFinding(SkillModel):
+class CoverageCheckRecord(SkillModel):
     cue_family: str
+    status: Literal["observed", "derived", "not_found", "ambiguous"]
     severity: Literal["error", "warning"]
     repairability: Literal["repairable", "non_repairable"] | None = None
     description: str
+    reason_code: str | None = None
+    supporting_event_ids: list[str] = Field(default_factory=list)
+    supporting_actor_ids: list[str] = Field(default_factory=list)
+    supporting_span_ids: list[str] = Field(default_factory=list)
     block_ids: list[str] = Field(default_factory=list)
     evidence_ids: list[str] = Field(default_factory=list)
     matched_terms: list[str] = Field(default_factory=list)
     confidence: Literal["high", "medium", "low"]
     suggested_event_types: list[str] = Field(default_factory=list)
+    note: str | None = None
+
+
+class CoverageFinding(CoverageCheckRecord):
+    """Backward-compatible alias for legacy coverage detail imports."""
 
 
 class CoverageFindingsArtifact(SkillModel):
-    findings: list[CoverageFinding] = Field(default_factory=list)
+    findings: list[CoverageCheckRecord] = Field(default_factory=list)
 
 
 class CoverageSummary(SkillModel):

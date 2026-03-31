@@ -118,7 +118,9 @@ def test_coverage_reports_uncovered_high_confidence_proposal_cue(tmp_path: Path)
     assert summary["status"] == "fail"
     assert summary["error_count"] == 1
     assert findings["findings"][0]["cue_family"] == "proposal"
+    assert findings["findings"][0]["status"] == "not_found"
     assert findings["findings"][0]["severity"] == "error"
+    assert findings["findings"][0]["reason_code"] == "uncovered_proposal_cue"
     assert findings["findings"][0]["block_ids"] == ["B001"]
     assert findings["findings"][0]["suggested_event_types"] == ["proposal"]
 
@@ -270,7 +272,9 @@ def test_coverage_warns_on_uncovered_medium_confidence_advisor_cue(tmp_path: Pat
     assert summary["status"] == "pass"
     assert summary["warning_count"] == 1
     assert findings["findings"][0]["cue_family"] == "advisor"
+    assert findings["findings"][0]["status"] == "not_found"
     assert findings["findings"][0]["severity"] == "warning"
+    assert findings["findings"][0]["reason_code"] == "uncovered_advisor_cue"
 
 
 def test_coverage_does_not_treat_continued_negotiations_as_drop(tmp_path: Path) -> None:
@@ -797,6 +801,8 @@ def test_coverage_reports_uncovered_second_proposal_cue_in_same_block(
     assert summary["status"] == "fail"
     assert summary["error_count"] == 1
     assert findings["findings"][0]["evidence_ids"] == ["DOC001:E0002"]
+    assert findings["findings"][0]["status"] == "not_found"
+    assert findings["findings"][0]["reason_code"] == "uncovered_proposal_cue"
 
 
 def test_skill_cli_supports_coverage_subcommand() -> None:

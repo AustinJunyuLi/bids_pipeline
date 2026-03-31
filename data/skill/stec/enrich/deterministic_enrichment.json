@@ -1,25 +1,25 @@
 {
   "rounds": [
     {
-      "announcement_event_id": "evt_017",
-      "deadline_event_id": "evt_018",
+      "announcement_event_id": "evt_022",
+      "deadline_event_id": "evt_023",
       "round_scope": "formal",
       "invited_actor_ids": [
         "bidder_wdc",
         "bidder_company_d"
       ],
-      "active_bidders_at_time": 5,
+      "active_bidders_at_time": 3,
       "is_selective": true
     },
     {
-      "announcement_event_id": "evt_021",
-      "deadline_event_id": "evt_022",
+      "announcement_event_id": "evt_025",
+      "deadline_event_id": "evt_026",
       "round_scope": "extension",
       "invited_actor_ids": [
         "bidder_wdc",
         "bidder_company_d"
       ],
-      "active_bidders_at_time": 4,
+      "active_bidders_at_time": 3,
       "is_selective": true
     }
   ],
@@ -29,27 +29,37 @@
       "rule_applied": 3.0,
       "basis": "Observable informal signal from formality_signals."
     },
-    "evt_015": {
-      "label": "Informal",
-      "rule_applied": 3.0,
-      "basis": "Observable informal signal from formality_signals."
-    },
-    "evt_016": {
+    "evt_017": {
       "label": "Informal",
       "rule_applied": 3.0,
       "basis": "Observable informal signal from formality_signals."
     },
     "evt_020": {
-      "label": "Formal",
-      "rule_applied": 1.0,
-      "basis": "Observable formal signal from formality_signals."
-    },
-    "evt_025": {
       "label": "Informal",
       "rule_applied": 3.0,
       "basis": "Observable informal signal from formality_signals."
     },
-    "evt_026": {
+    "evt_021": {
+      "label": "Informal",
+      "rule_applied": 3.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_024": {
+      "label": "Formal",
+      "rule_applied": 1.0,
+      "basis": "Observable formal signal from formality_signals."
+    },
+    "evt_027": {
+      "label": "Formal",
+      "rule_applied": 2.0,
+      "basis": "Proposal after final round announcement/deadline; process position overrides informal language."
+    },
+    "evt_030": {
+      "label": "Informal",
+      "rule_applied": 3.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_031": {
       "label": "Formal",
       "rule_applied": 2.0,
       "basis": "Proposal after final round announcement/deadline; process position overrides informal language."
@@ -58,15 +68,20 @@
   "cycles": [
     {
       "cycle_id": "cycle_1",
-      "start_event_id": "evt_003",
-      "end_event_id": "evt_028",
+      "start_event_id": "evt_001",
+      "end_event_id": "evt_033",
       "boundary_basis": "Single cycle -- no termination events"
     }
   ],
   "formal_boundary": {
     "cycle_1": {
-      "event_id": "evt_020",
-      "basis": "First formal proposal in cycle: evt_020."
+      "event_id": "evt_024",
+      "basis": "First formal proposal in cycle: evt_024."
     }
+  },
+  "dropout_classifications": {},
+  "all_cash_overrides": {
+    "evt_013": true,
+    "evt_027": true
   }
 }

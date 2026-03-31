@@ -9,7 +9,11 @@ from pathlib import Path
 
 from skill_pipeline.config import PROJECT_ROOT
 from skill_pipeline.extract_artifacts import LoadedExtractArtifacts, load_extract_artifacts
-from skill_pipeline.models import CoverageFinding, CoverageFindingsArtifact, CoverageSummary
+from skill_pipeline.models import (
+    CoverageCheckRecord,
+    CoverageFindingsArtifact,
+    CoverageSummary,
+)
 from skill_pipeline.paths import build_skill_paths, ensure_output_directories
 from skill_pipeline.pipeline_models.source import ChronologyBlock, EvidenceItem
 
@@ -353,8 +357,11 @@ def _severity_for_cue(cue: CoverageCue) -> str | None:
     return None
 
 
-def _build_findings(cues: list[CoverageCue], artifacts: LoadedExtractArtifacts) -> list[CoverageFinding]:
-    findings: list[CoverageFinding] = []
+def _build_findings(
+    cues: list[CoverageCue],
+    artifacts: LoadedExtractArtifacts,
+) -> list[CoverageCheckRecord]:
+    findings: list[CoverageCheckRecord] = []
     for cue in cues:
         if _cue_is_covered(cue, artifacts):
             continue
@@ -362,11 +369,13 @@ def _build_findings(cues: list[CoverageCue], artifacts: LoadedExtractArtifacts) 
         if severity is None:
             continue
         findings.append(
-            CoverageFinding(
+            CoverageCheckRecord(
                 cue_family=cue.cue_family,
+                status="not_found",
                 severity=severity,
                 repairability="repairable",
                 description=f"{cue.confidence.capitalize()}-confidence {cue.cue_family} cue was not covered by extracted artifacts.",
+                reason_code=f"uncovered_{cue.cue_family}_cue",
                 block_ids=cue.block_ids,
                 evidence_ids=cue.evidence_ids,
                 matched_terms=cue.matched_terms,
@@ -377,7 +386,7 @@ def _build_findings(cues: list[CoverageCue], artifacts: LoadedExtractArtifacts) 
     return findings
 
 
-def _build_summary(findings: list[CoverageFinding]) -> CoverageSummary:
+def _build_summary(findings: list[CoverageCheckRecord]) -> CoverageSummary:
     counter = Counter(finding.cue_family for finding in findings)
     error_count = sum(1 for finding in findings if finding.severity == "error")
     warning_count = sum(1 for finding in findings if finding.severity == "warning")

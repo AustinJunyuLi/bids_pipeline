@@ -1,8 +1,8 @@
 {
   "rounds": [
     {
-      "announcement_event_id": "evt_010",
-      "deadline_event_id": null,
+      "announcement_event_id": "evt_012",
+      "deadline_event_id": "evt_014",
       "round_scope": "formal",
       "invited_actor_ids": [
         "bidder_hudsons_bay",
@@ -14,49 +14,67 @@
     }
   ],
   "bid_classifications": {
-    "evt_006": {
+    "evt_003": {
+      "label": "Uncertain",
+      "rule_applied": null,
+      "basis": "No deterministic rule matched; residual case."
+    },
+    "evt_004": {
+      "label": "Uncertain",
+      "rule_applied": null,
+      "basis": "No deterministic rule matched; residual case."
+    },
+    "evt_008": {
       "label": "Informal",
       "rule_applied": 3.0,
       "basis": "Observable informal signal from formality_signals."
     },
-    "evt_007": {
-      "label": "Informal",
-      "rule_applied": 3.0,
-      "basis": "Observable informal signal from formality_signals."
-    },
-    "evt_012": {
-      "label": "Formal",
-      "rule_applied": 1.0,
-      "basis": "Observable formal signal from formality_signals."
-    },
-    "evt_013": {
+    "evt_009": {
       "label": "Informal",
       "rule_applied": 3.0,
       "basis": "Observable informal signal from formality_signals."
     },
     "evt_015": {
       "label": "Formal",
+      "rule_applied": 1.0,
+      "basis": "Observable formal signal from formality_signals."
+    },
+    "evt_016": {
+      "label": "Informal",
+      "rule_applied": 3.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_018": {
+      "label": "Formal",
       "rule_applied": 2.0,
       "basis": "Proposal after final round announcement/deadline; process position overrides informal language."
     },
-    "evt_016": {
+    "evt_019": {
       "label": "Formal",
-      "rule_applied": 1.0,
-      "basis": "Observable formal signal from formality_signals."
+      "rule_applied": 2.0,
+      "basis": "Proposal after final round announcement/deadline; process position overrides informal language."
     }
   },
   "cycles": [
     {
       "cycle_id": "cycle_1",
       "start_event_id": "evt_001",
-      "end_event_id": "evt_019",
+      "end_event_id": "evt_022",
       "boundary_basis": "Single cycle -- no termination events"
     }
   ],
   "formal_boundary": {
     "cycle_1": {
-      "event_id": "evt_012",
-      "basis": "First formal proposal in cycle: evt_012."
+      "event_id": "evt_015",
+      "basis": "First formal proposal in cycle: evt_015."
     }
+  },
+  "dropout_classifications": {},
+  "all_cash_overrides": {
+    "evt_008": true,
+    "evt_009": true,
+    "evt_015": true,
+    "evt_016": true,
+    "evt_019": true
   }
 }

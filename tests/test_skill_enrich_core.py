@@ -1553,6 +1553,58 @@ def test_all_cash_cycle_local_not_crossing_restart(tmp_path: Path) -> None:
     assert artifact["all_cash_overrides"] == {"evt_003": True}
 
 
+def test_all_cash_falls_back_when_executed_event_lacks_type(tmp_path: Path) -> None:
+    events = [
+        _base_event("evt_001", "target_sale"),
+        _base_event("evt_002", "nda", actor_ids=["party_a"]),
+        _base_event(
+            "evt_003",
+            "proposal",
+            actor_ids=["party_a"],
+            terms={
+                "per_share": 25.0,
+                "range_low": None,
+                "range_high": None,
+                "enterprise_value": None,
+                "consideration_type": "cash",
+            },
+        ),
+        _base_event(
+            "evt_004",
+            "proposal",
+            actor_ids=["party_b"],
+            terms={
+                "per_share": 26.0,
+                "range_low": None,
+                "range_high": None,
+                "enterprise_value": None,
+                "consideration_type": "cash",
+            },
+        ),
+        _base_event("evt_005", "proposal", actor_ids=["party_a"], terms=None),
+        _base_event(
+            "evt_006",
+            "executed",
+            actor_ids=["party_a"],
+            executed_with_actor_id="party_a",
+            terms={
+                "per_share": 27.0,
+                "range_low": None,
+                "range_high": None,
+                "enterprise_value": None,
+                "consideration_type": None,
+            },
+        ),
+    ]
+    _write_enrich_core_fixture(tmp_path, events_override=events)
+    _write_gate_artifacts(tmp_path)
+
+    run_enrich_core("imprivata", project_root=tmp_path)
+    artifact = _read_deterministic_enrichment(tmp_path)
+
+    assert artifact["all_cash_overrides"] == {"evt_005": True}
+
+
 def test_all_cash_not_inferred_providence_worcester_guardrail(tmp_path: Path) -> None:
     events = [_base_event("evt_001", "target_sale"), _base_event("evt_002", "nda", actor_ids=["party_a"])]
     for idx in range(3, 13):

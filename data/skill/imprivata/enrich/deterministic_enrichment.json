@@ -1,15 +1,15 @@
 {
   "rounds": [
     {
-      "announcement_event_id": "evt_021",
-      "deadline_event_id": "evt_022",
+      "announcement_event_id": "evt_025",
+      "deadline_event_id": "evt_027",
       "round_scope": "formal",
       "invited_actor_ids": [
         "bidder_sponsor_b",
         "bidder_thoma_bravo"
       ],
-      "active_bidders_at_time": 3,
-      "is_selective": true
+      "active_bidders_at_time": 2,
+      "is_selective": false
     }
   ],
   "bid_classifications": {
@@ -18,27 +18,27 @@
       "rule_applied": 3.0,
       "basis": "Observable informal signal from formality_signals."
     },
-    "evt_015": {
-      "label": "Informal",
-      "rule_applied": 3.0,
-      "basis": "Observable informal signal from formality_signals."
-    },
-    "evt_016": {
-      "label": "Informal",
-      "rule_applied": 3.0,
-      "basis": "Observable informal signal from formality_signals."
-    },
     "evt_017": {
+      "label": "Informal",
+      "rule_applied": 3.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_018": {
+      "label": "Informal",
+      "rule_applied": 3.0,
+      "basis": "Observable informal signal from formality_signals."
+    },
+    "evt_019": {
       "label": "Formal",
       "rule_applied": 1.0,
       "basis": "Observable formal signal from formality_signals."
     },
-    "evt_025": {
+    "evt_028": {
       "label": "Formal",
       "rule_applied": 1.0,
       "basis": "Observable formal signal from formality_signals."
     },
-    "evt_026": {
+    "evt_029": {
       "label": "Formal",
       "rule_applied": 2.0,
       "basis": "Proposal after final round announcement/deadline; process position overrides informal language."
@@ -48,14 +48,21 @@
     {
       "cycle_id": "cycle_1",
       "start_event_id": "evt_001",
-      "end_event_id": "evt_028",
+      "end_event_id": "evt_031",
       "boundary_basis": "Single cycle -- no termination events"
     }
   ],
   "formal_boundary": {
     "cycle_1": {
-      "event_id": "evt_017",
-      "basis": "First formal proposal in cycle: evt_017."
+      "event_id": "evt_019",
+      "basis": "First formal proposal in cycle: evt_019."
     }
+  },
+  "dropout_classifications": {},
+  "all_cash_overrides": {
+    "evt_017": true,
+    "evt_018": true,
+    "evt_019": true,
+    "evt_029": true
   }
 }

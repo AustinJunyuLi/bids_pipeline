@@ -668,10 +668,15 @@ def _infer_all_cash_overrides(
 
         if executed_events:
             executed = executed_events[-1]
-            if executed.terms and executed.terms.consideration_type == "cash":
+            executed_consideration_type = (
+                executed.terms.consideration_type if executed.terms else None
+            )
+            if executed_consideration_type == "cash":
                 for evt in untyped_proposals:
                     result[evt.event_id] = True
-            continue
+                continue
+            if executed_consideration_type is not None:
+                continue
 
         typed_proposals = [
             evt
@@ -680,6 +685,8 @@ def _infer_all_cash_overrides(
             and evt.terms is not None
             and evt.terms.consideration_type is not None
         ]
+        if executed_events and len(typed_proposals) < 2:
+            continue
         if typed_proposals and all(
             evt.terms.consideration_type == "cash" for evt in typed_proposals
         ):

@@ -8,6 +8,10 @@ from pathlib import Path
 
 from skill_pipeline.config import PROJECT_ROOT
 from skill_pipeline.extract_artifacts import load_extract_artifacts
+from skill_pipeline.extract_artifacts_v2 import (
+    RawObservationArtifactV2,
+    load_observation_artifacts,
+)
 from skill_pipeline.models import (
     QuoteEntry,
     RawSkillActorsArtifact,
@@ -17,6 +21,7 @@ from skill_pipeline.models import (
     SkillEventsArtifact,
     SpanRegistryArtifact,
 )
+from skill_pipeline.models_v2 import ObservationArtifactV2
 from skill_pipeline.normalize.dates import parse_resolved_date
 from skill_pipeline.paths import build_skill_paths, ensure_output_directories
 from skill_pipeline.pipeline_models.source import ChronologyBlock
@@ -459,6 +464,38 @@ def _recover_unnamed_parties(
     return actors_dict, [], recovery_log
 
 
+def _upgrade_raw_observation_artifact_v2(
+    raw_artifact: RawObservationArtifactV2,
+    *,
+    quote_to_span: dict[str, str],
+) -> dict:
+    payload = raw_artifact.model_dump(mode="json")
+    payload.pop("quotes", None)
+
+    for party in payload["parties"]:
+        party["evidence_span_ids"] = [
+            quote_to_span[qid]
+            for qid in party.pop("quote_ids", [])
+            if qid in quote_to_span
+        ]
+
+    for cohort in payload["cohorts"]:
+        cohort["evidence_span_ids"] = [
+            quote_to_span[qid]
+            for qid in cohort.pop("quote_ids", [])
+            if qid in quote_to_span
+        ]
+
+    for observation in payload["observations"]:
+        observation["evidence_span_ids"] = [
+            quote_to_span[qid]
+            for qid in observation.pop("quote_ids", [])
+            if qid in quote_to_span
+        ]
+
+    return payload
+
+
 def run_canonicalize(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> int:
     """Upgrade quote-first extract artifacts to canonical provenance, then normalize events."""
     paths = build_skill_paths(deal_slug, project_root=project_root)
@@ -561,6 +598,55 @@ def run_canonicalize(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> in
     )
     paths.canonicalize_log_path.write_text(
         json.dumps(log, indent=2),
+        encoding="utf-8",
+    )
+    return 0
+
+
+def run_canonicalize_v2(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> int:
+    """Upgrade quote-first v2 observation artifacts to canonical span-backed form."""
+    paths = build_skill_paths(deal_slug, project_root=project_root)
+
+    prefer_raw = paths.observations_raw_path.exists()
+    loaded = load_observation_artifacts(
+        paths,
+        mode="quote_first" if prefer_raw else "canonical",
+    )
+
+    if loaded.mode == "quote_first":
+        if not paths.chronology_blocks_path.exists():
+            raise FileNotFoundError(f"Missing required input: {paths.chronology_blocks_path}")
+        if not paths.document_registry_path.exists():
+            raise FileNotFoundError(f"Missing required input: {paths.document_registry_path}")
+
+        blocks = _load_chronology_blocks(paths.chronology_blocks_path)
+        document_lines = _load_document_lines(paths.raw_root / deal_slug / "filings")
+        document_meta = _load_document_registry(paths.document_registry_path)
+        blocks_by_id = {block.block_id: block for block in blocks}
+        spans, quote_to_span = _resolve_quotes_to_spans(
+            list(loaded.raw_artifact.quotes),
+            blocks_by_id=blocks_by_id,
+            document_lines=document_lines,
+            document_meta=document_meta,
+        )
+        observations_dict = _upgrade_raw_observation_artifact_v2(
+            loaded.raw_artifact,
+            quote_to_span=quote_to_span,
+        )
+    else:
+        observations_dict = loaded.observations.model_dump(mode="json")
+        spans = loaded.spans.model_dump(mode="json")["spans"]
+
+    canonical_observations = ObservationArtifactV2.model_validate(observations_dict)
+    span_registry = SpanRegistryArtifact.model_validate({"spans": spans})
+
+    ensure_output_directories(paths)
+    paths.observations_path.write_text(
+        canonical_observations.model_dump_json(indent=2),
+        encoding="utf-8",
+    )
+    paths.spans_v2_path.write_text(
+        span_registry.model_dump_json(indent=2),
         encoding="utf-8",
     )
     return 0
