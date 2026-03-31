@@ -1,0 +1,966 @@
+{
+  "parties": [
+    {
+      "party_id": "target_board_saks",
+      "display_name": "Saks Inc.",
+      "canonical_name": "SAKS INC.",
+      "aliases": [
+        "the board",
+        "Finance committee of the board",
+        "Executive committee of the board",
+        "Saks management"
+      ],
+      "role": "target_board",
+      "bidder_kind": null,
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": [
+        "span_0020",
+        "span_0021"
+      ]
+    },
+    {
+      "party_id": "advisor_goldman_sachs",
+      "display_name": "Goldman Sachs",
+      "canonical_name": "GOLDMAN SACHS",
+      "aliases": [],
+      "role": "advisor",
+      "bidder_kind": null,
+      "advisor_kind": "financial",
+      "advised_party_id": "target_board_saks",
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": [
+        "span_0022"
+      ]
+    },
+    {
+      "party_id": "advisor_wachtell_lipton",
+      "display_name": "Wachtell, Lipton, Rosen & Katz",
+      "canonical_name": "WACHTELL, LIPTON, ROSEN & KATZ",
+      "aliases": [
+        "Wachtell Lipton"
+      ],
+      "role": "advisor",
+      "bidder_kind": null,
+      "advisor_kind": "legal",
+      "advised_party_id": "target_board_saks",
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": [
+        "span_0023"
+      ]
+    },
+    {
+      "party_id": "advisor_morgan_stanley",
+      "display_name": "Morgan Stanley & Co. LLC",
+      "canonical_name": "MORGAN STANLEY & CO. LLC",
+      "aliases": [
+        "Morgan Stanley"
+      ],
+      "role": "advisor",
+      "bidder_kind": null,
+      "advisor_kind": "financial",
+      "advised_party_id": "target_board_saks",
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": [
+        "span_0024"
+      ]
+    },
+    {
+      "party_id": "bidder_sponsor_a",
+      "display_name": "Sponsor A",
+      "canonical_name": "SPONSOR A",
+      "aliases": [],
+      "role": "bidder",
+      "bidder_kind": "financial",
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": [
+        "span_0025"
+      ]
+    },
+    {
+      "party_id": "bidder_hudsons_bay",
+      "display_name": "Hudson's Bay",
+      "canonical_name": "HUDSON'S BAY",
+      "aliases": [],
+      "role": "bidder",
+      "bidder_kind": "unknown",
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": [
+        "span_0003"
+      ]
+    },
+    {
+      "party_id": "bidder_sponsor_e",
+      "display_name": "Sponsor E",
+      "canonical_name": "SPONSOR E",
+      "aliases": [],
+      "role": "bidder",
+      "bidder_kind": "financial",
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": [
+        "span_0026"
+      ]
+    },
+    {
+      "party_id": "bidder_sponsor_g",
+      "display_name": "Sponsor G",
+      "canonical_name": "SPONSOR G",
+      "aliases": [],
+      "role": "bidder",
+      "bidder_kind": "financial",
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": [
+        "span_0010"
+      ]
+    },
+    {
+      "party_id": "bidder_company_f",
+      "display_name": "Company F",
+      "canonical_name": "COMPANY F",
+      "aliases": [],
+      "role": "bidder",
+      "bidder_kind": "strategic",
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": "private",
+      "geography": null,
+      "evidence_span_ids": [
+        "span_0009"
+      ]
+    },
+    {
+      "party_id": "bidder_company_h",
+      "display_name": "Company H",
+      "canonical_name": "COMPANY H",
+      "aliases": [],
+      "role": "bidder",
+      "bidder_kind": "unknown",
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": "private",
+      "geography": "domestic",
+      "evidence_span_ids": [
+        "span_0027"
+      ]
+    },
+    {
+      "party_id": "bidder_company_i",
+      "display_name": "Company I",
+      "canonical_name": "COMPANY I",
+      "aliases": [],
+      "role": "bidder",
+      "bidder_kind": "unknown",
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": [
+        "span_0018"
+      ]
+    }
+  ],
+  "cohorts": [
+    {
+      "cohort_id": "bidder_go_shop_contacted_group",
+      "label": "potentially interested third parties contacted during the go shop process",
+      "parent_cohort_id": null,
+      "exact_count": 58,
+      "known_member_party_ids": [],
+      "unknown_member_count": 58,
+      "membership_basis": "potentially interested third parties contacted during the go shop process",
+      "created_by_observation_id": "obs_evt_012",
+      "evidence_span_ids": [
+        "span_0028"
+      ]
+    },
+    {
+      "cohort_id": "bidder_go_shop_interested_group",
+      "label": "parties that expressed interest during the go shop process",
+      "parent_cohort_id": null,
+      "exact_count": 6,
+      "known_member_party_ids": [],
+      "unknown_member_count": 6,
+      "membership_basis": "parties that expressed interest during the go shop process",
+      "created_by_observation_id": "obs_evt_012",
+      "evidence_span_ids": [
+        "span_0018"
+      ]
+    }
+  ],
+  "observations": [
+    {
+      "observation_id": "obs_evt_012",
+      "obs_type": "solicitation",
+      "date": {
+        "raw_text": "July 2, 2013",
+        "normalized_start": "2013-07-02",
+        "normalized_end": "2013-07-02",
+        "sort_date": "2013-07-02",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [],
+      "counterparty_refs": [],
+      "summary": "Goldman Sachs sent process details and a draft merger agreement to Hudson's Bay, Sponsor A, and Sponsor E, requesting offers by July 11, 2013.",
+      "evidence_span_ids": [
+        "span_0001"
+      ],
+      "requested_submission": "best_and_final",
+      "binding_level": "binding",
+      "due_date": {
+        "raw_text": "July 11, 2013",
+        "normalized_start": "2013-07-11",
+        "normalized_end": "2013-07-11",
+        "sort_date": "2013-07-11",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "recipient_refs": [],
+      "attachments": [],
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_012_selected",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "July 2, 2013",
+        "normalized_start": "2013-07-02",
+        "normalized_end": "2013-07-02",
+        "sort_date": "2013-07-02",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_hudsons_bay",
+        "bidder_sponsor_a",
+        "bidder_sponsor_e"
+      ],
+      "counterparty_refs": [],
+      "summary": "Goldman Sachs sent process details and a draft merger agreement to Hudson's Bay, Sponsor A, and Sponsor E, requesting offers by July 11, 2013.",
+      "evidence_span_ids": [
+        "span_0001"
+      ],
+      "status_kind": "selected_to_advance",
+      "related_observation_id": "obs_evt_012",
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_001",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "February 2013",
+        "normalized_start": "2013-02-01",
+        "normalized_end": "2013-02-28",
+        "sort_date": "2013-02-01",
+        "precision": "month",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_sponsor_a"
+      ],
+      "counterparty_refs": [],
+      "summary": "Sponsor A made an unsolicited approach expressing interest in a potential acquisition of Saks.",
+      "evidence_span_ids": [
+        "span_0002"
+      ],
+      "status_kind": "expressed_interest",
+      "related_observation_id": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_002",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "April 1, 2013",
+        "normalized_start": "2013-04-01",
+        "normalized_end": "2013-04-01",
+        "sort_date": "2013-04-01",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_hudsons_bay"
+      ],
+      "counterparty_refs": [],
+      "summary": "Hudson's Bay discussed a potential acquisition of Saks without making a specific proposal.",
+      "evidence_span_ids": [
+        "span_0003"
+      ],
+      "status_kind": "expressed_interest",
+      "related_observation_id": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_003",
+      "obs_type": "proposal",
+      "date": {
+        "raw_text": "April 15, 2013",
+        "normalized_start": "2013-04-15",
+        "normalized_end": "2013-04-15",
+        "sort_date": "2013-04-15",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_hudsons_bay"
+      ],
+      "counterparty_refs": [],
+      "summary": "Hudson's Bay indicated it was considering an all-cash acquisition of Saks for at least $15 per share.",
+      "evidence_span_ids": [
+        "span_0004"
+      ],
+      "requested_by_observation_id": "obs_evt_012",
+      "revises_observation_id": null,
+      "delivery_mode": null,
+      "terms": {
+        "per_share": "15.00",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "mentions_non_binding": false,
+      "includes_draft_merger_agreement": false,
+      "includes_markup": false,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_004",
+      "obs_type": "proposal",
+      "date": {
+        "raw_text": "April 15, 2013",
+        "normalized_start": "2013-04-15",
+        "normalized_end": "2013-04-15",
+        "sort_date": "2013-04-15",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_sponsor_a"
+      ],
+      "counterparty_refs": [],
+      "summary": "Sponsor A indicated it was considering an all-cash acquisition of Saks for at least $15 per share.",
+      "evidence_span_ids": [
+        "span_0004"
+      ],
+      "requested_by_observation_id": "obs_evt_012",
+      "revises_observation_id": null,
+      "delivery_mode": null,
+      "terms": {
+        "per_share": "15.00",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "mentions_non_binding": false,
+      "includes_draft_merger_agreement": false,
+      "includes_markup": false,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_005",
+      "obs_type": "agreement",
+      "date": {
+        "raw_text": "April 26, 2013",
+        "normalized_start": "2013-04-26",
+        "normalized_end": "2013-04-26",
+        "sort_date": "2013-04-26",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_sponsor_a"
+      ],
+      "counterparty_refs": [],
+      "summary": "Sponsor A executed a confidentiality agreement with Saks.",
+      "evidence_span_ids": [
+        "span_0005"
+      ],
+      "agreement_kind": "nda",
+      "signed": true,
+      "grants_diligence_access": true,
+      "includes_standstill": null,
+      "consideration_type": null,
+      "supersedes_observation_id": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_006",
+      "obs_type": "agreement",
+      "date": {
+        "raw_text": "April 26, 2013",
+        "normalized_start": "2013-04-26",
+        "normalized_end": "2013-04-26",
+        "sort_date": "2013-04-26",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_sponsor_e"
+      ],
+      "counterparty_refs": [],
+      "summary": "Sponsor E executed a confidentiality agreement with Saks.",
+      "evidence_span_ids": [
+        "span_0005"
+      ],
+      "agreement_kind": "nda",
+      "signed": true,
+      "grants_diligence_access": true,
+      "includes_standstill": null,
+      "consideration_type": null,
+      "supersedes_observation_id": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_007",
+      "obs_type": "agreement",
+      "date": {
+        "raw_text": "April 30, 2013",
+        "normalized_start": "2013-04-30",
+        "normalized_end": "2013-04-30",
+        "sort_date": "2013-04-30",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_hudsons_bay"
+      ],
+      "counterparty_refs": [],
+      "summary": "Hudson's Bay executed a confidentiality agreement with Saks.",
+      "evidence_span_ids": [
+        "span_0006"
+      ],
+      "agreement_kind": "nda",
+      "signed": true,
+      "grants_diligence_access": true,
+      "includes_standstill": null,
+      "consideration_type": null,
+      "supersedes_observation_id": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_008",
+      "obs_type": "proposal",
+      "date": {
+        "raw_text": "During the week of June 3, 2013",
+        "normalized_start": "2013-06-03",
+        "normalized_end": "2013-06-03",
+        "sort_date": "2013-06-03",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_hudsons_bay"
+      ],
+      "counterparty_refs": [],
+      "summary": "Hudson's Bay indicated it was preliminarily prepared to submit a proposal at $15.00 to $15.25 per share.",
+      "evidence_span_ids": [
+        "span_0007"
+      ],
+      "requested_by_observation_id": "obs_evt_012",
+      "revises_observation_id": "obs_evt_003",
+      "delivery_mode": null,
+      "terms": {
+        "per_share": null,
+        "range_low": "15.00",
+        "range_high": "15.25",
+        "enterprise_value": null,
+        "consideration_type": null
+      },
+      "mentions_non_binding": false,
+      "includes_draft_merger_agreement": false,
+      "includes_markup": false,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_009",
+      "obs_type": "proposal",
+      "date": {
+        "raw_text": "During the week of June 3, 2013",
+        "normalized_start": "2013-06-03",
+        "normalized_end": "2013-06-03",
+        "sort_date": "2013-06-03",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_sponsor_a",
+        "bidder_sponsor_e"
+      ],
+      "counterparty_refs": [],
+      "summary": "Sponsor A and Sponsor E indicated they were preliminarily prepared to submit a joint proposal at $15.00 to $16.00 per share.",
+      "evidence_span_ids": [
+        "span_0007"
+      ],
+      "requested_by_observation_id": "obs_evt_012",
+      "revises_observation_id": null,
+      "delivery_mode": null,
+      "terms": {
+        "per_share": null,
+        "range_low": "15.00",
+        "range_high": "16.00",
+        "enterprise_value": null,
+        "consideration_type": null
+      },
+      "mentions_non_binding": false,
+      "includes_draft_merger_agreement": false,
+      "includes_markup": false,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_010",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "June 5, 2013",
+        "normalized_start": "2013-06-05",
+        "normalized_end": "2013-06-05",
+        "sort_date": "2013-06-05",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [],
+      "counterparty_refs": [],
+      "summary": "The board authorized a sale process to determine whether a transaction with a signed confidentiality-party bidder could be reached on attractive terms.",
+      "evidence_span_ids": [
+        "span_0008"
+      ],
+      "process_kind": "sale_launch",
+      "process_scope": "target",
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_011",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "During the week of June 10, 2013",
+        "normalized_start": "2013-06-10",
+        "normalized_end": "2013-06-10",
+        "sort_date": "2013-06-10",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_company_f",
+        "bidder_sponsor_a",
+        "bidder_sponsor_e"
+      ],
+      "counterparty_refs": [],
+      "summary": "Company F indicated interest in joining Sponsor A and Sponsor E in a potential acquisition of Saks.",
+      "evidence_span_ids": [
+        "span_0009"
+      ],
+      "status_kind": "expressed_interest",
+      "related_observation_id": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_013",
+      "obs_type": "agreement",
+      "date": {
+        "raw_text": "July 8, 2013",
+        "normalized_start": "2013-07-08",
+        "normalized_end": "2013-07-08",
+        "sort_date": "2013-07-08",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_sponsor_g"
+      ],
+      "counterparty_refs": [],
+      "summary": "Sponsor G executed a confidentiality agreement with Saks.",
+      "evidence_span_ids": [
+        "span_0010"
+      ],
+      "agreement_kind": "nda",
+      "signed": true,
+      "grants_diligence_access": true,
+      "includes_standstill": null,
+      "consideration_type": null,
+      "supersedes_observation_id": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_015",
+      "obs_type": "proposal",
+      "date": {
+        "raw_text": "July 11, 2013",
+        "normalized_start": "2013-07-11",
+        "normalized_end": "2013-07-11",
+        "sort_date": "2013-07-11",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_hudsons_bay"
+      ],
+      "counterparty_refs": [],
+      "summary": "Hudson's Bay submitted a $15.25 per share proposal with a revised draft merger agreement and financing documentation.",
+      "evidence_span_ids": [
+        "span_0011"
+      ],
+      "requested_by_observation_id": "obs_evt_012",
+      "revises_observation_id": "obs_evt_008",
+      "delivery_mode": null,
+      "terms": {
+        "per_share": "15.25",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": null
+      },
+      "mentions_non_binding": false,
+      "includes_draft_merger_agreement": true,
+      "includes_markup": true,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_016",
+      "obs_type": "proposal",
+      "date": {
+        "raw_text": "July 11, 2013",
+        "normalized_start": "2013-07-11",
+        "normalized_end": "2013-07-11",
+        "sort_date": "2013-07-11",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_sponsor_e",
+        "bidder_sponsor_g"
+      ],
+      "counterparty_refs": [],
+      "summary": "Sponsor E and Sponsor G submitted a joint proposal at $14.50 to $15.50 per share while requesting additional diligence time.",
+      "evidence_span_ids": [
+        "span_0012"
+      ],
+      "requested_by_observation_id": "obs_evt_012",
+      "revises_observation_id": null,
+      "delivery_mode": null,
+      "terms": {
+        "per_share": null,
+        "range_low": "14.50",
+        "range_high": "15.50",
+        "enterprise_value": null,
+        "consideration_type": null
+      },
+      "mentions_non_binding": false,
+      "includes_draft_merger_agreement": false,
+      "includes_markup": false,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_017",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "subsequently",
+        "normalized_start": null,
+        "normalized_end": null,
+        "sort_date": null,
+        "precision": "unknown",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": "Unable to parse date deterministically.",
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_sponsor_g"
+      ],
+      "counterparty_refs": [],
+      "summary": "Sponsor G dropped out of the process after the July 11 proposal stage.",
+      "evidence_span_ids": [
+        "span_0013"
+      ],
+      "status_kind": "withdrew",
+      "related_observation_id": null,
+      "other_detail": "Sponsor G was no longer participating in the process"
+    },
+    {
+      "observation_id": "obs_evt_018",
+      "obs_type": "proposal",
+      "date": {
+        "raw_text": "July 21, 2013",
+        "normalized_start": "2013-07-21",
+        "normalized_end": "2013-07-21",
+        "sort_date": "2013-07-21",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_company_h"
+      ],
+      "counterparty_refs": [],
+      "summary": "Company H sent a purported cash proposal to acquire Saks for $2.6 billion.",
+      "evidence_span_ids": [
+        "span_0014"
+      ],
+      "requested_by_observation_id": "obs_evt_012",
+      "revises_observation_id": null,
+      "delivery_mode": null,
+      "terms": {
+        "per_share": null,
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": "2600000000",
+        "consideration_type": "cash"
+      },
+      "mentions_non_binding": false,
+      "includes_draft_merger_agreement": false,
+      "includes_markup": false,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_019",
+      "obs_type": "proposal",
+      "date": {
+        "raw_text": "July 24, 2013",
+        "normalized_start": "2013-07-24",
+        "normalized_end": "2013-07-24",
+        "sort_date": "2013-07-24",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_hudsons_bay"
+      ],
+      "counterparty_refs": [],
+      "summary": "Hudson's Bay revised its proposal to $16 per share while agreeing to Saks' position on the principal draft-agreement issues.",
+      "evidence_span_ids": [
+        "span_0015"
+      ],
+      "requested_by_observation_id": "obs_evt_012",
+      "revises_observation_id": "obs_evt_015",
+      "delivery_mode": null,
+      "terms": {
+        "per_share": "16.00",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": null
+      },
+      "mentions_non_binding": false,
+      "includes_draft_merger_agreement": false,
+      "includes_markup": false,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_020",
+      "obs_type": "outcome",
+      "date": {
+        "raw_text": "July 28, 2013",
+        "normalized_start": "2013-07-28",
+        "normalized_end": "2013-07-28",
+        "sort_date": "2013-07-28",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [],
+      "counterparty_refs": [
+        "bidder_hudsons_bay"
+      ],
+      "summary": "Saks and Hudson's Bay executed the merger agreement and related transaction documents.",
+      "evidence_span_ids": [
+        "span_0016"
+      ],
+      "outcome_kind": "executed",
+      "related_observation_id": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_020_agreement",
+      "obs_type": "agreement",
+      "date": {
+        "raw_text": "July 28, 2013",
+        "normalized_start": "2013-07-28",
+        "normalized_end": "2013-07-28",
+        "sort_date": "2013-07-28",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_hudsons_bay"
+      ],
+      "counterparty_refs": [],
+      "summary": "Saks and Hudson's Bay executed the merger agreement and related transaction documents.",
+      "evidence_span_ids": [
+        "span_0016"
+      ],
+      "agreement_kind": "merger_agreement",
+      "signed": true,
+      "grants_diligence_access": null,
+      "includes_standstill": null,
+      "consideration_type": null,
+      "supersedes_observation_id": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_021",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "July 29, 2013",
+        "normalized_start": "2013-07-29",
+        "normalized_end": "2013-07-29",
+        "sort_date": "2013-07-29",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_hudsons_bay"
+      ],
+      "counterparty_refs": [],
+      "summary": "Saks and Hudson's Bay issued a joint press release announcing the transaction.",
+      "evidence_span_ids": [
+        "span_0017"
+      ],
+      "process_kind": "press_release",
+      "process_scope": "bidder",
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_022",
+      "obs_type": "agreement",
+      "date": {
+        "raw_text": "approximately two weeks after the merger agreement was executed",
+        "normalized_start": null,
+        "normalized_end": null,
+        "sort_date": null,
+        "precision": "unknown",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": "Unable to parse date deterministically.",
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_company_i"
+      ],
+      "counterparty_refs": [],
+      "summary": "Company I executed a confidentiality agreement and conducted due diligence during the go-shop process.",
+      "evidence_span_ids": [
+        "span_0018",
+        "span_0019"
+      ],
+      "agreement_kind": "nda",
+      "signed": true,
+      "grants_diligence_access": true,
+      "includes_standstill": null,
+      "consideration_type": null,
+      "supersedes_observation_id": null,
+      "other_detail": null
+    }
+  ],
+  "exclusions": [
+    {
+      "category": "non_event_context",
+      "block_ids": [
+        "B012"
+      ],
+      "explanation": "The April 17 and April 19 confidentiality agreements with Sponsor C and Sponsor D supported Saks' potential acquisition of Company B, not diligence on Saks as the target."
+    },
+    {
+      "category": "non_event_context",
+      "block_ids": [
+        "B021"
+      ],
+      "explanation": "The May 17 oral proposal concerns Saks bidding for Company B, not an acquisition of Saks."
+    },
+    {
+      "category": "non_event_context",
+      "block_ids": [
+        "B026"
+      ],
+      "explanation": "The June 6 revised proposal concerns Saks bidding for Company B, not an acquisition of Saks."
+    },
+    {
+      "category": "non_event_context",
+      "block_ids": [
+        "B042"
+      ],
+      "explanation": "The July 18 confidentiality agreement with Company B relates to Saks' diligence on Company B, not a confidentiality agreement for a bidder evaluating Saks."
+    }
+  ],
+  "coverage": []
+}

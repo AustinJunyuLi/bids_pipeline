@@ -151,6 +151,14 @@ def _build_record(
             reason_code = "matched_party"
         else:
             reason_code = "matched_cohort"
+    elif cue.cue_family == "nda" and observation_ids and not party_ids and not cohort_ids:
+        status = "observed"
+        repairability = None
+        description = (
+            f"{cue.confidence.capitalize()}-confidence {cue.cue_family} cue is covered by "
+            "multiple canonical v2 observations."
+        )
+        reason_code = "matched_multiple_observations"
     else:
         status = "ambiguous"
         repairability = "repairable"
@@ -200,7 +208,11 @@ def run_coverage_v2(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> int
     blocks = _load_chronology_blocks(paths.chronology_blocks_path)
     evidence_items = _load_evidence_items(paths.evidence_items_path)
     cues = _build_coverage_cues(evidence_items, blocks)
-    records = [_build_record(cue, artifacts) for cue in cues]
+    records = [
+        _build_record(cue, artifacts)
+        for cue in cues
+        if _severity_for_cue(cue) is not None
+    ]
     summary = _build_summary(records)
 
     ensure_output_directories(paths)

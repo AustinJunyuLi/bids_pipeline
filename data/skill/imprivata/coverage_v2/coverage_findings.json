@@ -1,0 +1,492 @@
+{
+  "findings": [
+    {
+      "cue_family": "advisor",
+      "status": "ambiguous",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "High-confidence advisor cue matched multiple canonical v2 candidates.",
+      "reason_code": "multiple_matching_candidates",
+      "supporting_event_ids": [],
+      "supporting_actor_ids": [],
+      "supporting_span_ids": [
+        "span_0046",
+        "span_0047"
+      ],
+      "block_ids": [
+        "B016"
+      ],
+      "evidence_ids": [
+        "0001193125-16-677939:E0351"
+      ],
+      "matched_terms": [
+        "authorized",
+        "discussed",
+        "engaged",
+        "meeting",
+        "requested",
+        "sent"
+      ],
+      "confidence": "high",
+      "suggested_event_types": [
+        "ib_retention"
+      ],
+      "note": null,
+      "supporting_observation_ids": [],
+      "supporting_party_ids": [
+        "advisor_chip_linnemann",
+        "advisor_goodwin"
+      ],
+      "supporting_cohort_ids": []
+    },
+    {
+      "cue_family": "advisor",
+      "status": "ambiguous",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "Medium-confidence advisor cue matched multiple canonical v2 candidates.",
+      "reason_code": "multiple_matching_candidates",
+      "supporting_event_ids": [],
+      "supporting_actor_ids": [],
+      "supporting_span_ids": [
+        "span_0046",
+        "span_0047"
+      ],
+      "block_ids": [
+        "B016"
+      ],
+      "evidence_ids": [
+        "0001193125-16-677939:E0352"
+      ],
+      "matched_terms": [
+        "advisor",
+        "counsel",
+        "financial advisor"
+      ],
+      "confidence": "medium",
+      "suggested_event_types": [
+        "ib_retention"
+      ],
+      "note": null,
+      "supporting_observation_ids": [],
+      "supporting_party_ids": [
+        "advisor_chip_linnemann",
+        "advisor_goodwin"
+      ],
+      "supporting_cohort_ids": []
+    },
+    {
+      "cue_family": "advisor",
+      "status": "observed",
+      "severity": "warning",
+      "repairability": null,
+      "description": "High-confidence advisor cue is covered by canonical v2 artifacts.",
+      "reason_code": "matched_party",
+      "supporting_event_ids": [],
+      "supporting_actor_ids": [],
+      "supporting_span_ids": [
+        "span_0013",
+        "span_0045"
+      ],
+      "block_ids": [
+        "B018"
+      ],
+      "evidence_ids": [
+        "0001193125-16-677939:E0355"
+      ],
+      "matched_terms": [
+        "authorized",
+        "meeting",
+        "met",
+        "offer"
+      ],
+      "confidence": "high",
+      "suggested_event_types": [
+        "ib_retention"
+      ],
+      "note": null,
+      "supporting_observation_ids": [],
+      "supporting_party_ids": [
+        "advisor_barclays"
+      ],
+      "supporting_cohort_ids": []
+    },
+    {
+      "cue_family": "advisor",
+      "status": "observed",
+      "severity": "warning",
+      "repairability": null,
+      "description": "Medium-confidence advisor cue is covered by canonical v2 artifacts.",
+      "reason_code": "matched_party",
+      "supporting_event_ids": [],
+      "supporting_actor_ids": [],
+      "supporting_span_ids": [
+        "span_0013",
+        "span_0045"
+      ],
+      "block_ids": [
+        "B018"
+      ],
+      "evidence_ids": [
+        "0001193125-16-677939:E0356"
+      ],
+      "matched_terms": [
+        "advisor",
+        "financial advisor",
+        "investment bank"
+      ],
+      "confidence": "medium",
+      "suggested_event_types": [
+        "ib_retention"
+      ],
+      "note": null,
+      "supporting_observation_ids": [],
+      "supporting_party_ids": [
+        "advisor_barclays"
+      ],
+      "supporting_cohort_ids": []
+    },
+    {
+      "cue_family": "advisor",
+      "status": "ambiguous",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "High-confidence advisor cue matched multiple canonical v2 candidates.",
+      "reason_code": "multiple_matching_candidates",
+      "supporting_event_ids": [],
+      "supporting_actor_ids": [],
+      "supporting_span_ids": [
+        "span_0013",
+        "span_0045"
+      ],
+      "block_ids": [
+        "B022"
+      ],
+      "evidence_ids": [
+        "0001193125-16-677939:E0361"
+      ],
+      "matched_terms": [
+        "discussed",
+        "engaged",
+        "meeting",
+        "proposed",
+        "received",
+        "sent",
+        "signed"
+      ],
+      "confidence": "high",
+      "suggested_event_types": [
+        "ib_retention"
+      ],
+      "note": null,
+      "supporting_observation_ids": [
+        "obs_evt_005"
+      ],
+      "supporting_party_ids": [
+        "advisor_barclays"
+      ],
+      "supporting_cohort_ids": []
+    },
+    {
+      "cue_family": "advisor",
+      "status": "ambiguous",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "High-confidence advisor cue matched multiple canonical v2 candidates.",
+      "reason_code": "multiple_matching_candidates",
+      "supporting_event_ids": [],
+      "supporting_actor_ids": [],
+      "supporting_span_ids": [
+        "span_0013",
+        "span_0045"
+      ],
+      "block_ids": [
+        "B022"
+      ],
+      "evidence_ids": [
+        "0001193125-16-677939:E0363"
+      ],
+      "matched_terms": [
+        "advisor",
+        "advisors",
+        "financial advisor",
+        "investment bank"
+      ],
+      "confidence": "high",
+      "suggested_event_types": [
+        "ib_retention"
+      ],
+      "note": null,
+      "supporting_observation_ids": [
+        "obs_evt_005"
+      ],
+      "supporting_party_ids": [
+        "advisor_barclays"
+      ],
+      "supporting_cohort_ids": []
+    },
+    {
+      "cue_family": "advisor",
+      "status": "not_found",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "High-confidence advisor cue was not covered by canonical v2 artifacts.",
+      "reason_code": "uncovered_advisor_cue",
+      "supporting_event_ids": [],
+      "supporting_actor_ids": [],
+      "supporting_span_ids": [],
+      "block_ids": [
+        "B025",
+        "B026"
+      ],
+      "evidence_ids": [
+        "0001193125-16-677939:E0369"
+      ],
+      "matched_terms": [
+        "authorized",
+        "meeting",
+        "signed"
+      ],
+      "confidence": "high",
+      "suggested_event_types": [
+        "ib_retention"
+      ],
+      "note": null,
+      "supporting_observation_ids": [],
+      "supporting_party_ids": [],
+      "supporting_cohort_ids": []
+    },
+    {
+      "cue_family": "nda",
+      "status": "observed",
+      "severity": "error",
+      "repairability": null,
+      "description": "High-confidence nda cue is covered by multiple canonical v2 observations.",
+      "reason_code": "matched_multiple_observations",
+      "supporting_event_ids": [],
+      "supporting_actor_ids": [],
+      "supporting_span_ids": [
+        "span_0016",
+        "span_0017",
+        "span_0018",
+        "span_0019",
+        "span_0020",
+        "span_0021"
+      ],
+      "block_ids": [
+        "B030"
+      ],
+      "evidence_ids": [
+        "0001193125-16-677939:E0376"
+      ],
+      "matched_terms": [
+        "contacted",
+        "declined",
+        "discussed",
+        "entered into",
+        "executed",
+        "meeting",
+        "sent"
+      ],
+      "confidence": "high",
+      "suggested_event_types": [
+        "nda"
+      ],
+      "note": null,
+      "supporting_observation_ids": [
+        "obs_evt_007",
+        "obs_evt_008",
+        "obs_evt_009",
+        "obs_evt_010",
+        "obs_evt_011",
+        "obs_evt_012",
+        "obs_evt_013"
+      ],
+      "supporting_party_ids": [],
+      "supporting_cohort_ids": []
+    },
+    {
+      "cue_family": "nda",
+      "status": "observed",
+      "severity": "error",
+      "repairability": null,
+      "description": "High-confidence nda cue is covered by multiple canonical v2 observations.",
+      "reason_code": "matched_multiple_observations",
+      "supporting_event_ids": [],
+      "supporting_actor_ids": [],
+      "supporting_span_ids": [
+        "span_0016",
+        "span_0017",
+        "span_0018",
+        "span_0019",
+        "span_0020",
+        "span_0021"
+      ],
+      "block_ids": [
+        "B030"
+      ],
+      "evidence_ids": [
+        "0001193125-16-677939:E0378"
+      ],
+      "matched_terms": [
+        "confidentiality agreement",
+        "management presentation",
+        "standstill"
+      ],
+      "confidence": "high",
+      "suggested_event_types": [
+        "nda"
+      ],
+      "note": null,
+      "supporting_observation_ids": [
+        "obs_evt_007",
+        "obs_evt_008",
+        "obs_evt_009",
+        "obs_evt_010",
+        "obs_evt_011",
+        "obs_evt_012",
+        "obs_evt_013"
+      ],
+      "supporting_party_ids": [],
+      "supporting_cohort_ids": []
+    },
+    {
+      "cue_family": "withdrawal_or_drop",
+      "status": "observed",
+      "severity": "warning",
+      "repairability": null,
+      "description": "Medium-confidence withdrawal_or_drop cue is covered by canonical v2 artifacts.",
+      "reason_code": "matched_observation",
+      "supporting_event_ids": [],
+      "supporting_actor_ids": [],
+      "supporting_span_ids": [
+        "span_0027"
+      ],
+      "block_ids": [
+        "B042"
+      ],
+      "evidence_ids": [
+        "0001193125-16-677939:E0400"
+      ],
+      "matched_terms": [
+        "sent"
+      ],
+      "confidence": "medium",
+      "suggested_event_types": [
+        "drop"
+      ],
+      "note": null,
+      "supporting_observation_ids": [
+        "obs_evt_021"
+      ],
+      "supporting_party_ids": [],
+      "supporting_cohort_ids": []
+    },
+    {
+      "cue_family": "nda",
+      "status": "observed",
+      "severity": "error",
+      "repairability": null,
+      "description": "High-confidence nda cue is covered by canonical v2 artifacts.",
+      "reason_code": "matched_observation",
+      "supporting_event_ids": [],
+      "supporting_actor_ids": [],
+      "supporting_span_ids": [
+        "span_0016",
+        "span_0018",
+        "span_0019"
+      ],
+      "block_ids": [
+        "B045"
+      ],
+      "evidence_ids": [
+        "0001193125-16-677939:E0403"
+      ],
+      "matched_terms": [
+        "contacted",
+        "declined",
+        "discussed",
+        "executed",
+        "met",
+        "sent"
+      ],
+      "confidence": "high",
+      "suggested_event_types": [
+        "nda"
+      ],
+      "note": null,
+      "supporting_observation_ids": [
+        "obs_evt_010"
+      ],
+      "supporting_party_ids": [],
+      "supporting_cohort_ids": []
+    },
+    {
+      "cue_family": "nda",
+      "status": "observed",
+      "severity": "warning",
+      "repairability": null,
+      "description": "Medium-confidence nda cue is covered by canonical v2 artifacts.",
+      "reason_code": "matched_observation",
+      "supporting_event_ids": [],
+      "supporting_actor_ids": [],
+      "supporting_span_ids": [
+        "span_0016",
+        "span_0018",
+        "span_0019"
+      ],
+      "block_ids": [
+        "B045"
+      ],
+      "evidence_ids": [
+        "0001193125-16-677939:E0405"
+      ],
+      "matched_terms": [
+        "confidentiality agreement"
+      ],
+      "confidence": "medium",
+      "suggested_event_types": [
+        "nda"
+      ],
+      "note": null,
+      "supporting_observation_ids": [
+        "obs_evt_010"
+      ],
+      "supporting_party_ids": [],
+      "supporting_cohort_ids": []
+    },
+    {
+      "cue_family": "withdrawal_or_drop",
+      "status": "observed",
+      "severity": "warning",
+      "repairability": null,
+      "description": "Medium-confidence withdrawal_or_drop cue is covered by canonical v2 artifacts.",
+      "reason_code": "matched_observation",
+      "supporting_event_ids": [],
+      "supporting_actor_ids": [],
+      "supporting_span_ids": [
+        "span_0028",
+        "span_0029"
+      ],
+      "block_ids": [
+        "B048"
+      ],
+      "evidence_ids": [
+        "0001193125-16-677939:E0411"
+      ],
+      "matched_terms": [
+        "sent"
+      ],
+      "confidence": "medium",
+      "suggested_event_types": [
+        "drop"
+      ],
+      "note": null,
+      "supporting_observation_ids": [
+        "obs_evt_022"
+      ],
+      "supporting_party_ids": [],
+      "supporting_cohort_ids": []
+    }
+  ]
+}

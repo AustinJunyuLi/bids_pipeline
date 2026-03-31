@@ -1,0 +1,566 @@
+{
+  "phases": [],
+  "transitions": [
+    {
+      "transition_id": "exit-01_bidder_party_x_obs_evt_009",
+      "subject_ref": "bidder_party_x",
+      "subject_count": 1,
+      "from_state": "submitted",
+      "to_state": "inactive",
+      "reason_kind": "literal",
+      "basis": {
+        "rule_id": "EXIT-01",
+        "source_observation_ids": [
+          "obs_evt_009"
+        ],
+        "source_span_ids": [
+          "span_0010"
+        ],
+        "confidence": "high",
+        "explanation": "Literal status observation recorded bidder withdrawal or non-participation."
+      }
+    }
+  ],
+  "cash_regimes": [],
+  "judgments": [],
+  "analyst_rows": [
+    {
+      "row_id": "row_0001",
+      "origin": "literal",
+      "analyst_event_type": "target_sale",
+      "subject_ref": null,
+      "row_count": 1,
+      "bidder_name": null,
+      "bidder_type": null,
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2013-07-01",
+      "date_public": "2013-07-01",
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROCESS",
+        "source_observation_ids": [
+          "obs_evt_001"
+        ],
+        "source_span_ids": [
+          "span_0001"
+        ],
+        "confidence": "high",
+        "explanation": "Literal process observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0002",
+      "origin": "literal",
+      "analyst_event_type": "target_sale",
+      "subject_ref": null,
+      "row_count": 1,
+      "bidder_name": null,
+      "bidder_type": null,
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2014-01-28",
+      "date_public": "2014-01-28",
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROCESS",
+        "source_observation_ids": [
+          "obs_evt_002"
+        ],
+        "source_span_ids": [
+          "span_0002"
+        ],
+        "confidence": "high",
+        "explanation": "Literal process observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0003",
+      "origin": "literal",
+      "analyst_event_type": "ib_retention",
+      "subject_ref": "advisor_bofa_merrill_lynch",
+      "row_count": 1,
+      "bidder_name": "BofA Merrill Lynch",
+      "bidder_type": null,
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2014-01-28",
+      "date_public": "2014-01-28",
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROCESS",
+        "source_observation_ids": [
+          "obs_evt_003"
+        ],
+        "source_span_ids": [
+          "span_0003"
+        ],
+        "confidence": "high",
+        "explanation": "Literal process observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0004",
+      "origin": "literal",
+      "analyst_event_type": "nda",
+      "subject_ref": "bidder_new_mountain_capital",
+      "row_count": 1,
+      "bidder_name": "New Mountain Capital",
+      "bidder_type": "F",
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2014-03-19",
+      "date_public": "2014-03-19",
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-AGREEMENT",
+        "source_observation_ids": [
+          "obs_evt_004"
+        ],
+        "source_span_ids": [
+          "span_0004"
+        ],
+        "confidence": "high",
+        "explanation": "Literal agreement observation compiled into NDA-family analyst row."
+      }
+    },
+    {
+      "row_id": "row_0005",
+      "origin": "synthetic_anonymous",
+      "analyst_event_type": "proposal",
+      "subject_ref": "bidder_group_four_financial_buyers",
+      "row_count": 4,
+      "bidder_name": "four financial buyers",
+      "bidder_type": null,
+      "bid_type": "Uncertain",
+      "value": null,
+      "range_low": "20.00",
+      "range_high": "22.00",
+      "date_recorded": "2014-04-14",
+      "date_public": "2014-04-14",
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROPOSAL",
+        "source_observation_ids": [
+          "obs_evt_005"
+        ],
+        "source_span_ids": [
+          "span_0005",
+          "span_0006"
+        ],
+        "confidence": "high",
+        "explanation": "Literal proposal observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0006",
+      "origin": "synthetic_anonymous",
+      "analyst_event_type": "proposal",
+      "subject_ref": "bidder_group_one_strategic_buyer",
+      "row_count": 1,
+      "bidder_name": "one strategic buyer",
+      "bidder_type": null,
+      "bid_type": "Uncertain",
+      "value": null,
+      "range_low": "20.00",
+      "range_high": "22.00",
+      "date_recorded": "2014-04-14",
+      "date_public": "2014-04-14",
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROPOSAL",
+        "source_observation_ids": [
+          "obs_evt_005"
+        ],
+        "source_span_ids": [
+          "span_0005",
+          "span_0006"
+        ],
+        "confidence": "high",
+        "explanation": "Literal proposal observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0007",
+      "origin": "literal",
+      "analyst_event_type": "proposal",
+      "subject_ref": "bidder_party_x",
+      "row_count": 1,
+      "bidder_name": "Party X",
+      "bidder_type": "F",
+      "bid_type": "Uncertain",
+      "value": null,
+      "range_low": "21.50",
+      "range_high": "23.00",
+      "date_recorded": "2014-05-09",
+      "date_public": "2014-05-09",
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROPOSAL",
+        "source_observation_ids": [
+          "obs_evt_008"
+        ],
+        "source_span_ids": [
+          "span_0008",
+          "span_0009"
+        ],
+        "confidence": "high",
+        "explanation": "Literal proposal observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0008",
+      "origin": "literal",
+      "analyst_event_type": "proposal",
+      "subject_ref": "bidder_party_y",
+      "row_count": 1,
+      "bidder_name": "Party Y",
+      "bidder_type": "S",
+      "bid_type": "Uncertain",
+      "value": null,
+      "range_low": "19.50",
+      "range_high": "20.50",
+      "date_recorded": "2014-05-20",
+      "date_public": "2014-05-20",
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROPOSAL",
+        "source_observation_ids": [
+          "obs_evt_010"
+        ],
+        "source_span_ids": [
+          "span_0011",
+          "span_0012"
+        ],
+        "confidence": "high",
+        "explanation": "Literal proposal observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0009",
+      "origin": "literal",
+      "analyst_event_type": "terminated",
+      "subject_ref": null,
+      "row_count": 1,
+      "bidder_name": null,
+      "bidder_type": null,
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2014-06-26",
+      "date_public": "2014-06-26",
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-OUTCOME",
+        "source_observation_ids": [
+          "obs_evt_013"
+        ],
+        "source_span_ids": [
+          "span_0013"
+        ],
+        "confidence": "high",
+        "explanation": "Literal outcome observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0010",
+      "origin": "literal",
+      "analyst_event_type": "bidder_interest",
+      "subject_ref": "bidder_new_mountain_capital",
+      "row_count": 1,
+      "bidder_name": "New Mountain Capital",
+      "bidder_type": "F",
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2015-02-10",
+      "date_public": "2015-02-10",
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-STATUS",
+        "source_observation_ids": [
+          "obs_evt_014"
+        ],
+        "source_span_ids": [
+          "span_0014"
+        ],
+        "confidence": "high",
+        "explanation": "Literal expressed-interest status compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0011",
+      "origin": "literal",
+      "analyst_event_type": "proposal",
+      "subject_ref": "bidder_new_mountain_capital",
+      "row_count": 1,
+      "bidder_name": "New Mountain Capital",
+      "bidder_type": "F",
+      "bid_type": "Uncertain",
+      "value": "19.25",
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2015-02-19",
+      "date_public": "2015-02-19",
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROPOSAL",
+        "source_observation_ids": [
+          "obs_evt_015"
+        ],
+        "source_span_ids": [
+          "span_0015",
+          "span_0016"
+        ],
+        "confidence": "high",
+        "explanation": "Literal proposal observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0012",
+      "origin": "literal",
+      "analyst_event_type": "restarted",
+      "subject_ref": null,
+      "row_count": 1,
+      "bidder_name": null,
+      "bidder_type": null,
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2015-02-26",
+      "date_public": "2015-02-26",
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-OUTCOME",
+        "source_observation_ids": [
+          "obs_evt_016"
+        ],
+        "source_span_ids": [
+          "span_0017"
+        ],
+        "confidence": "high",
+        "explanation": "Literal outcome observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0013",
+      "origin": "literal",
+      "analyst_event_type": "proposal",
+      "subject_ref": "bidder_new_mountain_capital",
+      "row_count": 1,
+      "bidder_name": "New Mountain Capital",
+      "bidder_type": "F",
+      "bid_type": "Uncertain",
+      "value": "20.05",
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2015-02-26",
+      "date_public": "2015-02-26",
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROPOSAL",
+        "source_observation_ids": [
+          "obs_evt_017"
+        ],
+        "source_span_ids": [
+          "span_0018",
+          "span_0019"
+        ],
+        "confidence": "high",
+        "explanation": "Literal proposal observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0014",
+      "origin": "literal",
+      "analyst_event_type": "proposal",
+      "subject_ref": "bidder_new_mountain_capital",
+      "row_count": 1,
+      "bidder_name": "New Mountain Capital",
+      "bidder_type": "F",
+      "bid_type": "Uncertain",
+      "value": "20.05",
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2015-03-13",
+      "date_public": "2015-03-13",
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROPOSAL",
+        "source_observation_ids": [
+          "obs_evt_018"
+        ],
+        "source_span_ids": [
+          "span_0020"
+        ],
+        "confidence": "high",
+        "explanation": "Literal proposal observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0015",
+      "origin": "literal",
+      "analyst_event_type": "bid_press_release",
+      "subject_ref": "bidder_new_mountain_capital",
+      "row_count": 1,
+      "bidder_name": "New Mountain Capital",
+      "bidder_type": "F",
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2015-04-08",
+      "date_public": "2015-04-08",
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROCESS",
+        "source_observation_ids": [
+          "obs_evt_020"
+        ],
+        "source_span_ids": [
+          "span_0022"
+        ],
+        "confidence": "high",
+        "explanation": "Literal process observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0016",
+      "origin": "literal",
+      "analyst_event_type": "bidder_interest",
+      "subject_ref": "bidder_party_x",
+      "row_count": 1,
+      "bidder_name": "Party X",
+      "bidder_type": "F",
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": null,
+      "date_public": null,
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-STATUS",
+        "source_observation_ids": [
+          "obs_evt_006"
+        ],
+        "source_span_ids": [
+          "span_0007"
+        ],
+        "confidence": "high",
+        "explanation": "Literal expressed-interest status compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0017",
+      "origin": "literal",
+      "analyst_event_type": "bidder_interest",
+      "subject_ref": "bidder_party_y",
+      "row_count": 1,
+      "bidder_name": "Party Y",
+      "bidder_type": "S",
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": null,
+      "date_public": null,
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-STATUS",
+        "source_observation_ids": [
+          "obs_evt_007"
+        ],
+        "source_span_ids": [
+          "span_0007"
+        ],
+        "confidence": "high",
+        "explanation": "Literal expressed-interest status compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0018",
+      "origin": "literal",
+      "analyst_event_type": "executed",
+      "subject_ref": "bidder_new_mountain_capital",
+      "row_count": 1,
+      "bidder_name": "New Mountain Capital",
+      "bidder_type": "F",
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": null,
+      "date_public": null,
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-OUTCOME",
+        "source_observation_ids": [
+          "obs_evt_019"
+        ],
+        "source_span_ids": [
+          "span_0021"
+        ],
+        "confidence": "high",
+        "explanation": "Literal outcome observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0019",
+      "origin": "literal",
+      "analyst_event_type": "drop",
+      "subject_ref": "bidder_party_x",
+      "row_count": 1,
+      "bidder_name": "Party X",
+      "bidder_type": "F",
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2014-05-14",
+      "date_public": "2014-05-14",
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "EXIT-01",
+        "source_observation_ids": [
+          "obs_evt_009"
+        ],
+        "source_span_ids": [
+          "span_0010"
+        ],
+        "confidence": "high",
+        "explanation": "Literal status observation recorded bidder withdrawal or non-participation."
+      }
+    }
+  ]
+}

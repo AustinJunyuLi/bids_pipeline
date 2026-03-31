@@ -59,6 +59,8 @@ The `skill-pipeline` CLI owns these stages:
 - `raw-fetch`: fetch and freeze the seed-selected SEC filing set
 - `preprocess-source`: build source artifacts from frozen filings
 - `compose-prompts`: build provider-neutral prompt packet artifacts from source
+- `migrate-extract-v1-to-v2`: bootstrap quote-first v2 observation artifacts
+  from canonical v1 extract artifacts during migration
 - `canonicalize`: upgrade extract artifacts into canonical span-backed form
 - `check`: structural blocker gate
 - `verify`: strict deterministic verification
@@ -76,7 +78,9 @@ The `skill-pipeline` CLI owns these stages:
 These stages are not implemented as Python-side provider wrappers:
 
 - `/extract-deal`
+- `/extract-deal-v2`
 - `/verify-extraction`
+- `/verify-extraction-v2`
 - `/enrich-deal`
 - `/reconcile-alex` (optional, post-export only)
 
@@ -155,6 +159,17 @@ actor extraction creates `actors_raw.json`, rerun with `--mode events` for the
 event extraction pass. `--mode all` is only the actor-packet shortcut; event
 packets still require the separate `--mode events` call.
 
+`skill-pipeline compose-prompts --deal <slug> --contract v2 --mode observations`
+writes:
+
+- `data/skill/<slug>/prompt_v2/manifest.json`
+- `data/skill/<slug>/prompt_v2/packets/<packet-id>/prefix.md`
+- `data/skill/<slug>/prompt_v2/packets/<packet-id>/body.md`
+- `data/skill/<slug>/prompt_v2/packets/<packet-id>/rendered.md`
+
+This v2 contract instructs the LLM to emit quote-first `parties`, `cohorts`,
+and the 6 observation subtypes. It must not emit analyst rows.
+
 ### Extract Outputs
 
 `/extract-deal <slug>` writes:
@@ -163,6 +178,15 @@ packets still require the separate `--mode events` call.
 - `data/skill/<slug>/extract/events_raw.json`
 
 These start as legacy extraction artifacts using `evidence_refs`.
+
+`/extract-deal-v2 <slug>` writes:
+
+- `data/skill/<slug>/extract_v2/observations_raw.json`
+
+During the Phase 16 migration window, `skill-pipeline migrate-extract-v1-to-v2
+--deal <slug>` is the deterministic bridge that bootstraps this quote-first v2
+artifact from canonical v1 extract outputs when a native v2 LLM pass is not yet
+available.
 
 ### Canonical Extract Outputs
 

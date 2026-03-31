@@ -1,0 +1,27 @@
+{
+  "rule_order": [
+    "ROUND-01",
+    "ROUND-02",
+    "EXIT-01",
+    "EXIT-02",
+    "EXIT-03",
+    "EXIT-04",
+    "AGREEMENT-01",
+    "CASH-01",
+    "CASH-02",
+    "CASH-03"
+  ],
+  "validation_gate": {
+    "check_v2": "/home/austinli/Projects/bids_pipeline/data/skill/mac-gray/check_v2/check_report.json",
+    "coverage_v2": "/home/austinli/Projects/bids_pipeline/data/skill/mac-gray/coverage_v2/coverage_summary.json",
+    "gates_v2": "/home/austinli/Projects/bids_pipeline/data/skill/mac-gray/gates_v2/gates_report.json",
+    "verify_policy": "not_required_until_shared_v2_verify_exists"
+  },
+  "output_counts": {
+    "phases": 1,
+    "transitions": 4,
+    "cash_regimes": 1,
+    "judgments": 1,
+    "analyst_rows": 34
+  }
+}

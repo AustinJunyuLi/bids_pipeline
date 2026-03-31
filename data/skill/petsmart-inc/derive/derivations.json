@@ -1,0 +1,750 @@
+{
+  "phases": [
+    {
+      "phase_id": "phase_009",
+      "phase_kind": "formal",
+      "start_observation_id": "obs_evt_010",
+      "end_observation_id": "obs_evt_016",
+      "participant_refs": [],
+      "basis": {
+        "rule_id": "ROUND-02",
+        "source_observation_ids": [
+          "obs_evt_010"
+        ],
+        "source_span_ids": [
+          "span_0001",
+          "span_0002",
+          "span_0002"
+        ],
+        "confidence": "high",
+        "explanation": "Solicitation requested LOIs/binding offers or carried formal attachments."
+      }
+    },
+    {
+      "phase_id": "phase_013",
+      "phase_kind": "extension",
+      "start_observation_id": "obs_evt_016",
+      "end_observation_id": "obs_evt_021",
+      "participant_refs": [],
+      "basis": {
+        "rule_id": "ROUND-02",
+        "source_observation_ids": [
+          "obs_evt_016"
+        ],
+        "source_span_ids": [
+          "span_0003"
+        ],
+        "confidence": "high",
+        "explanation": "Solicitation requested LOIs/binding offers or carried formal attachments."
+      }
+    }
+  ],
+  "transitions": [
+    {
+      "transition_id": "exit-03_bidder_3_obs_evt_016_selected",
+      "subject_ref": "bidder_3",
+      "subject_count": 2,
+      "from_state": "submitted",
+      "to_state": "inactive",
+      "reason_kind": "not_invited",
+      "basis": {
+        "rule_id": "EXIT-03",
+        "source_observation_ids": [
+          "obs_evt_016_selected"
+        ],
+        "source_span_ids": [
+          "span_0003"
+        ],
+        "confidence": "high",
+        "explanation": "Selected-to-advance observation omitted an otherwise active subject."
+      }
+    },
+    {
+      "transition_id": "exit-03_bidder_financial_buyers_15_obs_evt_016_selected",
+      "subject_ref": "bidder_financial_buyers_15",
+      "subject_count": 15,
+      "from_state": "active",
+      "to_state": "inactive",
+      "reason_kind": "not_invited",
+      "basis": {
+        "rule_id": "EXIT-03",
+        "source_observation_ids": [
+          "obs_evt_016_selected"
+        ],
+        "source_span_ids": [
+          "span_0003"
+        ],
+        "confidence": "high",
+        "explanation": "Selected-to-advance observation omitted an otherwise active subject."
+      }
+    }
+  ],
+  "cash_regimes": [
+    {
+      "cash_regime_id": "cash_001",
+      "scope_kind": "phase",
+      "scope_ref": "phase_013",
+      "regime": "all_cash",
+      "basis": {
+        "rule_id": "CASH-01",
+        "source_observation_ids": [
+          "obs_evt_007",
+          "obs_evt_008",
+          "obs_evt_009",
+          "obs_evt_012",
+          "obs_evt_013",
+          "obs_evt_014",
+          "obs_evt_018",
+          "obs_evt_019",
+          "obs_evt_020"
+        ],
+        "source_span_ids": [
+          "span_0009",
+          "span_0010",
+          "span_0011",
+          "span_0012",
+          "span_0013"
+        ],
+        "confidence": "high",
+        "explanation": "Explicit proposal consideration types set the phase cash regime."
+      }
+    }
+  ],
+  "judgments": [],
+  "analyst_rows": [
+    {
+      "row_id": "row_0001",
+      "origin": "literal",
+      "analyst_event_type": "ib_retention",
+      "subject_ref": "advisor_jp_morgan",
+      "row_count": 1,
+      "bidder_name": "J.P. Morgan",
+      "bidder_type": null,
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2014-07-01",
+      "date_public": null,
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROCESS",
+        "source_observation_ids": [
+          "obs_evt_001"
+        ],
+        "source_span_ids": [
+          "span_0004"
+        ],
+        "confidence": "high",
+        "explanation": "Literal process observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0002",
+      "origin": "literal",
+      "analyst_event_type": "bidder_interest",
+      "subject_ref": "bidder_industry_participant",
+      "row_count": 1,
+      "bidder_name": "Industry Participant",
+      "bidder_type": "S",
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2014-08-07",
+      "date_public": "2014-08-07",
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-STATUS",
+        "source_observation_ids": [
+          "obs_evt_002"
+        ],
+        "source_span_ids": [
+          "span_0005"
+        ],
+        "confidence": "high",
+        "explanation": "Literal expressed-interest status compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0003",
+      "origin": "literal",
+      "analyst_event_type": "target_sale",
+      "subject_ref": null,
+      "row_count": 1,
+      "bidder_name": null,
+      "bidder_type": null,
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2014-08-13",
+      "date_public": "2014-08-13",
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROCESS",
+        "source_observation_ids": [
+          "obs_evt_003"
+        ],
+        "source_span_ids": [
+          "span_0006"
+        ],
+        "confidence": "high",
+        "explanation": "Literal process observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0004",
+      "origin": "literal",
+      "analyst_event_type": "sale_press_release",
+      "subject_ref": null,
+      "row_count": 1,
+      "bidder_name": null,
+      "bidder_type": null,
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2014-08-19",
+      "date_public": "2014-08-19",
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROCESS",
+        "source_observation_ids": [
+          "obs_evt_004"
+        ],
+        "source_span_ids": [
+          "span_0007"
+        ],
+        "confidence": "high",
+        "explanation": "Literal process observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0005",
+      "origin": "synthetic_anonymous",
+      "analyst_event_type": "nda",
+      "subject_ref": "bidder_financial_buyers_15",
+      "row_count": 15,
+      "bidder_name": "15 potentially interested financial buyers",
+      "bidder_type": null,
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2014-10-01",
+      "date_public": null,
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-AGREEMENT",
+        "source_observation_ids": [
+          "obs_evt_006"
+        ],
+        "source_span_ids": [
+          "span_0008"
+        ],
+        "confidence": "high",
+        "explanation": "Literal agreement observation compiled into NDA-family analyst row."
+      }
+    },
+    {
+      "row_id": "row_0006",
+      "origin": "literal",
+      "analyst_event_type": "proposal",
+      "subject_ref": "bidder_buyer_group",
+      "row_count": 1,
+      "bidder_name": "Buyer Group",
+      "bidder_type": "F",
+      "bid_type": "Informal",
+      "value": null,
+      "range_low": "81.00",
+      "range_high": "83.00",
+      "date_recorded": "2014-10-30",
+      "date_public": "2014-10-30",
+      "all_cash": true,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROPOSAL",
+        "source_observation_ids": [
+          "obs_evt_007"
+        ],
+        "source_span_ids": [
+          "span_0009",
+          "span_0009"
+        ],
+        "confidence": "high",
+        "explanation": "Literal proposal observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0007",
+      "origin": "literal",
+      "analyst_event_type": "proposal",
+      "subject_ref": "bidder_2",
+      "row_count": 1,
+      "bidder_name": "Bidder 2",
+      "bidder_type": "F",
+      "bid_type": "Informal",
+      "value": "78.00",
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2014-10-30",
+      "date_public": "2014-10-30",
+      "all_cash": true,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROPOSAL",
+        "source_observation_ids": [
+          "obs_evt_008"
+        ],
+        "source_span_ids": [
+          "span_0009",
+          "span_0009"
+        ],
+        "confidence": "high",
+        "explanation": "Literal proposal observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0008",
+      "origin": "literal",
+      "analyst_event_type": "proposal",
+      "subject_ref": "bidder_2",
+      "row_count": 1,
+      "bidder_name": "Bidder 2",
+      "bidder_type": "F",
+      "bid_type": "Informal",
+      "value": null,
+      "range_low": "81.00",
+      "range_high": "84.00",
+      "date_recorded": "2014-10-30",
+      "date_public": null,
+      "all_cash": true,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROPOSAL",
+        "source_observation_ids": [
+          "obs_evt_009"
+        ],
+        "source_span_ids": [
+          "span_0009",
+          "span_0009"
+        ],
+        "confidence": "high",
+        "explanation": "Literal proposal observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0009",
+      "origin": "literal",
+      "analyst_event_type": "proposal",
+      "subject_ref": "bidder_buyer_group",
+      "row_count": 1,
+      "bidder_name": "Buyer Group",
+      "bidder_type": "F",
+      "bid_type": "Informal",
+      "value": "80.70",
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2014-12-10",
+      "date_public": "2014-12-10",
+      "all_cash": true,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROPOSAL",
+        "source_observation_ids": [
+          "obs_evt_012"
+        ],
+        "source_span_ids": [
+          "span_0010",
+          "span_0010"
+        ],
+        "confidence": "high",
+        "explanation": "Literal proposal observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0010",
+      "origin": "literal",
+      "analyst_event_type": "proposal",
+      "subject_ref": "bidder_2",
+      "row_count": 1,
+      "bidder_name": "Bidder 2",
+      "bidder_type": "F",
+      "bid_type": "Informal",
+      "value": "80.35",
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2014-12-10",
+      "date_public": "2014-12-10",
+      "all_cash": true,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROPOSAL",
+        "source_observation_ids": [
+          "obs_evt_013"
+        ],
+        "source_span_ids": [
+          "span_0010",
+          "span_0010"
+        ],
+        "confidence": "high",
+        "explanation": "Literal proposal observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0011",
+      "origin": "synthetic_anonymous",
+      "analyst_event_type": "proposal",
+      "subject_ref": "bidder_3",
+      "row_count": 2,
+      "bidder_name": "two bidders working together as Bidder 3",
+      "bidder_type": null,
+      "bid_type": "Informal",
+      "value": "78.00",
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2014-12-10",
+      "date_public": "2014-12-10",
+      "all_cash": true,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROPOSAL",
+        "source_observation_ids": [
+          "obs_evt_014"
+        ],
+        "source_span_ids": [
+          "span_0010",
+          "span_0010"
+        ],
+        "confidence": "high",
+        "explanation": "Literal proposal observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0012",
+      "origin": "literal",
+      "analyst_event_type": "proposal",
+      "subject_ref": "bidder_2",
+      "row_count": 1,
+      "bidder_name": "Bidder 2",
+      "bidder_type": "F",
+      "bid_type": "Informal",
+      "value": "81.50",
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2014-12-12",
+      "date_public": "2014-12-12",
+      "all_cash": true,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROPOSAL",
+        "source_observation_ids": [
+          "obs_evt_018"
+        ],
+        "source_span_ids": [
+          "span_0011",
+          "span_0012",
+          "span_0012"
+        ],
+        "confidence": "high",
+        "explanation": "Literal proposal observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0013",
+      "origin": "literal",
+      "analyst_event_type": "proposal",
+      "subject_ref": "bidder_buyer_group",
+      "row_count": 1,
+      "bidder_name": "Buyer Group",
+      "bidder_type": "F",
+      "bid_type": "Informal",
+      "value": "82.50",
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2014-12-12",
+      "date_public": "2014-12-12",
+      "all_cash": true,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROPOSAL",
+        "source_observation_ids": [
+          "obs_evt_019"
+        ],
+        "source_span_ids": [
+          "span_0011"
+        ],
+        "confidence": "high",
+        "explanation": "Literal proposal observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0014",
+      "origin": "literal",
+      "analyst_event_type": "proposal",
+      "subject_ref": "bidder_buyer_group",
+      "row_count": 1,
+      "bidder_name": "Buyer Group",
+      "bidder_type": "F",
+      "bid_type": "Informal",
+      "value": "83.00",
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2014-12-12",
+      "date_public": "2014-12-12",
+      "all_cash": true,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROPOSAL",
+        "source_observation_ids": [
+          "obs_evt_020"
+        ],
+        "source_span_ids": [
+          "span_0013",
+          "span_0012",
+          "span_0012"
+        ],
+        "confidence": "high",
+        "explanation": "Literal proposal observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0015",
+      "origin": "literal",
+      "analyst_event_type": "executed",
+      "subject_ref": "target_board_petsmart",
+      "row_count": 1,
+      "bidder_name": "PetSmart Board of Directors",
+      "bidder_type": null,
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2014-12-14",
+      "date_public": "2014-12-14",
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-OUTCOME",
+        "source_observation_ids": [
+          "obs_evt_021"
+        ],
+        "source_span_ids": [
+          "span_0014"
+        ],
+        "confidence": "high",
+        "explanation": "Literal outcome observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0016",
+      "origin": "literal",
+      "analyst_event_type": "bid_press_release",
+      "subject_ref": "bidder_buyer_group",
+      "row_count": 1,
+      "bidder_name": "Buyer Group",
+      "bidder_type": "F",
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2014-12-14",
+      "date_public": "2014-12-14",
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROCESS",
+        "source_observation_ids": [
+          "obs_evt_022"
+        ],
+        "source_span_ids": [
+          "span_0014"
+        ],
+        "confidence": "high",
+        "explanation": "Literal process observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0017",
+      "origin": "derived",
+      "analyst_event_type": "final_round_ann",
+      "subject_ref": null,
+      "row_count": 1,
+      "bidder_name": null,
+      "bidder_type": null,
+      "bid_type": "Formal",
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2014-11-03",
+      "date_public": "2014-11-03",
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "ROUND-02",
+        "source_observation_ids": [
+          "obs_evt_010"
+        ],
+        "source_span_ids": [
+          "span_0001",
+          "span_0002",
+          "span_0002"
+        ],
+        "confidence": "high",
+        "explanation": "Solicitation requested LOIs/binding offers or carried formal attachments."
+      }
+    },
+    {
+      "row_id": "row_0018",
+      "origin": "derived",
+      "analyst_event_type": "final_round",
+      "subject_ref": null,
+      "row_count": 1,
+      "bidder_name": null,
+      "bidder_type": null,
+      "bid_type": "Formal",
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2014-12-10",
+      "date_public": "2014-12-10",
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "ROUND-02",
+        "source_observation_ids": [
+          "obs_evt_010"
+        ],
+        "source_span_ids": [
+          "span_0001",
+          "span_0002",
+          "span_0002"
+        ],
+        "confidence": "high",
+        "explanation": "Solicitation requested LOIs/binding offers or carried formal attachments."
+      }
+    },
+    {
+      "row_id": "row_0019",
+      "origin": "derived",
+      "analyst_event_type": "final_round_ext_ann",
+      "subject_ref": null,
+      "row_count": 1,
+      "bidder_name": null,
+      "bidder_type": null,
+      "bid_type": "Informal",
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2014-12-10",
+      "date_public": "2014-12-10",
+      "all_cash": true,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "ROUND-02",
+        "source_observation_ids": [
+          "obs_evt_016"
+        ],
+        "source_span_ids": [
+          "span_0003"
+        ],
+        "confidence": "high",
+        "explanation": "Solicitation requested LOIs/binding offers or carried formal attachments."
+      }
+    },
+    {
+      "row_id": "row_0020",
+      "origin": "derived",
+      "analyst_event_type": "final_round_ext",
+      "subject_ref": null,
+      "row_count": 1,
+      "bidder_name": null,
+      "bidder_type": null,
+      "bid_type": "Informal",
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2014-12-12",
+      "date_public": "2014-12-12",
+      "all_cash": true,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "ROUND-02",
+        "source_observation_ids": [
+          "obs_evt_016"
+        ],
+        "source_span_ids": [
+          "span_0003"
+        ],
+        "confidence": "high",
+        "explanation": "Solicitation requested LOIs/binding offers or carried formal attachments."
+      }
+    },
+    {
+      "row_id": "row_0021",
+      "origin": "synthetic_anonymous",
+      "analyst_event_type": "drop",
+      "subject_ref": "bidder_3",
+      "row_count": 2,
+      "bidder_name": "two bidders working together as Bidder 3",
+      "bidder_type": null,
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2014-12-10",
+      "date_public": "2014-12-10",
+      "all_cash": null,
+      "review_flags": [
+        "reason:not_invited"
+      ],
+      "basis": {
+        "rule_id": "EXIT-03",
+        "source_observation_ids": [
+          "obs_evt_016_selected"
+        ],
+        "source_span_ids": [
+          "span_0003"
+        ],
+        "confidence": "high",
+        "explanation": "Selected-to-advance observation omitted an otherwise active subject."
+      }
+    },
+    {
+      "row_id": "row_0022",
+      "origin": "synthetic_anonymous",
+      "analyst_event_type": "drop",
+      "subject_ref": "bidder_financial_buyers_15",
+      "row_count": 15,
+      "bidder_name": "15 potentially interested financial buyers",
+      "bidder_type": null,
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2014-12-10",
+      "date_public": "2014-12-10",
+      "all_cash": null,
+      "review_flags": [
+        "reason:not_invited"
+      ],
+      "basis": {
+        "rule_id": "EXIT-03",
+        "source_observation_ids": [
+          "obs_evt_016_selected"
+        ],
+        "source_span_ids": [
+          "span_0003"
+        ],
+        "confidence": "high",
+        "explanation": "Selected-to-advance observation omitted an otherwise active subject."
+      }
+    }
+  ]
+}

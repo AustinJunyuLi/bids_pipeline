@@ -55,7 +55,9 @@ ROUND_EVENT_TYPES = {
     "formal": ("final_round_ann", "final_round"),
     "extension": ("final_round_ext_ann", "final_round_ext"),
 }
-LITERAL_EXIT_KINDS = frozenset({"withdrew", "not_interested", "cannot_proceed"})
+LITERAL_EXIT_KINDS = frozenset(
+    {"withdrew", "not_interested", "cannot_proceed", "limited_assets_only", "excluded"}
+)
 
 
 def _read_json(path: Path) -> dict:
@@ -154,6 +156,10 @@ def _sorted_observations(observations: list) -> list:
 
 def _phase_kind_for_solicitation(observation: SolicitationObservation) -> str | None:
     attachments_text = " ".join(observation.attachments).lower()
+    other_detail = (observation.other_detail or "").lower()
+    summary_text = observation.summary.lower()
+    if "extension" in other_detail or "extension" in summary_text:
+        return "extension"
     if observation.requested_submission == "ioi" or observation.binding_level == "non_binding":
         return "informal"
     if observation.requested_submission in {"loi", "binding_offer", "best_and_final"}:
@@ -768,6 +774,29 @@ def _compile_literal_rows(artifacts, phases: list[ProcessPhaseRecord], cash_regi
                         source_observation_ids=[observation.observation_id],
                         source_span_ids=list(observation.evidence_span_ids),
                         explanation="Literal process observation compiled directly into analyst row.",
+                    ),
+                )
+            continue
+
+        if isinstance(observation, StatusObservation) and observation.status_kind == "expressed_interest":
+            subjects = observation.subject_refs or [None]
+            for subject_ref in subjects:
+                recorded, public = _date_fields(observation.date)
+                _append_row(
+                    rows,
+                    origin=_origin(subject_ref, derived=False, artifacts=artifacts),
+                    analyst_event_type="bidder_interest",
+                    subject_ref=subject_ref,
+                    row_count=_subject_count(subject_ref, artifacts),
+                    bidder_name=_subject_name(subject_ref, artifacts),
+                    bidder_type=_subject_bidder_type(subject_ref, artifacts),
+                    date_recorded=recorded,
+                    date_public=public,
+                    basis=_basis(
+                        rule_id="LITERAL-STATUS",
+                        source_observation_ids=[observation.observation_id],
+                        source_span_ids=list(observation.evidence_span_ids),
+                        explanation="Literal expressed-interest status compiled directly into analyst row.",
                     ),
                 )
             continue

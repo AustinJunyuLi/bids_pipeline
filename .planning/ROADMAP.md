@@ -39,7 +39,7 @@ See [v1.0 archive](milestones/v1.0-ROADMAP.md) for full phase details.
 - [x] **Phase 13: Validation Stack** - Structural checks, structured coverage, and graph semantic gates for v2 observations (completed 2026-03-31)
 - [x] **Phase 14: Derivation Engine** - Rule-based derivation of analyst rows from observation graph (completed 2026-03-31)
 - [x] **Phase 15: DuckDB Integration + Export** - v2 tables, triple export surface, and legacy adapter (completed 2026-03-31)
-- [ ] **Phase 16: Extraction Contract + Migration** - v2 prompt composition, skill docs, STEC validation, and 9-deal migration
+- [x] **Phase 16: Extraction Contract + Migration** - v2 prompt composition, skill docs, STEC validation, and 9-deal migration (completed 2026-03-31)
 
 ## Phase Details
 
@@ -134,7 +134,10 @@ See [v1.0 archive](milestones/v1.0-ROADMAP.md) for full phase details.
   2. `/extract-deal-v2` and `/verify-extraction-v2` skill docs exist under `.claude/skills/` with filing-grounded examples for each observation subtype
   3. STEC is extracted end-to-end through the v2 pipeline (extract -> canonicalize-v2 -> check-v2 -> coverage-v2 -> gates-v2 -> derive -> db-load-v2 -> db-export-v2) and the legacy adapter output is compared against v1 STEC export
   4. All 9 deals are extracted through v2 with per-deal validation and the legacy adapter benchmark comparison shows the observation graph captures information that the v1 flat event taxonomy structurally could not
-**Plans**: TBD
+**Plans**:
+  - `16-01` v2 prompt composition contract, validator routing, and skill-doc surface
+  - `16-02` deterministic v1->v2 migration bridge plus migration hardening for bidder-interest, extension rounds, and coverage parity
+  - `16-03` STEC reference validation, 9-deal migration, and benchmark comparison summary
 
 ## Progress
 
@@ -158,7 +161,7 @@ Phases execute in numeric order: 10 -> 11 -> 12 -> 13 -> 14 -> 15 -> 16
 | 13. Validation Stack | v2.0 | 3/3 | Complete | 2026-03-31 |
 | 14. Derivation Engine | v2.0 | 3/3 | Complete | 2026-03-31 |
 | 15. DuckDB Integration + Export | v2.0 | 3/3 | Complete | 2026-03-31 |
-| 16. Extraction Contract + Migration | v2.0 | 0/TBD | Not started | - |
+| 16. Extraction Contract + Migration | v2.0 | 3/3 | Complete | 2026-03-31 |
 
 ---
 *Roadmap created: 2026-03-29*

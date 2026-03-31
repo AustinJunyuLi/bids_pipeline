@@ -1,0 +1,722 @@
+{
+  "findings": [
+    {
+      "cue_family": "advisor",
+      "status": "observed",
+      "severity": "warning",
+      "repairability": null,
+      "description": "High-confidence advisor cue is covered by canonical v2 artifacts.",
+      "reason_code": "matched_party",
+      "supporting_event_ids": [],
+      "supporting_actor_ids": [],
+      "supporting_span_ids": [
+        "span_0035"
+      ],
+      "block_ids": [
+        "B010",
+        "B011"
+      ],
+      "evidence_ids": [
+        "0001047469-13-010973:E0365"
+      ],
+      "matched_terms": [
+        "discussed",
+        "meeting",
+        "met",
+        "sent"
+      ],
+      "confidence": "high",
+      "suggested_event_types": [
+        "ib_retention"
+      ],
+      "note": null,
+      "supporting_observation_ids": [],
+      "supporting_party_ids": [
+        "advisor_goodwin_procter"
+      ],
+      "supporting_cohort_ids": []
+    },
+    {
+      "cue_family": "advisor",
+      "status": "observed",
+      "severity": "warning",
+      "repairability": null,
+      "description": "Medium-confidence advisor cue is covered by canonical v2 artifacts.",
+      "reason_code": "matched_party",
+      "supporting_event_ids": [],
+      "supporting_actor_ids": [],
+      "supporting_span_ids": [
+        "span_0035"
+      ],
+      "block_ids": [
+        "B010",
+        "B011"
+      ],
+      "evidence_ids": [
+        "0001047469-13-010973:E0366"
+      ],
+      "matched_terms": [
+        "counsel",
+        "party "
+      ],
+      "confidence": "medium",
+      "suggested_event_types": [
+        "ib_retention"
+      ],
+      "note": null,
+      "supporting_observation_ids": [],
+      "supporting_party_ids": [
+        "advisor_goodwin_procter"
+      ],
+      "supporting_cohort_ids": []
+    },
+    {
+      "cue_family": "advisor",
+      "status": "not_found",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "High-confidence advisor cue was not covered by canonical v2 artifacts.",
+      "reason_code": "uncovered_advisor_cue",
+      "supporting_event_ids": [],
+      "supporting_actor_ids": [],
+      "supporting_span_ids": [],
+      "block_ids": [
+        "B016",
+        "B017"
+      ],
+      "evidence_ids": [
+        "0001047469-13-010973:E0369"
+      ],
+      "matched_terms": [
+        "discussed",
+        "meeting",
+        "sent"
+      ],
+      "confidence": "high",
+      "suggested_event_types": [
+        "ib_retention"
+      ],
+      "note": null,
+      "supporting_observation_ids": [],
+      "supporting_party_ids": [],
+      "supporting_cohort_ids": []
+    },
+    {
+      "cue_family": "advisor",
+      "status": "not_found",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "Medium-confidence advisor cue was not covered by canonical v2 artifacts.",
+      "reason_code": "uncovered_advisor_cue",
+      "supporting_event_ids": [],
+      "supporting_actor_ids": [],
+      "supporting_span_ids": [],
+      "block_ids": [
+        "B016",
+        "B017"
+      ],
+      "evidence_ids": [
+        "0001047469-13-010973:E0370"
+      ],
+      "matched_terms": [
+        "advisor",
+        "financial advisor",
+        "transaction committee"
+      ],
+      "confidence": "medium",
+      "suggested_event_types": [
+        "ib_retention"
+      ],
+      "note": null,
+      "supporting_observation_ids": [],
+      "supporting_party_ids": [],
+      "supporting_cohort_ids": []
+    },
+    {
+      "cue_family": "advisor",
+      "status": "not_found",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "High-confidence advisor cue was not covered by canonical v2 artifacts.",
+      "reason_code": "uncovered_advisor_cue",
+      "supporting_event_ids": [],
+      "supporting_actor_ids": [],
+      "supporting_span_ids": [],
+      "block_ids": [
+        "B018",
+        "B019"
+      ],
+      "evidence_ids": [
+        "0001047469-13-010973:E0372"
+      ],
+      "matched_terms": [
+        "called",
+        "discussed",
+        "meeting",
+        "proposal",
+        "requested",
+        "sent"
+      ],
+      "confidence": "high",
+      "suggested_event_types": [
+        "ib_retention"
+      ],
+      "note": null,
+      "supporting_observation_ids": [],
+      "supporting_party_ids": [],
+      "supporting_cohort_ids": []
+    },
+    {
+      "cue_family": "advisor",
+      "status": "not_found",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "High-confidence advisor cue was not covered by canonical v2 artifacts.",
+      "reason_code": "uncovered_advisor_cue",
+      "supporting_event_ids": [],
+      "supporting_actor_ids": [],
+      "supporting_span_ids": [],
+      "block_ids": [
+        "B018",
+        "B019"
+      ],
+      "evidence_ids": [
+        "0001047469-13-010973:E0373"
+      ],
+      "matched_terms": [
+        "advisor",
+        "financial advisor",
+        "investment bank",
+        "stockholder",
+        "transaction committee"
+      ],
+      "confidence": "high",
+      "suggested_event_types": [
+        "ib_retention"
+      ],
+      "note": null,
+      "supporting_observation_ids": [],
+      "supporting_party_ids": [],
+      "supporting_cohort_ids": []
+    },
+    {
+      "cue_family": "advisor",
+      "status": "not_found",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "High-confidence advisor cue was not covered by canonical v2 artifacts.",
+      "reason_code": "uncovered_advisor_cue",
+      "supporting_event_ids": [],
+      "supporting_actor_ids": [],
+      "supporting_span_ids": [],
+      "block_ids": [
+        "B021",
+        "B022"
+      ],
+      "evidence_ids": [
+        "0001047469-13-010973:E0375"
+      ],
+      "matched_terms": [
+        "discussed",
+        "entered into",
+        "meeting",
+        "proposal",
+        "sent"
+      ],
+      "confidence": "high",
+      "suggested_event_types": [
+        "ib_retention"
+      ],
+      "note": null,
+      "supporting_observation_ids": [],
+      "supporting_party_ids": [],
+      "supporting_cohort_ids": []
+    },
+    {
+      "cue_family": "advisor",
+      "status": "not_found",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "High-confidence advisor cue was not covered by canonical v2 artifacts.",
+      "reason_code": "uncovered_advisor_cue",
+      "supporting_event_ids": [],
+      "supporting_actor_ids": [],
+      "supporting_span_ids": [],
+      "block_ids": [
+        "B021",
+        "B022"
+      ],
+      "evidence_ids": [
+        "0001047469-13-010973:E0376"
+      ],
+      "matched_terms": [
+        "advisor",
+        "financial advisor",
+        "investment bank",
+        "transaction committee"
+      ],
+      "confidence": "high",
+      "suggested_event_types": [
+        "ib_retention"
+      ],
+      "note": null,
+      "supporting_observation_ids": [],
+      "supporting_party_ids": [],
+      "supporting_cohort_ids": []
+    },
+    {
+      "cue_family": "advisor",
+      "status": "not_found",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "Medium-confidence advisor cue was not covered by canonical v2 artifacts.",
+      "reason_code": "uncovered_advisor_cue",
+      "supporting_event_ids": [],
+      "supporting_actor_ids": [],
+      "supporting_span_ids": [],
+      "block_ids": [
+        "B029",
+        "B030"
+      ],
+      "evidence_ids": [
+        "0001047469-13-010973:E0385"
+      ],
+      "matched_terms": [
+        "sent"
+      ],
+      "confidence": "medium",
+      "suggested_event_types": [
+        "ib_retention"
+      ],
+      "note": null,
+      "supporting_observation_ids": [],
+      "supporting_party_ids": [],
+      "supporting_cohort_ids": []
+    },
+    {
+      "cue_family": "advisor",
+      "status": "not_found",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "Medium-confidence advisor cue was not covered by canonical v2 artifacts.",
+      "reason_code": "uncovered_advisor_cue",
+      "supporting_event_ids": [],
+      "supporting_actor_ids": [],
+      "supporting_span_ids": [],
+      "block_ids": [
+        "B029",
+        "B030"
+      ],
+      "evidence_ids": [
+        "0001047469-13-010973:E0386"
+      ],
+      "matched_terms": [
+        "advisor",
+        "financial advisor",
+        "transaction committee"
+      ],
+      "confidence": "medium",
+      "suggested_event_types": [
+        "ib_retention"
+      ],
+      "note": null,
+      "supporting_observation_ids": [],
+      "supporting_party_ids": [],
+      "supporting_cohort_ids": []
+    },
+    {
+      "cue_family": "advisor",
+      "status": "not_found",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "High-confidence advisor cue was not covered by canonical v2 artifacts.",
+      "reason_code": "uncovered_advisor_cue",
+      "supporting_event_ids": [],
+      "supporting_actor_ids": [],
+      "supporting_span_ids": [],
+      "block_ids": [
+        "B031",
+        "B032"
+      ],
+      "evidence_ids": [
+        "0001047469-13-010973:E0388"
+      ],
+      "matched_terms": [
+        "discussed",
+        "meeting",
+        "proposed",
+        "sent"
+      ],
+      "confidence": "high",
+      "suggested_event_types": [
+        "ib_retention"
+      ],
+      "note": null,
+      "supporting_observation_ids": [],
+      "supporting_party_ids": [],
+      "supporting_cohort_ids": []
+    },
+    {
+      "cue_family": "advisor",
+      "status": "not_found",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "High-confidence advisor cue was not covered by canonical v2 artifacts.",
+      "reason_code": "uncovered_advisor_cue",
+      "supporting_event_ids": [],
+      "supporting_actor_ids": [],
+      "supporting_span_ids": [],
+      "block_ids": [
+        "B031",
+        "B032"
+      ],
+      "evidence_ids": [
+        "0001047469-13-010973:E0389"
+      ],
+      "matched_terms": [
+        "advisor",
+        "financial advisor",
+        "stockholder",
+        "transaction committee"
+      ],
+      "confidence": "high",
+      "suggested_event_types": [
+        "ib_retention"
+      ],
+      "note": null,
+      "supporting_observation_ids": [],
+      "supporting_party_ids": [],
+      "supporting_cohort_ids": []
+    },
+    {
+      "cue_family": "advisor",
+      "status": "observed",
+      "severity": "warning",
+      "repairability": null,
+      "description": "High-confidence advisor cue is covered by canonical v2 artifacts.",
+      "reason_code": "matched_observation",
+      "supporting_event_ids": [],
+      "supporting_actor_ids": [],
+      "supporting_span_ids": [
+        "span_0004"
+      ],
+      "block_ids": [
+        "B036"
+      ],
+      "evidence_ids": [
+        "0001047469-13-010973:E0393"
+      ],
+      "matched_terms": [
+        "entered into",
+        "sent"
+      ],
+      "confidence": "high",
+      "suggested_event_types": [
+        "ib_retention"
+      ],
+      "note": null,
+      "supporting_observation_ids": [
+        "obs_evt_003"
+      ],
+      "supporting_party_ids": [],
+      "supporting_cohort_ids": []
+    },
+    {
+      "cue_family": "process_initiation",
+      "status": "observed",
+      "severity": "error",
+      "repairability": null,
+      "description": "High-confidence process_initiation cue is covered by canonical v2 artifacts.",
+      "reason_code": "matched_observation",
+      "supporting_event_ids": [],
+      "supporting_actor_ids": [],
+      "supporting_span_ids": [
+        "span_0007"
+      ],
+      "block_ids": [
+        "B041",
+        "B042"
+      ],
+      "evidence_ids": [
+        "0001047469-13-010973:E0402"
+      ],
+      "matched_terms": [
+        "authorized",
+        "discussed",
+        "meeting",
+        "proposal",
+        "received",
+        "sent"
+      ],
+      "confidence": "high",
+      "suggested_event_types": [
+        "target_sale",
+        "target_sale_public",
+        "bidder_sale",
+        "activist_sale",
+        "sale_press_release",
+        "bid_press_release"
+      ],
+      "note": null,
+      "supporting_observation_ids": [
+        "obs_evt_026"
+      ],
+      "supporting_party_ids": [],
+      "supporting_cohort_ids": []
+    },
+    {
+      "cue_family": "advisor",
+      "status": "not_found",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "High-confidence advisor cue was not covered by canonical v2 artifacts.",
+      "reason_code": "uncovered_advisor_cue",
+      "supporting_event_ids": [],
+      "supporting_actor_ids": [],
+      "supporting_span_ids": [],
+      "block_ids": [
+        "B068",
+        "B069"
+      ],
+      "evidence_ids": [
+        "0001047469-13-010973:E0430"
+      ],
+      "matched_terms": [
+        "engaged",
+        "sent"
+      ],
+      "confidence": "high",
+      "suggested_event_types": [
+        "ib_retention"
+      ],
+      "note": null,
+      "supporting_observation_ids": [],
+      "supporting_party_ids": [],
+      "supporting_cohort_ids": []
+    },
+    {
+      "cue_family": "advisor",
+      "status": "not_found",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "Medium-confidence advisor cue was not covered by canonical v2 artifacts.",
+      "reason_code": "uncovered_advisor_cue",
+      "supporting_event_ids": [],
+      "supporting_actor_ids": [],
+      "supporting_span_ids": [],
+      "block_ids": [
+        "B068",
+        "B069"
+      ],
+      "evidence_ids": [
+        "0001047469-13-010973:E0431"
+      ],
+      "matched_terms": [
+        "counsel",
+        "party "
+      ],
+      "confidence": "medium",
+      "suggested_event_types": [
+        "ib_retention"
+      ],
+      "note": null,
+      "supporting_observation_ids": [],
+      "supporting_party_ids": [],
+      "supporting_cohort_ids": []
+    },
+    {
+      "cue_family": "proposal",
+      "status": "observed",
+      "severity": "warning",
+      "repairability": null,
+      "description": "Medium-confidence proposal cue is covered by canonical v2 artifacts.",
+      "reason_code": "matched_observation",
+      "supporting_event_ids": [],
+      "supporting_actor_ids": [],
+      "supporting_span_ids": [
+        "span_0014"
+      ],
+      "block_ids": [
+        "B080",
+        "B081"
+      ],
+      "evidence_ids": [
+        "0001047469-13-010973:E0444"
+      ],
+      "matched_terms": [
+        "submitted"
+      ],
+      "confidence": "medium",
+      "suggested_event_types": [
+        "proposal"
+      ],
+      "note": null,
+      "supporting_observation_ids": [
+        "obs_evt_011"
+      ],
+      "supporting_party_ids": [],
+      "supporting_cohort_ids": []
+    },
+    {
+      "cue_family": "advisor",
+      "status": "not_found",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "Medium-confidence advisor cue was not covered by canonical v2 artifacts.",
+      "reason_code": "uncovered_advisor_cue",
+      "supporting_event_ids": [],
+      "supporting_actor_ids": [],
+      "supporting_span_ids": [],
+      "block_ids": [
+        "B133",
+        "B134"
+      ],
+      "evidence_ids": [
+        "0001047469-13-010973:E0519"
+      ],
+      "matched_terms": [
+        "sent"
+      ],
+      "confidence": "medium",
+      "suggested_event_types": [
+        "ib_retention"
+      ],
+      "note": null,
+      "supporting_observation_ids": [],
+      "supporting_party_ids": [],
+      "supporting_cohort_ids": []
+    },
+    {
+      "cue_family": "advisor",
+      "status": "not_found",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "Medium-confidence advisor cue was not covered by canonical v2 artifacts.",
+      "reason_code": "uncovered_advisor_cue",
+      "supporting_event_ids": [],
+      "supporting_actor_ids": [],
+      "supporting_span_ids": [],
+      "block_ids": [
+        "B133",
+        "B134"
+      ],
+      "evidence_ids": [
+        "0001047469-13-010973:E0520"
+      ],
+      "matched_terms": [
+        "counsel",
+        "special committee"
+      ],
+      "confidence": "medium",
+      "suggested_event_types": [
+        "ib_retention"
+      ],
+      "note": null,
+      "supporting_observation_ids": [],
+      "supporting_party_ids": [],
+      "supporting_cohort_ids": []
+    },
+    {
+      "cue_family": "advisor",
+      "status": "observed",
+      "severity": "warning",
+      "repairability": null,
+      "description": "High-confidence advisor cue is covered by canonical v2 artifacts.",
+      "reason_code": "matched_party",
+      "supporting_event_ids": [],
+      "supporting_actor_ids": [],
+      "supporting_span_ids": [
+        "span_0036"
+      ],
+      "block_ids": [
+        "B139",
+        "B140"
+      ],
+      "evidence_ids": [
+        "0001047469-13-010973:E0530"
+      ],
+      "matched_terms": [
+        "delivered",
+        "discussed",
+        "engaged",
+        "proposal",
+        "proposed",
+        "sent"
+      ],
+      "confidence": "high",
+      "suggested_event_types": [
+        "ib_retention"
+      ],
+      "note": null,
+      "supporting_observation_ids": [],
+      "supporting_party_ids": [
+        "advisor_kirkland"
+      ],
+      "supporting_cohort_ids": []
+    },
+    {
+      "cue_family": "advisor",
+      "status": "observed",
+      "severity": "warning",
+      "repairability": null,
+      "description": "Medium-confidence advisor cue is covered by canonical v2 artifacts.",
+      "reason_code": "matched_party",
+      "supporting_event_ids": [],
+      "supporting_actor_ids": [],
+      "supporting_span_ids": [
+        "span_0036"
+      ],
+      "block_ids": [
+        "B139",
+        "B140"
+      ],
+      "evidence_ids": [
+        "0001047469-13-010973:E0531"
+      ],
+      "matched_terms": [
+        "counsel",
+        "special committee",
+        "transaction committee"
+      ],
+      "confidence": "medium",
+      "suggested_event_types": [
+        "ib_retention"
+      ],
+      "note": null,
+      "supporting_observation_ids": [],
+      "supporting_party_ids": [
+        "advisor_kirkland"
+      ],
+      "supporting_cohort_ids": []
+    },
+    {
+      "cue_family": "advisor",
+      "status": "not_found",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "Medium-confidence advisor cue was not covered by canonical v2 artifacts.",
+      "reason_code": "uncovered_advisor_cue",
+      "supporting_event_ids": [],
+      "supporting_actor_ids": [],
+      "supporting_span_ids": [],
+      "block_ids": [
+        "B142",
+        "B143"
+      ],
+      "evidence_ids": [
+        "0001047469-13-010973:E0534"
+      ],
+      "matched_terms": [
+        "entered into"
+      ],
+      "confidence": "medium",
+      "suggested_event_types": [
+        "ib_retention"
+      ],
+      "note": null,
+      "supporting_observation_ids": [],
+      "supporting_party_ids": [],
+      "supporting_cohort_ids": []
+    }
+  ]
+}

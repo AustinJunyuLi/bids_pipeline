@@ -21,6 +21,7 @@ from skill_pipeline.derive import run_derive
 from skill_pipeline.enrich_core import run_enrich_core
 from skill_pipeline.gates import run_gates
 from skill_pipeline.gates_v2 import run_gates_v2
+from skill_pipeline.migrate_extract_v1_to_v2 import run_migrate_extract_v1_to_v2
 from skill_pipeline.pipeline_models.common import PIPELINE_VERSION
 from skill_pipeline.pipeline_models.source import SeedDeal
 from skill_pipeline.seeds import load_seed_entry
@@ -263,6 +264,18 @@ def build_parser() -> argparse.ArgumentParser:
         help=argparse.SUPPRESS,
     )
 
+    migrate_extract_v2_parser = subparsers.add_parser(
+        "migrate-extract-v1-to-v2",
+        help="Bootstrap quote-first v2 observation artifacts from canonical v1 extracts.",
+    )
+    migrate_extract_v2_parser.add_argument("--deal", required=True)
+    migrate_extract_v2_parser.add_argument(
+        "--project-root",
+        type=Path,
+        default=PROJECT_ROOT,
+        help=argparse.SUPPRESS,
+    )
+
     compose_prompts_parser = subparsers.add_parser(
         "compose-prompts",
         help="Compose deterministic prompt packets from source artifacts.",
@@ -270,9 +283,15 @@ def build_parser() -> argparse.ArgumentParser:
     compose_prompts_parser.add_argument("--deal", required=True)
     compose_prompts_parser.add_argument(
         "--mode",
-        choices=["actors", "events", "all"],
+        choices=["actors", "events", "all", "observations"],
         default="all",
         help="Which packet families to compose (default: all).",
+    )
+    compose_prompts_parser.add_argument(
+        "--contract",
+        choices=["v1", "v2"],
+        default="v1",
+        help="Prompt contract family to compose (default: v1).",
     )
     compose_prompts_parser.add_argument(
         "--chunk-budget",
@@ -398,11 +417,14 @@ def main(argv: Sequence[str] | None = None) -> int:
         return run_db_export_v2(args.deal, project_root=args.project_root)
     if args.command == "derive":
         return run_derive(args.deal, project_root=args.project_root)
+    if args.command == "migrate-extract-v1-to-v2":
+        return run_migrate_extract_v1_to_v2(args.deal, project_root=args.project_root)
     if args.command == "compose-prompts":
         manifest = run_compose_prompts(
             args.deal,
             project_root=args.project_root,
             mode=args.mode,
+            contract=args.contract,
             chunk_budget=args.chunk_budget,
             routing=args.routing,
         )

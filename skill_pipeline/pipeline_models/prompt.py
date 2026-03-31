@@ -22,7 +22,7 @@ class PromptPacketArtifact(PipelineModel):
     """Metadata for one prompt packet file set."""
 
     packet_id: str
-    packet_family: Literal["actors", "events"]
+    packet_family: Literal["actors", "events", "observations_v2"]
     chunk_mode: Literal["single_pass", "chunked"]
     window_id: str
     prefix_path: str

@@ -1,0 +1,869 @@
+{
+  "parties": [
+    {
+      "party_id": "target_board_petsmart",
+      "display_name": "PetSmart Board of Directors",
+      "canonical_name": "PETSMART BOARD OF DIRECTORS",
+      "aliases": [
+        "the board"
+      ],
+      "role": "target_board",
+      "bidder_kind": null,
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": [
+        "span_0015"
+      ]
+    },
+    {
+      "party_id": "target_board_petsmart_ad_hoc_committee",
+      "display_name": "PetSmart Ad Hoc Committee",
+      "canonical_name": "PETSMART AD HOC COMMITTEE",
+      "aliases": [
+        "ad hoc committee",
+        "ad hoc advisory subcommittee"
+      ],
+      "role": "target_board",
+      "bidder_kind": null,
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": [
+        "span_0015"
+      ]
+    },
+    {
+      "party_id": "advisor_wachtell_lipton",
+      "display_name": "Wachtell, Lipton, Rosen & Katz",
+      "canonical_name": "WACHTELL, LIPTON, ROSEN & KATZ",
+      "aliases": [
+        "Wachtell Lipton"
+      ],
+      "role": "advisor",
+      "bidder_kind": null,
+      "advisor_kind": "legal",
+      "advised_party_id": "target_board_petsmart",
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": [
+        "span_0015"
+      ]
+    },
+    {
+      "party_id": "advisor_jp_morgan",
+      "display_name": "J.P. Morgan",
+      "canonical_name": "J. P. MORGAN",
+      "aliases": [
+        "J. P. Morgan"
+      ],
+      "role": "advisor",
+      "bidder_kind": null,
+      "advisor_kind": "financial",
+      "advised_party_id": "target_board_petsmart",
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": [
+        "span_0004"
+      ]
+    },
+    {
+      "party_id": "activist_jana_partners",
+      "display_name": "JANA Partners",
+      "canonical_name": "JANA PARTNERS",
+      "aliases": [
+        "JANA"
+      ],
+      "role": "activist",
+      "bidder_kind": null,
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": [
+        "span_0016"
+      ]
+    },
+    {
+      "party_id": "activist_longview",
+      "display_name": "Longview",
+      "canonical_name": "LONGVIEW",
+      "aliases": [],
+      "role": "activist",
+      "bidder_kind": null,
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": [
+        "span_0016"
+      ]
+    },
+    {
+      "party_id": "bidder_industry_participant",
+      "display_name": "Industry Participant",
+      "canonical_name": "INDUSTRY PARTICIPANT",
+      "aliases": [],
+      "role": "bidder",
+      "bidder_kind": "strategic",
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": "private",
+      "geography": null,
+      "evidence_span_ids": [
+        "span_0017"
+      ]
+    },
+    {
+      "party_id": "bidder_buyer_group",
+      "display_name": "Buyer Group",
+      "canonical_name": "BUYER GROUP",
+      "aliases": [],
+      "role": "bidder",
+      "bidder_kind": "financial",
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": [
+        "span_0009"
+      ]
+    },
+    {
+      "party_id": "bidder_2",
+      "display_name": "Bidder 2",
+      "canonical_name": "BIDDER 2",
+      "aliases": [],
+      "role": "bidder",
+      "bidder_kind": "financial",
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": [
+        "span_0009"
+      ]
+    }
+  ],
+  "cohorts": [
+    {
+      "cohort_id": "bidder_financial_buyers_15",
+      "label": "15 potentially interested financial buyers",
+      "parent_cohort_id": null,
+      "exact_count": 15,
+      "known_member_party_ids": [],
+      "unknown_member_count": 15,
+      "membership_basis": "15 potentially interested financial buyers",
+      "created_by_observation_id": "obs_evt_006",
+      "evidence_span_ids": [
+        "span_0008"
+      ]
+    },
+    {
+      "cohort_id": "bidder_3",
+      "label": "two bidders working together as Bidder 3",
+      "parent_cohort_id": null,
+      "exact_count": 2,
+      "known_member_party_ids": [],
+      "unknown_member_count": 2,
+      "membership_basis": "two bidders working together as Bidder 3",
+      "created_by_observation_id": "obs_evt_014",
+      "evidence_span_ids": [
+        "span_0018"
+      ]
+    }
+  ],
+  "observations": [
+    {
+      "observation_id": "obs_evt_010",
+      "obs_type": "solicitation",
+      "date": {
+        "raw_text": "November 3, 2014",
+        "normalized_start": "2014-11-03",
+        "normalized_end": "2014-11-03",
+        "sort_date": "2014-11-03",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [],
+      "counterparty_refs": [],
+      "summary": "The board advanced four bidders that were at or above $80.00 per share to the formal final round.",
+      "evidence_span_ids": [
+        "span_0001",
+        "span_0002",
+        "span_0002"
+      ],
+      "requested_submission": "best_and_final",
+      "binding_level": "binding",
+      "due_date": {
+        "raw_text": "December 10, 2014",
+        "normalized_start": "2014-12-10",
+        "normalized_end": "2014-12-10",
+        "sort_date": "2014-12-10",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "recipient_refs": [],
+      "attachments": [],
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_016",
+      "obs_type": "solicitation",
+      "date": {
+        "raw_text": "December 10, 2014",
+        "normalized_start": "2014-12-10",
+        "normalized_end": "2014-12-10",
+        "sort_date": "2014-12-10",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [],
+      "counterparty_refs": [],
+      "summary": "The ad hoc committee instructed J.P. Morgan to tell the remaining bidders to submit improved bids on December 12, 2014.",
+      "evidence_span_ids": [
+        "span_0003"
+      ],
+      "requested_submission": "best_and_final",
+      "binding_level": "binding",
+      "due_date": {
+        "raw_text": "December 12, 2014",
+        "normalized_start": "2014-12-12",
+        "normalized_end": "2014-12-12",
+        "sort_date": "2014-12-12",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "recipient_refs": [],
+      "attachments": [],
+      "other_detail": "extension round"
+    },
+    {
+      "observation_id": "obs_evt_016_selected",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "December 10, 2014",
+        "normalized_start": "2014-12-10",
+        "normalized_end": "2014-12-10",
+        "sort_date": "2014-12-10",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_buyer_group",
+        "bidder_2"
+      ],
+      "counterparty_refs": [],
+      "summary": "The ad hoc committee instructed J.P. Morgan to tell the remaining bidders to submit improved bids on December 12, 2014.",
+      "evidence_span_ids": [
+        "span_0003"
+      ],
+      "status_kind": "selected_to_advance",
+      "related_observation_id": "obs_evt_016",
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_001",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "July 2014",
+        "normalized_start": "2014-07-01",
+        "normalized_end": "2014-07-31",
+        "sort_date": "2014-07-01",
+        "precision": "month",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "advisor_jp_morgan"
+      ],
+      "counterparty_refs": [],
+      "summary": "PetSmart retained J.P. Morgan as its financial advisor for the review of alternatives.",
+      "evidence_span_ids": [
+        "span_0004"
+      ],
+      "process_kind": "advisor_retention",
+      "process_scope": "target",
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_002",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "August 7, 2014",
+        "normalized_start": "2014-08-07",
+        "normalized_end": "2014-08-07",
+        "sort_date": "2014-08-07",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_industry_participant"
+      ],
+      "counterparty_refs": [],
+      "summary": "Industry Participant told J.P. Morgan it might be interested in revisiting a possible combination if PetSmart pursued strategic alternatives.",
+      "evidence_span_ids": [
+        "span_0005"
+      ],
+      "status_kind": "expressed_interest",
+      "related_observation_id": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_003",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "August 13, 2014",
+        "normalized_start": "2014-08-13",
+        "normalized_end": "2014-08-13",
+        "sort_date": "2014-08-13",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [],
+      "counterparty_refs": [],
+      "summary": "The board decided to explore strategic alternatives, including a possible sale of the company.",
+      "evidence_span_ids": [
+        "span_0006"
+      ],
+      "process_kind": "sale_launch",
+      "process_scope": "target",
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_004",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "August 19, 2014",
+        "normalized_start": "2014-08-19",
+        "normalized_end": "2014-08-19",
+        "sort_date": "2014-08-19",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [],
+      "counterparty_refs": [],
+      "summary": "PetSmart issued a press release announcing that it had decided to explore strategic alternatives, including a possible sale.",
+      "evidence_span_ids": [
+        "span_0007"
+      ],
+      "process_kind": "press_release",
+      "process_scope": "target",
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_006",
+      "obs_type": "agreement",
+      "date": {
+        "raw_text": "the first week of October 2014",
+        "normalized_start": "2014-10-01",
+        "normalized_end": "2014-10-31",
+        "sort_date": "2014-10-01",
+        "precision": "month",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_financial_buyers_15"
+      ],
+      "counterparty_refs": [],
+      "summary": "PetSmart entered into confidentiality and standstill agreements with 15 potentially interested financial buyers.",
+      "evidence_span_ids": [
+        "span_0008"
+      ],
+      "agreement_kind": "nda",
+      "signed": true,
+      "grants_diligence_access": true,
+      "includes_standstill": null,
+      "consideration_type": null,
+      "supersedes_observation_id": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_007",
+      "obs_type": "proposal",
+      "date": {
+        "raw_text": "October 30, 2014",
+        "normalized_start": "2014-10-30",
+        "normalized_end": "2014-10-30",
+        "sort_date": "2014-10-30",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_buyer_group"
+      ],
+      "counterparty_refs": [],
+      "summary": "The Buyer Group submitted a non-binding preliminary indication of interest at $81.00 to $83.00 per share.",
+      "evidence_span_ids": [
+        "span_0009",
+        "span_0009"
+      ],
+      "requested_by_observation_id": "obs_evt_016",
+      "revises_observation_id": null,
+      "delivery_mode": null,
+      "terms": {
+        "per_share": null,
+        "range_low": "81.00",
+        "range_high": "83.00",
+        "enterprise_value": null,
+        "consideration_type": null
+      },
+      "mentions_non_binding": true,
+      "includes_draft_merger_agreement": false,
+      "includes_markup": false,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_008",
+      "obs_type": "proposal",
+      "date": {
+        "raw_text": "October 30, 2014",
+        "normalized_start": "2014-10-30",
+        "normalized_end": "2014-10-30",
+        "sort_date": "2014-10-30",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_2"
+      ],
+      "counterparty_refs": [],
+      "summary": "Bidder 2 initially submitted a non-binding preliminary indication of interest at $78.00 per share.",
+      "evidence_span_ids": [
+        "span_0009",
+        "span_0009"
+      ],
+      "requested_by_observation_id": "obs_evt_016",
+      "revises_observation_id": null,
+      "delivery_mode": null,
+      "terms": {
+        "per_share": "78.00",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": null
+      },
+      "mentions_non_binding": true,
+      "includes_draft_merger_agreement": false,
+      "includes_markup": false,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_009",
+      "obs_type": "proposal",
+      "date": {
+        "raw_text": "October 30 to November 2, 2014",
+        "normalized_start": "2014-10-30",
+        "normalized_end": "2014-11-02",
+        "sort_date": "2014-10-30",
+        "precision": "range",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_2"
+      ],
+      "counterparty_refs": [],
+      "summary": "Bidder 2 increased its non-binding preliminary indication of interest to $81.00 to $84.00 per share after follow-up discussions with J.P. Morgan.",
+      "evidence_span_ids": [
+        "span_0009",
+        "span_0009"
+      ],
+      "requested_by_observation_id": "obs_evt_016",
+      "revises_observation_id": "obs_evt_008",
+      "delivery_mode": null,
+      "terms": {
+        "per_share": null,
+        "range_low": "81.00",
+        "range_high": "84.00",
+        "enterprise_value": null,
+        "consideration_type": null
+      },
+      "mentions_non_binding": true,
+      "includes_draft_merger_agreement": false,
+      "includes_markup": false,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_012",
+      "obs_type": "proposal",
+      "date": {
+        "raw_text": "December 10, 2014",
+        "normalized_start": "2014-12-10",
+        "normalized_end": "2014-12-10",
+        "sort_date": "2014-12-10",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_buyer_group"
+      ],
+      "counterparty_refs": [],
+      "summary": "The Buyer Group submitted a final bid of $80.70 per share in cash.",
+      "evidence_span_ids": [
+        "span_0010",
+        "span_0010"
+      ],
+      "requested_by_observation_id": "obs_evt_016",
+      "revises_observation_id": "obs_evt_007",
+      "delivery_mode": null,
+      "terms": {
+        "per_share": "80.70",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "mentions_non_binding": false,
+      "includes_draft_merger_agreement": true,
+      "includes_markup": true,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_013",
+      "obs_type": "proposal",
+      "date": {
+        "raw_text": "December 10, 2014",
+        "normalized_start": "2014-12-10",
+        "normalized_end": "2014-12-10",
+        "sort_date": "2014-12-10",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_2"
+      ],
+      "counterparty_refs": [],
+      "summary": "Bidder 2 submitted a final bid of $80.35 per share in cash.",
+      "evidence_span_ids": [
+        "span_0010",
+        "span_0010"
+      ],
+      "requested_by_observation_id": "obs_evt_016",
+      "revises_observation_id": "obs_evt_009",
+      "delivery_mode": null,
+      "terms": {
+        "per_share": "80.35",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "mentions_non_binding": false,
+      "includes_draft_merger_agreement": true,
+      "includes_markup": true,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_014",
+      "obs_type": "proposal",
+      "date": {
+        "raw_text": "December 10, 2014",
+        "normalized_start": "2014-12-10",
+        "normalized_end": "2014-12-10",
+        "sort_date": "2014-12-10",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_3"
+      ],
+      "counterparty_refs": [],
+      "summary": "Bidder 3 gave a verbal price indication that its valuation would not exceed approximately $78 per share.",
+      "evidence_span_ids": [
+        "span_0010",
+        "span_0010"
+      ],
+      "requested_by_observation_id": "obs_evt_016",
+      "revises_observation_id": null,
+      "delivery_mode": "oral",
+      "terms": {
+        "per_share": "78.00",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": null
+      },
+      "mentions_non_binding": false,
+      "includes_draft_merger_agreement": false,
+      "includes_markup": false,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_018",
+      "obs_type": "proposal",
+      "date": {
+        "raw_text": "December 12, 2014",
+        "normalized_start": "2014-12-12",
+        "normalized_end": "2014-12-12",
+        "sort_date": "2014-12-12",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_2"
+      ],
+      "counterparty_refs": [],
+      "summary": "Bidder 2 submitted a best-and-final offer of $81.50 per share in cash.",
+      "evidence_span_ids": [
+        "span_0011",
+        "span_0012",
+        "span_0012"
+      ],
+      "requested_by_observation_id": "obs_evt_016",
+      "revises_observation_id": "obs_evt_013",
+      "delivery_mode": null,
+      "terms": {
+        "per_share": "81.50",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "mentions_non_binding": false,
+      "includes_draft_merger_agreement": true,
+      "includes_markup": true,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_019",
+      "obs_type": "proposal",
+      "date": {
+        "raw_text": "December 12, 2014",
+        "normalized_start": "2014-12-12",
+        "normalized_end": "2014-12-12",
+        "sort_date": "2014-12-12",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_buyer_group"
+      ],
+      "counterparty_refs": [],
+      "summary": "The Buyer Group initially made an oral improved offer of $82.50 per share in cash.",
+      "evidence_span_ids": [
+        "span_0011"
+      ],
+      "requested_by_observation_id": "obs_evt_016",
+      "revises_observation_id": "obs_evt_012",
+      "delivery_mode": "oral",
+      "terms": {
+        "per_share": "82.50",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "mentions_non_binding": false,
+      "includes_draft_merger_agreement": false,
+      "includes_markup": false,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_020",
+      "obs_type": "proposal",
+      "date": {
+        "raw_text": "December 12, 2014",
+        "normalized_start": "2014-12-12",
+        "normalized_end": "2014-12-12",
+        "sort_date": "2014-12-12",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_buyer_group"
+      ],
+      "counterparty_refs": [],
+      "summary": "The Buyer Group later submitted a best-and-final offer of $83.00 per share in cash.",
+      "evidence_span_ids": [
+        "span_0013",
+        "span_0012",
+        "span_0012"
+      ],
+      "requested_by_observation_id": "obs_evt_016",
+      "revises_observation_id": "obs_evt_019",
+      "delivery_mode": null,
+      "terms": {
+        "per_share": "83.00",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "mentions_non_binding": false,
+      "includes_draft_merger_agreement": true,
+      "includes_markup": true,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_021",
+      "obs_type": "outcome",
+      "date": {
+        "raw_text": "December 14, 2014",
+        "normalized_start": "2014-12-14",
+        "normalized_end": "2014-12-14",
+        "sort_date": "2014-12-14",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [],
+      "counterparty_refs": [
+        "target_board_petsmart"
+      ],
+      "summary": "PetSmart and the Buyer Group executed the merger agreement on December 14, 2014.",
+      "evidence_span_ids": [
+        "span_0014"
+      ],
+      "outcome_kind": "executed",
+      "related_observation_id": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_021_agreement",
+      "obs_type": "agreement",
+      "date": {
+        "raw_text": "December 14, 2014",
+        "normalized_start": "2014-12-14",
+        "normalized_end": "2014-12-14",
+        "sort_date": "2014-12-14",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_board_petsmart"
+      ],
+      "counterparty_refs": [],
+      "summary": "PetSmart and the Buyer Group executed the merger agreement on December 14, 2014.",
+      "evidence_span_ids": [
+        "span_0014"
+      ],
+      "agreement_kind": "merger_agreement",
+      "signed": true,
+      "grants_diligence_access": null,
+      "includes_standstill": null,
+      "consideration_type": null,
+      "supersedes_observation_id": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_022",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "December 14, 2014",
+        "normalized_start": "2014-12-14",
+        "normalized_end": "2014-12-14",
+        "sort_date": "2014-12-14",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_buyer_group"
+      ],
+      "counterparty_refs": [],
+      "summary": "The parties issued a press release announcing the transaction after signing the merger agreement.",
+      "evidence_span_ids": [
+        "span_0014"
+      ],
+      "process_kind": "press_release",
+      "process_scope": "bidder",
+      "other_detail": null
+    }
+  ],
+  "exclusions": [
+    {
+      "category": "other",
+      "block_ids": [
+        "B019"
+      ],
+      "explanation": "The filing describes another bidder with a $80.00 to $85.00 per share indication, but it does not assign that bidder an alias that can be linked confidently to the current actor roster."
+    },
+    {
+      "category": "other",
+      "block_ids": [
+        "B020"
+      ],
+      "explanation": "The filing states that eliminated parties were notified after the November 3, 2014 screening, but it does not individualize those parties against the current actor roster."
+    },
+    {
+      "category": "other",
+      "block_ids": [
+        "B028"
+      ],
+      "explanation": "The December 9 confidentiality agreement related to Longview rollover discussions between bidders and a stockholder, not to target-granted sale-process diligence access."
+    },
+    {
+      "category": "other",
+      "block_ids": [
+        "B033"
+      ],
+      "explanation": "The December 12 confidentiality agreement between Longview and the Buyer Group was a rollover-related bidder-stockholder arrangement rather than a target-diligence NDA."
+    }
+  ],
+  "coverage": []
+}

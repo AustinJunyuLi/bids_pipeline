@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Observation Graph Architecture
-status: Planning Phase 16
-stopped_at: Phase 15 completed; Phase 16 planning and migration next
-last_updated: "2026-03-31T11:33:16Z"
+status: Phase 16 complete
+stopped_at: Phase 16 completed across all 9 deals; milestone follow-up audit/cleanup remains optional
+last_updated: "2026-03-31T17:45:00Z"
 progress:
   total_phases: 7
-  completed_phases: 6
-  total_plans: 16
-  completed_plans: 16
+  completed_phases: 7
+  total_plans: 19
+  completed_plans: 19
 ---
 
 # Project State
@@ -19,20 +19,20 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-31)
 
 **Core value:** Produce the most correct filing-grounded structured deal record possible from raw text, by separating filing-literal observations from analyst-derived rows.
-**Current focus:** Phase 16 — Extraction Contract + Migration
+**Current focus:** Milestone wrap-up after Phase 16 completion
 
 ## Current Position
 
 Phase: 16 (Extraction Contract + Migration)
-Plan: Planning next
+Plan: Complete
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 16 (v2.0)
-- Average duration: 6.3 minutes
-- Total execution time: 101 minutes
+- Total plans completed: 19 (v2.0)
+- Average duration: 6.5 minutes
+- Total execution time: 124 minutes
 
 **By Phase:**
 
@@ -44,6 +44,7 @@ Plan: Planning next
 | 13 | 3 | 15m | 5.0m |
 | 14 | 3 | 12m | 4.0m |
 | 15 | 3 | 13m | 4.3m |
+| 16 | 3 | 23m | 7.7m |
 
 *Updated after each plan completion*
 
@@ -70,6 +71,10 @@ Recent decisions affecting current work:
 - Phase 15 keeps DuckDB additive via `v2_*` tables and stores observation/derivation subtype details in JSON payload columns
 - `db-export-v2` now owns the triple export surface and keeps anonymous slot expansion confined to `benchmark_rows_expanded.csv`
 - The legacy adapter reuses v1 export formatting helpers rather than duplicating bidder-ID and note logic
+- Phase 16 adds a separate `compose-prompts --contract v2 --mode observations` path that writes under `prompt_v2/`
+- `migrate-extract-v1-to-v2` is the deterministic bridge used during migration to bootstrap `extract_v2/observations_raw.json` from canonical v1 extracts
+- Literal `status.expressed_interest` now compiles to `bidder_interest` analyst rows, and solicitation observations with `other_detail` mentioning extension compile to `final_round_ext_*`
+- v2 coverage now ignores unsupported cue severities and treats multi-match NDA cues as covered when they resolve to multiple canonical NDA observations rather than a missing or ambiguous literal fact
 
 ### Pending Todos
 
@@ -77,14 +82,12 @@ None yet.
 
 ### Blockers/Concerns
 
-- CohortRecord approximate-count limitations still need real-deal validation before migration closes, especially on PetSmart-style cohorts
-- Shared `verify.py` semantics for v2 remain unresolved; later phases still need to decide whether a shared v2 verify stage is worth adding beyond the current derive gate policy
-- v2 extraction prompt effectiveness is highest-uncertainty deliverable (Phase 16)
-- Phase 16 still has to prove the new v2 storage/export surface on STEC and the remaining 8 migrated deals
+- Shared `verify.py` semantics for v2 remain unresolved; later work can decide whether a shared v2 verify stage is worth adding beyond the current derive gate policy
+- Legacy-adapter benchmark output is intentionally not byte-identical on migrated deals; row-count deltas now expose literal bidder-interest recovery, selected-to-advance structure, and cohort-backed anonymous participation that v1 flattened away
 
 ## Session Continuity
 
 Last session: 2026-03-31
-Stopped at: Phase 15 complete; Phase 16 not yet planned
+Stopped at: Phase 16 complete across the 9-deal corpus
 Resume file: None
-Next action: `$gsd-plan-phase 16`
+Next action: optional milestone audit / cleanup

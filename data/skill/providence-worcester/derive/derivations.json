@@ -1,0 +1,1023 @@
+{
+  "phases": [
+    {
+      "phase_id": "phase_006",
+      "phase_kind": "formal",
+      "start_observation_id": "obs_evt_008",
+      "end_observation_id": "obs_evt_024",
+      "participant_refs": [],
+      "basis": {
+        "rule_id": "ROUND-02",
+        "source_observation_ids": [
+          "obs_evt_008"
+        ],
+        "source_span_ids": [
+          "span_0001"
+        ],
+        "confidence": "high",
+        "explanation": "Solicitation requested LOIs/binding offers or carried formal attachments."
+      }
+    }
+  ],
+  "transitions": [
+    {
+      "transition_id": "exit-01_bidder_party_d_obs_evt_022",
+      "subject_ref": "bidder_party_d",
+      "subject_count": 1,
+      "from_state": "submitted",
+      "to_state": "inactive",
+      "reason_kind": "literal",
+      "basis": {
+        "rule_id": "EXIT-01",
+        "source_observation_ids": [
+          "obs_evt_022"
+        ],
+        "source_span_ids": [
+          "span_0019"
+        ],
+        "confidence": "high",
+        "explanation": "Literal status observation recorded bidder withdrawal or non-participation."
+      }
+    },
+    {
+      "transition_id": "exit-04_bidder_party_a_obs_evt_024",
+      "subject_ref": "bidder_party_a",
+      "subject_count": 1,
+      "from_state": "active",
+      "to_state": "inactive",
+      "reason_kind": "lost_to_winner",
+      "basis": {
+        "rule_id": "EXIT-04",
+        "source_observation_ids": [
+          "obs_evt_024"
+        ],
+        "source_span_ids": [
+          "span_0022"
+        ],
+        "confidence": "high",
+        "explanation": "Execution outcome closed out remaining active bidders in favor of the winner."
+      }
+    },
+    {
+      "transition_id": "exit-04_bidder_party_b_obs_evt_024",
+      "subject_ref": "bidder_party_b",
+      "subject_count": 1,
+      "from_state": "submitted",
+      "to_state": "inactive",
+      "reason_kind": "lost_to_winner",
+      "basis": {
+        "rule_id": "EXIT-04",
+        "source_observation_ids": [
+          "obs_evt_024"
+        ],
+        "source_span_ids": [
+          "span_0022"
+        ],
+        "confidence": "high",
+        "explanation": "Execution outcome closed out remaining active bidders in favor of the winner."
+      }
+    },
+    {
+      "transition_id": "exit-04_bidder_party_c_obs_evt_024",
+      "subject_ref": "bidder_party_c",
+      "subject_count": 1,
+      "from_state": "submitted",
+      "to_state": "inactive",
+      "reason_kind": "lost_to_winner",
+      "basis": {
+        "rule_id": "EXIT-04",
+        "source_observation_ids": [
+          "obs_evt_024"
+        ],
+        "source_span_ids": [
+          "span_0022"
+        ],
+        "confidence": "high",
+        "explanation": "Execution outcome closed out remaining active bidders in favor of the winner."
+      }
+    },
+    {
+      "transition_id": "exit-04_bidder_party_e_obs_evt_024",
+      "subject_ref": "bidder_party_e",
+      "subject_count": 1,
+      "from_state": "submitted",
+      "to_state": "inactive",
+      "reason_kind": "lost_to_winner",
+      "basis": {
+        "rule_id": "EXIT-04",
+        "source_observation_ids": [
+          "obs_evt_024"
+        ],
+        "source_span_ids": [
+          "span_0022"
+        ],
+        "confidence": "high",
+        "explanation": "Execution outcome closed out remaining active bidders in favor of the winner."
+      }
+    },
+    {
+      "transition_id": "exit-04_bidder_party_f_obs_evt_024",
+      "subject_ref": "bidder_party_f",
+      "subject_count": 1,
+      "from_state": "submitted",
+      "to_state": "inactive",
+      "reason_kind": "lost_to_winner",
+      "basis": {
+        "rule_id": "EXIT-04",
+        "source_observation_ids": [
+          "obs_evt_024"
+        ],
+        "source_span_ids": [
+          "span_0022"
+        ],
+        "confidence": "high",
+        "explanation": "Execution outcome closed out remaining active bidders in favor of the winner."
+      }
+    }
+  ],
+  "cash_regimes": [
+    {
+      "cash_regime_id": "cash_001",
+      "scope_kind": "phase",
+      "scope_ref": "phase_006",
+      "regime": "all_cash",
+      "basis": {
+        "rule_id": "CASH-01",
+        "source_observation_ids": [
+          "obs_evt_011",
+          "obs_evt_013",
+          "obs_evt_014",
+          "obs_evt_015",
+          "obs_evt_016",
+          "obs_evt_017",
+          "obs_evt_018",
+          "obs_evt_020",
+          "obs_evt_021",
+          "obs_evt_023"
+        ],
+        "source_span_ids": [
+          "span_0001",
+          "span_0008",
+          "span_0009",
+          "span_0010",
+          "span_0011",
+          "span_0012",
+          "span_0013",
+          "span_0014",
+          "span_0015",
+          "span_0016",
+          "span_0017",
+          "span_0018",
+          "span_0020",
+          "span_0021"
+        ],
+        "confidence": "high",
+        "explanation": "Explicit proposal consideration types set the phase cash regime."
+      }
+    }
+  ],
+  "judgments": [],
+  "analyst_rows": [
+    {
+      "row_id": "row_0001",
+      "origin": "literal",
+      "analyst_event_type": "ib_retention",
+      "subject_ref": "advisor_bmo_capital_markets",
+      "row_count": 1,
+      "bidder_name": "BMO Capital Markets Corp. / Greene Holcomb & Fisher LLC",
+      "bidder_type": null,
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2016-01-27",
+      "date_public": "2016-01-27",
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROCESS",
+        "source_observation_ids": [
+          "obs_evt_002"
+        ],
+        "source_span_ids": [
+          "span_0003"
+        ],
+        "confidence": "high",
+        "explanation": "Literal process observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0002",
+      "origin": "literal",
+      "analyst_event_type": "target_sale",
+      "subject_ref": null,
+      "row_count": 1,
+      "bidder_name": null,
+      "bidder_type": null,
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2016-03-14",
+      "date_public": "2016-03-14",
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROCESS",
+        "source_observation_ids": [
+          "obs_evt_003"
+        ],
+        "source_span_ids": [
+          "span_0004",
+          "span_0005"
+        ],
+        "confidence": "high",
+        "explanation": "Literal process observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0003",
+      "origin": "literal",
+      "analyst_event_type": "nda",
+      "subject_ref": "bidder_party_a",
+      "row_count": 1,
+      "bidder_name": "Party A",
+      "bidder_type": "S",
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2016-04-22",
+      "date_public": "2016-04-22",
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-AGREEMENT",
+        "source_observation_ids": [
+          "obs_evt_004"
+        ],
+        "source_span_ids": [
+          "span_0006"
+        ],
+        "confidence": "high",
+        "explanation": "Literal agreement observation compiled into NDA-family analyst row."
+      }
+    },
+    {
+      "row_id": "row_0004",
+      "origin": "literal",
+      "analyst_event_type": "nda",
+      "subject_ref": "bidder_gw",
+      "row_count": 1,
+      "bidder_name": "G& W",
+      "bidder_type": "S",
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2016-04-22",
+      "date_public": "2016-04-22",
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-AGREEMENT",
+        "source_observation_ids": [
+          "obs_evt_005"
+        ],
+        "source_span_ids": [
+          "span_0006"
+        ],
+        "confidence": "high",
+        "explanation": "Literal agreement observation compiled into NDA-family analyst row."
+      }
+    },
+    {
+      "row_id": "row_0005",
+      "origin": "literal",
+      "analyst_event_type": "nda",
+      "subject_ref": "bidder_party_b",
+      "row_count": 1,
+      "bidder_name": "Party B",
+      "bidder_type": "S",
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2016-04-22",
+      "date_public": "2016-04-22",
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-AGREEMENT",
+        "source_observation_ids": [
+          "obs_evt_006"
+        ],
+        "source_span_ids": [
+          "span_0006"
+        ],
+        "confidence": "high",
+        "explanation": "Literal agreement observation compiled into NDA-family analyst row."
+      }
+    },
+    {
+      "row_id": "row_0006",
+      "origin": "literal",
+      "analyst_event_type": "bidder_interest",
+      "subject_ref": "bidder_party_c",
+      "row_count": 1,
+      "bidder_name": "Party C",
+      "bidder_type": "S",
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2016-07-05",
+      "date_public": null,
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-STATUS",
+        "source_observation_ids": [
+          "obs_evt_009"
+        ],
+        "source_span_ids": [
+          "span_0007"
+        ],
+        "confidence": "high",
+        "explanation": "Literal expressed-interest status compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0007",
+      "origin": "literal",
+      "analyst_event_type": "nda",
+      "subject_ref": "bidder_party_c",
+      "row_count": 1,
+      "bidder_name": "Party C",
+      "bidder_type": "S",
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2016-07-05",
+      "date_public": null,
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-AGREEMENT",
+        "source_observation_ids": [
+          "obs_evt_010"
+        ],
+        "source_span_ids": [
+          "span_0007"
+        ],
+        "confidence": "high",
+        "explanation": "Literal agreement observation compiled into NDA-family analyst row."
+      }
+    },
+    {
+      "row_id": "row_0008",
+      "origin": "literal",
+      "analyst_event_type": "proposal",
+      "subject_ref": "bidder_party_c",
+      "row_count": 1,
+      "bidder_name": "Party C",
+      "bidder_type": "S",
+      "bid_type": "Formal",
+      "value": "21.00",
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2016-07-12",
+      "date_public": "2016-07-12",
+      "all_cash": true,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROPOSAL",
+        "source_observation_ids": [
+          "obs_evt_011"
+        ],
+        "source_span_ids": [
+          "span_0008"
+        ],
+        "confidence": "high",
+        "explanation": "Literal proposal observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0009",
+      "origin": "literal",
+      "analyst_event_type": "proposal",
+      "subject_ref": "bidder_gw",
+      "row_count": 1,
+      "bidder_name": "G& W",
+      "bidder_type": "S",
+      "bid_type": "Formal",
+      "value": "21.15",
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2016-07-21",
+      "date_public": "2016-07-21",
+      "all_cash": true,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROPOSAL",
+        "source_observation_ids": [
+          "obs_evt_013"
+        ],
+        "source_span_ids": [
+          "span_0009",
+          "span_0001",
+          "span_0010"
+        ],
+        "confidence": "high",
+        "explanation": "Literal proposal observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0010",
+      "origin": "literal",
+      "analyst_event_type": "proposal",
+      "subject_ref": "bidder_party_b",
+      "row_count": 1,
+      "bidder_name": "Party B",
+      "bidder_type": "S",
+      "bid_type": "Formal",
+      "value": "24.00",
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2016-07-25",
+      "date_public": null,
+      "all_cash": true,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROPOSAL",
+        "source_observation_ids": [
+          "obs_evt_014"
+        ],
+        "source_span_ids": [
+          "span_0011",
+          "span_0001",
+          "span_0010"
+        ],
+        "confidence": "high",
+        "explanation": "Literal proposal observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0011",
+      "origin": "literal",
+      "analyst_event_type": "proposal",
+      "subject_ref": "bidder_party_e",
+      "row_count": 1,
+      "bidder_name": "Party E",
+      "bidder_type": "S",
+      "bid_type": "Formal",
+      "value": "21.26",
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2016-07-25",
+      "date_public": null,
+      "all_cash": true,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROPOSAL",
+        "source_observation_ids": [
+          "obs_evt_015"
+        ],
+        "source_span_ids": [
+          "span_0012",
+          "span_0001",
+          "span_0013"
+        ],
+        "confidence": "high",
+        "explanation": "Literal proposal observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0012",
+      "origin": "literal",
+      "analyst_event_type": "proposal",
+      "subject_ref": "bidder_party_d",
+      "row_count": 1,
+      "bidder_name": "Party D",
+      "bidder_type": "F",
+      "bid_type": "Formal",
+      "value": "21.00",
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2016-07-25",
+      "date_public": null,
+      "all_cash": true,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROPOSAL",
+        "source_observation_ids": [
+          "obs_evt_016"
+        ],
+        "source_span_ids": [
+          "span_0014",
+          "span_0001",
+          "span_0010"
+        ],
+        "confidence": "high",
+        "explanation": "Literal proposal observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0013",
+      "origin": "literal",
+      "analyst_event_type": "proposal",
+      "subject_ref": "bidder_party_c",
+      "row_count": 1,
+      "bidder_name": "Party C",
+      "bidder_type": "S",
+      "bid_type": "Formal",
+      "value": "19.30",
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2016-07-25",
+      "date_public": null,
+      "all_cash": true,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROPOSAL",
+        "source_observation_ids": [
+          "obs_evt_017"
+        ],
+        "source_span_ids": [
+          "span_0015",
+          "span_0001"
+        ],
+        "confidence": "high",
+        "explanation": "Literal proposal observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0014",
+      "origin": "literal",
+      "analyst_event_type": "proposal",
+      "subject_ref": "bidder_party_f",
+      "row_count": 1,
+      "bidder_name": "Party F",
+      "bidder_type": "S",
+      "bid_type": "Formal",
+      "value": "19.20",
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2016-07-25",
+      "date_public": null,
+      "all_cash": true,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROPOSAL",
+        "source_observation_ids": [
+          "obs_evt_018"
+        ],
+        "source_span_ids": [
+          "span_0016",
+          "span_0001"
+        ],
+        "confidence": "high",
+        "explanation": "Literal proposal observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0015",
+      "origin": "literal",
+      "analyst_event_type": "proposal",
+      "subject_ref": "bidder_party_d",
+      "row_count": 1,
+      "bidder_name": "Party D",
+      "bidder_type": "F",
+      "bid_type": "Formal",
+      "value": "24.00",
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2016-08-01",
+      "date_public": "2016-08-01",
+      "all_cash": true,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROPOSAL",
+        "source_observation_ids": [
+          "obs_evt_020"
+        ],
+        "source_span_ids": [
+          "span_0017",
+          "span_0001"
+        ],
+        "confidence": "high",
+        "explanation": "Literal proposal observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0016",
+      "origin": "literal",
+      "analyst_event_type": "proposal",
+      "subject_ref": "bidder_party_e",
+      "row_count": 1,
+      "bidder_name": "Party E",
+      "bidder_type": "S",
+      "bid_type": "Formal",
+      "value": "23.81",
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2016-08-01",
+      "date_public": "2016-08-01",
+      "all_cash": true,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROPOSAL",
+        "source_observation_ids": [
+          "obs_evt_021"
+        ],
+        "source_span_ids": [
+          "span_0017",
+          "span_0018",
+          "span_0018",
+          "span_0001"
+        ],
+        "confidence": "high",
+        "explanation": "Literal proposal observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0017",
+      "origin": "literal",
+      "analyst_event_type": "proposal",
+      "subject_ref": "bidder_party_f",
+      "row_count": 1,
+      "bidder_name": "Party F",
+      "bidder_type": "S",
+      "bid_type": "Formal",
+      "value": "23.81",
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2016-08-01",
+      "date_public": "2016-08-01",
+      "all_cash": true,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROPOSAL",
+        "source_observation_ids": [
+          "obs_evt_021"
+        ],
+        "source_span_ids": [
+          "span_0017",
+          "span_0018",
+          "span_0018",
+          "span_0001"
+        ],
+        "confidence": "high",
+        "explanation": "Literal proposal observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0018",
+      "origin": "literal",
+      "analyst_event_type": "proposal",
+      "subject_ref": "bidder_gw",
+      "row_count": 1,
+      "bidder_name": "G& W",
+      "bidder_type": "S",
+      "bid_type": "Formal",
+      "value": "25.00",
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2016-08-12",
+      "date_public": "2016-08-12",
+      "all_cash": true,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROPOSAL",
+        "source_observation_ids": [
+          "obs_evt_023"
+        ],
+        "source_span_ids": [
+          "span_0020",
+          "span_0021"
+        ],
+        "confidence": "high",
+        "explanation": "Literal proposal observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0019",
+      "origin": "literal",
+      "analyst_event_type": "bid_press_release",
+      "subject_ref": null,
+      "row_count": 1,
+      "bidder_name": null,
+      "bidder_type": null,
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2016-08-15",
+      "date_public": "2016-08-15",
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROCESS",
+        "source_observation_ids": [
+          "obs_evt_025"
+        ],
+        "source_span_ids": [
+          "span_0023"
+        ],
+        "confidence": "high",
+        "explanation": "Literal process observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0020",
+      "origin": "literal",
+      "analyst_event_type": "bidder_interest",
+      "subject_ref": "bidder_party_a",
+      "row_count": 1,
+      "bidder_name": "Party A",
+      "bidder_type": "S",
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": null,
+      "date_public": null,
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-STATUS",
+        "source_observation_ids": [
+          "obs_evt_001"
+        ],
+        "source_span_ids": [
+          "span_0002"
+        ],
+        "confidence": "high",
+        "explanation": "Literal expressed-interest status compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0021",
+      "origin": "literal",
+      "analyst_event_type": "executed",
+      "subject_ref": "bidder_gw",
+      "row_count": 1,
+      "bidder_name": "G& W",
+      "bidder_type": "S",
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": null,
+      "date_public": null,
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-OUTCOME",
+        "source_observation_ids": [
+          "obs_evt_024"
+        ],
+        "source_span_ids": [
+          "span_0022"
+        ],
+        "confidence": "high",
+        "explanation": "Literal outcome observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0022",
+      "origin": "derived",
+      "analyst_event_type": "final_round_ann",
+      "subject_ref": null,
+      "row_count": 1,
+      "bidder_name": null,
+      "bidder_type": null,
+      "bid_type": "Formal",
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2016-06-15",
+      "date_public": null,
+      "all_cash": true,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "ROUND-02",
+        "source_observation_ids": [
+          "obs_evt_008"
+        ],
+        "source_span_ids": [
+          "span_0001"
+        ],
+        "confidence": "high",
+        "explanation": "Solicitation requested LOIs/binding offers or carried formal attachments."
+      }
+    },
+    {
+      "row_id": "row_0023",
+      "origin": "derived",
+      "analyst_event_type": "final_round",
+      "subject_ref": null,
+      "row_count": 1,
+      "bidder_name": null,
+      "bidder_type": null,
+      "bid_type": "Formal",
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2016-07-20",
+      "date_public": "2016-07-20",
+      "all_cash": true,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "ROUND-02",
+        "source_observation_ids": [
+          "obs_evt_008"
+        ],
+        "source_span_ids": [
+          "span_0001"
+        ],
+        "confidence": "high",
+        "explanation": "Solicitation requested LOIs/binding offers or carried formal attachments."
+      }
+    },
+    {
+      "row_id": "row_0024",
+      "origin": "literal",
+      "analyst_event_type": "drop",
+      "subject_ref": "bidder_party_d",
+      "row_count": 1,
+      "bidder_name": "Party D",
+      "bidder_type": "F",
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": "2016-08-02",
+      "date_public": "2016-08-02",
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "EXIT-01",
+        "source_observation_ids": [
+          "obs_evt_022"
+        ],
+        "source_span_ids": [
+          "span_0019"
+        ],
+        "confidence": "high",
+        "explanation": "Literal status observation recorded bidder withdrawal or non-participation."
+      }
+    },
+    {
+      "row_id": "row_0025",
+      "origin": "derived",
+      "analyst_event_type": "drop",
+      "subject_ref": "bidder_party_a",
+      "row_count": 1,
+      "bidder_name": "Party A",
+      "bidder_type": "S",
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": null,
+      "date_public": null,
+      "all_cash": null,
+      "review_flags": [
+        "reason:lost_to_winner"
+      ],
+      "basis": {
+        "rule_id": "EXIT-04",
+        "source_observation_ids": [
+          "obs_evt_024"
+        ],
+        "source_span_ids": [
+          "span_0022"
+        ],
+        "confidence": "high",
+        "explanation": "Execution outcome closed out remaining active bidders in favor of the winner."
+      }
+    },
+    {
+      "row_id": "row_0026",
+      "origin": "derived",
+      "analyst_event_type": "drop",
+      "subject_ref": "bidder_party_b",
+      "row_count": 1,
+      "bidder_name": "Party B",
+      "bidder_type": "S",
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": null,
+      "date_public": null,
+      "all_cash": null,
+      "review_flags": [
+        "reason:lost_to_winner"
+      ],
+      "basis": {
+        "rule_id": "EXIT-04",
+        "source_observation_ids": [
+          "obs_evt_024"
+        ],
+        "source_span_ids": [
+          "span_0022"
+        ],
+        "confidence": "high",
+        "explanation": "Execution outcome closed out remaining active bidders in favor of the winner."
+      }
+    },
+    {
+      "row_id": "row_0027",
+      "origin": "derived",
+      "analyst_event_type": "drop",
+      "subject_ref": "bidder_party_c",
+      "row_count": 1,
+      "bidder_name": "Party C",
+      "bidder_type": "S",
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": null,
+      "date_public": null,
+      "all_cash": null,
+      "review_flags": [
+        "reason:lost_to_winner"
+      ],
+      "basis": {
+        "rule_id": "EXIT-04",
+        "source_observation_ids": [
+          "obs_evt_024"
+        ],
+        "source_span_ids": [
+          "span_0022"
+        ],
+        "confidence": "high",
+        "explanation": "Execution outcome closed out remaining active bidders in favor of the winner."
+      }
+    },
+    {
+      "row_id": "row_0028",
+      "origin": "derived",
+      "analyst_event_type": "drop",
+      "subject_ref": "bidder_party_e",
+      "row_count": 1,
+      "bidder_name": "Party E",
+      "bidder_type": "S",
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": null,
+      "date_public": null,
+      "all_cash": null,
+      "review_flags": [
+        "reason:lost_to_winner"
+      ],
+      "basis": {
+        "rule_id": "EXIT-04",
+        "source_observation_ids": [
+          "obs_evt_024"
+        ],
+        "source_span_ids": [
+          "span_0022"
+        ],
+        "confidence": "high",
+        "explanation": "Execution outcome closed out remaining active bidders in favor of the winner."
+      }
+    },
+    {
+      "row_id": "row_0029",
+      "origin": "derived",
+      "analyst_event_type": "drop",
+      "subject_ref": "bidder_party_f",
+      "row_count": 1,
+      "bidder_name": "Party F",
+      "bidder_type": "S",
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "date_recorded": null,
+      "date_public": null,
+      "all_cash": null,
+      "review_flags": [
+        "reason:lost_to_winner"
+      ],
+      "basis": {
+        "rule_id": "EXIT-04",
+        "source_observation_ids": [
+          "obs_evt_024"
+        ],
+        "source_span_ids": [
+          "span_0022"
+        ],
+        "confidence": "high",
+        "explanation": "Execution outcome closed out remaining active bidders in favor of the winner."
+      }
+    }
+  ]
+}
