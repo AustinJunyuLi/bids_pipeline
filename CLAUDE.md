@@ -18,6 +18,16 @@ The live default is the v2 observation-graph workflow:
 If docs disagree, trust live code and tests over planning notes or historical
 design documents.
 
+## Branch Policy
+
+`two-pass` is the live working branch and the default GitHub publication branch
+for this repository. Push current repo updates there unless the user explicitly
+requests another branch.
+
+`main` is not the default publication branch for the live v2 workflow. Do not
+repoint `main` to `two-pass` or push live v2 updates to `main` unless the user
+explicitly asks for that branch.
+
 ## Authority And Scope
 
 Authoritative implementation truth lives here:
