@@ -97,7 +97,7 @@ elaborate extraction architecture.
 
 ### Active
 
-None — v1.1 milestone requirements are fully validated after Phase 9.
+None yet — v2.0 requirements being defined.
 
 ### Out of Scope
 
@@ -144,66 +144,47 @@ export surface. A full deterministic 9-deal DB rerun still depends on upstream
 canonical extract plus deterministic enrichment artifacts for eight active
 deals.
 
-## Current Milestone: v1.1 Reconciliation + Execution-Log Quality Fixes (Complete)
+## Current Milestone: v2.0 Observation Graph Architecture
 
-**Goal:** Fix systematic pipeline bugs and close extraction/enrichment gaps
-identified by the 9-deal cross-deal reconciliation analysis and the 7-deal
-fresh-rerun execution logs. Completed on 2026-03-30.
+**Goal:** Replace the event-first extraction contract with an observation graph
+that separates filing-literal facts from analyst-derived rows, enabling correct
+capture of cohort lifecycles, process structure, agreement chains, and
+consideration regimes.
 
 **Target features:**
 
-Reconciliation-driven fixes:
-- Fix bid_type enrichment rule priority (final-round proposals misclassified as
-  Informal across 5+ deals)
-- Fix Zep NMC actor error (NMC incorrectly included in evt_005/evt_008)
-- Fix Medivation missing drops (evt_013/evt_017 referenced but absent)
-- Add round milestone event types (Final Round Inf Ann, deadlines)
-- Add DropTarget events (committee-driven field narrowing)
-- Improve all_cash inference (contextual, not just explicit-mention)
-- Add verbal/oral price indication extraction support
-
-Execution-log-driven fixes:
-- Harden canonicalize against duplicate quote_id collisions
-- Harden coverage against false positives on contextual
-  confidentiality-agreement mentions
-- Harden check.py grouped NDA count assertions
-- Fix gates rejecting rollover-side confidentiality agreements modeled as
-  sale-process NDAs
-- Harden extraction orchestration against concurrent artifact writes
-- Fix DuckDB transient lock on db-export after db-load
-
-**Key reference artifacts:**
-- `data/reconciliation_cross_deal_analysis.md`
-- `quality_reports/session_logs/2026-03-29_7-deal-rerun_master.md`
-- Per-deal reconciliation reports under `data/skill/<slug>/reconcile/`
+- New data model: PartyRecord + CohortRecord replacing grouped actors; 6 typed
+  observations (Process, Agreement, Solicitation, Proposal, Status, Outcome)
+  replacing 20-type flat SkillEventRecord
+- Extraction contract narrowing: LLM extracts filing-literal parties, cohorts,
+  and observations with spans; no longer asked to produce analyst rows directly
+- Deterministic derivation engine: rule-based engine producing ProcessPhases,
+  LifecycleTransitions, CashRegimes, JudgmentRecords, and AnalystRows from the
+  observation graph
+- Structured coverage: CoverageCheckRecord replaces free-text coverage_notes
+- Triple export surface: literal_observations.csv, analyst_rows.csv,
+  benchmark_rows_expanded.csv
+- Legacy adapter: v2 observations + derived rows map back to current CSV shape
+  during transition
+- Immediate fixes: all-cash short-circuit bug, structured coverage records
 
 ## Current State
 
-**v1.0 shipped 2026-03-28. v1.1 reached 100% completion on 2026-03-30.** All 9
-deals have complete pipeline artifacts through DuckDB export. The live runtime
-includes 12 deterministic CLI stages (`source-discover`, `raw-fetch`,
-`preprocess-source`, `compose-prompts`, `canonicalize`, `check`, `verify`,
-`coverage`, `gates`, `enrich-core`, `db-load`, `db-export`) plus 4 local-agent
-skills (`extract-deal`, `verify-extraction`, `enrich-deal`,
-`reconcile-alex`). Phases 6-8 hardened mixed-schema loading, canonicalize
-quote-ID handling, non-sale NDA tolerance, DuckDB lock retry behavior, bid_type
-rule priority, extraction guidance for round milestones/verbal bids, and the
-deterministic `DropTarget` / `all_cash` path through DuckDB export. Phase 9
-then re-extracted Zep and Medivation end-to-end from extract through
-reconciliation, repairing Zep's grouped-actor contamination and Medivation's
-dangling `coverage_notes` event references. A targeted regression slice across
-skill mirror sync, enrichment, DB load, and DB export remained green (`79
-passed`).
+**v1.0 shipped 2026-03-28. v1.1 complete 2026-03-30. v2.0 milestone started
+2026-03-30.** All 9 deals have complete v1-contract pipeline artifacts through
+DuckDB export. The live runtime includes 12 deterministic CLI stages plus 4
+local-agent skills. The 9-deal cross-deal reconciliation records `70.7%
+(157/222)` atomic match rate with 46 pipeline-favored vs 13 Alex-favored
+arbitrations.
 
-The refreshed 9-deal cross-deal reconciliation now records 46
-pipeline-favored arbitrations versus 13 Alex-favored arbitrations, with 24
-inconclusive rows. Atomic match rate improved from `70.3% (156/222)` on
-2026-03-29 to `70.7% (157/222)` on 2026-03-30. The biggest correctness wins
-were removal of New Mountain Capital from Zep's grouped 2014 proposal/drop
-surface and restoration of Medivation drop-event coverage. A residual Zep
-attention item around thin dropout coverage / unmaterialized `evt_009` /
-`evt_011` references remains explicitly documented for any future follow-up
-phase.
+The GPT Pro architectural review (2026-03-31) identified 7 structural
+bottlenecks in the v1 contract: SkillEventRecord pitched at wrong abstraction
+level, enrichment constrained to annotating existing event IDs, grouped actors
+incapable of modeling cohort lifecycles, rounds reconstructed from row taxonomy
+instead of stored directly, reasoning stored in unstructured coverage_notes,
+all-cash propagation partly broken, and benchmark policy disagreements conflated
+with extraction failures. The v2.0 milestone addresses all 7 by introducing an
+observation graph with derived analytical views.
 
 ## Constraints
 
@@ -258,4 +239,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-30 — Phase 9 complete; v1.1 ready for milestone archival*
+*Last updated: 2026-03-30 — v2.0 milestone started*

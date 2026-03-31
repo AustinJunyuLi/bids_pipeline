@@ -1,26 +1,26 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.1
-milestone_name: reconciliation + execution-log quality fixes
-status: completed
-stopped_at: Completed quick task 260330-o5x repairing the split enrich-deal contract
-last_updated: "2026-03-30T16:34:37Z"
+milestone: v2.0
+milestone_name: observation graph architecture
+status: active
+stopped_at: ""
+last_updated: "2026-03-30T22:00:00Z"
 progress:
-  total_phases: 4
-  completed_phases: 4
-  total_plans: 10
-  completed_plans: 10
-  percent: 100
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # Project State
 
 ## Current Position
 
-Phase: 09 (deal-specific-fixes-revalidation) — COMPLETE
-Plan: 3 of 3
-Status: Milestone complete
-Last activity: 2026-03-30 — Quick task 260330-o5x enforced the split enrich-deal contract and synced the official docs
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-03-30 — Milestone v2.0 started
 
 ## Progress
 
