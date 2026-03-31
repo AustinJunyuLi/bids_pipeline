@@ -1,396 +1,521 @@
-# Feature Landscape: v1.1 Reconciliation + Execution-Log Quality Fixes
+# Feature Landscape: v2.0 Observation Graph Architecture
 
-**Domain:** M&A deal extraction pipeline -- enrichment correctness, event taxonomy expansion, and runtime hardening
-**Researched:** 2026-03-29
-**Overall Confidence:** HIGH (evidence-driven from 9-deal reconciliation + 7-deal execution logs)
+**Domain:** Observation graph data model, cohort-based actor representation, deterministic derivation engine, structured coverage records, and triple export surface for filing-grounded M&A extraction pipeline
+**Researched:** 2026-03-30
+**Overall Confidence:** HIGH (architecture proposal validated against 9-deal corpus evidence, GPT Pro structural review, and existing v1 artifact contracts)
+
+---
+
+## Scope Boundary
+
+This document covers only the NEW observation graph features. The following
+are already shipped and out of scope for this feature analysis:
+
+- 20-type flat SkillEventRecord extraction with quote-first evidence
+- Grouped actors with is_grouped/group_size/group_label
+- Round pairing from event type matching (_pair_rounds)
+- Bid classification via formality signals + process position rules
+- Cycle segmentation from restart boundaries
+- Dropout classification (bidder-withdrawal vs target-exclusion)
+- All-cash inference from cycle-local consideration patterns
+- DuckDB load/export with enrichment overlay
+- Free-text coverage_notes on event artifacts
+- Reconciliation against Alex's benchmark spreadsheet
 
 ---
 
 ## Table Stakes
 
-Features that close demonstrated bugs or plug gaps exposed by real data. Missing = the pipeline produces known-incorrect output across multiple deals.
+Features the observation graph must have. Missing any one means the v2
+architecture fails to resolve the structural bottlenecks diagnosed in v1.
 
 ---
 
-### TS-1: Fix bid_type Enrichment Rule Priority
+### TS-1: Typed Observation Extraction (6 Observation Types)
 
 | Attribute | Detail |
 |-----------|--------|
-| Why Expected | 5+ deals produce incorrect Formal/Informal classifications. This is the pipeline's single biggest systematic bug per the cross-deal reconciliation. |
+| Why Expected | The core architectural thesis: SkillEventRecord is pitched at the wrong abstraction level. The extractor asks the LLM to produce analyst rows directly, which causes systematic compression loss for lower-level filing facts (solicitations, status changes, agreement amendments). Without typed observations, v2 has no reason to exist. |
+| Complexity | High |
+| Dependencies | Existing chronology blocks, evidence items, span infrastructure, quote-first protocol. Reuses ResolvedDate, MoneyTerms, SpanRecord from v1 models.py. |
+| Confidence | HIGH -- 7 structural bottlenecks in v1 trace directly to the flat event taxonomy |
+
+**What it provides:**
+
+Six observation subtypes replace the 20-type flat SkillEventRecord:
+
+1. **ProcessObservation** -- sale launches, public announcements, advisor retentions, press releases. Captures initiation-layer facts that v1 mixes into analyst event types.
+
+2. **AgreementObservation** -- NDAs, NDA amendments, standstills, exclusivity, merger agreements, clean team arrangements. Currently v1 has only `nda_signed: bool`. The v2 model adds `agreement_kind`, `signed`, `grants_diligence_access`, `includes_standstill`, and critically `supersedes_observation_id` for agreement chains (resolves Penford second-NDA problem).
+
+3. **SolicitationObservation** -- process letters requesting IOIs, LOIs, binding offers, best-and-final bids. Captures `requested_submission`, `binding_level`, `due_date`, `recipient_refs`, and `attachments`. This is the observation from which round structure is derived (resolves STEC informal-round problem).
+
+4. **ProposalObservation** -- initial proposals, revisions, verbal confirmations. Links to solicitations via `requested_by_observation_id` and to prior proposals via `revises_observation_id`. Carries `delivery_mode`, `terms`, and formality-relevant signals (`mentions_non_binding`, `includes_draft_merger_agreement`, `includes_markup`).
+
+5. **StatusObservation** -- expressed interest, withdrew, not interested, cannot improve, cannot proceed, limited assets only, excluded by board, selected to advance. This is the filing-literal observation from which drop rows are derived (resolves STEC "cannot improve" problem where Company H's status statement had to be over-interpreted into a `drop` event).
+
+6. **OutcomeObservation** -- executed, terminated, restarted. Clean terminal events.
+
+**Extraction contract shift:** The LLM no longer produces analyst rows. It produces filing-literal observations with spans. The derivation engine produces analyst rows.
+
+**Every observation subtype uses Literal discriminator on `obs_type`**, enabling Pydantic discriminated union validation. This is production-proven and avoids the performance cost of left-to-right union matching.
+
+---
+
+### TS-2: PartyRecord Replacing v1 Actor Schema
+
+| Attribute | Detail |
+|-----------|--------|
+| Why Expected | Named entity extraction is the foundation. PartyRecord is structurally similar to SkillActorRecord but adds the `"other"` role option and drops grouped-actor fields (those move to CohortRecord). Without a clean party model, observations have no subjects. |
 | Complexity | Low |
-| Dependencies | `enrich_core.py` `_classify_proposal()` only |
-| Confidence | HIGH -- directly observable in reconciliation data |
+| Dependencies | Existing actor extraction pass (pass 1 of extract-deal). Reuses canonical_name, aliases, advisor_kind, advised_party_id, bidder_kind from v1. |
+| Confidence | HIGH -- straightforward schema reshaping |
 
-**The Problem:** The current `_classify_proposal()` function in `enrich_core.py` (lines 209-272) applies Rule 1 (informal signals) before Rule 2.5 (after final round). When a final-round deadline response uses "indication of interest" language in the filing, Rule 1 fires first and labels it Informal. But M&A convention universally classifies final-round submissions as Formal regardless of filing terminology -- these are solicited responses to a process letter, submitted with merger agreement markups and financing commitments.
-
-**Filing Reality (from reconciliation):**
-- Mac-Gray: Party A $18 and Party B $17-19 (Sep 18) -- final-round deadline responses classified Informal
-- STEC: WDC $9.15 (May 28) -- marked "merger agreement attached" but caught by IOI language first
-- Providence-Worcester: G&W $25 revised LOI -- 24-hour expiry, merger mark-ups, still classified Informal
-- Imprivata: $19.25 best-and-final -- solicited via process letter, still classified Informal
-
-**The Fix:** Reorder rules so Rule 2.5 (after_final_round_announcement or after_final_round_deadline) takes priority over Rule 1's informal language signals. Specifically:
-
-1. Rule 0 (new): If `after_final_round_deadline=true` or `after_final_round_announcement=true`, classify Formal. Rationale: a final-round response is definitionally formal in M&A, even if the filing uses "indication of interest" phrasing.
-2. Rule 1 (demoted): Informal signals only apply to pre-final-round proposals.
-3. Rules 2-4: Unchanged.
-
-Additionally, insert a `requested_binding_offer_via_process_letter` check: if this flag is true, the proposal is Formal regardless of other signals -- a process letter requesting binding offers makes informality impossible.
-
-**M&A Domain Basis:** In structured M&A auctions, the progression from IOI to LOI to definitive agreement is well-established. An "indication of interest" submitted in response to a final-round process letter is functionally a formal bid -- the terminology is an artifact of the filing drafter's prose style, not a substantive signal of informality. The seller's financial advisor has structured the round, set a deadline, and specified deliverables (markup of merger agreement, financing commitment letters). That context overrides any surface-level "indication of interest" language.
-
-**Sources:**
-- [Kimberly Advisors: IOI vs LOI](https://kimberlyadvisors.com/articles/indication-of-interest-ioi) -- IOI is non-binding early-stage; LOI is partially-binding final stage
-- [Redmount: Two-Step M&A Bidding Process](https://redmountpartners.com/twostepsofmanda/) -- IOI is first round, LOI is second/final round
-- `data/reconciliation_cross_deal_analysis.md` lines 69-82 -- 5-deal pattern of misclassification
+**What changes from v1 SkillActorRecord:**
+- Drops `is_grouped`, `group_size`, `group_label` (moved to CohortRecord)
+- Drops `listing_status`, `geography` (these are enrichment-layer attributes, not filing-literal party attributes -- can be re-added to derivation if needed)
+- Adds `role: "other"` for entities that are not bidder/advisor/activist/target_board
+- Renames `actor_id` to `party_id` for clarity
+- Renames `quote_ids` / `evidence_span_ids` to just `evidence_span_ids` (already canonical in v1)
 
 ---
 
-### TS-2: Harden Canonicalize Against Duplicate quote_id Collisions
+### TS-3: CohortRecord for Unnamed Group Lifecycles
 
 | Attribute | Detail |
 |-----------|--------|
-| Why Expected | Penford canonicalization failed on duplicate quote_ids. Multi-pass extraction (actors then events) can independently assign Q001, Q002, etc. |
-| Complexity | Low |
-| Dependencies | `canonicalize.py` `_resolve_quotes_to_spans()` only |
-| Confidence | HIGH -- observed in 7-deal rerun (penford) |
+| Why Expected | Grouped actors in v1 are counts, not lifecycle participants. One grouped actor can only toggle as one thing. PetSmart's 15 NDA signers, 6 IOI submitters, 4 finalists, and 2 screened-out bidders cannot be individually represented. CohortRecord is the architectural answer to this. Without it, unnamed-party lifecycle tracking remains impossible. |
+| Complexity | Medium |
+| Dependencies | PartyRecord (for known_member_party_ids). Observations (for created_by_observation_id). |
+| Confidence | HIGH -- PetSmart reconciliation makes the failure mode explicit |
 
-**The Problem:** The `_resolve_quotes_to_spans()` function (line 88-142 of `canonicalize.py`) combines `raw_actors.quotes` and `raw_events.quotes` into one list (line 408), then checks for duplicate `quote_id` values and raises `ValueError` if found. But actors and events are extracted in separate LLM passes, each starting their quote IDs at Q001. Collision is guaranteed for any deal with both actor and event quotes.
+**What it provides:**
 
-**Current Workaround:** The 7-deal rerun manually renumbered event-side quote IDs above the actor-side max. This should be automated.
+- `cohort_id`, `label`, `exact_count`
+- `known_member_party_ids` -- the named members (can be empty)
+- `unknown_member_count` -- equals `exact_count - len(known_member_party_ids)`
+- `parent_cohort_id` -- enables cohort nesting (15 NDA signers -> 6 IOI submitters -> 4 finalists)
+- `membership_basis` -- what defined this group ("signed NDA", "submitted IOI", "advanced to final round")
+- `created_by_observation_id` -- which observation established this cohort
+- `evidence_span_ids` -- filing grounding
 
-**The Fix:** Before merging quotes, renumber event-side quote_ids with an offset (e.g., event Q001 becomes Q{actor_max + 1}). Update all event `quote_ids` references correspondingly. This is a purely mechanical transformation -- no semantic change.
+**Cohort arithmetic invariant:**
+- `unknown_member_count == exact_count - len(known_member_party_ids)` -- enforced at validation time
+- Child cohort counts cannot exceed parent counts
+- If a cohort split is declared exhaustive, child counts must sum to parent
+
+**Observations reference cohorts via `subject_refs` and `counterparty_refs`**, which accept both party_ids and cohort_ids. This is the key design that lets unnamed groups participate in the observation graph as first-class entities.
 
 ---
 
-### TS-3: Harden Coverage Against False Positive NDA Cues
+### TS-4: Deterministic Derivation Engine
 
 | Attribute | Detail |
 |-----------|--------|
-| Why Expected | Saks coverage reported spurious NDA findings from contextual confidentiality-agreement mentions that were not NDA-signing events. |
-| Complexity | Low |
-| Dependencies | `coverage.py` `_classify_cue_family()` |
-| Confidence | HIGH -- observed in 7-deal rerun (saks) |
+| Why Expected | The whole point of separating literal observations from analyst rows is that derivation becomes explicit, rule-based, and provenance-bearing. Without the derivation engine, the observation graph is just a different extraction format with no analytical output. |
+| Complexity | High |
+| Dependencies | All observation types (TS-1), PartyRecord (TS-2), CohortRecord (TS-3). Replaces and subsumes current enrich_core.py logic (_pair_rounds, _classify_proposal, _classify_dropouts, _infer_all_cash_overrides, _segment_cycles). |
+| Confidence | HIGH -- rule catalog is concrete and maps directly to diagnosed v1 failures |
 
-**The Problem:** The coverage module's NDA cue detection (lines 89-120 of `coverage.py`) catches phrases like "entered into a confidentiality agreement" but does not filter out backward-looking references like "which had executed a confidentiality agreement" in all sentence contexts. The existing `references_prior_executed_nda` filter covers some patterns but misses contextual mentions like "pursuant to their confidentiality agreement" or "under the terms of the confidentiality agreement" that reference a previously-signed NDA rather than a new signing event.
+**Derived record types:**
 
-**The Fix:** Expand the exclusion phrases in `references_prior_executed_nda` and add a new filter for contextual NDA references that appear in non-signing contexts (e.g., "pursuant to", "under the terms of", "in accordance with"). The saks fix from the 7-deal rerun partially addresses this but may need additional patterns from other deals.
+1. **ProcessPhaseRecord** -- informal round, formal round, extension, endgame. Derived from SolicitationObservation + deadline observations. Replaces v1's indirect round reconstruction from event-type pairing.
+
+2. **LifecycleTransitionRecord** -- tracks party/cohort state changes: unknown -> identified -> under_nda -> active -> submitted -> finalist -> inactive -> winner. Each transition carries a `reason_kind` (literal, not_invited, cannot_improve, lost_to_winner) and a `DerivationBasis` with source observation IDs.
+
+3. **CashRegimeRecord** -- all_cash/mixed/unknown scoped to a cycle or phase. Replaces v1's sparse `all_cash_overrides` dict. Fixes the all-cash short-circuit bug where `_infer_all_cash_overrides()` exits early when an executed event exists with missing consideration type.
+
+4. **JudgmentRecord** -- initiation type, advisory link, ambiguous exit reason, ambiguous phase. Captures the small set of genuinely ambiguous decisions that require analytical judgment.
+
+5. **AnalystRowRecord** -- the benchmark-compatible row surface. Each row carries `origin` (literal/derived/synthetic_anonymous), `analyst_event_type` (the 20 v1 event types), `basis` with source observation IDs, `rule_id`, and `review_flags`.
+
+**Every derived record carries a `DerivationBasis`:**
+```python
+class DerivationBasis(SkillModel):
+    rule_id: str                    # e.g., "ROUND-01", "EXIT-02"
+    source_observation_ids: list[str]
+    source_span_ids: list[str]
+    confidence: Literal["high", "medium", "low"]
+    explanation: str
+```
+
+**Core rule catalog (initial):**
+
+| Rule | Input | Output | Resolves |
+|------|-------|--------|----------|
+| ROUND-01 | Solicitation requesting non-binding IOIs by due date | Informal phase + final_round_inf_ann/inf rows | STEC informal round |
+| ROUND-02 | Solicitation requesting LOIs/binding/best-and-final + DMA/markup | Formal phase + final_round_ann/final_round rows | Mac-Gray formal round |
+| EXIT-01 | StatusObservation(withdrew/not_interested/cannot_proceed) | Literal drop row | Direct withdrawals |
+| EXIT-02 | StatusObservation(cannot_improve) after prior proposal | Inferred drop row with subtype | STEC Company H |
+| EXIT-03 | Selected-subset observation; active parties absent from subset | Inferred target-elimination transitions | PetSmart screening |
+| EXIT-04 | Exclusivity/execution with one bidder; other active parties | lost_to_winner closure | Endgame drops |
+| AGREEMENT-01 | Agreement with supersedes_observation_id | Amendment/chain row | Penford second NDA |
+| CASH-01 | Explicit proposal consideration type | Row-level cash flag | Direct |
+| CASH-02 | Cash merger agreement | Cycle/phase cash regime | Saks |
+| CASH-03 | All typed proposals in phase are cash, no contrary evidence | Untyped proposals inherit all_cash | STEC |
 
 ---
 
-### TS-4: Harden check.py Grouped NDA Count Assertions
+### TS-5: Structured Coverage Records (CoverageCheckRecord)
 
 | Attribute | Detail |
 |-----------|--------|
-| Why Expected | Providence-Worcester check stage failed because grouped bidder actors' `group_size` was not counted toward NDA count assertions. |
-| Complexity | Low |
-| Dependencies | `check.py` `_check_nda_count_gaps()` |
-| Confidence | HIGH -- observed in 7-deal rerun (providence-worcester) |
+| Why Expected | Free-text coverage_notes is the diagnosed source of stale references, unstructured reasoning, and unrepairable drift. Medivation's stale notes that outlived the event array they referenced demonstrate the failure mode. Without structured coverage, the v2 system inherits v1's most fragile artifact. |
+| Complexity | Low-Medium |
+| Dependencies | Observation IDs and span IDs for referential integrity. |
+| Confidence | HIGH -- directly addresses diagnosed v1 failure |
 
-**The Problem:** The `_check_nda_count_gaps()` function (lines 174-219 of `check.py`) already uses `_counted_bidder_weight()` to count grouped actors by their `group_size`. However, the providence-worcester rerun log indicates this did not work correctly -- suggesting the grouped bidder either lacked a NDA event linkage or the `group_size` was not being used in the assertion comparison path. The fix applied during the rerun needs to be verified and regression-tested.
+**What it provides:**
 
-**The Fix:** Verify the existing `_counted_bidder_weight()` logic covers grouped actors with NDA evidence. Add regression tests for the providence-worcester pattern (grouped NDA-signing bidder cohorts with `group_size` > 1).
+```python
+class CoverageCheckRecord(SkillModel):
+    cue_family: str                                    # e.g., "proposal", "nda", "withdrawal"
+    status: Literal["observed", "derived", "not_found", "ambiguous"]
+    supporting_observation_ids: list[str]
+    supporting_span_ids: list[str]
+    reason_code: str | None = None
+    note: str | None = None                            # structured, not free-text essay
+```
+
+**Key design properties:**
+- Coverage is regenerated from observations and derivations every run
+- No free-text references to event IDs that can drift
+- `not_found` requires a `reason_code`, not a prose essay
+- `ambiguous` surfaces cases that need review flags, not silent coverage_notes
+- Coverage records are keyed to `cue_family` (matching existing coverage.py's cue detection), making them drop-in replacements for the current CoverageFinding model
+
+**What it replaces:** `coverage_notes: list[str]` on RawSkillEventsArtifact/SkillEventsArtifact (models.py:300-306)
 
 ---
 
-### TS-5: Fix Gates Rejecting Rollover-Side Confidentiality Agreements
+### TS-6: Legacy Adapter (v2 -> v1 CSV Shape)
 
 | Attribute | Detail |
 |-----------|--------|
-| Why Expected | PetSmart gates rejected a Longview confidentiality agreement modeled as a sale-process NDA. Rollover-side agreements are not sale-process NDAs. |
-| Complexity | Low |
-| Dependencies | `gates.py` NDA-after-drop logic, extraction guidance |
-| Confidence | HIGH -- observed in 7-deal rerun (petsmart-inc) |
+| Why Expected | The 9-deal benchmark reconciliation infrastructure, the DuckDB export pipeline, and the reconcile-alex skill all consume the v1 CSV shape. Without a legacy adapter, v2 cannot be tested against v1's benchmark baseline. Migration is impossible without backward compatibility. |
+| Complexity | Medium |
+| Dependencies | AnalystRowRecord from derivation engine (TS-4). Existing db_export.py column layout. |
+| Confidence | HIGH -- essential for incremental migration |
 
-**The Problem:** In leveraged buyouts, the existing management team or rollover investor signs confidentiality agreements related to their participation in the buyer's equity structure, not as sale-process bidders. When these get extracted as NDA events, the gates module's `nda_after_drop` rule fires because the rollover party was never an active sale-process bidder. The root fix is either (a) not extracting rollover-side confidentiality agreements as NDA events, or (b) teaching gates to distinguish rollover NDAs from sale-process NDAs.
+**What it provides:**
+- Maps v2 AnalystRowRecord back to the v1 CSV column layout: BidderID, Note, BidderName, Type, BidType, Value, Range, DateR, DateP, Cash, C1, C2, C3, ReviewFlags
+- Preserves all existing reconciliation compatibility
+- Allows v1 and v2 to run in parallel on the same deal, producing comparable outputs
+- Implemented as a thin mapping layer in db_export.py or a new v2_export.py
 
-**The Fix:** The cleaner approach is (a): update extraction guidance to exclude rollover-side confidentiality agreements from the NDA event type. These are operational agreements, not sale-process milestones. If extraction cannot reliably distinguish them, add a `nda_context` field (values: `sale_process`, `rollover`, `other`) to allow gates to filter appropriately.
-
----
-
-### TS-6: Fix Zep NMC Actor Error
-
-| Attribute | Detail |
-|-----------|--------|
-| Why Expected | NMC explicitly declined to bid per the Zep filing but is incorrectly included in evt_005/evt_008. This is a data correction, not a code fix. |
-| Complexity | Low (extraction repair) |
-| Dependencies | Extraction re-run or manual artifact correction for Zep |
-| Confidence | HIGH -- filing text directly contradicts current extraction |
-
-**The Problem:** The Zep filing states NMC explicitly declined to bid, yet the pipeline includes NMC in two events (evt_005 and evt_008). This is an extraction error -- the LLM included a party that the filing text explicitly excludes.
-
-**The Fix:** Re-extract Zep with corrected guidance, or surgically repair the two affected events in the Zep extract artifacts. Add a regression note in the reconciliation report.
-
----
-
-### TS-7: Fix Medivation Missing Drop Events
-
-| Attribute | Detail |
-|-----------|--------|
-| Why Expected | evt_013 and evt_017 are referenced in coverage notes but absent from the events array. These are filing-grounded drops. |
-| Complexity | Low (extraction repair) |
-| Dependencies | Extraction re-run or manual artifact correction for Medivation |
-| Confidence | HIGH -- coverage notes reference events that do not exist |
-
-**The Fix:** Re-extract Medivation to include the missing drop events, or surgically add them to the events artifact with proper span evidence.
-
----
-
-### TS-8: Fix DuckDB Transient Lock on db-export After db-load
-
-| Attribute | Detail |
-|-----------|--------|
-| Why Expected | Zep db-export hit a transient DuckDB lock immediately after db-load; retry succeeded. |
-| Complexity | Low |
-| Dependencies | `db_load.py`, `db_export.py` |
-| Confidence | HIGH -- observed in 7-deal rerun |
-
-**The Problem:** DuckDB's WAL (write-ahead log) can hold a brief lock after a write transaction commits. When `db-export` runs immediately after `db-load` in the same orchestration, it can encounter this lock.
-
-**The Fix:** Either (a) ensure `db-load` explicitly closes the connection and flushes the WAL before returning, or (b) add a brief retry loop (1-2 attempts, 500ms delay) in `db-export`'s `open_pipeline_db(read_only=True)` call. Option (a) is cleaner. DuckDB's `CHECKPOINT` command forces WAL flush.
+**Not a feature to defer.** The legacy adapter is table stakes because without it there is no way to verify that v2 is at least as correct as v1.
 
 ---
 
 ## Differentiators
 
-Features that improve the pipeline's analytical depth beyond what's minimally correct. Valuable but not required for correctness.
+Features that set the v2 architecture apart from v1. Not strictly required for
+parity, but they are the reason to build v2 in the first place.
 
 ---
 
-### D-1: DropTarget Event Classification in Enrichment
+### D-1: Triple Export Surface
 
 | Attribute | Detail |
 |-----------|--------|
-| Value Proposition | Distinguishes target-initiated exclusions from bidder-initiated withdrawals, capturing a critical M&A process dynamic. |
+| Value Proposition | Separates filing audit, analyst analysis, and benchmark comparison into three distinct CSV surfaces. Eliminates the v1 problem where one CSV must serve all three purposes, conflating filing-grounded facts with analyst interpretations and benchmark-format requirements. |
 | Complexity | Medium |
-| Dependencies | Existing `drop` events + `drop_reason_text` field; existing `DropoutClassification` model already has the label |
-| Confidence | MEDIUM-HIGH -- domain logic is clear, but extraction quality of `drop_reason_text` determines effectiveness |
+| Dependencies | Derivation engine (TS-4), CohortRecord (TS-3). DuckDB schema additions for v2 tables. |
+| Confidence | HIGH -- directly implements the GPT Pro recommendation |
 
-**What It Is:** When a target's special committee or board decides not to invite a bidder to the next round, that is a DropTarget -- fundamentally different from a bidder voluntarily withdrawing. The reconciliation shows Alex captures these (mac-gray, stec, prov-worcester, saks) while the pipeline does not.
+**Three surfaces:**
 
-**Current State:** The extraction skill (SKILL.md line 125-128) explicitly collapses all drops into the single `drop` type and instructs the LLM to preserve the narrative basis in `drop_reason_text`. The `DropoutClassification` model (`models.py` line 364) already includes `DropTarget` as a valid label. The `enrich-deal` skill (SKILL.md) already defines the DropTarget classification logic.
+1. **literal_observations.csv** -- strict filing-grounded observations only. This is the audit surface. Each row is one observation with obs_type, date, subject, counterparty, summary, and evidence span references. No derived content.
 
-**What's Missing:** The deterministic `enrich_core.py` does not perform dropout classification at all -- it only handles rounds, bid classification, cycles, and formal boundary. Dropout classification currently lives only in the interpretive `enrich-deal` local-agent skill. To make DropTarget deterministic, the pipeline needs to:
+2. **analyst_rows.csv** -- derived benchmark-style rows with provenance columns: `origin` (literal/derived/synthetic_anonymous), `rule_id`, `source_observation_ids`, `confidence`, `review_flags`. This is the analytical surface.
 
-1. Parse `drop_reason_text` for target-initiated exclusion signals (e.g., "the committee determined not to invite", "was not selected for the final round", "the board decided to narrow the field")
-2. Check directionality: was the bidder excluded before signaling withdrawal?
-3. Cross-reference round structure: if a bidder had an NDA but was not in `invited_actor_ids` for the next round announcement, that is likely a DropTarget
+3. **benchmark_rows_expanded.csv** -- analyst rows with optional synthetic anonymous slot expansion for cohort rows. PetSmart's "15 NDA signers" becomes 15 individual `synthetic_anonymous` rows (anon_slot_001 through anon_slot_015), clearly marked as synthetic. This is the benchmark-parity surface.
 
-**M&A Domain Signals for DropTarget:**
-- "The committee determined not to invite [Party X] to the final round"
-- "The board narrowed the field to [N] bidders"
-- "[Party X] was not selected to participate in the next phase"
-- Absence from `invited_actor_ids` when the bidder was previously active (implicit DropTarget)
-
-**Complexity Note:** The implicit DropTarget case (active bidder not invited to next round, no explicit drop event extracted) may require synthesizing new drop events from round invitation data. This is a higher-complexity variant.
+**Export 3 is where unnamed cohorts get expanded.** Not in the core model. Synthetic slots never drive derivation, never appear in the literal table, and are always marked as non-factual identities.
 
 ---
 
-### D-2: Round Milestone Event Types
+### D-2: Observation-to-Observation References (Graph Edges)
 
 | Attribute | Detail |
 |-----------|--------|
-| Value Proposition | Captures auction process structure that Alex records but the pipeline omits. |
+| Value Proposition | Filing facts are not independent events -- proposals revise earlier proposals, agreements supersede earlier agreements, solicitations request submissions that become proposals. Cross-observation references create a graph structure that enables correct derivation without stringly-typed heuristics. |
+| Complexity | Low (schema only, validation is the work) |
+| Dependencies | All observation types. |
+| Confidence | HIGH -- schema fields already defined in the architecture proposal |
+
+**Reference fields across observation types:**
+
+| Source Type | Reference Field | Target Type | Semantics |
+|-------------|----------------|-------------|-----------|
+| ProposalObservation | revises_observation_id | ProposalObservation | Price revision chain |
+| ProposalObservation | requested_by_observation_id | SolicitationObservation | Response to process letter |
+| AgreementObservation | supersedes_observation_id | AgreementObservation | NDA amendment, standstill overlay |
+| StatusObservation | related_observation_id | Any Observation | What the status refers to |
+| OutcomeObservation | related_observation_id | Any Observation | What was executed/terminated |
+
+**Graph validation gates:**
+- Revision and supersession chains must be acyclic
+- Reference targets must exist in the observation array
+- Deadlines cannot precede solicitations
+- Execution cannot happen before the winning party becomes active
+
+---
+
+### D-3: Derivation Provenance and Review Flags
+
+| Attribute | Detail |
+|-----------|--------|
+| Value Proposition | Every derived fact (phase, transition, analyst row) carries explicit provenance: which rule produced it, from which observations, with what confidence. Medium/low-confidence derived rows surface review flags. This makes the analytical layer transparent and auditable, unlike v1 where enrichment annotations have opaque `basis: str` fields. |
+| Complexity | Low (schema design) to Medium (consistent application) |
+| Dependencies | DerivationBasis model, derivation engine (TS-4). |
+| Confidence | HIGH |
+
+**What it enables:**
+- Analyst can trace any benchmark row back to the specific filing observations that produced it
+- When reconciliation finds a mismatch, the `rule_id` immediately identifies which derivation rule to examine
+- Review flags surface on the export CSV, not buried in enrichment artifacts
+- Policy disagreements (Providence-Worcester Informal-vs-Formal) are identifiable at the rule level, not confused with extraction failures
+
+---
+
+### D-4: Mismatch Classification in Reconciliation
+
+| Attribute | Detail |
+|-----------|--------|
+| Value Proposition | v1 reconciliation conflates extraction failures with policy disagreements, anonymous expansion gaps, date precision differences, and benchmark errors. Structured mismatch families allow each disagreement to be classified and counted separately, so Providence-style policy disagreements stop contaminating extraction-quality metrics. |
 | Complexity | Low-Medium |
-| Dependencies | Already in the 20-type event taxonomy; round pairing already works in `enrich_core.py` |
-| Confidence | HIGH -- the taxonomy and pairing logic already exist |
+| Dependencies | Triple export surface (D-1), derivation provenance (D-3). |
+| Confidence | MEDIUM -- reconciliation classification is conceptually clear but implementation requires validation against all 9 deals |
 
-**What It Is:** The pipeline's event taxonomy already includes 6 round event types:
-- `final_round_inf_ann` / `final_round_inf` (informal round announcement / deadline)
-- `final_round_ann` / `final_round` (formal round announcement / deadline)
-- `final_round_ext_ann` / `final_round_ext` (extension round announcement / deadline)
+**Mismatch families:**
 
-The reconciliation shows Alex captures round milestones across all 9 deals, but the pipeline's extraction often misses them. This is not a taxonomy gap -- it is an extraction coverage gap. The LLM does not reliably extract round events because the filing language for round announcements is more subtle than for proposals or NDAs.
-
-**Root Cause Analysis:**
-1. Round announcements in filings rarely say "we announced a final round." Instead they say things like "the committee requested that the remaining parties submit revised proposals by [date]" or "process letters were sent to [N] bidders."
-2. The extraction prompt's event taxonomy lists round types but provides no examples of what filing language maps to them.
-3. The coverage module (`coverage.py`) does not have cue families for round events -- it checks proposals, NDAs, drops, and process initiation, but not round milestones.
-
-**The Fix:**
-1. Add few-shot examples in the extraction prompt showing round announcement language patterns.
-2. Add a `round_milestone` cue family to coverage with patterns like "process letter", "requested that parties submit", "invited to submit revised", "narrowed the field."
-3. Optionally, add round milestone detection in the extraction gap re-read (Pass 2) with explicit prompting for round events.
+| Family | Description | Example |
+|--------|-------------|---------|
+| literal_missing | Filing fact not extracted as observation | Missed NDA |
+| derived_missing | Derivation rule did not fire or produced wrong result | Missing inferred drop |
+| anonymous_expansion_gap | Cohort row count differs from benchmark individual rows | PetSmart unnamed bidders |
+| policy_disagreement | Filing supports pipeline, but benchmark uses different coding convention | Providence Informal/Formal |
+| date_precision_difference | Same event, different date resolution | Month-level vs day-level |
+| benchmark_error | Filing contradicts benchmark | Providence filing supports pipeline |
 
 ---
 
-### D-3: Contextual all_cash Inference
+### D-5: Parallel v1/v2 Contract Execution
 
 | Attribute | Detail |
 |-----------|--------|
-| Value Proposition | Increases `all_cash` coverage from explicit-mention-only to contextually inferrable cases. |
+| Value Proposition | Running v1 and v2 extraction on the same deal produces comparable outputs, enabling direct quality comparison during migration. This avoids the big-bang migration risk where v2 must be perfect before it can replace v1. |
 | Complexity | Medium |
-| Dependencies | `db_export.py` cash_value logic, `enrich_core.py` |
-| Confidence | MEDIUM -- the inference rules are domain-clear but require careful scoping to avoid false positives |
+| Dependencies | Legacy adapter (TS-6). Separate artifact paths for v2 outputs. |
+| Confidence | MEDIUM -- requires careful path separation to avoid artifact contamination |
 
-**What It Is:** The current pipeline only marks `all_cash=1` when the event's `terms.consideration_type == "cash"` (line 303 of `db_export.py`). The reconciliation shows this misses cases where cash consideration is contextually obvious:
-- Penford: All Ingredion bids were cash (deal context makes this clear), but not every proposal sentence says "cash"
-- PetSmart: The executed deal was clearly all-cash, but the executed event lacks explicit cash mention
+**Implementation pattern:**
 
-**Inference Rules (domain-grounded, conservative):**
+- v2 observations write to `data/skill/<slug>/extract_v2/` (not `data/skill/<slug>/extract/`)
+- v2 derivations write to `data/skill/<slug>/derive/`
+- v2 DuckDB tables use `v2_` prefix or separate schema (`CREATE SCHEMA v2`)
+- v2 exports write to `data/skill/<slug>/export_v2/`
+- Legacy adapter maps v2 analyst rows to v1 CSV shape for direct diff
+- v1 artifacts remain untouched until v2 is validated stable across all 9 deals
 
-1. **Same-actor consistency:** If an actor's earlier proposal explicitly states "cash" and a later proposal from the same actor does not specify consideration_type, infer cash (unless the later proposal introduces stock/mixed language). Rationale: bidders rarely switch from cash to mixed consideration without stating it.
-
-2. **Executed event inference:** If the executed merger agreement specifies cash consideration (checkable from the `executed` event or the signing event's terms), propagate `all_cash` to the executed row. This is nearly always disclosed.
-
-3. **Process-level inference:** If ALL proposals from ALL bidders throughout the process specify cash, and the filing does not mention stock or mixed consideration, the process is all-cash. Mark all proposals accordingly.
-
-**Anti-pattern to avoid:** Do NOT infer cash from the absence of stock mention. Some filings simply do not specify consideration type for early-stage indications. The inference must be positive (evidence of cash), not negative (absence of stock).
-
-**Where It Lives:** This belongs in `enrich_core.py` as a new enrichment pass after bid classification. The inference result should be stored in `deterministic_enrichment.json` as a `consideration_inference` dict keyed by event_id, with fields: `inferred_type`, `basis`, `confidence`.
-
----
-
-### D-4: Verbal/Oral Price Indication Support
-
-| Attribute | Detail |
-|-----------|--------|
-| Value Proposition | Captures price signals that precede formal written bids, filling a gap Alex records. |
-| Complexity | Medium |
-| Dependencies | Extraction prompt guidance, possibly a new `formality_signals` flag |
-| Confidence | MEDIUM -- filing language is clear but these are inherently informal |
-
-**What It Is:** Some deals include verbal price indications before written IOIs: STEC Company D oral price signal, PetSmart Bidder 3 verbal indication. The filing says something like "representatives of Company D verbally indicated a willingness to pay approximately $X per share."
-
-**Current Gap:** The extraction prompt does not specifically guide the LLM to extract verbal/oral indications. The `FormalitySignals` model does not have a flag for verbal-only proposals.
-
-**The Fix:**
-1. Add extraction prompt guidance: "Verbal or oral price indications are extractable as proposal events. Set `formality_signals.mentions_preliminary=true` and add `verbal_indication` to event notes."
-2. Optionally add `is_verbal_indication: bool` to `FormalitySignals` (default false). This allows deterministic classification to handle verbal proposals correctly (they are always Informal).
-3. Add coverage cue patterns for "verbally indicated", "oral indication", "verbal expression of interest."
-
----
-
-### D-5: Harden Extraction Orchestration Against Concurrent Artifact Writes
-
-| Attribute | Detail |
-|-----------|--------|
-| Value Proposition | Prevents corruption when multiple workers write deal artifacts simultaneously. |
-| Complexity | Medium |
-| Dependencies | Orchestration workflow, filesystem locking |
-| Confidence | HIGH -- observed in 7-deal rerun |
-
-**What It Is:** The 7-deal rerun initially launched parallel workers that could collide on shared filesystem paths. The workaround was serialized per-deal launches with strict path ownership. A more robust solution would be file-level locking or per-deal workspace isolation.
-
-**The Fix:** Add per-deal lock files (e.g., `data/skill/<slug>/.lock`) that deterministic stages check before writing. The lock should be advisory (not mandatory) with clear error messages. Alternatively, document the concurrency contract: each deal slug is owned by exactly one worker at a time.
+**Schema versioning pattern:** Use Pydantic discriminated unions on a `schema_version` field in the artifact root. The extract_artifacts loader detects v1 vs v2 format and routes accordingly, similar to the existing quote_first vs canonical mode detection.
 
 ---
 
 ## Anti-Features
 
-Features to explicitly NOT build for this milestone.
+Features to explicitly NOT build. These would add complexity without advancing
+the v2 architectural goals or would violate project constraints.
 
 ---
 
-### AF-1: Do Not Add New Event Types to the Taxonomy
+### AF-1: Graph Database Backend
 
 | Anti-Feature | Why Avoid | What to Do Instead |
 |--------------|-----------|-------------------|
-| Adding `exclusivity_grant`, `ib_termination`, `aggregate_cohort_drop`, or other new event types | The 20-type taxonomy is sufficient. Alex's extra event types (exclusivity, IB termination) are either rare or can be captured as notes on existing events. Adding types increases schema complexity, extraction prompt length, and downstream handling for minimal coverage gain. | Capture exclusivity grants as notes on NDA or proposal events. IB termination is rare (1 deal) -- not worth a taxonomy slot. Aggregate cohort drops are a presentation choice, not an event type. |
+| Neo4j, ArangoDB, or any graph DB as storage | 9-deal batch corpus does not justify graph DB operational complexity. DuckDB handles array/JSON types natively and is already embedded. The observation "graph" is a conceptual model, not a storage topology. | Keep DuckDB. Add v2 tables (parties, cohorts, observations, derivations) alongside existing v1 tables. Use foreign-key-style ID references for graph edges. |
 
-### AF-2: Do Not Build Benchmark-Informed Generation
+---
 
-| Anti-Feature | Why Avoid | What to Do Instead |
-|--------------|-----------|-------------------|
-| Using reconciliation findings or Alex's spreadsheet to influence extraction generation | This violates the benchmark boundary constraint. The pipeline must generate from filing text alone. Reconciliation findings inform pipeline code fixes, not extraction prompts. | Use reconciliation to identify code bugs (bid_type rule order) and coverage gaps (missing round events), then fix the pipeline code. Never feed Alex's answers into the extraction prompt. |
-
-### AF-3: Do Not Add Aggregate Per-Party Rows
+### AF-2: LLM-Based Derivation
 
 | Anti-Feature | Why Avoid | What to Do Instead |
 |--------------|-----------|-------------------|
-| Adding aggregate rows like "15 parties NDA" or "6 parties IOI" as pseudo-events | These are presentation artifacts, not events. Alex uses them for spreadsheet readability. The pipeline's `count_assertions` mechanism already captures these filing statements as metadata without polluting the event timeline. | Continue using `count_assertions` for filing-stated aggregate counts. The count reconciliation task in enrich-deal already compares them to extracted events. |
+| Using an LLM to produce analyst rows from observations | Derivation must be deterministic and reproducible. LLM derivation re-introduces the non-determinism problem that v2 is designed to eliminate from the analytical layer. The v1 enrichment layers are already annotation-only sidecars constrained to existing event IDs -- making derivation LLM-based would repeat that mistake at a different layer. | Deterministic rule engine with explicit rule_id provenance. LLM involvement stays narrowly scoped: extraction of filing-literal observations (pass A/B) and targeted repair (pass C). JudgmentRecord handles the small set of genuinely ambiguous cases. |
 
-### AF-4: Do Not Build Automatic Extraction Re-Run for Data Fixes
+---
+
+### AF-3: Dynamic Schema Evolution
 
 | Anti-Feature | Why Avoid | What to Do Instead |
 |--------------|-----------|-------------------|
-| Building an automated re-extraction pipeline that detects and fixes data errors like Zep NMC or Medivation missing drops | Re-extraction is expensive and non-deterministic. The fixes for Zep and Medivation are surgical artifact repairs, not systematic pipeline changes. Automating artifact repair risks masking extraction quality issues. | Fix the specific data errors via manual artifact repair (Zep NMC, Medivation drops). Improve extraction prompts to prevent similar errors in future runs. |
+| Allowing observation subtypes to be added at runtime without schema changes | Pydantic discriminated unions require compile-time Literal values. Dynamic schema evolution would require abandoning type safety, which contradicts the Pydantic-first schema design and fail-fast project philosophy. | Use `other` + `other_detail: str` on every observation subtype's kind enum. Novel patterns get captured as `other` with free-text detail. Promoting `other` to a new enum value is a deliberate schema change with a test, not a runtime discovery. |
+
+---
+
+### AF-4: Synthetic Slot Expansion in Core Model
+
+| Anti-Feature | Why Avoid | What to Do Instead |
+|--------------|-----------|-------------------|
+| Expanding anonymous cohorts into individual rows in the observation graph or derivation layer | Synthetic slots are not factual identities. If they appear in the core model, they drive derivation and create fake lifecycle chains for non-existent individual parties. PetSmart's anon_slot_007 is not a real bidder and should never have a "drop" event attributed to it at the literal layer. | Keep cohorts as cohorts in the core graph. Expand only at the benchmark_rows_expanded.csv export surface. Mark all synthetic rows with `origin: "synthetic_anonymous"`. |
+
+---
+
+### AF-5: Benchmark-Driven Extraction Rules
+
+| Anti-Feature | Why Avoid | What to Do Instead |
+|--------------|-----------|-------------------|
+| Tuning observation extraction or derivation rules to match Alex's spreadsheet | The filing is the source of truth, not the benchmark. Benchmark-driven tuning is the feedback loop that v2 is designed to break -- it conflates extraction failures with policy disagreements. | Keep benchmark materials post-export only. When reconciliation finds a mismatch, classify it (D-4). If it is a literal_missing or derived_missing, fix the extraction or rule. If it is a policy_disagreement, leave it and document the policy difference. |
+
+---
+
+### AF-6: Interpretive Enrichment in Derivation Engine
+
+| Anti-Feature | Why Avoid | What to Do Instead |
+|--------------|-----------|-------------------|
+| Folding interpretive enrichment (initiation judgment, advisory verification, count reconciliation) into the deterministic derivation engine | Interpretive enrichment requires analyst judgment and LLM reasoning. Mixing it with deterministic rules muddies the provenance boundary between "rule said X" and "analyst judged X". | Keep interpretive enrichment as a separate optional layer (the existing `/enrich-deal` skill pattern). JudgmentRecord in the derivation engine handles the narrow set of cases where derivation rules flag ambiguity, but the judgment itself stays outside the deterministic engine. |
 
 ---
 
 ## Feature Dependencies
 
 ```
-TS-1 (bid_type rule fix) -> D-1 (DropTarget depends on correct round structure from enrichment)
-TS-2 (canonicalize dedup) -> TS-3, TS-4, TS-5 (all downstream stages depend on clean canonicalization)
-TS-3 (coverage false positives) -> no downstream dependency
-TS-4 (check grouped NDA) -> no downstream dependency (but blocks canonicalize -> check -> verify flow)
-TS-5 (gates rollover NDA) -> D-1 (DropTarget enrichment needs clean gate results)
-TS-6 (Zep NMC) -> independent (data fix)
-TS-7 (Medivation drops) -> independent (data fix)
-TS-8 (DuckDB lock) -> independent (runtime fix)
-
-D-1 (DropTarget) -> depends on D-2 (round milestones) for implicit DropTarget detection
-D-2 (round milestones) -> independent extraction improvement
-D-3 (all_cash inference) -> depends on TS-1 (correct bid classification needed for inference context)
-D-4 (verbal indications) -> independent extraction improvement
-D-5 (concurrent writes) -> independent runtime improvement
+PartyRecord (TS-2)
+  |
+  v
+CohortRecord (TS-3) -------> Typed Observations (TS-1)
+  |                              |
+  |                              v
+  |                   Observation References (D-2)
+  |                              |
+  +------------------------------+
+  |
+  v
+Derivation Engine (TS-4)
+  |
+  +---> Derivation Provenance (D-3)
+  |
+  v
+Structured Coverage (TS-5) --- regenerated from observations + derivations
+  |
+  v
+Legacy Adapter (TS-6) ------> Triple Export (D-1)
+                                  |
+                                  v
+                          Mismatch Classification (D-4)
+                                  |
+                                  v
+                          Parallel v1/v2 Execution (D-5)
 ```
+
+**Critical path:** TS-2 -> TS-3 -> TS-1 -> TS-4 -> TS-6 -> validation against 9 deals
+
+**Independent of critical path:** TS-5 (can be built alongside TS-1), D-2 (schema-only, validated later), D-3 (schema-only, built into TS-4)
 
 ---
 
 ## MVP Recommendation
 
-### Must-Fix (blocks correctness):
-1. **TS-1: bid_type rule priority** -- highest-impact single fix, affects 5+ deals
-2. **TS-2: canonicalize dedup** -- prevents runtime crashes
-3. **TS-3: coverage false positives** -- prevents spurious repair work
-4. **TS-4: check grouped NDA** -- prevents false blocker assertions
-5. **TS-5: gates rollover NDA** -- prevents false gate rejections
-6. **TS-8: DuckDB lock** -- prevents transient runtime failures
+### Phase 1: Schema + Immediate Fixes (before any v2 extraction)
 
-### Should-Fix (closes known data gaps):
-7. **TS-6: Zep NMC** -- data repair
-8. **TS-7: Medivation drops** -- data repair
+Prioritize:
+1. **All-cash short-circuit bug fix** -- fix `_infer_all_cash_overrides()` in current v1 codebase. Zero migration risk, immediate correctness improvement.
+2. **Structured coverage records** (TS-5) -- replace `coverage_notes: list[str]` with `CoverageCheckRecord` even in v1 artifact shape. Low risk, immediately useful, and the model carries forward unchanged into v2.
+3. **v2 Pydantic models** -- define PartyRecord, CohortRecord, all 6 observation subtypes, DerivationBasis, all derived record types, and AnalystRowRecord in a new `models_v2.py`. No runtime impact until extraction uses them.
 
-### High-Value Additions:
-9. **D-1: DropTarget classification** -- moves a key interpretive judgment into deterministic code
-10. **D-2: Round milestone coverage** -- closes the biggest extraction gap vs Alex
+### Phase 2: v2 Extraction Contract
 
-### Defer to v1.2:
-- **D-3: all_cash inference** -- design choice (precision vs coverage), not a bug
-- **D-4: Verbal indications** -- rare (2 deals affected), extraction prompt guidance is sufficient
-- **D-5: Concurrent write hardening** -- documentation of the concurrency contract is sufficient for now
+Prioritize:
+4. **v2 extraction skill** -- new `/extract-deal-v2` skill that produces parties, cohorts, and observations using the existing prompt packet infrastructure. Write to `extract_v2/` path.
+5. **v2 canonicalization** -- span resolution for v2 artifacts (reuses existing canonicalize infrastructure with new model types).
+6. **v2 validation gates** -- literal-layer gates (span references, ID resolution, cohort arithmetic) and graph gates (acyclic references, temporal consistency).
+
+### Phase 3: Derivation Engine
+
+Prioritize:
+7. **Round derivation rules** (ROUND-01, ROUND-02) -- highest-impact rules, resolve STEC/Mac-Gray round problems.
+8. **Exit inference rules** (EXIT-01 through EXIT-04) -- resolve STEC Company H, PetSmart screening, endgame drops.
+9. **Cash regime rules** (CASH-01 through CASH-03) -- resolve Saks/STEC all-cash problems.
+10. **AnalystRowRecord compilation** -- the rule that produces benchmark-compatible rows from observations and derivations.
+
+### Phase 4: Export + Migration
+
+Prioritize:
+11. **Legacy adapter** (TS-6) -- map v2 rows to v1 CSV shape.
+12. **Triple export** (D-1) -- literal_observations.csv, analyst_rows.csv, benchmark_rows_expanded.csv.
+13. **v2 DuckDB tables** -- parties, cohorts, observations, derivations alongside existing v1 tables.
+14. **9-deal validation run** -- v2 on all 9 deals, compare against v1 benchmark scores.
+
+**Defer:**
+- **Mismatch classification** (D-4): valuable but non-blocking; implement after v2 export is stable
+- **Parallel v1/v2 execution** (D-5): useful during migration but can be done with simple path separation rather than a formal framework
+- **Interpretive enrichment for v2**: the existing `/enrich-deal` skill works on v1 artifacts; v2 interpretive enrichment can wait until the deterministic layer is validated
 
 ---
 
 ## Complexity Summary
 
-| Feature | Complexity | Lines of Code (est.) | Test Effort |
-|---------|------------|---------------------|-------------|
-| TS-1: bid_type rule fix | Low | ~20 lines changed in `enrich_core.py` | Medium (regression tests across 5+ deals) |
-| TS-2: canonicalize dedup | Low | ~30 lines in `canonicalize.py` | Low (unit test with overlapping quote_ids) |
-| TS-3: coverage false positives | Low | ~10-20 lines in `coverage.py` | Low (add exclusion patterns, unit tests) |
-| TS-4: check grouped NDA | Low | ~10 lines verification + tests | Low (regression test for providence-worcester pattern) |
-| TS-5: gates rollover NDA | Low | ~20 lines in gates or extraction guidance | Medium (needs extraction guidance update + gate logic) |
-| TS-6: Zep NMC | Low | Artifact edit | Low (data verification) |
-| TS-7: Medivation drops | Low | Artifact edit | Low (data verification) |
-| TS-8: DuckDB lock | Low | ~10 lines in `db_load.py` or `db_export.py` | Low (integration test) |
-| D-1: DropTarget enrichment | Medium | ~80-120 lines in `enrich_core.py` | Medium (need filing-grounded test cases) |
-| D-2: Round milestone coverage | Medium | ~40-60 lines in `coverage.py` + prompt updates | Medium (new cue family + extraction prompt changes) |
-| D-3: all_cash inference | Medium | ~60-80 lines in `enrich_core.py` | Medium (inference rules + edge cases) |
-| D-4: Verbal indications | Medium | ~20 lines prompt guidance + optional model field | Low |
-| D-5: Concurrent writes | Medium | ~40 lines lock mechanism | Low |
+| Feature | Complexity | Primary Risk |
+|---------|------------|-------------|
+| TS-1: Typed Observations | High | Extraction prompt design for 6 subtypes instead of 20-type flat list |
+| TS-2: PartyRecord | Low | Straightforward schema reshaping |
+| TS-3: CohortRecord | Medium | Cohort arithmetic invariants, parent-child lineage validation |
+| TS-4: Derivation Engine | High | Rule catalog completeness, edge cases across 9 deals |
+| TS-5: Structured Coverage | Low-Medium | Drop-in replacement for coverage_notes |
+| TS-6: Legacy Adapter | Medium | Column mapping fidelity to v1 CSV shape |
+| D-1: Triple Export | Medium | DuckDB schema additions, three CSV writers |
+| D-2: Observation References | Low | Schema-only; validation is the work |
+| D-3: Derivation Provenance | Low-Medium | Consistent DerivationBasis on all derived records |
+| D-4: Mismatch Classification | Low-Medium | Classification taxonomy validation across 9 deals |
+| D-5: Parallel v1/v2 | Medium | Path separation, artifact contamination prevention |
+
+---
+
+## Infrastructure Reuse Assessment
+
+What can be reused from v1 almost unchanged:
+
+| v1 Component | Reuse Level | Notes |
+|-------------|------------|-------|
+| raw-fetch | 100% | Immutable filing ingress, no model changes |
+| preprocess-source | 100% | Chronology blocks, evidence items unchanged |
+| compose-prompts | ~80% | Prompt packet infrastructure reused; task instructions change for v2 observation types |
+| canonicalize (span resolution) | ~70% | Span matching logic reused; new model types need new resolution paths |
+| ResolvedDate | 100% | Date parsing/normalization unchanged |
+| MoneyTerms | 100% | Proposal terms model unchanged |
+| SpanRecord | 100% | Span infrastructure unchanged |
+| DuckDB connection/schema plumbing | ~90% | open_pipeline_db, lock retry logic unchanged; new tables added |
+| verify (quote matching) | ~60% | Quote verification logic reused; new model types need new verification paths |
+| coverage (cue detection) | ~50% | Cue family detection logic partially reusable; coverage output model changes to CoverageCheckRecord |
+| gates (semantic validation) | ~40% | Temporal/attention-decay logic reusable; event-type-specific gates need rewrite for observation types |
+| enrich_core | ~20% | Logic subsumed by derivation engine; classification rules migrate to rule catalog |
+| db_export | ~30% | CSV formatting logic partially reusable; triple export replaces single surface |
+
+What must be replaced:
+
+| v1 Component | Replacement | Reason |
+|-------------|-------------|--------|
+| RawSkillEventRecord / SkillEventRecord | 6 Observation subtypes | Wrong abstraction level |
+| RawSkillActorRecord / SkillActorRecord | PartyRecord + CohortRecord | Grouped actors cannot model lifecycles |
+| coverage_notes: list[str] | CoverageCheckRecord | Stale free-text references |
+| _pair_rounds() | ROUND-01/ROUND-02 derivation rules | Round structure reconstructed from row taxonomy |
+| _classify_dropouts() | EXIT-01 through EXIT-04 rules | Limited to existing drop events |
+| _infer_all_cash_overrides() | CASH-01 through CASH-03 rules | Short-circuit bug, wrong scope |
+| DeterministicEnrichmentArtifact | Derived records with DerivationBasis | Annotation-only sidecar cannot create missing structure |
 
 ---
 
 ## Sources
 
-### Primary Evidence (Pipeline-Internal)
-- `data/reconciliation_cross_deal_analysis.md` -- 9-deal cross-deal reconciliation (pipeline vs Alex)
-- `quality_reports/session_logs/2026-03-29_7-deal-rerun_master.md` -- 7-deal execution log with runtime walls
-- `skill_pipeline/enrich_core.py` -- current bid classification rules
-- `skill_pipeline/canonicalize.py` -- current quote-to-span resolution
-- `skill_pipeline/coverage.py` -- current coverage cue families
-- `skill_pipeline/check.py` -- current structural assertions
-- `skill_pipeline/gates.py` -- current semantic gates
-- `skill_pipeline/db_export.py` -- current CSV export with all_cash logic
-- `.claude/skills/extract-deal/SKILL.md` -- extraction taxonomy and instructions
-- `.claude/skills/enrich-deal/SKILL.md` -- enrichment classification rules
-
-### M&A Domain (External)
-- [Kimberly Advisors: Indication of Interest (IOI)](https://kimberlyadvisors.com/articles/indication-of-interest-ioi) -- IOI is non-binding, LOI is partially binding
-- [Redmount: The Two-Step M&A Bidding Process](https://redmountpartners.com/twostepsofmanda/) -- IOI (first round) vs LOI (final round) formality progression
-- [Carpenter Wellington: All Cash Consideration in Public Company Mergers](https://carpenterwellington.com/post/public-company-merger-transactions-involving-all-cash-consideration/) -- explicit disclosure in merger agreements and SEC filings
-- [Exit Strategies: M&A Auction Process](https://www.exitstrategiesgroup.com/how-auction-process-works/) -- two-round bid process with field narrowing
-- [Wall Street Prep: Sell Side M&A Process](https://www.wallstreetprep.com/knowledge/sell-side-process/) -- round milestones and process timeline
+- GPT Pro architectural review (2026-03-31): `/home/austinli/Projects/bids_pipeline/diagnosis/gptpro/2026-03-31/round_1/response.md`
+- Current v1 models: `/home/austinli/Projects/bids_pipeline/skill_pipeline/models.py`
+- Current enrichment logic: `/home/austinli/Projects/bids_pipeline/skill_pipeline/enrich_core.py`
+- Current DuckDB schema: `/home/austinli/Projects/bids_pipeline/skill_pipeline/db_schema.py`
+- Current export logic: `/home/austinli/Projects/bids_pipeline/skill_pipeline/db_export.py`
+- STEC export artifact: `/home/austinli/Projects/bids_pipeline/data/skill/stec/export/deal_events.csv`
+- Pydantic discriminated unions: [Pydantic Unions docs](https://docs.pydantic.dev/latest/concepts/unions/)
+- DuckDB schema evolution: [DuckDB ALTER TABLE](https://duckdb.org/docs/stable/sql/statements/alter_table)
+- W3C PROV provenance standard: [Data Lineage and Provenance](https://www.promptcloud.com/blog/data-lineage-and-provenance/)
+- Rule-based inference engines: [Nected rule engine overview](https://www.nected.ai/us/blog-us/rule-based-inference-engine)
+- Knowledge graph lifecycle management: [VLDB 2025](https://www.vldb.org/pvldb/vol18/p1390-geisler.pdf)
