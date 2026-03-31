@@ -15,6 +15,7 @@ from skill_pipeline.config import PROJECT_ROOT, RAW_DIR, SKILL_PIPELINE_VERSION
 from skill_pipeline.coverage import run_coverage
 from skill_pipeline.coverage_v2 import run_coverage_v2
 from skill_pipeline.deal_agent import run_deal_agent
+from skill_pipeline.derive import run_derive
 from skill_pipeline.enrich_core import run_enrich_core
 from skill_pipeline.gates import run_gates
 from skill_pipeline.gates_v2 import run_gates_v2
@@ -224,6 +225,18 @@ def build_parser() -> argparse.ArgumentParser:
         help=argparse.SUPPRESS,
     )
 
+    derive_parser = subparsers.add_parser(
+        "derive",
+        help="Run deterministic derivation on canonical v2 observation artifacts.",
+    )
+    derive_parser.add_argument("--deal", required=True)
+    derive_parser.add_argument(
+        "--project-root",
+        type=Path,
+        default=PROJECT_ROOT,
+        help=argparse.SUPPRESS,
+    )
+
     compose_prompts_parser = subparsers.add_parser(
         "compose-prompts",
         help="Compose deterministic prompt packets from source artifacts.",
@@ -353,6 +366,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         from skill_pipeline.db_export import run_db_export
 
         return run_db_export(args.deal, project_root=args.project_root)
+    if args.command == "derive":
+        return run_derive(args.deal, project_root=args.project_root)
     if args.command == "compose-prompts":
         manifest = run_compose_prompts(
             args.deal,

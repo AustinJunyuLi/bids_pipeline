@@ -117,6 +117,7 @@ def canonical_observations_payload() -> dict:
                 "signed": True,
                 "grants_diligence_access": True,
                 "includes_standstill": False,
+                "consideration_type": None,
                 "supersedes_observation_id": None,
                 "other_detail": None,
             },
@@ -283,6 +284,59 @@ def write_v2_validation_fixture(
     )
     paths.observations_path.write_text(json.dumps(observations_payload), encoding="utf-8")
     paths.spans_v2_path.write_text(json.dumps(spans), encoding="utf-8")
+
+
+def write_v2_validation_reports(
+    tmp_path: Path,
+    *,
+    slug: str = "stec",
+    check_status: str = "pass",
+    coverage_status: str = "pass",
+    gates_status: str = "pass",
+) -> None:
+    paths = build_skill_paths(slug, project_root=tmp_path)
+    paths.check_v2_dir.mkdir(parents=True, exist_ok=True)
+    paths.coverage_v2_dir.mkdir(parents=True, exist_ok=True)
+    paths.gates_v2_dir.mkdir(parents=True, exist_ok=True)
+
+    paths.check_v2_report_path.write_text(
+        json.dumps(
+            {
+                "findings": [],
+                "summary": {
+                    "blocker_count": 0 if check_status == "pass" else 1,
+                    "warning_count": 0,
+                    "status": check_status,
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+    paths.coverage_v2_summary_path.write_text(
+        json.dumps(
+            {
+                "status": coverage_status,
+                "finding_count": 0 if coverage_status == "pass" else 1,
+                "error_count": 0 if coverage_status == "pass" else 1,
+                "warning_count": 0,
+                "counts_by_cue_family": {},
+            }
+        ),
+        encoding="utf-8",
+    )
+    paths.gates_v2_report_path.write_text(
+        json.dumps(
+            {
+                "findings": [],
+                "summary": {
+                    "blocker_count": 0 if gates_status == "pass" else 1,
+                    "warning_count": 0,
+                    "status": gates_status,
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
 
 
 def clone_payload(payload):

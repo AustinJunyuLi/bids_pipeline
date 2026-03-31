@@ -94,6 +94,7 @@ class AgreementObservation(ObservationBase):
     signed: bool | None = None
     grants_diligence_access: bool | None = None
     includes_standstill: bool | None = None
+    consideration_type: Literal["cash", "stock", "mixed", "other"] | None = None
     supersedes_observation_id: str | None = None
     other_detail: str | None = None
 
@@ -183,6 +184,7 @@ class ProcessPhaseRecord(SkillModel):
 class LifecycleTransitionRecord(SkillModel):
     transition_id: str
     subject_ref: str
+    subject_count: int = 1
     from_state: Literal[
         "unknown",
         "identified",
@@ -252,6 +254,8 @@ class AnalystRowRecord(SkillModel):
     row_id: str
     origin: Literal["literal", "derived", "synthetic_anonymous"]
     analyst_event_type: AnalystEventType
+    subject_ref: str | None = None
+    row_count: int = 1
     bidder_name: str | None = None
     bidder_type: str | None = None
     bid_type: Literal["Informal", "Formal", "Uncertain"] | None = None

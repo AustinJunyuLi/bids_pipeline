@@ -220,6 +220,11 @@ audit for the canonical v2 observation surface. It writes
 gate for the canonical v2 observation surface. It writes
 `data/skill/<slug>/gates_v2/gates_report.json`.
 
+`skill-pipeline derive --deal <slug>` is now the live deterministic derivation
+stage for the canonical v2 observation surface. It writes
+`data/skill/<slug>/derive/derivations.json` and
+`data/skill/<slug>/derive/derive_log.json`.
+
 ### Deterministic QA And Enrichment Outputs
 
 - `data/skill/<slug>/check/check_report.json`

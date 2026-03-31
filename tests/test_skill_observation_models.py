@@ -154,6 +154,7 @@ def test_cohort_record_supports_nested_parent_lineage() -> None:
                 "evidence_span_ids": ["span_002"],
                 "agreement_kind": "nda",
                 "signed": True,
+                "consideration_type": "cash",
                 "supersedes_observation_id": "obs_prev_nda",
             },
             AgreementObservation,
@@ -317,6 +318,7 @@ def test_derived_record_types_require_derivation_basis() -> None:
     transition = LifecycleTransitionRecord(
         transition_id="transition_001",
         subject_ref="party_bidder_a",
+        subject_count=1,
         from_state="active",
         to_state="submitted",
         reason_kind="literal",
@@ -338,6 +340,8 @@ def test_derived_record_types_require_derivation_basis() -> None:
         row_id="row_001",
         origin="derived",
         analyst_event_type="proposal",
+        subject_ref="party_bidder_a",
+        row_count=1,
         bidder_name="Bidder A",
         bid_type="Formal",
         value=Decimal("21.50"),
@@ -347,6 +351,9 @@ def test_derived_record_types_require_derivation_basis() -> None:
 
     assert phase.basis.rule_id == "ROUND-01"
     assert transition.basis.source_observation_ids == ["obs_001"]
+    assert transition.subject_count == 1
     assert cash_regime.basis.confidence == "high"
     assert judgment.human_review_required is True
+    assert analyst_row.subject_ref == "party_bidder_a"
+    assert analyst_row.row_count == 1
     assert analyst_row.model_dump(mode="json")["basis"]["rule_id"] == "ROUND-01"

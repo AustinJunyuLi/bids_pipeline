@@ -37,7 +37,7 @@ See [v1.0 archive](milestones/v1.0-ROADMAP.md) for full phase details.
 - [x] **Phase 11: Foundation Models + Path Contracts** - v2 Pydantic models and artifact directory structure (completed 2026-03-31)
 - [x] **Phase 12: Artifact Loading + Canonicalization** - v2 extract loading, mode detection, and span resolution (completed 2026-03-31)
 - [x] **Phase 13: Validation Stack** - Structural checks, structured coverage, and graph semantic gates for v2 observations (completed 2026-03-31)
-- [ ] **Phase 14: Derivation Engine** - Rule-based derivation of analyst rows from observation graph
+- [x] **Phase 14: Derivation Engine** - Rule-based derivation of analyst rows from observation graph (completed 2026-03-31)
 - [ ] **Phase 15: DuckDB Integration + Export** - v2 tables, triple export surface, and legacy adapter
 - [ ] **Phase 16: Extraction Contract + Migration** - v2 prompt composition, skill docs, STEC validation, and 9-deal migration
 
@@ -104,9 +104,12 @@ See [v1.0 archive](milestones/v1.0-ROADMAP.md) for full phase details.
   1. Round derivation rules (ROUND-01 informal, ROUND-02 formal) produce `ProcessPhaseRecord` from `SolicitationObservation` with correct phase boundaries
   2. Exit inference rules (EXIT-01 through EXIT-04) produce `LifecycleTransitionRecord` covering literal withdrawal, cannot-improve, not-invited, and lost-to-winner patterns
   3. Cash regime rules (CASH-01 through CASH-03) produce `CashRegimeRecord` from explicit terms, merger agreements, and phase-level inference without the all-cash short-circuit bug
-  4. `AnalystRowRecord` compilation produces filing-grounded rows with origin classification (literal/derived/synthetic_anonymous) and `DerivationBasis` provenance tracing back to source observations and spans
+  4. `AnalystRowRecord` compilation produces graph-linked, filing-grounded rows with `subject_ref`, `row_count`, date/terms fields, and `DerivationBasis` provenance tracing back to source observations and spans; benchmark-expanded anonymous slot emission remains deferred to Phase 15 export
   5. `JudgmentRecord` captures genuinely ambiguous cases (initiation, advisory link, ambiguous exit, ambiguous phase) with explicit human-review flags rather than silent defaults
-**Plans**: TBD
+**Plans**:
+  - `14-01` Schema alignment plus gated derive skeleton for rounds, cash regimes, and judgments
+  - `14-02` Exit derivation plus graph-linked analyst-row compilation
+  - `14-03` Live derive CLI, artifact writing, parser coverage, and memory updates
 
 ### Phase 15: DuckDB Integration + Export
 **Goal**: v2 observations and derived records load into DuckDB via additive schema and export through a triple CSV surface plus a legacy adapter that maps v2 analyst rows back to v1 CSV shape for benchmark regression
@@ -114,7 +117,7 @@ See [v1.0 archive](milestones/v1.0-ROADMAP.md) for full phase details.
 **Requirements**: EXPORT-01, EXPORT-02, EXPORT-03
 **Success Criteria** (what must be TRUE):
   1. v2 DuckDB tables (`v2_parties`, `v2_cohorts`, `v2_observations`, `v2_derivations`, `v2_coverage_checks`) are created additively alongside v1 tables without modifying existing schema
-  2. Triple export produces `literal_observations.csv`, `analyst_rows.csv`, and `benchmark_rows_expanded.csv` from DuckDB queries under `data/skill/<slug>/export_v2/`
+  2. Triple export produces `literal_observations.csv`, `analyst_rows.csv`, and `benchmark_rows_expanded.csv` from DuckDB queries under `data/skill/<slug>/export_v2/`, with optional synthetic anonymous slot expansion only in `benchmark_rows_expanded.csv`
   3. Legacy adapter maps v2 analyst rows to the v1 14-column CSV shape, verified by byte-level comparison tests against known v1 export outputs
   4. `db-load-v2` and `db-export-v2` CLI commands exist and complete successfully on synthetic fixtures
 **Plans**: TBD
@@ -150,7 +153,7 @@ Phases execute in numeric order: 10 -> 11 -> 12 -> 13 -> 14 -> 15 -> 16
 | 11. Foundation Models + Path Contracts | v2.0 | 2/2 | Complete   | 2026-03-31 |
 | 12. Artifact Loading + Canonicalization | v2.0 | 2/2 | Complete | 2026-03-31 |
 | 13. Validation Stack | v2.0 | 3/3 | Complete | 2026-03-31 |
-| 14. Derivation Engine | v2.0 | 0/TBD | Not started | - |
+| 14. Derivation Engine | v2.0 | 3/3 | Complete | 2026-03-31 |
 | 15. DuckDB Integration + Export | v2.0 | 0/TBD | Not started | - |
 | 16. Extraction Contract + Migration | v2.0 | 0/TBD | Not started | - |
 

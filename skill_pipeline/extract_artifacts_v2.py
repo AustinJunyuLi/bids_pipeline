@@ -98,6 +98,7 @@ class RawAgreementObservationV2(RawObservationBaseV2):
     signed: bool | None = None
     grants_diligence_access: bool | None = None
     includes_standstill: bool | None = None
+    consideration_type: Literal["cash", "stock", "mixed", "other"] | None = None
     supersedes_observation_id: str | None = None
     other_detail: str | None = None
 
