@@ -36,7 +36,7 @@ See [v1.0 archive](milestones/v1.0-ROADMAP.md) for full phase details.
 - [x] **Phase 10: Pre-Migration Fixes** - Isolate all-cash bug fix and structured coverage records before any v2 work (completed 2026-03-31)
 - [x] **Phase 11: Foundation Models + Path Contracts** - v2 Pydantic models and artifact directory structure (completed 2026-03-31)
 - [x] **Phase 12: Artifact Loading + Canonicalization** - v2 extract loading, mode detection, and span resolution (completed 2026-03-31)
-- [ ] **Phase 13: Validation Stack** - Structural checks, structured coverage, and graph semantic gates for v2 observations
+- [x] **Phase 13: Validation Stack** - Structural checks, structured coverage, and graph semantic gates for v2 observations (completed 2026-03-31)
 - [ ] **Phase 14: Derivation Engine** - Rule-based derivation of analyst rows from observation graph
 - [ ] **Phase 15: DuckDB Integration + Export** - v2 tables, triple export surface, and legacy adapter
 - [ ] **Phase 16: Extraction Contract + Migration** - v2 prompt composition, skill docs, STEC validation, and 9-deal migration
@@ -91,7 +91,10 @@ See [v1.0 archive](milestones/v1.0-ROADMAP.md) for full phase details.
   2. `coverage_v2` generates structured `CoverageCheckRecord` entries for every expected observation with status and reason codes, replacing free-text coverage notes entirely for v2
   3. `gates_v2` validates graph-level invariants: revision/supersession chains are acyclic, cohort child counts do not exceed parent, and deadlines occur after their solicitations
   4. All three validation stages have CLI commands and produce JSON report artifacts under `data/skill/<slug>/`
-**Plans**: TBD
+**Plans**:
+  - `13-01` `check_v2` structural runtime, report typing, and failing-fixture regression coverage
+  - `13-02` `coverage_v2` structured coverage generation from source cues and canonical observations
+  - `13-03` `gates_v2` graph invariants, CLI wiring, and repo-memory updates
 
 ### Phase 14: Derivation Engine
 **Goal**: A deterministic rule engine transforms validated observation graphs into derived analytical records (rounds, exits, cash regimes, agreements, analyst rows, judgments) with explicit provenance on every output
@@ -146,7 +149,7 @@ Phases execute in numeric order: 10 -> 11 -> 12 -> 13 -> 14 -> 15 -> 16
 | 10. Pre-Migration Fixes | v2.0 | 3/3 | Complete   | 2026-03-31 |
 | 11. Foundation Models + Path Contracts | v2.0 | 2/2 | Complete   | 2026-03-31 |
 | 12. Artifact Loading + Canonicalization | v2.0 | 2/2 | Complete | 2026-03-31 |
-| 13. Validation Stack | v2.0 | 0/TBD | Not started | - |
+| 13. Validation Stack | v2.0 | 3/3 | Complete | 2026-03-31 |
 | 14. Derivation Engine | v2.0 | 0/TBD | Not started | - |
 | 15. DuckDB Integration + Export | v2.0 | 0/TBD | Not started | - |
 | 16. Extraction Contract + Migration | v2.0 | 0/TBD | Not started | - |

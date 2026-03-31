@@ -207,6 +207,19 @@ when present, writes `extract_v2/observations.json`, and writes
 `extract_v2/spans.json`. The v1 `canonicalize` command and `extract/` contract
 remain unchanged.
 
+`skill-pipeline check-v2 --deal <slug>` is now the live structural gate for the
+canonical v2 observation surface. It writes
+`data/skill/<slug>/check_v2/check_report.json`.
+
+`skill-pipeline coverage-v2 --deal <slug>` is now the live structured coverage
+audit for the canonical v2 observation surface. It writes
+`data/skill/<slug>/coverage_v2/coverage_findings.json` and
+`data/skill/<slug>/coverage_v2/coverage_summary.json`.
+
+`skill-pipeline gates-v2 --deal <slug>` is now the live semantic validation
+gate for the canonical v2 observation surface. It writes
+`data/skill/<slug>/gates_v2/gates_report.json`.
+
 ### Deterministic QA And Enrichment Outputs
 
 - `data/skill/<slug>/check/check_report.json`

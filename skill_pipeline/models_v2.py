@@ -7,7 +7,10 @@ from typing import Annotated, Literal
 from pydantic import Field, model_validator
 
 from skill_pipeline.models import (
+    CheckReportSummary,
     CoverageCheckRecord,
+    CoverageSummary,
+    GateReportSummary,
     MoneyTerms,
     ResolvedDate,
     SkillExclusionRecord,
@@ -262,6 +265,45 @@ class AnalystRowRecord(SkillModel):
     basis: DerivationBasis
 
 
+class CoverageCheckRecordV2(CoverageCheckRecord):
+    supporting_observation_ids: list[str] = Field(default_factory=list)
+    supporting_party_ids: list[str] = Field(default_factory=list)
+    supporting_cohort_ids: list[str] = Field(default_factory=list)
+
+
+class CoverageFindingsArtifactV2(SkillModel):
+    findings: list[CoverageCheckRecordV2] = Field(default_factory=list)
+
+
+class CheckFindingV2(SkillModel):
+    check_id: str
+    severity: Literal["blocker", "warning"]
+    description: str
+    party_ids: list[str] = Field(default_factory=list)
+    cohort_ids: list[str] = Field(default_factory=list)
+    observation_ids: list[str] = Field(default_factory=list)
+
+
+class SkillCheckReportV2(SkillModel):
+    findings: list[CheckFindingV2] = Field(default_factory=list)
+    summary: CheckReportSummary
+
+
+class GateFindingV2(SkillModel):
+    gate_id: str
+    rule_id: str
+    severity: Literal["blocker", "warning"]
+    description: str
+    party_ids: list[str] = Field(default_factory=list)
+    cohort_ids: list[str] = Field(default_factory=list)
+    observation_ids: list[str] = Field(default_factory=list)
+
+
+class GateReportV2(SkillModel):
+    findings: list[GateFindingV2] = Field(default_factory=list)
+    summary: GateReportSummary
+
+
 class ObservationArtifactV2(SkillModel):
     parties: list[PartyRecord] = Field(default_factory=list)
     cohorts: list[CohortRecord] = Field(default_factory=list)
@@ -283,10 +325,16 @@ __all__ = [
     "AnalystEventType",
     "AnalystRowRecord",
     "CashRegimeRecord",
+    "CheckFindingV2",
     "CohortRecord",
     "CoverageCheckRecord",
+    "CoverageCheckRecordV2",
+    "CoverageFindingsArtifactV2",
+    "CoverageSummary",
     "DerivationBasis",
     "DerivedArtifactV2",
+    "GateFindingV2",
+    "GateReportV2",
     "JudgmentRecord",
     "LifecycleTransitionRecord",
     "Observation",
@@ -298,5 +346,6 @@ __all__ = [
     "ProcessPhaseRecord",
     "ProposalObservation",
     "SolicitationObservation",
+    "SkillCheckReportV2",
     "StatusObservation",
 ]

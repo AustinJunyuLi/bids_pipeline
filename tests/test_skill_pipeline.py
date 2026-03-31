@@ -652,6 +652,27 @@ def test_canonicalize_v2_cli_subcommand_parses() -> None:
     assert args.deal == "stec"
 
 
+def test_check_v2_cli_subcommand_parses() -> None:
+    parser = cli.build_parser()
+    args = parser.parse_args(["check-v2", "--deal", "stec"])
+    assert args.command == "check-v2"
+    assert args.deal == "stec"
+
+
+def test_coverage_v2_cli_subcommand_parses() -> None:
+    parser = cli.build_parser()
+    args = parser.parse_args(["coverage-v2", "--deal", "stec"])
+    assert args.command == "coverage-v2"
+    assert args.deal == "stec"
+
+
+def test_gates_v2_cli_subcommand_parses() -> None:
+    parser = cli.build_parser()
+    args = parser.parse_args(["gates-v2", "--deal", "stec"])
+    assert args.command == "gates-v2"
+    assert args.deal == "stec"
+
+
 def test_compose_prompts_cli_subcommand_parses() -> None:
     parser = cli.build_parser()
     args = parser.parse_args(["compose-prompts", "--deal", "stec"])

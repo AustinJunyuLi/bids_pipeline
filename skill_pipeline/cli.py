@@ -10,11 +10,14 @@ from uuid import uuid4
 from skill_pipeline.canonicalize import run_canonicalize, run_canonicalize_v2
 from skill_pipeline.compose_prompts import run_compose_prompts
 from skill_pipeline.check import run_check
+from skill_pipeline.check_v2 import run_check_v2
 from skill_pipeline.config import PROJECT_ROOT, RAW_DIR, SKILL_PIPELINE_VERSION
 from skill_pipeline.coverage import run_coverage
+from skill_pipeline.coverage_v2 import run_coverage_v2
 from skill_pipeline.deal_agent import run_deal_agent
 from skill_pipeline.enrich_core import run_enrich_core
 from skill_pipeline.gates import run_gates
+from skill_pipeline.gates_v2 import run_gates_v2
 from skill_pipeline.pipeline_models.common import PIPELINE_VERSION
 from skill_pipeline.pipeline_models.source import SeedDeal
 from skill_pipeline.seeds import load_seed_entry
@@ -113,6 +116,18 @@ def build_parser() -> argparse.ArgumentParser:
         help=argparse.SUPPRESS,
     )
 
+    check_v2_parser = subparsers.add_parser(
+        "check-v2",
+        help="Run structural checks on canonical v2 observation artifacts.",
+    )
+    check_v2_parser.add_argument("--deal", required=True)
+    check_v2_parser.add_argument(
+        "--project-root",
+        type=Path,
+        default=PROJECT_ROOT,
+        help=argparse.SUPPRESS,
+    )
+
     verify_parser = subparsers.add_parser(
         "verify",
         help="Run strict deterministic verification on extracted skill artifacts.",
@@ -131,6 +146,18 @@ def build_parser() -> argparse.ArgumentParser:
     )
     coverage_parser.add_argument("--deal", required=True)
     coverage_parser.add_argument(
+        "--project-root",
+        type=Path,
+        default=PROJECT_ROOT,
+        help=argparse.SUPPRESS,
+    )
+
+    coverage_v2_parser = subparsers.add_parser(
+        "coverage-v2",
+        help="Run deterministic source coverage on canonical v2 observation artifacts.",
+    )
+    coverage_v2_parser.add_argument("--deal", required=True)
+    coverage_v2_parser.add_argument(
         "--project-root",
         type=Path,
         default=PROJECT_ROOT,
@@ -239,6 +266,18 @@ def build_parser() -> argparse.ArgumentParser:
         help=argparse.SUPPRESS,
     )
 
+    gates_v2_parser = subparsers.add_parser(
+        "gates-v2",
+        help="Run semantic gates on canonical v2 observation artifacts.",
+    )
+    gates_v2_parser.add_argument("--deal", required=True)
+    gates_v2_parser.add_argument(
+        "--project-root",
+        type=Path,
+        default=PROJECT_ROOT,
+        help=argparse.SUPPRESS,
+    )
+
     return parser
 
 
@@ -288,12 +327,18 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 0
     if args.command == "check":
         return run_check(args.deal, project_root=args.project_root)
+    if args.command == "check-v2":
+        return run_check_v2(args.deal, project_root=args.project_root)
     if args.command == "verify":
         return run_verify(args.deal, project_root=args.project_root)
     if args.command == "coverage":
         return run_coverage(args.deal, project_root=args.project_root)
+    if args.command == "coverage-v2":
+        return run_coverage_v2(args.deal, project_root=args.project_root)
     if args.command == "gates":
         return run_gates(args.deal, project_root=args.project_root)
+    if args.command == "gates-v2":
+        return run_gates_v2(args.deal, project_root=args.project_root)
     if args.command == "enrich-core":
         return run_enrich_core(args.deal, project_root=args.project_root)
     if args.command == "canonicalize":
