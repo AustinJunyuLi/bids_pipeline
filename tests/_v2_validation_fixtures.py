@@ -293,11 +293,14 @@ def write_v2_validation_reports(
     check_status: str = "pass",
     coverage_status: str = "pass",
     gates_status: str = "pass",
+    coverage_findings: list[dict] | None = None,
 ) -> None:
     paths = build_skill_paths(slug, project_root=tmp_path)
     paths.check_v2_dir.mkdir(parents=True, exist_ok=True)
     paths.coverage_v2_dir.mkdir(parents=True, exist_ok=True)
     paths.gates_v2_dir.mkdir(parents=True, exist_ok=True)
+    if coverage_findings is None:
+        coverage_findings = []
 
     paths.check_v2_report_path.write_text(
         json.dumps(
@@ -316,12 +319,16 @@ def write_v2_validation_reports(
         json.dumps(
             {
                 "status": coverage_status,
-                "finding_count": 0 if coverage_status == "pass" else 1,
+                "finding_count": len(coverage_findings) if coverage_status == "pass" else 1,
                 "error_count": 0 if coverage_status == "pass" else 1,
                 "warning_count": 0,
                 "counts_by_cue_family": {},
             }
         ),
+        encoding="utf-8",
+    )
+    paths.coverage_v2_findings_path.write_text(
+        json.dumps({"findings": coverage_findings}),
         encoding="utf-8",
     )
     paths.gates_v2_report_path.write_text(

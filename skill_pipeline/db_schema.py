@@ -97,6 +97,73 @@ CREATE TABLE IF NOT EXISTS rounds (
     is_selective BOOLEAN NOT NULL,
     PRIMARY KEY (deal_slug, announcement_event_id)
 );
+
+CREATE TABLE IF NOT EXISTS v2_parties (
+    deal_slug TEXT NOT NULL,
+    party_id TEXT NOT NULL,
+    display_name TEXT NOT NULL,
+    canonical_name TEXT,
+    aliases TEXT[],
+    role TEXT NOT NULL,
+    bidder_kind TEXT,
+    advisor_kind TEXT,
+    advised_party_id TEXT,
+    listing_status TEXT,
+    geography TEXT,
+    evidence_span_ids TEXT[],
+    PRIMARY KEY (deal_slug, party_id)
+);
+
+CREATE TABLE IF NOT EXISTS v2_cohorts (
+    deal_slug TEXT NOT NULL,
+    cohort_id TEXT NOT NULL,
+    label TEXT NOT NULL,
+    parent_cohort_id TEXT,
+    exact_count INTEGER NOT NULL,
+    known_member_party_ids TEXT[],
+    unknown_member_count INTEGER NOT NULL,
+    membership_basis TEXT NOT NULL,
+    created_by_observation_id TEXT NOT NULL,
+    evidence_span_ids TEXT[],
+    PRIMARY KEY (deal_slug, cohort_id)
+);
+
+CREATE TABLE IF NOT EXISTS v2_observations (
+    deal_slug TEXT NOT NULL,
+    observation_id TEXT NOT NULL,
+    obs_type TEXT NOT NULL,
+    date_raw_text TEXT,
+    date_sort DATE,
+    date_precision TEXT,
+    subject_refs TEXT[],
+    counterparty_refs TEXT[],
+    summary TEXT NOT NULL,
+    evidence_span_ids TEXT[],
+    type_fields JSON,
+    PRIMARY KEY (deal_slug, observation_id)
+);
+
+CREATE TABLE IF NOT EXISTS v2_derivations (
+    deal_slug TEXT NOT NULL,
+    record_id TEXT NOT NULL,
+    record_type TEXT NOT NULL,
+    rule_id TEXT NOT NULL,
+    confidence TEXT NOT NULL,
+    source_observation_ids TEXT[],
+    source_span_ids TEXT[],
+    record_fields JSON NOT NULL,
+    PRIMARY KEY (deal_slug, record_id)
+);
+
+CREATE TABLE IF NOT EXISTS v2_coverage_checks (
+    deal_slug TEXT NOT NULL,
+    cue_family TEXT NOT NULL,
+    status TEXT NOT NULL,
+    supporting_observation_ids TEXT[],
+    supporting_span_ids TEXT[],
+    reason_code TEXT,
+    note TEXT
+);
 """
 
 

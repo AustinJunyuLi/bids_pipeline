@@ -15,6 +15,8 @@ from skill_pipeline.config import PROJECT_ROOT, RAW_DIR, SKILL_PIPELINE_VERSION
 from skill_pipeline.coverage import run_coverage
 from skill_pipeline.coverage_v2 import run_coverage_v2
 from skill_pipeline.deal_agent import run_deal_agent
+from skill_pipeline.db_export_v2 import run_db_export_v2
+from skill_pipeline.db_load_v2 import run_db_load_v2
 from skill_pipeline.derive import run_derive
 from skill_pipeline.enrich_core import run_enrich_core
 from skill_pipeline.gates import run_gates
@@ -225,6 +227,30 @@ def build_parser() -> argparse.ArgumentParser:
         help=argparse.SUPPRESS,
     )
 
+    db_load_v2_parser = subparsers.add_parser(
+        "db-load-v2",
+        help="Load canonical v2 observations, derivations, and coverage into DuckDB.",
+    )
+    db_load_v2_parser.add_argument("--deal", required=True)
+    db_load_v2_parser.add_argument(
+        "--project-root",
+        type=Path,
+        default=PROJECT_ROOT,
+        help=argparse.SUPPRESS,
+    )
+
+    db_export_v2_parser = subparsers.add_parser(
+        "db-export-v2",
+        help="Export v2 literal observations and analyst rows from DuckDB.",
+    )
+    db_export_v2_parser.add_argument("--deal", required=True)
+    db_export_v2_parser.add_argument(
+        "--project-root",
+        type=Path,
+        default=PROJECT_ROOT,
+        help=argparse.SUPPRESS,
+    )
+
     derive_parser = subparsers.add_parser(
         "derive",
         help="Run deterministic derivation on canonical v2 observation artifacts.",
@@ -366,6 +392,10 @@ def main(argv: Sequence[str] | None = None) -> int:
         from skill_pipeline.db_export import run_db_export
 
         return run_db_export(args.deal, project_root=args.project_root)
+    if args.command == "db-load-v2":
+        return run_db_load_v2(args.deal, project_root=args.project_root)
+    if args.command == "db-export-v2":
+        return run_db_export_v2(args.deal, project_root=args.project_root)
     if args.command == "derive":
         return run_derive(args.deal, project_root=args.project_root)
     if args.command == "compose-prompts":

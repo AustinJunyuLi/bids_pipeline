@@ -67,6 +67,8 @@ The `skill-pipeline` CLI owns these stages:
 - `enrich-core`: deterministic enrichment
 - `db-load`: load canonical extract + enrichment artifacts into DuckDB
 - `db-export`: generate `deal_events.csv` from DuckDB queries
+- `db-load-v2`: load canonical v2 observations, derivations, and structured coverage into additive DuckDB tables
+- `db-export-v2`: generate the v2 triple export surface from DuckDB queries
 - `deal-agent`: preflight and artifact summary only
 
 ### Local-Agent Stages
@@ -225,6 +227,18 @@ stage for the canonical v2 observation surface. It writes
 `data/skill/<slug>/derive/derivations.json` and
 `data/skill/<slug>/derive/derive_log.json`.
 
+`skill-pipeline db-load-v2 --deal <slug>` is now the live additive DuckDB
+loader for canonical v2 artifacts. It populates `data/pipeline.duckdb` tables
+`v2_parties`, `v2_cohorts`, `v2_observations`, `v2_derivations`, and
+`v2_coverage_checks`.
+
+`skill-pipeline db-export-v2 --deal <slug>` is now the live additive v2 export
+stage. It writes:
+
+- `data/skill/<slug>/export_v2/literal_observations.csv`
+- `data/skill/<slug>/export_v2/analyst_rows.csv`
+- `data/skill/<slug>/export_v2/benchmark_rows_expanded.csv`
+
 ### Deterministic QA And Enrichment Outputs
 
 - `data/skill/<slug>/check/check_report.json`
@@ -259,6 +273,11 @@ gates have blocker findings.
 Tables: `actors`, `events`, `spans`, `enrichment`, `cycles`, `rounds`. The
 database is a single multi-deal file keyed by `(deal_slug, <entity_id>)`.
 
+`skill-pipeline db-load-v2 --deal <slug>` writes into the same
+`data/pipeline.duckdb` file but only touches additive `v2_*` tables:
+`v2_parties`, `v2_cohorts`, `v2_observations`, `v2_derivations`, and
+`v2_coverage_checks`.
+
 `db-load` uses two-tier enrichment loading:
 
 - `deterministic_enrichment.json` (required) -- bid classifications, rounds, cycles, dropout_classifications (sparse DropTarget), all_cash_overrides
@@ -269,6 +288,17 @@ database is a single multi-deal file keyed by `(deal_slug, <entity_id>)`.
 - `data/skill/<slug>/export/deal_events.csv`
 
 The CSV is generated from DuckDB queries, not from JSON artifacts.
+
+`skill-pipeline db-export-v2 --deal <slug>` writes:
+
+- `data/skill/<slug>/export_v2/literal_observations.csv`
+- `data/skill/<slug>/export_v2/analyst_rows.csv`
+- `data/skill/<slug>/export_v2/benchmark_rows_expanded.csv`
+
+The v2 exporter also reads from DuckDB, not from JSON artifacts. The
+`skill_pipeline/legacy_adapter.py` module is the benchmark-compatibility helper
+that maps v2 analyst rows back to the existing 14-column v1 CSV shape; it does
+not replace `db-export`.
 
 ## End-To-End Flow
 

@@ -511,7 +511,19 @@ def test_open_pipeline_db_creates_schema(tmp_path: Path) -> None:
     con.close()
 
     assert db_path.exists()
-    assert tables == {"actors", "cycles", "enrichment", "events", "rounds", "spans"}
+    assert tables == {
+        "actors",
+        "cycles",
+        "enrichment",
+        "events",
+        "rounds",
+        "spans",
+        "v2_cohorts",
+        "v2_coverage_checks",
+        "v2_derivations",
+        "v2_observations",
+        "v2_parties",
+    }
 
 
 def test_open_pipeline_db_supports_read_only(tmp_path: Path) -> None:

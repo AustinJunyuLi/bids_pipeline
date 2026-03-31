@@ -448,6 +448,13 @@ def _subject_count(subject_ref: str, artifacts, *, default: int = 1) -> int:
     return default
 
 
+def _selected_ref_within_cohort(subject_ref: str, selected_refs: set[str], artifacts) -> bool:
+    cohort = artifacts.cohort_index.get(subject_ref)
+    if cohort is None:
+        return False
+    return bool(selected_refs.intersection(cohort.known_member_party_ids))
+
+
 def _from_state(subject_ref: str, prior_proposals: set[str], active_refs: set[str]) -> str:
     if subject_ref in prior_proposals:
         return "submitted"
@@ -580,6 +587,8 @@ def _derive_transitions(
                         pool_refs.update(related_observation.recipient_refs)
                 selected_refs = set(observation.subject_refs)
                 for subject_ref in sorted(ref for ref in pool_refs if ref not in selected_refs):
+                    if _selected_ref_within_cohort(subject_ref, selected_refs, artifacts):
+                        continue
                     transitions.append(
                         _build_transition(
                             rule_id="EXIT-03",
@@ -945,6 +954,13 @@ def _compile_transition_rows(artifacts, transitions: list[LifecycleTransitionRec
     return rows
 
 
+def _renumber_rows(rows: list[AnalystRowRecord]) -> list[AnalystRowRecord]:
+    return [
+        row.model_copy(update={"row_id": f"row_{index:04d}"})
+        for index, row in enumerate(rows, start=1)
+    ]
+
+
 def run_derive(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> int:
     """Run deterministic v2 derivation and write derive artifacts."""
     paths = build_skill_paths(deal_slug, project_root=project_root)
@@ -960,6 +976,7 @@ def run_derive(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> int:
     analyst_rows.extend(_compile_literal_rows(artifacts, phases, cash_regimes))
     analyst_rows.extend(_compile_phase_rows(artifacts, phases, cash_regimes))
     analyst_rows.extend(_compile_transition_rows(artifacts, transitions))
+    analyst_rows = _renumber_rows(analyst_rows)
 
     artifact = DerivedArtifactV2(
         phases=phases,

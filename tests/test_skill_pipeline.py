@@ -680,6 +680,20 @@ def test_derive_cli_subcommand_parses() -> None:
     assert args.deal == "stec"
 
 
+def test_db_load_v2_cli_subcommand_parses() -> None:
+    parser = cli.build_parser()
+    args = parser.parse_args(["db-load-v2", "--deal", "stec"])
+    assert args.command == "db-load-v2"
+    assert args.deal == "stec"
+
+
+def test_db_export_v2_cli_subcommand_parses() -> None:
+    parser = cli.build_parser()
+    args = parser.parse_args(["db-export-v2", "--deal", "stec"])
+    assert args.command == "db-export-v2"
+    assert args.deal == "stec"
+
+
 def test_compose_prompts_cli_subcommand_parses() -> None:
     parser = cli.build_parser()
     args = parser.parse_args(["compose-prompts", "--deal", "stec"])
