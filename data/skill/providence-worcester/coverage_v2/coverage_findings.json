@@ -3,7 +3,7 @@
     {
       "cue_family": "withdrawal_or_drop",
       "status": "observed",
-      "severity": "error",
+      "severity": "info",
       "repairability": null,
       "description": "High-confidence withdrawal_or_drop cue is covered by canonical v2 artifacts.",
       "reason_code": "matched_observation",

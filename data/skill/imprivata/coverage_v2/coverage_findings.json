@@ -78,7 +78,7 @@
     {
       "cue_family": "advisor",
       "status": "observed",
-      "severity": "warning",
+      "severity": "info",
       "repairability": null,
       "description": "High-confidence advisor cue is covered by canonical v2 artifacts.",
       "reason_code": "matched_party",
@@ -114,7 +114,7 @@
     {
       "cue_family": "advisor",
       "status": "observed",
-      "severity": "warning",
+      "severity": "info",
       "repairability": null,
       "description": "Medium-confidence advisor cue is covered by canonical v2 artifacts.",
       "reason_code": "matched_party",
@@ -259,7 +259,7 @@
     {
       "cue_family": "nda",
       "status": "observed",
-      "severity": "error",
+      "severity": "info",
       "repairability": null,
       "description": "High-confidence nda cue is covered by multiple canonical v2 observations.",
       "reason_code": "matched_multiple_observations",
@@ -308,7 +308,7 @@
     {
       "cue_family": "nda",
       "status": "observed",
-      "severity": "error",
+      "severity": "info",
       "repairability": null,
       "description": "High-confidence nda cue is covered by multiple canonical v2 observations.",
       "reason_code": "matched_multiple_observations",
@@ -353,7 +353,7 @@
     {
       "cue_family": "withdrawal_or_drop",
       "status": "observed",
-      "severity": "warning",
+      "severity": "info",
       "repairability": null,
       "description": "Medium-confidence withdrawal_or_drop cue is covered by canonical v2 artifacts.",
       "reason_code": "matched_observation",
@@ -385,7 +385,7 @@
     {
       "cue_family": "nda",
       "status": "observed",
-      "severity": "error",
+      "severity": "info",
       "repairability": null,
       "description": "High-confidence nda cue is covered by canonical v2 artifacts.",
       "reason_code": "matched_observation",
@@ -424,7 +424,7 @@
     {
       "cue_family": "nda",
       "status": "observed",
-      "severity": "warning",
+      "severity": "info",
       "repairability": null,
       "description": "Medium-confidence nda cue is covered by canonical v2 artifacts.",
       "reason_code": "matched_observation",
@@ -458,7 +458,7 @@
     {
       "cue_family": "withdrawal_or_drop",
       "status": "observed",
-      "severity": "warning",
+      "severity": "info",
       "repairability": null,
       "description": "Medium-confidence withdrawal_or_drop cue is covered by canonical v2 artifacts.",
       "reason_code": "matched_observation",

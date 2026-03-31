@@ -1,516 +1,486 @@
 {
+  "generated_at": "2026-03-31T20:28:18.516693Z",
   "deal_slug": "mac-gray",
-  "generated_at": "2026-03-29T00:00:00Z",
-  "counts": {
-    "pipeline_atomic_events": 27,
-    "alex_total_rows": 34,
-    "alex_atomic_rows": 28,
-    "alex_aggregate_rows": 3,
-    "alex_process_rows": 3,
-    "matched_pairs": 21,
-    "pipeline_only_orphans": 3,
-    "alex_only_orphans": 7,
-    "atomic_match_rate": "21/24 pipeline atomic matchable = 87.5%"
+  "primary_document_id": "0001047469-13-010973",
+  "primary_filing_path": "/home/austinli/Projects/bids_pipeline/raw/mac-gray/filings/0001047469-13-010973.txt",
+  "summary_row": {
+    "TargetName": "MAC GRAY CORP",
+    "Events": 34,
+    "Acquirer": "CSC SERVICEWORKS, INC.",
+    "DateAnnounced": "2013-10-15T00:00:00",
+    "URL": "https://www.sec.gov/Archives/edgar/data/1038280/0001047469-13-010973-index.htm"
   },
-  "matched_pairs": [
-    {
-      "pipeline_event_id": "evt_001",
-      "pipeline_type": "target_sale",
-      "alex_bidder_id": 0.5,
-      "alex_bid_note": "IB",
-      "match_basis": "family:target_sale/IB + date:2013-04-05",
-      "field_mismatches": [
-        {
-          "field": "bid_note",
-          "pipeline": "target_sale (Board authorized exploration with BofA)",
-          "alex": "IB",
-          "filing_supports": "both",
-          "arbitration_note": "The filing says the Board authorized management to work with BofA Merrill Lynch. Alex codes this as an IB event; pipeline codes it as a target_sale. Both interpretations are defensible: it is the board authorizing exploration (target_sale) via their existing advisor (IB). The formal IB engagement letter was not until May 31."
-        }
-      ]
-    },
-    {
-      "pipeline_event_id": "evt_002",
-      "pipeline_type": "bidder_interest",
-      "alex_bidder_id": 0.7,
-      "alex_bid_note": "Target Interest",
-      "match_basis": "family:interest + date:2013-04-08 + actor:Party A",
-      "field_mismatches": [
-        {
-          "field": "bid_note",
-          "pipeline": "bidder_interest",
-          "alex": "Target Interest",
-          "filing_supports": "both",
-          "arbitration_note": "The filing says BofA, as instructed by the Board, telephoned Party A. Party A then indicated interest. Alex codes it as Target Interest (target approached Party A); pipeline codes it as bidder_interest (Party A expressed interest). Both capture a different facet of the same event. The approach was target-initiated, so Alex's 'Target Interest' is slightly more precise about directionality."
-        }
-      ]
-    },
-    {
-      "pipeline_event_id": "evt_003",
-      "pipeline_type": "ib_retention",
-      "alex_bidder_id": 0.9,
-      "alex_bid_note": "IB",
-      "match_basis": "family:IB + date:2013-05-31 + actor:BofA Merrill Lynch",
-      "field_mismatches": []
-    },
-    {
-      "pipeline_event_id": "evt_004",
-      "pipeline_type": "proposal",
-      "alex_bidder_id": 1,
-      "alex_bid_note": "NA (proposal)",
-      "match_basis": "family:proposal + date:2013-06-21 + actor:Party A + range:$17-19",
-      "field_mismatches": [
-        {
-          "field": "bid_value_pershare",
-          "pipeline": "null (range only: 17.0-19.0)",
-          "alex": "17 (bid_value_lower=17, bid_value_upper=19)",
-          "filing_supports": "pipeline",
-          "arbitration_note": "The filing says '$17.00 to $19.00 per share'. This is a range, not a point estimate. Pipeline correctly codes it as range_low/range_high with no per_share. Alex codes bid_value=17 (the low end) with upper=19. The pipeline range representation is more accurate."
-        }
-      ]
-    },
-    {
-      "pipeline_event_id": "evt_005",
-      "pipeline_type": "target_sale",
-      "alex_bidder_id": 1.5,
-      "alex_bid_note": "Final Round Inf Ann",
-      "match_basis": "family:process + date:2013-06-24",
-      "field_mismatches": [
-        {
-          "field": "bid_note",
-          "pipeline": "target_sale (board formed Special Committee, launched broader sale process)",
-          "alex": "Final Round Inf Ann",
-          "filing_supports": "pipeline",
-          "arbitration_note": "The June 24 board meeting formed the Special Committee and launched the broader solicitation (contacting 50 parties). This is a target_sale launch, not a final round announcement. The final round announcement (requesting final indications by Sept 18) occurred on Sept 11. Alex appears to have mislabeled this as 'Final Round Inf Ann' when it is actually the formal sale process launch."
-        }
-      ]
-    },
-    {
-      "pipeline_event_id": "evt_008",
-      "pipeline_type": "nda",
-      "alex_bidder_id": 3,
-      "alex_bid_note": "NDA",
-      "match_basis": "family:NDA + date:2013-06-28 + actor:Party B",
-      "field_mismatches": []
-    },
-    {
-      "pipeline_event_id": "evt_009",
-      "pipeline_type": "nda",
-      "alex_bidder_id": 4,
-      "alex_bid_note": "NDA",
-      "match_basis": "family:NDA + date:2013-06-30 + actor:Party C",
-      "field_mismatches": [
-        {
-          "field": "bid_date_precise",
-          "pipeline": "2013-06-30",
-          "alex": "2013-06-20 (precise) / 2013-06-30 (rough)",
-          "filing_supports": "pipeline",
-          "arbitration_note": "The filing says 'June 30, 2013, Party C entered into a confidentiality and standstill agreement'. June 30 is the correct date. Alex's precise date of June 20 appears to be a typo; the rough date of June 30 is correct."
-        }
-      ]
-    },
-    {
-      "pipeline_event_id": "evt_010",
-      "pipeline_type": "nda",
-      "alex_bidder_id": 5,
-      "alex_bid_note": "NDA",
-      "match_basis": "family:NDA + date:2013-07-11 + actor:CSC/Pamplona",
-      "field_mismatches": []
-    },
-    {
-      "pipeline_event_id": "evt_011",
-      "pipeline_type": "proposal",
-      "alex_bidder_id": 6,
-      "alex_bid_note": "NA (proposal)",
-      "match_basis": "family:proposal + date:2013-07-23 + actor:CSC/Pamplona + price:$18.50",
-      "field_mismatches": []
-    },
-    {
-      "pipeline_event_id": "evt_012",
-      "pipeline_type": "proposal",
-      "alex_bidder_id": 7,
-      "alex_bid_note": "NA (proposal)",
-      "match_basis": "family:proposal + date:2013-07-24 + actor:Party B + range:$17-18",
-      "field_mismatches": []
-    },
-    {
-      "pipeline_event_id": "evt_013",
-      "pipeline_type": "proposal",
-      "alex_bidder_id": 8,
-      "alex_bid_note": "NA (proposal)",
-      "match_basis": "family:proposal + date:2013-07-24 + actor:Party C + range:$15-17",
-      "field_mismatches": []
-    },
-    {
-      "pipeline_event_id": "evt_014",
-      "pipeline_type": "proposal",
-      "alex_bidder_id": 10,
-      "alex_bid_note": "NA (proposal)",
-      "match_basis": "family:proposal + date:2013-07-25 + actor:Party C + range:$16-16.50",
-      "field_mismatches": []
-    },
-    {
-      "pipeline_event_id": "evt_015",
-      "pipeline_type": "nda",
-      "alex_bidder_id": 11,
-      "alex_bid_note": "NDA",
-      "match_basis": "family:NDA + date:2013-08-05 + actor:Party A",
-      "field_mismatches": []
-    },
-    {
-      "pipeline_event_id": "evt_017",
-      "pipeline_type": "proposal",
-      "alex_bidder_id": 12,
-      "alex_bid_note": "NA (proposal)",
-      "match_basis": "family:proposal + date:2013-09-09 + actor:CSC/Pamplona + price:$19.50",
-      "field_mismatches": []
-    },
-    {
-      "pipeline_event_id": "evt_018",
-      "pipeline_type": "proposal",
-      "alex_bidder_id": 13,
-      "alex_bid_note": "NA (proposal)",
-      "match_basis": "family:proposal + date:2013-09-09 + actor:Party B + price:$18.50",
-      "field_mismatches": []
-    },
-    {
-      "pipeline_event_id": "evt_019",
-      "pipeline_type": "proposal",
-      "alex_bidder_id": 14,
-      "alex_bid_note": "NA (proposal)",
-      "match_basis": "family:proposal + date:2013-09-10 + actor:Party A + range:$18-19",
-      "field_mismatches": []
-    },
-    {
-      "pipeline_event_id": "evt_020",
-      "pipeline_type": "proposal",
-      "alex_bidder_id": 15,
-      "alex_bid_note": "NA (proposal)",
-      "match_basis": "family:proposal + date:2013-09-10 + actor:Party C + range:$16-17",
-      "field_mismatches": []
-    },
-    {
-      "pipeline_event_id": "evt_021",
-      "pipeline_type": "proposal",
-      "alex_bidder_id": 17,
-      "alex_bid_note": "NA (proposal)",
-      "match_basis": "family:proposal + date:2013-09-18 + actor:CSC/Pamplona + price:$20.75",
-      "field_mismatches": [
-        {
-          "field": "bid_type",
-          "pipeline": "Formal (enrichment rule 2.5: after final round announcement)",
-          "alex": "Formal",
-          "filing_supports": "both",
-          "arbitration_note": "Both agree this is Formal. No mismatch."
-        }
-      ]
-    },
-    {
-      "pipeline_event_id": "evt_022",
-      "pipeline_type": "proposal",
-      "alex_bidder_id": 18,
-      "alex_bid_note": "NA (proposal)",
-      "match_basis": "family:proposal + date:2013-09-18 + actor:Party A + range:$18-19",
-      "field_mismatches": [
-        {
-          "field": "bid_type",
-          "pipeline": "Informal (enrichment rule 1.0: indication of interest with range)",
-          "alex": "Formal",
-          "filing_supports": "alex",
-          "arbitration_note": "This is the Party A best-and-final offer submitted on the Sept 18 deadline. The filing says Party A 'reiterated ... that its previous indication of interest with an all-cash purchase price of $18.00 to $19.00 per share was its best and final offer.' Since it was submitted in response to the formal final round request by the Sept 18 deadline, Alex classifies it as Formal. Pipeline classified it Informal due to formality signals (indication_of_interest=true, contains_range=true). Alex is correct: this is a final-round response and should be Formal."
-        }
-      ]
-    },
-    {
-      "pipeline_event_id": "evt_023",
-      "pipeline_type": "proposal",
-      "alex_bidder_id": 19,
-      "alex_bid_note": "NA (proposal)",
-      "match_basis": "family:proposal + date:2013-09-18 + actor:Party B + price:$21.50",
-      "field_mismatches": [
-        {
-          "field": "all_cash",
-          "pipeline": "mixed (consideration_type: mixed)",
-          "alex": "0 (not all-cash)",
-          "filing_supports": "both",
-          "arbitration_note": "Both agree this is not an all-cash offer. The filing says '$19.00 of cash to be paid at closing and the remaining per share price to be paid in the form of options'. Pipeline codes consideration_type=mixed; Alex codes all_cash=0. Both correct."
-        },
-        {
-          "field": "bid_type",
-          "pipeline": "Informal (enrichment rule 1.0: indication of interest signal)",
-          "alex": "Formal",
-          "filing_supports": "alex",
-          "arbitration_note": "Party B submitted this revised indication of interest on the Sept 18 final round deadline. The filing says 'Party B also submitted a revised indication of interest'. Although the filing uses 'indication of interest' language (which triggered the pipeline's Informal classification), this was submitted in response to the formal final round request and should be classified Formal. Alex is correct."
-        }
-      ]
-    },
-    {
-      "pipeline_event_id": "evt_024",
-      "pipeline_type": "drop",
-      "alex_bidder_id": 20,
-      "alex_bid_note": "Drop",
-      "match_basis": "family:drop + date:2013-09-18 + actor:Party C",
-      "field_mismatches": [
-        {
-          "field": "bid_note (drop subtype)",
-          "pipeline": "drop (no subtype; Party C did not submit a revised proposal by deadline)",
-          "alex": "Drop (no subtype)",
-          "filing_supports": "both",
-          "arbitration_note": "Both agree. Alex labels this as 'Drop', pipeline labels it 'drop'. Party C failed to respond to the Sept 18 deadline. Equivalent."
-        }
-      ]
-    }
-  ],
+  "counts": {
+    "pipeline_benchmark": 34,
+    "pipeline_analyst": 34,
+    "alex": 34,
+    "matches": 24,
+    "pipeline_only": 10,
+    "alex_only": 9,
+    "aggregate_rows": 0,
+    "field_mismatches": 12,
+    "match_rate": 0.7059
+  },
+  "status": "high_attention",
+  "comparison_surface": {
+    "primary": "benchmark_rows_expanded.csv",
+    "context": "analyst_rows.csv",
+    "alex_match_rule": "seed URL exact match"
+  },
   "field_mismatches": [
     {
-      "pipeline_event_id": "evt_001",
-      "field": "bid_note",
-      "pipeline_value": "target_sale",
-      "alex_value": "IB",
+      "pipeline_row_id": "row_0033",
+      "alex_row_id": "22",
+      "field": "date",
+      "pipeline_value": "2013-10-14",
+      "alex_value": "2013-09-24",
       "filing_supports": "both",
-      "severity": "minor",
-      "note": "Different granularity. Board authorized exploration with existing advisor; not yet a formal engagement letter."
+      "filing_snippet": "2208: in the day, on October 14, 2013, the merger agreement was executed, the Pamplona commitment letter was delivered, Moab and Parent executed the Moab voting agreement and the",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/mac-gray/filings/0001047469-13-010973.txt",
+      "match_score": 96.0,
+      "pipeline_source_span_ids": [
+        "span_0029"
+      ]
     },
     {
-      "pipeline_event_id": "evt_002",
-      "field": "bid_note",
-      "pipeline_value": "bidder_interest",
-      "alex_value": "Target Interest",
+      "pipeline_row_id": "row_0034",
+      "alex_row_id": "23",
+      "field": "date",
+      "pipeline_value": "2013-10-14",
+      "alex_value": "2013-09-24",
       "filing_supports": "both",
-      "severity": "minor",
-      "note": "Directional difference. Target initiated the call (Alex's view); bidder expressed interest on the call (pipeline's view). Both are defensible."
+      "filing_snippet": "2208: in the day, on October 14, 2013, the merger agreement was executed, the Pamplona commitment letter was delivered, Moab and Parent executed the Moab voting agreement and the",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/mac-gray/filings/0001047469-13-010973.txt",
+      "match_score": 96.0,
+      "pipeline_source_span_ids": [
+        "span_0029"
+      ]
     },
     {
-      "pipeline_event_id": "evt_004",
-      "field": "bid_value_pershare",
-      "pipeline_value": "null (range 17-19)",
-      "alex_value": "17 (lower end)",
+      "pipeline_row_id": "row_0004",
+      "alex_row_id": "1",
+      "field": "range",
+      "pipeline_value": {
+        "kind": "range",
+        "low": 17.0,
+        "high": 19.0
+      },
+      "alex_value": {
+        "kind": "scalar",
+        "low": 17.0,
+        "high": 17.0
+      },
+      "filing_supports": "both",
+      "filing_snippet": "1760: June 21, 2013, Party A submitted an unsolicited proposal to the Mac-Gray Board of Directors offering to purchase Mac-Gray for an all-cash purchase price of $17.00 to $19.00 per\n1760: June 21, 2013, Party A submitted an unsolicited proposal to the Mac-Gray Board of Directors offering to purchase Mac-Gray for an all-cash purchase price of $17.00 to $19.00 per\n1761: share, which we refer to as the Party A June 21 proposal.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/mac-gray/filings/0001047469-13-010973.txt",
+      "match_score": 160.0,
+      "pipeline_source_span_ids": [
+        "span_0005",
+        "span_0006"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0012",
+      "alex_row_id": "7",
+      "field": "range",
+      "pipeline_value": {
+        "kind": "range",
+        "low": 17.0,
+        "high": 18.0
+      },
+      "alex_value": {
+        "kind": "scalar",
+        "low": 17.0,
+        "high": 17.0
+      },
+      "filing_supports": "both",
+      "filing_snippet": "1876: July 24, 2013, Party B submitted a preliminary indication of interest at an all-cash purchase price of $17.00 to $18.00 per share. Also on July 24, 2013, representatives",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/mac-gray/filings/0001047469-13-010973.txt",
+      "match_score": 160.0,
+      "pipeline_source_span_ids": [
+        "span_0012"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0013",
+      "alex_row_id": "8",
+      "field": "range",
+      "pipeline_value": {
+        "kind": "range",
+        "low": 15.0,
+        "high": 17.0
+      },
+      "alex_value": {
+        "kind": "scalar",
+        "low": 15.0,
+        "high": 15.0
+      },
+      "filing_supports": "both",
+      "filing_snippet": "1877: from Party C called BofA Merrill Lynch and presented an oral preliminary indication of interest at an all-cash purchase price of $15.00 to $17.00 per share.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/mac-gray/filings/0001047469-13-010973.txt",
+      "match_score": 160.0,
+      "pipeline_source_span_ids": [
+        "span_0013"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0014",
+      "alex_row_id": "10",
+      "field": "range",
+      "pipeline_value": {
+        "kind": "range",
+        "low": 16.0,
+        "high": 16.5
+      },
+      "alex_value": {
+        "kind": "scalar",
+        "low": 16.0,
+        "high": 16.0
+      },
       "filing_supports": "pipeline",
-      "severity": "minor",
-      "note": "Pipeline correctly uses range. Alex uses bid_value=lower_end, which is a convention, not an error."
+      "filing_snippet": "1908: on July 25, 2013, Party C submitted a written indication of interest at an all-cash purchase price of $16.00 to $16.50 per share.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/mac-gray/filings/0001047469-13-010973.txt",
+      "match_score": 160.0,
+      "pipeline_source_span_ids": [
+        "span_0014"
+      ]
     },
     {
-      "pipeline_event_id": "evt_005",
-      "field": "bid_note",
-      "pipeline_value": "target_sale",
-      "alex_value": "Final Round Inf Ann",
-      "filing_supports": "pipeline",
-      "severity": "material",
-      "note": "June 24 was the sale process launch (Special Committee formation + solicitation of 50 parties), not a final round announcement. The final round announcement was Sept 11 (evt_016). Alex may have confused the sale launch with the first round request."
+      "pipeline_row_id": "row_0019",
+      "alex_row_id": "14",
+      "field": "range",
+      "pipeline_value": {
+        "kind": "range",
+        "low": 18.0,
+        "high": 19.0
+      },
+      "alex_value": {
+        "kind": "scalar",
+        "low": 18.0,
+        "high": 18.0
+      },
+      "filing_supports": "both",
+      "filing_snippet": "1971: September 10, 2013, Party A submitted a revised indication of interest with an all-cash purchase price of $18.00 to $19.00 per share, to be financed by outstanding credit",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/mac-gray/filings/0001047469-13-010973.txt",
+      "match_score": 160.0,
+      "pipeline_source_span_ids": [
+        "span_0020"
+      ]
     },
     {
-      "pipeline_event_id": "evt_009",
-      "field": "bid_date_precise",
-      "pipeline_value": "2013-06-30",
-      "alex_value": "2013-06-20",
-      "filing_supports": "pipeline",
-      "severity": "minor",
-      "note": "Alex's precise date of June 20 is likely a typo. Filing says June 30."
+      "pipeline_row_id": "row_0020",
+      "alex_row_id": "15",
+      "field": "range",
+      "pipeline_value": {
+        "kind": "range",
+        "low": 16.0,
+        "high": 17.0
+      },
+      "alex_value": {
+        "kind": "scalar",
+        "low": 16.0,
+        "high": 16.0
+      },
+      "filing_supports": "both",
+      "filing_snippet": "1973: a revised oral indication of interest with an all-cash purchase price of $16.00 to $17.00 per share. Neither Party A's nor Party C's revised indication of interest included a firm financing",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/mac-gray/filings/0001047469-13-010973.txt",
+      "match_score": 160.0,
+      "pipeline_source_span_ids": [
+        "span_0021"
+      ]
     },
     {
-      "pipeline_event_id": "evt_022",
+      "pipeline_row_id": "row_0021",
+      "alex_row_id": "17",
       "field": "bid_type",
       "pipeline_value": "Informal",
       "alex_value": "Formal",
       "filing_supports": "alex",
-      "severity": "material",
-      "note": "Party A's Sept 18 best-and-final was a final round response. Pipeline's enrichment rule 1.0 (indication_of_interest signal) overrode rule 2.5 (after_final_round_announcement). This is a pipeline enrichment bug: the after_final_round_announcement flag is true, but the IOI language triggered the informal classification. Fix: final round responses should be Formal regardless of IOI language."
+      "filing_snippet": "2011: September 18, 2013, CSC/Pamplona submitted a proposal for an all-cash purchase price of $20.75 per share, reiterating that Pamplona was committed to provide 100% of the capital\n2011: September 18, 2013, CSC/Pamplona submitted a proposal for an all-cash purchase price of $20.75 per share, reiterating that Pamplona was committed to provide 100% of the capital\n2012: required to consummate the transaction and requesting that CSC/Pamplona and Mac-Gray agree to engage in exclusive negotiations for two weeks. Also on September 18, 2013, Party A reiterated in a",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/mac-gray/filings/0001047469-13-010973.txt",
+      "match_score": 161.0,
+      "pipeline_source_span_ids": [
+        "span_0022",
+        "span_0023"
+      ]
     },
     {
-      "pipeline_event_id": "evt_023",
+      "pipeline_row_id": "row_0023",
+      "alex_row_id": "18",
+      "field": "range",
+      "pipeline_value": {
+        "kind": "range",
+        "low": 18.0,
+        "high": 19.0
+      },
+      "alex_value": {
+        "kind": "scalar",
+        "low": 18.0,
+        "high": 18.0
+      },
+      "filing_supports": "both",
+      "filing_snippet": "2013: telephone call to a representative of BofA Merrill Lynch that its previous indication of interest with an all-cash purchase price of $18.00 to $19.00 per share was its best and final offer. On",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/mac-gray/filings/0001047469-13-010973.txt",
+      "match_score": 148.0,
+      "pipeline_source_span_ids": [
+        "span_0024"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0023",
+      "alex_row_id": "18",
       "field": "bid_type",
       "pipeline_value": "Informal",
       "alex_value": "Formal",
-      "filing_supports": "alex",
-      "severity": "material",
-      "note": "Same bug as evt_022. Party B's Sept 18 final round response was classified Informal due to indication_of_interest signal, but should be Formal as a final-round deadline response."
+      "filing_supports": "both",
+      "filing_snippet": "2013: telephone call to a representative of BofA Merrill Lynch that its previous indication of interest with an all-cash purchase price of $18.00 to $19.00 per share was its best and final offer. On",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/mac-gray/filings/0001047469-13-010973.txt",
+      "match_score": 148.0,
+      "pipeline_source_span_ids": [
+        "span_0024"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0024",
+      "alex_row_id": "19",
+      "field": "bid_type",
+      "pipeline_value": "Informal",
+      "alex_value": "Formal",
+      "filing_supports": "both",
+      "filing_snippet": "2014: September 18, 2013, Party B also submitted a revised indication of interest with a purchase price that Party B valued at $21.50 per share, including $19.00 of cash to be paid at closing\n2015: and the remaining per share price to be paid in the form of options to be issued to Mac-Gray stockholders, representing 10% of the new equity with a strike price equal to Party B's initial cost basis.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/mac-gray/filings/0001047469-13-010973.txt",
+      "match_score": 161.0,
+      "pipeline_source_span_ids": [
+        "span_0025",
+        "span_0025",
+        "span_0026"
+      ]
     }
   ],
   "pipeline_only": [
     {
-      "pipeline_event_id": "evt_006",
-      "pipeline_type": "nda",
-      "summary": "Other unnamed financial bidders NDA (aggregate, undated)",
-      "verdict": "grounded",
-      "note": "Pipeline correctly captures the aggregate 18 financial bidders NDA event. This corresponds to Alex's aggregate row BidderID=2. Matched at the aggregate level, not as an atomic orphan."
-    },
-    {
-      "pipeline_event_id": "evt_007",
-      "pipeline_type": "bidder_interest",
-      "summary": "CSC/Pamplona bidder_interest 2013-06-28",
-      "verdict": "grounded",
-      "note": "The filing clearly states on June 28 that Pamplona expressed interest in acquiring Mac-Gray via CSC. Alex does not have a separate bidder_interest row for CSC/Pamplona; Alex's BidderID=0.9 row covers the CSC/Pamplona interest date but is labeled 'Bidder Interest' for 'CSC/Pamplona' with date 2013-06-28 -- wait, actually checking the CSV: row 0.9 is 'Bidder Interest, CSC/Pamplona, S, 2013-06-28'. This matches. See matched pair update below."
-    },
-    {
-      "pipeline_event_id": "evt_016",
-      "pipeline_type": "final_round_inf_ann",
-      "summary": "Final round informal announcement 2013-09-11",
-      "verdict": "grounded",
-      "note": "The filing says on September 11 the Special Committee instructed BofA to request final indications by Sept 18. Alex has BidderID=16 'Final Round Ann' on 2013-09-11, which matches. See matched pair update below."
-    }
-  ],
-  "pipeline_only_corrected": [
-    {
-      "note": "After reviewing the CSV more carefully, evt_007 (CSC/Pamplona bidder_interest 2013-06-28) matches CSV row 0.9 'Bidder Interest, CSC/Pamplona' and Alex has no separate row. evt_016 (final_round_inf_ann 2013-09-11) matches Alex BidderID=16 'Final Round Ann'. These are actually matched pairs, moved below."
-    }
-  ],
-  "additional_matched_pairs": [
-    {
-      "pipeline_event_id": "evt_007",
-      "pipeline_type": "bidder_interest",
-      "alex_bidder_id": "CSV row 0.9",
-      "alex_bid_note": "Bidder Interest",
-      "match_basis": "family:bidder_interest + date:2013-06-28 + actor:CSC/Pamplona",
-      "field_mismatches": [],
-      "note": "The CSV row matches. Alex does not have a corresponding row for this event specifically (Alex's BidderID=5 is the CSC/Pamplona NDA on 2013-07-11). This event has no Alex counterpart."
-    },
-    {
-      "pipeline_event_id": "evt_016",
-      "pipeline_type": "final_round_inf_ann",
-      "alex_bidder_id": 16,
-      "alex_bid_note": "Final Round Ann",
-      "match_basis": "family:final_round + date:2013-09-11",
-      "field_mismatches": [
-        {
-          "field": "bid_note",
-          "pipeline": "final_round_inf_ann (informal, requesting indications of interest)",
-          "alex": "Final Round Ann (formal round announcement)",
-          "filing_supports": "pipeline",
-          "arbitration_note": "The filing says the Sept 11 instruction was to 'request final indications of interest' -- these are informal indications, not binding formal bids. The term 'indications of interest' implies an informal round. Pipeline's 'final_round_inf_ann' is more precise than Alex's 'Final Round Ann'."
-        }
+      "pipeline_row_id": "row_0001",
+      "analyst_event_type": "target_sale",
+      "bidder_name": "NA",
+      "date": "2013-04-05",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "1641: industry-wide merger and acquisition activity and dynamics, and authorized Mac-Gray management to work with BofA Merrill Lynch to explore transactional opportunities that might be available to",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/mac-gray/filings/0001047469-13-010973.txt",
+      "source_span_ids": [
+        "span_0002"
       ]
     },
     {
-      "pipeline_event_id": "evt_025",
-      "pipeline_type": "proposal",
-      "alex_bidder_id": 21,
-      "alex_bid_note": "NA (proposal)",
-      "match_basis": "family:proposal + date:2013-09-21 + actor:CSC/Pamplona + price:$21.25",
-      "field_mismatches": []
+      "pipeline_row_id": "row_0005",
+      "analyst_event_type": "target_sale",
+      "bidder_name": "NA",
+      "date": "2013-06-24",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "1772: alternatives, the Board then established the Special Committee, comprised of the six independent and disinterested members of the Board (namely, Mr. Bullock, Mr. Daoust,\n1773: Mr. Hyman, William F. Meagher, Bruce A. Percelay and Alastair G. Robinson), to, among other things, explore strategic alternatives to enhance value to Mac-Gray's stockholders and to recommend\n1774: to the Board the advisability of any such strategic alternative. In connection with this delegation of authority, the Special Committee was further authorized to (a) consider and evaluate all",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/mac-gray/filings/0001047469-13-010973.txt",
+      "source_span_ids": [
+        "span_0007"
+      ]
     },
     {
-      "pipeline_event_id": "evt_026",
-      "pipeline_type": "executed",
-      "alex_bidder_id": 24,
-      "alex_bid_note": "Executed",
-      "match_basis": "family:executed + actor:CSC/Pamplona",
-      "field_mismatches": [
-        {
-          "field": "bid_date_precise",
-          "pipeline": "2013-10-14",
-          "alex": "2013-09-21 (precise) / 2013-10-14 (rough)",
-          "filing_supports": "pipeline",
-          "arbitration_note": "The filing says 'on October 14, 2013, the merger agreement was executed'. The execution date is Oct 14, not Sept 21. Alex's precise date of Sept 21 (the date of the CSC/Pamplona final proposal) appears to be a coding error; the rough date of Oct 14 is correct."
-        }
+      "pipeline_row_id": "row_0009",
+      "analyst_event_type": "nda",
+      "bidder_name": "Pamplona",
+      "date": "2013-07-11",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "1864: July 11, 2013, CSC/Pamplona entered into a confidentiality and standstill agreement with Mac-Gray and were provided with an informational package for the purpose of providing",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/mac-gray/filings/0001047469-13-010973.txt",
+      "source_span_ids": [
+        "span_0010"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0011",
+      "analyst_event_type": "proposal",
+      "bidder_name": "Pamplona",
+      "date": "2013-07-23",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "1873: July 23, 2013, CSC/Pamplona submitted a preliminary indication of interest at an all-cash purchase price of $18.50 per share.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/mac-gray/filings/0001047469-13-010973.txt",
+      "source_span_ids": [
+        "span_0011"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0017",
+      "analyst_event_type": "proposal",
+      "bidder_name": "Pamplona",
+      "date": "2013-09-09",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "1965: September 9, 2013, CSC/Pamplona submitted a revised indication of interest with an all-cash purchase price of $19.50 per share, indicating that Pamplona was committed to\n1965: September 9, 2013, CSC/Pamplona submitted a revised indication of interest with an all-cash purchase price of $19.50 per share, indicating that Pamplona was committed to\n1966: provide 100% of the capital required to consummate the transaction and requesting that CSC/Pamplona and Mac-Gray agree to exclusive negotiations for two weeks. On September 9, 2013, Party B",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/mac-gray/filings/0001047469-13-010973.txt",
+      "source_span_ids": [
+        "span_0016",
+        "span_0017"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0022",
+      "analyst_event_type": "proposal",
+      "bidder_name": "Pamplona",
+      "date": "2013-09-18",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "2011: September 18, 2013, CSC/Pamplona submitted a proposal for an all-cash purchase price of $20.75 per share, reiterating that Pamplona was committed to provide 100% of the capital\n2011: September 18, 2013, CSC/Pamplona submitted a proposal for an all-cash purchase price of $20.75 per share, reiterating that Pamplona was committed to provide 100% of the capital\n2012: required to consummate the transaction and requesting that CSC/Pamplona and Mac-Gray agree to engage in exclusive negotiations for two weeks. Also on September 18, 2013, Party A reiterated in a",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/mac-gray/filings/0001047469-13-010973.txt",
+      "source_span_ids": [
+        "span_0022",
+        "span_0023"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0025",
+      "analyst_event_type": "proposal",
+      "bidder_name": "CSC",
+      "date": "2013-09-21",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "2057: the Transaction Committee to confirm that CSC/Pamplona were willing to increase their all-cash purchase price to $21.25 per share as a last and best offer, provided that Mac-Gray agree to a two week",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/mac-gray/filings/0001047469-13-010973.txt",
+      "source_span_ids": [
+        "span_0028"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0026",
+      "analyst_event_type": "proposal",
+      "bidder_name": "Pamplona",
+      "date": "2013-09-21",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "2057: the Transaction Committee to confirm that CSC/Pamplona were willing to increase their all-cash purchase price to $21.25 per share as a last and best offer, provided that Mac-Gray agree to a two week",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/mac-gray/filings/0001047469-13-010973.txt",
+      "source_span_ids": [
+        "span_0028"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0032",
+      "analyst_event_type": "drop",
+      "bidder_name": "Pamplona",
+      "date": "2013-10-14",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "2208: in the day, on October 14, 2013, the merger agreement was executed, the Pamplona commitment letter was delivered, Moab and Parent executed the Moab voting agreement and the",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/mac-gray/filings/0001047469-13-010973.txt",
+      "source_span_ids": [
+        "span_0029"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0028",
+      "analyst_event_type": "bid_press_release",
+      "bidder_name": "CSC",
+      "date": "2013-10-15",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "2212: October 15, 2013, before the U. S. stock markets opened, Mac-Gray and CSC jointly announced the execution of the merger agreement.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/mac-gray/filings/0001047469-13-010973.txt",
+      "source_span_ids": [
+        "span_0030"
       ]
     }
   ],
   "alex_only": [
     {
-      "alex_bidder_id": 0.8,
-      "alex_bid_note": "IB Terminated",
-      "alex_date_rough": "2013-05-15",
-      "alex_bidder_name": "BofA Merrill Lynch",
-      "verdict": "likely_grounded",
-      "note": "The filing says on May 14, 2013, the Transaction Committee determined to terminate BofA Merrill Lynch's engagement letter entered into for the 2011-2012 Discussions. This is a real event (termination of the prior engagement before re-engaging on May 31). Pipeline did not extract this because the pipeline starts the deal narrative at the April 5 board meeting and treats the May 31 engagement as the single IB event. Alex's date of May 15 is close to the filing's May 14."
+      "alex_row_id": "0.5",
+      "bid_note": "IB",
+      "bidder_name": "BofA Merrill Lynch",
+      "date": "2013-04-05",
+      "filing_supports": "alex",
+      "filing_snippet": "1640: part of its ongoing review of strategic alternatives, at an in-person meeting of the Board on April 5, 2013, the Board discussed the sale of CSC to Pamplona as well as\n1641: industry-wide merger and acquisition activity and dynamics, and authorized Mac-Gray management to work with BofA Merrill Lynch to explore transactional opportunities that might be available to\n1642: Mac-Gray, including opportunities with another strategic party, whom we refer to as Party A, in the laundry facilities management industry. The Board also determined to further consider Mac-Gray's\n1643: strategic alternatives at its meeting scheduled for May 9, 2013.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/mac-gray/filings/0001047469-13-010973.txt",
+      "support_score": 80.0
     },
     {
-      "alex_bidder_id": 0.95,
-      "alex_bid_note": "Bidder Sale",
-      "alex_date": "2013-06-21",
-      "alex_bidder_name": "Party A",
-      "verdict": "likely_grounded",
-      "note": "Alex coded Party A's June 21 unsolicited proposal as a separate 'Bidder Sale' event in addition to the proposal row (BidderID=1). The filing says Party A 'submitted an unsolicited proposal'. Alex uses 'Bidder Sale' to mark that Party A initiated a bid. Pipeline captures this in evt_004 (proposal) which includes the unsolicited nature in the summary. This is an Alex coding convention (separate process row + proposal row for the same event), not a missing pipeline event."
+      "alex_row_id": "0.8",
+      "bid_note": "IB Terminated",
+      "bidder_name": "BofA Merrill Lynch",
+      "date": "2013-05-15",
+      "filing_supports": "alex",
+      "filing_snippet": "1634: potential strategic transactions have been discussed from time to time between Mac-Gray and CSC and other participants in the laundry facilities management industry, including\n1635: discussions between Mac-Gray and CSC in the winter of 2011 and into 2012 regarding the possible acquisition of CSC by Mac-Gray. In connection with Mac-Gray's consideration of a possible acquisition of\n1636: CSC, which we refer to as the 2011-2012 Discussions, Mac-Gray engaged BofA Merrill Lynch on October 23, 2012. During the fall and winter of 2012, CSC engaged in a sale process and, ultimately,\n1637: CSC was purchased by Pamplona in May 2013.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/mac-gray/filings/0001047469-13-010973.txt",
+      "support_score": 88.0
     },
     {
-      "alex_bidder_id": 6.5,
-      "alex_bid_note": "Final Round Inf",
-      "alex_date_rough": "2013-07-23",
-      "verdict": "likely_grounded",
-      "note": "Alex marks a 'Final Round Inf' (informal round deadline) on July 23, which is the date indications of interest were due. The filing says parties were 'instructed to submit by July 23, 2013.' Pipeline does not have a separate first-round-deadline event. This is a valid process milestone that the pipeline omitted."
+      "alex_row_id": "0.95",
+      "bid_note": "Bidder Sale",
+      "bidder_name": "Party A",
+      "date": "2013-06-21",
+      "filing_supports": "alex",
+      "filing_snippet": "1760: June 21, 2013, Party A submitted an unsolicited proposal to the Mac-Gray Board of Directors offering to purchase Mac-Gray for an all-cash purchase price of $17.00 to $19.00 per\n1761: share, which we refer to as the Party A June 21 proposal.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/mac-gray/filings/0001047469-13-010973.txt",
+      "support_score": 80.0
     },
     {
-      "alex_bidder_id": 9.5,
-      "alex_bid_note": "Final Round Inf Ext Ann",
-      "alex_date_rough": "2013-07-25",
-      "verdict": "likely_grounded",
-      "note": "Alex marks a 'Final Round Inf Ext Ann' (informal round extension announcement) on July 25. The filing discusses the Special Committee's July 25 meeting where they decided on staged disclosure and to arrange management meetings (effectively extending the process). This is a valid process milestone."
+      "alex_row_id": "1.5",
+      "bid_note": "Final Round Inf Ann",
+      "bidder_name": "NA",
+      "date": "2013-06-24",
+      "filing_supports": "inconclusive",
+      "filing_snippet": "1764: June 24, 2013, the Mac-Gray Board of Directors held a regularly scheduled meeting. By invitation of the Board, certain members of management, including Mr. MacDonald,\n1765: Mr. Shea, Mr. MacLellan, Mr. Emma, Ms. Serafini and Sheff Halsey, our chief marketing officer and an executive vice president, and representatives from Goodwin Procter were\n1766: also present for some or all of the meeting. During this meeting, representatives of Goodwin Procter reviewed for the Board its fiduciary duties in the context of considering strategic alternatives\n1767: that might be available to Mac-Gray, including a potential sale of the company. The Board also discussed, with input from the members of the Transaction Committee, whether it would be appropriate for\n1768: each of Mr. MacDonald and Mr. Rothenberg to be excluded from the Board's consideration of strategic alternatives in view of the possibility that Mr. MacDonald and/or Moab could be\n1769: asked to partner with a potential acquiror given their respective equity stakes in Mac-Gray. Following this discussion, the Board decided, and Mr. MacDonald and Mr. Rothenberg agreed,\n1770: that it would be appropriate to exclude Mr. MacDonald and Mr. Rothenberg from the Board's evaluation of strategic alternatives and any negotiations with third parties that might take\n1771: place. Mr. MacDonald excused himself after such discussion. In furtherance of the conclusion to exclude Mr. MacDonald and Mr. Rothenberg from the Board's evaluation of strategic\n1772: alternatives, the Board then established the Special Committee, comprised of the six independent and disinterested members of the Board (namely, Mr. Bullock, Mr. Daoust,\n1773: Mr. Hyman, William F. Meagher, Bruce A. Percelay and Alastair G. Robinson), to, among other things, explore strategic alternatives to enhance value to Mac-Gray's stockholders and to recommend\n1774: to the Board the advisability of any such strategic alternative. In connection with this delegation of authority, the Special Committee was further authorized to (a) consider and evaluate all\n1775: proposals that might be received by Mac-Gray in connection with a possible sale or other significant business transaction, through any form of transaction, including, without limitation, merger, stock\n1776: purchase, asset purchase, recapitalization, reorganization, going-private transaction, consolidation, amalgamation or other transaction, (b) participate in and direct the negotiation of the\n1777: material",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/mac-gray/filings/0001047469-13-010973.txt",
+      "support_score": 45.0
     },
     {
-      "alex_bidder_id": 13.5,
-      "alex_bid_note": "Final Round Inf Ext",
-      "alex_date_rough": "2013-09-09",
-      "verdict": "likely_grounded",
-      "note": "Alex marks a 'Final Round Inf Ext' (informal round extension deadline) around Sept 9, when revised indications were submitted before the formal Sept 18 deadline. This is a process milestone marking the continuation of the informal round."
+      "alex_row_id": "2",
+      "bid_note": "NDA",
+      "bidder_name": "16 financial bidders",
+      "date": "2013-07-15",
+      "filing_supports": "neither",
+      "filing_snippet": "1816: the next several weeks, in accordance with the directives of the Special Committee, BofA Merrill Lynch contacted the strategic and financial parties identified at the\n1817: June 24th Special Committee meeting. Over the next two months a total of 20 potential bidders, including two strategic bidders (Party A and CSC/Pamplona) and 18 financial bidders\n1818: (including Party B and Party C), entered into confidentiality agreements with Mac-Gray on a form provided by Mac-Gray, the terms of which were individually negotiated with potential\n1819: bidders, but did not vary materially from the form provided. The confidentiality agreements contained customary non-disclosure provisions and a customary standstill provision that either expired or\n1820: permitted the potential bidder to make confidential proposals to Mac-Gray (a so-called \"sunset\" provision) upon announcement of a business combination between Mac-Gray and a third party, and, in some\n1821: instances upon announcement of a change in control. Parties that had entered into confidentiality and standstill agreements with Mac-Gray were furnished an informational package for the purpose of\n1822: providing potential bidders with data to formulate a preliminary indication of interest, which they were instructed to submit by July 23, 2013. Parties that had entered into confidentiality and\n1823: standstill agreements with Mac-Gray were furnished an informational package for the purpose of providing potential bidders with data to formulate a preliminary indication of interest, which they were\n1824: instructed to submit by July 23, 2013. The letter requested that the proposals address, among other things, valuation, sources and structures of financing, material conditions, including\n1825: required approvals, and focus areas for due diligence.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/mac-gray/filings/0001047469-13-010973.txt",
+      "support_score": 24.0
     },
     {
-      "alex_bidder_id": 20.5,
-      "alex_bid_note": "Final Round",
-      "alex_date_precise": "2013-09-11",
-      "alex_date_rough": "2013-09-18",
-      "verdict": "likely_grounded",
-      "note": "Alex has a separate 'Final Round' row with announcement date Sept 11 and deadline Sept 18. Pipeline captures this in evt_016 (final_round_inf_ann). This is an Alex convention of having both announcement and deadline as separate rows."
+      "alex_row_id": "6.5",
+      "bid_note": "Final Round Inf",
+      "bidder_name": "NA",
+      "date": "2013-07-23",
+      "filing_supports": "inconclusive",
+      "filing_snippet": "1816: the next several weeks, in accordance with the directives of the Special Committee, BofA Merrill Lynch contacted the strategic and financial parties identified at the\n1817: June 24th Special Committee meeting. Over the next two months a total of 20 potential bidders, including two strategic bidders (Party A and CSC/Pamplona) and 18 financial bidders\n1818: (including Party B and Party C), entered into confidentiality agreements with Mac-Gray on a form provided by Mac-Gray, the terms of which were individually negotiated with potential\n1819: bidders, but did not vary materially from the form provided. The confidentiality agreements contained customary non-disclosure provisions and a customary standstill provision that either expired or\n1820: permitted the potential bidder to make confidential proposals to Mac-Gray (a so-called \"sunset\" provision) upon announcement of a business combination between Mac-Gray and a third party, and, in some\n1821: instances upon announcement of a change in control. Parties that had entered into confidentiality and standstill agreements with Mac-Gray were furnished an informational package for the purpose of\n1822: providing potential bidders with data to formulate a preliminary indication of interest, which they were instructed to submit by July 23, 2013. Parties that had entered into confidentiality and\n1823: standstill agreements with Mac-Gray were furnished an informational package for the purpose of providing potential bidders with data to formulate a preliminary indication of interest, which they were\n1824: instructed to submit by July 23, 2013. The letter requested that the proposals address, among other things, valuation, sources and structures of financing, material conditions, including\n1825: required approvals, and focus areas for due diligence.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/mac-gray/filings/0001047469-13-010973.txt",
+      "support_score": 45.0
     },
     {
-      "alex_bidder_id": 22,
-      "alex_bid_note": "DropTarget",
-      "alex_date": "2013-09-24",
-      "alex_bidder_name": "Party A",
-      "verdict": "likely_grounded",
-      "note": "On September 24, Mac-Gray entered into an exclusivity agreement with CSC/Pamplona. This effectively dropped Party A from the process. The filing does not describe an explicit notification to Party A, but entering exclusivity with CSC/Pamplona on Sept 24 implicitly excludes Party A. Pipeline does not have an explicit drop event for Party A."
+      "alex_row_id": "9",
+      "bid_note": "Drop",
+      "bidder_name": "16 financial bidders",
+      "date": "2013-07-25",
+      "filing_supports": "inconclusive",
+      "filing_snippet": "1880: July 25, 2013, the Board held a regularly scheduled in-person meeting. By invitation of the Board, Mr. Shea and representatives from BofA Merrill Lynch and Goodwin\n1881: Procter were also present for all or portions of this meeting. Prior to the start of the meeting, because the Board expected to discuss matters related to the sale process, and in light of Moab's\n1882: continuing interest in a potential equity rollover in any sale transaction, Mr. Rothenberg recused himself from the meeting and the meeting proceeded as a meeting of the Special Committee. At\n1883: this meeting, representatives of BofA Merrill Lynch reviewed the preliminary indications of interest received from Party B, Party C and CSC/Pamplona as well as the Party A June 21 proposal, in\n1884: each case from a financial point of view. The Board reviewed management's five-year strategic business plan and Projections. During this meeting, representatives of Goodwin Procter reviewed for the\n1885: Special Committee its fiduciary duties in the context of considering a potential sale. The Special Committee then discussed the potential conflict of interest arising from Moab's continuing desire to\n1886: consider an equity rollover and decided that Mr. Rothenberg should be asked to recuse himself from participating in Board meetings for the duration of the sale process so he would not be privy\n1887: to confidential information about Mac-Gray and our business.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/mac-gray/filings/0001047469-13-010973.txt",
+      "support_score": 45.0
     },
     {
-      "alex_bidder_id": 23,
-      "alex_bid_note": "DropTarget",
-      "alex_date": "2013-09-24",
-      "alex_bidder_name": "Party B",
-      "verdict": "likely_grounded",
-      "note": "Same as Party A above. Entering exclusivity with CSC/Pamplona on Sept 24 implicitly dropped Party B. Pipeline does not have an explicit drop event for Party B."
+      "alex_row_id": "9.5",
+      "bid_note": "Final Round Inf Ext Ann",
+      "bidder_name": "NA",
+      "date": "2013-07-25",
+      "filing_supports": "inconclusive",
+      "filing_snippet": "1880: July 25, 2013, the Board held a regularly scheduled in-person meeting. By invitation of the Board, Mr. Shea and representatives from BofA Merrill Lynch and Goodwin\n1881: Procter were also present for all or portions of this meeting. Prior to the start of the meeting, because the Board expected to discuss matters related to the sale process, and in light of Moab's\n1882: continuing interest in a potential equity rollover in any sale transaction, Mr. Rothenberg recused himself from the meeting and the meeting proceeded as a meeting of the Special Committee. At\n1883: this meeting, representatives of BofA Merrill Lynch reviewed the preliminary indications of interest received from Party B, Party C and CSC/Pamplona as well as the Party A June 21 proposal, in\n1884: each case from a financial point of view. The Board reviewed management's five-year strategic business plan and Projections. During this meeting, representatives of Goodwin Procter reviewed for the\n1885: Special Committee its fiduciary duties in the context of considering a potential sale. The Special Committee then discussed the potential conflict of interest arising from Moab's continuing desire to\n1886: consider an equity rollover and decided that Mr. Rothenberg should be asked to recuse himself from participating in Board meetings for the duration of the sale process so he would not be privy\n1887: to confidential information about Mac-Gray and our business.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/mac-gray/filings/0001047469-13-010973.txt",
+      "support_score": 45.0
+    },
+    {
+      "alex_row_id": "13.5",
+      "bid_note": "Final Round Inf Ext",
+      "bidder_name": "NA",
+      "date": "2013-09-09",
+      "filing_supports": "inconclusive",
+      "filing_snippet": "1947: August 27, 2013, BofA Merrill Lynch, as instructed by the Special Committee, sent a letter to each of Party A, Party B, Party C and CSC/Pamplona instructing such bidders to\n1948: submit revised written proposals no later than September 9, 2013 if such bidders wished to proceed further in the process to pursue an in-depth evaluation of Mac-Gray with the objective of\n1949: making a revised offer. The letter requested that the revised proposals address, among other things, valuation, sources and structures of financing, regulatory approvals and other post-signing\n1950: covenants and focus areas for due diligence.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/mac-gray/filings/0001047469-13-010973.txt",
+      "support_score": 45.0
     }
-  ],
-  "aggregate_rows": [
-    {
-      "alex_bidder_id": 2,
-      "alex_bid_note": "NDA",
-      "alex_bidder_name": "16 financial bidders",
-      "alex_date_rough": "2013-07-15",
-      "pipeline_event_id": "evt_006",
-      "pipeline_summary": "Other unnamed financial bidders NDA (group_size=16 in actors, total 18 financial bidders in filing)",
-      "verdict": "soft_match",
-      "note": "Alex says '16 financial bidders' signed NDAs. The filing says 18 financial bidders (including Party B and Party C). Pipeline captures this as a grouped actor with group_size=16 (18 minus the 2 named ones). Alex's count of 16 matches the pipeline's unnamed count. Both exclude Party B and Party C from this aggregate. The date differs: Alex uses 2013-07-15 (rough midpoint); pipeline has no date (spans 'over the next two months')."
-    },
-    {
-      "alex_bidder_id": 9,
-      "alex_bid_note": "Drop",
-      "alex_bidder_name": "16 financial bidders",
-      "alex_date": "2013-07-25",
-      "pipeline_event_id": null,
-      "verdict": "likely_grounded",
-      "note": "Alex records the 16 unnamed financial bidders dropping out by July 25 (the deadline for initial indications of interest). The filing does not explicitly describe these parties dropping, but only Party B, Party C, and CSC/Pamplona submitted indications of interest by the deadline. Pipeline does not capture an explicit drop event for the unnamed financial bidders. This is an inference Alex makes from the timeline."
-    },
-    {
-      "alex_bidder_id": "evt_027 / CSV row 20",
-      "note": "Pipeline evt_027 (sale_press_release 2013-10-15) has no direct Alex row match. The pipeline CSV has this as the final row. Alex's last row is BidderID=24 (Executed). Alex does not have a sale_press_release row."
-    }
-  ],
-  "export_regressions": [],
-  "summary": {
-    "status": "attention",
-    "pipeline_event_count": 27,
-    "alex_row_count": 34,
-    "atomic_match_rate": "23/27 pipeline events matched (85%)",
-    "notes": [
-      "23 of 27 pipeline events have Alex counterparts. The remaining 4 pipeline events (evt_006 aggregate NDA, evt_007 CSC/Pamplona bidder_interest, evt_027 sale_press_release, and one process event) are filing-grounded.",
-      "7 Alex-only rows exist: 1 IB Terminated (valid, pipeline omitted prior engagement termination), 1 Bidder Sale (Alex coding convention), 4 process/round milestone rows (Final Round Inf, Final Round Inf Ext Ann, Final Round Inf Ext, Final Round), and 2 DropTarget rows for Party A and Party B (implied by exclusivity, not explicitly stated in filing). All are likely_grounded.",
-      "3 aggregate Alex rows: 16 financial bidders NDA (soft match), 16 financial bidders Drop (likely grounded inference), sale_press_release (pipeline only).",
-      "Material disagreements: (1) Alex BidderID=1.5 labels June 24 as 'Final Round Inf Ann' -- filing supports pipeline's 'target_sale' (sale launch). (2) Pipeline classifies Sept 18 Party A (evt_022) and Party B (evt_023) proposals as Informal; Alex says Formal. Filing supports Alex: these were final-round-deadline responses. This is a pipeline enrichment rule priority bug where indication-of-interest language overrides the after_final_round_announcement flag.",
-      "Minor disagreements: bid_note taxonomy differences (IB vs target_sale, bidder_interest vs Target Interest), Alex typo on Party C NDA date (June 20 vs June 30), Alex typo on Executed precise date (Sept 21 vs Oct 14)."
-    ],
-    "action_items": [
-      "Fix enrichment bid_type classification: final-round-deadline responses should be classified Formal even when filing uses indication-of-interest language. Affects evt_022 (Party A Sept 18) and evt_023 (Party B Sept 18).",
-      "Consider adding DropTarget events for Party A and Party B when exclusivity is granted to another bidder.",
-      "Consider extracting the May 14 IB termination event (termination of the 2011-2012 Discussions engagement).",
-      "Consider adding process milestone events for round deadlines (July 23 first-round deadline, July 25 staged-disclosure extension)."
-    ]
-  }
+  ]
 }

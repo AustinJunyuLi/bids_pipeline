@@ -1,704 +1,298 @@
 {
-  "schema_version": "1.0.0",
+  "generated_at": "2026-03-31T20:28:18.210129Z",
   "deal_slug": "imprivata",
-  "created_at": "2026-03-29T00:00:00Z",
-  "matched_pairs": [
+  "primary_document_id": "0001193125-16-677939",
+  "primary_filing_path": "/home/austinli/Projects/bids_pipeline/raw/imprivata/filings/0001193125-16-677939.txt",
+  "summary_row": {
+    "TargetName": "IMPRIVATA INC",
+    "Events": 29,
+    "Acquirer": "THOMA BRAVO, LLC",
+    "DateAnnounced": "2016-07-13T00:00:00",
+    "URL": "https://www.sec.gov/Archives/edgar/data/1328015/0001193125-16-677939-index.htm"
+  },
+  "counts": {
+    "pipeline_benchmark": 29,
+    "pipeline_analyst": 29,
+    "alex": 29,
+    "matches": 23,
+    "pipeline_only": 6,
+    "alex_only": 6,
+    "aggregate_rows": 0,
+    "field_mismatches": 7,
+    "match_rate": 0.7931
+  },
+  "status": "high_attention",
+  "comparison_surface": {
+    "primary": "benchmark_rows_expanded.csv",
+    "context": "analyst_rows.csv",
+    "alex_match_rule": "seed URL exact match"
+  },
+  "field_mismatches": [
     {
-      "pipeline_event": {
-        "csv_bidder_id": "0.5",
-        "bid_note": "NA",
-        "bidder_name": "Thoma Bravo",
-        "bid_date_precise": "2016-03-09",
-        "bid_value_pershare": 15,
-        "bid_type": "Informal",
-        "event_id": "evt_004"
-      },
-      "alex_event": {
-        "bidder_id": 1,
-        "bid_note": "NA",
-        "bidder_name": "Thoma Bravo",
-        "bid_date_precise": "2016-03-09",
-        "bid_value_pershare": 15,
-        "bid_type": "Informal"
-      },
-      "field_mismatches": [],
-      "arbitration": "Full match on all substantive fields: bidder, date, price $15/share, Informal type. BidderID numbering differs (pipeline 0.5 vs Alex 1) but this is a sequencing convention, not a data disagreement."
+      "pipeline_row_id": "row_0002",
+      "alex_row_id": "0.5",
+      "field": "date",
+      "pipeline_value": "2016-01-01",
+      "alex_value": "2016-01-31",
+      "filing_supports": "both",
+      "filing_snippet": "1176: In January 2016, representatives of Thoma Bravo met with members of Company management during an industry conference and reiterated Thoma\n1176: In January 2016, representatives of Thoma Bravo met with members of Company management during an industry conference and reiterated Thoma\n1177: Bravo\u0092s interest in a potential transaction with the Company. No specific proposal was made. Company management indicated that if Thoma Bravo were to make a proposal, it would be considered by the Board.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/imprivata/filings/0001193125-16-677939.txt",
+      "match_score": 100.0,
+      "pipeline_source_span_ids": [
+        "span_0008",
+        "span_0009"
+      ]
     },
     {
-      "pipeline_event": {
-        "csv_bidder_id": "0.7",
-        "bid_note": "IB",
-        "bidder_name": "Barclays",
-        "bid_date_precise": "2016-04-19",
-        "event_id": "evt_005"
-      },
-      "alex_event": {
-        "bidder_id": 1.5,
-        "bid_note": "IB",
-        "bidder_name": "Barclays",
-        "bid_date_precise": "2016-03-09",
-        "bid_date_rough": "2016-04-15"
-      },
-      "field_mismatches": [
-        {
-          "field": "bid_date_precise",
-          "pipeline_value": "2016-04-19",
-          "alex_value": "2016-03-09",
-          "arbitration": "Filing says the Company countersigned Barclays engagement letter on April 19, 2016. Alex's precise date of 2016-03-09 does not correspond to any Barclays engagement event; Alex's rough date of 2016-04-15 is close (the April 15 Board meeting authorized the engagement). Pipeline's 2016-04-19 is filing-grounded and correct."
-        }
-      ],
-      "arbitration": "Pipeline date is correct per filing. Alex recorded the precise date incorrectly as 2016-03-09 (which is the Thoma Bravo IOI date). Alex's rough date of 2016-04-15 tracks the Board authorization date, not the countersigning date."
+      "pipeline_row_id": "row_0011",
+      "alex_row_id": "7",
+      "field": "bidder_name",
+      "pipeline_value": "Unnamed financial sponsor",
+      "alex_value": "Another financial sponsor",
+      "filing_supports": "inconclusive",
+      "filing_snippet": "1275: sponsors executed confidentiality agreements with the Company, including Thoma Bravo on May 10, 2016. All standstill obligations under the confidentiality agreements automatically terminated upon the Company\u0092s entry into the merger\n1276: agreement with Thoma Bravo. Except for one financial sponsor that declined interest shortly after executing its confidentiality agreement, each party that entered into a confidentiality agreement attended a high-level management presentation",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/imprivata/filings/0001193125-16-677939.txt",
+      "match_score": 80.5,
+      "pipeline_source_span_ids": [
+        "span_0016",
+        "span_0021"
+      ]
     },
     {
-      "pipeline_event": {
-        "csv_bidder_id": "0.8",
-        "bid_note": "Target Sale",
-        "bidder_name": "NA",
-        "bid_date_precise": "2016-05-05",
-        "event_id": "evt_006"
-      },
-      "alex_event": {
-        "bidder_id": 0.7,
-        "bid_note": "Bidder Sale",
-        "bidder_name": "Thoma Bravo",
-        "bid_date_precise": "2016-03-09",
-        "bid_date_rough": "2016-03-09"
-      },
-      "field_mismatches": [
-        {
-          "field": "bid_note",
-          "pipeline_value": "Target Sale",
-          "alex_value": "Bidder Sale",
-          "arbitration": "These represent different events. The pipeline's Target Sale on 2016-05-05 is the Board's launch of the strategic process. Alex's Bidder Sale on 2016-03-09 codes Thoma Bravo's unsolicited approach as initiating a sale process. Both are defensible framings but refer to different moments in the narrative. The filing supports both: Thoma Bravo's March 9 IOI triggered the Board's eventual May 5 strategic process launch."
-        },
-        {
-          "field": "bid_date_precise",
-          "pipeline_value": "2016-05-05",
-          "alex_value": "2016-03-09",
-          "arbitration": "Pipeline dates the target_sale to May 5, 2016 (Board formally authorized the process). Alex dates the Bidder Sale to March 9 (Thoma Bravo's unsolicited letter). Both are filing-grounded but code different trigger concepts."
-        }
-      ],
-      "arbitration": "Conceptual mismatch rather than factual error. Pipeline codes the Board's formal process launch (May 5); Alex codes Thoma Bravo's unsolicited IOI (March 9) as a 'Bidder Sale' trigger. Neither is wrong; they describe different aspects of the sale initiation."
+      "pipeline_row_id": "row_0003",
+      "alex_row_id": "1",
+      "field": "bid_type",
+      "pipeline_value": "Formal",
+      "alex_value": "Informal",
+      "filing_supports": "both",
+      "filing_snippet": "1187: On March 9, 2016, Thoma Bravo sent an unsolicited, non-binding indication of interest letter addressed to the Board indicating that Thoma\n1188: Bravo would be interested in acquiring the Company for cash at a purchase price of $15.00 per share of Imprivata\u0092s common stock. The letter also indicated that Thoma Bravo had conducted extensive diligence based on the Company\u0092s public\n1189: filings, that it was prepared to finance the transaction entirely with equity from its private equity funds, and that it could complete its confirmatory diligence and execute a definitive merger agreement in 30 days or less. On March 9, 2016,",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/imprivata/filings/0001193125-16-677939.txt",
+      "match_score": 161.0,
+      "pipeline_source_span_ids": [
+        "span_0010",
+        "span_0011",
+        "span_0012"
+      ]
     },
     {
-      "pipeline_event": {
-        "csv_bidder_id": "1",
-        "bid_note": "NDA",
-        "bidder_name": "Sponsor A",
-        "bid_date_precise": "2016-05-06",
-        "bidder_type": "F",
-        "event_id": "evt_008"
-      },
-      "alex_event": {
-        "bidder_id": 5,
-        "bid_note": "NDA",
-        "bidder_name": "Sponsor A",
-        "bid_date_rough": "2016-05-06",
-        "bidder_type_note": "F"
-      },
-      "field_mismatches": [],
-      "arbitration": "Full match. Both record NDA for Sponsor A with date anchored to the May 6 - June 9 window start."
+      "pipeline_row_id": "row_0013",
+      "alex_row_id": "11",
+      "field": "bid_type",
+      "pipeline_value": "Formal",
+      "alex_value": "Informal",
+      "filing_supports": "both",
+      "filing_snippet": "1311: and none of these indications of interest were contingent on financing. Sponsor A indicated a price of $16.50 per share. Thoma Bravo indicated a price of $17.25 per share, and also provided a form of equity commitment letter and draft merger\n1309: On June 9, 2016, three parties (Sponsor A, Sponsor B and Thoma Bravo) presented written\n1310: preliminary non-binding indications of interest that were each subject to satisfactory completion of due diligence, among other conditions. Each of these indications provided for equity commitments from fund sponsors for the entire purchase price",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/imprivata/filings/0001193125-16-677939.txt",
+      "match_score": 153.0,
+      "pipeline_source_span_ids": [
+        "span_0023",
+        "span_0024",
+        "span_0023"
+      ]
     },
     {
-      "pipeline_event": {
-        "csv_bidder_id": "2",
-        "bid_note": "NDA",
-        "bidder_name": "Sponsor B",
-        "bid_date_precise": "2016-05-06",
-        "bidder_type": "F",
-        "event_id": "evt_009"
+      "pipeline_row_id": "row_0014",
+      "alex_row_id": "12",
+      "field": "range",
+      "pipeline_value": {
+        "kind": "range",
+        "low": 17.0,
+        "high": 18.0
       },
-      "alex_event": {
-        "bidder_id": 6,
-        "bid_note": "NDA",
-        "bidder_name": "Sponsor B",
-        "bid_date_rough": "2016-05-06",
-        "bidder_type_note": "F"
+      "alex_value": {
+        "kind": "scalar",
+        "low": 17.0,
+        "high": 17.0
       },
-      "field_mismatches": [],
-      "arbitration": "Full match."
+      "filing_supports": "pipeline",
+      "filing_snippet": "1309: On June 9, 2016, three parties (Sponsor A, Sponsor B and Thoma Bravo) presented written\n1310: preliminary non-binding indications of interest that were each subject to satisfactory completion of due diligence, among other conditions. Each of these indications provided for equity commitments from fund sponsors for the entire purchase price\n1311: and none of these indications of interest were contingent on financing. Sponsor A indicated a price of $16.50 per share. Thoma Bravo indicated a price of $17.25 per share, and also provided a form of equity commitment letter and draft merger\n1312: agreement. Sponsor B indicated a range of $17.00 - $18.00 per share. On June 9, 2016, the closing price of Imprivata\u0092s common stock was $13.46.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/imprivata/filings/0001193125-16-677939.txt",
+      "match_score": 140.0,
+      "pipeline_source_span_ids": [
+        "span_0024",
+        "span_0023",
+        "span_0025"
+      ]
     },
     {
-      "pipeline_event": {
-        "csv_bidder_id": "3",
-        "bid_note": "NDA",
-        "bidder_name": "Strategic 1",
-        "bid_date_precise": "2016-05-06",
-        "bidder_type": "S",
-        "event_id": "evt_010"
-      },
-      "alex_event": {
-        "bidder_id": 2,
-        "bid_note": "NDA",
-        "bidder_name": "Strategic 1",
-        "bid_date_rough": "2016-05-06",
-        "bidder_type_note": "S"
-      },
-      "field_mismatches": [],
-      "arbitration": "Full match."
+      "pipeline_row_id": "row_0014",
+      "alex_row_id": "12",
+      "field": "bid_type",
+      "pipeline_value": "Formal",
+      "alex_value": "Informal",
+      "filing_supports": "both",
+      "filing_snippet": "1309: On June 9, 2016, three parties (Sponsor A, Sponsor B and Thoma Bravo) presented written\n1310: preliminary non-binding indications of interest that were each subject to satisfactory completion of due diligence, among other conditions. Each of these indications provided for equity commitments from fund sponsors for the entire purchase price\n1311: and none of these indications of interest were contingent on financing. Sponsor A indicated a price of $16.50 per share. Thoma Bravo indicated a price of $17.25 per share, and also provided a form of equity commitment letter and draft merger\n1312: agreement. Sponsor B indicated a range of $17.00 - $18.00 per share. On June 9, 2016, the closing price of Imprivata\u0092s common stock was $13.46.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/imprivata/filings/0001193125-16-677939.txt",
+      "match_score": 140.0,
+      "pipeline_source_span_ids": [
+        "span_0024",
+        "span_0023",
+        "span_0025"
+      ]
     },
     {
-      "pipeline_event": {
-        "csv_bidder_id": "4",
-        "bid_note": "NDA",
-        "bidder_name": "Strategic 2",
-        "bid_date_precise": "2016-05-06",
-        "bidder_type": "S",
-        "event_id": "evt_011"
-      },
-      "alex_event": {
-        "bidder_id": 3,
-        "bid_note": "NDA",
-        "bidder_name": "Strategic 2",
-        "bid_date_rough": "2016-05-06",
-        "bidder_type_note": "S"
-      },
-      "field_mismatches": [],
-      "arbitration": "Full match."
-    },
-    {
-      "pipeline_event": {
-        "csv_bidder_id": "5",
-        "bid_note": "NDA",
-        "bidder_name": "Strategic 3",
-        "bid_date_precise": "2016-05-06",
-        "bidder_type": "S",
-        "event_id": "evt_012"
-      },
-      "alex_event": {
-        "bidder_id": 4,
-        "bid_note": "NDA",
-        "bidder_name": "Strategic 3",
-        "bid_date_rough": "2016-05-06",
-        "bidder_type_note": "S"
-      },
-      "field_mismatches": [],
-      "arbitration": "Full match."
-    },
-    {
-      "pipeline_event": {
-        "csv_bidder_id": "6",
-        "bid_note": "NDA",
-        "bidder_name": "Unnamed Financial Sponsor",
-        "bid_date_precise": "2016-05-06",
-        "bidder_type": "F",
-        "event_id": "evt_013"
-      },
-      "alex_event": {
-        "bidder_id": 7,
-        "bid_note": "NDA",
-        "bidder_name": "Another financial sponsor",
-        "bid_date_rough": "2016-05-06",
-        "bidder_type_note": "F"
-      },
-      "field_mismatches": [
-        {
-          "field": "bidder_name",
-          "pipeline_value": "Unnamed Financial Sponsor",
-          "alex_value": "Another financial sponsor",
-          "arbitration": "Both refer to the same entity: the unnamed financial sponsor that signed an NDA and declined shortly after. Name difference is a labeling convention, not a factual disagreement."
-        }
-      ],
-      "arbitration": "Match. Name difference is cosmetic."
-    },
-    {
-      "pipeline_event": {
-        "csv_bidder_id": "7",
-        "bid_note": "Drop",
-        "bidder_name": "Unnamed Financial Sponsor",
-        "bid_date_precise": "2016-05-06",
-        "event_id": "evt_014"
-      },
-      "alex_event": {
-        "bidder_id": 9,
-        "bid_note": "Drop",
-        "bidder_name": "Another financial sponsor",
-        "bid_date_rough": "2016-05-07"
-      },
-      "field_mismatches": [
-        {
-          "field": "bidder_name",
-          "pipeline_value": "Unnamed Financial Sponsor",
-          "alex_value": "Another financial sponsor",
-          "arbitration": "Cosmetic name difference; same entity."
-        },
-        {
-          "field": "bid_date",
-          "pipeline_value": "2016-05-06 (range start)",
-          "alex_value": "2016-05-07 (rough)",
-          "arbitration": "Filing says the sponsor declined 'shortly after' executing its NDA during the May 6 - June 9 window. Pipeline uses the range start 2016-05-06. Alex uses 2016-05-07 to represent 'shortly after'. Both are reasonable approximations of the vague filing language. No filing-grounded precise date exists."
-        }
-      ],
-      "arbitration": "Match. Minor date approximation difference for the same vague filing passage."
-    },
-    {
-      "pipeline_event": {
-        "csv_bidder_id": "8",
-        "bid_note": "NDA",
-        "bidder_name": "Thoma Bravo",
-        "bid_date_precise": "2016-05-10",
-        "event_id": "evt_007"
-      },
-      "alex_event": {
-        "bidder_id": 8,
-        "bid_note": "NDA",
-        "bidder_name": "Thoma Bravo",
-        "bid_date_precise": "2016-05-10"
-      },
-      "field_mismatches": [],
-      "arbitration": "Full match."
-    },
-    {
-      "pipeline_event": {
-        "csv_bidder_id": "9",
-        "bid_note": "Drop",
-        "bidder_name": "Strategic 1",
-        "bid_date_precise": "2016-06-08",
-        "event_id": "evt_018"
-      },
-      "alex_event": {
-        "bidder_id": 10,
-        "bid_note": "Drop",
-        "bidder_name": "Strategic 1",
-        "bid_date_precise": "2016-06-08"
-      },
-      "field_mismatches": [],
-      "arbitration": "Full match."
-    },
-    {
-      "pipeline_event": {
-        "csv_bidder_id": "10",
-        "bid_note": "NA",
-        "bidder_name": "Sponsor A",
-        "bid_date_precise": "2016-06-09",
-        "bid_value_pershare": 16.5,
-        "bid_type": "Informal",
-        "all_cash": 1,
-        "event_id": "evt_015"
-      },
-      "alex_event": {
-        "bidder_id": 11,
-        "bid_note": "NA",
-        "bidder_name": "Sponsor A",
-        "bid_date_precise": "2016-06-09",
-        "bid_value_pershare": 16.5,
-        "bid_type": "Informal",
-        "all_cash": "NA"
-      },
-      "field_mismatches": [
-        {
-          "field": "all_cash",
-          "pipeline_value": 1,
-          "alex_value": "NA",
-          "arbitration": "Filing says each indication 'provided for equity commitments from fund sponsors for the entire purchase price and none of these indications of interest were contingent on financing.' Alex's comment says 'F bidder, so all cash' but coded all_cash as NA. Pipeline's 1 is more consistent with the filing's statement of full equity commitments (i.e., cash consideration). Pipeline is correct."
-        }
-      ],
-      "arbitration": "Match with minor all_cash coding difference. Pipeline is more filing-accurate."
-    },
-    {
-      "pipeline_event": {
-        "csv_bidder_id": "11",
-        "bid_note": "NA",
-        "bidder_name": "Sponsor B",
-        "bid_date_precise": "2016-06-09",
-        "bid_value_pershare": "NA",
-        "bid_range": "17-18",
-        "bid_type": "Informal",
-        "all_cash": 1,
-        "event_id": "evt_016"
-      },
-      "alex_event": {
-        "bidder_id": 12,
-        "bid_note": "NA",
-        "bidder_name": "Sponsor B",
-        "bid_date_precise": "2016-06-09",
-        "bid_value_pershare": 17,
-        "bid_value_lower": 17,
-        "bid_value_upper": 18,
-        "bid_type": "Informal",
-        "all_cash": "NA"
-      },
-      "field_mismatches": [
-        {
-          "field": "all_cash",
-          "pipeline_value": 1,
-          "alex_value": "NA",
-          "arbitration": "Same as Sponsor A: filing says equity commitments for entire purchase price. Pipeline's 1 is filing-grounded."
-        }
-      ],
-      "arbitration": "Match. Range $17-18 agrees. Alex uses bid_value=17 as representative point price; pipeline uses NA for per_share with range 17-18. Both valid."
-    },
-    {
-      "pipeline_event": {
-        "csv_bidder_id": "12",
-        "bid_note": "NA",
-        "bidder_name": "Thoma Bravo",
-        "bid_date_precise": "2016-06-09",
-        "bid_value_pershare": 17.25,
-        "bid_type": "Informal",
-        "all_cash": 1,
-        "event_id": "evt_017"
-      },
-      "alex_event": {
-        "bidder_id": 13,
-        "bid_note": "NA",
-        "bidder_name": "Thoma Bravo",
-        "bid_date_precise": "2016-06-09",
-        "bid_value_pershare": 17.25,
-        "bid_type": "Informal",
-        "all_cash": 1
-      },
-      "field_mismatches": [],
-      "arbitration": "Full match on all fields."
-    },
-    {
-      "pipeline_event": {
-        "csv_bidder_id": "13",
-        "bid_note": "Drop",
-        "bidder_name": "Strategic 2",
-        "bid_date_precise": "2016-06-12",
-        "event_id": "evt_019"
-      },
-      "alex_event": {
-        "bidder_id": 14,
-        "bid_note": "Drop",
-        "bidder_name": "Strategic 2",
-        "bid_date_precise": "2016-06-12"
-      },
-      "field_mismatches": [],
-      "arbitration": "Full match."
-    },
-    {
-      "pipeline_event": {
-        "csv_bidder_id": "14",
-        "bid_note": "Drop",
-        "bidder_name": "Strategic 3",
-        "bid_date_precise": "2016-06-14",
-        "event_id": "evt_020"
-      },
-      "alex_event": {
-        "bidder_id": 15,
-        "bid_note": "Drop",
-        "bidder_name": "Strategic 3",
-        "bid_date_precise": "2016-06-14"
-      },
-      "field_mismatches": [],
-      "arbitration": "Full match."
-    },
-    {
-      "pipeline_event": {
-        "csv_bidder_id": "15",
-        "bid_note": "DropAtInf",
-        "bidder_name": "Sponsor A",
-        "bid_date_precise": "2016-06-15",
-        "event_id": "evt_023"
-      },
-      "alex_event": {
-        "bidder_id": 16,
-        "bid_note": "DropAtInf",
-        "bidder_name": "Sponsor A",
-        "bid_date_precise": "2016-06-15"
-      },
-      "field_mismatches": [],
-      "arbitration": "Full match."
-    },
-    {
-      "pipeline_event": {
-        "csv_bidder_id": "16",
-        "bid_note": "Final Round Ann",
-        "bidder_name": "NA",
-        "bid_date_precise": "2016-06-24",
-        "event_id": "evt_021"
-      },
-      "alex_event": {
-        "bidder_id": 17,
-        "bid_note": "Final Round",
-        "bidder_name": "NA",
-        "bid_date_precise": "2016-06-24"
-      },
-      "field_mismatches": [
-        {
-          "field": "bid_note",
-          "pipeline_value": "Final Round Ann",
-          "alex_value": "Final Round",
-          "arbitration": "Pipeline distinguishes between the announcement (Final Round Ann, June 24) and the deadline (Final Round, July 8). Alex uses 'Final Round' on June 24 (the announcement date). This is a taxonomy difference: pipeline has more granular event types. Filing says on June 24 Barclays sent final bid process letters setting a July 8 deadline. Pipeline's finer distinction is more precise."
-        }
-      ],
-      "arbitration": "Matched by date and concept. Pipeline's taxonomy is more granular (Ann vs deadline)."
-    },
-    {
-      "pipeline_event": {
-        "csv_bidder_id": "17",
-        "bid_note": "DropBelowInf",
-        "bidder_name": "Sponsor B",
-        "bid_date_precise": "2016-06-29",
-        "event_id": "evt_024"
-      },
-      "alex_event": {
-        "bidder_id": 18,
-        "bid_note": "DropBelowInf",
-        "bidder_name": "Sponsor B",
-        "bid_date_precise": "2016-06-29"
-      },
-      "field_mismatches": [],
-      "arbitration": "Full match."
-    },
-    {
-      "pipeline_event": {
-        "csv_bidder_id": "18",
-        "bid_note": "NA",
-        "bidder_name": "Thoma Bravo",
-        "bid_date_precise": "2016-07-08",
-        "bid_value_pershare": 19,
-        "bid_type": "Formal",
-        "all_cash": 1,
-        "event_id": "evt_025"
-      },
-      "alex_event": {
-        "bidder_id": 19,
-        "bid_note": "NA",
-        "bidder_name": "Thoma Bravo",
-        "bid_date_precise": "2016-07-08",
-        "bid_value_pershare": 19,
-        "bid_type": "Formal",
-        "all_cash": 1
-      },
-      "field_mismatches": [],
-      "arbitration": "Full match on all fields including Formal classification."
-    },
-    {
-      "pipeline_event": {
-        "csv_bidder_id": "19",
-        "bid_note": "Final Round",
-        "bidder_name": "NA",
-        "bid_date_precise": "2016-07-08",
-        "event_id": "evt_022"
-      },
-      "alex_event": null,
-      "field_mismatches": [],
-      "arbitration": "No direct Alex counterpart as a standalone row. Alex's BidderID 17 (Final Round on June 24) serves as the round event; Alex does not have a separate row for the July 8 deadline. See pipeline_only section."
-    },
-    {
-      "pipeline_event": {
-        "csv_bidder_id": "20",
-        "bid_note": "NA",
-        "bidder_name": "Thoma Bravo",
-        "bid_date_precise": "2016-07-09",
-        "bid_value_pershare": 19.25,
-        "bid_type": "Informal",
-        "all_cash": 1,
-        "event_id": "evt_026"
-      },
-      "alex_event": {
-        "bidder_id": 20,
-        "bid_note": "NA",
-        "bidder_name": "Thoma Bravo",
-        "bid_date_precise": "2016-07-09",
-        "bid_value_pershare": 19.25,
-        "bid_type": "Formal",
-        "all_cash": 1
-      },
-      "field_mismatches": [
-        {
-          "field": "bid_type",
-          "pipeline_value": "Informal",
-          "alex_value": "Formal",
-          "arbitration": "Pipeline classifies the $19.25 best-and-final as Informal because the filing calls it a 'revised written, non-binding proposal.' Alex classifies it as Formal because it came after the final round deadline and was the decisive closing bid. Filing says 'non-binding' but it was clearly solicited by the process letter's best-and-final mechanism. Pipeline's enrichment labels it Informal based on the 'non-binding' signal; Alex's Formal classification reflects the post-final-round, best-and-final nature. Alex's coding is the more conventional M&A classification for a best-and-final offer requested via process letter."
-        }
-      ],
-      "arbitration": "Price and date match exactly. Bid_type is the only disagreement: Pipeline=Informal (based on 'non-binding' text signal), Alex=Formal (based on post-final-round, best-and-final context). Alex's Formal classification is more conventional for M&A purposes."
-    },
-    {
-      "pipeline_event": {
-        "csv_bidder_id": "21",
-        "bid_note": "Bid Press Release",
-        "bidder_name": "Thoma Bravo",
-        "bid_date_precise": "2016-07-13",
-        "event_id": "evt_028"
-      },
-      "alex_event": null,
-      "field_mismatches": [],
-      "arbitration": "No direct Alex counterpart. Alex does not have a separate Bid Press Release row. See pipeline_only section."
-    },
-    {
-      "pipeline_event": {
-        "csv_bidder_id": "22",
-        "bid_note": "Executed",
-        "bidder_name": "Thoma Bravo",
-        "bid_date_precise": "2016-07-13",
-        "event_id": "evt_027"
-      },
-      "alex_event": {
-        "bidder_id": 20.5,
-        "bid_note": "Executed",
-        "bidder_name": "Thoma Bravo",
-        "bid_date_precise": "2016-07-09",
-        "bid_date_rough": "2016-07-13"
-      },
-      "field_mismatches": [
-        {
-          "field": "bid_date_precise",
-          "pipeline_value": "2016-07-13",
-          "alex_value": "2016-07-09",
-          "arbitration": "Filing clearly states 'On July 13, 2016, before the stock market opened, the parties finalized and executed the merger agreement.' Pipeline's 2016-07-13 is correct. Alex's precise date of 2016-07-09 appears to be the date of the $19.25 best-and-final offer, not the execution date. Alex's rough date of 2016-07-13 is correct. Pipeline is filing-accurate."
-        }
-      ],
-      "arbitration": "Match. Pipeline's execution date (July 13) is filing-correct. Alex's precise date (July 9) is wrong -- that is the best-and-final offer date, not execution."
+      "pipeline_row_id": "row_0015",
+      "alex_row_id": "13",
+      "field": "bid_type",
+      "pipeline_value": "Formal",
+      "alex_value": "Informal",
+      "filing_supports": "both",
+      "filing_snippet": "1309: On June 9, 2016, three parties (Sponsor A, Sponsor B and Thoma Bravo) presented written\n1310: preliminary non-binding indications of interest that were each subject to satisfactory completion of due diligence, among other conditions. Each of these indications provided for equity commitments from fund sponsors for the entire purchase price\n1311: and none of these indications of interest were contingent on financing. Sponsor A indicated a price of $16.50 per share. Thoma Bravo indicated a price of $17.25 per share, and also provided a form of equity commitment letter and draft merger\n1311: and none of these indications of interest were contingent on financing. Sponsor A indicated a price of $16.50 per share. Thoma Bravo indicated a price of $17.25 per share, and also provided a form of equity commitment letter and draft merger\n1312: agreement. Sponsor B indicated a range of $17.00 - $18.00 per share. On June 9, 2016, the closing price of Imprivata\u0092s common stock was $13.46.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/imprivata/filings/0001193125-16-677939.txt",
+      "match_score": 161.0,
+      "pipeline_source_span_ids": [
+        "span_0024",
+        "span_0023",
+        "span_0023",
+        "span_0026"
+      ]
     }
   ],
   "pipeline_only": [
     {
-      "pipeline_event": {
-        "csv_bidder_id": "0.2",
-        "bid_note": "Bidder Interest",
-        "bidder_name": "Thoma Bravo",
-        "bid_date_precise": "2015-06-01",
-        "event_id": "evt_002"
-      },
-      "grounding_verdict": "Filing-grounded. Filing says 'In early 2015, and again in June 2015, representatives of Thoma Bravo informally approached and had brief meetings.' Pipeline extracted this as a separate June 2015 event. Alex collapsed all pre-IOI Thoma Bravo interest into BidderID 0.5 (Bidder Interest with rough date 2016-01-31). Pipeline is more granular."
+      "pipeline_row_id": "row_0001",
+      "analyst_event_type": "bidder_interest",
+      "bidder_name": "Thoma Bravo",
+      "date": "2015-06-01",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "1162: June 2015, representatives of Thoma Bravo informally approached and had brief meetings with representatives of the Company, and expressed Thoma Bravo\u0092s potential interest in exploring a possible business transaction with the Company. The\n1161: In early 2015, and again in\n1162: June 2015, representatives of Thoma Bravo informally approached and had brief meetings with representatives of the Company, and expressed Thoma Bravo\u0092s potential interest in exploring a possible business transaction with the Company. The",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/imprivata/filings/0001193125-16-677939.txt",
+      "source_span_ids": [
+        "span_0006",
+        "span_0007"
+      ]
     },
     {
-      "pipeline_event": {
-        "csv_bidder_id": "0.3",
-        "bid_note": "Bidder Interest",
-        "bidder_name": "Thoma Bravo",
-        "bid_date_precise": "2016-01-01",
-        "event_id": "evt_003"
-      },
-      "grounding_verdict": "Filing-grounded. Filing says 'In January 2016, representatives of Thoma Bravo met with members of Company management during an industry conference and reiterated Thoma Bravo's interest.' Alex captured this as part of BidderID 0.5. Pipeline granularity is superior."
+      "pipeline_row_id": "row_0005",
+      "analyst_event_type": "target_sale",
+      "bidder_name": "NA",
+      "date": "2016-05-05",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "1268: to the Company, including remaining as an independent public company, and the indication of interest received from Thoma Bravo, that it was in the best interests of the Company and its stockholders to take steps to further explore a potential\n1269: business combination transaction involving the Company. The Board also approved the indicative list of parties and determined that Barclays should contact each of the parties on the indicative list on a confidential basis to gauge its interest in a\n1269: business combination transaction involving the Company. The Board also approved the indicative list of parties and determined that Barclays should contact each of the parties on the indicative list on a confidential basis to gauge its interest in a",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/imprivata/filings/0001193125-16-677939.txt",
+      "source_span_ids": [
+        "span_0014",
+        "span_0015"
+      ]
     },
     {
-      "pipeline_event": {
-        "csv_bidder_id": "19",
-        "bid_note": "Final Round",
-        "bidder_name": "NA",
-        "bid_date_precise": "2016-07-08",
-        "event_id": "evt_022"
-      },
-      "grounding_verdict": "Filing-grounded. The July 8, 2016 final bid deadline is explicit in the filing. Alex recorded a Final Round row on June 24 (the announcement date, BidderID 17) but did not create a separate row for the July 8 deadline itself. Pipeline's separation of announcement vs. deadline is more precise."
+      "pipeline_row_id": "row_0027",
+      "analyst_event_type": "drop",
+      "bidder_name": "Unnamed financial sponsor",
+      "date": "2016-06-24",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "1401: Special Committee meeting and its recommendations regarding the timetable for receiving final bids from Sponsor B and Thoma Bravo. The Chairperson approved Barclays to set a final bid deadline of\n1402: July 8, 2016.\n1404: Later on June 24, 2016, Barclays sent final bid process letters to Sponsor B and Thoma Bravo, requesting marked\n1404: Later on June 24, 2016, Barclays sent final bid process letters to Sponsor B and Thoma Bravo, requesting marked\n1405: drafts of the Company\u0092s proposed form of merger agreement (which would be provided in due course) by July 7, 2016, and setting a final bid deadline of July 8, 2016.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/imprivata/filings/0001193125-16-677939.txt",
+      "source_span_ids": [
+        "span_0001",
+        "span_0002",
+        "span_0003"
+      ]
     },
     {
-      "pipeline_event": {
-        "csv_bidder_id": "21",
-        "bid_note": "Bid Press Release",
-        "bidder_name": "Thoma Bravo",
-        "bid_date_precise": "2016-07-13",
-        "event_id": "evt_028"
-      },
-      "grounding_verdict": "Filing-grounded. Filing says 'Later on July 13, 2016, before the stock market opened, the Company and Thoma Bravo issued a joint press release.' Alex does not have a separate Bid Press Release row. This is a coverage difference; pipeline is more granular."
+      "pipeline_row_id": "row_0019",
+      "analyst_event_type": "bid_press_release",
+      "bidder_name": "Thoma Bravo",
+      "date": "2016-07-13",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "1564: copies of the equity commitment letter and the voting agreements. Later on July 13, 2016, before the stock market opened, the Company and Thoma Bravo issued a joint press release announcing the execution of the merger agreement.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/imprivata/filings/0001193125-16-677939.txt",
+      "source_span_ids": [
+        "span_0040"
+      ]
     },
     {
-      "pipeline_event": {
-        "csv_bidder_id": "23",
-        "bid_note": "Bidder Interest",
-        "bidder_name": "Thoma Bravo",
-        "bid_date_precise": null,
-        "event_id": "evt_001"
-      },
-      "grounding_verdict": "Filing-grounded. Filing says 'In early 2015 ... representatives of Thoma Bravo informally approached.' This is the earliest undated approach. Alex consolidated this into BidderID 0.5. Pipeline is more granular, treating each separate approach as its own event."
+      "pipeline_row_id": "row_0020",
+      "analyst_event_type": "bidder_interest",
+      "bidder_name": "Thoma Bravo",
+      "date": null,
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "1161: In early 2015, and again in\n1162: June 2015, representatives of Thoma Bravo informally approached and had brief meetings with representatives of the Company, and expressed Thoma Bravo\u0092s potential interest in exploring a possible business transaction with the Company. The",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/imprivata/filings/0001193125-16-677939.txt",
+      "source_span_ids": [
+        "span_0005",
+        "span_0006"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0029",
+      "analyst_event_type": "drop",
+      "bidder_name": "Unnamed financial sponsor",
+      "date": null,
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "1276: agreement with Thoma Bravo. Except for one financial sponsor that declined interest shortly after executing its confidentiality agreement, each party that entered into a confidentiality agreement attended a high-level management presentation",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/imprivata/filings/0001193125-16-677939.txt",
+      "source_span_ids": [
+        "span_0021"
+      ]
     }
   ],
   "alex_only": [
     {
-      "alex_event": {
-        "bidder_id": 0.5,
-        "bid_note": "Bidder Interest",
-        "bidder_name": "Thoma Bravo",
-        "bid_date_precise": "2016-03-09",
-        "bid_date_rough": "2016-01-31"
-      },
-      "grounding_verdict": "Partially filing-grounded but conflates multiple timeline events. Alex uses BidderID 0.5 as a composite Bidder Interest row with precise date 2016-03-09 (the March 9 IOI date) and rough date 2016-01-31 (end of January 2016 meeting). The pipeline extracts three separate bidder_interest events (early 2015, June 2015, January 2016) plus a separate proposal for March 9. Alex's approach merges pre-IOI interest and the IOI into one row, losing temporal resolution. Filing supports the pipeline's more granular decomposition."
+      "alex_row_id": "0.7",
+      "bid_note": "Bidder Sale",
+      "bidder_name": "Thoma Bravo",
+      "date": "2016-03-09",
+      "filing_supports": "alex",
+      "filing_snippet": "1187: On March 9, 2016, Thoma Bravo sent an unsolicited, non-binding indication of interest letter addressed to the Board indicating that Thoma\n1188: Bravo would be interested in acquiring the Company for cash at a purchase price of $15.00 per share of Imprivata\u0092s common stock. The letter also indicated that Thoma Bravo had conducted extensive diligence based on the Company\u0092s public\n1189: filings, that it was prepared to finance the transaction entirely with equity from its private equity funds, and that it could complete its confirmatory diligence and execute a definitive merger agreement in 30 days or less. On March 9, 2016,\n1190: the closing price of Imprivata\u0092s common stock was $11.64.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/imprivata/filings/0001193125-16-677939.txt",
+      "support_score": 80.0
     },
     {
-      "alex_event": {
-        "bidder_id": 9.5,
-        "bid_note": "Final Round Inf Ann",
-        "bidder_name": "NA",
-        "bid_date_precise": "2016-06-09",
-        "bid_date_rough": "2016-06-03"
-      },
-      "grounding_verdict": "Weakly filing-grounded. Alex treats the June 3 bid instruction letter (which set a June 9 deadline for first-round IOIs) as a 'Final Round Inf Ann' -- an informal final round announcement. The filing describes this as the initial bid instruction letter for first-round indications of interest, not a final round. The pipeline does not extract this as a separate event because it is not a final-round construct. Alex's taxonomy maps the first-round IOI deadline to informal final round terminology. The filing does not call this a 'final round.'"
+      "alex_row_id": "9",
+      "bid_note": "Drop",
+      "bidder_name": "Another financial sponsor",
+      "date": "2016-05-07",
+      "filing_supports": "neither",
+      "filing_snippet": "1329: 2016. Barclays also reviewed with the Board preliminary financial information with respect to each of the three indications of interest and preliminary valuation analyses with respect to the\n1330: Company based on the Company\u0092s long-term plan approved by the Board on April 7, 2016. Barclays reported to the Board that at such time ten of the 11 strategic parties contacted by Barclays had declined to participate in the strategic\n1331: process, and that while Strategic 3 had executed a confidentiality agreement and met with management, it did not submit a bid by the June 9, 2016 deadline. Representatives of Goodwin reviewed with the Board its fiduciary duties in the context\n1332: of evaluating the preliminary indications of interest in the context of a possible sale of the Company. Representatives of Goodwin also discussed the Board\u0092s discretion in determining whether and how to pursue a transaction and potential\n1333: additional considerations in a transaction with a financial sponsor, including potentially forming a special committee of the Board consisting solely of independent and disinterested directors.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/imprivata/filings/0001193125-16-677939.txt",
+      "support_score": 16.0
     },
     {
-      "alex_event": {
-        "bidder_id": 13.5,
-        "bid_note": "Final Round Inf",
-        "bidder_name": "NA",
-        "bid_date_precise": "2016-06-09",
-        "bid_date_rough": "2016-06-09"
-      },
-      "grounding_verdict": "Weakly filing-grounded. Alex codes the June 9 first-round IOI deadline as 'Final Round Inf' (informal final round deadline). Filing says the Board 'approved requesting initial non-binding indications of interest from bidders by June 9, 2016.' This is a first-round IOI deadline, not a final round. Pipeline does not model this as a final_round event. Alex's taxonomy interpretation differs from the filing's characterization."
+      "alex_row_id": "9.5",
+      "bid_note": "Final Round Inf Ann",
+      "bidder_name": "NA",
+      "date": "2016-06-03",
+      "filing_supports": "inconclusive",
+      "filing_snippet": "1296: On June 3, 2016, Barclays distributed a bid instruction letter on behalf of the Company to the six parties that had executed a\n1297: confidentiality agreement and attended meetings with Company management by that date. The letter indicated a deadline for submitting indications of interest by June 9, 2016 and that any bidders invited to participate in a second phase of\n1298: bidding would receive further access to management and more extensive diligence access. Bidders were requested to specify a per share offer price for the Company, sources of financing, a description of the future plans for the Company, the\n1299: information they would need to complete due diligence and their proposed structure for a transaction. Concurrently with the bid instruction letter, Barclays distributed to the same six parties a subset of the financial information contained in the\n1300: Company\u0092s long-range plan, which was materially consistent with the long-range approved by the Board on April 7, 2016 (as more fully described below under the caption \u0093\u0096 Certain Prospective Financial Information\u0094).",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/imprivata/filings/0001193125-16-677939.txt",
+      "support_score": 45.0
     },
     {
-      "alex_event": {
-        "bidder_id": 14.5,
-        "bid_note": "Final Round Ann",
-        "bidder_name": "NA",
-        "bid_date_precise": "2016-06-09",
-        "bid_date_rough": "2016-06-12"
-      },
-      "grounding_verdict": "Weakly filing-grounded. Alex codes a 'Final Round Ann' at the June 9/June 12 boundary, apparently representing the Board's June 12 decision to advance three parties to the second phase. The filing describes this as the Board authorizing advancement to the second phase, not as a formal final round announcement. The pipeline's Final Round Ann on June 24 (when Barclays sent formal final bid process letters) is the more filing-accurate coding of the formal final round announcement."
+      "alex_row_id": "13.5",
+      "bid_note": "Final Round Inf",
+      "bidder_name": "NA",
+      "date": "2016-06-09",
+      "filing_supports": "inconclusive",
+      "filing_snippet": "1420: On June 29, 2016, Sponsor B informed\n1421: Barclays that in light of its revised views on the Company\u0092s growth outlook, if it were to submit a final bid, it would be significantly below the price indicated in its June 9, 2016 preliminary indication of interest, and inquired whether\n1422: it should continue its diligence efforts. Barclays informed Sponsor B that it did not believe that the Special Committee would be interested in a transaction at a valuation significantly lower than Sponsor B\u0092s previous indication of interest,\n1423: and that Barclays would inform Sponsor B if the Special Committee determined otherwise. Following this discussion there were no further discussions between Sponsor B and Barclays or any other Company representatives.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/imprivata/filings/0001193125-16-677939.txt",
+      "support_score": 53.0
     },
     {
-      "alex_event": {
-        "bidder_id": 17.5,
-        "bid_note": "Final Round Ext Ann",
-        "bidder_name": "NA",
-        "bid_date_precise": "2016-06-24",
-        "bid_date_rough": "2016-06-24"
-      },
-      "grounding_verdict": "Not filing-grounded. Alex codes a 'Final Round Ext Ann' (extension round announcement) on June 24. The filing does not describe any extension of the final round. June 24 is when the original final bid process letters were sent with a July 8 deadline. There was no prior deadline that was being extended. The pipeline correctly models this as the single Final Round Ann."
+      "alex_row_id": "14.5",
+      "bid_note": "Final Round Ann",
+      "bidder_name": "NA",
+      "date": "2016-06-12",
+      "filing_supports": "inconclusive",
+      "filing_snippet": "1320: On June 12, 2016, Strategic 2 informed\n1321: representatives of Barclays that because of other internal corporate priorities, it was no longer interested in exploring a potential transaction with the Company.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/imprivata/filings/0001193125-16-677939.txt",
+      "support_score": 45.0
     },
     {
-      "alex_event": {
-        "bidder_id": 19.5,
-        "bid_note": "Final Round Ext",
-        "bidder_name": "NA",
-        "bid_date_precise": "2016-06-24",
-        "bid_date_rough": "2016-07-08"
-      },
-      "grounding_verdict": "Not filing-grounded. Alex codes a 'Final Round Ext' (extension deadline) with precise=June 24 and rough=July 8. The filing does not describe any extension. The July 8 deadline was the original and only final bid deadline. There was no extension. This row appears to be an artifact of Alex's taxonomy mapping the two-phase process (informal first round + formal final round) onto a round-extension model."
+      "alex_row_id": "17",
+      "bid_note": "Final Round",
+      "bidder_name": "NA",
+      "date": "2016-06-24",
+      "filing_supports": "inconclusive",
+      "filing_snippet": "1404: Later on June 24, 2016, Barclays sent final bid process letters to Sponsor B and Thoma Bravo, requesting marked\n1405: drafts of the Company\u0092s proposed form of merger agreement (which would be provided in due course) by July 7, 2016, and setting a final bid deadline of July 8, 2016.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/imprivata/filings/0001193125-16-677939.txt",
+      "support_score": 53.0
     }
-  ],
-  "aggregate_rows": [],
-  "summary": {
-    "total_pipeline": 28,
-    "total_alex": 29,
-    "matched": 23,
-    "pipeline_only_count": 5,
-    "alex_only_count": 6,
-    "aggregate_count": 0,
-    "match_rate_percent": 79.3,
-    "filing_contradicted_pipeline_claims": 0,
-    "filing_contradicted_alex_claims": 2,
-    "key_disagreements": [
-      {
-        "topic": "bid_type for $19.25 best-and-final (evt_026 vs Alex BidderID 20)",
-        "description": "Pipeline=Informal, Alex=Formal. Alex's coding is more conventional for a best-and-final offer solicited via process letter, despite the filing's 'non-binding' language.",
-        "severity": "moderate"
-      },
-      {
-        "topic": "Executed date (evt_027 vs Alex BidderID 20.5)",
-        "description": "Pipeline=2016-07-13 (correct per filing), Alex precise=2016-07-09 (incorrect, this is the best-and-final offer date).",
-        "severity": "low"
-      },
-      {
-        "topic": "IB retention date (evt_005 vs Alex BidderID 1.5)",
-        "description": "Pipeline=2016-04-19 (correct per filing), Alex precise=2016-03-09 (incorrect).",
-        "severity": "low"
-      },
-      {
-        "topic": "Round taxonomy",
-        "description": "Alex models the process with informal final rounds (Final Round Inf Ann/Inf at June 3/June 9) and extension rounds (Final Round Ext Ann/Ext at June 24/July 8). Pipeline models a single formal final round (Ann June 24, deadline July 8). Filing supports the pipeline's simpler model: the June 3-9 period was a first-round IOI solicitation, not a final round.",
-        "severity": "moderate"
-      },
-      {
-        "topic": "Sale initiation framing",
-        "description": "Pipeline codes Target Sale on May 5 (Board launches process). Alex codes Bidder Sale on March 9 (Thoma Bravo's unsolicited IOI). Both are filing-defensible but represent different conceptual framings.",
-        "severity": "low"
-      }
-    ],
-    "status": "attention",
-    "status_rationale": "Match rate of 79.3% (23 matched out of 29 max rows) falls in the 70-90% attention range. No pipeline claims are contradicted by the filing. Two Alex date fields are filing-contradicted. The most substantive disagreement is the bid_type classification for the $19.25 best-and-final offer and the round taxonomy differences."
-  }
+  ]
 }

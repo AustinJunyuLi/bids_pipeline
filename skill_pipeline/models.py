@@ -491,7 +491,7 @@ class SkillCheckReport(SkillModel):
 class CoverageCheckRecord(SkillModel):
     cue_family: str
     status: Literal["observed", "derived", "not_found", "ambiguous"]
-    severity: Literal["error", "warning"]
+    severity: Literal["error", "warning", "info"]
     repairability: Literal["repairable", "non_repairable"] | None = None
     description: str
     reason_code: str | None = None

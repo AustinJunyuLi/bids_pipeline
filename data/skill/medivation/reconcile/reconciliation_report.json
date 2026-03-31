@@ -1,86 +1,615 @@
 {
+  "generated_at": "2026-03-31T20:28:18.649328Z",
   "deal_slug": "medivation",
-  "target_name": "MEDIVATION INC",
-  "benchmark_source": "example/deal_details_Alex_2026.xlsx",
-  "reconciliation_date": "2026-03-30",
-  "method_note": "Phase 09 refresh. The Medivation benchmark audit re-read the refreshed export/extract artifacts and carried forward prior filing arbitration where the compared rows were unchanged.",
-  "pipeline_event_count": 35,
-  "pipeline_csv_event_count": 35,
-  "alex_row_count": 16,
-  "aggregate_row_count": 2,
-  "matched_count": 13,
-  "pipeline_only_count": 20,
-  "alex_only_count": 1,
-  "arbitration": {
-    "pipeline": 10,
-    "alex": 2,
-    "both_or_inconclusive": 4
+  "primary_document_id": "0001193125-16-696911",
+  "primary_filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+  "summary_row": {
+    "TargetName": "MEDIVATION INC",
+    "Events": 16,
+    "Acquirer": "PFIZER INC",
+    "DateAnnounced": "2016-08-22T00:00:00",
+    "URL": "https://www.sec.gov/Archives/edgar/data/1011835/0001193125-16-696889-index.htm"
   },
-  "baseline_comparison": {
-    "pipeline_event_count": 33,
-    "alex_row_count": 16,
-    "matched_count": 12,
-    "pipeline_only_count": 19,
-    "alex_only_count": 2,
-    "aggregate_row_count": 2
+  "counts": {
+    "pipeline_benchmark": 46,
+    "pipeline_analyst": 46,
+    "alex": 16,
+    "matches": 11,
+    "pipeline_only": 35,
+    "alex_only": 4,
+    "aggregate_rows": 0,
+    "field_mismatches": 5,
+    "match_rate": 0.2391
+  },
+  "status": "high_attention",
+  "comparison_surface": {
+    "primary": "benchmark_rows_expanded.csv",
+    "context": "analyst_rows.csv",
+    "alex_match_rule": "target-name fallback because workbook URL differs from seed/raw filing accession"
   },
   "field_mismatches": [
     {
-      "topic": "coverage_notes integrity",
-      "filing_supports": "pipeline",
-      "verdict": "pipeline_improved",
-      "detail": "The refreshed extract now materializes evt_027 and evt_029 as real drop events, so the prior coverage-notes dangling-reference problem is resolved."
+      "pipeline_row_id": "row_0002",
+      "alex_row_id": "1.5",
+      "field": "date",
+      "pipeline_value": "2016-03-24",
+      "alex_value": "2016-05-02",
+      "filing_supports": "inconclusive",
+      "filing_snippet": "651: Cooley LLP (\u0093 Cooley\u0094), Medivation\u0092s legal advisor, and J. P. Morgan Securities LLC (\u0093 J. P. Morgan\u0094), retained as independent financial advisor to Medivation in connection with routine advanced preparedness for defense and",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "match_score": 82.0,
+      "pipeline_source_span_ids": [
+        "span_0008"
+      ]
     },
     {
-      "topic": "J.P. Morgan retention date",
-      "filing_supports": "pipeline",
-      "verdict": "pipeline_correct",
-      "detail": "The filing still supports March 24, 2016 for the J.P. Morgan retention context, not Alex's later benchmark dates."
-    },
-    {
-      "topic": "July 19-20 process-letter milestone",
+      "pipeline_row_id": "row_0029",
+      "alex_row_id": "6",
+      "field": "bid_type",
+      "pipeline_value": "Informal",
+      "alex_value": "Formal",
       "filing_supports": "alex",
-      "verdict": "attention",
-      "detail": "Alex still has the better benchmark surface for the July 19-20 informal-round announcement. The refreshed pipeline continues to leave that family in coverage_notes as not found."
+      "filing_snippet": "891: On Friday, August 19, 2016, each of Pfizer, Company 1, Company 2, and Company 3 submitted a definitive proposal for an all-cash acquisition of\n892: Medivation. Company 4 declined to submit a definitive proposal and\n898: Share in cash, Company 2 for $75.50 per Share in cash, and Pfizer for $77.00 per Share in cash. Together with their definitive proposals, each of Company 1 and Company 3 also submitted a revised version of the merger agreement.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "match_score": 161.0,
+      "pipeline_source_span_ids": [
+        "span_0003",
+        "span_0034"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0030",
+      "alex_row_id": "7",
+      "field": "bid_type",
+      "pipeline_value": "Informal",
+      "alex_value": "Formal",
+      "filing_supports": "alex",
+      "filing_snippet": "921: proposal, each of which had been approved by the board of directors of the respective bidding party and each of which included confirmation that it was not subject to further diligence, and a revised draft of the merger agreement. Pfizer submitted a\n922: revised final proposal to acquire Medivation for $81.50 per share. Company 1 submitted a revised final proposal to acquire Medivation for $80.25 per share. Company 2 submitted a revised final proposal to acquire Medivation for $80.00 per share.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "match_score": 161.0,
+      "pipeline_source_span_ids": [
+        "span_0035"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0036",
+      "alex_row_id": "4.7",
+      "field": "date",
+      "pipeline_value": "2016-08-14",
+      "alex_value": "2016-08-10",
+      "filing_supports": "both",
+      "filing_snippet": "885: On August 14, 2016, J. P. Morgan and Evercore sent a written instruction letter to each Interested Party, requiring a definitive written\n885: On August 14, 2016, J. P. Morgan and Evercore sent a written instruction letter to each Interested Party, requiring a definitive written\n886: proposal by 12:00 p. m. Pacific Time on Friday, August 19, 2016. The instructions also requested that each Interested Party submit any comments on the draft of the merger agreement by 5:00 p. m. Pacific Time on Thursday, August 18, 2016.\n891: On Friday, August 19, 2016, each of Pfizer, Company 1, Company 2, and Company 3 submitted a definitive proposal for an all-cash acquisition of\n892: Medivation. Company 4 declined to submit a definitive proposal and",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "match_score": 84.0,
+      "pipeline_source_span_ids": [
+        "span_0001",
+        "span_0002",
+        "span_0003"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0037",
+      "alex_row_id": "5",
+      "field": "date",
+      "pipeline_value": "2016-08-19",
+      "alex_value": "2016-08-14",
+      "filing_supports": "both",
+      "filing_snippet": "885: On August 14, 2016, J. P. Morgan and Evercore sent a written instruction letter to each Interested Party, requiring a definitive written\n885: On August 14, 2016, J. P. Morgan and Evercore sent a written instruction letter to each Interested Party, requiring a definitive written\n886: proposal by 12:00 p. m. Pacific Time on Friday, August 19, 2016. The instructions also requested that each Interested Party submit any comments on the draft of the merger agreement by 5:00 p. m. Pacific Time on Thursday, August 18, 2016.\n891: On Friday, August 19, 2016, each of Pfizer, Company 1, Company 2, and Company 3 submitted a definitive proposal for an all-cash acquisition of\n892: Medivation. Company 4 declined to submit a definitive proposal and",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "match_score": 69.0,
+      "pipeline_source_span_ids": [
+        "span_0001",
+        "span_0002",
+        "span_0003"
+      ]
     }
   ],
   "pipeline_only": [
     {
-      "category": "auction_granularity",
-      "detail": "The refreshed pipeline still carries the full Company 1-4 bidding ladder across August 8, August 12, August 19, and August 20, which Alex does not code atomically."
+      "pipeline_row_id": "row_0001",
+      "analyst_event_type": "bidder_interest",
+      "bidder_name": "Sanofi",
+      "date": "2016-03-22",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "648: Officer of Sanofi, contacted David Hung, M. D., President and Chief Executive Officer of Medivation, on an unsolicited basis, and requested a telephone discussion.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "source_span_ids": [
+        "span_0007"
+      ]
     },
     {
-      "category": "drop_surface",
-      "detail": "The repaired drop events for Company 4 and Company 3 now appear as explicit pipeline rows, increasing pipeline-only granularity relative to Alex's aggregate drop row."
+      "pipeline_row_id": "row_0004",
+      "analyst_event_type": "bidder_interest",
+      "bidder_name": "Pfizer",
+      "date": "2016-04-20",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "686: indicate an interest in participating in any strategic discussions Medivation might initiate.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "source_span_ids": [
+        "span_0010"
+      ]
     },
     {
-      "category": "round_extensions",
-      "detail": "The pipeline still extracts explicit final-round extension announcement/deadline rows that Alex leaves implicit."
+      "pipeline_row_id": "row_0005",
+      "analyst_event_type": "ib_retention",
+      "bidder_name": "Evercore Group L. L. C.",
+      "date": "2016-04-22",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "689: board of directors held a regular meeting at which, among other topics, the Medivation board of directors continued to discuss and evaluate Sanofi\u0092s $52.50 proposal with its legal advisors and determined to engage Evercore Group L. L. C.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "source_span_ids": [
+        "span_0011"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0006",
+      "analyst_event_type": "bid_press_release",
+      "bidder_name": "Sanofi",
+      "date": "2016-04-28",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "697: On April 28, 2016, Sanofi issued a press release publicly announcing Sanofi\u0092s $52.50 proposal.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "source_span_ids": [
+        "span_0012"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0007",
+      "analyst_event_type": "ib_retention",
+      "bidder_name": "Wachtell, Lipton, Rosen & Katz",
+      "date": "2016-04-28",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "700: Sanofi\u0092s $52.50 proposal with input from management of Medivation and representatives of Evercore, J. P. Morgan, Cooley and Wachtell, Lipton, Rosen & Katz (\u0093 Wachtell Lipton\u0094), which Medivation had retained as an additional\n701: legal advisor. Following those discussions, the Medivation board of directors unanimously rejected Sanofi\u0092s $52.50 proposal, concluding that Sanofi\u0092s $52.50 proposal substantially undervalued Medivation, and was not in the best interests",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "source_span_ids": [
+        "span_0013"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0008",
+      "analyst_event_type": "bidder_interest",
+      "bidder_name": "Pfizer",
+      "date": "2016-05-02",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "711: continued interest in participating in any strategic discussions Medivation might initiate.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "source_span_ids": [
+        "span_0014"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0009",
+      "analyst_event_type": "bid_press_release",
+      "bidder_name": "Sanofi",
+      "date": "2016-05-05",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "714: Sanofi issued a press release restating the terms of Sanofi\u0092s $52.50 proposal and threatening to commence a stockholder consent solicitation to remove and replace the Medivation board of directors if Medivation did not engage in discussions",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "source_span_ids": [
+        "span_0015"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0010",
+      "analyst_event_type": "bidder_interest",
+      "bidder_name": "Sanofi",
+      "date": "2016-05-09",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "721: contacted Medivation and its legal counsel, respectively, to express Sanofi\u0092s interest in signing a confidentiality agreement and receiving due diligence materials on Medivation. Weil Gotshal on behalf of Sanofi stated that Sanofi could pay",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "source_span_ids": [
+        "span_0016"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0011",
+      "analyst_event_type": "bidder_interest",
+      "bidder_name": "Pfizer",
+      "date": "2016-05-20",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "778: Giordano reiterated Pfizer\u0092s interest in participating in any potential negotiated transaction process that Medivation might initiate and highlighted the strategic fit of Pfizer and Medivation.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "source_span_ids": [
+        "span_0017"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0012",
+      "analyst_event_type": "proposal",
+      "bidder_name": "Sanofi",
+      "date": "2016-06-27",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "802: On June 27, 2016, Medivation received a private letter with an increased proposal from Sanofi of $58.00 per share in cash\n803: plus a contingent value right (\u0093 CVR\u0094) of up to $3.00 per share, conditioned on certain revenue metrics.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "source_span_ids": [
+        "span_0019"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0015",
+      "analyst_event_type": "bidder_interest",
+      "bidder_name": "Pfizer",
+      "date": "2016-07-07",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "831: management team expressed Pfizer\u0092s continued interest in exploring a potential negotiated strategic transaction with Medivation.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "source_span_ids": [
+        "span_0023"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0016",
+      "analyst_event_type": "nda",
+      "bidder_name": "NA",
+      "date": "2016-07-09",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "833: On\n834: July 9, 2016, Medivation entered into a confidentiality agreement with a fourth industry participant initially contacted by Medivation\u0092s financial advisors.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "source_span_ids": [
+        "span_0024"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0017",
+      "analyst_event_type": "nda",
+      "bidder_name": "NA",
+      "date": "2016-07-13",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "836: On July 13, Medivation entered into a confidentiality agreement with a fifth industry participant initially contacted by Medivation\u0092s\n837: financial advisors.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "source_span_ids": [
+        "span_0025"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0019",
+      "analyst_event_type": "proposal",
+      "bidder_name": "Company 1",
+      "date": "2016-08-08",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "864: Pfizer submitted a preliminary proposal for the all-cash acquisition of Medivation for $65.00 per Share. Company 1 submitted a preliminary proposal for the all-cash acquisition of Medivation for $71.00 per Share. Company 2 submitted a preliminary",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "source_span_ids": [
+        "span_0026"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0020",
+      "analyst_event_type": "proposal",
+      "bidder_name": "Company 2",
+      "date": "2016-08-08",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "864: Pfizer submitted a preliminary proposal for the all-cash acquisition of Medivation for $65.00 per Share. Company 1 submitted a preliminary proposal for the all-cash acquisition of Medivation for $71.00 per Share. Company 2 submitted a preliminary\n865: proposal for the all-cash acquisition of Medivation for $62.00\u0097$64.00 per Share. Company 3 submitted a preliminary proposal to acquire Medivation for $60.00 per Share in cash, plus CVRs of up to $10.00 per Share, conditioned on certain revenue",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "source_span_ids": [
+        "span_0027"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0021",
+      "analyst_event_type": "proposal",
+      "bidder_name": "Company 3",
+      "date": "2016-08-08",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "865: proposal for the all-cash acquisition of Medivation for $62.00\u0097$64.00 per Share. Company 3 submitted a preliminary proposal to acquire Medivation for $60.00 per Share in cash, plus CVRs of up to $10.00 per Share, conditioned on certain revenue\n866: metrics. Company 4 submitted a preliminary proposal to acquire Medivation for $63.00 per Share in cash, plus CVRs of up to $5.00 per Share conditioned on certain regulatory milestones for pipeline assets.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "source_span_ids": [
+        "span_0028"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0022",
+      "analyst_event_type": "proposal",
+      "bidder_name": "Company 4",
+      "date": "2016-08-08",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "866: metrics. Company 4 submitted a preliminary proposal to acquire Medivation for $63.00 per Share in cash, plus CVRs of up to $5.00 per Share conditioned on certain regulatory milestones for pipeline assets.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "source_span_ids": [
+        "span_0029"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0023",
+      "analyst_event_type": "proposal",
+      "bidder_name": "Company 2",
+      "date": "2016-08-11",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "879: Company 2 would submit a revised initial bid proposal for an all-cash acquisition of Medivation at $70.00 per Share. Medivation\u0092s financial advisors responded that Company 2 would not be advanced in the process in the absence of a competitive",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "source_span_ids": [
+        "span_0030"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0024",
+      "analyst_event_type": "proposal",
+      "bidder_name": "Company 2",
+      "date": "2016-08-12",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "882: On August 12, 2016, Company 2 and Company 3 submitted written revised proposals for an all-cash acquisition\n883: of Medivation, at $70.00 per Share and $70.50 per Share, respectively. Later that day, Medivation\u0092s financial advisors provided Company 2 and Company 3 with the draft merger agreement and access to the second stage of confirmatory diligence.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "source_span_ids": [
+        "span_0031"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0025",
+      "analyst_event_type": "proposal",
+      "bidder_name": "Company 3",
+      "date": "2016-08-12",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "882: On August 12, 2016, Company 2 and Company 3 submitted written revised proposals for an all-cash acquisition\n883: of Medivation, at $70.00 per Share and $70.50 per Share, respectively. Later that day, Medivation\u0092s financial advisors provided Company 2 and Company 3 with the draft merger agreement and access to the second stage of confirmatory diligence.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "source_span_ids": [
+        "span_0031"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0040",
+      "analyst_event_type": "drop",
+      "bidder_name": "Sanofi",
+      "date": "2016-08-14",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "885: On August 14, 2016, J. P. Morgan and Evercore sent a written instruction letter to each Interested Party, requiring a definitive written\n885: On August 14, 2016, J. P. Morgan and Evercore sent a written instruction letter to each Interested Party, requiring a definitive written\n886: proposal by 12:00 p. m. Pacific Time on Friday, August 19, 2016. The instructions also requested that each Interested Party submit any comments on the draft of the merger agreement by 5:00 p. m. Pacific Time on Thursday, August 18, 2016.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "source_span_ids": [
+        "span_0001",
+        "span_0002"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0026",
+      "analyst_event_type": "proposal",
+      "bidder_name": "Company 3",
+      "date": "2016-08-19",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "891: On Friday, August 19, 2016, each of Pfizer, Company 1, Company 2, and Company 3 submitted a definitive proposal for an all-cash acquisition of\n892: Medivation. Company 4 declined to submit a definitive proposal and\n897: ceased participation in the strategic transaction process. The definitive proposals, in order of increasing valuation, were from Company 3 for $72.50 per Share in cash, Company 1 for $73.00 per",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "source_span_ids": [
+        "span_0003",
+        "span_0032"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0027",
+      "analyst_event_type": "proposal",
+      "bidder_name": "Company 1",
+      "date": "2016-08-19",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "891: On Friday, August 19, 2016, each of Pfizer, Company 1, Company 2, and Company 3 submitted a definitive proposal for an all-cash acquisition of\n892: Medivation. Company 4 declined to submit a definitive proposal and\n897: ceased participation in the strategic transaction process. The definitive proposals, in order of increasing valuation, were from Company 3 for $72.50 per Share in cash, Company 1 for $73.00 per\n898: Share in cash, Company 2 for $75.50 per Share in cash, and Pfizer for $77.00 per Share in cash. Together with their definitive proposals, each of Company 1 and Company 3 also submitted a revised version of the merger agreement.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "source_span_ids": [
+        "span_0003",
+        "span_0033"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0028",
+      "analyst_event_type": "proposal",
+      "bidder_name": "Company 2",
+      "date": "2016-08-19",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "891: On Friday, August 19, 2016, each of Pfizer, Company 1, Company 2, and Company 3 submitted a definitive proposal for an all-cash acquisition of\n892: Medivation. Company 4 declined to submit a definitive proposal and\n898: Share in cash, Company 2 for $75.50 per Share in cash, and Pfizer for $77.00 per Share in cash. Together with their definitive proposals, each of Company 1 and Company 3 also submitted a revised version of the merger agreement.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "source_span_ids": [
+        "span_0003",
+        "span_0034"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0041",
+      "analyst_event_type": "drop",
+      "bidder_name": "Company 4",
+      "date": "2016-08-19",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "905: communicate to the remaining Interested Parties that best and final proposals (to include confirmation that no further diligence would be required) would be due on August 20, 2016, by 12:00 p. m. Pacific Time. The Medivation board of directors\n909: proposal at that time. Following the meeting, Medivation\u0092s financial advisors delivered that message to each of Pfizer, Company 1, Company 2 and Company 3.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "source_span_ids": [
+        "span_0004",
+        "span_0005"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0038",
+      "analyst_event_type": "final_round_ext_ann",
+      "bidder_name": "NA",
+      "date": "2016-08-19",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "905: communicate to the remaining Interested Parties that best and final proposals (to include confirmation that no further diligence would be required) would be due on August 20, 2016, by 12:00 p. m. Pacific Time. The Medivation board of directors\n909: proposal at that time. Following the meeting, Medivation\u0092s financial advisors delivered that message to each of Pfizer, Company 1, Company 2 and Company 3.\n920: Later that morning, on August 20, 2016, beginning at 11:51 a. m. Pacific Time, each of Pfizer, Company 1, and Company 2 submitted a final\n921: proposal, each of which had been approved by the board of directors of the respective bidding party and each of which included confirmation that it was not subject to further diligence, and a revised draft of the merger agreement. Pfizer submitted a",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "source_span_ids": [
+        "span_0004",
+        "span_0005",
+        "span_0006"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0031",
+      "analyst_event_type": "proposal",
+      "bidder_name": "Company 1",
+      "date": "2016-08-20",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "922: revised final proposal to acquire Medivation for $81.50 per share. Company 1 submitted a revised final proposal to acquire Medivation for $80.25 per share. Company 2 submitted a revised final proposal to acquire Medivation for $80.00 per share.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "source_span_ids": [
+        "span_0036"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0032",
+      "analyst_event_type": "proposal",
+      "bidder_name": "Company 2",
+      "date": "2016-08-20",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "922: revised final proposal to acquire Medivation for $81.50 per share. Company 1 submitted a revised final proposal to acquire Medivation for $80.25 per share. Company 2 submitted a revised final proposal to acquire Medivation for $80.00 per share.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "source_span_ids": [
+        "span_0036"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0042",
+      "analyst_event_type": "drop",
+      "bidder_name": "Company 1",
+      "date": "2016-08-20",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "945: Also on August 20, 2016, following approval of the Medivation board of directors, Pfizer and Medivation\n946: executed the merger agreement and Medivation executed the Rights Amendment. On August 22, 2016, the parties issued a joint press release announcing the transaction.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "source_span_ids": [
+        "span_0037"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0043",
+      "analyst_event_type": "drop",
+      "bidder_name": "Company 2",
+      "date": "2016-08-20",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "945: Also on August 20, 2016, following approval of the Medivation board of directors, Pfizer and Medivation\n946: executed the merger agreement and Medivation executed the Rights Amendment. On August 22, 2016, the parties issued a joint press release announcing the transaction.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "source_span_ids": [
+        "span_0037"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0044",
+      "analyst_event_type": "drop",
+      "bidder_name": "Company 3",
+      "date": "2016-08-20",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "945: Also on August 20, 2016, following approval of the Medivation board of directors, Pfizer and Medivation\n946: executed the merger agreement and Medivation executed the Rights Amendment. On August 22, 2016, the parties issued a joint press release announcing the transaction.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "source_span_ids": [
+        "span_0037"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0045",
+      "analyst_event_type": "drop",
+      "bidder_name": "Company 4",
+      "date": "2016-08-20",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "945: Also on August 20, 2016, following approval of the Medivation board of directors, Pfizer and Medivation\n946: executed the merger agreement and Medivation executed the Rights Amendment. On August 22, 2016, the parties issued a joint press release announcing the transaction.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "source_span_ids": [
+        "span_0037"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0039",
+      "analyst_event_type": "final_round_ext",
+      "bidder_name": "NA",
+      "date": "2016-08-20",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "905: communicate to the remaining Interested Parties that best and final proposals (to include confirmation that no further diligence would be required) would be due on August 20, 2016, by 12:00 p. m. Pacific Time. The Medivation board of directors\n909: proposal at that time. Following the meeting, Medivation\u0092s financial advisors delivered that message to each of Pfizer, Company 1, Company 2 and Company 3.\n920: Later that morning, on August 20, 2016, beginning at 11:51 a. m. Pacific Time, each of Pfizer, Company 1, and Company 2 submitted a final\n921: proposal, each of which had been approved by the board of directors of the respective bidding party and each of which included confirmation that it was not subject to further diligence, and a revised draft of the merger agreement. Pfizer submitted a",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "source_span_ids": [
+        "span_0004",
+        "span_0005",
+        "span_0006"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0034",
+      "analyst_event_type": "bid_press_release",
+      "bidder_name": "Pfizer",
+      "date": "2016-08-22",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "946: executed the merger agreement and Medivation executed the Rights Amendment. On August 22, 2016, the parties issued a joint press release announcing the transaction.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "source_span_ids": [
+        "span_0038"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0035",
+      "analyst_event_type": "target_sale",
+      "bidder_name": "NA",
+      "date": null,
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "790: receive appropriate value for their shares. In light of the foregoing, the Medivation board was of the view that it should seek to control any process to explore the value that might be obtained in a transaction with a third party. Accordingly, the\n791: Medivation board directed J. P. Morgan and Evercore to contact select industry participants, to determine respective levels of preliminary interest in a strategic process, with the objective of expeditiously entering into confidentiality",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "source_span_ids": [
+        "span_0018"
+      ]
     }
   ],
   "alex_only": [
     {
-      "category": "hostile_process_label",
-      "detail": "Alex's Sanofi 'Bidder Sale' row remains a benchmark-only convention without a direct pipeline event analogue."
-    }
-  ],
-  "aggregate_rows": [
-    {
-      "category": "nda_bundle",
-      "detail": "Alex still bundles multiple NDA signers into one multi-party row while the pipeline keeps them disaggregated."
+      "alex_row_id": "0.7",
+      "bid_note": "Bidder Sale",
+      "bidder_name": "Sanofi",
+      "date": "2016-04-13",
+      "filing_supports": "alex",
+      "filing_snippet": "674: On April 15, 2016, Dr. Hung received an unsolicited letter, dated April 13, 2016,\n675: from Dr. Brandicourt, setting forth a non-binding proposal from Sanofi to acquire Medivation for $52.50 per share of Medivation\u0092s Common Stock, subject to the completion of due diligence, the negotiation and execution of definitive\n676: agreements, and the approval of Sanofi\u0092s board of directors (\u0093 Sanofi\u0092s $52.50 proposal\u0094).",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "support_score": 80.0
     },
     {
-      "category": "drop_bundle",
-      "detail": "Alex's aggregate non-winner drop row now soft-matches a repaired pair of pipeline drop events instead of pointing at missing event ids."
+      "alex_row_id": "1.3",
+      "bid_note": "Bid Press Release",
+      "bidder_name": "NA",
+      "date": "2016-04-28",
+      "filing_supports": "inconclusive",
+      "filing_snippet": "697: On April 28, 2016, Sanofi issued a press release publicly announcing Sanofi\u0092s $52.50 proposal.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "support_score": 53.0
+    },
+    {
+      "alex_row_id": "4.5",
+      "bid_note": "Final Round Inf",
+      "bidder_name": "NA",
+      "date": "2016-08-08",
+      "filing_supports": "inconclusive",
+      "filing_snippet": "849: On July 19 and 20, 2016, representatives of J. P. Morgan and Evercore sent\n850: a letter to each of the Interested Parties with guidelines for the Interested Party to submit a written, non-binding preliminary proposal for the potential acquisition of Medivation. The letter requested submission of the preliminary proposal by\n851: 5:00 p. m. Pacific Time on August 8, 2016 and stated that if Medivation decided to continue exploring potential interest in a transaction, a limited number of qualified parties might be invited to enter into further discussions and be provided\n852: additional due diligence materials.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "support_score": 45.0
+    },
+    {
+      "alex_row_id": "9",
+      "bid_note": "Drop",
+      "bidder_name": "Several parties",
+      "date": "2016-08-20",
+      "filing_supports": "inconclusive",
+      "filing_snippet": "900: That afternoon, the Medivation board of directors met telephonically with Medivation\u0092s senior management and legal and financial advisors\n901: to discuss the definitive proposals and marked agreements received from Pfizer, Company 1, Company 2 and Company 3. Medivation\u0092s management team provided an overview of the conversations and meetings with the Interested Parties over the course\n902: of the diligence process. The financial advisors presented to the board of directors a review of the bidding process and positions of the Interested Parties over the course of the bidding process. Cooley and Wachtell Lipton summarized and compared\n903: the revised drafts of the merger agreements provided by the relevant Interested Parties, including a thorough discussion of the material adverse effect provision and other conditions to closing the proposed transaction. After further discussions,\n904: including as to the matters discussed in the section entitled \u0093\u0097 Reasons for the Merger; Recommendation of the Medivation Board of Directors,\u0094 the Medivation board of directors authorized Medivation\u0092s financial advisors to\n905: communicate to the remaining Interested Parties that best and final proposals (to include confirmation that no further diligence would be required) would be due on August 20, 2016, by 12:00 p. m. Pacific Time. The Medivation board of directors\n906: authorized Medivation\u0092s financial advisors to inform the Interested Parties that the Medivation board of directors intended to review the proposals promptly after the deadline at a meeting scheduled for the afternoon of Saturday, August 20,\n907: 2016, with the intention of identifying a successful bidder and executing a merger agreement promptly following the completion of that meeting. The Medivation board of directors authorized Medivation\u0092s financial advisors to inform each\n908: Interested Party that such Interested Party should assume that it would not receive a call or other notification on August 20, 2016, if its proposal was not the highest, and, accordingly, each Interested Party was urged to put forward its best\n909: proposal at that time. Following the meeting, Medivation\u0092s financial advisors delivered that message to each of Pfizer, Company 1, Company 2 and Company 3.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/medivation/filings/0001193125-16-696911.txt",
+      "support_score": 45.0
     }
-  ],
-  "export_regressions": [],
-  "summary": {
-    "status": "attention",
-    "matched": 13,
-    "pipeline_only": 20,
-    "alex_only": 1,
-    "aggregate_rows_in_alex": 2,
-    "verdict": "The Phase 09 Medivation rerun repaired the internal drop-event integrity issue and modestly improved benchmark agreement, but the pipeline still omits Alex's informal-round announcement surface and remains more granular than the spreadsheet on the competitive auction sequence."
-  }
+  ]
 }

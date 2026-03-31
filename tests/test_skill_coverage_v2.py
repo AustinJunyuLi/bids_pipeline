@@ -33,9 +33,53 @@ def test_coverage_v2_records_observed_matches_for_literal_cues(tmp_path: Path) -
     assert exit_code == 0
     assert summary["status"] == "pass"
     assert summary["finding_count"] == 0
+    assert summary["error_count"] == 0
+    assert summary["warning_count"] == 0
     assert proposal["status"] == "observed"
+    assert proposal["severity"] == "info"
     assert proposal["reason_code"] == "matched_observation"
     assert proposal["supporting_observation_ids"] == ["obs_proposal"]
+
+
+def test_coverage_v2_treats_multiple_matching_nda_observations_as_covered(tmp_path: Path) -> None:
+    observations = clone_payload(canonical_observations_payload())
+    observations["observations"].append(
+        {
+            "observation_id": "obs_nda_duplicate",
+            "obs_type": "agreement",
+            "date": observations["observations"][2]["date"],
+            "subject_refs": ["party_bidder_a"],
+            "counterparty_refs": ["party_target"],
+            "summary": "Bidder A also signed a duplicate confidentiality agreement record.",
+            "evidence_span_ids": ["span_nda"],
+            "agreement_kind": "nda",
+            "signed": True,
+            "grants_diligence_access": True,
+            "includes_standstill": False,
+            "consideration_type": None,
+            "supersedes_observation_id": None,
+            "other_detail": None,
+        }
+    )
+    write_v2_validation_fixture(tmp_path, observations_payload=observations)
+
+    exit_code = run_coverage_v2("stec", project_root=tmp_path)
+    findings, summary = _load_outputs(tmp_path)
+
+    nda = next(
+        finding
+        for finding in findings["findings"]
+        if finding["cue_family"] == "nda"
+    )
+    assert exit_code == 0
+    assert summary["status"] == "pass"
+    assert summary["finding_count"] == 0
+    assert summary["error_count"] == 0
+    assert summary["warning_count"] == 0
+    assert nda["status"] == "observed"
+    assert nda["severity"] == "info"
+    assert nda["reason_code"] == "matched_multiple_observations"
+    assert nda["supporting_observation_ids"] == ["obs_nda", "obs_nda_duplicate"]
 
 
 def test_coverage_v2_fails_when_high_confidence_proposal_cue_is_uncovered(tmp_path: Path) -> None:

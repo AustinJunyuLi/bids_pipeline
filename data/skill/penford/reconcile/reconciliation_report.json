@@ -1,648 +1,395 @@
 {
+  "generated_at": "2026-03-31T20:28:18.815694Z",
   "deal_slug": "penford",
-  "target": "PENFORD CORP",
-  "acquirer": "INGREDION INC",
-  "date_announced": "2014-10-15",
-  "filing_accession": "0001193125-14-455030",
-  "alex_row_count": 25,
-  "pipeline_csv_event_count": 23,
-  "pipeline_events_raw_count": 23,
-  "summary": {
-    "matched": 17,
-    "matched_with_disagreements": 8,
-    "alex_only": 8,
-    "pipeline_only": 3,
-    "aggregate_rows_in_alex": 4,
-    "total_disagreements": 16,
-    "pipeline_correct": 9,
-    "alex_correct": 4,
-    "both_defensible": 3
+  "primary_document_id": "0001193125-14-455030",
+  "primary_filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt",
+  "summary_row": {
+    "TargetName": "PENFORD CORP",
+    "Events": 25,
+    "Acquirer": "INGREDION INC",
+    "DateAnnounced": "2014-10-15T00:00:00",
+    "URL": "https://www.sec.gov/Archives/edgar/data/739608/0001193125-14-455030-index.htm"
   },
-  "matched_events": [
+  "counts": {
+    "pipeline_benchmark": 26,
+    "pipeline_analyst": 26,
+    "alex": 25,
+    "matches": 19,
+    "pipeline_only": 7,
+    "alex_only": 6,
+    "aggregate_rows": 0,
+    "field_mismatches": 13,
+    "match_rate": 0.7308
+  },
+  "status": "high_attention",
+  "comparison_surface": {
+    "primary": "benchmark_rows_expanded.csv",
+    "context": "analyst_rows.csv",
+    "alex_match_rule": "seed URL exact match"
+  },
+  "field_mismatches": [
     {
-      "match_id": "M01",
-      "alex_bidder_id": 4.5,
-      "pipeline_event_id": "evt_001",
-      "pipeline_csv_seq": 0.5,
-      "bid_note": "Bidder Interest",
-      "actor": "Ingredion",
-      "date_alex": "2014-07-17",
-      "date_pipeline": "2014-07-17",
-      "verdict": "MATCH",
-      "disagreements": [],
-      "notes": "Both agree on Ingredion bidder interest on July 17. Alex uses bid_date_rough=2014-07-17 and bid_date_precise=2014-07-20 (conflating the NDA date); pipeline correctly isolates the July 17 lunch as the interest event."
+      "pipeline_row_id": "row_0004",
+      "alex_row_id": "5.5",
+      "field": "date",
+      "pipeline_value": "2014-07-24",
+      "alex_value": "2014-07-30",
+      "filing_supports": "alex",
+      "filing_snippet": "1338: several firms and reported on interview meetings management had with certain firms regarding a potential engagement. Following discussion of potential financial advisors, the Executive Committee directed management to proceed to retain Deutsche Bank",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt",
+      "match_score": 104.0,
+      "pipeline_source_span_ids": [
+        "span_0004"
+      ]
     },
     {
-      "match_id": "M02",
-      "alex_bidder_id": 5,
-      "pipeline_event_id": "evt_002",
-      "pipeline_csv_seq": 1,
-      "bid_note": "NDA",
-      "actor": "Ingredion",
-      "date_alex": "2014-07-20",
-      "date_pipeline": "2014-07-20",
-      "verdict": "MATCH",
-      "disagreements": [],
-      "notes": "Both agree. Alex correctly notes this is a 'Secrecy Agreement' lacking features of a standard NDA."
+      "pipeline_row_id": "row_0005",
+      "alex_row_id": "6",
+      "field": "bid_type",
+      "pipeline_value": "Uncertain",
+      "alex_value": "Informal",
+      "filing_supports": "inconclusive",
+      "filing_snippet": "1358: submit a proposal to acquire the Company. Mr. Fortnum suggested that a price of $17.00 per share on a fully diluted basis could likely get support from Ingredion\u0092s board. Mr. Malkoski responded that, in his opinion, the proposed price",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt",
+      "match_score": 155.0,
+      "pipeline_source_span_ids": [
+        "span_0005"
+      ]
     },
     {
-      "match_id": "M03",
-      "alex_bidder_id": null,
-      "pipeline_event_id": "evt_003",
-      "pipeline_csv_seq": 2,
-      "bid_note": "Activist Sale",
-      "actor": "SEACOR",
-      "date_alex": null,
-      "date_pipeline": "2014-07-24",
-      "verdict": "PIPELINE_ONLY",
-      "disagreements": [],
-      "notes": "Pipeline extracts the July 24 executive committee meeting reacting to SEACOR's activist filing. Alex does not have a separate Activist Sale row. Pipeline is correct per filing: the July 24, 2014 Executive Committee meeting reacted to SEACOR's Schedule 13D amendment."
+      "pipeline_row_id": "row_0006",
+      "alex_row_id": "7",
+      "field": "bid_type",
+      "pipeline_value": "Uncertain",
+      "alex_value": "Informal",
+      "filing_supports": "alex",
+      "filing_snippet": "1362: letter from Mr. Fortnum, confirming Ingredion\u0092s interest in a possible business combination between Ingredion and the Company, citing certain strategic reasons for the proposed acquisition, and providing an indicative valuation of $18.00\n1363: per share in cash for all of the outstanding capital stock of Penford on a fully diluted basis. Based on the $12.10 per share closing price of Penford\u0092s common stock on August 8, 2014, the last business day prior to receiving this\n1395: proposal was non-binding, Ingredion appeared to be a credible and financially capable buyer with clear strategic reasons for acquiring the Company. Deutsche Bank then provided the board with information and insights on Ingredion, and reviewed with",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt",
+      "match_score": 161.0,
+      "pipeline_source_span_ids": [
+        "span_0006",
+        "span_0007"
+      ]
     },
     {
-      "match_id": "M04",
-      "alex_bidder_id": 5.5,
-      "pipeline_event_id": "evt_004",
-      "pipeline_csv_seq": 3,
-      "bid_note": "IB",
-      "actor": "Deutsche Bank",
-      "date_alex_rough": "2014-07-30",
-      "date_alex_precise": "2014-08-21",
-      "date_pipeline": "2014-07-24",
-      "verdict": "DISAGREE",
-      "disagreements": [
-        {
-          "field": "date",
-          "alex": "rough=2014-07-30, precise=2014-08-21",
-          "pipeline": "2014-07-24",
-          "filing_text": "On July 24, 2014, the Executive Committee ... determined to engage Deutsche Bank ... On July 30, 2014, the board ... discussed ... the Executive Committees decision to engage Deutsche Bank. On September 11, 2014 [engagement letter signed].",
-          "arbitration": "BOTH_DEFENSIBLE",
-          "explanation": "The filing describes multiple milestones: July 24 (executive committee decision to engage), July 30 (board informed), September 11 (engagement letter signed). Pipeline uses the earliest actionable decision date (July 24). Alex uses July 30 (board discussion) as rough and Aug 21 as precise. All three dates are filing-supported; the IB retention date is genuinely ambiguous depending on whether 'retention' means decision, board awareness, or formal engagement."
-        }
-      ],
-      "notes": "Alex also correctly notes legal counsel is Perkins Coie."
+      "pipeline_row_id": "row_0013",
+      "alex_row_id": "10",
+      "field": "range",
+      "pipeline_value": {
+        "kind": "range",
+        "low": 18.25,
+        "high": 18.5
+      },
+      "alex_value": {
+        "kind": "scalar",
+        "low": 18.25,
+        "high": 18.25
+      },
+      "filing_supports": "both",
+      "filing_snippet": "1487: that Ingredion could potentially increase its proposal from $18.00 to $18.25 or $18.50 per share on a fully diluted basis. Based on the $14.70 per share closing price of Penford\u0092s common stock on September 16, 2014, the last business day",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt",
+      "match_score": 140.0,
+      "pipeline_source_span_ids": [
+        "span_0014"
+      ]
     },
     {
-      "match_id": "M05",
-      "alex_bidder_id": 6,
-      "pipeline_event_id": "evt_005",
-      "pipeline_csv_seq": 4,
-      "bid_note": "proposal",
-      "actor": "Ingredion",
-      "date_alex": "2014-08-06",
-      "date_pipeline": "2014-08-06",
-      "price_alex": 17.0,
-      "price_pipeline": 17.0,
-      "verdict": "DISAGREE",
-      "disagreements": [
-        {
-          "field": "bid_type",
-          "alex": "Informal",
-          "pipeline": "Uncertain (enrichment) / NA (csv)",
-          "filing_text": "Mr. Fortnum indicated Ingredion was prepared to submit a proposal to acquire the Company. Mr. Fortnum suggested that a price of $17.00 per share on a fully diluted basis could likely get support from Ingredions board.",
-          "arbitration": "ALEX_CORRECT",
-          "explanation": "The $17.00 was an oral suggestion at an in-person meeting, not a written offer or formal proposal. Alex classifies this as Informal, which is correct. The pipeline's enrichment classifies it as 'Uncertain' because no deterministic formality signals matched, but the oral nature makes Informal the right label."
-        }
-      ],
-      "notes": "Both agree on date and price."
+      "pipeline_row_id": "row_0013",
+      "alex_row_id": "10",
+      "field": "bid_type",
+      "pipeline_value": "Uncertain",
+      "alex_value": "Informal",
+      "filing_supports": "alex",
+      "filing_snippet": "1487: that Ingredion could potentially increase its proposal from $18.00 to $18.25 or $18.50 per share on a fully diluted basis. Based on the $14.70 per share closing price of Penford\u0092s common stock on September 16, 2014, the last business day",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt",
+      "match_score": 140.0,
+      "pipeline_source_span_ids": [
+        "span_0014"
+      ]
     },
     {
-      "match_id": "M06",
-      "alex_bidder_id": 7,
-      "pipeline_event_id": "evt_006",
-      "pipeline_csv_seq": 5,
-      "bid_note": "proposal",
-      "actor": "Ingredion",
-      "date_alex": "2014-08-10",
-      "date_pipeline": "2014-08-10",
-      "price_alex": 18.0,
-      "price_pipeline": 18.0,
-      "verdict": "MATCH",
-      "disagreements": [],
-      "notes": "Both agree on date, price ($18), bid_type (Informal), and all_cash=1. Filing confirms: written indication of $18.00 per share in cash."
+      "pipeline_row_id": "row_0016",
+      "alex_row_id": "13",
+      "field": "bid_type",
+      "pipeline_value": "Uncertain",
+      "alex_value": "Informal",
+      "filing_supports": "inconclusive",
+      "filing_snippet": "1547: Mr. Fortnum then stated that Ingredion was prepared to move forward based on a proposed price of $18.50 per share on a fully diluted basis. Mr. Malkoski responded that that price was unlikely to be high enough for Penford\u0092s board of",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt",
+      "match_score": 153.0,
+      "pipeline_source_span_ids": [
+        "span_0017"
+      ]
     },
     {
-      "match_id": "M07",
-      "alex_bidder_id": null,
-      "pipeline_event_id": "evt_007",
-      "pipeline_csv_seq": 6,
-      "bid_note": "Bidder Interest",
-      "actor": "Party A",
-      "date_alex": null,
-      "date_pipeline": "2014-08-11",
-      "verdict": "PIPELINE_ONLY",
-      "disagreements": [],
-      "notes": "Pipeline captures Party A's informal discussion on Aug 11 as a separate Bidder Interest event. Alex does not have a separate row for this because Party A did not make a priced indication at this point. The filing supports it: Party A's CEO 'informally discussed Party As potential interest in acquiring or combining with Penford.' Both approaches are defensible; the pipeline is more granular."
+      "pipeline_row_id": "row_0017",
+      "alex_row_id": "14",
+      "field": "bid_type",
+      "pipeline_value": "Uncertain",
+      "alex_value": "Informal",
+      "filing_supports": "inconclusive",
+      "filing_snippet": "1551: its indication of interest and increasing the proposed price to $19.00 per share of outstanding Penford capital stock on a fully diluted basis. Based on the $12.77 per share closing price of Penford\u0092s common stock on October 1, 2014, the",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt",
+      "match_score": 153.0,
+      "pipeline_source_span_ids": [
+        "span_0018"
+      ]
     },
     {
-      "match_id": "M08",
-      "alex_bidder_id": 8,
-      "pipeline_event_id": "evt_008",
-      "pipeline_csv_seq": 7,
-      "bid_note": "NDA",
-      "actor": "Ingredion",
-      "date_alex": "2014-08-21",
-      "date_pipeline": "2014-08-21",
-      "verdict": "MATCH",
-      "disagreements": [],
-      "notes": "Both agree. This is the formal nondisclosure and standstill agreement superseding the July 20 Secrecy Agreement."
+      "pipeline_row_id": "row_0018",
+      "alex_row_id": "15",
+      "field": "range",
+      "pipeline_value": {
+        "kind": "range",
+        "low": 17.5,
+        "high": 18.0
+      },
+      "alex_value": {
+        "kind": "scalar",
+        "low": 17.5,
+        "high": 17.5
+      },
+      "filing_supports": "pipeline",
+      "filing_snippet": "1570: Ingredion\u0092s legal counsel. On October 4, Deutsche Bank followed up with Party A regarding the potential transaction with Penford, pursuant to which Party A indicated any offer would be below $17.50 - $18.00 per share in cash. Deutsche Bank",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt",
+      "match_score": 148.0,
+      "pipeline_source_span_ids": [
+        "span_0019"
+      ]
     },
     {
-      "match_id": "M09",
-      "alex_bidder_id": null,
-      "pipeline_event_id": "evt_009",
-      "pipeline_csv_seq": 8,
-      "bid_note": "Target Sale",
-      "actor": "Penford",
-      "date_alex": null,
-      "date_pipeline": "2014-08-28",
-      "verdict": "PIPELINE_ONLY",
-      "disagreements": [],
-      "notes": "Pipeline captures the Aug 28 board authorization of the market check as Target Sale. Alex does not have a separate row. The filing supports it: 'the board directed management to continue negotiations with Ingredion and engage in the due diligence process ... authorized management and Deutsche Bank to proceed with the market check process.' Pipeline is more granular here."
+      "pipeline_row_id": "row_0018",
+      "alex_row_id": "15",
+      "field": "bid_type",
+      "pipeline_value": "Uncertain",
+      "alex_value": "Informal",
+      "filing_supports": "alex",
+      "filing_snippet": "1570: Ingredion\u0092s legal counsel. On October 4, Deutsche Bank followed up with Party A regarding the potential transaction with Penford, pursuant to which Party A indicated any offer would be below $17.50 - $18.00 per share in cash. Deutsche Bank",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt",
+      "match_score": 148.0,
+      "pipeline_source_span_ids": [
+        "span_0019"
+      ]
     },
     {
-      "match_id": "M10",
-      "alex_bidder_id": null,
-      "pipeline_event_id": "evt_010",
-      "pipeline_csv_seq": 9,
-      "bid_note": "Bidder Interest",
-      "actor": "Party B",
-      "date_alex": null,
-      "date_pipeline": "2014-09-09",
-      "verdict": "PIPELINE_ONLY_BUT_NOTE",
-      "disagreements": [],
-      "notes": "Alex does not have a Bidder Interest row for Party B. Alex also does not have any Party B rows at all. Filing confirms: Party B expressed interest on Sept 9 but then declined on Sept 12 without signing an NDA. The pipeline captures the interest but not the drop (evt_013 is referenced in coverage_notes but missing from events). Alex omits Party B entirely - both approaches are defensible since Party B never signed an NDA or submitted a price."
+      "pipeline_row_id": "row_0019",
+      "alex_row_id": "18",
+      "field": "range",
+      "pipeline_value": {
+        "kind": "range",
+        "low": 16.0,
+        "high": 18.0
+      },
+      "alex_value": {
+        "kind": "scalar",
+        "low": 16.0,
+        "high": 16.0
+      },
+      "filing_supports": "both",
+      "filing_snippet": "1617: transaction had been reduced from $17.50 - $18.00 per share to $16.00 - $18.00 per share, due to increased volatility in the markets.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt",
+      "match_score": 140.0,
+      "pipeline_source_span_ids": [
+        "span_0021"
+      ]
     },
     {
-      "match_id": "M11",
-      "alex_bidder_id": null,
-      "pipeline_event_id": "evt_011",
-      "pipeline_csv_seq": 10,
-      "bid_note": "Bidder Interest",
-      "actor": "Party C",
-      "date_alex": null,
-      "date_pipeline": "2014-09-10",
-      "verdict": "PIPELINE_HAS_EXTRA_INTEREST",
-      "disagreements": [],
-      "notes": "Pipeline has Party C Bidder Interest on Sept 10 as a separate row. Alex goes straight to Party C's NDA on Sept 15. Both are valid approaches; Alex's first Party C row is the NDA."
+      "pipeline_row_id": "row_0019",
+      "alex_row_id": "18",
+      "field": "bid_type",
+      "pipeline_value": "Uncertain",
+      "alex_value": "Informal",
+      "filing_supports": "alex",
+      "filing_snippet": "1617: transaction had been reduced from $17.50 - $18.00 per share to $16.00 - $18.00 per share, due to increased volatility in the markets.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt",
+      "match_score": 140.0,
+      "pipeline_source_span_ids": [
+        "span_0021"
+      ]
     },
     {
-      "match_id": "M12",
-      "alex_bidder_id": null,
-      "pipeline_event_id": "evt_012",
-      "pipeline_csv_seq": 11,
-      "bid_note": "Bidder Interest",
-      "actor": "Party D",
-      "date_alex": null,
-      "date_pipeline": "2014-09-11",
-      "verdict": "PIPELINE_HAS_EXTRA_INTEREST",
-      "disagreements": [],
-      "notes": "Pipeline has Party D Bidder Interest on Sept 11 as a separate row. Alex goes straight to Party D's NDA on Sept 23. Both are valid."
+      "pipeline_row_id": "row_0020",
+      "alex_row_id": "18.5",
+      "field": "bid_type",
+      "pipeline_value": "Uncertain",
+      "alex_value": "Formal",
+      "filing_supports": "alex",
+      "filing_snippet": "1622: On October 14, 2014, Mr. Fortnum called Mr. Malkoski to confirm the proposed price of $19.00 and discuss finalizing the draft",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt",
+      "match_score": 153.0,
+      "pipeline_source_span_ids": [
+        "span_0022"
+      ]
     },
     {
-      "match_id": "M13",
-      "alex_bidder_id": 9,
-      "pipeline_event_id": "evt_014",
-      "pipeline_csv_seq": 12,
-      "bid_note": "NDA",
-      "actor": "Party C",
-      "date_alex": "2014-09-15",
-      "date_pipeline": "2014-09-15",
-      "verdict": "MATCH",
-      "disagreements": [],
-      "notes": "Both agree on Party C NDA dated Sept 15."
-    },
-    {
-      "match_id": "M14",
-      "alex_bidder_id": 10,
-      "pipeline_event_id": "evt_015",
-      "pipeline_csv_seq": 13,
-      "bid_note": "proposal",
-      "actor": "Ingredion",
-      "date_alex": "2014-09-17",
-      "date_pipeline": "2014-09-17",
-      "verdict": "DISAGREE",
-      "disagreements": [
-        {
-          "field": "price",
-          "alex": "bid_value=18.25, range=18.25-18.5",
-          "pipeline": "per_share=null, range=18.25-18.5",
-          "filing_text": "Mr. Fortnum indicated during the conversation that Ingredion could potentially increase its proposal from $18.00 to $18.25 or $18.50 per share on a fully diluted basis.",
-          "arbitration": "ALEX_CORRECT",
-          "explanation": "Alex records bid_value=18.25 (range low) while pipeline has per_share=null. Since the filing gives a range of $18.25 to $18.50, using the range low as the bid_value is a reasonable convention. Pipeline correctly captures the range but leaves per_share null. Alex's convention of using the lower bound as bid_value is more informative."
-        },
-        {
-          "field": "all_cash",
-          "alex": 1,
-          "pipeline": "NA",
-          "filing_text": "The filing does not specify consideration type for this verbal update. However, all prior Ingredion indications were all-cash.",
-          "arbitration": "ALEX_CORRECT",
-          "explanation": "While the Sept 17 conversation itself does not state 'cash', the entire deal context makes clear Ingredion's bids were always all-cash. Alex's inference of all_cash=1 is reasonable and consistent with the deal structure."
-        }
-      ],
-      "notes": "Date and range agree. Pipeline classifies as Informal (enrichment), matching Alex."
-    },
-    {
-      "match_id": "M15",
-      "alex_bidder_id": 11,
-      "pipeline_event_id": "evt_016",
-      "pipeline_csv_seq": 14,
-      "bid_note": "NDA",
-      "actor": "Party D",
-      "date_alex": "2014-09-23",
-      "date_pipeline": "2014-09-23",
-      "verdict": "MATCH",
-      "disagreements": [],
-      "notes": "Both agree on Party D NDA dated Sept 23."
-    },
-    {
-      "match_id": "M16",
-      "alex_bidder_id": 12,
-      "pipeline_event_id": "evt_018",
-      "pipeline_csv_seq": 15,
-      "bid_note": "NDA",
-      "actor": "Party A",
-      "date_alex": "2014-09-30",
-      "date_pipeline": "2014-09-30",
-      "verdict": "MATCH",
-      "disagreements": [],
-      "notes": "Both agree on Party A NDA dated Sept 30."
-    },
-    {
-      "match_id": "M17",
-      "alex_bidder_id": 13,
-      "pipeline_event_id": "evt_019",
-      "pipeline_csv_seq": 16,
-      "bid_note": "proposal",
-      "actor": "Ingredion",
-      "date_alex": "2014-10-02",
-      "date_pipeline": "2014-10-02",
-      "price_alex": 18.5,
-      "price_pipeline": 18.5,
-      "verdict": "DISAGREE",
-      "disagreements": [
-        {
-          "field": "bid_type",
-          "alex": "Informal",
-          "pipeline": "Uncertain (enrichment) / NA (csv)",
-          "filing_text": "Mr. Fortnum then stated that Ingredion was prepared to move forward based on a proposed price of $18.50 per share on a fully diluted basis.",
-          "arbitration": "ALEX_CORRECT",
-          "explanation": "This was an oral statement during a phone call, not a written proposal. Alex classifies it as Informal, which is appropriate. Pipeline's Uncertain is due to no deterministic formality signals matching, but the oral/telephone nature makes Informal correct."
-        },
-        {
-          "field": "all_cash",
-          "alex": 1,
-          "pipeline": "NA",
-          "filing_text": "The filing does not explicitly state cash for this oral $18.50 statement, but the entire Ingredion proposal stream is all-cash.",
-          "arbitration": "ALEX_CORRECT",
-          "explanation": "Same reasoning as M14. The deal context makes clear all Ingredion proposals were all-cash."
-        }
-      ],
-      "notes": "Date and price agree."
-    },
-    {
-      "match_id": "M18",
-      "alex_bidder_id": 14,
-      "pipeline_event_id": "evt_020",
-      "pipeline_csv_seq": 17,
-      "bid_note": "proposal",
-      "actor": "Ingredion",
-      "date_alex": "2014-10-02",
-      "date_pipeline": "2014-10-02",
-      "price_alex": 19.0,
-      "price_pipeline": 19.0,
-      "verdict": "DISAGREE",
-      "disagreements": [
-        {
-          "field": "all_cash",
-          "alex": 1,
-          "pipeline": "NA",
-          "filing_text": "Penford received a letter from Ingredion ... increasing the proposed price to $19.00 per share of outstanding Penford capital stock on a fully diluted basis.",
-          "arbitration": "PIPELINE_CORRECT",
-          "explanation": "The Oct 2 letter increasing to $19.00 does not explicitly say 'cash' (unlike the Aug 10 letter which stated 'in cash'). However, given that the merger agreement was for $19.00 per share in cash, Alex's all_cash=1 is ultimately correct in substance. Both are defensible but pipeline is more conservative in only marking all_cash when the filing explicitly states it."
-        }
-      ],
-      "notes": "Date and price agree. Pipeline enrichment classifies as Informal (written indication of interest), matching Alex."
-    },
-    {
-      "match_id": "M19",
-      "alex_bidder_id": 17,
-      "pipeline_event_id": "evt_021",
-      "pipeline_csv_seq": 18,
-      "bid_note": "Drop",
-      "actor": "Party D",
-      "date_alex": "2014-10-08",
-      "date_pipeline": "2014-10-08",
-      "verdict": "MATCH",
-      "disagreements": [],
-      "notes": "Both agree on Party D drop dated Oct 8."
-    },
-    {
-      "match_id": "M20",
-      "alex_bidder_id": 18,
-      "pipeline_event_id": "evt_022",
-      "pipeline_csv_seq": 19,
-      "bid_note": "proposal",
-      "actor": "Party A",
-      "date_alex": "2014-10-13",
-      "date_pipeline": "2014-10-13",
-      "verdict": "DISAGREE",
-      "disagreements": [
-        {
-          "field": "price",
-          "alex": "bid_value=16, range=16-18",
-          "pipeline": "per_share=null, range=16.0-18.0",
-          "filing_text": "Deutsche Bank had a discussion with representatives of Party A, who indicated that its value range for a potential transaction had been reduced from $17.50 - $18.00 per share to $16.00 - $18.00 per share.",
-          "arbitration": "PIPELINE_CORRECT",
-          "explanation": "Pipeline correctly captures this as a range with no single per_share. Alex uses bid_value=16 (range low) as a convention, which is informative but the filing clearly states a range, not a single point. Pipeline's null per_share with range=16-18 more accurately reflects the filing."
-        }
-      ],
-      "notes": "Date and range agree. Pipeline has Informal from enrichment, matching Alex."
-    },
-    {
-      "match_id": "M21",
-      "alex_bidder_id": 19,
-      "pipeline_event_id": "evt_023",
-      "pipeline_csv_seq": 20,
-      "bid_note": "proposal",
-      "actor": "Party A",
-      "date_alex": "2014-10-14",
-      "date_pipeline": "2014-10-14",
-      "price_alex": 16.0,
-      "price_pipeline": 16.0,
-      "verdict": "DISAGREE",
-      "disagreements": [
-        {
-          "field": "bid_type",
-          "alex": "Informal",
-          "pipeline": "Informal (enrichment)",
-          "filing_text": "Party A provided a formal letter with its indication of interest with respect to an acquisition of the Company at a price of $16.00 per share.",
-          "arbitration": "PIPELINE_CORRECT",
-          "explanation": "The filing explicitly says 'formal letter with its indication of interest.' Despite this, both Alex and pipeline classify as Informal. Given the filing says 'formal letter,' one could argue the classification should be Formal. However, an 'indication of interest' letter is conventionally informal in M&A practice (non-binding). The pipeline's Informal classification is defensible but borderline."
-        },
-        {
-          "field": "price_range",
-          "alex": "16-16 (single point)",
-          "pipeline": "per_share=16.0, range=null",
-          "filing_text": "Party A provided a formal letter with its indication of interest ... at a price of $16.00 per share.",
-          "arbitration": "MATCH",
-          "explanation": "Both capture $16.00. No real disagreement."
-        }
-      ],
-      "notes": "Date agrees."
-    },
-    {
-      "match_id": "M22",
-      "alex_bidder_id": 21.5,
-      "pipeline_event_id": "evt_024",
-      "pipeline_csv_seq": 21,
-      "bid_note": "Executed",
-      "actor": "Ingredion",
-      "date_alex_precise": "2014-10-08",
-      "date_alex_rough": "2014-10-14",
-      "date_pipeline": "2014-10-14",
-      "verdict": "DISAGREE",
-      "disagreements": [
-        {
-          "field": "date_precise",
-          "alex": "2014-10-08",
-          "pipeline": "2014-10-14",
-          "filing_text": "During the evening on October 14, 2014, Penford and Ingredion finalized and executed the merger agreement.",
-          "arbitration": "PIPELINE_CORRECT",
-          "explanation": "The merger agreement was signed on Oct 14. Alex's bid_date_precise of Oct 8 appears to be an error; Oct 8 was when Sidley Austin circulated a revised draft, not when the agreement was executed. The filing unambiguously states the merger agreement was finalized and executed on the evening of October 14, 2014."
-        }
-      ],
-      "notes": "Both use Oct 14 as the event date for Executed. Alex's rough date of Oct 14 is correct; precise of Oct 8 appears to be a data entry error."
-    },
-    {
-      "match_id": "M23",
-      "alex_bidder_id": null,
-      "pipeline_event_id": "evt_025",
-      "pipeline_csv_seq": 22,
-      "bid_note": "Bid Press Release",
-      "actor": "Penford/Ingredion",
-      "date_alex": null,
-      "date_pipeline": "2014-10-15",
-      "verdict": "PIPELINE_ONLY_VS_AGGREGATE",
-      "disagreements": [],
-      "notes": "The pipeline's Bid Press Release (Oct 15) corresponds to the deal_events.csv aggregate header row which has DateAnnounced=2014-10-15. Alex encodes this in the deal header, not as a separate event row. This is a structural difference, not a substantive disagreement."
+      "pipeline_row_id": "row_0021",
+      "alex_row_id": "19",
+      "field": "bid_type",
+      "pipeline_value": "Uncertain",
+      "alex_value": "Informal",
+      "filing_supports": "alex",
+      "filing_snippet": "1628: Later on October 14, 2014, Party A provided a formal letter with its indication of interest with respect to an acquisition of the Company\n1629: at a price of $16.00 per share, citing increased volatility in the markets as the reason for the decrease in the offer price. Based on the $11.07 per share closing price of Penford\u0092s common stock as of October 13, 2014, the day immediately",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt",
+      "match_score": 153.0,
+      "pipeline_source_span_ids": [
+        "span_0023",
+        "span_0024"
+      ]
     }
   ],
-  "alex_only_events": [
+  "pipeline_only": [
     {
-      "alex_bidder_id": 1,
+      "pipeline_row_id": "row_0003",
+      "analyst_event_type": "target_sale",
+      "bidder_name": "NA",
+      "date": "2014-07-24",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "1339: as the Company\u0092s financial advisor and to advise on shareholder matters and to evaluate strategic alternatives, and directed management to negotiate a suitable engagement letter. An engagement letter with Deutsche Bank was executed on",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt",
+      "source_span_ids": [
+        "span_0003"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0007",
+      "analyst_event_type": "bidder_interest",
+      "bidder_name": "Party A",
+      "date": "2014-08-11",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "1386: discussed Party A\u0092s potential interest in acquiring or combining with Penford. Party A noted that it saw value in Penford but only at a typical takeover premium based on current trading price, due to the fact that it would base any offer price",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt",
+      "source_span_ids": [
+        "span_0008"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0008",
+      "analyst_event_type": "bidder_interest",
+      "bidder_name": "Party A",
+      "date": "2014-09-09",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "1461: September 9, 2014, Party A expressed interest in having further discussions regarding a transaction and Deutsche Bank forwarded Party A a nondisclosure and standstill agreement. Also on September 9, 2014, another strategic counterparty",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt",
+      "source_span_ids": [
+        "span_0009"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0009",
+      "analyst_event_type": "bidder_interest",
+      "bidder_name": "Party B",
+      "date": "2014-09-09",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "1462: contacted by Deutsche Bank (referred to as Party B) expressed interest in further discussions, and Deutsche Bank forwarded a nondisclosure and standstill agreement to proceed with additional discussions with Party B.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt",
+      "source_span_ids": [
+        "span_0010"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0010",
+      "analyst_event_type": "bidder_interest",
+      "bidder_name": "Party C",
+      "date": "2014-09-10",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "1464: On September 10, 2014, a third potential strategic counterparty contacted by Deutsche Bank (referred to as Party C) expressed interest in\n1465: pursuing a transaction, and Deutsche Bank forwarded Party C a nondisclosure and standstill agreement on September 11, 2014. Also on September 10, 2014, Mr. Malkoski, Mr. Fortnum and Mr. Saucier had a telephone conversation",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt",
+      "source_span_ids": [
+        "span_0011"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0011",
+      "analyst_event_type": "bidder_interest",
+      "bidder_name": "Party D",
+      "date": "2014-09-11",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "1468: On September 11, 2014, a fourth potential strategic counterparty contacted by Deutsche Bank (referred to as Party D) expressed interest,\n1469: and Deutsche Bank forwarded a nondisclosure and standstill agreement to Party D.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt",
+      "source_span_ids": [
+        "span_0012"
+      ]
+    },
+    {
+      "pipeline_row_id": "row_0023",
+      "analyst_event_type": "bid_press_release",
+      "bidder_name": "Ingredion",
+      "date": "2014-10-15",
+      "expanded_from_row_id": null,
+      "filing_supports": "pipeline",
+      "filing_snippet": "1656: agreement, and Penford, Ingredion and SEACOR executed the voting and support agreement. Penford and Ingredion issued press releases announcing the transaction on October 15, 2014 prior to the opening of trading.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt",
+      "source_span_ids": [
+        "span_0026"
+      ]
+    }
+  ],
+  "alex_only": [
+    {
+      "alex_row_id": "1",
       "bid_note": "NDA",
       "bidder_name": "1 party",
-      "date_rough": "2007-01-15",
-      "category": "historical_aggregate",
-      "filing_text": "In 2007 and 2009, the Company received unsolicited indications of interest to acquire Penford from two parties engaged in the Companys industry. In each case, the Company entered into a confidentiality agreement and engaged in discussions.",
-      "arbitration": "ALEX_CORRECT_BUT_APPROXIMATE",
-      "explanation": "The filing confirms that in 2007, one party entered a confidentiality agreement. Alex records this as an NDA. The pipeline excluded historical 2007/2009 events from the event timeline, instead capturing them as a count assertion in actors_raw.json. Alex's approach of including them as rows is more comprehensive for bid counting."
+      "date": "2007-01-15",
+      "filing_supports": "inconclusive",
+      "filing_snippet": "1477: On September 15, 2014, Penford and Party C executed a nondisclosure and standstill agreement, which included standard confidentiality\n1478: restrictions and a standstill provision that automatically expired upon the public announcement of the entering into a definitive agreement for a sale of 50% or more of the capital stock of Penford, and Penford provided Party C with information\n1479: regarding Penford including, but not limited to, information regarding Penford\u0092s corporate strategy, business segments, product applications and technologies, end markets, supply chain and manufacturing facilities, historical financial\n1480: performance and financial projections.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt",
+      "support_score": 34.0
     },
     {
-      "alex_bidder_id": 2,
+      "alex_row_id": "2",
       "bid_note": "Drop",
       "bidder_name": "1 party",
-      "date_rough": "2007-01-15",
-      "category": "historical_aggregate",
-      "filing_text": "These discussions did not result in offers to acquire the Company.",
-      "arbitration": "ALEX_CORRECT_BUT_APPROXIMATE",
-      "explanation": "The filing confirms that the 2007 discussions did not result in offers, which Alex reasonably codes as a Drop. The rough date of Jan 15, 2007 is Alex's convention for year-level approximation."
+      "date": "2007-01-15",
+      "filing_supports": "neither",
+      "filing_snippet": "1384: Also on\n1385: August 11, 2014, Mr. Malkoski met with the Chief Executive Officer of Party A. Mr. Malkoski and Party A\u0092s Chief Executive Officer briefly discussed the recent SEACOR Filing. Party A\u0092s Chief Executive Officer also informally\n1386: discussed Party A\u0092s potential interest in acquiring or combining with Penford. Party A noted that it saw value in Penford but only at a typical takeover premium based on current trading price, due to the fact that it would base any offer price\n1387: on Penford\u0092s performance over the last twelve months, instead of Penford\u0092s strategic plan and any synergies that could be realized in the future. On August 12, 2014, Mr. Hatfield discussed the Ingredion indication of interest\n1388: with Mr. Behrens to determine if SEACOR was interested in acquiring the Company. Mr. Behrens stated that SEACOR was not interested in participating in any potential sale process at that time.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt",
+      "support_score": 26.0
     },
     {
-      "alex_bidder_id": 3,
+      "alex_row_id": "3",
       "bid_note": "NDA",
       "bidder_name": "A diffferent party",
-      "date_rough": "2009-01-15",
-      "category": "historical_aggregate",
-      "filing_text": "Same paragraph as above: second party in 2009.",
-      "arbitration": "ALEX_CORRECT_BUT_APPROXIMATE",
-      "explanation": "Same logic as BidderID 1. Filing confirms a second party in 2009 also entered a confidentiality agreement."
+      "date": "2009-01-15",
+      "filing_supports": "neither",
+      "filing_snippet": "1477: On September 15, 2014, Penford and Party C executed a nondisclosure and standstill agreement, which included standard confidentiality\n1478: restrictions and a standstill provision that automatically expired upon the public announcement of the entering into a definitive agreement for a sale of 50% or more of the capital stock of Penford, and Penford provided Party C with information\n1479: regarding Penford including, but not limited to, information regarding Penford\u0092s corporate strategy, business segments, product applications and technologies, end markets, supply chain and manufacturing facilities, historical financial\n1480: performance and financial projections.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt",
+      "support_score": 16.0
     },
     {
-      "alex_bidder_id": 4,
+      "alex_row_id": "4",
       "bid_note": "Drop",
       "bidder_name": "A diffferent party",
-      "date_rough": "2009-01-15",
-      "category": "historical_aggregate",
-      "filing_text": "These discussions did not result in offers to acquire the Company.",
-      "arbitration": "ALEX_CORRECT_BUT_APPROXIMATE",
-      "explanation": "Same logic as BidderID 2. Filing confirms the 2009 discussions also did not result in offers."
+      "date": "2009-01-15",
+      "filing_supports": "neither",
+      "filing_snippet": "1384: Also on\n1385: August 11, 2014, Mr. Malkoski met with the Chief Executive Officer of Party A. Mr. Malkoski and Party A\u0092s Chief Executive Officer briefly discussed the recent SEACOR Filing. Party A\u0092s Chief Executive Officer also informally\n1386: discussed Party A\u0092s potential interest in acquiring or combining with Penford. Party A noted that it saw value in Penford but only at a typical takeover premium based on current trading price, due to the fact that it would base any offer price\n1387: on Penford\u0092s performance over the last twelve months, instead of Penford\u0092s strategic plan and any synergies that could be realized in the future. On August 12, 2014, Mr. Hatfield discussed the Ingredion indication of interest\n1388: with Mr. Behrens to determine if SEACOR was interested in acquiring the Company. Mr. Behrens stated that SEACOR was not interested in participating in any potential sale process at that time.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt",
+      "support_score": 8.0
     },
     {
-      "alex_bidder_id": 14.5,
+      "alex_row_id": "8",
+      "bid_note": "NDA",
+      "bidder_name": "Ingredion",
+      "date": "2014-08-21",
+      "filing_supports": "alex",
+      "filing_snippet": "1418: On August 20 and 21, 2014, Ingredion and Penford negotiated provisions relating to, and exchanged drafts of, a nondisclosure and\n1419: standstill agreement. Penford again declined to enter into exclusive negotiations with Ingredion. On August 21, 2014, Ingredion and Penford executed a nondisclosure and standstill agreement that superseded the prior Secrecy Agreement.",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt",
+      "support_score": 88.0
+    },
+    {
+      "alex_row_id": "14.5",
       "bid_note": "Final Round Ann",
       "bidder_name": "NA",
-      "date_rough": "2014-10-03",
-      "category": "process_event",
-      "filing_text": "After further discussion, with input from Deutsche Bank, the directors present at the board meeting unanimously directed management to proceed to negotiate and finalize a definitive agreement with Ingredion.",
-      "arbitration": "ALEX_DEFENSIBLE",
-      "explanation": "Alex codes the Oct 3 board decision to move forward with Ingredion as a 'Final Round Ann.' The pipeline does not extract this as a separate event. The filing supports that on Oct 3, the board authorized management to finalize a definitive agreement. However, calling this 'Final Round Ann' is debatable because no formal final round was ever announced to market check participants. The board's decision to proceed with Ingredion was internal, not communicated as a formal final round deadline to competing bidders."
-    },
-    {
-      "alex_bidder_id": 15,
-      "bid_note": "NA (proposal)",
-      "bidder_name": "Party A",
-      "date_precise": "2014-10-03",
-      "date_rough": "2014-10-04",
-      "price": 17.5,
-      "range": "17.5-18.0",
-      "category": "proposal",
-      "filing_text": "On October 4, Deutsche Bank followed up with Party A regarding the potential transaction with Penford, pursuant to which Party A indicated any offer would be below $17.50 - $18.00 per share in cash.",
-      "arbitration": "ALEX_CORRECT",
-      "explanation": "Alex captures Party A's Oct 4 preliminary verbal range of $17.50-$18.00 as a separate proposal row. The pipeline explicitly excludes this (see exclusions in events_raw: 'Party As October 4 feedback only said any offer would be below $17.50 - $18.00 per share and was followed by Deutsche Banks request for a formal letter; the clearer priced indications were extracted from October 13 and October 14 instead.'). Alex's inclusion is defensible because the filing provides a dated, priced indication from Party A. The pipeline's exclusion is also defensible because 'below $17.50-$18.00' is a ceiling, not an offer."
-    },
-    {
-      "alex_bidder_id": 18.5,
-      "bid_note": "NA (proposal)",
-      "bidder_name": "Ingredion",
-      "date_precise": "2014-10-08",
-      "date_rough": "2014-10-14",
-      "price": 19.0,
-      "bid_type": "Formal",
-      "category": "proposal",
-      "filing_text": "On October 14, 2014, Mr. Fortnum called Mr. Malkoski to confirm the proposed price of $19.00 and discuss finalizing the draft merger agreement.",
-      "arbitration": "BOTH_DEFENSIBLE",
-      "explanation": "Alex treats Ingredion's confirmed $19.00 as a separate Formal bid row, with the logic that the Oct 2 written indication at $19 and the Oct 14 confirmation together constitute the formal offer leading to signing. The pipeline does not have a separate event for this because evt_020 already captures the Oct 2 written $19.00 indication, and evt_024 captures the Oct 14 signing. Alex's bid_date_precise=Oct 8 is puzzling (perhaps referencing the revised merger agreement draft circulated Oct 8). The pipeline's approach of not double-counting the $19.00 is cleaner, but Alex's intent to mark the transition from informal to formal is valid."
-    },
-    {
-      "alex_bidder_id": 20,
-      "bid_note": "Drop",
-      "bidder_name": "Party A",
-      "date": "2014-10-14",
-      "category": "inferred_drop",
-      "filing_text": "The filing does not have an explicit statement that Party A dropped out. Party A submitted a $16.00 letter on Oct 14, and the Ingredion merger was signed the same evening. Party A was one of 'the remaining three [counterparties] which either did not move forward in a timely manner or made a lower indication of value.'",
-      "arbitration": "ALEX_DEFENSIBLE",
-      "explanation": "Alex infers Party A dropped on Oct 14 because that is when the merger was signed with Ingredion and Party A's $16 offer was not accepted. This is a reasonable inference: Party A's $16 bid was rejected in favor of Ingredion's $19, effectively ending Party A's participation. The pipeline does not extract an explicit Drop for Party A because the filing never explicitly says Party A withdrew."
-    },
-    {
-      "alex_bidder_id": 21,
-      "bid_note": "Drop",
-      "bidder_name": "Party C",
-      "date": "2014-10-14",
-      "category": "inferred_drop",
-      "filing_text": "The filing does not have an explicit statement that Party C dropped out or submitted any indication of value. Party C signed an NDA on Sept 15, received a management presentation on Sept 25, but never submitted a price. Deutsche Bank reported 'the remaining three [counterparties] which either did not move forward in a timely manner or made a lower indication of value.'",
-      "arbitration": "ALEX_DEFENSIBLE",
-      "explanation": "Alex infers Party C dropped on Oct 14 because Party C never submitted a price and the merger was signed that evening. The pipeline does not extract this because the filing never explicitly says Party C withdrew. Alex's inference is reasonable: the merger signing effectively ended all other parties' participation."
+      "date": "2014-10-03",
+      "filing_supports": "inconclusive",
+      "filing_snippet": "1554: On October 3, 2014, the board met with members of management and representatives of Perkins Coie and representatives of Deutsche Bank.\n1555: Deutsche Bank reviewed with the board recent developments, including reviewing in detail the revised indication of interest from Ingredion increasing the proposed price per share of the Company\u0092s stock on a fully diluted basis to $19.00 per\n1556: share. Deutsche Bank also provided the board with an update on the status of the market check process, stating that based on transaction size and market conditions, it was unlikely Party A would submit any indication of interest that would reflect\n1557: the requested price of $20.00 per share. Deutsche Bank also updated the board that no other companies that had been contacted during the market check process indicated they would provide a proposal or other indication of interest. The board\n1558: discussed the",
+      "filing_path": "/home/austinli/Projects/bids_pipeline/raw/penford/filings/0001193125-14-455030.txt",
+      "support_score": 45.0
     }
-  ],
-  "structural_differences": [
-    {
-      "category": "historical_events",
-      "description": "Alex includes 4 rows (BidderIDs 1-4) for 2007 and 2009 historical unsolicited approaches. The pipeline captures these as a count assertion in actors_raw.json but does not create individual event rows. Both approaches are filing-grounded.",
-      "impact": "Alex has 4 extra rows for historical context."
-    },
-    {
-      "category": "bidder_interest_granularity",
-      "description": "The pipeline has separate Bidder Interest events for Party A (Aug 11), Party B (Sept 9), Party C (Sept 10), and Party D (Sept 11). Alex skips these and goes directly to NDA rows or omits parties (Party B) that never signed NDAs.",
-      "impact": "Pipeline has 3 extra Bidder Interest rows (Party A Aug 11, Party C Sept 10, Party D Sept 11) and 1 extra row for Party B (Sept 9). Alex omits Party B entirely."
-    },
-    {
-      "category": "process_events",
-      "description": "Pipeline includes Activist Sale (July 24) and Target Sale (Aug 28) as structural process events. Alex does not have equivalent rows.",
-      "impact": "Pipeline has 2 extra process event rows."
-    },
-    {
-      "category": "final_round",
-      "description": "Alex includes a 'Final Round Ann' row (BidderID 14.5) for the Oct 3 board decision. The pipeline does not extract this because no formal final round was communicated to bidders.",
-      "impact": "Alex has 1 extra row."
-    },
-    {
-      "category": "inferred_drops",
-      "description": "Alex includes Drop rows for Party A (Oct 14) and Party C (Oct 14) based on the inference that signing with Ingredion ended their participation. The pipeline does not infer drops without explicit filing statements of withdrawal.",
-      "impact": "Alex has 2 extra rows."
-    },
-    {
-      "category": "formal_bid_row",
-      "description": "Alex includes a separate 'Formal' bid row (BidderID 18.5) for Ingredion at $19.00 leading to signing. The pipeline captures the Oct 2 written indication and Oct 14 execution as separate events without a distinct Formal proposal row.",
-      "impact": "Alex has 1 extra row."
-    },
-    {
-      "category": "party_a_oct_4",
-      "description": "Alex includes Party A's Oct 4 preliminary range ($17.50-$18.00) as a separate proposal row. The pipeline excludes it as not a firm indication.",
-      "impact": "Alex has 1 extra row."
-    },
-    {
-      "category": "press_release",
-      "description": "The pipeline includes a Bid Press Release row (Oct 15). Alex encodes this in the deal header DateAnnounced field.",
-      "impact": "Pipeline has 1 extra row for press release."
-    },
-    {
-      "category": "missing_pipeline_drops",
-      "description": "Pipeline events_raw coverage_notes reference evt_013 and evt_017 as extracted drops, but these events do not exist in the events array. This appears to be a gap: Party B's Sept 12 decline and Party F's Sept 29 decline are noted in coverage but not present as events.",
-      "impact": "Pipeline is missing 2 drop events that its own coverage notes claim to have extracted. These should be investigated."
-    }
-  ],
-  "field_level_disagreement_summary": [
-    {
-      "field": "bid_type",
-      "count": 3,
-      "events": ["M05 (evt_005, $17 oral)", "M17 (evt_019, $18.50 oral)", "M21 (evt_023, $16 letter)"],
-      "pattern": "Pipeline enrichment classifies some oral/unclear proposals as 'Uncertain' where Alex consistently uses 'Informal'. Alex is generally correct for oral indications."
-    },
-    {
-      "field": "all_cash",
-      "count": 3,
-      "events": ["M14 (evt_015, $18.25-18.50)", "M17 (evt_019, $18.50)", "M18 (evt_020, $19.00)"],
-      "pattern": "Pipeline only marks all_cash when the specific filing sentence explicitly says 'cash'. Alex infers all_cash from deal context. Alex's approach is more informative; pipeline is more conservative."
-    },
-    {
-      "field": "price/per_share",
-      "count": 2,
-      "events": ["M14 (range capture)", "M20 (range vs point)"],
-      "pattern": "When filing gives a range, Alex records bid_value as the lower bound. Pipeline leaves per_share null and records only the range. Pipeline is more precise about what the filing actually states."
-    },
-    {
-      "field": "date",
-      "count": 2,
-      "events": ["M04 (IB retention date)", "M22 (Executed precise date)"],
-      "pattern": "Alex's Executed precise date of Oct 8 is an error (should be Oct 14). IB retention date is genuinely ambiguous across July 24, July 30, and Sept 11."
-    }
-  ],
-  "pipeline_integrity_issues": [
-    {
-      "issue": "missing_drop_events",
-      "description": "coverage_notes reference 'drop: extracted (evt_013, evt_017, evt_021)' but only evt_021 exists in the events array. evt_013 (Party B drop Sept 12) and evt_017 (likely Party F drop Sept 29) are missing.",
-      "severity": "medium",
-      "recommendation": "Investigate whether these events were removed during canonicalization. If they were intentionally excluded, update coverage_notes to reflect that only evt_021 survives."
-    },
-    {
-      "issue": "uncertain_bid_classification",
-      "description": "Enrichment classifies evt_005 ($17 oral) and evt_019 ($18.50 oral) as 'Uncertain' rather than 'Informal'. Both are clearly oral indications during phone calls or in-person meetings.",
-      "severity": "low",
-      "recommendation": "Review deterministic enrichment rules to handle oral proposals more precisely. A rule matching event_type=proposal with no written indication signals could default to Informal."
-    }
-  ],
-  "alex_data_issues": [
-    {
-      "issue": "executed_precise_date",
-      "alex_bidder_id": 21.5,
-      "description": "bid_date_precise=2014-10-08 for the Executed event. The merger agreement was signed on Oct 14, not Oct 8.",
-      "severity": "high",
-      "recommendation": "Correct to 2014-10-14."
-    },
-    {
-      "issue": "missing_party_b",
-      "description": "Alex has no rows for Party B, which expressed interest Sept 9 and declined Sept 12 without signing an NDA.",
-      "severity": "low",
-      "recommendation": "Consider adding Party B interest + drop rows for completeness, though omission is defensible since Party B never signed an NDA."
-    },
-    {
-      "issue": "missing_bidder_interest_rows",
-      "description": "Alex does not have separate Bidder Interest rows for Party A (Aug 11), Party C (Sept 10), Party D (Sept 11). Alex goes directly to NDA or proposal rows.",
-      "severity": "low",
-      "recommendation": "Structural choice. Not an error, but less granular than the pipeline."
-    }
-  ],
-  "metadata": {
-    "generated_at": "2026-03-29T00:00:00Z",
-    "arbitration_source": "raw/penford/filings/0001193125-14-455030.txt",
-    "pipeline_artifacts": [
-      "data/skill/penford/export/deal_events.csv",
-      "data/skill/penford/extract/events_raw.json",
-      "data/skill/penford/extract/actors_raw.json",
-      "data/skill/penford/extract/spans.json",
-      "data/skill/penford/enrich/deterministic_enrichment.json"
-    ],
-    "alex_artifact": "data/skill/penford/reconcile/alex_rows.json"
-  }
+  ]
 }

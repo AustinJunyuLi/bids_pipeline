@@ -64,7 +64,7 @@
     {
       "cue_family": "advisor",
       "status": "observed",
-      "severity": "warning",
+      "severity": "info",
       "repairability": null,
       "description": "Medium-confidence advisor cue is covered by canonical v2 artifacts.",
       "reason_code": "matched_party",
@@ -96,7 +96,7 @@
     {
       "cue_family": "advisor",
       "status": "observed",
-      "severity": "warning",
+      "severity": "info",
       "repairability": null,
       "description": "High-confidence advisor cue is covered by canonical v2 artifacts.",
       "reason_code": "matched_party",
@@ -202,7 +202,7 @@
     {
       "cue_family": "process_initiation",
       "status": "observed",
-      "severity": "error",
+      "severity": "info",
       "repairability": null,
       "description": "High-confidence process_initiation cue is covered by canonical v2 artifacts.",
       "reason_code": "matched_observation",
@@ -276,7 +276,7 @@
     {
       "cue_family": "process_initiation",
       "status": "observed",
-      "severity": "error",
+      "severity": "info",
       "repairability": null,
       "description": "High-confidence process_initiation cue is covered by canonical v2 artifacts.",
       "reason_code": "matched_observation",

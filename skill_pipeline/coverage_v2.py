@@ -123,8 +123,8 @@ def _build_record(
     cue: CoverageCue,
     artifacts: LoadedObservationArtifacts,
 ) -> CoverageCheckRecordV2:
-    severity = _severity_for_cue(cue)
-    if severity is None:
+    issue_severity = _severity_for_cue(cue)
+    if issue_severity is None:
         raise ValueError(f"Unsupported cue severity for v2 coverage cue {cue.cue_family!r}")
 
     observation_ids, party_ids, cohort_ids, span_ids = _matching_candidates(cue, artifacts)
@@ -168,6 +168,8 @@ def _build_record(
         )
         reason_code = "multiple_matching_candidates"
 
+    severity = "info" if status in {"observed", "derived"} else issue_severity
+
     return CoverageCheckRecordV2(
         cue_family=cue.cue_family,
         status=status,
@@ -188,7 +190,7 @@ def _build_record(
 
 
 def _build_summary(records: list[CoverageCheckRecordV2]) -> CoverageSummary:
-    issue_records = [record for record in records if record.status != "observed"]
+    issue_records = [record for record in records if record.severity != "info"]
     counter = Counter(record.cue_family for record in issue_records)
     error_count = sum(1 for record in issue_records if record.severity == "error")
     warning_count = sum(1 for record in issue_records if record.severity == "warning")
