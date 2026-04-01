@@ -122,8 +122,10 @@ def test_claude_md_documents_live_db_load_v2_and_db_export_v2_contract() -> None
     assert "db-export-v2" in text
     assert "skill-pipeline db-load-v2 --deal <slug>" in text
     assert "skill-pipeline db-export-v2 --deal <slug>" in text
-    assert "v1-working-tree-2026-04-01" in text
-    assert "`db-load-v2` requires canonical v2 observations" in normalized
+    assert (
+        "db-load-v2 requires canonical v2 observations" in normalized
+        or "`db-load-v2` requires canonical v2 observations" in normalized
+    )
 
 
 def test_claude_md_documents_only_live_skill_surface() -> None:
@@ -140,16 +142,16 @@ def test_claude_md_documents_split_cross_os_env_setup() -> None:
     text = _read(CLAUDE_MD)
     normalized = " ".join(text.split())
     assert ".claude/LOCAL.md" in text
-    assert "read it immediately after this file before taking action" in normalized
+    assert "immediately after this file" in normalized
     assert ".env.local" in text
     assert "PIPELINE_SEC_IDENTITY" in text
     assert ".venv-win" not in text and ".venv-wsl" not in text
 
 
-def test_claude_md_end_to_end_flow_is_v2_default() -> None:
+def test_claude_md_live_workflow_is_v2_default() -> None:
     text = _read(CLAUDE_MD)
-    flow_start = text.find("## End-To-End Flow")
-    flow_end = text.find("## Hard Invariants", flow_start)
+    flow_start = text.find("## Live Workflow")
+    flow_end = text.find("## Hard Rules", flow_start)
     assert flow_start != -1 and flow_end != -1
     flow_text = text[flow_start:flow_end]
     extract_pos = flow_text.find("/extract-deal-v2")
@@ -159,6 +161,15 @@ def test_claude_md_end_to_end_flow_is_v2_default() -> None:
     assert -1 not in (extract_pos, derive_pos, db_load_pos, db_export_pos)
     assert extract_pos < derive_pos < db_load_pos < db_export_pos
     assert "/export-csv" not in flow_text
+
+
+def test_claude_md_is_lean_and_omits_recovery_detail() -> None:
+    text = _read(CLAUDE_MD)
+    assert "## Artifact Contract" not in text
+    assert "## Repository Layout" not in text
+    assert "## Historical Recovery" not in text
+    assert "v1-working-tree-2026-04-01" not in text
+    assert "commit `82a4966`" not in text
 
 
 def test_gitignore_supports_split_cross_os_envs_and_template() -> None:
