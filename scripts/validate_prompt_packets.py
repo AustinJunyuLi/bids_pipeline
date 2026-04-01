@@ -1,6 +1,6 @@
 """Deterministic validator for prompt packet artifacts.
 
-Loads ``data/skill/<slug>/prompt/manifest.json``, validates every packet
+Loads ``data/skill/<slug>/prompt_v2/manifest.json``, validates every packet
 through the ``PromptPacketManifest`` schema, opens each ``rendered.md`` file,
 and asserts that required XML-style section tags are present.
 
@@ -32,15 +32,13 @@ def validate_manifest(
     deal_slug: str,
     *,
     project_root: Path,
-    contract: str = "v1",
     expect_sections: bool = False,
 ) -> list[str]:
     """Validate prompt packet artifacts for *deal_slug*.
 
     Returns a list of error strings (empty means pass).
     """
-    prompt_dir = "prompt_v2" if contract == "v2" else "prompt"
-    manifest_path = project_root / "data" / "skill" / deal_slug / prompt_dir / "manifest.json"
+    manifest_path = project_root / "data" / "skill" / deal_slug / "prompt_v2" / "manifest.json"
     if not manifest_path.exists():
         return [f"Manifest not found: {manifest_path}"]
 
@@ -96,12 +94,6 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         help="Repository root directory.",
     )
     parser.add_argument(
-        "--contract",
-        choices=["v1", "v2"],
-        default="v1",
-        help="Prompt contract family to validate (default: v1).",
-    )
-    parser.add_argument(
         "--expect-sections",
         action="store_true",
         help="Assert required XML section tags in every rendered packet.",
@@ -114,7 +106,6 @@ def main(argv: list[str] | None = None) -> int:
     errors = validate_manifest(
         args.deal,
         project_root=args.project_root,
-        contract=args.contract,
         expect_sections=args.expect_sections,
     )
     if errors:

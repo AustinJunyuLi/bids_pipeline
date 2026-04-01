@@ -24,12 +24,6 @@ class StageStatus(StrEnum):
 class SkillPathSet(SkillModel):
     project_root: Path
     data_dir: Path
-    legacy_root: Path
-    legacy_v1_root: Path
-    legacy_v1_skill_root: Path
-    legacy_v1_skill_deal_root: Path
-    legacy_v1_manifest_path: Path
-    legacy_v1_database_path: Path
     database_path: Path
     deals_root: Path
     skill_data_root: Path
@@ -41,12 +35,6 @@ class SkillPathSet(SkillModel):
     evidence_items_path: Path
     document_registry_path: Path
     skill_root: Path
-    extract_dir: Path
-    check_dir: Path
-    verify_dir: Path
-    coverage_dir: Path
-    enrich_dir: Path
-    export_dir: Path
     extract_v2_dir: Path
     check_v2_dir: Path
     coverage_v2_dir: Path
@@ -54,36 +42,18 @@ class SkillPathSet(SkillModel):
     derive_dir: Path
     export_v2_dir: Path
     prompt_v2_dir: Path
-    actors_raw_path: Path
-    events_raw_path: Path
-    spans_path: Path
     observations_raw_path: Path
     observations_path: Path
     spans_v2_path: Path
-    check_report_path: Path
     check_v2_report_path: Path
-    verification_log_path: Path
-    verification_findings_path: Path
-    coverage_findings_path: Path
-    coverage_summary_path: Path
     coverage_v2_findings_path: Path
     coverage_v2_summary_path: Path
-    gates_dir: Path
-    gates_report_path: Path
     gates_v2_report_path: Path
-    enrichment_path: Path
-    deterministic_enrichment_path: Path
     derivations_path: Path
     derive_log_path: Path
-    deal_events_path: Path
     literal_observations_path: Path
     analyst_rows_path: Path
     benchmark_rows_expanded_path: Path
-    canonicalize_dir: Path
-    canonicalize_log_path: Path
-    prompt_dir: Path
-    prompt_packets_dir: Path
-    prompt_manifest_path: Path
     prompt_v2_packets_dir: Path
     prompt_v2_manifest_path: Path
 

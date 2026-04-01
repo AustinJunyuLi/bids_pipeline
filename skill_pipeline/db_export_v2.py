@@ -8,8 +8,8 @@ from pathlib import Path
 from typing import Any
 
 from skill_pipeline.config import PROJECT_ROOT
-from skill_pipeline.db_export import EVENT_TYPE_PRIORITY
 from skill_pipeline.db_schema import open_pipeline_db
+from skill_pipeline.export_order import EVENT_TYPE_PRIORITY
 from skill_pipeline.models_v2 import AnalystRowRecord
 from skill_pipeline.paths import build_skill_paths, ensure_output_directories
 
@@ -42,8 +42,11 @@ ANALYST_FIELDNAMES = [
     "value",
     "range_low",
     "range_high",
+    "enterprise_value",
+    "date_precision",
     "date_recorded",
     "date_public",
+    "date_sort_proxy",
     "all_cash",
     "rule_id",
     "source_observation_ids",
@@ -277,8 +280,11 @@ def _analyst_row_to_export_dict(
         "value": _format_decimal(row.value),
         "range_low": _format_decimal(row.range_low),
         "range_high": _format_decimal(row.range_high),
+        "enterprise_value": _format_decimal(row.enterprise_value),
+        "date_precision": row.date_precision or "NA",
         "date_recorded": _format_date(row.date_recorded),
         "date_public": _format_date(row.date_public),
+        "date_sort_proxy": _format_date(row.date_sort_proxy),
         "all_cash": _format_bool(row.all_cash),
         "rule_id": row.basis.rule_id,
         "source_observation_ids": _join_values(row.basis.source_observation_ids),

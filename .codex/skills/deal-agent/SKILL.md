@@ -18,16 +18,12 @@ Run the repository's live v2 observation-graph workflow end to end for one
 deal, from frozen filing text through `db-export-v2`.
 
 The goal is a clean, filing-grounded rerun that overwrites the current live v2
-outputs for `<slug>` while leaving `raw/<slug>/` and `data/legacy/v1/`
-untouched.
+outputs for `<slug>` while leaving `raw/<slug>/` untouched.
 
 ## When To Use
 
 Invoke as `/deal-agent <slug>` when you want the current deal rebuilt on the
 live v2 contract.
-
-Use `/deal-agent-legacy <slug>` only when you explicitly need the archived v1
-workflow.
 
 ## Benchmark Boundary
 
@@ -48,9 +44,7 @@ This workflow owns these live paths:
 - `data/skill/<slug>/derive/`
 - `data/skill/<slug>/export_v2/`
 - `data/pipeline.duckdb` via `v2_*` tables
-
-Archived v1 outputs belong under `data/legacy/v1/` and are out of scope for
-this skill.
+- historical v1 recovery through Git tag `v1-working-tree-2026-04-01`
 
 ## Procedure
 
@@ -66,8 +60,6 @@ this skill.
    - data/skill/<slug>/export_v2/
    Delete data/deals/<slug>/source/ so preprocess-source rebuilds cleanly.
    Do not touch raw/<slug>/.
-   Do not touch data/legacy/v1/.
-
 1. Confirm data/seeds.csv contains <slug>.
 
 2. Run `skill-pipeline raw-fetch --deal <slug>`.
@@ -76,7 +68,7 @@ this skill.
 3. Run `skill-pipeline preprocess-source --deal <slug>`.
    Gate: data/deals/<slug>/source/chronology_blocks.jsonl exists.
 
-4. Run `skill-pipeline compose-prompts --deal <slug> --contract v2 --mode observations`.
+4. Run `skill-pipeline compose-prompts --deal <slug> --mode observations`.
    Gate: data/skill/<slug>/prompt_v2/manifest.json exists and packet_count > 0.
 
 5. Run `/extract-deal-v2 <slug>`.
@@ -116,5 +108,5 @@ this skill.
 
 - `skill-pipeline deal-agent --deal <slug>` is only a summary/preflight CLI. It
   does not execute the workflow above.
-- `migrate-extract-v1-to-v2` is historical backfill support, not part of the
-  live rerun procedure.
+- The retired v1 runtime is recoverable through tag `v1-working-tree-2026-04-01`,
+  not through working-tree files.

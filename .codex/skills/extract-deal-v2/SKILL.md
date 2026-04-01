@@ -28,7 +28,7 @@ quote-first `observations_raw.json` payload containing:
 
 - Called by `/deal-agent <slug>` as the live default extraction step, or independently via `/extract-deal-v2 <slug>`.
 - Prerequisite: `skill-pipeline raw-fetch`, `skill-pipeline preprocess-source`,
-  and `skill-pipeline compose-prompts --deal <slug> --contract v2 --mode observations`
+  and `skill-pipeline compose-prompts --deal <slug> --mode observations`
   have already run.
 
 ## Benchmark Boundary
@@ -107,18 +107,26 @@ Subtype guidance:
   releases.
 - `agreement`
   Use for NDAs, standstills, exclusivity, merger agreements, amendments, clean
-  teams, or `other`.
+  teams, or `other`. Keep those agreement families distinct; do not collapse
+  exclusivity, standstill, clean-team, or amendment facts into plain `nda`.
 - `solicitation`
   Use for requests to submit IOIs, LOIs, binding offers, or best-and-final
-  bids. Populate `due_date` when the filing states a deadline.
+  bids. Populate `due_date` when the filing states a deadline, and populate
+  `recipient_refs` whenever the filing names invitees or a reusable cohort.
 - `proposal`
   Use for actual offers or price-bearing indications. Populate `terms` when the
-  economics are stated.
+  economics are stated. Set `requested_by_observation_id` only when the
+  proposal responds to a same-day-or-earlier solicitation; never point forward.
+  Preserve literal formality clues through `mentions_non_binding`,
+  `includes_draft_merger_agreement`, and `includes_markup` when the text
+  supports them.
 - `status`
   Use for expressed interest, withdrawal, exclusion, cannot-improve,
   selected-to-advance, limited-assets-only, and similar literal states.
 - `outcome`
-  Use for executed, terminated, restarted, or `other`.
+  Use for executed, terminated, restarted, or `other`. Include bidder or
+  bidder-cohort refs when the filing names the actor, and keep relative dates
+  anchored but non-exact.
 
 ### Filing-Literal Examples
 
@@ -145,7 +153,7 @@ Subtype guidance:
 
 Before handing off, validate the packet artifacts with:
 
-`python scripts/validate_prompt_packets.py --deal <slug> --contract v2 --expect-sections`
+`python scripts/validate_prompt_packets.py --deal <slug> --expect-sections`
 
 Then confirm the written JSON validates against the runtime schema by running:
 

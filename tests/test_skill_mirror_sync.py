@@ -73,40 +73,7 @@ def test_live_extract_skill_references_prompt_v2_manifest() -> None:
     skill_path = PROJECT_ROOT / ".claude" / "skills" / "extract-deal-v2" / "SKILL.md"
     text = skill_path.read_text(encoding="utf-8")
     assert "data/skill/<slug>/prompt_v2/manifest.json" in text
-    assert "/deal-agent <slug>" in text
-
-
-def test_legacy_extract_skill_references_prompt_manifest() -> None:
-    skill_path = PROJECT_ROOT / ".claude" / "skills" / "extract-deal" / "SKILL.md"
-    text = skill_path.read_text(encoding="utf-8")
-    assert "data/skill/<slug>/prompt/manifest.json" in text
-    assert "retired v1 extraction contract" in text
-
-
-def test_legacy_extract_skill_contains_round_milestone_guidance() -> None:
-    skill_path = PROJECT_ROOT / ".claude" / "skills" / "extract-deal" / "SKILL.md"
-    text = skill_path.read_text(encoding="utf-8")
-    assert "### Round Milestone Events" in text
-    assert "final_round_inf_ann" in text
-    assert "invited_actor_ids" in text
-    assert "evt_017" in text
-
-
-def test_legacy_extract_skill_contains_verbal_indication_guidance() -> None:
-    skill_path = PROJECT_ROOT / ".claude" / "skills" / "extract-deal" / "SKILL.md"
-    text = skill_path.read_text(encoding="utf-8")
-    assert "### Verbal/Oral Price Indications" in text
-    assert "evt_013" in text
-    assert "evt_005" in text
-
-
-def test_legacy_extract_skill_contains_nda_exclusion_guidance() -> None:
-    skill_path = PROJECT_ROOT / ".claude" / "skills" / "extract-deal" / "SKILL.md"
-    text = skill_path.read_text(encoding="utf-8")
-    assert "### NDA Exclusion Guidance" in text
-    assert "Rollover equity agreements" in text
-    assert "Bidder-bidder teaming agreements" in text
-    assert "Non-target diligence agreements" in text
+    assert "compose-prompts --deal <slug> --mode observations" in text
 
 
 def test_live_reconcile_skill_documents_v2_exports() -> None:
@@ -116,41 +83,30 @@ def test_live_reconcile_skill_documents_v2_exports() -> None:
     assert "skill-pipeline db-export-v2 --deal <slug>" in text
 
 
-def test_legacy_reconcile_skill_documents_split_enrichment_contract() -> None:
-    skill_path = PROJECT_ROOT / ".claude" / "skills" / "reconcile-alex-legacy" / "SKILL.md"
-    text = skill_path.read_text(encoding="utf-8")
-    assert "Deterministic enrichment baseline" in text
-    assert "Interpretive enrichment layer" in text
-
-
 def test_live_deal_agent_skill_documents_clean_rerun() -> None:
     skill_path = PROJECT_ROOT / ".claude" / "skills" / "deal-agent" / "SKILL.md"
     text = skill_path.read_text(encoding="utf-8")
     assert "clean v2 rerun" in text.lower()
     assert "db-export-v2" in text
     assert "overwrite" in text.lower()
+    assert "v1-working-tree-2026-04-01" in text
 
 
-def test_legacy_deal_agent_skill_marks_interpretive_enrichment_as_mandatory() -> None:
-    skill_path = PROJECT_ROOT / ".claude" / "skills" / "deal-agent-legacy" / "SKILL.md"
-    text = skill_path.read_text(encoding="utf-8")
-    assert "mandatory interpretive enrichment" in text
-
-
-def test_legacy_agents_skill_tree_is_absent() -> None:
-    legacy_tree = PROJECT_ROOT / ".agents" / "skills"
-    assert not legacy_tree.exists(), ".agents/skills should not exist in this repo"
-
-
-def test_live_and_legacy_skill_mirrors_match_canonical() -> None:
-    for skill_name in (
+def test_only_live_skill_tree_remains() -> None:
+    skill_names = sorted(path.name for path in (PROJECT_ROOT / ".claude" / "skills").iterdir() if path.is_dir())
+    assert skill_names == [
         "deal-agent",
-        "deal-agent-legacy",
-        "extract-deal",
         "extract-deal-v2",
         "reconcile-alex",
-        "reconcile-alex-legacy",
-        "verify-extraction",
+        "verify-extraction-v2",
+    ]
+
+
+def test_live_skill_mirrors_match_canonical() -> None:
+    for skill_name in (
+        "deal-agent",
+        "extract-deal-v2",
+        "reconcile-alex",
         "verify-extraction-v2",
     ):
         _assert_mirror_matches(skill_name)

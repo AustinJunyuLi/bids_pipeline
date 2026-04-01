@@ -7,29 +7,22 @@ from pathlib import Path
 from typing import Sequence
 from uuid import uuid4
 
-from skill_pipeline.canonicalize import run_canonicalize, run_canonicalize_v2
-from skill_pipeline.compose_prompts import run_compose_prompts
-from skill_pipeline.check import run_check
+from skill_pipeline.canonicalize import run_canonicalize_v2
 from skill_pipeline.check_v2 import run_check_v2
-from skill_pipeline.config import PROJECT_ROOT, RAW_DIR, SKILL_PIPELINE_VERSION
-from skill_pipeline.coverage import run_coverage
+from skill_pipeline.compose_prompts import run_compose_prompts
+from skill_pipeline.config import PROJECT_ROOT, SKILL_PIPELINE_VERSION
 from skill_pipeline.coverage_v2 import run_coverage_v2
-from skill_pipeline.deal_agent import run_deal_agent
 from skill_pipeline.db_export_v2 import run_db_export_v2
 from skill_pipeline.db_load_v2 import run_db_load_v2
+from skill_pipeline.deal_agent import run_deal_agent
 from skill_pipeline.derive import run_derive
-from skill_pipeline.enrich_core import run_enrich_core
-from skill_pipeline.gates import run_gates
 from skill_pipeline.gates_v2 import run_gates_v2
-from skill_pipeline.migrate_extract_v1_to_v2 import run_migrate_extract_v1_to_v2
 from skill_pipeline.pipeline_models.common import PIPELINE_VERSION
 from skill_pipeline.pipeline_models.source import SeedDeal
 from skill_pipeline.seeds import load_seed_entry
-from skill_pipeline.verify import run_verify
 
 
 def _seed_entry_to_seed_deal(entry, *, run_id: str) -> SeedDeal:
-    """Bridge a SeedEntry to a SeedDeal for use by raw/preprocess stages."""
     date_announced = None
     if entry.date_announced:
         try:
@@ -51,7 +44,7 @@ def _seed_entry_to_seed_deal(entry, *, run_id: str) -> SeedDeal:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="skill-pipeline",
-        description="Isolated skill-framework runtime CLI.",
+        description="Live v2 filing-grounded runtime CLI.",
     )
     parser.add_argument(
         "--version",
@@ -62,7 +55,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     deal_agent_parser = subparsers.add_parser(
         "deal-agent",
-        help="Verify shared inputs, create isolated skill directories, and summarize skill artifacts.",
+        help="Verify shared inputs, create live v2 output directories, and summarize stage artifacts.",
     )
     deal_agent_parser.add_argument("--deal", required=True)
     deal_agent_parser.add_argument(
@@ -108,12 +101,12 @@ def build_parser() -> argparse.ArgumentParser:
         help=argparse.SUPPRESS,
     )
 
-    check_parser = subparsers.add_parser(
-        "check",
-        help="Run structural checks on extracted skill artifacts.",
+    canonicalize_v2_parser = subparsers.add_parser(
+        "canonicalize-v2",
+        help="Resolve quote-first v2 observation artifacts to canonical spans.",
     )
-    check_parser.add_argument("--deal", required=True)
-    check_parser.add_argument(
+    canonicalize_v2_parser.add_argument("--deal", required=True)
+    canonicalize_v2_parser.add_argument(
         "--project-root",
         type=Path,
         default=PROJECT_ROOT,
@@ -132,30 +125,6 @@ def build_parser() -> argparse.ArgumentParser:
         help=argparse.SUPPRESS,
     )
 
-    verify_parser = subparsers.add_parser(
-        "verify",
-        help="Run strict deterministic verification on extracted skill artifacts.",
-    )
-    verify_parser.add_argument("--deal", required=True)
-    verify_parser.add_argument(
-        "--project-root",
-        type=Path,
-        default=PROJECT_ROOT,
-        help=argparse.SUPPRESS,
-    )
-
-    coverage_parser = subparsers.add_parser(
-        "coverage",
-        help="Run deterministic source-coverage audit on extracted skill artifacts.",
-    )
-    coverage_parser.add_argument("--deal", required=True)
-    coverage_parser.add_argument(
-        "--project-root",
-        type=Path,
-        default=PROJECT_ROOT,
-        help=argparse.SUPPRESS,
-    )
-
     coverage_v2_parser = subparsers.add_parser(
         "coverage-v2",
         help="Run deterministic source coverage on canonical v2 observation artifacts.",
@@ -168,60 +137,24 @@ def build_parser() -> argparse.ArgumentParser:
         help=argparse.SUPPRESS,
     )
 
-    enrich_core_parser = subparsers.add_parser(
-        "enrich-core",
-        help="Run deterministic enrich-core: rounds, bid classification, cycles, formal boundary.",
+    gates_v2_parser = subparsers.add_parser(
+        "gates-v2",
+        help="Run semantic gates on canonical v2 observation artifacts.",
     )
-    enrich_core_parser.add_argument("--deal", required=True)
-    enrich_core_parser.add_argument(
+    gates_v2_parser.add_argument("--deal", required=True)
+    gates_v2_parser.add_argument(
         "--project-root",
         type=Path,
         default=PROJECT_ROOT,
         help=argparse.SUPPRESS,
     )
 
-    canonicalize_parser = subparsers.add_parser(
-        "canonicalize",
-        help="Deduplicate events, gate drops by NDA, recover unnamed parties.",
+    derive_parser = subparsers.add_parser(
+        "derive",
+        help="Run deterministic derivation on canonical v2 observation artifacts.",
     )
-    canonicalize_parser.add_argument("--deal", required=True)
-    canonicalize_parser.add_argument(
-        "--project-root",
-        type=Path,
-        default=PROJECT_ROOT,
-        help=argparse.SUPPRESS,
-    )
-
-    canonicalize_v2_parser = subparsers.add_parser(
-        "canonicalize-v2",
-        help="Resolve quote-first v2 observation artifacts to canonical spans.",
-    )
-    canonicalize_v2_parser.add_argument("--deal", required=True)
-    canonicalize_v2_parser.add_argument(
-        "--project-root",
-        type=Path,
-        default=PROJECT_ROOT,
-        help=argparse.SUPPRESS,
-    )
-
-    db_load_parser = subparsers.add_parser(
-        "db-load",
-        help="Load canonical extract and enrichment artifacts into the pipeline DuckDB store.",
-    )
-    db_load_parser.add_argument("--deal", required=True)
-    db_load_parser.add_argument(
-        "--project-root",
-        type=Path,
-        default=PROJECT_ROOT,
-        help=argparse.SUPPRESS,
-    )
-
-    db_export_parser = subparsers.add_parser(
-        "db-export",
-        help="Export review CSV rows from the pipeline DuckDB store.",
-    )
-    db_export_parser.add_argument("--deal", required=True)
-    db_export_parser.add_argument(
+    derive_parser.add_argument("--deal", required=True)
+    derive_parser.add_argument(
         "--project-root",
         type=Path,
         default=PROJECT_ROOT,
@@ -252,46 +185,16 @@ def build_parser() -> argparse.ArgumentParser:
         help=argparse.SUPPRESS,
     )
 
-    derive_parser = subparsers.add_parser(
-        "derive",
-        help="Run deterministic derivation on canonical v2 observation artifacts.",
-    )
-    derive_parser.add_argument("--deal", required=True)
-    derive_parser.add_argument(
-        "--project-root",
-        type=Path,
-        default=PROJECT_ROOT,
-        help=argparse.SUPPRESS,
-    )
-
-    migrate_extract_v2_parser = subparsers.add_parser(
-        "migrate-extract-v1-to-v2",
-        help="Bootstrap quote-first v2 observation artifacts from canonical v1 extracts.",
-    )
-    migrate_extract_v2_parser.add_argument("--deal", required=True)
-    migrate_extract_v2_parser.add_argument(
-        "--project-root",
-        type=Path,
-        default=PROJECT_ROOT,
-        help=argparse.SUPPRESS,
-    )
-
     compose_prompts_parser = subparsers.add_parser(
         "compose-prompts",
-        help="Compose deterministic prompt packets from source artifacts.",
+        help="Compose deterministic v2 observation prompt packets from source artifacts.",
     )
     compose_prompts_parser.add_argument("--deal", required=True)
     compose_prompts_parser.add_argument(
         "--mode",
-        choices=["actors", "events", "all", "observations"],
-        default="all",
-        help="Which packet families to compose (default: all).",
-    )
-    compose_prompts_parser.add_argument(
-        "--contract",
-        choices=["v1", "v2"],
-        default="v1",
-        help="Prompt contract family to compose (default: v1).",
+        choices=["observations"],
+        default="observations",
+        help="Packet family to compose (default: observations).",
     )
     compose_prompts_parser.add_argument(
         "--chunk-budget",
@@ -306,30 +209,6 @@ def build_parser() -> argparse.ArgumentParser:
         help="Complexity routing mode (default: auto).",
     )
     compose_prompts_parser.add_argument(
-        "--project-root",
-        type=Path,
-        default=PROJECT_ROOT,
-        help=argparse.SUPPRESS,
-    )
-
-    gates_parser = subparsers.add_parser(
-        "gates",
-        help="Run semantic gates on extracted skill artifacts.",
-    )
-    gates_parser.add_argument("--deal", required=True)
-    gates_parser.add_argument(
-        "--project-root",
-        type=Path,
-        default=PROJECT_ROOT,
-        help=argparse.SUPPRESS,
-    )
-
-    gates_v2_parser = subparsers.add_parser(
-        "gates-v2",
-        help="Run semantic gates on canonical v2 observation artifacts.",
-    )
-    gates_v2_parser.add_argument("--deal", required=True)
-    gates_v2_parser.add_argument(
         "--project-root",
         type=Path,
         default=PROJECT_ROOT,
@@ -383,48 +262,25 @@ def main(argv: Sequence[str] | None = None) -> int:
         )
         print(discovery.model_dump_json(indent=2))
         return 0
-    if args.command == "check":
-        return run_check(args.deal, project_root=args.project_root)
-    if args.command == "check-v2":
-        return run_check_v2(args.deal, project_root=args.project_root)
-    if args.command == "verify":
-        return run_verify(args.deal, project_root=args.project_root)
-    if args.command == "coverage":
-        return run_coverage(args.deal, project_root=args.project_root)
-    if args.command == "coverage-v2":
-        return run_coverage_v2(args.deal, project_root=args.project_root)
-    if args.command == "gates":
-        return run_gates(args.deal, project_root=args.project_root)
-    if args.command == "gates-v2":
-        return run_gates_v2(args.deal, project_root=args.project_root)
-    if args.command == "enrich-core":
-        return run_enrich_core(args.deal, project_root=args.project_root)
-    if args.command == "canonicalize":
-        return run_canonicalize(args.deal, project_root=args.project_root)
     if args.command == "canonicalize-v2":
         return run_canonicalize_v2(args.deal, project_root=args.project_root)
-    if args.command == "db-load":
-        from skill_pipeline.db_load import run_db_load
-
-        return run_db_load(args.deal, project_root=args.project_root)
-    if args.command == "db-export":
-        from skill_pipeline.db_export import run_db_export
-
-        return run_db_export(args.deal, project_root=args.project_root)
+    if args.command == "check-v2":
+        return run_check_v2(args.deal, project_root=args.project_root)
+    if args.command == "coverage-v2":
+        return run_coverage_v2(args.deal, project_root=args.project_root)
+    if args.command == "gates-v2":
+        return run_gates_v2(args.deal, project_root=args.project_root)
+    if args.command == "derive":
+        return run_derive(args.deal, project_root=args.project_root)
     if args.command == "db-load-v2":
         return run_db_load_v2(args.deal, project_root=args.project_root)
     if args.command == "db-export-v2":
         return run_db_export_v2(args.deal, project_root=args.project_root)
-    if args.command == "derive":
-        return run_derive(args.deal, project_root=args.project_root)
-    if args.command == "migrate-extract-v1-to-v2":
-        return run_migrate_extract_v1_to_v2(args.deal, project_root=args.project_root)
     if args.command == "compose-prompts":
         manifest = run_compose_prompts(
             args.deal,
             project_root=args.project_root,
             mode=args.mode,
-            contract=args.contract,
             chunk_budget=args.chunk_budget,
             routing=args.routing,
         )

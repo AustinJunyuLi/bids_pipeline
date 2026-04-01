@@ -73,6 +73,12 @@ After canonicalization / validation:
 - Every `requested_by_observation_id`, `revises_observation_id`,
   `supersedes_observation_id`, and `related_observation_id` must resolve to a
   real observation.
+- `requested_by_observation_id` must only point to a same-day-or-earlier
+  solicitation; never repair by pointing a proposal forward to a later request.
+- Solicitation summaries that name invitees or a reusable cohort should not
+  leave `recipient_refs` empty.
+- Executed or restarted outcomes that name a buyer should carry bidder or
+  bidder-cohort refs.
 - Every cohort `created_by_observation_id` must resolve to a real observation.
 
 ### Literal-Only Boundary
@@ -80,6 +86,8 @@ After canonicalization / validation:
 - Do not add analyst rows.
 - Do not convert ambiguous text into derived judgments.
 - Use `other_detail` when the filing is literal but the enum is too narrow.
+- Preserve non-exact date precision; do not turn proxy or relative timing into
+  an exact day unless the filing provides an explicit anchor.
 
 ## Repair Loop
 

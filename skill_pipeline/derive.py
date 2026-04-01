@@ -55,8 +55,27 @@ ROUND_EVENT_TYPES = {
     "formal": ("final_round_ann", "final_round"),
     "extension": ("final_round_ext_ann", "final_round_ext"),
 }
+AGREEMENT_EVENT_TYPES = {
+    "nda": "nda",
+    "amendment": "nda_amendment",
+    "standstill": "standstill",
+    "exclusivity": "exclusivity",
+    "clean_team": "clean_team",
+}
 LITERAL_EXIT_KINDS = frozenset(
     {"withdrew", "not_interested", "cannot_proceed", "limited_assets_only", "excluded"}
+)
+STRONG_FORMAL_PROPOSAL_PHRASES = (
+    "definitive proposal",
+    "final proposal",
+    "best and final",
+    "best-and-final",
+)
+INFORMAL_PROPOSAL_PHRASES = (
+    "indication of interest",
+    "preliminary",
+    "non-binding",
+    "non binding",
 )
 
 
@@ -126,7 +145,18 @@ def _date_fields(value) -> tuple[date | None, date | None]:
         return None, None
     if getattr(value, "precision", None) == "exact_day":
         return recorded, recorded
-    return recorded, None
+    return None, None
+
+
+def _date_metadata(value) -> tuple[str | None, date | None]:
+    if value is None:
+        return None, None
+    precision = getattr(value, "precision", None)
+    if hasattr(precision, "value"):
+        precision = precision.value
+    if precision == "exact_day":
+        return precision, None
+    return precision, _date_value(value)
 
 
 def _basis(
@@ -290,9 +320,30 @@ def _build_phase_index(phases: list[ProcessPhaseRecord]) -> dict[str, ProcessPha
     return {phase.start_observation_id: phase for phase in phases}
 
 
+def _trusted_requested_phase_for_proposal(
+    observation: ProposalObservation,
+    phases: list[ProcessPhaseRecord],
+    artifacts,
+) -> ProcessPhaseRecord | None:
+    if not observation.requested_by_observation_id:
+        return None
+    linked_observation = artifacts.observation_index.get(observation.requested_by_observation_id)
+    if not isinstance(linked_observation, SolicitationObservation):
+        return None
+    proposal_date = _date_value(observation.date)
+    solicitation_date = _date_value(linked_observation.date)
+    if (
+        proposal_date is not None
+        and solicitation_date is not None
+        and solicitation_date > proposal_date
+    ):
+        return None
+    return _build_phase_index(phases).get(linked_observation.observation_id)
+
+
 def _latest_phase_for_observation(observation, phases: list[ProcessPhaseRecord], artifacts) -> ProcessPhaseRecord | None:
-    if isinstance(observation, ProposalObservation) and observation.requested_by_observation_id:
-        phase = _build_phase_index(phases).get(observation.requested_by_observation_id)
+    if isinstance(observation, ProposalObservation):
+        phase = _trusted_requested_phase_for_proposal(observation, phases, artifacts)
         if phase is not None:
             return phase
 
@@ -475,6 +526,7 @@ def _build_transition(
     reason_kind: str,
     subject_ref: str,
     subject_count: int,
+    event_date=None,
     from_state: str,
     source_observation_ids: list[str],
     source_span_ids: list[str],
@@ -485,6 +537,7 @@ def _build_transition(
         transition_id=f"{rule_id.lower()}_{subject_ref}_{source_key}",
         subject_ref=subject_ref,
         subject_count=subject_count,
+        event_date=event_date,
         from_state=from_state,
         to_state="inactive",
         reason_kind=reason_kind,
@@ -495,6 +548,61 @@ def _build_transition(
             explanation=explanation,
         ),
     )
+
+
+def _record_last_active_support(
+    store: dict[str, tuple[Any, str, list[str]]],
+    subject_refs: list[str],
+    event_date,
+    observation_id: str,
+    evidence_span_ids: list[str],
+) -> None:
+    candidate_date = _date_value(event_date)
+    if candidate_date is None:
+        return
+    for subject_ref in subject_refs:
+        existing = store.get(subject_ref)
+        if existing is not None and _date_value(existing[0]) is not None and _date_value(existing[0]) > candidate_date:
+            continue
+        store[subject_ref] = (event_date, observation_id, list(evidence_span_ids))
+
+
+def _select_transition_date(
+    *,
+    default_date,
+    default_observation_id: str,
+    default_span_ids: list[str],
+    preferred_date=None,
+    preferred_observation_id: str | None = None,
+    preferred_span_ids: list[str] | None = None,
+    bounded_by: date | None = None,
+    floor_candidate: tuple[Any, str, list[str]] | None = None,
+) -> tuple[Any, list[str], list[str]]:
+    chosen_date = default_date
+    chosen_observation_ids = [default_observation_id]
+    chosen_span_ids = list(default_span_ids)
+
+    preferred_sort = _date_value(preferred_date)
+    if preferred_sort is not None and (bounded_by is None or preferred_sort <= bounded_by):
+        chosen_date = preferred_date
+        if preferred_observation_id is not None:
+            chosen_observation_ids = [preferred_observation_id]
+        if preferred_span_ids is not None:
+            chosen_span_ids = list(preferred_span_ids)
+
+    if floor_candidate is None:
+        return chosen_date, chosen_observation_ids, chosen_span_ids
+
+    floor_date, floor_observation_id, floor_span_ids = floor_candidate
+    floor_sort = _date_value(floor_date)
+    chosen_sort = _date_value(chosen_date)
+    if floor_sort is None:
+        return chosen_date, chosen_observation_ids, chosen_span_ids
+    if bounded_by is not None and floor_sort > bounded_by:
+        return chosen_date, chosen_observation_ids, chosen_span_ids
+    if chosen_sort is None or floor_sort > chosen_sort:
+        return floor_date, [floor_observation_id], list(floor_span_ids)
+    return chosen_date, chosen_observation_ids, chosen_span_ids
 
 
 def _derive_transitions(
@@ -511,21 +619,49 @@ def _derive_transitions(
     active_refs: set[str] = set()
     prior_proposals: set[str] = set()
     terminal_exit_refs: set[str] = set()
+    last_active_support: dict[str, tuple[Any, str, list[str]]] = {}
+    last_round_exit: tuple[Any, str, list[str]] | None = None
     transitions: list[LifecycleTransitionRecord] = []
     judgment_list = list(judgments)
 
     for observation in ordered:
         if isinstance(observation, SolicitationObservation):
             active_refs.update(observation.recipient_refs)
+            _record_last_active_support(
+                last_active_support,
+                observation.recipient_refs,
+                observation.date,
+                observation.observation_id,
+                list(observation.evidence_span_ids),
+            )
+            last_round_exit = (
+                observation.due_date or observation.date,
+                observation.observation_id,
+                list(observation.evidence_span_ids),
+            )
             continue
 
         if isinstance(observation, ProposalObservation):
             active_refs.update(observation.subject_refs)
             prior_proposals.update(observation.subject_refs)
+            _record_last_active_support(
+                last_active_support,
+                observation.subject_refs,
+                observation.date,
+                observation.observation_id,
+                list(observation.evidence_span_ids),
+            )
             continue
 
         if isinstance(observation, AgreementObservation) and observation.agreement_kind == "nda":
             active_refs.update(observation.subject_refs)
+            _record_last_active_support(
+                last_active_support,
+                observation.subject_refs,
+                observation.date,
+                observation.observation_id,
+                list(observation.evidence_span_ids),
+            )
             continue
 
         if isinstance(observation, StatusObservation):
@@ -537,6 +673,7 @@ def _derive_transitions(
                             reason_kind="literal",
                             subject_ref=subject_ref,
                             subject_count=_subject_count(subject_ref, artifacts),
+                            event_date=observation.date,
                             from_state=_from_state(subject_ref, prior_proposals, active_refs),
                             source_observation_ids=[observation.observation_id],
                             source_span_ids=list(observation.evidence_span_ids),
@@ -572,6 +709,7 @@ def _derive_transitions(
                             reason_kind="cannot_improve",
                             subject_ref=subject_ref,
                             subject_count=_subject_count(subject_ref, artifacts),
+                            event_date=observation.date,
                             from_state=_from_state(subject_ref, prior_proposals, active_refs),
                             source_observation_ids=[observation.observation_id],
                             source_span_ids=list(observation.evidence_span_ids),
@@ -584,6 +722,7 @@ def _derive_transitions(
 
             if observation.status_kind == "selected_to_advance":
                 pool_refs = set(active_refs)
+                related_observation = None
                 if observation.related_observation_id:
                     related_phase = phase_by_start.get(observation.related_observation_id)
                     if related_phase is not None:
@@ -591,33 +730,67 @@ def _derive_transitions(
                     related_observation = artifacts.observation_index.get(observation.related_observation_id)
                     if isinstance(related_observation, SolicitationObservation):
                         pool_refs.update(related_observation.recipient_refs)
+                selection_date = _date_value(observation.date)
                 selected_refs = set(observation.subject_refs)
                 for subject_ref in sorted(ref for ref in pool_refs if ref not in selected_refs):
                     if _selected_ref_within_cohort(subject_ref, selected_refs, artifacts):
                         continue
+                    preferred_date = None
+                    preferred_observation_id = None
+                    preferred_span_ids = None
+                    if isinstance(related_observation, SolicitationObservation):
+                        preferred_date = related_observation.due_date
+                        preferred_observation_id = related_observation.observation_id
+                        preferred_span_ids = list(related_observation.evidence_span_ids)
+                    transition_date, source_observation_ids, source_span_ids = _select_transition_date(
+                        default_date=observation.date,
+                        default_observation_id=observation.observation_id,
+                        default_span_ids=list(observation.evidence_span_ids),
+                        preferred_date=preferred_date,
+                        preferred_observation_id=preferred_observation_id,
+                        preferred_span_ids=preferred_span_ids,
+                        bounded_by=selection_date,
+                        floor_candidate=last_active_support.get(subject_ref),
+                    )
                     transitions.append(
                         _build_transition(
                             rule_id="EXIT-03",
                             reason_kind="not_invited",
                             subject_ref=subject_ref,
                             subject_count=_subject_count(subject_ref, artifacts),
+                            event_date=transition_date,
                             from_state=_from_state(subject_ref, prior_proposals, active_refs),
-                            source_observation_ids=[observation.observation_id],
-                            source_span_ids=list(observation.evidence_span_ids),
+                            source_observation_ids=source_observation_ids,
+                            source_span_ids=source_span_ids,
                             explanation="Selected-to-advance observation omitted an otherwise active subject.",
                         )
                     )
                     active_refs.discard(subject_ref)
+                    terminal_exit_refs.add(subject_ref)
                 active_refs.update(selected_refs)
+                _record_last_active_support(
+                    last_active_support,
+                    observation.subject_refs,
+                    observation.date,
+                    observation.observation_id,
+                    list(observation.evidence_span_ids),
+                )
+                last_round_exit = (
+                    observation.date,
+                    observation.observation_id,
+                    list(observation.evidence_span_ids),
+                )
                 continue
 
         if isinstance(observation, OutcomeObservation):
             if observation.outcome_kind == "restarted":
                 active_refs.clear()
                 prior_proposals.clear()
+                last_round_exit = None
                 continue
 
             if observation.outcome_kind == "executed":
+                execution_date = _date_value(observation.date)
                 winner_ref = next(
                     (
                         ref
@@ -638,15 +811,26 @@ def _derive_transitions(
                 if winner_ref is not None:
                     losing_refs = (active_refs | prior_proposals) - {winner_ref} - terminal_exit_refs
                     for subject_ref in sorted(losing_refs):
+                        transition_date, source_observation_ids, source_span_ids = _select_transition_date(
+                            default_date=observation.date,
+                            default_observation_id=observation.observation_id,
+                            default_span_ids=list(observation.evidence_span_ids),
+                            preferred_date=last_round_exit[0] if last_round_exit is not None else None,
+                            preferred_observation_id=last_round_exit[1] if last_round_exit is not None else None,
+                            preferred_span_ids=last_round_exit[2] if last_round_exit is not None else None,
+                            bounded_by=execution_date,
+                            floor_candidate=last_active_support.get(subject_ref),
+                        )
                         transitions.append(
                             _build_transition(
                                 rule_id="EXIT-04",
                                 reason_kind="lost_to_winner",
                                 subject_ref=subject_ref,
                                 subject_count=_subject_count(subject_ref, artifacts),
+                                event_date=transition_date,
                                 from_state=_from_state(subject_ref, prior_proposals, active_refs),
-                                source_observation_ids=[observation.observation_id],
-                                source_span_ids=list(observation.evidence_span_ids),
+                                source_observation_ids=source_observation_ids,
+                                source_span_ids=source_span_ids,
                                 explanation="Execution outcome closed out remaining active bidders in favor of the winner.",
                             )
                         )
@@ -655,6 +839,7 @@ def _derive_transitions(
 
             if observation.outcome_kind == "terminated":
                 active_refs.clear()
+                last_round_exit = None
 
     return transitions, judgment_list
 
@@ -702,6 +887,46 @@ def _subject_bidder_type(subject_ref: str | None, artifacts) -> str | None:
     return None
 
 
+def _preferred_outcome_subject_ref(observation: OutcomeObservation, artifacts) -> str | None:
+    bidder_like_refs = [
+        ref
+        for ref in observation.counterparty_refs + observation.subject_refs
+        if ref in artifacts.party_index and artifacts.party_index[ref].role == "bidder"
+    ]
+    if bidder_like_refs:
+        return bidder_like_refs[0]
+    cohort_refs = [
+        ref
+        for ref in observation.counterparty_refs + observation.subject_refs
+        if ref in artifacts.cohort_index
+    ]
+    if cohort_refs:
+        return cohort_refs[0]
+    return next(
+        (
+            ref
+            for ref in observation.counterparty_refs + observation.subject_refs
+            if ref in artifacts.party_index or ref in artifacts.cohort_index
+        ),
+        None,
+    )
+
+
+def _outcome_row_date(observation: OutcomeObservation, artifacts):
+    if observation.date is not None:
+        return observation.date
+    if not observation.related_observation_id:
+        return None
+    related_observation = artifacts.observation_index.get(observation.related_observation_id)
+    if not isinstance(related_observation, AgreementObservation):
+        return None
+    if related_observation.agreement_kind != "merger_agreement":
+        return None
+    if getattr(related_observation.date, "precision", None) != "exact_day":
+        return None
+    return related_observation.date
+
+
 def _origin(subject_ref: str | None, *, derived: bool, artifacts) -> str:
     if subject_ref is not None and subject_ref in artifacts.cohort_index:
         return "synthetic_anonymous"
@@ -725,6 +950,32 @@ def _phase_bid_type(phase_kind: str) -> str | None:
     return "Uncertain"
 
 
+def _contains_phrase(text: str, phrases: tuple[str, ...]) -> bool:
+    return any(phrase in text for phrase in phrases)
+
+
+def _proposal_bid_type(
+    observation: ProposalObservation,
+    phase: ProcessPhaseRecord | None,
+) -> str:
+    summary_text = observation.summary.lower()
+    if observation.includes_draft_merger_agreement or observation.includes_markup:
+        return "Formal"
+
+    explicit_informal = bool(observation.mentions_non_binding) or _contains_phrase(
+        summary_text, INFORMAL_PROPOSAL_PHRASES
+    )
+    if explicit_informal:
+        return "Informal"
+
+    if _contains_phrase(summary_text, STRONG_FORMAL_PROPOSAL_PHRASES):
+        return "Formal"
+
+    if phase is not None:
+        return _phase_bid_type(phase.phase_kind)
+    return "Uncertain"
+
+
 def _phase_cash_map(cash_regimes: list[CashRegimeRecord]) -> dict[str, bool | None]:
     result: dict[str, bool | None] = {}
     for regime in cash_regimes:
@@ -745,12 +996,13 @@ def _compile_literal_rows(artifacts, phases: list[ProcessPhaseRecord], cash_regi
         return []
     rows: list[AnalystRowRecord] = []
     phase_cash = _phase_cash_map(cash_regimes)
-    phase_by_start = _build_phase_index(phases)
 
     for observation in _sorted_observations(observations.observations):
         if isinstance(observation, ProcessObservation):
             if observation.process_kind == "advisor_retention":
                 event_type = "ib_retention"
+            elif observation.process_kind == "advisor_termination":
+                event_type = "ib_terminated"
             else:
                 scope = observation.process_scope or "other"
                 event_type = PROCESS_EVENT_TYPES.get(observation.process_kind, {}).get(scope)
@@ -759,6 +1011,7 @@ def _compile_literal_rows(artifacts, phases: list[ProcessPhaseRecord], cash_regi
             subjects = observation.subject_refs or [None]
             for subject_ref in subjects:
                 recorded, public = _date_fields(observation.date)
+                precision, proxy = _date_metadata(observation.date)
                 _append_row(
                     rows,
                     origin=_origin(subject_ref, derived=False, artifacts=artifacts),
@@ -767,8 +1020,10 @@ def _compile_literal_rows(artifacts, phases: list[ProcessPhaseRecord], cash_regi
                     row_count=_subject_count(subject_ref, artifacts),
                     bidder_name=_subject_name(subject_ref, artifacts),
                     bidder_type=_subject_bidder_type(subject_ref, artifacts),
+                    date_precision=precision,
                     date_recorded=recorded,
                     date_public=public,
+                    date_sort_proxy=proxy,
                     basis=_basis(
                         rule_id="LITERAL-PROCESS",
                         source_observation_ids=[observation.observation_id],
@@ -782,6 +1037,7 @@ def _compile_literal_rows(artifacts, phases: list[ProcessPhaseRecord], cash_regi
             subjects = observation.subject_refs or [None]
             for subject_ref in subjects:
                 recorded, public = _date_fields(observation.date)
+                precision, proxy = _date_metadata(observation.date)
                 _append_row(
                     rows,
                     origin=_origin(subject_ref, derived=False, artifacts=artifacts),
@@ -790,8 +1046,10 @@ def _compile_literal_rows(artifacts, phases: list[ProcessPhaseRecord], cash_regi
                     row_count=_subject_count(subject_ref, artifacts),
                     bidder_name=_subject_name(subject_ref, artifacts),
                     bidder_type=_subject_bidder_type(subject_ref, artifacts),
+                    date_precision=precision,
                     date_recorded=recorded,
                     date_public=public,
+                    date_sort_proxy=proxy,
                     basis=_basis(
                         rule_id="LITERAL-STATUS",
                         source_observation_ids=[observation.observation_id],
@@ -802,24 +1060,28 @@ def _compile_literal_rows(artifacts, phases: list[ProcessPhaseRecord], cash_regi
             continue
 
         if isinstance(observation, AgreementObservation):
-            if observation.agreement_kind not in {"nda", "amendment", "standstill", "exclusivity", "clean_team"}:
+            event_type = AGREEMENT_EVENT_TYPES.get(observation.agreement_kind)
+            if event_type is None:
                 continue
             subjects = observation.subject_refs or [None]
             for subject_ref in subjects:
                 recorded, public = _date_fields(observation.date)
+                precision, proxy = _date_metadata(observation.date)
                 review_flags = []
                 if observation.supersedes_observation_id:
                     review_flags.append(f"supersedes:{observation.supersedes_observation_id}")
                 _append_row(
                     rows,
                     origin=_origin(subject_ref, derived=False, artifacts=artifacts),
-                    analyst_event_type="nda",
+                    analyst_event_type=event_type,
                     subject_ref=subject_ref,
                     row_count=_subject_count(subject_ref, artifacts),
                     bidder_name=_subject_name(subject_ref, artifacts),
                     bidder_type=_subject_bidder_type(subject_ref, artifacts),
+                    date_precision=precision,
                     date_recorded=recorded,
                     date_public=public,
+                    date_sort_proxy=proxy,
                     review_flags=review_flags,
                     basis=_basis(
                         rule_id="AGREEMENT-01" if observation.supersedes_observation_id else "LITERAL-AGREEMENT",
@@ -831,18 +1093,17 @@ def _compile_literal_rows(artifacts, phases: list[ProcessPhaseRecord], cash_regi
             continue
 
         if isinstance(observation, ProposalObservation):
-            phase = phase_by_start.get(observation.requested_by_observation_id or "")
-            if phase is None:
-                phase = _latest_phase_for_observation(observation, phases, artifacts)
+            phase = _latest_phase_for_observation(observation, phases, artifacts)
             proposal_cash = None
             if observation.terms is not None and observation.terms.consideration_type is not None:
                 proposal_cash = observation.terms.consideration_type == "cash"
             elif phase is not None:
                 proposal_cash = phase_cash.get(phase.phase_id)
-            bid_type = _phase_bid_type(phase.phase_kind) if phase is not None else "Uncertain"
+            bid_type = _proposal_bid_type(observation, phase)
             subjects = observation.subject_refs or [None]
             for subject_ref in subjects:
                 recorded, public = _date_fields(observation.date)
+                precision, proxy = _date_metadata(observation.date)
                 _append_row(
                     rows,
                     origin=_origin(subject_ref, derived=False, artifacts=artifacts),
@@ -855,8 +1116,11 @@ def _compile_literal_rows(artifacts, phases: list[ProcessPhaseRecord], cash_regi
                     value=observation.terms.per_share if observation.terms else None,
                     range_low=observation.terms.range_low if observation.terms else None,
                     range_high=observation.terms.range_high if observation.terms else None,
+                    enterprise_value=observation.terms.enterprise_value if observation.terms else None,
+                    date_precision=precision,
                     date_recorded=recorded,
                     date_public=public,
+                    date_sort_proxy=proxy,
                     all_cash=proposal_cash,
                     basis=_basis(
                         rule_id="LITERAL-PROPOSAL",
@@ -870,15 +1134,10 @@ def _compile_literal_rows(artifacts, phases: list[ProcessPhaseRecord], cash_regi
         if isinstance(observation, OutcomeObservation):
             if observation.outcome_kind not in {"executed", "terminated", "restarted"}:
                 continue
-            subject_ref = next(
-                (
-                    ref
-                    for ref in observation.counterparty_refs + observation.subject_refs
-                    if ref in artifacts.party_index or ref in artifacts.cohort_index
-                ),
-                None,
-            )
-            recorded, public = _date_fields(observation.date)
+            subject_ref = _preferred_outcome_subject_ref(observation, artifacts)
+            outcome_date = _outcome_row_date(observation, artifacts)
+            recorded, public = _date_fields(outcome_date)
+            precision, proxy = _date_metadata(outcome_date)
             _append_row(
                 rows,
                 origin=_origin(subject_ref, derived=False, artifacts=artifacts),
@@ -887,8 +1146,10 @@ def _compile_literal_rows(artifacts, phases: list[ProcessPhaseRecord], cash_regi
                 row_count=_subject_count(subject_ref, artifacts),
                 bidder_name=_subject_name(subject_ref, artifacts),
                 bidder_type=_subject_bidder_type(subject_ref, artifacts),
+                date_precision=precision,
                 date_recorded=recorded,
                 date_public=public,
+                date_sort_proxy=proxy,
                 basis=_basis(
                     rule_id="LITERAL-OUTCOME",
                     source_observation_ids=[observation.observation_id],
@@ -913,6 +1174,7 @@ def _compile_phase_rows(artifacts, phases: list[ProcessPhaseRecord], cash_regime
         participants = phase.participant_refs or [None]
         for subject_ref in participants:
             recorded, public = _date_fields(source.date)
+            precision, proxy = _date_metadata(source.date)
             _append_row(
                 rows,
                 origin=_origin(subject_ref, derived=True, artifacts=artifacts),
@@ -922,14 +1184,18 @@ def _compile_phase_rows(artifacts, phases: list[ProcessPhaseRecord], cash_regime
                 bidder_name=_subject_name(subject_ref, artifacts),
                 bidder_type=_subject_bidder_type(subject_ref, artifacts),
                 bid_type=_phase_bid_type(phase.phase_kind),
+                date_precision=precision,
                 date_recorded=recorded,
                 date_public=public,
+                date_sort_proxy=proxy,
                 all_cash=phase_cash.get(phase.phase_id),
                 basis=phase.basis,
             )
             due_recorded, due_public = _date_fields(source.due_date)
+            due_precision, due_proxy = _date_metadata(source.due_date)
             if due_recorded is None:
-                continue
+                if due_proxy is None:
+                    continue
             _append_row(
                 rows,
                 origin=_origin(subject_ref, derived=True, artifacts=artifacts),
@@ -939,8 +1205,10 @@ def _compile_phase_rows(artifacts, phases: list[ProcessPhaseRecord], cash_regime
                 bidder_name=_subject_name(subject_ref, artifacts),
                 bidder_type=_subject_bidder_type(subject_ref, artifacts),
                 bid_type=_phase_bid_type(phase.phase_kind),
+                date_precision=due_precision,
                 date_recorded=due_recorded,
                 date_public=due_public,
+                date_sort_proxy=due_proxy,
                 all_cash=phase_cash.get(phase.phase_id),
                 basis=phase.basis,
             )
@@ -959,7 +1227,9 @@ def _compile_transition_rows(artifacts, transitions: list[LifecycleTransitionRec
             ),
             None,
         )
-        recorded, public = _date_fields(getattr(source_observation, "date", None))
+        transition_date = transition.event_date or getattr(source_observation, "date", None)
+        recorded, public = _date_fields(transition_date)
+        precision, proxy = _date_metadata(transition_date)
         review_flags = []
         if transition.reason_kind != "literal":
             review_flags.append(f"reason:{transition.reason_kind}")
@@ -975,8 +1245,10 @@ def _compile_transition_rows(artifacts, transitions: list[LifecycleTransitionRec
             row_count=transition.subject_count,
             bidder_name=_subject_name(transition.subject_ref, artifacts),
             bidder_type=_subject_bidder_type(transition.subject_ref, artifacts),
+            date_precision=precision,
             date_recorded=recorded,
             date_public=public,
+            date_sort_proxy=proxy,
             review_flags=review_flags,
             basis=transition.basis,
         )

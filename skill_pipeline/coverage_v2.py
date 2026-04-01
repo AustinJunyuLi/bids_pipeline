@@ -6,12 +6,12 @@ from collections import Counter
 from pathlib import Path
 
 from skill_pipeline.config import PROJECT_ROOT
-from skill_pipeline.coverage import (
+from skill_pipeline.coverage_cues import (
     CoverageCue,
-    _build_coverage_cues,
-    _load_chronology_blocks,
-    _load_evidence_items,
-    _severity_for_cue,
+    build_coverage_cues,
+    load_chronology_blocks,
+    load_evidence_items,
+    severity_for_cue,
 )
 from skill_pipeline.extract_artifacts_v2 import (
     LoadedObservationArtifacts,
@@ -123,7 +123,7 @@ def _build_record(
     cue: CoverageCue,
     artifacts: LoadedObservationArtifacts,
 ) -> CoverageCheckRecordV2:
-    issue_severity = _severity_for_cue(cue)
+    issue_severity = severity_for_cue(cue)
     if issue_severity is None:
         raise ValueError(f"Unsupported cue severity for v2 coverage cue {cue.cue_family!r}")
 
@@ -207,13 +207,13 @@ def run_coverage_v2(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> int
     """Run deterministic source coverage against canonical v2 observation artifacts."""
     paths = build_skill_paths(deal_slug, project_root=project_root)
     artifacts = load_observation_artifacts(paths, mode="canonical")
-    blocks = _load_chronology_blocks(paths.chronology_blocks_path)
-    evidence_items = _load_evidence_items(paths.evidence_items_path)
-    cues = _build_coverage_cues(evidence_items, blocks)
+    blocks = load_chronology_blocks(paths.chronology_blocks_path)
+    evidence_items = load_evidence_items(paths.evidence_items_path)
+    cues = build_coverage_cues(evidence_items, blocks)
     records = [
         _build_record(cue, artifacts)
         for cue in cues
-        if _severity_for_cue(cue) is not None
+        if severity_for_cue(cue) is not None
     ]
     summary = _build_summary(records)
 

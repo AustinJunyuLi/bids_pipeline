@@ -7,7 +7,6 @@ from typing import Annotated, Literal
 
 from pydantic import Field, model_validator
 
-from skill_pipeline.extract_artifacts import LoadedExtractArtifacts, load_extract_artifacts
 from skill_pipeline.models import (
     CoverageCheckRecord,
     MoneyTerms,
@@ -210,58 +209,7 @@ class LoadedObservationArtifacts:
         return {
             observation.observation_id: observation
             for observation in self.observations.observations
-        }
-
-
-ExtractArtifactVersion = Literal["none", "v1", "v2", "both"]
-
-
-def detect_extract_artifact_version(paths: SkillPathSet) -> ExtractArtifactVersion:
-    has_v1 = any(
-        path.exists()
-        for path in (
-            paths.actors_raw_path,
-            paths.events_raw_path,
-            paths.spans_path,
-        )
-    )
-    has_v2 = any(
-        path.exists()
-        for path in (
-            paths.observations_raw_path,
-            paths.observations_path,
-            paths.spans_v2_path,
-        )
-    )
-    if has_v1 and has_v2:
-        return "both"
-    if has_v1:
-        return "v1"
-    if has_v2:
-        return "v2"
-    return "none"
-
-
-def load_versioned_extract_artifacts(
-    paths: SkillPathSet,
-    *,
-    version: Literal["v1", "v2"] | None = None,
-) -> LoadedExtractArtifacts | LoadedObservationArtifacts:
-    if version is None:
-        detected = detect_extract_artifact_version(paths)
-        if detected == "both":
-            raise ValueError(
-                "Both v1 and v2 extract artifacts are present; choose version explicitly."
-            )
-        if detected == "none":
-            raise FileNotFoundError(
-                "No v1 or v2 extract artifacts found for the requested deal."
-            )
-        version = detected
-
-    if version == "v1":
-        return load_extract_artifacts(paths)
-    return load_observation_artifacts(paths)
+    }
 
 
 def load_observation_artifacts(

@@ -1,4 +1,4 @@
-"""Prompt composition regression tests: chunks, checklist, render, integration."""
+"""Prompt composition regression tests for the live observations-v2 contract."""
 
 from __future__ import annotations
 
@@ -19,12 +19,8 @@ from skill_pipeline.prompts.chunks import (
     build_chunk_windows,
     estimate_block_tokens,
 )
-from skill_pipeline.prompts.render import render_actor_packet, render_event_packet
+from skill_pipeline.prompts.render import render_observation_v2_packet
 
-
-# ---------------------------------------------------------------------------
-# Helpers
-# ---------------------------------------------------------------------------
 
 def _make_block(
     block_id: str,
@@ -33,7 +29,6 @@ def _make_block(
     *,
     is_heading: bool = False,
 ) -> ChronologyBlock:
-    """Build a minimal ChronologyBlock for testing."""
     return ChronologyBlock(
         block_id=block_id,
         document_id="doc-test",
@@ -58,7 +53,6 @@ def _make_evidence(
     start_line: int = 1,
     end_line: int = 2,
 ) -> EvidenceItem:
-    """Build a minimal EvidenceItem for testing."""
     return EvidenceItem(
         evidence_id=evidence_id,
         document_id="doc-test",
@@ -71,44 +65,6 @@ def _make_evidence(
         confidence="high",
     )
 
-
-def _valid_actor_roster_payload(*, block_id: str = "B000") -> dict[str, object]:
-    """Build a minimally valid raw actor roster artifact."""
-    return {
-        "quotes": [
-            {
-                "quote_id": "Q001",
-                "block_id": block_id,
-                "text": "Bidder A",
-            }
-        ],
-        "actors": [
-            {
-                "actor_id": "a1",
-                "display_name": "Bidder A",
-                "canonical_name": "BIDDER A",
-                "aliases": [],
-                "role": "bidder",
-                "advisor_kind": None,
-                "advised_actor_id": None,
-                "bidder_kind": "financial",
-                "listing_status": "private",
-                "geography": "domestic",
-                "is_grouped": False,
-                "group_size": None,
-                "group_label": None,
-                "quote_ids": ["Q001"],
-                "notes": [],
-            }
-        ],
-        "count_assertions": [],
-        "unresolved_mentions": [],
-    }
-
-
-# ---------------------------------------------------------------------------
-# Token estimator
-# ---------------------------------------------------------------------------
 
 class TestEstimateBlockTokens:
     def test_short_block(self):
@@ -127,59 +83,45 @@ class TestEstimateBlockTokens:
         assert t1 == t2
 
 
-# ---------------------------------------------------------------------------
-# Chunk planner
-# ---------------------------------------------------------------------------
-
 class TestBuildChunkWindows:
     def test_single_pass_when_under_budget(self):
-        """All blocks fit -> one single_pass window, no overlap."""
         blocks = [_make_block(f"B{i:03d}", i, "word " * 10) for i in range(3)]
         windows = build_chunk_windows(blocks, chunk_budget=99999)
         assert len(windows) == 1
-        w = windows[0]
-        assert w.chunk_count == 1
-        assert w.target_block_ids == ["B000", "B001", "B002"]
-        assert w.overlap_block_ids == []
+        window = windows[0]
+        assert window.chunk_count == 1
+        assert window.target_block_ids == ["B000", "B001", "B002"]
+        assert window.overlap_block_ids == []
 
     def test_chunked_windows_have_overlap(self):
-        """Budget forces 2+ windows; overlap_block_ids must be populated."""
-        # Each block ~14 tokens (10 words * 1.35 = 14)
         blocks = [_make_block(f"B{i:03d}", i, "word " * 10) for i in range(6)]
         windows = build_chunk_windows(blocks, chunk_budget=30)
         assert len(windows) > 1
-        for w in windows:
-            assert w.chunk_count == len(windows)
-        # Interior windows should have overlap
-        for w in windows[1:]:
-            assert len(w.overlap_block_ids) > 0, f"window {w.window_id} has no overlap"
+        for window in windows:
+            assert window.chunk_count == len(windows)
+        for window in windows[1:]:
+            assert window.overlap_block_ids, f"window {window.window_id} has no overlap"
 
     def test_overlap_exactly_2_blocks(self):
-        """Overlap is capped at overlap_blocks=2 adjacent blocks."""
         blocks = [_make_block(f"B{i:03d}", i, "word " * 10) for i in range(10)]
         windows = build_chunk_windows(blocks, chunk_budget=30, overlap_blocks=2)
-        for w in windows:
-            # Overlap should never exceed 2 leading + 2 trailing = 4
-            assert len(w.overlap_block_ids) <= 4
+        for window in windows:
+            assert len(window.overlap_block_ids) <= 4
 
     def test_target_block_ids_never_overlap_with_overlap_ids(self):
-        """Target and overlap block ID sets must be disjoint."""
         blocks = [_make_block(f"B{i:03d}", i, "word " * 10) for i in range(8)]
         windows = build_chunk_windows(blocks, chunk_budget=30)
-        for w in windows:
-            target_set = set(w.target_block_ids)
-            overlap_set = set(w.overlap_block_ids)
-            assert target_set.isdisjoint(overlap_set), (
-                f"window {w.window_id}: target and overlap share {target_set & overlap_set}"
-            )
+        for window in windows:
+            target_set = set(window.target_block_ids)
+            overlap_set = set(window.overlap_block_ids)
+            assert target_set.isdisjoint(overlap_set)
 
     def test_all_blocks_covered_by_target_ids(self):
-        """Every block appears in exactly one window's target_block_ids."""
         blocks = [_make_block(f"B{i:03d}", i, "word " * 10) for i in range(8)]
         windows = build_chunk_windows(blocks, chunk_budget=30)
         all_target = []
-        for w in windows:
-            all_target.extend(w.target_block_ids)
+        for window in windows:
+            all_target.extend(window.target_block_ids)
         assert all_target == [f"B{i:03d}" for i in range(8)]
 
     def test_empty_blocks_raises(self):
@@ -194,16 +136,15 @@ class TestBuildChunkWindows:
     def test_single_block_always_single_pass(self):
         block = _make_block("B000", 0, "word " * 5000)
         windows = build_chunk_windows([block], chunk_budget=10)
-        # One block always goes into one window even if it exceeds budget
         assert len(windows) == 1
         assert windows[0].target_block_ids == ["B000"]
 
     def test_window_ids_are_sequential(self):
         blocks = [_make_block(f"B{i:03d}", i, "word " * 10) for i in range(6)]
         windows = build_chunk_windows(blocks, chunk_budget=30)
-        for i, w in enumerate(windows):
-            assert w.window_id == f"w{i}"
-            assert w.chunk_index == i
+        for i, window in enumerate(windows):
+            assert window.window_id == f"w{i}"
+            assert window.chunk_index == i
 
     def test_single_pass_override_returns_one_window(self):
         blocks = [_make_block(f"B{i:03d}", i, "word " * 200) for i in range(12)]
@@ -213,10 +154,6 @@ class TestBuildChunkWindows:
         assert windows[0].target_block_ids == [f"B{i:03d}" for i in range(12)]
         assert windows[0].overlap_block_ids == []
 
-
-# ---------------------------------------------------------------------------
-# Deal complexity
-# ---------------------------------------------------------------------------
 
 class TestDealComplexity:
     def test_classify_deal_complexity_simple(self):
@@ -243,10 +180,6 @@ class TestDealComplexity:
         assert classify_deal_complexity(blocks, max_blocks=30) == "complex"
 
 
-# ---------------------------------------------------------------------------
-# Evidence checklist
-# ---------------------------------------------------------------------------
-
 class TestBuildEvidenceChecklist:
     def test_empty_items_returns_empty(self):
         assert build_evidence_checklist([]) == ""
@@ -258,7 +191,6 @@ class TestBuildEvidenceChecklist:
             _make_evidence("E003", EvidenceType.DATED_ACTION, "another action"),
         ]
         result = build_evidence_checklist(items)
-        # Both dated actions grouped under one header
         assert result.count("### Dated actions to extract") == 1
         assert result.count("### Financial terms to capture") == 1
         assert "E001" in result
@@ -275,8 +207,11 @@ class TestBuildEvidenceChecklist:
     def test_bullets_include_line_range(self):
         items = [
             _make_evidence(
-                "E010", EvidenceType.PROCESS_SIGNAL, "signal",
-                start_line=42, end_line=45,
+                "E010",
+                EvidenceType.PROCESS_SIGNAL,
+                "signal",
+                start_line=42,
+                end_line=45,
             ),
         ]
         result = build_evidence_checklist(items)
@@ -300,10 +235,6 @@ class TestBuildEvidenceChecklist:
         assert "date: March 15" in result
         assert "value: $42.00" in result
 
-
-# ---------------------------------------------------------------------------
-# Packet rendering helpers
-# ---------------------------------------------------------------------------
 
 ASSETS_DIR = Path(__file__).resolve().parent.parent / "skill_pipeline" / "prompt_assets"
 
@@ -336,14 +267,13 @@ def _chunked_window(
     )
 
 
-class TestRenderActorPacket:
+class TestRenderObservationV2Packet:
     def test_section_ordering(self):
-        """Chronology blocks must appear before task instructions."""
         blocks = [_make_block("B000", 0, "chronology text here")]
         evidence = [_make_evidence("E001", EvidenceType.DATED_ACTION, "ev")]
         window = _single_pass_window(["B000"])
 
-        _, _, rendered = render_actor_packet(
+        _, _, rendered = render_observation_v2_packet(
             deal_slug="test-deal",
             target_name="TestCo",
             accession_number="0001",
@@ -351,34 +281,19 @@ class TestRenderActorPacket:
             window=window,
             blocks=blocks,
             evidence_items=evidence,
-            prefix_asset_path=ASSETS_DIR / "actors_prefix.md",
-            task_instructions="Extract actors now.",
+            prefix_asset_path=ASSETS_DIR / "observations_v2_prefix.md",
+            examples_asset_path=ASSETS_DIR / "observations_v2_examples.md",
+            task_instructions="Extract observations now.",
         )
 
         chron_pos = rendered.index("<chronology_blocks>")
         task_pos = rendered.index("<task_instructions>")
         assert chron_pos < task_pos
 
-    def test_no_actor_roster_in_actor_packet(self):
-        blocks = [_make_block("B000", 0, "text")]
-        window = _single_pass_window(["B000"])
-        _, _, rendered = render_actor_packet(
-            deal_slug="test",
-            target_name="T",
-            accession_number=None,
-            filing_type=None,
-            window=window,
-            blocks=blocks,
-            evidence_items=[],
-            prefix_asset_path=ASSETS_DIR / "actors_prefix.md",
-            task_instructions="Do it.",
-        )
-        assert "<actor_roster>" not in rendered
-
     def test_no_overlap_in_single_pass(self):
         blocks = [_make_block("B000", 0, "text")]
         window = _single_pass_window(["B000"])
-        _, _, rendered = render_actor_packet(
+        _, _, rendered = render_observation_v2_packet(
             deal_slug="test",
             target_name="T",
             accession_number=None,
@@ -386,19 +301,21 @@ class TestRenderActorPacket:
             window=window,
             blocks=blocks,
             evidence_items=[],
-            prefix_asset_path=ASSETS_DIR / "actors_prefix.md",
+            prefix_asset_path=ASSETS_DIR / "observations_v2_prefix.md",
+            examples_asset_path=ASSETS_DIR / "observations_v2_examples.md",
             task_instructions="Do it.",
         )
         assert "<overlap_context>" not in rendered
+        assert "<actor_roster>" not in rendered
 
-    def test_overlap_in_chunked_actor_packet(self):
+    def test_overlap_in_chunked_packet(self):
         blocks = [
             _make_block("B000", 0, "first block"),
             _make_block("B001", 1, "second block"),
             _make_block("B002", 2, "third block"),
         ]
         window = _chunked_window(["B001"], ["B000", "B002"])
-        _, _, rendered = render_actor_packet(
+        _, _, rendered = render_observation_v2_packet(
             deal_slug="test",
             target_name="T",
             accession_number=None,
@@ -406,111 +323,18 @@ class TestRenderActorPacket:
             window=window,
             blocks=blocks,
             evidence_items=[],
-            prefix_asset_path=ASSETS_DIR / "actors_prefix.md",
+            prefix_asset_path=ASSETS_DIR / "observations_v2_prefix.md",
+            examples_asset_path=ASSETS_DIR / "observations_v2_examples.md",
             task_instructions="Do it.",
         )
         assert "<overlap_context>" in rendered
         assert "</overlap_context>" in rendered
 
-    def test_unknown_block_ids_raise(self):
-        blocks = [_make_block("B000", 0, "text")]
-        window = _single_pass_window(["B999"])
-        with pytest.raises(ValueError, match="Unknown block_ids"):
-            render_actor_packet(
-                deal_slug="test",
-                target_name="T",
-                accession_number=None,
-                filing_type=None,
-                window=window,
-                blocks=blocks,
-                evidence_items=[],
-                prefix_asset_path=ASSETS_DIR / "actors_prefix.md",
-                task_instructions="Do it.",
-            )
-
-
-class TestRenderEventPacket:
-    def test_actor_roster_present(self):
-        blocks = [_make_block("B000", 0, "text")]
-        window = _single_pass_window(["B000"])
-        _, _, rendered = render_event_packet(
-            deal_slug="test",
-            target_name="T",
-            accession_number=None,
-            filing_type=None,
-            window=window,
-            blocks=blocks,
-            evidence_items=[],
-            actor_roster_json='{"actors": []}',
-            prefix_asset_path=ASSETS_DIR / "events_prefix.md",
-            task_instructions="Extract events.",
-        )
-        assert "<actor_roster>" in rendered
-        assert "</actor_roster>" in rendered
-
-    def test_no_overlap_in_single_pass_event(self):
-        blocks = [_make_block("B000", 0, "text")]
-        window = _single_pass_window(["B000"])
-        _, _, rendered = render_event_packet(
-            deal_slug="test",
-            target_name="T",
-            accession_number=None,
-            filing_type=None,
-            window=window,
-            blocks=blocks,
-            evidence_items=[],
-            actor_roster_json='{"actors": []}',
-            prefix_asset_path=ASSETS_DIR / "events_prefix.md",
-            task_instructions="Extract events.",
-        )
-        assert "<overlap_context>" not in rendered
-
-    def test_overlap_in_chunked_event_packet(self):
-        blocks = [
-            _make_block("B000", 0, "leading context"),
-            _make_block("B001", 1, "target content"),
-            _make_block("B002", 2, "trailing context"),
-        ]
-        window = _chunked_window(["B001"], ["B000", "B002"])
-        _, _, rendered = render_event_packet(
-            deal_slug="test",
-            target_name="T",
-            accession_number=None,
-            filing_type=None,
-            window=window,
-            blocks=blocks,
-            evidence_items=[],
-            actor_roster_json='{"actors": []}',
-            prefix_asset_path=ASSETS_DIR / "events_prefix.md",
-            task_instructions="Extract events.",
-        )
-        assert "<overlap_context>" in rendered
-
-    def test_section_ordering_event(self):
-        """Chronology blocks before task instructions in event packets."""
-        blocks = [_make_block("B000", 0, "chron text")]
-        window = _single_pass_window(["B000"])
-        _, _, rendered = render_event_packet(
-            deal_slug="test",
-            target_name="T",
-            accession_number=None,
-            filing_type=None,
-            window=window,
-            blocks=blocks,
-            evidence_items=[],
-            actor_roster_json='{}',
-            prefix_asset_path=ASSETS_DIR / "events_prefix.md",
-            task_instructions="Do events.",
-        )
-        chron_pos = rendered.index("<chronology_blocks>")
-        task_pos = rendered.index("<task_instructions>")
-        assert chron_pos < task_pos
-
     def test_evidence_checklist_in_rendered(self):
         blocks = [_make_block("B000", 0, "text")]
         evidence = [_make_evidence("E099", EvidenceType.OUTCOME_FACT, "outcome text")]
         window = _single_pass_window(["B000"])
-        _, _, rendered = render_event_packet(
+        _, _, rendered = render_observation_v2_packet(
             deal_slug="test",
             target_name="T",
             accession_number=None,
@@ -518,19 +342,18 @@ class TestRenderEventPacket:
             window=window,
             blocks=blocks,
             evidence_items=evidence,
-            actor_roster_json='{}',
-            prefix_asset_path=ASSETS_DIR / "events_prefix.md",
+            prefix_asset_path=ASSETS_DIR / "observations_v2_prefix.md",
+            examples_asset_path=ASSETS_DIR / "observations_v2_examples.md",
             task_instructions="Do it.",
         )
         assert "<evidence_checklist>" in rendered
         assert "E099" in rendered
 
-    def test_missing_event_examples_asset_raises(self, tmp_path: Path):
+    def test_unknown_block_ids_raise(self):
         blocks = [_make_block("B000", 0, "text")]
-        window = _single_pass_window(["B000"])
-        missing_asset = tmp_path / "missing-event-examples.md"
-        with pytest.raises(FileNotFoundError, match="Missing prompt asset"):
-            render_event_packet(
+        window = _single_pass_window(["B999"])
+        with pytest.raises(ValueError, match="Unknown block_ids"):
+            render_observation_v2_packet(
                 deal_slug="test",
                 target_name="T",
                 accession_number=None,
@@ -538,24 +361,33 @@ class TestRenderEventPacket:
                 window=window,
                 blocks=blocks,
                 evidence_items=[],
-                actor_roster_json='{"actors": []}',
-                prefix_asset_path=ASSETS_DIR / "events_prefix.md",
-                event_examples_asset_path=missing_asset,
+                prefix_asset_path=ASSETS_DIR / "observations_v2_prefix.md",
+                examples_asset_path=ASSETS_DIR / "observations_v2_examples.md",
+                task_instructions="Do it.",
+            )
+
+    def test_missing_examples_asset_raises(self, tmp_path: Path):
+        blocks = [_make_block("B000", 0, "text")]
+        window = _single_pass_window(["B000"])
+        missing_asset = tmp_path / "missing-observation-examples.md"
+        with pytest.raises(FileNotFoundError, match="Missing prompt asset"):
+            render_observation_v2_packet(
+                deal_slug="test",
+                target_name="T",
+                accession_number=None,
+                filing_type=None,
+                window=window,
+                blocks=blocks,
+                evidence_items=[],
+                prefix_asset_path=ASSETS_DIR / "observations_v2_prefix.md",
+                examples_asset_path=missing_asset,
                 task_instructions="Do it.",
             )
 
 
-# ---------------------------------------------------------------------------
-# Integration: run_compose_prompts end-to-end
-# ---------------------------------------------------------------------------
-
 class TestRunComposePrompts:
-    """Integration tests using tmp_path fixtures to simulate a deal layout."""
-
     @staticmethod
-    def _setup_deal(tmp_path: Path, *, with_actors: bool = False) -> None:
-        """Create minimal source artifacts and seed registry for a test deal."""
-        # Seed CSV
+    def _setup_deal(tmp_path: Path) -> None:
         seeds_csv = tmp_path / "data" / "seeds.csv"
         seeds_csv.parent.mkdir(parents=True, exist_ok=True)
         seeds_csv.write_text(
@@ -564,11 +396,9 @@ class TestRunComposePrompts:
             encoding="utf-8",
         )
 
-        # Source directory with blocks + evidence
         source_dir = tmp_path / "data" / "deals" / "test-deal" / "source"
         source_dir.mkdir(parents=True, exist_ok=True)
 
-        # 5 blocks of moderate size
         blocks_lines = []
         for i in range(5):
             block = ChronologyBlock(
@@ -587,33 +417,32 @@ class TestRunComposePrompts:
             )
             blocks_lines.append(block.model_dump_json())
         (source_dir / "chronology_blocks.jsonl").write_text(
-            "\n".join(blocks_lines), encoding="utf-8",
+            "\n".join(blocks_lines),
+            encoding="utf-8",
         )
 
-        # Evidence items
-        ev_lines = []
-        for j in range(3):
-            ev = EvidenceItem(
-                evidence_id=f"E{j:03d}",
+        evidence_lines = []
+        for i in range(3):
+            evidence = EvidenceItem(
+                evidence_id=f"E{i:03d}",
                 document_id="doc-1",
                 accession_number="0001-test",
                 filing_type="SC 14D9",
-                start_line=j * 5,
-                end_line=j * 5 + 3,
-                raw_text=f"evidence text {j}",
+                start_line=i * 5,
+                end_line=i * 5 + 3,
+                raw_text=f"evidence text {i}",
                 evidence_type=EvidenceType.DATED_ACTION,
                 confidence="high",
-                date_text=f"2025-0{j+1}-15",
+                date_text=f"2025-0{i + 1}-15",
             )
-            ev_lines.append(ev.model_dump_json())
+            evidence_lines.append(evidence.model_dump_json())
         (source_dir / "evidence_items.jsonl").write_text(
-            "\n".join(ev_lines), encoding="utf-8",
+            "\n".join(evidence_lines),
+            encoding="utf-8",
         )
 
-        # Chronology selection (for accession number)
-        import json as _json
         (source_dir / "chronology_selection.json").write_text(
-            _json.dumps({
+            json.dumps({
                 "schema_version": "2.0.0",
                 "artifact_type": "chronology_selection",
                 "run_id": "test",
@@ -627,18 +456,9 @@ class TestRunComposePrompts:
             encoding="utf-8",
         )
 
-        # Document registry (needed by paths validation)
         raw_dir = tmp_path / "raw" / "test-deal"
         raw_dir.mkdir(parents=True, exist_ok=True)
         (raw_dir / "document_registry.json").write_text("{}", encoding="utf-8")
-
-        if with_actors:
-            extract_dir = tmp_path / "data" / "skill" / "test-deal" / "extract"
-            extract_dir.mkdir(parents=True, exist_ok=True)
-            (extract_dir / "actors_raw.json").write_text(
-                json.dumps(_valid_actor_roster_payload()),
-                encoding="utf-8",
-            )
 
     @staticmethod
     def _setup_routing_deal(
@@ -646,7 +466,6 @@ class TestRunComposePrompts:
         *,
         block_count: int,
         words_per_block: int,
-        with_actors: bool = False,
     ) -> None:
         seeds_csv = tmp_path / "data" / "seeds.csv"
         seeds_csv.parent.mkdir(parents=True, exist_ok=True)
@@ -719,65 +538,47 @@ class TestRunComposePrompts:
         raw_dir.mkdir(parents=True, exist_ok=True)
         (raw_dir / "document_registry.json").write_text("{}", encoding="utf-8")
 
-        if with_actors:
-            extract_dir = tmp_path / "data" / "skill" / "test-deal" / "extract"
-            extract_dir.mkdir(parents=True, exist_ok=True)
-            (extract_dir / "actors_raw.json").write_text(
-                json.dumps(_valid_actor_roster_payload()),
-                encoding="utf-8",
-            )
-
-    def test_actor_mode_writes_manifest_and_packets(self, tmp_path: Path):
+    def test_observations_mode_writes_manifest_and_packets(self, tmp_path: Path):
         self._setup_deal(tmp_path)
         from skill_pipeline.compose_prompts import run_compose_prompts
 
-        manifest = run_compose_prompts(
-            "test-deal", tmp_path, mode="actors", chunk_budget=99999,
-        )
-        assert len(manifest.packets) >= 1
-        assert all(p.packet_family == "actors" for p in manifest.packets)
+        manifest = run_compose_prompts("test-deal", tmp_path, chunk_budget=99999)
+        assert manifest.packets
+        assert all(packet.packet_family == "observations_v2" for packet in manifest.packets)
 
-        # Verify files exist at declared paths
-        for p in manifest.packets:
-            assert Path(p.prefix_path).exists()
-            assert Path(p.body_path).exists()
-            assert Path(p.rendered_path).exists()
+        for packet in manifest.packets:
+            assert Path(packet.prefix_path).exists()
+            assert Path(packet.body_path).exists()
+            assert Path(packet.rendered_path).exists()
 
-        # Verify manifest.json was written
-        manifest_path = tmp_path / "data" / "skill" / "test-deal" / "prompt" / "manifest.json"
+        manifest_path = tmp_path / "data" / "skill" / "test-deal" / "prompt_v2" / "manifest.json"
         assert manifest_path.exists()
 
     def test_chronology_precedes_task_instructions(self, tmp_path: Path):
         self._setup_deal(tmp_path)
         from skill_pipeline.compose_prompts import run_compose_prompts
 
-        manifest = run_compose_prompts(
-            "test-deal", tmp_path, mode="actors", chunk_budget=99999,
-        )
+        manifest = run_compose_prompts("test-deal", tmp_path, chunk_budget=99999)
         rendered = Path(manifest.packets[0].rendered_path).read_text(encoding="utf-8")
         chron_pos = rendered.index("<chronology_blocks>")
         task_pos = rendered.index("<task_instructions>")
         assert chron_pos < task_pos
 
-    def test_actor_mode_rendered_mentions_quote_before_extract_protocol(self, tmp_path: Path):
+    def test_rendered_mentions_quote_before_extract_protocol(self, tmp_path: Path):
         self._setup_deal(tmp_path)
         from skill_pipeline.compose_prompts import run_compose_prompts
 
-        manifest = run_compose_prompts(
-            "test-deal", tmp_path, mode="actors", chunk_budget=99999,
-        )
+        manifest = run_compose_prompts("test-deal", tmp_path, chunk_budget=99999)
         rendered = Path(manifest.packets[0].rendered_path).read_text(encoding="utf-8")
         assert "quote-before-extract protocol" in rendered
-        assert "quotes, actors, count_assertions, unresolved_mentions" in rendered
+        assert "quotes, parties, cohorts, observations, exclusions, coverage" in rendered
         assert "quote_ids" in rendered
 
     def test_evidence_ids_in_rendered(self, tmp_path: Path):
         self._setup_deal(tmp_path)
         from skill_pipeline.compose_prompts import run_compose_prompts
 
-        manifest = run_compose_prompts(
-            "test-deal", tmp_path, mode="actors", chunk_budget=99999,
-        )
+        manifest = run_compose_prompts("test-deal", tmp_path, chunk_budget=99999)
         rendered = Path(manifest.packets[0].rendered_path).read_text(encoding="utf-8")
         assert "<evidence_checklist>" in rendered
         assert "E000" in rendered
@@ -786,90 +587,33 @@ class TestRunComposePrompts:
         self._setup_deal(tmp_path)
         from skill_pipeline.compose_prompts import run_compose_prompts
 
-        # Use a very small budget to force chunking
         manifest = run_compose_prompts(
-            "test-deal", tmp_path, mode="actors", chunk_budget=10, routing="chunked",
+            "test-deal",
+            tmp_path,
+            chunk_budget=10,
+            routing="chunked",
         )
         assert len(manifest.packets) > 1
-        # At least one interior packet should have overlap
-        has_overlap = False
-        for p in manifest.packets[1:]:
-            rendered = Path(p.rendered_path).read_text(encoding="utf-8")
-            if "<overlap_context>" in rendered:
-                has_overlap = True
-                break
-        assert has_overlap, "No chunked packet contained <overlap_context>"
-
-    def test_events_mode_fails_without_actors_raw(self, tmp_path: Path):
-        self._setup_deal(tmp_path, with_actors=False)
-        from skill_pipeline.compose_prompts import run_compose_prompts
-
-        with pytest.raises(FileNotFoundError, match="Actor roster not found"):
-            run_compose_prompts("test-deal", tmp_path, mode="events")
-
-    def test_events_mode_succeeds_with_actors_raw(self, tmp_path: Path):
-        self._setup_deal(tmp_path, with_actors=True)
-        from skill_pipeline.compose_prompts import run_compose_prompts
-
-        manifest = run_compose_prompts(
-            "test-deal", tmp_path, mode="events", chunk_budget=99999,
-        )
-        assert len(manifest.packets) >= 1
-        assert all(p.packet_family == "events" for p in manifest.packets)
-        # Event packets must include actor roster
-        rendered = Path(manifest.packets[0].rendered_path).read_text(encoding="utf-8")
-        assert "<actor_roster>" in rendered
-
-    def test_events_mode_rendered_mentions_quote_first_examples(self, tmp_path: Path):
-        self._setup_deal(tmp_path, with_actors=True)
-        from skill_pipeline.compose_prompts import run_compose_prompts
-
-        manifest = run_compose_prompts(
-            "test-deal", tmp_path, mode="events", chunk_budget=99999,
-        )
-        rendered = Path(manifest.packets[0].rendered_path).read_text(encoding="utf-8")
-        assert "quote-before-extract protocol" in rendered
-        assert "quotes, events, exclusions, coverage_notes" in rendered
-        assert '"quote_id": "Q001"' in rendered
-        assert "### Example 3: NDA group plus named parties" in rendered
-        assert "### Example 5: Cycle boundary with termination and restart" in rendered
-        assert "quote_ids" in rendered
-
-    def test_events_mode_rejects_invalid_actor_roster_json(self, tmp_path: Path):
-        self._setup_deal(tmp_path, with_actors=False)
-        extract_dir = tmp_path / "data" / "skill" / "test-deal" / "extract"
-        extract_dir.mkdir(parents=True, exist_ok=True)
-        (extract_dir / "actors_raw.json").write_text("{not-valid-json", encoding="utf-8")
-
-        from skill_pipeline.compose_prompts import run_compose_prompts
-
-        with pytest.raises(ValueError, match="Actor roster is not valid JSON"):
-            run_compose_prompts("test-deal", tmp_path, mode="events")
-
-    def test_events_mode_rejects_zero_actor_roster(self, tmp_path: Path):
-        self._setup_deal(tmp_path, with_actors=False)
-        extract_dir = tmp_path / "data" / "skill" / "test-deal" / "extract"
-        extract_dir.mkdir(parents=True, exist_ok=True)
-        (extract_dir / "actors_raw.json").write_text(
-            json.dumps({
-                "actors": [],
-                "count_assertions": [],
-                "unresolved_mentions": [],
-            }),
-            encoding="utf-8",
+        assert any(
+            "<overlap_context>" in Path(packet.rendered_path).read_text(encoding="utf-8")
+            for packet in manifest.packets[1:]
         )
 
+    def test_non_observation_mode_is_rejected(self, tmp_path: Path):
+        self._setup_deal(tmp_path)
         from skill_pipeline.compose_prompts import run_compose_prompts
 
-        with pytest.raises(ValueError, match="Actor roster contains zero actors"):
-            run_compose_prompts("test-deal", tmp_path, mode="events")
+        with pytest.raises(ValueError, match="mode='observations'"):
+            run_compose_prompts("test-deal", tmp_path, mode="actors")  # type: ignore[arg-type]
 
-    @pytest.mark.parametrize("mode", ["actors", "events"])
-    def test_chunked_packets_filter_evidence_to_visible_blocks(
-        self,
-        tmp_path: Path,
-        mode: str,
-    ):
+    def test_non_v2_contract_is_rejected(self, tmp_path: Path):
+        self._setup_deal(tmp_path)
+        from skill_pipeline.compose_prompts import run_compose_prompts
+
+        with pytest.raises(ValueError, match="live v2 contract"):
+            run_compose_prompts("test-deal", tmp_path, contract="v1")  # type: ignore[arg-type]
+
+    def test_chunked_packets_filter_evidence_to_visible_blocks(self, tmp_path: Path):
         seeds_csv = tmp_path / "data" / "seeds.csv"
         seeds_csv.parent.mkdir(parents=True, exist_ok=True)
         seeds_csv.write_text(
@@ -941,18 +685,13 @@ class TestRunComposePrompts:
         raw_dir.mkdir(parents=True, exist_ok=True)
         (raw_dir / "document_registry.json").write_text("{}", encoding="utf-8")
 
-        if mode == "events":
-            extract_dir = tmp_path / "data" / "skill" / "test-deal" / "extract"
-            extract_dir.mkdir(parents=True, exist_ok=True)
-            (extract_dir / "actors_raw.json").write_text(
-                json.dumps(_valid_actor_roster_payload()),
-                encoding="utf-8",
-            )
-
         from skill_pipeline.compose_prompts import run_compose_prompts
 
         manifest = run_compose_prompts(
-            "test-deal", tmp_path, mode=mode, chunk_budget=40, routing="chunked",
+            "test-deal",
+            tmp_path,
+            chunk_budget=40,
+            routing="chunked",
         )
         first_packet = manifest.packets[0]
         rendered = Path(first_packet.rendered_path).read_text(encoding="utf-8")
@@ -1004,27 +743,15 @@ class TestRunComposePrompts:
         from skill_pipeline.compose_prompts import run_compose_prompts
 
         with pytest.raises(ValueError, match="Duplicate block_id in chronology blocks"):
-            run_compose_prompts("test-deal", tmp_path, mode="actors")
-
-    def test_all_mode_generates_actors_only(self, tmp_path: Path):
-        """--mode all generates actor packets only, not event packets."""
-        self._setup_deal(tmp_path)
-        from skill_pipeline.compose_prompts import run_compose_prompts
-
-        manifest = run_compose_prompts(
-            "test-deal", tmp_path, mode="all", chunk_budget=99999,
-        )
-        assert all(p.packet_family == "actors" for p in manifest.packets)
+            run_compose_prompts("test-deal", tmp_path)
 
     def test_manifest_notes_contain_mode_and_budget(self, tmp_path: Path):
         self._setup_deal(tmp_path)
         from skill_pipeline.compose_prompts import run_compose_prompts
 
-        manifest = run_compose_prompts(
-            "test-deal", tmp_path, mode="actors", chunk_budget=5000,
-        )
+        manifest = run_compose_prompts("test-deal", tmp_path, chunk_budget=5000)
         notes_str = " ".join(manifest.notes)
-        assert "mode=actors" in notes_str
+        assert "mode=observations" in notes_str
         assert "chunk_budget=5000" in notes_str
 
     def test_routing_auto_simple_deal(self, tmp_path: Path):
@@ -1032,7 +759,10 @@ class TestRunComposePrompts:
         from skill_pipeline.compose_prompts import run_compose_prompts
 
         manifest = run_compose_prompts(
-            "test-deal", tmp_path, mode="actors", chunk_budget=6000, routing="auto",
+            "test-deal",
+            tmp_path,
+            chunk_budget=6000,
+            routing="auto",
         )
         assert len(manifest.packets) == 1
         assert manifest.packets[0].chunk_mode == "single_pass"
@@ -1044,7 +774,10 @@ class TestRunComposePrompts:
         from skill_pipeline.compose_prompts import run_compose_prompts
 
         manifest = run_compose_prompts(
-            "test-deal", tmp_path, mode="actors", chunk_budget=6000, routing="auto",
+            "test-deal",
+            tmp_path,
+            chunk_budget=6000,
+            routing="auto",
         )
         assert len(manifest.packets) > 1
         assert all(packet.chunk_mode == "chunked" for packet in manifest.packets)
@@ -1056,7 +789,10 @@ class TestRunComposePrompts:
         from skill_pipeline.compose_prompts import run_compose_prompts
 
         manifest = run_compose_prompts(
-            "test-deal", tmp_path, mode="actors", chunk_budget=6000, routing="single-pass",
+            "test-deal",
+            tmp_path,
+            chunk_budget=6000,
+            routing="single-pass",
         )
         assert len(manifest.packets) == 1
         assert manifest.packets[0].chunk_mode == "single_pass"
@@ -1067,7 +803,10 @@ class TestRunComposePrompts:
         from skill_pipeline.compose_prompts import run_compose_prompts
 
         manifest = run_compose_prompts(
-            "test-deal", tmp_path, mode="actors", chunk_budget=40, routing="chunked",
+            "test-deal",
+            tmp_path,
+            chunk_budget=40,
+            routing="chunked",
         )
         assert len(manifest.packets) > 1
         assert all(packet.chunk_mode == "chunked" for packet in manifest.packets)
@@ -1079,12 +818,14 @@ class TestRunComposePrompts:
         parser = build_parser()
         args = parser.parse_args([
             "compose-prompts",
-            "--deal", "test-deal",
-            "--routing", "single-pass",
+            "--deal",
+            "test-deal",
+            "--routing",
+            "single-pass",
         ])
         assert args.routing == "single-pass"
 
-    def test_event_examples_count(self):
-        examples_path = ASSETS_DIR / "event_examples.md"
-        content = examples_path.read_text(encoding="utf-8")
-        assert content.count("### Example") >= 4
+    def test_observation_examples_cover_literal_types(self):
+        content = (ASSETS_DIR / "observations_v2_examples.md").read_text(encoding="utf-8")
+        for obs_type in ("process", "agreement", "solicitation", "proposal", "status", "outcome"):
+            assert f"`{obs_type}`" in content

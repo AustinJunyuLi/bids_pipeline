@@ -6,7 +6,7 @@
 - **v1.1 Reconciliation + Execution-Log Quality Fixes** -- Phases 6-9 (complete 2026-03-30)
 - **v2.0 Observation Graph Architecture** -- Phases 10-16 (shipped 2026-03-31) -- [archive](milestones/v2.0-ROADMAP.md)
 - **v2.1 V2 Default Cutover + Legacy Archive** -- Phases 17-19 (complete 2026-03-31) -- [archive](milestones/v2.1-ROADMAP.md)
-- **v2.2 Reconciliation Lift + Surface Repair** -- Phases 20-24 (extended 2026-04-01; Phase 24 planned) -- [audit checkpoint](milestones/v2.2-MILESTONE-AUDIT.md)
+- **v2.2 Reconciliation Lift + Surface Repair** -- Phases 20-24 (complete 2026-04-01) -- [audit](milestones/v2.2-MILESTONE-AUDIT.md)
 
 ## Current Milestone
 
@@ -16,7 +16,7 @@
 - [x] **Phase 21: Transition + Outcome Normalization** - redesign synthetic drop dating and bidder/outcome resolution so lifecycle rows reflect the strongest filing-supported elimination points (completed 2026-04-01)
 - [x] **Phase 22: Taxonomy + Export Surface Repairs** - expose agreement/process distinctions, date precision, and enterprise-value proposals on the analyst-facing export surface (completed 2026-04-01)
 - [x] **Phase 23: Extraction Contract + Validation Hardening** - update prompt/skill contracts and v2 gates so recipient scope, chronology-safe links, and substantive outcome requirements are enforced before export (completed 2026-04-01)
-- [ ] **Phase 24: V1 Retirement + Git-History Preservation** - remove the legacy v1 runtime and skill surface from the working tree while preserving recoverability through Git history and archived milestone artifacts
+- [x] **Phase 24: V1 Retirement + Git-History Preservation** - remove the legacy v1 runtime and skill surface from the working tree while preserving recoverability through Git history and archived milestone artifacts (completed 2026-04-01)
 
 ## Phase Details
 
@@ -72,7 +72,7 @@
 | 21. Transition + Outcome Normalization | v2.2 | Complete    | 2026-04-01 |
 | 22. Taxonomy + Export Surface Repairs | v2.2 | Complete    | 2026-04-01 |
 | 23. Extraction Contract + Validation Hardening | v2.2 | Complete    | 2026-04-01 |
-| 24. V1 Retirement + Git-History Preservation | v2.2 | Planned | |
+| 24. V1 Retirement + Git-History Preservation | v2.2 | Complete | 2026-04-01 |
 
 ---
-*Roadmap refreshed: 2026-04-01 from the GPT Pro diagnosis round_1, then extended with Phase 24 for v1 retirement follow-on work.*
+*Roadmap refreshed: 2026-04-01 from the GPT Pro diagnosis round_1, then completed with Phase 24 for v1 retirement follow-on work.*

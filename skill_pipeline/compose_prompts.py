@@ -1,9 +1,4 @@
-"""Deterministic prompt composition stage.
-
-Loads source artifacts, builds chunk windows, renders provider-neutral prompt
-packets, and writes a populated manifest.  This stage stops before any model
-invocation and must not import provider SDKs.
-"""
+"""Deterministic prompt composition for the live v2 observation contract."""
 
 from __future__ import annotations
 
@@ -12,11 +7,8 @@ from pathlib import Path
 from typing import Literal
 from uuid import uuid4
 
-from pydantic import ValidationError
-
 from skill_pipeline.complexity import classify_deal_complexity
 from skill_pipeline.config import PROJECT_ROOT
-from skill_pipeline.models import RawSkillActorsArtifact, SkillActorsArtifact
 from skill_pipeline.paths import build_skill_paths, ensure_output_directories
 from skill_pipeline.pipeline_models.common import PIPELINE_VERSION
 from skill_pipeline.pipeline_models.prompt import (
@@ -26,34 +18,17 @@ from skill_pipeline.pipeline_models.prompt import (
 )
 from skill_pipeline.pipeline_models.source import ChronologyBlock, EvidenceItem
 from skill_pipeline.prompts.chunks import build_chunk_windows
-from skill_pipeline.prompts.render import (
-    render_actor_packet,
-    render_event_packet,
-    render_observation_v2_packet,
-)
+from skill_pipeline.prompts.render import render_observation_v2_packet
 from skill_pipeline.seeds import load_seed_entry
 
 
-# ---------------------------------------------------------------------------
-# Asset paths (relative to skill_pipeline package root)
-# ---------------------------------------------------------------------------
-
 _PACKAGE_DIR = Path(__file__).resolve().parent
 _ASSETS_DIR = _PACKAGE_DIR / "prompt_assets"
-
-_ACTORS_PREFIX = _ASSETS_DIR / "actors_prefix.md"
-_EVENTS_PREFIX = _ASSETS_DIR / "events_prefix.md"
-_EVENT_EXAMPLES = _ASSETS_DIR / "event_examples.md"
 _OBSERVATIONS_V2_PREFIX = _ASSETS_DIR / "observations_v2_prefix.md"
 _OBSERVATIONS_V2_EXAMPLES = _ASSETS_DIR / "observations_v2_examples.md"
 
 
-# ---------------------------------------------------------------------------
-# JSONL loading helpers
-# ---------------------------------------------------------------------------
-
 def _load_blocks(path: Path) -> list[ChronologyBlock]:
-    """Load chronology blocks from JSONL, fail fast on parse errors."""
     text = path.read_text(encoding="utf-8").strip()
     if not text:
         raise ValueError(f"Empty chronology blocks file: {path}")
@@ -75,7 +50,6 @@ def _load_blocks(path: Path) -> list[ChronologyBlock]:
 
 
 def _load_evidence(path: Path) -> list[EvidenceItem]:
-    """Load evidence items from JSONL."""
     text = path.read_text(encoding="utf-8").strip()
     if not text:
         return []
@@ -88,45 +62,11 @@ def _load_evidence(path: Path) -> list[EvidenceItem]:
     return items
 
 
-def _load_actor_roster_json(path: Path) -> str:
-    """Load and validate the actor roster JSON.  Fail fast if missing or invalid."""
-    if not path.exists():
-        raise FileNotFoundError(
-            f"Actor roster not found: {path}. "
-            f"Run actor extraction first (--mode actors), then run --mode events."
-        )
-    raw_text = path.read_text(encoding="utf-8").strip()
-    if not raw_text:
-        raise ValueError(f"Actor roster is empty: {path}")
-
-    try:
-        payload = json.loads(raw_text)
-    except json.JSONDecodeError as exc:
-        raise ValueError(f"Actor roster is not valid JSON: {path}") from exc
-
-    errors: list[str] = []
-    for model_cls in (RawSkillActorsArtifact, SkillActorsArtifact):
-        try:
-            artifact = model_cls.model_validate(payload)
-        except ValidationError as exc:
-            errors.append(str(exc))
-            continue
-        if not artifact.actors:
-            raise ValueError(f"Actor roster contains zero actors: {path}")
-        return raw_text
-
-    raise ValueError(
-        f"Actor roster does not match a valid actor artifact schema: {path}\n"
-        + "\n".join(errors)
-    )
-
-
 def _filter_evidence_for_window(
     blocks: list[ChronologyBlock],
     evidence_items: list[EvidenceItem],
     window: PromptChunkWindow,
 ) -> list[EvidenceItem]:
-    """Return only evidence items visible inside the target + overlap block window."""
     visible_ids = set(window.target_block_ids) | set(window.overlap_block_ids)
     visible_blocks = [block for block in blocks if block.block_id in visible_ids]
     if not visible_blocks:
@@ -145,17 +85,12 @@ def _filter_evidence_for_window(
     return filtered
 
 
-# ---------------------------------------------------------------------------
-# Packet file writing
-# ---------------------------------------------------------------------------
-
 def _write_packet_files(
     packet_dir: Path,
     prefix_text: str,
     body_text: str,
     rendered_text: str,
 ) -> tuple[str, str, str]:
-    """Write prefix.md, body.md, rendered.md and return their relative paths."""
     packet_dir.mkdir(parents=True, exist_ok=True)
 
     prefix_path = packet_dir / "prefix.md"
@@ -169,148 +104,6 @@ def _write_packet_files(
     return str(prefix_path), str(body_path), str(rendered_path)
 
 
-# ---------------------------------------------------------------------------
-# Packet composition per family
-# ---------------------------------------------------------------------------
-
-def _compose_actor_packets(
-    deal_slug: str,
-    target_name: str,
-    accession_number: str | None,
-    filing_type: str | None,
-    blocks: list[ChronologyBlock],
-    evidence_items: list[EvidenceItem],
-    windows: list[PromptChunkWindow],
-    packets_dir: Path,
-) -> list[PromptPacketArtifact]:
-    """Compose actor extraction prompt packets for each chunk window."""
-    task_instructions = (
-        "IMPORTANT: You MUST follow the quote-before-extract protocol.\n"
-        "\n"
-        "Step 1 - QUOTE: Read the chronology blocks above. For every passage "
-        "that identifies an actor, copy the exact verbatim text into the "
-        "quotes array. Each quote needs a unique quote_id (Q001, Q002, ...), "
-        "the block_id it comes from, and the verbatim text.\n"
-        "\n"
-        "Step 2 - EXTRACT: Build the actors array. Each actor references "
-        "quote_ids from Step 1 instead of inline evidence. Do not include "
-        "anchor_text or evidence_refs.\n"
-        "\n"
-        "Return a single JSON object with: quotes, actors, count_assertions, "
-        "unresolved_mentions. The quotes array MUST appear first."
-    )
-    packets: list[PromptPacketArtifact] = []
-
-    for window in windows:
-        packet_id = f"actors-{window.window_id}"
-        chunk_mode: Literal["single_pass", "chunked"] = (
-            "single_pass" if window.chunk_count == 1 else "chunked"
-        )
-        window_evidence = _filter_evidence_for_window(blocks, evidence_items, window)
-
-        prefix_text, body_text, rendered_text = render_actor_packet(
-            deal_slug=deal_slug,
-            target_name=target_name,
-            accession_number=accession_number,
-            filing_type=filing_type,
-            window=window,
-            blocks=blocks,
-            evidence_items=window_evidence,
-            prefix_asset_path=_ACTORS_PREFIX,
-            task_instructions=task_instructions,
-        )
-
-        packet_dir = packets_dir / packet_id
-        prefix_path, body_path, rendered_path = _write_packet_files(
-            packet_dir, prefix_text, body_text, rendered_text,
-        )
-
-        packets.append(PromptPacketArtifact(
-            packet_id=packet_id,
-            packet_family="actors",
-            chunk_mode=chunk_mode,
-            window_id=window.window_id,
-            prefix_path=prefix_path,
-            body_path=body_path,
-            rendered_path=rendered_path,
-            evidence_ids=[ei.evidence_id for ei in window_evidence],
-        ))
-
-    return packets
-
-
-def _compose_event_packets(
-    deal_slug: str,
-    target_name: str,
-    accession_number: str | None,
-    filing_type: str | None,
-    blocks: list[ChronologyBlock],
-    evidence_items: list[EvidenceItem],
-    windows: list[PromptChunkWindow],
-    packets_dir: Path,
-    actors_raw_path: Path,
-) -> list[PromptPacketArtifact]:
-    """Compose event extraction prompt packets for each chunk window."""
-    actor_roster_json = _load_actor_roster_json(actors_raw_path)
-
-    task_instructions = (
-        "IMPORTANT: You MUST follow the quote-before-extract protocol.\n"
-        "\n"
-        "Step 1 - QUOTE: Read the chronology blocks above. For every passage "
-        "that describes an M&A event, copy the exact verbatim text into the "
-        "quotes array. Each quote needs a unique quote_id (Q001, Q002, ...), "
-        "the block_id it comes from, and the verbatim text.\n"
-        "\n"
-        "Step 2 - EXTRACT: Build the events array using the locked actor "
-        "roster. Each event references quote_ids from Step 1 instead of "
-        "inline evidence. Do not include anchor_text or evidence_refs.\n"
-        "\n"
-        "Return a single JSON object with: quotes, events, exclusions, "
-        "coverage_notes. The quotes array MUST appear first."
-    )
-    packets: list[PromptPacketArtifact] = []
-
-    for window in windows:
-        packet_id = f"events-{window.window_id}"
-        chunk_mode: Literal["single_pass", "chunked"] = (
-            "single_pass" if window.chunk_count == 1 else "chunked"
-        )
-        window_evidence = _filter_evidence_for_window(blocks, evidence_items, window)
-
-        prefix_text, body_text, rendered_text = render_event_packet(
-            deal_slug=deal_slug,
-            target_name=target_name,
-            accession_number=accession_number,
-            filing_type=filing_type,
-            window=window,
-            blocks=blocks,
-            evidence_items=window_evidence,
-            actor_roster_json=actor_roster_json,
-            prefix_asset_path=_EVENTS_PREFIX,
-            event_examples_asset_path=_EVENT_EXAMPLES,
-            task_instructions=task_instructions,
-        )
-
-        packet_dir = packets_dir / packet_id
-        prefix_path, body_path, rendered_path = _write_packet_files(
-            packet_dir, prefix_text, body_text, rendered_text,
-        )
-
-        packets.append(PromptPacketArtifact(
-            packet_id=packet_id,
-            packet_family="events",
-            chunk_mode=chunk_mode,
-            window_id=window.window_id,
-            prefix_path=prefix_path,
-            body_path=body_path,
-            rendered_path=rendered_path,
-            evidence_ids=[ei.evidence_id for ei in window_evidence],
-            actor_roster_source_path=str(actors_raw_path),
-        ))
-
-    return packets
-
-
 def _compose_observation_v2_packets(
     deal_slug: str,
     target_name: str,
@@ -321,7 +114,6 @@ def _compose_observation_v2_packets(
     windows: list[PromptChunkWindow],
     packets_dir: Path,
 ) -> list[PromptPacketArtifact]:
-    """Compose v2 observation extraction prompt packets for each chunk window."""
     task_instructions = (
         "IMPORTANT: You MUST follow the quote-before-extract protocol.\n"
         "\n"
@@ -343,11 +135,22 @@ def _compose_observation_v2_packets(
         "- Keep every field filing-literal. If a structured field is ambiguous, set it to null "
         "or use the appropriate `other` escape hatch with a short detail string.\n"
         "- Use quote_ids, never evidence_refs or inline anchor_text.\n"
+        "- Populate `recipient_refs` whenever the filing names invitees or gives a reusable "
+        "cohort such as finalists, remaining bidders, or a named bidder set.\n"
         "- Proposals must use bidder or bidder-cohort subject_refs.\n"
+        "- Set `requested_by_observation_id` only when the proposal responds to a same-day-or-earlier "
+        "solicitation; never point forward to a later observation.\n"
+        "- Preserve proposal-local formality clues when literal text supports them: "
+        "`mentions_non_binding`, `includes_draft_merger_agreement`, and `includes_markup`.\n"
+        "- Keep agreement families distinct: `nda`, `amendment`, `standstill`, `exclusivity`, "
+        "`clean_team`, and `merger_agreement` are not interchangeable.\n"
         "- Solicitation observations should represent the request/announcement, with due_date "
         "when the filing gives a deadline.\n"
         "- Status observations cover expressed interest, withdrawal, exclusion, cannot-improve, "
         "selected-to-advance, and similar literal process states.\n"
+        "- Outcomes must include bidder or bidder-cohort refs when the filing names the actor.\n"
+        "- When the filing gives only a relative date, anchor it to the nearest explicit date "
+        "in the same local context and preserve the resulting non-exact precision.\n"
         "\n"
         "Return a single JSON object with keys in this order: "
         "quotes, parties, cohorts, observations, exclusions, coverage."
@@ -379,103 +182,54 @@ def _compose_observation_v2_packets(
             packet_dir, prefix_text, body_text, rendered_text,
         )
 
-        packets.append(PromptPacketArtifact(
-            packet_id=packet_id,
-            packet_family="observations_v2",
-            chunk_mode=chunk_mode,
-            window_id=window.window_id,
-            prefix_path=prefix_path,
-            body_path=body_path,
-            rendered_path=rendered_path,
-            evidence_ids=[ei.evidence_id for ei in window_evidence],
-        ))
+        packets.append(
+            PromptPacketArtifact(
+                packet_id=packet_id,
+                packet_family="observations_v2",
+                chunk_mode=chunk_mode,
+                window_id=window.window_id,
+                prefix_path=prefix_path,
+                body_path=body_path,
+                rendered_path=rendered_path,
+                evidence_ids=[ei.evidence_id for ei in window_evidence],
+            )
+        )
 
     return packets
 
-
-# ---------------------------------------------------------------------------
-# Public entry point
-# ---------------------------------------------------------------------------
 
 def run_compose_prompts(
     deal_slug: str,
     project_root: Path = PROJECT_ROOT,
     *,
-    mode: Literal["actors", "events", "all", "observations"] = "all",
-    contract: Literal["v1", "v2"] = "v1",
+    mode: Literal["observations"] = "observations",
+    contract: Literal["v2"] = "v2",
     chunk_budget: int = 6000,
     routing: Literal["auto", "single-pass", "chunked"] = "auto",
 ) -> PromptPacketManifest:
-    """Build prompt packet artifacts for a deal.
+    """Build live v2 observation prompt packet artifacts for a deal."""
+    if contract != "v2":
+        raise ValueError("compose-prompts only supports the live v2 contract")
+    if mode != "observations":
+        raise ValueError("compose-prompts only supports mode='observations'")
 
-    Loads chronology_blocks.jsonl and evidence_items.jsonl, builds chunk
-    windows, renders prompt packets with prefix/body/rendered files, and
-    writes a populated manifest.
-
-    Mode semantics for ``contract='v1'``:
-        - ``actors``: compose actor extraction packets only.
-        - ``events``: compose event extraction packets only.  Requires
-          ``actors_raw.json`` to exist (fail fast if missing).
-        - ``all``: compose actor packets only.  Event packets require a
-          separate ``--mode events`` call after actor extraction completes.
-
-    Mode semantics for ``contract='v2'``:
-        - ``observations``: compose v2 observation extraction packets only.
-        - ``all``: alias for ``observations``.
-
-    Args:
-        deal_slug: Deal identifier.
-        project_root: Repository root.
-        mode: Which packet families to compose.
-        contract: Prompt contract family to compose.
-        chunk_budget: Target token budget per chunk window.
-        routing: Complexity routing mode for single-pass vs chunked extraction.
-
-    Returns:
-        The written PromptPacketManifest.
-
-    Raises:
-        FileNotFoundError: If required source artifacts are missing, or if
-            mode is ``events`` and ``actors_raw.json`` does not exist.
-    """
     paths = build_skill_paths(deal_slug, project_root=project_root)
 
-    if contract == "v1" and mode not in {"actors", "events", "all"}:
-        raise ValueError(
-            f"Unsupported compose-prompts mode {mode!r} for contract 'v1'."
-        )
-    if contract == "v2" and mode not in {"observations", "all"}:
-        raise ValueError(
-            f"Unsupported compose-prompts mode {mode!r} for contract 'v2'."
-        )
-
-    # Validate required source inputs exist
     missing: list[Path] = []
     if not paths.chronology_blocks_path.exists():
         missing.append(paths.chronology_blocks_path)
     if not paths.evidence_items_path.exists():
         missing.append(paths.evidence_items_path)
     if missing:
-        missing_names = ", ".join(str(p) for p in missing)
+        missing_names = ", ".join(str(path) for path in missing)
         raise FileNotFoundError(
             f"Missing required source artifacts for compose-prompts: {missing_names}"
         )
 
-    # Fail fast: --mode events requires actors_raw.json
-    if contract == "v1" and mode == "events" and not paths.actors_raw_path.exists():
-        raise FileNotFoundError(
-            f"Actor roster not found at {paths.actors_raw_path}. "
-            f"Run actor extraction first (--mode actors), then --mode events."
-        )
+    ensure_output_directories(paths)
 
-    # Ensure output directories exist
-    ensure_output_directories(paths, include_legacy=(contract == "v1"))
-
-    # Load source artifacts
     blocks = _load_blocks(paths.chronology_blocks_path)
     evidence_items = _load_evidence(paths.evidence_items_path)
-
-    # Load deal context from seed registry
     seed = load_seed_entry(deal_slug, seeds_path=paths.seeds_path)
 
     complexity: Literal["simple", "complex"] | None = None
@@ -488,16 +242,14 @@ def run_compose_prompts(
         force_single_pass = complexity == "simple"
     effective_budget = "single-pass" if force_single_pass else str(chunk_budget)
 
-    # Get accession number from chronology selection if available
     accession_number: str | None = None
     filing_type: str | None = None
     selection_path = paths.source_dir / "chronology_selection.json"
     if selection_path.exists():
-        sel_data = json.loads(selection_path.read_text(encoding="utf-8"))
-        accession_number = sel_data.get("accession_number")
-        filing_type = sel_data.get("filing_type")
+        selection = json.loads(selection_path.read_text(encoding="utf-8"))
+        accession_number = selection.get("accession_number")
+        filing_type = selection.get("filing_type")
 
-    # Build chunk windows
     windows = build_chunk_windows(
         blocks,
         chunk_budget,
@@ -505,73 +257,20 @@ def run_compose_prompts(
     )
 
     run_id = f"compose-{uuid4().hex[:8]}"
+    packets = _compose_observation_v2_packets(
+        deal_slug=deal_slug,
+        target_name=seed.target_name,
+        accession_number=accession_number,
+        filing_type=filing_type,
+        blocks=blocks,
+        evidence_items=evidence_items,
+        windows=windows,
+        packets_dir=paths.prompt_v2_packets_dir,
+    )
 
-    # Determine which families to compose
-    if contract == "v1":
-        packets_dir = paths.prompt_packets_dir
-        manifest_path = paths.prompt_manifest_path
-        compose_actors = mode in ("actors", "all")
-        compose_events = mode == "events"
-        compose_observations_v2 = False
-    else:
-        packets_dir = paths.prompt_v2_packets_dir
-        manifest_path = paths.prompt_v2_manifest_path
-        compose_actors = False
-        compose_events = False
-        compose_observations_v2 = True
-
-    all_packets: list[PromptPacketArtifact] = []
-    asset_files: list[str] = []
-
-    if compose_actors:
-        actor_packets = _compose_actor_packets(
-            deal_slug=deal_slug,
-            target_name=seed.target_name,
-            accession_number=accession_number,
-            filing_type=filing_type,
-            blocks=blocks,
-            evidence_items=evidence_items,
-            windows=windows,
-            packets_dir=packets_dir,
-        )
-        all_packets.extend(actor_packets)
-        asset_files.append(str(_ACTORS_PREFIX))
-
-    if compose_events:
-        event_packets = _compose_event_packets(
-            deal_slug=deal_slug,
-            target_name=seed.target_name,
-            accession_number=accession_number,
-            filing_type=filing_type,
-            blocks=blocks,
-            evidence_items=evidence_items,
-            windows=windows,
-            packets_dir=packets_dir,
-            actors_raw_path=paths.actors_raw_path,
-        )
-        all_packets.extend(event_packets)
-        asset_files.append(str(_EVENTS_PREFIX))
-        asset_files.append(str(_EVENT_EXAMPLES))
-
-    if compose_observations_v2:
-        observation_packets = _compose_observation_v2_packets(
-            deal_slug=deal_slug,
-            target_name=seed.target_name,
-            accession_number=accession_number,
-            filing_type=filing_type,
-            blocks=blocks,
-            evidence_items=evidence_items,
-            windows=windows,
-            packets_dir=packets_dir,
-        )
-        all_packets.extend(observation_packets)
-        asset_files.append(str(_OBSERVATIONS_V2_PREFIX))
-        asset_files.append(str(_OBSERVATIONS_V2_EXAMPLES))
-
-    # Build manifest
     notes = [
-        f"contract={contract}",
-        f"mode={mode}",
+        "contract=v2",
+        "mode=observations",
         f"chunk_budget={chunk_budget}",
         f"routing={routing}",
         f"effective_budget={effective_budget}",
@@ -587,15 +286,12 @@ def run_compose_prompts(
         pipeline_version=PIPELINE_VERSION,
         deal_slug=deal_slug,
         source_accession_number=accession_number,
-        packets=all_packets,
-        asset_files=asset_files,
+        packets=packets,
+        asset_files=[str(_OBSERVATIONS_V2_PREFIX), str(_OBSERVATIONS_V2_EXAMPLES)],
         notes=notes,
     )
-
-    # Write manifest
-    manifest_path.write_text(
+    paths.prompt_v2_manifest_path.write_text(
         manifest.model_dump_json(indent=2),
         encoding="utf-8",
     )
-
     return manifest

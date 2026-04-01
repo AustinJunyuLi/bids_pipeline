@@ -13,7 +13,7 @@ The live default is the v2 observation-graph workflow:
 - deterministic runtime under `skill_pipeline/`
 - canonical local-agent workflow docs under `.claude/skills/`
 - live per-deal outputs under `data/skill/<slug>/`
-- archived v1 outputs under `data/legacy/v1/`
+- historical v1 recovery through Git tag `v1-working-tree-2026-04-01` plus milestone archives
 
 If docs disagree, trust live code and tests over planning notes or historical
 design documents.
@@ -66,7 +66,7 @@ The live v2 default uses these `skill-pipeline` stages:
 - `source-discover`: discover source filing candidates without fetching
 - `raw-fetch`: fetch and freeze the seed-selected SEC filing set
 - `preprocess-source`: build source artifacts from frozen filings
-- `compose-prompts --contract v2 --mode observations`: build v2 observation extraction packets
+- `compose-prompts --mode observations`: build v2 observation extraction packets
 - `canonicalize-v2`: resolve quote-first v2 observations to canonical span-backed artifacts
 - `check-v2`: structural validation for canonical v2 observations
 - `coverage-v2`: deterministic source-coverage audit for canonical v2 observations
@@ -76,21 +76,6 @@ The live v2 default uses these `skill-pipeline` stages:
 - `db-export-v2`: generate the live v2 triple export surface
 - `deal-agent`: preflight and artifact summary only
 
-### Legacy Deterministic Runtime
-
-These commands still exist for explicit legacy use only:
-
-- `compose-prompts` with the default v1 contract
-- `canonicalize`
-- `check`
-- `verify`
-- `coverage`
-- `gates`
-- `enrich-core`
-- `db-load`
-- `db-export`
-- `migrate-extract-v1-to-v2` as a historical backfill bridge only
-
 ### Local-Agent Stages
 
 Live v2 default skills:
@@ -99,14 +84,6 @@ Live v2 default skills:
 - `/extract-deal-v2`
 - `/verify-extraction-v2`
 - `/reconcile-alex`
-
-Legacy-only skills:
-
-- `/deal-agent-legacy`
-- `/extract-deal`
-- `/verify-extraction`
-- `/enrich-deal`
-- `/reconcile-alex-legacy`
 
 ### Important Name Collision
 
@@ -123,7 +100,6 @@ The full rerun workflow lives in the local-agent skill documentation for
 - `raw/<slug>/`: frozen filing ingress and manifests
 - `data/deals/<slug>/source/`: shared source artifacts derived from raw filings
 - `data/skill/<slug>/`: live v2 prompts, observations, validation, derivations, and exports
-- `data/legacy/v1/`: archived v1 skill artifacts plus the pre-cutover DuckDB file
 - `tests/`: regression tests for runtime stages and doc contracts
 - `.claude/skills/`: canonical local-agent workflow instructions
 - `docs/`: design notes and specs; useful, but not automatically authoritative
@@ -167,7 +143,7 @@ current preprocess output in this worktree.
 
 ### Live Prompt Packet Outputs
 
-`skill-pipeline compose-prompts --deal <slug> --contract v2 --mode observations`
+`skill-pipeline compose-prompts --deal <slug> --mode observations`
 writes:
 
 - `data/skill/<slug>/prompt_v2/manifest.json`
@@ -178,12 +154,6 @@ writes:
 This contract instructs the LLM to emit quote-first `quotes`, `parties`,
 `cohorts`, and the 6 literal observation subtypes. It must not emit analyst
 rows.
-
-### Legacy Prompt Packet Outputs
-
-The legacy v1 prompt surface remains available under `data/skill/<slug>/prompt/`
-for `/deal-agent-legacy`, `/extract-deal`, `/verify-extraction`, and
-`/enrich-deal`. Those outputs are no longer the live default.
 
 ### Live Extract Outputs
 
@@ -231,19 +201,15 @@ and populated with:
 - `data/skill/<slug>/export_v2/analyst_rows.csv`
 - `data/skill/<slug>/export_v2/benchmark_rows_expanded.csv`
 
-### Legacy Archive Outputs
+### Historical Recovery
 
-The v1 cutover archive lives here:
+The retired v1 working tree is recoverable through:
 
-- `data/legacy/v1/README.md`
-- `data/legacy/v1/archive_manifest.json`
-- `data/legacy/v1/pipeline_precutover.duckdb`
-- `data/legacy/v1/skill/<slug>/{canonicalize,check,coverage,enrich,export,extract,gates,prompt,verify}/...`
-- `data/legacy/v1/skill/<slug>/reconcile/alex_rows_codex_blind_round2.json`
-- `data/legacy/v1/skill/<slug>/reconcile/reconciliation_report_codex_blind_round2.json`
+- Git tag `v1-working-tree-2026-04-01`
+- commit `82a4966` on `origin/two-pass`
+- archived milestone documents under `.planning/milestones/`
 
-Legacy v1 artifacts should not be written back into the live `data/skill/<slug>/`
-surface.
+Do not recreate the retired v1 runtime or archive inside the live working tree.
 
 ## End-To-End Flow
 
@@ -253,7 +219,7 @@ data/seeds.csv
   -> raw/<slug>/*
   -> skill-pipeline preprocess-source --deal <slug>
   -> data/deals/<slug>/source/*
-  -> skill-pipeline compose-prompts --deal <slug> --contract v2 --mode observations
+  -> skill-pipeline compose-prompts --deal <slug> --mode observations
   -> data/skill/<slug>/prompt_v2/*
   -> /extract-deal-v2 <slug>
   -> data/skill/<slug>/extract_v2/observations_raw.json
@@ -268,8 +234,6 @@ data/seeds.csv
   -> /reconcile-alex <slug>         (optional post-export diagnostic)
 ```
 
-The v1 enrich/repair/export flow is preserved only under `/deal-agent-legacy`.
-
 ## Hard Invariants
 
 - Filing text is the only factual source of truth.
@@ -281,7 +245,7 @@ The v1 enrich/repair/export flow is preserved only under `/deal-agent-legacy`.
 - `check-v2`, `coverage-v2`, and `gates-v2` are blocker gates before `derive`.
 - `db-load-v2` requires canonical v2 observations, derivations, and structured coverage findings.
 - `db-export-v2` generates CSVs from DuckDB, not from JSON artifacts.
-- `migrate-extract-v1-to-v2` is historical migration support only; it is not the live extraction path.
+- v1 recovery is Git-history-only; do not reintroduce a live legacy runtime surface.
 - Fail fast on missing files, schema drift, contradictory state, and invalid assumptions.
 
 ## Benchmark Boundary
@@ -300,9 +264,6 @@ Do not consult any of the following before
 Generation stops at the filing-grounded v2 export contract. Benchmark
 comparison is diagnostic only and must never become a hidden generation
 requirement.
-
-Legacy benchmark work under `/reconcile-alex-legacy` follows the same principle
-but uses the legacy `db-export` boundary.
 
 ## Environment Variables
 
@@ -334,7 +295,7 @@ python -m pytest -q
 
 skill-pipeline raw-fetch --deal imprivata
 skill-pipeline preprocess-source --deal imprivata
-skill-pipeline compose-prompts --deal imprivata --contract v2 --mode observations
+skill-pipeline compose-prompts --deal imprivata --mode observations
 skill-pipeline canonicalize-v2 --deal imprivata
 skill-pipeline check-v2 --deal imprivata
 skill-pipeline coverage-v2 --deal imprivata
@@ -345,16 +306,14 @@ skill-pipeline db-export-v2 --deal imprivata
 
 skill-pipeline deal-agent --deal imprivata
 
-python scripts/archive_v1_cutover.py
 python scripts/sync_skill_mirrors.py
 python scripts/sync_skill_mirrors.py --check
 ```
 
 ## Editing And Safety Rules For Repo Artifacts
 
-- Treat `raw/`, `data/deals/<slug>/source/`, `data/skill/<slug>/`, and `data/legacy/v1/` as generated or archived artifacts. Edit only intentionally and document why.
+- Treat `raw/`, `data/deals/<slug>/source/`, and `data/skill/<slug>/` as generated artifacts. Edit only intentionally and document why.
 - Re-running `/deal-agent <slug>` deletes live per-deal v2 outputs under `data/skill/<slug>/` and rebuilds them from scratch. `raw/<slug>/` is preserved.
-- `/deal-agent <slug>` must not delete or rewrite `data/legacy/v1/`.
 - Never rewrite raw filing text under `raw/<slug>/filings/`.
 - When skill docs change, update `.claude/skills/` first, then sync mirrors.
 - Keep repo documentation factual. Do not write future architecture into this file as if it already exists.

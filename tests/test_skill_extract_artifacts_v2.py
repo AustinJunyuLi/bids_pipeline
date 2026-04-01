@@ -5,11 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from skill_pipeline.extract_artifacts_v2 import (
-    detect_extract_artifact_version,
-    load_observation_artifacts,
-    load_versioned_extract_artifacts,
-)
+from skill_pipeline.extract_artifacts_v2 import load_observation_artifacts
 from skill_pipeline.paths import build_skill_paths
 
 
@@ -208,26 +204,6 @@ def _spans_payload() -> dict:
     }
 
 
-def _write_v1_payloads(tmp_path: Path) -> None:
-    paths = build_skill_paths("imprivata", project_root=tmp_path)
-    paths.extract_dir.mkdir(parents=True, exist_ok=True)
-    paths.actors_raw_path.write_text(
-        json.dumps(
-            {
-                "quotes": [{"quote_id": "Q001", "block_id": "B001", "text": "Bidder A"}],
-                "actors": [],
-                "count_assertions": [],
-                "unresolved_mentions": [],
-            }
-        ),
-        encoding="utf-8",
-    )
-    paths.events_raw_path.write_text(
-        json.dumps({"quotes": [], "events": [], "exclusions": [], "coverage_notes": []}),
-        encoding="utf-8",
-    )
-
-
 def _write_v2_raw_payload(tmp_path: Path) -> None:
     paths = build_skill_paths("imprivata", project_root=tmp_path)
     paths.extract_v2_dir.mkdir(parents=True, exist_ok=True)
@@ -246,21 +222,6 @@ def _write_v2_canonical_payload(tmp_path: Path, *, with_spans: bool = True) -> N
     )
     if with_spans:
         paths.spans_v2_path.write_text(json.dumps(_spans_payload()), encoding="utf-8")
-
-
-def test_detect_extract_artifact_version_distinguishes_v2_only(tmp_path: Path) -> None:
-    _write_v2_raw_payload(tmp_path)
-    paths = build_skill_paths("imprivata", project_root=tmp_path)
-
-    assert detect_extract_artifact_version(paths) == "v2"
-
-
-def test_detect_extract_artifact_version_reports_both_when_v1_and_v2_exist(tmp_path: Path) -> None:
-    _write_v1_payloads(tmp_path)
-    _write_v2_raw_payload(tmp_path)
-    paths = build_skill_paths("imprivata", project_root=tmp_path)
-
-    assert detect_extract_artifact_version(paths) == "both"
 
 
 def test_load_observation_artifacts_quote_first_mode_returns_typed_raw_artifact(
@@ -300,26 +261,3 @@ def test_load_observation_artifacts_canonical_mode_returns_indexes(tmp_path: Pat
     assert set(loaded.cohort_index) == {"cohort_finalists"}
     assert set(loaded.observation_index) == {"obs_proposal"}
     assert set(loaded.span_index) == {"span_0001", "span_0002", "span_0003"}
-
-
-def test_load_versioned_extract_artifacts_refuses_ambiguous_auto_detection(
-    tmp_path: Path,
-) -> None:
-    _write_v1_payloads(tmp_path)
-    _write_v2_canonical_payload(tmp_path)
-    paths = build_skill_paths("imprivata", project_root=tmp_path)
-
-    with pytest.raises(ValueError, match="Both v1 and v2 extract artifacts are present"):
-        load_versioned_extract_artifacts(paths)
-
-
-def test_load_versioned_extract_artifacts_can_explicitly_select_v2(tmp_path: Path) -> None:
-    _write_v1_payloads(tmp_path)
-    _write_v2_canonical_payload(tmp_path)
-    paths = build_skill_paths("imprivata", project_root=tmp_path)
-
-    loaded = load_versioned_extract_artifacts(paths, version="v2")
-
-    assert loaded.mode == "canonical"
-    assert loaded.observations is not None
-    assert loaded.observations.observations[0].observation_id == "obs_proposal"

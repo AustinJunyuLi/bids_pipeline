@@ -13,6 +13,7 @@ from skill_pipeline.models_v2 import (
     AgreementObservation,
     GateFindingV2,
     GateReportV2,
+    OutcomeObservation,
     ProposalObservation,
     SolicitationObservation,
 )
@@ -166,6 +167,232 @@ def _deadline_findings(artifacts) -> list[GateFindingV2]:
     return findings
 
 
+def _proposal_request_findings(artifacts) -> list[GateFindingV2]:
+    observations = artifacts.observations
+    if observations is None:
+        return []
+
+    findings: list[GateFindingV2] = []
+    for observation in observations.observations:
+        if not isinstance(observation, ProposalObservation):
+            continue
+        if not observation.requested_by_observation_id:
+            continue
+        linked_observation = artifacts.observation_index.get(observation.requested_by_observation_id)
+        if linked_observation is None:
+            continue
+        if not isinstance(linked_observation, SolicitationObservation):
+            findings.append(
+                GateFindingV2(
+                    gate_id="proposal_request_not_solicitation",
+                    rule_id="proposal_request_type_compatibility",
+                    severity="blocker",
+                    description=(
+                        f"Proposal {observation.observation_id!r} links to "
+                        f"{linked_observation.observation_id!r}, which is not a solicitation."
+                    ),
+                    observation_ids=[
+                        observation.observation_id,
+                        linked_observation.observation_id,
+                    ],
+                )
+            )
+            continue
+
+        proposal_date = _parse_date(observation.date)
+        solicitation_date = _parse_date(linked_observation.date)
+        if proposal_date is None or solicitation_date is None:
+            continue
+        if solicitation_date <= proposal_date:
+            continue
+        findings.append(
+            GateFindingV2(
+                gate_id="proposal_request_points_forward",
+                rule_id="proposal_request_temporal_order",
+                severity="blocker",
+                description=(
+                    f"Proposal {observation.observation_id!r} dated {proposal_date.isoformat()} "
+                    f"links forward to solicitation {linked_observation.observation_id!r} "
+                    f"dated {solicitation_date.isoformat()}."
+                ),
+                observation_ids=[
+                    observation.observation_id,
+                    linked_observation.observation_id,
+                ],
+            )
+        )
+    return findings
+
+
+def _matching_named_recipient_refs(summary_text: str, artifacts) -> tuple[list[str], list[str]]:
+    party_ids: list[str] = []
+    cohort_ids: list[str] = []
+    observations = artifacts.observations
+    if observations is None:
+        return party_ids, cohort_ids
+    for party in observations.parties:
+        if party.role != "bidder":
+            continue
+        candidates = [party.display_name, party.canonical_name, *party.aliases]
+        if any(candidate and candidate.lower() in summary_text for candidate in candidates):
+            party_ids.append(party.party_id)
+    for cohort in observations.cohorts:
+        if cohort.label and cohort.label.lower() in summary_text:
+            cohort_ids.append(cohort.cohort_id)
+    return party_ids, cohort_ids
+
+
+def _named_recipient_findings(artifacts) -> list[GateFindingV2]:
+    observations = artifacts.observations
+    if observations is None:
+        return []
+
+    findings: list[GateFindingV2] = []
+    for observation in observations.observations:
+        if not isinstance(observation, SolicitationObservation):
+            continue
+        if observation.recipient_refs:
+            continue
+        party_ids, cohort_ids = _matching_named_recipient_refs(observation.summary.lower(), artifacts)
+        if not party_ids and not cohort_ids:
+            continue
+        findings.append(
+            GateFindingV2(
+                gate_id="solicitation_missing_named_recipients",
+                rule_id="solicitation_recipient_required_when_named",
+                severity="warning",
+                description=(
+                    f"Solicitation {observation.observation_id!r} names invitees in the summary "
+                    "but leaves recipient_refs empty."
+                ),
+                party_ids=party_ids,
+                cohort_ids=cohort_ids,
+                observation_ids=[observation.observation_id],
+            )
+        )
+    return findings
+
+
+def _outcome_integrity_findings(artifacts) -> list[GateFindingV2]:
+    observations = artifacts.observations
+    if observations is None:
+        return []
+
+    findings: list[GateFindingV2] = []
+    for observation in observations.observations:
+        if not isinstance(observation, OutcomeObservation):
+            continue
+        if observation.outcome_kind not in {"executed", "restarted", "terminated"}:
+            continue
+        bidder_refs = [
+            ref
+            for ref in observation.subject_refs + observation.counterparty_refs
+            if (ref in artifacts.party_index and artifacts.party_index[ref].role == "bidder")
+            or ref in artifacts.cohort_index
+        ]
+        if not bidder_refs:
+            findings.append(
+                GateFindingV2(
+                    gate_id="substantive_outcome_missing_bidder_actor",
+                    rule_id="substantive_outcome_requires_bidder_actor",
+                    severity="blocker" if observation.outcome_kind in {"executed", "restarted"} else "warning",
+                    description=(
+                        f"Outcome {observation.observation_id!r} is {observation.outcome_kind!r} "
+                        "but does not include a bidder or bidder-cohort reference."
+                    ),
+                    observation_ids=[observation.observation_id],
+                )
+            )
+        related_observation = artifacts.observation_index.get(observation.related_observation_id or "")
+        related_merger_date = (
+            _parse_date(getattr(related_observation, "date", None))
+            if isinstance(related_observation, AgreementObservation)
+            and related_observation.agreement_kind == "merger_agreement"
+            else None
+        )
+        if _parse_date(observation.date) is None and related_merger_date is None:
+            findings.append(
+                GateFindingV2(
+                    gate_id="substantive_outcome_missing_date",
+                    rule_id="substantive_outcome_requires_date_or_anchor",
+                    severity="warning",
+                    description=(
+                        f"Outcome {observation.observation_id!r} lacks a date or exact related merger-agreement anchor."
+                    ),
+                    observation_ids=[observation.observation_id],
+                )
+            )
+    return findings
+
+
+def _proxy_date_findings(artifacts) -> list[GateFindingV2]:
+    observations = artifacts.observations
+    if observations is None:
+        return []
+
+    findings: list[GateFindingV2] = []
+    for observation in observations.observations:
+        if not isinstance(observation, (ProposalObservation, OutcomeObservation, AgreementObservation)):
+            continue
+        precision = getattr(observation.date, "precision", None)
+        if hasattr(precision, "value"):
+            precision = precision.value
+        if precision in {None, "exact_day", "unknown"}:
+            continue
+        if _parse_date(observation.date) is None:
+            continue
+        findings.append(
+            GateFindingV2(
+                gate_id="proxy_date_export_warning",
+                rule_id="rough_date_export_warning",
+                severity="warning",
+                description=(
+                    f"Observation {observation.observation_id!r} uses non-exact date precision "
+                    f"{precision!r}; downstream analyst surfaces should treat it as a proxy date."
+                ),
+                observation_ids=[observation.observation_id],
+            )
+        )
+    return findings
+
+
+def _agreement_surface_findings(artifacts) -> list[GateFindingV2]:
+    observations = artifacts.observations
+    if observations is None:
+        return []
+
+    keyword_map = {
+        "amendment": ("amendment", "amended"),
+        "standstill": ("standstill",),
+        "exclusivity": ("exclusive", "exclusivity"),
+        "clean_team": ("clean team",),
+    }
+    findings: list[GateFindingV2] = []
+    for observation in observations.observations:
+        if not isinstance(observation, AgreementObservation):
+            continue
+        summary_text = " ".join(filter(None, [observation.summary, observation.other_detail])).lower()
+        for expected_kind, keywords in keyword_map.items():
+            if not any(keyword in summary_text for keyword in keywords):
+                continue
+            if observation.agreement_kind not in {"nda", "other"}:
+                continue
+            findings.append(
+                GateFindingV2(
+                    gate_id="agreement_kind_surface_warning",
+                    rule_id="agreement_kind_surface_warning",
+                    severity="warning",
+                    description=(
+                        f"Agreement {observation.observation_id!r} appears to be {expected_kind!r} "
+                        f"but is classified as {observation.agreement_kind!r}."
+                    ),
+                    observation_ids=[observation.observation_id],
+                )
+            )
+            break
+    return findings
+
+
 def _build_report(findings: list[GateFindingV2]) -> GateReportV2:
     blocker_count = sum(1 for finding in findings if finding.severity == "blocker")
     warning_count = sum(1 for finding in findings if finding.severity == "warning")
@@ -189,6 +416,11 @@ def run_gates_v2(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> int:
     findings.extend(_revision_chain_findings(artifacts))
     findings.extend(_cohort_count_findings(artifacts))
     findings.extend(_deadline_findings(artifacts))
+    findings.extend(_proposal_request_findings(artifacts))
+    findings.extend(_named_recipient_findings(artifacts))
+    findings.extend(_outcome_integrity_findings(artifacts))
+    findings.extend(_proxy_date_findings(artifacts))
+    findings.extend(_agreement_surface_findings(artifacts))
 
     report = _build_report(findings)
     ensure_output_directories(paths)

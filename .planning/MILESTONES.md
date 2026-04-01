@@ -41,6 +41,8 @@
 
 **Phases completed:** 3 phases (17-19)
 
+**Archive:** [v2.1 roadmap](milestones/v2.1-ROADMAP.md), [v2.1 requirements](milestones/v2.1-REQUIREMENTS.md)
+
 **Key accomplishments:**
 
 - `/deal-agent` and `/reconcile-alex` now point at the live v2 workflow
@@ -48,3 +50,19 @@
 - v1 outputs archived under `data/legacy/v1/`
 - live `data/pipeline.duckdb` rebuilt from v2 artifacts only
 - repo docs and tests now enforce the live/legacy split
+
+---
+
+## v2.2 Reconciliation Lift + Surface Repair (Complete: 2026-04-01)
+
+**Phases completed:** 5 phases (20-24), 5 plans
+
+**Audit:** [v2.2 milestone audit](milestones/v2.2-MILESTONE-AUDIT.md)
+
+**Key accomplishments:**
+
+- chronology-safe proposal linkage and proposal-local bid-type repair
+- stronger elimination-date and bidder-scoped outcome normalization
+- additive analyst/export surface repairs for agreement taxonomy, proxy dates, and enterprise value
+- stronger prompt, skill, and gate contracts around recipients, chronology-safe links, and substantive outcomes
+- retired the legacy v1 working-tree runtime and archive, with recovery preserved at tag `v1-working-tree-2026-04-01`

@@ -73,6 +73,7 @@ class ProcessObservation(ObservationBase):
         "sale_launch",
         "public_announcement",
         "advisor_retention",
+        "advisor_termination",
         "press_release",
         "other",
     ]
@@ -185,6 +186,7 @@ class LifecycleTransitionRecord(SkillModel):
     transition_id: str
     subject_ref: str
     subject_count: int = 1
+    event_date: ResolvedDate | None = None
     from_state: Literal[
         "unknown",
         "identified",
@@ -235,7 +237,12 @@ AnalystEventType = Literal[
     "sale_press_release",
     "bid_press_release",
     "ib_retention",
+    "ib_terminated",
     "nda",
+    "nda_amendment",
+    "standstill",
+    "exclusivity",
+    "clean_team",
     "proposal",
     "drop",
     "final_round_inf_ann",
@@ -262,8 +269,11 @@ class AnalystRowRecord(SkillModel):
     value: Decimal | None = None
     range_low: Decimal | None = None
     range_high: Decimal | None = None
+    enterprise_value: Decimal | None = None
+    date_precision: str | None = None
     date_recorded: date | None = None
     date_public: date | None = None
+    date_sort_proxy: date | None = None
     all_cash: bool | None = None
     review_flags: list[str] = Field(default_factory=list)
     basis: DerivationBasis

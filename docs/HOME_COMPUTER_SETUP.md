@@ -5,11 +5,11 @@ and the `skill-pipeline` CLI.
 
 ## Local Workflow
 
-Use the filing-grounded workflow through `skill-pipeline db-export --deal <slug>`.
+Use the filing-grounded v2 workflow through `skill-pipeline db-export-v2 --deal <slug>`.
 
 Benchmark materials are post-export only. Do not consult `example/`,
 `diagnosis/`, benchmark workbooks, or `/reconcile-alex` before
-`skill-pipeline db-export --deal <slug>` completes.
+`skill-pipeline db-export-v2 --deal <slug>` completes.
 
 ## Minimum Setup
 
@@ -22,3 +22,6 @@ Benchmark materials are post-export only. Do not consult `example/`,
 - If this checkout has `.claude/LOCAL.md`, treat it as the machine-local override for venv naming and shell-specific workflow details.
 - Keep generated artifacts under `data/skill/<slug>/` separate from read-only
   source inputs under `data/deals/<slug>/source/` and `raw/<slug>/`.
+- Recover the retired v1 tree only from Git tag `v1-working-tree-2026-04-01`
+  if you need historical reference material; it is no longer present in the
+  live working tree.
