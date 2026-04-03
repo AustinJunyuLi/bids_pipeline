@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from skill_pipeline.coverage_v2 import run_coverage_v2
+from skill_pipeline.coverage_v2 import _actor_hint_matches_party, run_coverage_v2
 from skill_pipeline.paths import build_skill_paths
 from tests._v2_validation_fixtures import (
     canonical_observations_payload,
@@ -17,6 +17,14 @@ def _load_outputs(tmp_path: Path, slug: str = "stec") -> tuple[dict, dict]:
     findings = json.loads(paths.coverage_v2_findings_path.read_text(encoding="utf-8"))
     summary = json.loads(paths.coverage_v2_summary_path.read_text(encoding="utf-8"))
     return findings, summary
+
+
+def test_actor_hint_matching_preserves_single_letter_party_suffixes() -> None:
+    assert _actor_hint_matches_party("Party A", "Party A")
+    assert _actor_hint_matches_party("Party A", "Bidder A")
+    assert not _actor_hint_matches_party("Party A", "Party B")
+    assert _actor_hint_matches_party("Bidder A, LLC", "Bidder A")
+    assert not _actor_hint_matches_party("Bidder A, LLC", "Bidder B")
 
 
 def test_coverage_v2_records_observed_matches_for_literal_cues(tmp_path: Path) -> None:

@@ -1,0 +1,993 @@
+{
+  "deal_slug": "providence-worcester",
+  "alex_target_name": "PROVIDENCE & WORCESTER RR CO",
+  "generated_at": "2026-04-02T15:50:40.498730",
+  "summary": {
+    "alex_total_rows": 36,
+    "alex_comparable_events": 35,
+    "pipeline_total_rows": 29,
+    "pipeline_comparable_events": 29,
+    "matched_events": 14,
+    "disagreements": 12,
+    "alex_only_events": 21,
+    "pipeline_only_events": 15,
+    "bidder_families_count": 17
+  },
+  "bid_comparison": {
+    "9 parties": {
+      "alex_bids": 1,
+      "pipeline_bids": 0,
+      "matched": 0,
+      "exact": 0,
+      "with_disagreements": 0,
+      "alex_only": 1,
+      "pipeline_only": 0
+    },
+    "g& w": {
+      "alex_bids": 0,
+      "pipeline_bids": 2,
+      "matched": 0,
+      "exact": 0,
+      "with_disagreements": 0,
+      "alex_only": 0,
+      "pipeline_only": 2
+    },
+    "g&w": {
+      "alex_bids": 3,
+      "pipeline_bids": 0,
+      "matched": 0,
+      "exact": 0,
+      "with_disagreements": 0,
+      "alex_only": 3,
+      "pipeline_only": 0
+    },
+    "party b": {
+      "alex_bids": 1,
+      "pipeline_bids": 1,
+      "matched": 1,
+      "exact": 0,
+      "with_disagreements": 1,
+      "alex_only": 0,
+      "pipeline_only": 0
+    },
+    "party c": {
+      "alex_bids": 2,
+      "pipeline_bids": 2,
+      "matched": 2,
+      "exact": 1,
+      "with_disagreements": 1,
+      "alex_only": 0,
+      "pipeline_only": 0
+    },
+    "party d": {
+      "alex_bids": 2,
+      "pipeline_bids": 2,
+      "matched": 2,
+      "exact": 1,
+      "with_disagreements": 1,
+      "alex_only": 0,
+      "pipeline_only": 0
+    },
+    "party e": {
+      "alex_bids": 1,
+      "pipeline_bids": 2,
+      "matched": 1,
+      "exact": 0,
+      "with_disagreements": 1,
+      "alex_only": 0,
+      "pipeline_only": 1
+    },
+    "party e/f": {
+      "alex_bids": 2,
+      "pipeline_bids": 0,
+      "matched": 0,
+      "exact": 0,
+      "with_disagreements": 0,
+      "alex_only": 2,
+      "pipeline_only": 0
+    },
+    "party f": {
+      "alex_bids": 1,
+      "pipeline_bids": 2,
+      "matched": 1,
+      "exact": 0,
+      "with_disagreements": 1,
+      "alex_only": 0,
+      "pipeline_only": 1
+    }
+  },
+  "bidder_families": {
+    "(unnamed)": {
+      "alex_count": 5,
+      "pipeline_count": 4,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [
+        {
+          "bidder_id": 0.7,
+          "category": "target_sale",
+          "bid_note": "Target Sale",
+          "date": "2016-07-22",
+          "value": null
+        },
+        {
+          "bidder_id": 6,
+          "category": "final_round",
+          "bid_note": "Final Round Inf Ann",
+          "date": null,
+          "value": null
+        },
+        {
+          "bidder_id": 13.5,
+          "category": "final_round",
+          "bid_note": "Final Round Inf",
+          "date": null,
+          "value": null
+        },
+        {
+          "bidder_id": 17.5,
+          "category": "final_round",
+          "bid_note": "Final Round Ann",
+          "date": null,
+          "value": null
+        },
+        {
+          "bidder_id": 28.3,
+          "category": "final_round",
+          "bid_note": "Final Round",
+          "date": null,
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0002",
+          "category": "target_sale",
+          "event_type": "target_sale",
+          "date": "2016-03-14",
+          "value": null,
+          "span_ids": "span_0004|span_0005"
+        },
+        {
+          "row_id": "row_0023",
+          "category": "final_round",
+          "event_type": "final_round",
+          "date": "2016-07-20",
+          "value": null,
+          "span_ids": "span_0001"
+        },
+        {
+          "row_id": "row_0019",
+          "category": "bid_press_release",
+          "event_type": "bid_press_release",
+          "date": "2016-08-15",
+          "value": null,
+          "span_ids": "span_0023"
+        },
+        {
+          "row_id": "row_0022",
+          "category": "final_round",
+          "event_type": "final_round_ann",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0001"
+        }
+      ]
+    },
+    "1 party": {
+      "alex_count": 1,
+      "pipeline_count": 0,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [
+        {
+          "bidder_id": 16,
+          "category": "drop",
+          "bid_note": "Drop",
+          "date": "2016-07-22",
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": []
+    },
+    "16 parties": {
+      "alex_count": 1,
+      "pipeline_count": 0,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [
+        {
+          "bidder_id": 4,
+          "category": "drop",
+          "bid_note": "Drop",
+          "date": "2016-06-01",
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": []
+    },
+    "2 parties": {
+      "alex_count": 1,
+      "pipeline_count": 0,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [
+        {
+          "bidder_id": 5,
+          "category": "drop",
+          "bid_note": "DropTarget",
+          "date": "2016-06-01",
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": []
+    },
+    "25 parties, including parties a, b": {
+      "alex_count": 1,
+      "pipeline_count": 0,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [
+        {
+          "bidder_id": 1,
+          "category": "nda",
+          "bid_note": "NDA",
+          "date": null,
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": []
+    },
+    "9 parties": {
+      "alex_count": 1,
+      "pipeline_count": 0,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [
+        {
+          "bidder_id": 3,
+          "category": "bid",
+          "bid_note": "NA",
+          "date": null,
+          "value": 17.93
+        }
+      ],
+      "unmatched_pipeline": []
+    },
+    "bmo capital markets corp. / greene holcomb & fisher llc": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0001",
+          "category": "ib_retention",
+          "event_type": "ib_retention",
+          "date": "2016-01-27",
+          "value": null,
+          "span_ids": "span_0003"
+        }
+      ]
+    },
+    "g& w": {
+      "alex_count": 0,
+      "pipeline_count": 4,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0004",
+          "category": "nda",
+          "event_type": "nda",
+          "date": "2016-04-22",
+          "value": null,
+          "span_ids": "span_0006"
+        },
+        {
+          "row_id": "row_0009",
+          "category": "bid",
+          "event_type": "proposal",
+          "date": "2016-07-21",
+          "value": 21.15,
+          "span_ids": "span_0009|span_0001|span_0010"
+        },
+        {
+          "row_id": "row_0018",
+          "category": "bid",
+          "event_type": "proposal",
+          "date": "2016-08-12",
+          "value": 25.0,
+          "span_ids": "span_0020|span_0021"
+        },
+        {
+          "row_id": "row_0021",
+          "category": "executed",
+          "event_type": "executed",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0022"
+        }
+      ]
+    },
+    "g&w": {
+      "alex_count": 4,
+      "pipeline_count": 0,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [
+        {
+          "bidder_id": 14,
+          "category": "bid",
+          "bid_note": "NA",
+          "date": "2016-07-21",
+          "value": 21.15
+        },
+        {
+          "bidder_id": 17,
+          "category": "bid",
+          "bid_note": "NA",
+          "date": "2016-07-26",
+          "value": 22.15
+        },
+        {
+          "bidder_id": 26,
+          "category": "bid",
+          "bid_note": "NA",
+          "date": "2016-08-12",
+          "value": 25.0
+        },
+        {
+          "bidder_id": 28.5,
+          "category": "executed",
+          "bid_note": "Executed",
+          "date": "2016-08-15",
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": []
+    },
+    "greene holcomb & fisher": {
+      "alex_count": 1,
+      "pipeline_count": 0,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [
+        {
+          "bidder_id": 0.5,
+          "category": "ib_retention",
+          "bid_note": "IB",
+          "date": null,
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": []
+    },
+    "party a": {
+      "alex_count": 2,
+      "pipeline_count": 3,
+      "matched": 1,
+      "exact_matches": 0,
+      "disagreements": [
+        {
+          "match_quality": "category_only",
+          "disagreements": [
+            {
+              "field": "date",
+              "pipeline": "2016-07-20",
+              "alex": "2016-07-22"
+            }
+          ],
+          "pipeline_row_id": "row_0025",
+          "alex_bidder_id": 15,
+          "filing_evidence": [
+            "[span_0001] Committee, representatives of GHF instructed all potential buyers to submit non-binding letters of intent (\u0093 LOIs\u0094) by July 20, 2016, together with mark-ups of the forms of merger agreement, disclosure letter and voting agreement, which GHF"
+          ]
+        }
+      ],
+      "unmatched_alex": [
+        {
+          "bidder_id": 0.3,
+          "category": "interest",
+          "bid_note": "Bidder Interest",
+          "date": "2016-07-22",
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0003",
+          "category": "nda",
+          "event_type": "nda",
+          "date": "2016-04-22",
+          "value": null,
+          "span_ids": "span_0006"
+        },
+        {
+          "row_id": "row_0020",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0002"
+        }
+      ]
+    },
+    "party b": {
+      "alex_count": 3,
+      "pipeline_count": 3,
+      "matched": 2,
+      "exact_matches": 0,
+      "disagreements": [
+        {
+          "match_quality": "category_only",
+          "disagreements": [
+            {
+              "field": "date",
+              "pipeline": null,
+              "alex": "2016-07-20"
+            }
+          ],
+          "pipeline_row_id": "row_0010",
+          "alex_bidder_id": 9,
+          "filing_evidence": [
+            "[span_0011] Party B submitted an LOI to acquire the Company for a price of $24.00 per share (subject to an expedited diligence review).",
+            "[span_0001] Committee, representatives of GHF instructed all potential buyers to submit non-binding letters of intent (\u0093 LOIs\u0094) by July 20, 2016, together with mark-ups of the forms of merger agreement, disclosure letter and voting agreement, which GHF",
+            "[span_0010] (implying equity values of $96 million to $121 million). Party B, G& W and another bidder (\u0093 Party D\u0094) also provided mark-ups of the draft merger agreement and voting agreement. One bidder (\u0093 Party E\u0094) provided a summary of"
+          ]
+        },
+        {
+          "match_quality": "category_only",
+          "disagreements": [
+            {
+              "field": "date",
+              "pipeline": null,
+              "alex": "2016-08-12"
+            }
+          ],
+          "pipeline_row_id": "row_0026",
+          "alex_bidder_id": 27,
+          "filing_evidence": [
+            "[span_0011] Party B submitted an LOI to acquire the Company for a price of $24.00 per share (subject to an expedited diligence review).",
+            "[span_0001] Committee, representatives of GHF instructed all potential buyers to submit non-binding letters of intent (\u0093 LOIs\u0094) by July 20, 2016, together with mark-ups of the forms of merger agreement, disclosure letter and voting agreement, which GHF",
+            "[span_0010] (implying equity values of $96 million to $121 million). Party B, G& W and another bidder (\u0093 Party D\u0094) also provided mark-ups of the draft merger agreement and voting agreement. One bidder (\u0093 Party E\u0094) provided a summary of"
+          ]
+        }
+      ],
+      "unmatched_alex": [
+        {
+          "bidder_id": 25.5,
+          "category": "executed",
+          "bid_note": "Executed",
+          "date": "2016-07-20",
+          "value": 24.0
+        }
+      ],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0005",
+          "category": "nda",
+          "event_type": "nda",
+          "date": "2016-04-22",
+          "value": null,
+          "span_ids": "span_0006"
+        }
+      ]
+    },
+    "party c": {
+      "alex_count": 4,
+      "pipeline_count": 5,
+      "matched": 4,
+      "exact_matches": 1,
+      "disagreements": [
+        {
+          "match_quality": "category_only",
+          "disagreements": [
+            {
+              "field": "date",
+              "pipeline": null,
+              "alex": "2016-07-20"
+            }
+          ],
+          "pipeline_row_id": "row_0013",
+          "alex_bidder_id": 12,
+          "filing_evidence": [
+            "[span_0015] Party C submitted an LOI to acquire the Company for a price of $19.30 per share (subject to a 30-day diligence period).",
+            "[span_0001] Committee, representatives of GHF instructed all potential buyers to submit non-binding letters of intent (\u0093 LOIs\u0094) by July 20, 2016, together with mark-ups of the forms of merger agreement, disclosure letter and voting agreement, which GHF"
+          ]
+        },
+        {
+          "match_quality": "category_only",
+          "disagreements": [
+            {
+              "field": "date",
+              "pipeline": null,
+              "alex": "2016-07-27"
+            }
+          ],
+          "pipeline_row_id": "row_0027",
+          "alex_bidder_id": 20,
+          "filing_evidence": [
+            "[span_0015] Party C submitted an LOI to acquire the Company for a price of $19.30 per share (subject to a 30-day diligence period).",
+            "[span_0001] Committee, representatives of GHF instructed all potential buyers to submit non-binding letters of intent (\u0093 LOIs\u0094) by July 20, 2016, together with mark-ups of the forms of merger agreement, disclosure letter and voting agreement, which GHF"
+          ]
+        }
+      ],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0006",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0007"
+        }
+      ]
+    },
+    "party d": {
+      "alex_count": 4,
+      "pipeline_count": 3,
+      "matched": 3,
+      "exact_matches": 2,
+      "disagreements": [
+        {
+          "match_quality": "category_only",
+          "disagreements": [
+            {
+              "field": "date",
+              "pipeline": null,
+              "alex": "2016-07-20"
+            }
+          ],
+          "pipeline_row_id": "row_0012",
+          "alex_bidder_id": 11,
+          "filing_evidence": [
+            "[span_0014] Party D (a financial buyer) submitted an LOI to acquire the Company for a price of $21.00 per share (subject to a four-week diligence period).",
+            "[span_0001] Committee, representatives of GHF instructed all potential buyers to submit non-binding letters of intent (\u0093 LOIs\u0094) by July 20, 2016, together with mark-ups of the forms of merger agreement, disclosure letter and voting agreement, which GHF",
+            "[span_0010] (implying equity values of $96 million to $121 million). Party B, G& W and another bidder (\u0093 Party D\u0094) also provided mark-ups of the draft merger agreement and voting agreement. One bidder (\u0093 Party E\u0094) provided a summary of"
+          ]
+        }
+      ],
+      "unmatched_alex": [
+        {
+          "bidder_id": 19,
+          "category": "drop",
+          "bid_note": "DropTarget",
+          "date": "2016-07-27",
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": []
+    },
+    "party e": {
+      "alex_count": 2,
+      "pipeline_count": 3,
+      "matched": 2,
+      "exact_matches": 0,
+      "disagreements": [
+        {
+          "match_quality": "category_only",
+          "disagreements": [
+            {
+              "field": "date",
+              "pipeline": "2016-08-01",
+              "alex": "2016-07-20"
+            },
+            {
+              "field": "value",
+              "pipeline": 23.81,
+              "alex": 21.26
+            }
+          ],
+          "pipeline_row_id": "row_0016",
+          "alex_bidder_id": 10,
+          "filing_evidence": [
+            "[span_0017] Party E. During those calls, Party D and Party E both expressed interest in reengaging and enhancing their offers. On August 1, 2016, Party D submitted a revised LOI at a price of $24.00 per share and Party E submitted a revised LOI, along with",
+            "[span_0018] financing support, from Party F, at a price of $23.81 per share. Both revised proposals contained a 30-day due diligence period. The Transaction Committee convened by telephone conference on August 1, 2016, to consider the revised LOIs submitted by",
+            "[span_0018] financing support, from Party F, at a price of $23.81 per share. Both revised proposals contained a 30-day due diligence period. The Transaction Committee convened by telephone conference on August 1, 2016, to consider the revised LOIs submitted by"
+          ]
+        },
+        {
+          "match_quality": "category_only",
+          "disagreements": [
+            {
+              "field": "date",
+              "pipeline": "2016-08-01",
+              "alex": "2016-07-27"
+            }
+          ],
+          "pipeline_row_id": "row_0028",
+          "alex_bidder_id": 18,
+          "filing_evidence": [
+            "[span_0017] Party E. During those calls, Party D and Party E both expressed interest in reengaging and enhancing their offers. On August 1, 2016, Party D submitted a revised LOI at a price of $24.00 per share and Party E submitted a revised LOI, along with",
+            "[span_0018] financing support, from Party F, at a price of $23.81 per share. Both revised proposals contained a 30-day due diligence period. The Transaction Committee convened by telephone conference on August 1, 2016, to consider the revised LOIs submitted by",
+            "[span_0018] financing support, from Party F, at a price of $23.81 per share. Both revised proposals contained a 30-day due diligence period. The Transaction Committee convened by telephone conference on August 1, 2016, to consider the revised LOIs submitted by"
+          ]
+        }
+      ],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0011",
+          "category": "bid",
+          "event_type": "proposal",
+          "date": null,
+          "value": 21.26,
+          "span_ids": "span_0012|span_0001|span_0013"
+        }
+      ]
+    },
+    "party e/f": {
+      "alex_count": 3,
+      "pipeline_count": 0,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [
+        {
+          "bidder_id": 23,
+          "category": "bid",
+          "bid_note": "NA",
+          "date": "2016-08-01",
+          "value": 23.81
+        },
+        {
+          "bidder_id": 24,
+          "category": "bid",
+          "bid_note": "NA",
+          "date": "2016-08-02",
+          "value": 21.26
+        },
+        {
+          "bidder_id": 28,
+          "category": "drop",
+          "bid_note": "Drop",
+          "date": "2016-08-12",
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": []
+    },
+    "party f": {
+      "alex_count": 2,
+      "pipeline_count": 3,
+      "matched": 2,
+      "exact_matches": 0,
+      "disagreements": [
+        {
+          "match_quality": "category_only",
+          "disagreements": [
+            {
+              "field": "date",
+              "pipeline": "2016-08-01",
+              "alex": "2016-07-20"
+            },
+            {
+              "field": "value",
+              "pipeline": 23.81,
+              "alex": 19.2
+            }
+          ],
+          "pipeline_row_id": "row_0017",
+          "alex_bidder_id": 13,
+          "filing_evidence": [
+            "[span_0017] Party E. During those calls, Party D and Party E both expressed interest in reengaging and enhancing their offers. On August 1, 2016, Party D submitted a revised LOI at a price of $24.00 per share and Party E submitted a revised LOI, along with",
+            "[span_0018] financing support, from Party F, at a price of $23.81 per share. Both revised proposals contained a 30-day due diligence period. The Transaction Committee convened by telephone conference on August 1, 2016, to consider the revised LOIs submitted by",
+            "[span_0018] financing support, from Party F, at a price of $23.81 per share. Both revised proposals contained a 30-day due diligence period. The Transaction Committee convened by telephone conference on August 1, 2016, to consider the revised LOIs submitted by"
+          ]
+        },
+        {
+          "match_quality": "category_only",
+          "disagreements": [
+            {
+              "field": "date",
+              "pipeline": "2016-08-01",
+              "alex": "2016-07-27"
+            }
+          ],
+          "pipeline_row_id": "row_0029",
+          "alex_bidder_id": 21,
+          "filing_evidence": [
+            "[span_0017] Party E. During those calls, Party D and Party E both expressed interest in reengaging and enhancing their offers. On August 1, 2016, Party D submitted a revised LOI at a price of $24.00 per share and Party E submitted a revised LOI, along with",
+            "[span_0018] financing support, from Party F, at a price of $23.81 per share. Both revised proposals contained a 30-day due diligence period. The Transaction Committee convened by telephone conference on August 1, 2016, to consider the revised LOIs submitted by",
+            "[span_0018] financing support, from Party F, at a price of $23.81 per share. Both revised proposals contained a 30-day due diligence period. The Transaction Committee convened by telephone conference on August 1, 2016, to consider the revised LOIs submitted by"
+          ]
+        }
+      ],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0014",
+          "category": "bid",
+          "event_type": "proposal",
+          "date": null,
+          "value": 19.2,
+          "span_ids": "span_0016|span_0001"
+        }
+      ]
+    }
+  },
+  "disagreement_details": [
+    {
+      "family": "party a",
+      "match_quality": "category_only",
+      "disagreements": [
+        {
+          "field": "date",
+          "pipeline": "2016-07-20",
+          "alex": "2016-07-22"
+        }
+      ],
+      "pipeline_row_id": "row_0025",
+      "alex_bidder_id": 15,
+      "filing_evidence": [
+        "[span_0001] Committee, representatives of GHF instructed all potential buyers to submit non-binding letters of intent (\u0093 LOIs\u0094) by July 20, 2016, together with mark-ups of the forms of merger agreement, disclosure letter and voting agreement, which GHF"
+      ]
+    },
+    {
+      "family": "party b",
+      "match_quality": "category_only",
+      "disagreements": [
+        {
+          "field": "date",
+          "pipeline": null,
+          "alex": "2016-07-20"
+        }
+      ],
+      "pipeline_row_id": "row_0010",
+      "alex_bidder_id": 9,
+      "filing_evidence": [
+        "[span_0011] Party B submitted an LOI to acquire the Company for a price of $24.00 per share (subject to an expedited diligence review).",
+        "[span_0001] Committee, representatives of GHF instructed all potential buyers to submit non-binding letters of intent (\u0093 LOIs\u0094) by July 20, 2016, together with mark-ups of the forms of merger agreement, disclosure letter and voting agreement, which GHF",
+        "[span_0010] (implying equity values of $96 million to $121 million). Party B, G& W and another bidder (\u0093 Party D\u0094) also provided mark-ups of the draft merger agreement and voting agreement. One bidder (\u0093 Party E\u0094) provided a summary of"
+      ]
+    },
+    {
+      "family": "party b",
+      "match_quality": "category_only",
+      "disagreements": [
+        {
+          "field": "date",
+          "pipeline": null,
+          "alex": "2016-08-12"
+        }
+      ],
+      "pipeline_row_id": "row_0026",
+      "alex_bidder_id": 27,
+      "filing_evidence": [
+        "[span_0011] Party B submitted an LOI to acquire the Company for a price of $24.00 per share (subject to an expedited diligence review).",
+        "[span_0001] Committee, representatives of GHF instructed all potential buyers to submit non-binding letters of intent (\u0093 LOIs\u0094) by July 20, 2016, together with mark-ups of the forms of merger agreement, disclosure letter and voting agreement, which GHF",
+        "[span_0010] (implying equity values of $96 million to $121 million). Party B, G& W and another bidder (\u0093 Party D\u0094) also provided mark-ups of the draft merger agreement and voting agreement. One bidder (\u0093 Party E\u0094) provided a summary of"
+      ]
+    },
+    {
+      "family": "party c",
+      "match_quality": "category_only",
+      "disagreements": [
+        {
+          "field": "date",
+          "pipeline": null,
+          "alex": "2016-07-20"
+        }
+      ],
+      "pipeline_row_id": "row_0013",
+      "alex_bidder_id": 12,
+      "filing_evidence": [
+        "[span_0015] Party C submitted an LOI to acquire the Company for a price of $19.30 per share (subject to a 30-day diligence period).",
+        "[span_0001] Committee, representatives of GHF instructed all potential buyers to submit non-binding letters of intent (\u0093 LOIs\u0094) by July 20, 2016, together with mark-ups of the forms of merger agreement, disclosure letter and voting agreement, which GHF"
+      ]
+    },
+    {
+      "family": "party c",
+      "match_quality": "category_only",
+      "disagreements": [
+        {
+          "field": "date",
+          "pipeline": null,
+          "alex": "2016-07-27"
+        }
+      ],
+      "pipeline_row_id": "row_0027",
+      "alex_bidder_id": 20,
+      "filing_evidence": [
+        "[span_0015] Party C submitted an LOI to acquire the Company for a price of $19.30 per share (subject to a 30-day diligence period).",
+        "[span_0001] Committee, representatives of GHF instructed all potential buyers to submit non-binding letters of intent (\u0093 LOIs\u0094) by July 20, 2016, together with mark-ups of the forms of merger agreement, disclosure letter and voting agreement, which GHF"
+      ]
+    },
+    {
+      "family": "party d",
+      "match_quality": "category_only",
+      "disagreements": [
+        {
+          "field": "date",
+          "pipeline": null,
+          "alex": "2016-07-20"
+        }
+      ],
+      "pipeline_row_id": "row_0012",
+      "alex_bidder_id": 11,
+      "filing_evidence": [
+        "[span_0014] Party D (a financial buyer) submitted an LOI to acquire the Company for a price of $21.00 per share (subject to a four-week diligence period).",
+        "[span_0001] Committee, representatives of GHF instructed all potential buyers to submit non-binding letters of intent (\u0093 LOIs\u0094) by July 20, 2016, together with mark-ups of the forms of merger agreement, disclosure letter and voting agreement, which GHF",
+        "[span_0010] (implying equity values of $96 million to $121 million). Party B, G& W and another bidder (\u0093 Party D\u0094) also provided mark-ups of the draft merger agreement and voting agreement. One bidder (\u0093 Party E\u0094) provided a summary of"
+      ]
+    },
+    {
+      "family": "party e",
+      "match_quality": "category_only",
+      "disagreements": [
+        {
+          "field": "date",
+          "pipeline": "2016-08-01",
+          "alex": "2016-07-20"
+        },
+        {
+          "field": "value",
+          "pipeline": 23.81,
+          "alex": 21.26
+        }
+      ],
+      "pipeline_row_id": "row_0016",
+      "alex_bidder_id": 10,
+      "filing_evidence": [
+        "[span_0017] Party E. During those calls, Party D and Party E both expressed interest in reengaging and enhancing their offers. On August 1, 2016, Party D submitted a revised LOI at a price of $24.00 per share and Party E submitted a revised LOI, along with",
+        "[span_0018] financing support, from Party F, at a price of $23.81 per share. Both revised proposals contained a 30-day due diligence period. The Transaction Committee convened by telephone conference on August 1, 2016, to consider the revised LOIs submitted by",
+        "[span_0018] financing support, from Party F, at a price of $23.81 per share. Both revised proposals contained a 30-day due diligence period. The Transaction Committee convened by telephone conference on August 1, 2016, to consider the revised LOIs submitted by"
+      ]
+    },
+    {
+      "family": "party e",
+      "match_quality": "category_only",
+      "disagreements": [
+        {
+          "field": "date",
+          "pipeline": "2016-08-01",
+          "alex": "2016-07-27"
+        }
+      ],
+      "pipeline_row_id": "row_0028",
+      "alex_bidder_id": 18,
+      "filing_evidence": [
+        "[span_0017] Party E. During those calls, Party D and Party E both expressed interest in reengaging and enhancing their offers. On August 1, 2016, Party D submitted a revised LOI at a price of $24.00 per share and Party E submitted a revised LOI, along with",
+        "[span_0018] financing support, from Party F, at a price of $23.81 per share. Both revised proposals contained a 30-day due diligence period. The Transaction Committee convened by telephone conference on August 1, 2016, to consider the revised LOIs submitted by",
+        "[span_0018] financing support, from Party F, at a price of $23.81 per share. Both revised proposals contained a 30-day due diligence period. The Transaction Committee convened by telephone conference on August 1, 2016, to consider the revised LOIs submitted by"
+      ]
+    },
+    {
+      "family": "party f",
+      "match_quality": "category_only",
+      "disagreements": [
+        {
+          "field": "date",
+          "pipeline": "2016-08-01",
+          "alex": "2016-07-20"
+        },
+        {
+          "field": "value",
+          "pipeline": 23.81,
+          "alex": 19.2
+        }
+      ],
+      "pipeline_row_id": "row_0017",
+      "alex_bidder_id": 13,
+      "filing_evidence": [
+        "[span_0017] Party E. During those calls, Party D and Party E both expressed interest in reengaging and enhancing their offers. On August 1, 2016, Party D submitted a revised LOI at a price of $24.00 per share and Party E submitted a revised LOI, along with",
+        "[span_0018] financing support, from Party F, at a price of $23.81 per share. Both revised proposals contained a 30-day due diligence period. The Transaction Committee convened by telephone conference on August 1, 2016, to consider the revised LOIs submitted by",
+        "[span_0018] financing support, from Party F, at a price of $23.81 per share. Both revised proposals contained a 30-day due diligence period. The Transaction Committee convened by telephone conference on August 1, 2016, to consider the revised LOIs submitted by"
+      ]
+    },
+    {
+      "family": "party f",
+      "match_quality": "category_only",
+      "disagreements": [
+        {
+          "field": "date",
+          "pipeline": "2016-08-01",
+          "alex": "2016-07-27"
+        }
+      ],
+      "pipeline_row_id": "row_0029",
+      "alex_bidder_id": 21,
+      "filing_evidence": [
+        "[span_0017] Party E. During those calls, Party D and Party E both expressed interest in reengaging and enhancing their offers. On August 1, 2016, Party D submitted a revised LOI at a price of $24.00 per share and Party E submitted a revised LOI, along with",
+        "[span_0018] financing support, from Party F, at a price of $23.81 per share. Both revised proposals contained a 30-day due diligence period. The Transaction Committee convened by telephone conference on August 1, 2016, to consider the revised LOIs submitted by",
+        "[span_0018] financing support, from Party F, at a price of $23.81 per share. Both revised proposals contained a 30-day due diligence period. The Transaction Committee convened by telephone conference on August 1, 2016, to consider the revised LOIs submitted by"
+      ]
+    }
+  ],
+  "verdicts": [
+    {
+      "family": "party a",
+      "field": "date",
+      "pipeline_value": "2016-07-20",
+      "alex_value": "2016-07-22",
+      "verdict": "both",
+      "reasoning": "The filing says the LOI deadline was July 20, 2016 (span_0001) and the Transaction Committee met on July 22 to review LOIs. Party A was one of the parties eliminated at the July 22/27 meetings. Pipeline uses the July 20 LOI deadline date as the drop date; Alex uses July 22 when the Committee met and decided to exclude Party A. Both are defensible: the pipeline treats the deadline as the effective cutoff, while Alex treats the Committee meeting date as the actual elimination event. Neither date is explicitly stated as Party A's drop date in the filing."
+    },
+    {
+      "family": "party b",
+      "field": "date",
+      "pipeline_value": null,
+      "alex_value": "2016-07-20",
+      "verdict": "alex",
+      "reasoning": "Party B submitted an LOI at $24.00 per share (span_0011). The filing says the LOI deadline was July 20 (span_0001) and 'In late July 2016, the Company received six LOIs.' The pipeline records Party B's LOI with date precision 'month_late' (no exact date), while Alex assigns July 20 based on the deadline. The filing does not give Party B a specific LOI date (unlike G&W which explicitly says July 21). However, since the deadline was July 20 and the filing groups all six LOIs as received 'in late July,' using July 20 is a reasonable inference. Alex's date is a better approximation than null."
+    },
+    {
+      "family": "party b",
+      "field": "date",
+      "pipeline_value": null,
+      "alex_value": "2016-08-12",
+      "verdict": "inconclusive",
+      "reasoning": "This disagreement matches row_0026 (pipeline) vs bidder_id 27 (Alex). Pipeline row_0026 is a derived 'drop' event for Party B with month_late precision and no exact date. Alex records a drop at 2016-08-12. The filing shows that on August 12, Party B was asked if it would raise its price and declined (line 1449: 'Party B indicated that it would not increase its price'), and G&W was selected. Both August 12 (the day Party B was definitively passed over) and a null/imprecise date are defensible. The pipeline derives the drop from the original LOI context rather than the final board meeting. Inconclusive because the exact Party B exit point is debatable."
+    },
+    {
+      "family": "party c",
+      "field": "date",
+      "pipeline_value": null,
+      "alex_value": "2016-07-20",
+      "verdict": "alex",
+      "reasoning": "Party C submitted an LOI at $19.30 per share (span_0015). The LOI deadline was July 20 (span_0001). The filing says 'In late July 2016, the Company received six LOIs' but Party C specifically approached the company in early July and submitted an IOI on July 12, then was given access to due diligence materials. The filing does not give Party C's exact LOI date but groups it with the batch received 'in late July.' The pipeline records no date (month_late precision), while Alex uses the July 20 deadline. Alex's inference of the deadline date is more useful than null."
+    },
+    {
+      "family": "party c",
+      "field": "date",
+      "pipeline_value": null,
+      "alex_value": "2016-07-27",
+      "verdict": "alex",
+      "reasoning": "This is Party C's drop event. Pipeline row_0027 is a derived drop with no exact date (month_late precision). Alex records the drop on July 27. The filing says the Transaction Committee met on July 22 and July 27 to review LOIs and 'concluded that the Company should proceed with confirmatory due diligence and negotiations with G&W and Party B because of the higher offers' (line 1386-1387). Representatives of GHF then contacted remaining bidders to inform them they were no longer involved. The July 27 in-person meeting is when the Committee finalized the elimination of lower bidders including Party C. Alex's July 27 date is well-supported."
+    },
+    {
+      "family": "party d",
+      "field": "date",
+      "pipeline_value": null,
+      "alex_value": "2016-07-20",
+      "verdict": "alex",
+      "reasoning": "Party D submitted an LOI at $21.00 per share (span_0014). The LOI deadline was July 20 (span_0001). The filing says 'In late July 2016, the Company received six LOIs.' The pipeline records no exact date (month_late precision). Alex assigns July 20 based on the deadline. Same pattern as Parties B and C: the filing does not give Party D a specific LOI submission date, but the deadline was July 20 and Alex's use of the deadline date is a better approximation than null."
+    },
+    {
+      "family": "party e",
+      "field": "date+value",
+      "pipeline_value": {"date": "2016-08-01", "value": 23.81},
+      "alex_value": {"date": "2016-07-20", "value": 21.26},
+      "verdict": "both",
+      "reasoning": "This is a cross-event mismatch, not a genuine disagreement on the same bid. The pipeline matched row_0016 (Party E's revised August 1 LOI at $23.81 with Party F financing) against Alex's bidder_id 10 (Party E's original LOI at $21.26, dated July 20). Alex records the original LOI; the pipeline recorded the revised LOI as a separate event. The pipeline also has row_0011 as an unmatched event for Party E's original LOI at $21.26 (no exact date). Meanwhile, Alex records the revised $23.81 bid under 'Party E/F' (bidder_id 23, dated August 1). Both are tracking the same two events but attributing them differently: Alex splits E's original bid from the E/F revised bid; the pipeline splits E from F but assigns both the Aug 1 revised bid. Both capture the facts; the mismatch is a reconciliation artifact from different entity-grouping choices."
+    },
+    {
+      "family": "party e",
+      "field": "date",
+      "pipeline_value": "2016-08-01",
+      "alex_value": "2016-07-27",
+      "verdict": "both",
+      "reasoning": "This is Party E's drop event. Pipeline row_0028 derives the drop on August 1 (tied to the revised LOI event obs_evt_021). Alex records the drop on July 27, when the Transaction Committee decided to proceed only with G&W and Party B. However, the filing shows Party E was contacted on July 29 (line 1393: 'On July 29, 2016, representatives of GHF had calls with Party D and Party E'), resubmitted a revised LOI on August 1, then withdrew on August 2 (line 1397). So Party E was initially eliminated around July 27, re-engaged July 29, resubmitted August 1, and withdrew August 2. Alex's July 27 captures the first elimination; pipeline's August 1 captures the re-engagement phase. Both dates represent valid but different moments in Party E's exit trajectory. The true final exit is August 2 when Party E withdrew its revised proposal."
+    },
+    {
+      "family": "party f",
+      "field": "date+value",
+      "pipeline_value": {"date": "2016-08-01", "value": 23.81},
+      "alex_value": {"date": "2016-07-20", "value": 19.20},
+      "verdict": "both",
+      "reasoning": "Same cross-event mismatch pattern as Party E. The pipeline matched row_0017 (Party F's August 1 revised LOI at $23.81, which was the E/F joint bid) against Alex's bidder_id 13 (Party F's original LOI at $19.20, dated July 20). The pipeline also has row_0014 as an unmatched event for Party F's original LOI at $19.20 (no exact date). Alex records the revised $23.81 bid under 'Party E/F' (bidder_id 23). Both track the same underlying events; the mismatch is a reconciliation artifact from different entity-grouping choices for the E/F joint revised bid vs their individual original bids."
+    },
+    {
+      "family": "party f",
+      "field": "date",
+      "pipeline_value": "2016-08-01",
+      "alex_value": "2016-07-27",
+      "verdict": "both",
+      "reasoning": "Party F's drop event. Same dynamics as Party E. Pipeline derives the drop on August 1 (tied to the E/F revised LOI event). Alex records July 27 when the Transaction Committee eliminated lower bidders. The filing shows Party F was part of the re-engagement: Party E submitted a revised LOI 'along with financing support, from Party F' on August 1. Party F was initially eliminated around July 27, then re-engaged via Party E's revised bid on August 1. Neither date is wrong; they capture different moments. Like Party E, Party F's true final exit from the process is tied to Party E's withdrawal on August 2."
+    }
+  ]
+}

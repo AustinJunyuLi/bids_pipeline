@@ -71,7 +71,7 @@
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
       "supporting_span_ids": [
-        "span_0015"
+        "span_0007"
       ],
       "block_ids": [
         "B004"
@@ -103,7 +103,7 @@
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
       "supporting_span_ids": [
-        "span_0015"
+        "span_0007"
       ],
       "block_ids": [
         "B004"
@@ -138,7 +138,7 @@
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
       "supporting_span_ids": [
-        "span_0004"
+        "span_0010"
       ],
       "block_ids": [
         "B006"
@@ -156,7 +156,7 @@
       ],
       "note": null,
       "supporting_observation_ids": [
-        "obs_evt_001"
+        "obs_evt_004"
       ],
       "supporting_party_ids": [
         "advisor_jp_morgan"
@@ -173,7 +173,7 @@
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
       "supporting_span_ids": [
-        "span_0004"
+        "span_0010"
       ],
       "block_ids": [
         "B006"
@@ -192,7 +192,7 @@
       ],
       "note": null,
       "supporting_observation_ids": [
-        "obs_evt_001"
+        "obs_evt_004"
       ],
       "supporting_party_ids": [
         "advisor_jp_morgan"
@@ -209,7 +209,8 @@
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
       "supporting_span_ids": [
-        "span_0006"
+        "span_0016",
+        "span_0017"
       ],
       "block_ids": [
         "B009"
@@ -237,7 +238,7 @@
       ],
       "note": null,
       "supporting_observation_ids": [
-        "obs_evt_003"
+        "obs_evt_007"
       ],
       "supporting_party_ids": [],
       "supporting_cohort_ids": []
@@ -283,7 +284,7 @@
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
       "supporting_span_ids": [
-        "span_0007"
+        "span_0018"
       ],
       "block_ids": [
         "B011"
@@ -306,7 +307,7 @@
       ],
       "note": null,
       "supporting_observation_ids": [
-        "obs_evt_004"
+        "obs_evt_007a"
       ],
       "supporting_party_ids": [],
       "supporting_cohort_ids": []
@@ -526,14 +527,16 @@
     },
     {
       "cue_family": "nda",
-      "status": "not_found",
-      "severity": "warning",
-      "repairability": "repairable",
-      "description": "Medium-confidence nda cue was not covered by canonical v2 artifacts.",
-      "reason_code": "uncovered_nda_cue",
+      "status": "observed",
+      "severity": "info",
+      "repairability": null,
+      "description": "Medium-confidence nda cue is covered by canonical v2 artifacts.",
+      "reason_code": "matched_observation",
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
-      "supporting_span_ids": [],
+      "supporting_span_ids": [
+        "span_0049"
+      ],
       "block_ids": [
         "B033"
       ],
@@ -547,6 +550,34 @@
       "suggested_event_types": [
         "nda"
       ],
+      "note": null,
+      "supporting_observation_ids": [
+        "obs_evt_021"
+      ],
+      "supporting_party_ids": [],
+      "supporting_cohort_ids": []
+    },
+    {
+      "cue_family": "count_assertion",
+      "status": "not_found",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "Filing asserts 'two bidders' but no cohort with exact_count=2 was extracted.",
+      "reason_code": "missing_count_cohort",
+      "supporting_event_ids": [],
+      "supporting_actor_ids": [],
+      "supporting_span_ids": [],
+      "block_ids": [
+        "B021"
+      ],
+      "evidence_ids": [
+        "0001571049-15-000695:E0368"
+      ],
+      "matched_terms": [
+        "two bidders"
+      ],
+      "confidence": "high",
+      "suggested_event_types": [],
       "note": null,
       "supporting_observation_ids": [],
       "supporting_party_ids": [],

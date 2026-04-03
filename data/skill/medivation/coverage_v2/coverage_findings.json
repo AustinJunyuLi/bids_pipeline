@@ -40,7 +40,8 @@
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
       "supporting_span_ids": [
-        "span_0008"
+        "span_0004",
+        "span_0026"
       ],
       "block_ids": [
         "B004"
@@ -59,12 +60,10 @@
         "ib_retention"
       ],
       "note": null,
-      "supporting_observation_ids": [
-        "obs_evt_002"
-      ],
+      "supporting_observation_ids": [],
       "supporting_party_ids": [
         "advisor_cooley",
-        "advisor_j_p_morgan"
+        "advisor_jp_morgan"
       ],
       "supporting_cohort_ids": []
     },
@@ -78,7 +77,8 @@
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
       "supporting_span_ids": [
-        "span_0008"
+        "span_0004",
+        "span_0026"
       ],
       "block_ids": [
         "B004"
@@ -96,12 +96,10 @@
         "ib_retention"
       ],
       "note": null,
-      "supporting_observation_ids": [
-        "obs_evt_002"
-      ],
+      "supporting_observation_ids": [],
       "supporting_party_ids": [
         "advisor_cooley",
-        "advisor_j_p_morgan"
+        "advisor_jp_morgan"
       ],
       "supporting_cohort_ids": []
     },
@@ -173,7 +171,8 @@
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
       "supporting_span_ids": [
-        "span_0011"
+        "span_0008",
+        "span_0026"
       ],
       "block_ids": [
         "B013"
@@ -208,7 +207,8 @@
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
       "supporting_span_ids": [
-        "span_0011"
+        "span_0008",
+        "span_0026"
       ],
       "block_ids": [
         "B013"
@@ -237,16 +237,15 @@
     },
     {
       "cue_family": "advisor",
-      "status": "ambiguous",
-      "severity": "warning",
-      "repairability": "repairable",
-      "description": "Medium-confidence advisor cue matched multiple canonical v2 candidates.",
-      "reason_code": "multiple_matching_candidates",
+      "status": "observed",
+      "severity": "info",
+      "repairability": null,
+      "description": "Medium-confidence advisor cue is covered by canonical v2 artifacts.",
+      "reason_code": "matched_party",
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
       "supporting_span_ids": [
-        "span_0013",
-        "span_0044"
+        "span_0010"
       ],
       "block_ids": [
         "B016"
@@ -264,11 +263,9 @@
         "ib_retention"
       ],
       "note": null,
-      "supporting_observation_ids": [
-        "obs_evt_007"
-      ],
+      "supporting_observation_ids": [],
       "supporting_party_ids": [
-        "advisor_wachtell_lipton"
+        "advisor_wachtell"
       ],
       "supporting_cohort_ids": []
     },
@@ -532,8 +529,7 @@
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
       "supporting_span_ids": [
-        "span_0021",
-        "span_0022"
+        "span_0021"
       ],
       "block_ids": [
         "B051"
@@ -554,7 +550,7 @@
       ],
       "note": null,
       "supporting_observation_ids": [
-        "obs_evt_015"
+        "obs_evt_012"
       ],
       "supporting_party_ids": [],
       "supporting_cohort_ids": []
@@ -569,8 +565,7 @@
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
       "supporting_span_ids": [
-        "span_0021",
-        "span_0022"
+        "span_0021"
       ],
       "block_ids": [
         "B051"
@@ -589,7 +584,7 @@
       ],
       "note": null,
       "supporting_observation_ids": [
-        "obs_evt_015"
+        "obs_evt_012"
       ],
       "supporting_party_ids": [],
       "supporting_cohort_ids": []
@@ -604,7 +599,7 @@
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
       "supporting_span_ids": [
-        "span_0024"
+        "span_0023"
       ],
       "block_ids": [
         "B054",
@@ -623,7 +618,7 @@
       ],
       "note": null,
       "supporting_observation_ids": [
-        "obs_evt_042"
+        "obs_evt_014"
       ],
       "supporting_party_ids": [],
       "supporting_cohort_ids": []
@@ -669,7 +664,7 @@
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
       "supporting_span_ids": [
-        "span_0024"
+        "span_0023"
       ],
       "block_ids": [
         "B054",
@@ -687,7 +682,7 @@
       ],
       "note": null,
       "supporting_observation_ids": [
-        "obs_evt_042"
+        "obs_evt_014"
       ],
       "supporting_party_ids": [],
       "supporting_cohort_ids": []
@@ -702,7 +697,7 @@
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
       "supporting_span_ids": [
-        "span_0025"
+        "span_0024"
       ],
       "block_ids": [
         "B056"
@@ -720,7 +715,7 @@
       ],
       "note": null,
       "supporting_observation_ids": [
-        "obs_evt_043"
+        "obs_evt_015"
       ],
       "supporting_party_ids": [],
       "supporting_cohort_ids": []
@@ -765,7 +760,7 @@
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
       "supporting_span_ids": [
-        "span_0025"
+        "span_0024"
       ],
       "block_ids": [
         "B056"
@@ -782,7 +777,7 @@
       ],
       "note": null,
       "supporting_observation_ids": [
-        "obs_evt_043"
+        "obs_evt_015"
       ],
       "supporting_party_ids": [],
       "supporting_cohort_ids": []

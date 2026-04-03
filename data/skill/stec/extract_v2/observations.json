@@ -1,29 +1,11 @@
 {
   "parties": [
     {
-      "party_id": "target_board_stec_board",
-      "display_name": "sTec board of directors",
-      "canonical_name": "S T E C INC BOARD OF DIRECTORS",
+      "party_id": "target_board_stec",
+      "display_name": "sTec Board of Directors",
+      "canonical_name": "STEC BOARD OF DIRECTORS",
       "aliases": [
         "our board of directors",
-        "the board of directors"
-      ],
-      "role": "target_board",
-      "bidder_kind": null,
-      "advisor_kind": null,
-      "advised_party_id": null,
-      "listing_status": null,
-      "geography": null,
-      "evidence_span_ids": [
-        "span_0034"
-      ]
-    },
-    {
-      "party_id": "target_board_special_committee",
-      "display_name": "special committee of the board of directors",
-      "canonical_name": "S T E C INC SPECIAL COMMITTEE",
-      "aliases": [
-        "the special committee",
         "special committee"
       ],
       "role": "target_board",
@@ -33,156 +15,26 @@
       "listing_status": null,
       "geography": null,
       "evidence_span_ids": [
-        "span_0035"
+        "span_0001",
+        "span_0009"
       ]
     },
     {
-      "party_id": "advisor_gibson_dunn",
-      "display_name": "Gibson Dunn",
-      "canonical_name": "GIBSON, DUNN & CRUTCHER LLP",
+      "party_id": "bidder_wdc",
+      "display_name": "WDC",
+      "canonical_name": "WESTERN DIGITAL CORPORATION",
       "aliases": [
-        "Gibson Dunn"
+        "Western Digital Corporation"
       ],
-      "role": "advisor",
-      "bidder_kind": null,
-      "advisor_kind": "legal",
-      "advised_party_id": "target_board_stec_board",
-      "listing_status": null,
-      "geography": null,
-      "evidence_span_ids": [
-        "span_0036"
-      ]
-    },
-    {
-      "party_id": "advisor_bofa_merrill_lynch",
-      "display_name": "BofA Merrill Lynch",
-      "canonical_name": "BOFA MERRILL LYNCH",
-      "aliases": [],
-      "role": "advisor",
-      "bidder_kind": null,
-      "advisor_kind": "financial",
-      "advised_party_id": "target_board_stec_board",
-      "listing_status": null,
-      "geography": null,
-      "evidence_span_ids": [
-        "span_0037"
-      ]
-    },
-    {
-      "party_id": "advisor_mackenzie_partners",
-      "display_name": "MacKenzie Partners",
-      "canonical_name": "MACKENZIE PARTNERS",
-      "aliases": [],
-      "role": "advisor",
-      "bidder_kind": null,
-      "advisor_kind": "other",
-      "advised_party_id": "target_board_stec_board",
-      "listing_status": null,
-      "geography": null,
-      "evidence_span_ids": [
-        "span_0038"
-      ]
-    },
-    {
-      "party_id": "advisor_latham_watkins",
-      "display_name": "Latham & Watkins",
-      "canonical_name": "LATHAM & WATKINS LLP",
-      "aliases": [
-        "Latham & Watkins"
-      ],
-      "role": "advisor",
-      "bidder_kind": null,
-      "advisor_kind": "legal",
-      "advised_party_id": null,
-      "listing_status": null,
-      "geography": null,
-      "evidence_span_ids": [
-        "span_0039"
-      ]
-    },
-    {
-      "party_id": "advisor_paul_hastings",
-      "display_name": "Paul Hastings",
-      "canonical_name": "PAUL HASTINGS LLP",
-      "aliases": [
-        "Paul Hastings"
-      ],
-      "role": "advisor",
-      "bidder_kind": null,
-      "advisor_kind": "legal",
-      "advised_party_id": null,
-      "listing_status": null,
-      "geography": null,
-      "evidence_span_ids": [
-        "span_0040"
-      ]
-    },
-    {
-      "party_id": "advisor_shearman_sterling",
-      "display_name": "Shearman",
-      "canonical_name": "SHEARMAN & STERLING LLP",
-      "aliases": [
-        "Shearman"
-      ],
-      "role": "advisor",
-      "bidder_kind": null,
-      "advisor_kind": "legal",
-      "advised_party_id": "bidder_wdc",
-      "listing_status": null,
-      "geography": null,
-      "evidence_span_ids": [
-        "span_0041"
-      ]
-    },
-    {
-      "party_id": "activist_balch_hill",
-      "display_name": "Balch Hill",
-      "canonical_name": "BALCH HILL PARTNERS, L. P.",
-      "aliases": [
-        "Balch Hill"
-      ],
-      "role": "activist",
-      "bidder_kind": null,
+      "role": "bidder",
+      "bidder_kind": "strategic",
       "advisor_kind": null,
       "advised_party_id": null,
       "listing_status": null,
       "geography": null,
       "evidence_span_ids": [
-        "span_0042"
-      ]
-    },
-    {
-      "party_id": "activist_potomac",
-      "display_name": "Potomac",
-      "canonical_name": "POTOMAC CAPITAL PARTNERS II, L. P.",
-      "aliases": [
-        "Potomac"
-      ],
-      "role": "activist",
-      "bidder_kind": null,
-      "advisor_kind": null,
-      "advised_party_id": null,
-      "listing_status": null,
-      "geography": null,
-      "evidence_span_ids": [
-        "span_0043"
-      ]
-    },
-    {
-      "party_id": "advisor_company_a_financial_advisor",
-      "display_name": "Company A financial advisor",
-      "canonical_name": "COMPANY A FINANCIAL ADVISOR",
-      "aliases": [
-        "investment bank representing Company A"
-      ],
-      "role": "advisor",
-      "bidder_kind": null,
-      "advisor_kind": "financial",
-      "advised_party_id": "bidder_company_a",
-      "listing_status": null,
-      "geography": null,
-      "evidence_span_ids": [
-        "span_0004"
+        "span_0002",
+        "span_0031"
       ]
     },
     {
@@ -197,7 +49,7 @@
       "listing_status": null,
       "geography": null,
       "evidence_span_ids": [
-        "span_0004"
+        "span_0005"
       ]
     },
     {
@@ -212,7 +64,7 @@
       "listing_status": null,
       "geography": null,
       "evidence_span_ids": [
-        "span_0044"
+        "span_0011"
       ]
     },
     {
@@ -227,7 +79,7 @@
       "listing_status": null,
       "geography": null,
       "evidence_span_ids": [
-        "span_0045"
+        "span_0013"
       ]
     },
     {
@@ -242,7 +94,7 @@
       "listing_status": null,
       "geography": null,
       "evidence_span_ids": [
-        "span_0046"
+        "span_0014"
       ]
     },
     {
@@ -257,7 +109,7 @@
       "listing_status": null,
       "geography": null,
       "evidence_span_ids": [
-        "span_0010"
+        "span_0021"
       ]
     },
     {
@@ -272,7 +124,7 @@
       "listing_status": null,
       "geography": null,
       "evidence_span_ids": [
-        "span_0011"
+        "span_0022"
       ]
     },
     {
@@ -287,7 +139,7 @@
       "listing_status": null,
       "geography": null,
       "evidence_span_ids": [
-        "span_0012"
+        "span_0022"
       ]
     },
     {
@@ -302,191 +154,126 @@
       "listing_status": null,
       "geography": null,
       "evidence_span_ids": [
-        "span_0047"
+        "span_0030"
       ]
     },
     {
-      "party_id": "bidder_wdc",
-      "display_name": "WDC",
-      "canonical_name": "WESTERN DIGITAL CORPORATION",
+      "party_id": "activist_balch_hill",
+      "display_name": "Balch Hill Partners",
+      "canonical_name": "BALCH HILL PARTNERS L.P.",
       "aliases": [
-        "WDC"
+        "Balch Hill"
       ],
-      "role": "bidder",
-      "bidder_kind": "strategic",
+      "role": "activist",
+      "bidder_kind": null,
       "advisor_kind": null,
       "advised_party_id": null,
       "listing_status": null,
       "geography": null,
       "evidence_span_ids": [
-        "span_0048",
-        "span_0049"
+        "span_0006"
+      ]
+    },
+    {
+      "party_id": "activist_potomac",
+      "display_name": "Potomac Capital Partners",
+      "canonical_name": "POTOMAC CAPITAL PARTNERS II L.P.",
+      "aliases": [
+        "Potomac"
+      ],
+      "role": "activist",
+      "bidder_kind": null,
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": [
+        "span_0007"
+      ]
+    },
+    {
+      "party_id": "advisor_bofa",
+      "display_name": "BofA Merrill Lynch",
+      "canonical_name": "BOFA MERRILL LYNCH",
+      "aliases": [
+        "Bank of America Merrill Lynch"
+      ],
+      "role": "advisor",
+      "bidder_kind": null,
+      "advisor_kind": "financial",
+      "advised_party_id": "target_board_stec",
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": [
+        "span_0016",
+        "span_0064"
+      ]
+    },
+    {
+      "party_id": "advisor_gibson_dunn",
+      "display_name": "Gibson Dunn",
+      "canonical_name": "GIBSON DUNN & CRUTCHER LLP",
+      "aliases": [
+        "Gibson, Dunn & Crutcher LLP"
+      ],
+      "role": "advisor",
+      "bidder_kind": null,
+      "advisor_kind": "legal",
+      "advised_party_id": "target_board_stec",
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": [
+        "span_0062"
       ]
     }
   ],
   "cohorts": [
     {
-      "cohort_id": "bidder_financial_sponsor_1",
-      "label": "Unnamed financial sponsor",
+      "cohort_id": "cohort_18_prospective_acquirers",
+      "label": "18 prospective acquirers contacted by BofA Merrill Lynch",
       "parent_cohort_id": null,
-      "exact_count": 1,
-      "known_member_party_ids": [],
-      "unknown_member_count": 1,
-      "membership_basis": "Unnamed financial sponsor",
-      "created_by_observation_id": "obs_evt_022",
+      "exact_count": 18,
+      "known_member_party_ids": [
+        "bidder_wdc",
+        "bidder_company_a",
+        "bidder_company_d",
+        "bidder_company_e",
+        "bidder_company_f",
+        "bidder_company_g",
+        "bidder_company_h"
+      ],
+      "unknown_member_count": 11,
+      "membership_basis": "17 technology companies and one financial sponsor contacted during strategic review",
+      "created_by_observation_id": "obs_evt_012",
       "evidence_span_ids": [
-        "span_0047"
+        "span_0019",
+        "span_0020"
       ]
     }
   ],
   "observations": [
     {
-      "observation_id": "obs_evt_022",
-      "obs_type": "solicitation",
-      "date": {
-        "raw_text": "May 16, 2013",
-        "normalized_start": "2013-05-16",
-        "normalized_end": "2013-05-16",
-        "sort_date": "2013-05-16",
-        "precision": "exact_day",
-        "anchor_event_id": null,
-        "anchor_span_id": null,
-        "resolution_note": null,
-        "is_inferred": false
-      },
-      "subject_refs": [],
-      "counterparty_refs": [],
-      "summary": "BofA Merrill Lynch sent final round process letters and a draft merger agreement to WDC and Company D.",
-      "evidence_span_ids": [
-        "span_0001"
-      ],
-      "requested_submission": "best_and_final",
-      "binding_level": "binding",
-      "due_date": {
-        "raw_text": "May 28, 2013",
-        "normalized_start": "2013-05-28",
-        "normalized_end": "2013-05-28",
-        "sort_date": "2013-05-28",
-        "precision": "exact_day",
-        "anchor_event_id": null,
-        "anchor_span_id": null,
-        "resolution_note": null,
-        "is_inferred": false
-      },
-      "recipient_refs": [],
-      "attachments": [],
-      "other_detail": null
-    },
-    {
-      "observation_id": "obs_evt_022_selected",
-      "obs_type": "status",
-      "date": {
-        "raw_text": "May 16, 2013",
-        "normalized_start": "2013-05-16",
-        "normalized_end": "2013-05-16",
-        "sort_date": "2013-05-16",
-        "precision": "exact_day",
-        "anchor_event_id": null,
-        "anchor_span_id": null,
-        "resolution_note": null,
-        "is_inferred": false
-      },
-      "subject_refs": [
-        "bidder_wdc",
-        "bidder_company_d"
-      ],
-      "counterparty_refs": [],
-      "summary": "BofA Merrill Lynch sent final round process letters and a draft merger agreement to WDC and Company D.",
-      "evidence_span_ids": [
-        "span_0001"
-      ],
-      "status_kind": "selected_to_advance",
-      "related_observation_id": "obs_evt_022",
-      "other_detail": null
-    },
-    {
-      "observation_id": "obs_evt_025",
-      "obs_type": "solicitation",
-      "date": {
-        "raw_text": "May 29, 2013",
-        "normalized_start": "2013-05-29",
-        "normalized_end": "2013-05-29",
-        "sort_date": "2013-05-29",
-        "precision": "exact_day",
-        "anchor_event_id": null,
-        "anchor_span_id": null,
-        "resolution_note": null,
-        "is_inferred": false
-      },
-      "subject_refs": [],
-      "counterparty_refs": [],
-      "summary": "BofA Merrill Lynch requested best-and-final proposals from WDC and Company D by May 30, 2013.",
-      "evidence_span_ids": [
-        "span_0002"
-      ],
-      "requested_submission": "best_and_final",
-      "binding_level": "binding",
-      "due_date": {
-        "raw_text": "May 30, 2013",
-        "normalized_start": "2013-05-30",
-        "normalized_end": "2013-05-30",
-        "sort_date": "2013-05-30",
-        "precision": "exact_day",
-        "anchor_event_id": null,
-        "anchor_span_id": null,
-        "resolution_note": null,
-        "is_inferred": false
-      },
-      "recipient_refs": [],
-      "attachments": [],
-      "other_detail": "extension round"
-    },
-    {
-      "observation_id": "obs_evt_025_selected",
-      "obs_type": "status",
-      "date": {
-        "raw_text": "May 29, 2013",
-        "normalized_start": "2013-05-29",
-        "normalized_end": "2013-05-29",
-        "sort_date": "2013-05-29",
-        "precision": "exact_day",
-        "anchor_event_id": null,
-        "anchor_span_id": null,
-        "resolution_note": null,
-        "is_inferred": false
-      },
-      "subject_refs": [
-        "bidder_wdc",
-        "bidder_company_d"
-      ],
-      "counterparty_refs": [],
-      "summary": "BofA Merrill Lynch requested best-and-final proposals from WDC and Company D by May 30, 2013.",
-      "evidence_span_ids": [
-        "span_0002"
-      ],
-      "status_kind": "selected_to_advance",
-      "related_observation_id": "obs_evt_025",
-      "other_detail": null
-    },
-    {
       "observation_id": "obs_evt_001",
       "obs_type": "process",
       "date": {
-        "raw_text": "mid-November, 2012",
-        "normalized_start": null,
-        "normalized_end": null,
-        "sort_date": null,
-        "precision": "unknown",
+        "raw_text": "fourth quarter of 2012",
+        "normalized_start": "2012-10-01",
+        "normalized_end": "2012-12-31",
+        "sort_date": "2012-10-01",
+        "precision": "quarter",
         "anchor_event_id": null,
         "anchor_span_id": null,
-        "resolution_note": "Unable to parse date deterministically.",
+        "resolution_note": null,
         "is_inferred": false
       },
-      "subject_refs": [],
+      "subject_refs": [
+        "target_board_stec"
+      ],
       "counterparty_refs": [],
-      "summary": "The board authorized management to explore strategic alternatives, including a potential sale of sTec.",
+      "summary": "sTec board determined to undertake a formal review of strategic alternatives, including exploring a potential sale of sTec.",
       "evidence_span_ids": [
-        "span_0003"
+        "span_0003",
+        "span_0004"
       ],
       "process_kind": "sale_launch",
       "process_scope": "target",
@@ -509,45 +296,17 @@
       "subject_refs": [
         "bidder_company_a"
       ],
-      "counterparty_refs": [
-        "advisor_company_a_financial_advisor"
-      ],
-      "summary": "Company A initiated contact with sTec about a possible business transaction and circulated a draft non-disclosure agreement.",
+      "counterparty_refs": [],
+      "summary": "An investment bank representing Company A contacted sTec management to request a preliminary meeting to evaluate a possible business transaction.",
       "evidence_span_ids": [
-        "span_0004"
+        "span_0005"
       ],
       "status_kind": "expressed_interest",
       "related_observation_id": null,
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_004",
-      "obs_type": "process",
-      "date": {
-        "raw_text": "December 6, 2012",
-        "normalized_start": "2012-12-06",
-        "normalized_end": "2012-12-06",
-        "sort_date": "2012-12-06",
-        "precision": "exact_day",
-        "anchor_event_id": null,
-        "anchor_span_id": null,
-        "resolution_note": null,
-        "is_inferred": false
-      },
-      "subject_refs": [
-        "activist_balch_hill"
-      ],
-      "counterparty_refs": [],
-      "summary": "Balch Hill urged the board to reduce costs and explore strategic alternatives.",
-      "evidence_span_ids": [
-        "span_0005"
-      ],
-      "process_kind": "sale_launch",
-      "process_scope": "activist",
-      "other_detail": null
-    },
-    {
-      "observation_id": "obs_evt_005",
+      "observation_id": "obs_evt_003",
       "obs_type": "status",
       "date": {
         "raw_text": "February 13, 2013",
@@ -564,9 +323,61 @@
         "bidder_company_b"
       ],
       "counterparty_refs": [],
-      "summary": "Company B's president said he intended to present sTec as a possible acquisition target to Company B management.",
+      "summary": "Company B's President stated intention to present sTec as a possible acquisition target to Company B's management.",
       "evidence_span_ids": [
-        "span_0006"
+        "span_0011"
+      ],
+      "status_kind": "expressed_interest",
+      "related_observation_id": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_004",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "Approximately two weeks later",
+        "normalized_start": "2013-02-27",
+        "normalized_end": "2013-02-27",
+        "sort_date": "2013-02-27",
+        "precision": "relative",
+        "anchor_event_id": "obs_evt_003",
+        "anchor_span_id": null,
+        "resolution_note": "Approximately two weeks after February 13, 2013",
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_company_b"
+      ],
+      "counterparty_refs": [],
+      "summary": "Company B's management determined it was not interested in acquiring sTec, believing it could independently develop the needed technology.",
+      "evidence_span_ids": [
+        "span_0012"
+      ],
+      "status_kind": "not_interested",
+      "related_observation_id": "obs_evt_003",
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_005",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "March 13, 2013",
+        "normalized_start": "2013-03-13",
+        "normalized_end": "2013-03-13",
+        "sort_date": "2013-03-13",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_company_c"
+      ],
+      "counterparty_refs": [],
+      "summary": "Company C expressed a potential interest in exploring an acquisition of particular assets of sTec's business.",
+      "evidence_span_ids": [
+        "span_0013"
       ],
       "status_kind": "expressed_interest",
       "related_observation_id": null,
@@ -577,54 +388,57 @@
       "obs_type": "status",
       "date": {
         "raw_text": "mid-March, 2013",
-        "normalized_start": null,
-        "normalized_end": null,
-        "sort_date": null,
-        "precision": "unknown",
+        "normalized_start": "2013-03-11",
+        "normalized_end": "2013-03-20",
+        "sort_date": "2013-03-15",
+        "precision": "relative",
         "anchor_event_id": null,
         "anchor_span_id": null,
-        "resolution_note": "Unable to parse date deterministically.",
+        "resolution_note": null,
         "is_inferred": false
       },
       "subject_refs": [
         "bidder_company_d"
       ],
       "counterparty_refs": [],
-      "summary": "Company D contacted sTec to express interest in exploring a potential acquisition of the company.",
+      "summary": "Company D contacted sTec management to express interest in exploring a potential acquisition of the company.",
       "evidence_span_ids": [
-        "span_0007"
+        "span_0014"
       ],
       "status_kind": "expressed_interest",
       "related_observation_id": null,
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_006a",
+      "observation_id": "obs_evt_007",
       "obs_type": "process",
       "date": {
-        "raw_text": "March 26, 2013",
-        "normalized_start": "2013-03-26",
-        "normalized_end": "2013-03-26",
-        "sort_date": "2013-03-26",
+        "raw_text": "February 13, 2013",
+        "normalized_start": "2013-02-13",
+        "normalized_end": "2013-02-13",
+        "sort_date": "2013-02-13",
         "precision": "exact_day",
         "anchor_event_id": null,
         "anchor_span_id": null,
         "resolution_note": null,
         "is_inferred": false
       },
-      "subject_refs": [],
-      "counterparty_refs": [],
-      "summary": "sTec's board decided to confidentially approach likely strategic buyers and conduct a limited confirmatory exploration of financial buyers.",
-      "evidence_span_ids": [
-        "span_0008"
+      "subject_refs": [
+        "target_board_stec"
       ],
-      "process_kind": "sale_launch",
+      "counterparty_refs": [],
+      "summary": "Board established a special committee to conduct a review of sTec's strategic alternatives, including a possible sale of the company.",
+      "evidence_span_ids": [
+        "span_0009",
+        "span_0010"
+      ],
+      "process_kind": "other",
       "process_scope": "target",
-      "other_detail": null
+      "other_detail": "special committee formation"
     },
     {
-      "observation_id": "obs_evt_007",
-      "obs_type": "process",
+      "observation_id": "obs_evt_008",
+      "obs_type": "agreement",
       "date": {
         "raw_text": "March 28, 2013",
         "normalized_start": "2013-03-28",
@@ -637,19 +451,25 @@
         "is_inferred": false
       },
       "subject_refs": [
-        "advisor_bofa_merrill_lynch"
+        "advisor_bofa"
       ],
-      "counterparty_refs": [],
-      "summary": "sTec entered into an engagement letter with BofA Merrill Lynch for financial advisory services.",
+      "counterparty_refs": [
+        "target_board_stec"
+      ],
+      "summary": "sTec entered into an engagement letter with BofA Merrill Lynch to provide financial advisory services.",
       "evidence_span_ids": [
-        "span_0009"
+        "span_0017"
       ],
-      "process_kind": "advisor_retention",
-      "process_scope": "target",
-      "other_detail": null
+      "agreement_kind": "other",
+      "signed": true,
+      "grants_diligence_access": null,
+      "includes_standstill": null,
+      "consideration_type": null,
+      "supersedes_observation_id": null,
+      "other_detail": "financial advisor engagement letter"
     },
     {
-      "observation_id": "obs_evt_008",
+      "observation_id": "obs_evt_009",
       "obs_type": "agreement",
       "date": {
         "raw_text": "April 4, 2013",
@@ -666,23 +486,23 @@
         "bidder_company_e"
       ],
       "counterparty_refs": [],
-      "summary": "Company E entered into a non-disclosure agreement with sTec.",
+      "summary": "sTec entered into a non-disclosure agreement with Company E.",
       "evidence_span_ids": [
-        "span_0010"
+        "span_0021"
       ],
       "agreement_kind": "nda",
       "signed": true,
       "grants_diligence_access": true,
-      "includes_standstill": null,
+      "includes_standstill": true,
       "consideration_type": null,
       "supersedes_observation_id": null,
-      "other_detail": null
+      "other_detail": "included dont ask dont waive provision"
     },
     {
-      "observation_id": "obs_evt_009",
+      "observation_id": "obs_evt_010",
       "obs_type": "agreement",
       "date": {
-        "raw_text": "April 10, 2013",
+        "raw_text": "April 10",
         "normalized_start": "2013-04-10",
         "normalized_end": "2013-04-10",
         "sort_date": "2013-04-10",
@@ -696,39 +516,9 @@
         "bidder_company_d"
       ],
       "counterparty_refs": [],
-      "summary": "Company D entered into a non-disclosure agreement with sTec.",
+      "summary": "sTec entered into a non-disclosure agreement with Company D.",
       "evidence_span_ids": [
-        "span_0010"
-      ],
-      "agreement_kind": "nda",
-      "signed": true,
-      "grants_diligence_access": true,
-      "includes_standstill": null,
-      "consideration_type": null,
-      "supersedes_observation_id": null,
-      "other_detail": null
-    },
-    {
-      "observation_id": "obs_evt_010",
-      "obs_type": "agreement",
-      "date": {
-        "raw_text": "April 11, 2013",
-        "normalized_start": "2013-04-11",
-        "normalized_end": "2013-04-11",
-        "sort_date": "2013-04-11",
-        "precision": "exact_day",
-        "anchor_event_id": null,
-        "anchor_span_id": null,
-        "resolution_note": null,
-        "is_inferred": false
-      },
-      "subject_refs": [
-        "bidder_company_f"
-      ],
-      "counterparty_refs": [],
-      "summary": "Company F entered into a non-disclosure agreement with sTec.",
-      "evidence_span_ids": [
-        "span_0011"
+        "span_0021"
       ],
       "agreement_kind": "nda",
       "signed": true,
@@ -742,7 +532,67 @@
       "observation_id": "obs_evt_011",
       "obs_type": "agreement",
       "date": {
-        "raw_text": "April 17, 2013",
+        "raw_text": "April 11",
+        "normalized_start": "2013-04-11",
+        "normalized_end": "2013-04-11",
+        "sort_date": "2013-04-11",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_company_f"
+      ],
+      "counterparty_refs": [],
+      "summary": "sTec entered into a non-disclosure agreement with Company F.",
+      "evidence_span_ids": [
+        "span_0022"
+      ],
+      "agreement_kind": "nda",
+      "signed": true,
+      "grants_diligence_access": true,
+      "includes_standstill": true,
+      "consideration_type": null,
+      "supersedes_observation_id": null,
+      "other_detail": "included dont ask dont waive provision"
+    },
+    {
+      "observation_id": "obs_evt_012",
+      "obs_type": "solicitation",
+      "date": {
+        "raw_text": "April 1, 2013",
+        "normalized_start": "2013-04-01",
+        "normalized_end": "2013-04-01",
+        "sort_date": "2013-04-01",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [],
+      "counterparty_refs": [],
+      "summary": "BofA Merrill Lynch began contacting 18 prospective acquirers of sTec at the direction of the special committee.",
+      "evidence_span_ids": [
+        "span_0019",
+        "span_0020"
+      ],
+      "requested_submission": "ioi",
+      "binding_level": null,
+      "due_date": null,
+      "recipient_refs": [
+        "cohort_18_prospective_acquirers"
+      ],
+      "attachments": [],
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_013",
+      "obs_type": "agreement",
+      "date": {
+        "raw_text": "April 17",
         "normalized_start": "2013-04-17",
         "normalized_end": "2013-04-17",
         "sort_date": "2013-04-17",
@@ -756,9 +606,9 @@
         "bidder_company_g"
       ],
       "counterparty_refs": [],
-      "summary": "Company G entered into a non-disclosure agreement with sTec.",
+      "summary": "sTec entered into a non-disclosure agreement with Company G.",
       "evidence_span_ids": [
-        "span_0012"
+        "span_0022"
       ],
       "agreement_kind": "nda",
       "signed": true,
@@ -769,7 +619,7 @@
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_012",
+      "observation_id": "obs_evt_014",
       "obs_type": "agreement",
       "date": {
         "raw_text": "April 17, 2013",
@@ -788,7 +638,7 @@
       "counterparty_refs": [],
       "summary": "sTec entered into an addendum to its existing non-disclosure agreement with WDC.",
       "evidence_span_ids": [
-        "span_0013"
+        "span_0022"
       ],
       "agreement_kind": "nda",
       "signed": true,
@@ -796,10 +646,128 @@
       "includes_standstill": null,
       "consideration_type": null,
       "supersedes_observation_id": null,
+      "other_detail": "addendum to existing NDA"
+    },
+    {
+      "observation_id": "obs_evt_015",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "April 15, 2013",
+        "normalized_start": "2013-04-15",
+        "normalized_end": "2013-04-15",
+        "sort_date": "2013-04-15",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_company_c"
+      ],
+      "counterparty_refs": [],
+      "summary": "Company C indicated it was only interested in purchasing limited, select assets of the company; the special committee decided not to continue discussions.",
+      "evidence_span_ids": [
+        "span_0024"
+      ],
+      "status_kind": "not_interested",
+      "related_observation_id": "obs_evt_005",
+      "other_detail": "interested only in select assets"
+    },
+    {
+      "observation_id": "obs_evt_016",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "April 24",
+        "normalized_start": "2013-04-24",
+        "normalized_end": "2013-04-24",
+        "sort_date": "2013-04-24",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_company_f"
+      ],
+      "counterparty_refs": [],
+      "summary": "Company F declined to schedule a management presentation, indicating it was only interested in purchasing limited, select assets of sTec.",
+      "evidence_span_ids": [
+        "span_0025"
+      ],
+      "status_kind": "not_interested",
+      "related_observation_id": null,
+      "other_detail": "interested only in select assets"
+    },
+    {
+      "observation_id": "obs_evt_017",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "Shortly thereafter",
+        "normalized_start": "2013-04-24",
+        "normalized_end": "2013-04-30",
+        "sort_date": "2013-04-27",
+        "precision": "relative",
+        "anchor_event_id": "obs_evt_016",
+        "anchor_span_id": null,
+        "resolution_note": "Shortly after April 24 Company F declined",
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_company_e"
+      ],
+      "counterparty_refs": [],
+      "summary": "Company E indicated it was also only interested in purchasing limited, select assets of sTec; the special committee decided not to continue discussions.",
+      "evidence_span_ids": [
+        "span_0026"
+      ],
+      "status_kind": "not_interested",
+      "related_observation_id": null,
+      "other_detail": "interested only in select assets"
+    },
+    {
+      "observation_id": "obs_evt_018",
+      "obs_type": "solicitation",
+      "date": {
+        "raw_text": "April 23, 2013",
+        "normalized_start": "2013-04-23",
+        "normalized_end": "2013-04-23",
+        "sort_date": "2013-04-23",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [],
+      "counterparty_refs": [],
+      "summary": "BofA Merrill Lynch sent process letters to WDC and Company D requesting non-binding indications of interest by May 3, 2013.",
+      "evidence_span_ids": [
+        "span_0027"
+      ],
+      "requested_submission": "ioi",
+      "binding_level": "non_binding",
+      "due_date": {
+        "raw_text": "May 3, 2013",
+        "normalized_start": "2013-05-03",
+        "normalized_end": "2013-05-03",
+        "sort_date": "2013-05-03",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "recipient_refs": [
+        "bidder_wdc",
+        "bidder_company_d"
+      ],
+      "attachments": [],
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_013",
+      "observation_id": "obs_evt_019",
       "obs_type": "proposal",
       "date": {
         "raw_text": "April 23, 2013",
@@ -816,11 +784,11 @@
         "bidder_company_d"
       ],
       "counterparty_refs": [],
-      "summary": "Company D verbally indicated interest in a whole-company transaction at more than $5.60 per share.",
+      "summary": "Company D provided a verbal indication of interest to pursue a transaction at a price greater than $5.60 per share.",
       "evidence_span_ids": [
-        "span_0014"
+        "span_0028"
       ],
-      "requested_by_observation_id": "obs_evt_025",
+      "requested_by_observation_id": "obs_evt_018",
       "revises_observation_id": null,
       "delivery_mode": "oral",
       "terms": {
@@ -833,62 +801,49 @@
       "mentions_non_binding": false,
       "includes_draft_merger_agreement": false,
       "includes_markup": false,
-      "other_detail": null
+      "other_detail": "verbal indication; price greater than $5.60 per share"
     },
     {
-      "observation_id": "obs_evt_014",
-      "obs_type": "status",
+      "observation_id": "obs_evt_020",
+      "obs_type": "solicitation",
       "date": {
-        "raw_text": "April 24, 2013",
-        "normalized_start": "2013-04-24",
-        "normalized_end": "2013-04-24",
-        "sort_date": "2013-04-24",
+        "raw_text": "April 26, 2013",
+        "normalized_start": "2013-04-26",
+        "normalized_end": "2013-04-26",
+        "sort_date": "2013-04-26",
         "precision": "exact_day",
         "anchor_event_id": null,
         "anchor_span_id": null,
         "resolution_note": null,
         "is_inferred": false
       },
-      "subject_refs": [
-        "bidder_company_f"
-      ],
+      "subject_refs": [],
       "counterparty_refs": [],
-      "summary": "Company F stopped participating after saying it was interested only in limited, select assets of sTec.",
+      "summary": "BofA Merrill Lynch sent a process letter to Company G requesting a non-binding indication of interest by May 3, 2013.",
       "evidence_span_ids": [
-        "span_0015"
+        "span_0029"
       ],
-      "status_kind": "limited_assets_only",
-      "related_observation_id": null,
-      "other_detail": "Company F declined the invitation to schedule a management presentation, indicating it was only interested in purchasing limited, select assets of sTec"
-    },
-    {
-      "observation_id": "obs_evt_015",
-      "obs_type": "status",
-      "date": {
-        "raw_text": "Shortly thereafter",
-        "normalized_start": null,
-        "normalized_end": null,
-        "sort_date": null,
-        "precision": "unknown",
+      "requested_submission": "ioi",
+      "binding_level": "non_binding",
+      "due_date": {
+        "raw_text": "May 3, 2013",
+        "normalized_start": "2013-05-03",
+        "normalized_end": "2013-05-03",
+        "sort_date": "2013-05-03",
+        "precision": "exact_day",
         "anchor_event_id": null,
         "anchor_span_id": null,
-        "resolution_note": "Unable to parse date deterministically.",
+        "resolution_note": null,
         "is_inferred": false
       },
-      "subject_refs": [
-        "bidder_company_e"
+      "recipient_refs": [
+        "bidder_company_g"
       ],
-      "counterparty_refs": [],
-      "summary": "Company E stopped participating after indicating it was interested only in limited, select assets of sTec.",
-      "evidence_span_ids": [
-        "span_0016"
-      ],
-      "status_kind": "limited_assets_only",
-      "related_observation_id": null,
-      "other_detail": "Company E indicated it was also only interested in purchasing limited, select assets of sTec"
+      "attachments": [],
+      "other_detail": null
     },
     {
-      "observation_id": "obs_evt_016",
+      "observation_id": "obs_evt_021",
       "obs_type": "status",
       "date": {
         "raw_text": "May 1, 2013",
@@ -905,16 +860,16 @@
         "bidder_company_h"
       ],
       "counterparty_refs": [],
-      "summary": "Company H contacted BofA Merrill Lynch to express interest in a potential transaction with sTec.",
+      "summary": "Company H contacted BofA Merrill Lynch expressing an interest in a potential transaction with sTec.",
       "evidence_span_ids": [
-        "span_0017"
+        "span_0030"
       ],
       "status_kind": "expressed_interest",
       "related_observation_id": null,
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_017",
+      "observation_id": "obs_evt_022",
       "obs_type": "proposal",
       "date": {
         "raw_text": "May 3, 2013",
@@ -931,11 +886,11 @@
         "bidder_wdc"
       ],
       "counterparty_refs": [],
-      "summary": "WDC submitted a written whole-company indication of interest at $6.60 to $7.10 per share in cash.",
+      "summary": "WDC submitted a written indication of interest to acquire the company at a purchase price in the range of $6.60 - $7.10 per share in cash.",
       "evidence_span_ids": [
-        "span_0018"
+        "span_0031"
       ],
-      "requested_by_observation_id": "obs_evt_025",
+      "requested_by_observation_id": "obs_evt_018",
       "revises_observation_id": null,
       "delivery_mode": "written",
       "terms": {
@@ -951,7 +906,7 @@
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_018",
+      "observation_id": "obs_evt_023",
       "obs_type": "status",
       "date": {
         "raw_text": "May 3, 2013",
@@ -968,16 +923,16 @@
         "bidder_company_g"
       ],
       "counterparty_refs": [],
-      "summary": "Company G said it would not continue in the process.",
+      "summary": "Company G indicated it would not continue in the process.",
       "evidence_span_ids": [
-        "span_0019"
+        "span_0032"
       ],
-      "status_kind": "withdrew",
+      "status_kind": "not_interested",
       "related_observation_id": null,
-      "other_detail": "Company G indicated it would not continue in the process"
+      "other_detail": null
     },
     {
-      "observation_id": "obs_evt_019",
+      "observation_id": "obs_evt_024",
       "obs_type": "agreement",
       "date": {
         "raw_text": "May 8, 2013",
@@ -994,20 +949,20 @@
         "bidder_company_h"
       ],
       "counterparty_refs": [],
-      "summary": "Company H entered into a non-disclosure agreement with sTec.",
+      "summary": "sTec entered into a non-disclosure agreement with Company H.",
       "evidence_span_ids": [
-        "span_0020"
+        "span_0033"
       ],
       "agreement_kind": "nda",
       "signed": true,
       "grants_diligence_access": true,
-      "includes_standstill": null,
+      "includes_standstill": true,
       "consideration_type": null,
       "supersedes_observation_id": null,
-      "other_detail": null
+      "other_detail": "included dont ask dont waive provision"
     },
     {
-      "observation_id": "obs_evt_020",
+      "observation_id": "obs_evt_025",
       "obs_type": "proposal",
       "date": {
         "raw_text": "May 10, 2013",
@@ -1024,12 +979,12 @@
         "bidder_company_d"
       ],
       "counterparty_refs": [],
-      "summary": "Company D submitted a written non-binding whole-company indication of interest at $5.75 per share in cash.",
+      "summary": "Company D submitted a written non-binding indication of interest to acquire the company at $5.75 per share in cash, along with a draft exclusivity agreement.",
       "evidence_span_ids": [
-        "span_0021"
+        "span_0034"
       ],
-      "requested_by_observation_id": "obs_evt_025",
-      "revises_observation_id": "obs_evt_013",
+      "requested_by_observation_id": "obs_evt_018",
+      "revises_observation_id": "obs_evt_019",
       "delivery_mode": "written",
       "terms": {
         "per_share": "5.75",
@@ -1041,10 +996,10 @@
       "mentions_non_binding": true,
       "includes_draft_merger_agreement": false,
       "includes_markup": false,
-      "other_detail": null
+      "other_detail": "included draft exclusivity agreement"
     },
     {
-      "observation_id": "obs_evt_021",
+      "observation_id": "obs_evt_026",
       "obs_type": "proposal",
       "date": {
         "raw_text": "May 15, 2013",
@@ -1061,11 +1016,11 @@
         "bidder_company_h"
       ],
       "counterparty_refs": [],
-      "summary": "Company H submitted a written non-binding whole-company indication of interest at $5.00 to $5.75 per share in cash.",
+      "summary": "Company H submitted a written non-binding indication of interest to acquire the company at a purchase price in the range of $5.00 - $5.75 per share in cash.",
       "evidence_span_ids": [
-        "span_0022"
+        "span_0035"
       ],
-      "requested_by_observation_id": "obs_evt_025",
+      "requested_by_observation_id": "obs_evt_018",
       "revises_observation_id": null,
       "delivery_mode": "written",
       "terms": {
@@ -1081,7 +1036,101 @@
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_024",
+      "observation_id": "obs_evt_027",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "during this time period",
+        "normalized_start": "2013-05-15",
+        "normalized_end": "2013-05-16",
+        "sort_date": "2013-05-15",
+        "precision": "relative",
+        "anchor_event_id": "obs_evt_026",
+        "anchor_span_id": null,
+        "resolution_note": "Between Company H's May 15 IOI and the May 16 board meeting",
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_company_h"
+      ],
+      "counterparty_refs": [],
+      "summary": "BofA Merrill Lynch contacted Company H and indicated that the price range submitted was not sufficient to move them forward in the process; Company H could submit a revised indication of interest.",
+      "evidence_span_ids": [
+        "span_0036"
+      ],
+      "status_kind": "other",
+      "related_observation_id": "obs_evt_026",
+      "other_detail": "price insufficient to advance; invited to revise"
+    },
+    {
+      "observation_id": "obs_evt_028",
+      "obs_type": "solicitation",
+      "date": {
+        "raw_text": "May 16, 2013",
+        "normalized_start": "2013-05-16",
+        "normalized_end": "2013-05-16",
+        "sort_date": "2013-05-16",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": "After the board meeting on May 16",
+        "is_inferred": false
+      },
+      "subject_refs": [],
+      "counterparty_refs": [],
+      "summary": "BofA Merrill Lynch sent final round process letters and a draft merger agreement to WDC and Company D, requesting a response by May 28, 2013.",
+      "evidence_span_ids": [
+        "span_0037"
+      ],
+      "requested_submission": "ioi",
+      "binding_level": null,
+      "due_date": {
+        "raw_text": "May 28, 2013",
+        "normalized_start": "2013-05-28",
+        "normalized_end": "2013-05-28",
+        "sort_date": "2013-05-28",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "recipient_refs": [
+        "bidder_wdc",
+        "bidder_company_d"
+      ],
+      "attachments": [
+        "draft merger agreement"
+      ],
+      "other_detail": "final round process letters"
+    },
+    {
+      "observation_id": "obs_evt_029",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "May 23, 2013",
+        "normalized_start": "2013-05-23",
+        "normalized_end": "2013-05-23",
+        "sort_date": "2013-05-23",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_company_h"
+      ],
+      "counterparty_refs": [],
+      "summary": "Company H indicated it remained interested in a potential acquisition but was not able to increase its indicated value range.",
+      "evidence_span_ids": [
+        "span_0038"
+      ],
+      "status_kind": "cannot_improve",
+      "related_observation_id": "obs_evt_026",
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_030",
       "obs_type": "proposal",
       "date": {
         "raw_text": "May 28, 2013",
@@ -1098,14 +1147,13 @@
         "bidder_wdc"
       ],
       "counterparty_refs": [],
-      "summary": "WDC submitted a second-round whole-company indication of interest at $9.15 per share in cash with a merger agreement markup.",
+      "summary": "WDC submitted a written second-round indication of interest at $9.15 per share in cash, with a mark-up of the merger agreement and drafts of ancillary agreements.",
       "evidence_span_ids": [
-        "span_0023",
-        "span_0024"
+        "span_0039"
       ],
-      "requested_by_observation_id": "obs_evt_025",
-      "revises_observation_id": "obs_evt_017",
-      "delivery_mode": null,
+      "requested_by_observation_id": "obs_evt_028",
+      "revises_observation_id": "obs_evt_022",
+      "delivery_mode": "written",
       "terms": {
         "per_share": "9.15",
         "range_low": null,
@@ -1116,10 +1164,76 @@
       "mentions_non_binding": false,
       "includes_draft_merger_agreement": false,
       "includes_markup": true,
+      "other_detail": "included mark-up of merger agreement and drafts of ancillary agreements"
+    },
+    {
+      "observation_id": "obs_evt_031",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "May 28, 2013",
+        "normalized_start": "2013-05-28",
+        "normalized_end": "2013-05-28",
+        "sort_date": "2013-05-28",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_company_d"
+      ],
+      "counterparty_refs": [],
+      "summary": "Company D indicated continued interest in a potential acquisition and understood they needed to move meaningfully on value, but needed approximately two weeks of additional time for due diligence and to submit a written indication of interest.",
+      "evidence_span_ids": [
+        "span_0040"
+      ],
+      "status_kind": "expressed_interest",
+      "related_observation_id": "obs_evt_028",
+      "other_detail": "requested two additional weeks"
+    },
+    {
+      "observation_id": "obs_evt_032",
+      "obs_type": "solicitation",
+      "date": {
+        "raw_text": "May 29, 2013",
+        "normalized_start": "2013-05-29",
+        "normalized_end": "2013-05-29",
+        "sort_date": "2013-05-29",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [],
+      "counterparty_refs": [],
+      "summary": "Board directed BofA Merrill Lynch to request a best and final proposal from WDC and a best and final written proposal from Company D by May 30, 2013.",
+      "evidence_span_ids": [
+        "span_0041"
+      ],
+      "requested_submission": "best_and_final",
+      "binding_level": null,
+      "due_date": {
+        "raw_text": "May 30, 2013",
+        "normalized_start": "2013-05-30",
+        "normalized_end": "2013-05-30",
+        "sort_date": "2013-05-30",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "recipient_refs": [
+        "bidder_wdc",
+        "bidder_company_d"
+      ],
+      "attachments": [],
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_027",
+      "observation_id": "obs_evt_033",
       "obs_type": "proposal",
       "date": {
         "raw_text": "May 30, 2013",
@@ -1136,27 +1250,53 @@
         "bidder_wdc"
       ],
       "counterparty_refs": [],
-      "summary": "WDC verbally confirmed that $9.15 per share was its best possible whole-company price.",
+      "summary": "WDC verbally indicated that its indication of interest at $9.15 per share was WDC's best possible price, reiterating concern regarding the price.",
       "evidence_span_ids": [
-        "span_0025"
+        "span_0042"
       ],
-      "requested_by_observation_id": "obs_evt_025",
-      "revises_observation_id": "obs_evt_024",
+      "requested_by_observation_id": "obs_evt_032",
+      "revises_observation_id": null,
       "delivery_mode": "oral",
       "terms": {
         "per_share": "9.15",
         "range_low": null,
         "range_high": null,
         "enterprise_value": null,
-        "consideration_type": null
+        "consideration_type": "cash"
       },
       "mentions_non_binding": false,
       "includes_draft_merger_agreement": false,
       "includes_markup": false,
-      "other_detail": null
+      "other_detail": "verbal reconfirmation of $9.15 as best possible price"
     },
     {
-      "observation_id": "obs_evt_028",
+      "observation_id": "obs_evt_034",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "May 30, 2013",
+        "normalized_start": "2013-05-30",
+        "normalized_end": "2013-05-30",
+        "sort_date": "2013-05-30",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_company_d"
+      ],
+      "counterparty_refs": [],
+      "summary": "Company D reconfirmed they would require additional time to submit a written indication of interest but indicated they could be competitive on price if given additional time.",
+      "evidence_span_ids": [
+        "span_0043"
+      ],
+      "status_kind": "expressed_interest",
+      "related_observation_id": "obs_evt_032",
+      "other_detail": "requested additional time; believed they could be competitive on price"
+    },
+    {
+      "observation_id": "obs_evt_035",
       "obs_type": "status",
       "date": {
         "raw_text": "May 31, 2013",
@@ -1173,17 +1313,17 @@
         "bidder_wdc"
       ],
       "counterparty_refs": [],
-      "summary": "WDC stepped back from the process and said it was not prepared to move forward with a transaction at that time.",
+      "summary": "WDC communicated it was reevaluating its interest in acquiring sTec and was not prepared to move forward with a transaction at that time; WDC discontinued due diligence efforts. Board held a special meeting to discuss potential next steps.",
       "evidence_span_ids": [
-        "span_0026",
-        "span_0027"
+        "span_0045",
+        "span_0066"
       ],
-      "status_kind": "cannot_proceed",
-      "related_observation_id": null,
-      "other_detail": "WDC was reevaluating its interest in acquiring sTec, and that WDC was not prepared to move forward with a transaction with sTec at that time"
+      "status_kind": "not_interested",
+      "related_observation_id": "obs_evt_033",
+      "other_detail": "reevaluating interest; discontinued due diligence"
     },
     {
-      "observation_id": "obs_evt_029",
+      "observation_id": "obs_evt_036",
       "obs_type": "status",
       "date": {
         "raw_text": "June 5, 2013",
@@ -1200,16 +1340,16 @@
         "bidder_company_d"
       ],
       "counterparty_refs": [],
-      "summary": "Company D disengaged from the process because it could not actively conduct due diligence for more than two weeks.",
+      "summary": "Company D indicated it would not be in a position to actively conduct due diligence for more than two weeks and was disengaging from the process.",
       "evidence_span_ids": [
-        "span_0028"
+        "span_0047"
       ],
-      "status_kind": "cannot_proceed",
+      "status_kind": "not_interested",
       "related_observation_id": null,
-      "other_detail": "Company D would not be in a position to actively conduct due diligence for more than two weeks and was disengaging from the process"
+      "other_detail": "disengaging from process"
     },
     {
-      "observation_id": "obs_evt_030",
+      "observation_id": "obs_evt_037",
       "obs_type": "proposal",
       "date": {
         "raw_text": "June 10, 2013",
@@ -1226,12 +1366,13 @@
         "bidder_wdc"
       ],
       "counterparty_refs": [],
-      "summary": "WDC submitted a revised written whole-company indication of interest at $6.60 to $7.10 per share in cash.",
+      "summary": "WDC submitted a revised written indication of interest at $6.60 to $7.10 per share in cash, lowering from its prior $9.15 indication, citing business factors and a change in bidding strategy.",
       "evidence_span_ids": [
-        "span_0029"
+        "span_0048",
+        "span_0049"
       ],
-      "requested_by_observation_id": "obs_evt_025",
-      "revises_observation_id": "obs_evt_027",
+      "requested_by_observation_id": null,
+      "revises_observation_id": "obs_evt_030",
       "delivery_mode": "written",
       "terms": {
         "per_share": null,
@@ -1243,10 +1384,39 @@
       "mentions_non_binding": false,
       "includes_draft_merger_agreement": false,
       "includes_markup": false,
-      "other_detail": null
+      "other_detail": "reduced from $9.15; WDC stated acquisition not essential to its SSD strategy"
     },
     {
-      "observation_id": "obs_evt_031",
+      "observation_id": "obs_evt_038",
+      "obs_type": "solicitation",
+      "date": {
+        "raw_text": "June 11, 2013",
+        "normalized_start": "2013-06-11",
+        "normalized_end": "2013-06-11",
+        "sort_date": "2013-06-11",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [],
+      "counterparty_refs": [],
+      "summary": "Board directed BofA Merrill Lynch to communicate that the board would not respond to a proposal with a range and that WDC must submit a proposal reflecting its best offer with confirmation of senior management support.",
+      "evidence_span_ids": [
+        "span_0050"
+      ],
+      "requested_submission": "best_and_final",
+      "binding_level": null,
+      "due_date": null,
+      "recipient_refs": [
+        "bidder_wdc"
+      ],
+      "attachments": [],
+      "other_detail": "required specific best offer with senior management confirmation"
+    },
+    {
+      "observation_id": "obs_evt_039",
       "obs_type": "proposal",
       "date": {
         "raw_text": "June 14, 2013",
@@ -1263,13 +1433,13 @@
         "bidder_wdc"
       ],
       "counterparty_refs": [],
-      "summary": "WDC submitted a written whole-company indication of interest at $6.85 per share in cash as its best and final price.",
+      "summary": "WDC submitted a written indication of interest of $6.85 per share in cash, described as WDC's best and final price.",
       "evidence_span_ids": [
-        "span_0030",
-        "span_0031"
+        "span_0051",
+        "span_0052"
       ],
-      "requested_by_observation_id": "obs_evt_025",
-      "revises_observation_id": "obs_evt_030",
+      "requested_by_observation_id": "obs_evt_038",
+      "revises_observation_id": "obs_evt_037",
       "delivery_mode": "written",
       "terms": {
         "per_share": "6.85",
@@ -1281,10 +1451,40 @@
       "mentions_non_binding": false,
       "includes_draft_merger_agreement": false,
       "includes_markup": false,
+      "other_detail": "described as best and final price"
+    },
+    {
+      "observation_id": "obs_evt_040",
+      "obs_type": "agreement",
+      "date": {
+        "raw_text": "June 18, 2013",
+        "normalized_start": "2013-06-18",
+        "normalized_end": "2013-06-18",
+        "sort_date": "2013-06-18",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_wdc"
+      ],
+      "counterparty_refs": [],
+      "summary": "sTec and WDC entered into a clean team agreement to allow certain representatives of WDC access to further information in the data room.",
+      "evidence_span_ids": [
+        "span_0053"
+      ],
+      "agreement_kind": "clean_team",
+      "signed": true,
+      "grants_diligence_access": true,
+      "includes_standstill": null,
+      "consideration_type": null,
+      "supersedes_observation_id": null,
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_032",
+      "observation_id": "obs_evt_041",
       "obs_type": "outcome",
       "date": {
         "raw_text": "June 23, 2013",
@@ -1297,20 +1497,22 @@
         "resolution_note": null,
         "is_inferred": false
       },
-      "subject_refs": [],
-      "counterparty_refs": [
+      "subject_refs": [
         "bidder_wdc"
+      ],
+      "counterparty_refs": [
+        "target_board_stec"
       ],
       "summary": "sTec, WDC, and Merger Sub executed the merger agreement.",
       "evidence_span_ids": [
-        "span_0032"
+        "span_0054"
       ],
       "outcome_kind": "executed",
-      "related_observation_id": null,
+      "related_observation_id": "obs_evt_039",
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_032_agreement",
+      "observation_id": "obs_evt_042",
       "obs_type": "agreement",
       "date": {
         "raw_text": "June 23, 2013",
@@ -1326,21 +1528,23 @@
       "subject_refs": [
         "bidder_wdc"
       ],
-      "counterparty_refs": [],
-      "summary": "sTec, WDC, and Merger Sub executed the merger agreement.",
+      "counterparty_refs": [
+        "target_board_stec"
+      ],
+      "summary": "sTec, WDC, and Merger Sub executed the merger agreement at $6.85 per share in cash.",
       "evidence_span_ids": [
-        "span_0032"
+        "span_0054"
       ],
       "agreement_kind": "merger_agreement",
       "signed": true,
       "grants_diligence_access": null,
       "includes_standstill": null,
-      "consideration_type": null,
+      "consideration_type": "cash",
       "supersedes_observation_id": null,
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_033",
+      "observation_id": "obs_evt_043",
       "obs_type": "process",
       "date": {
         "raw_text": "June 24, 2013",
@@ -1356,38 +1560,123 @@
       "subject_refs": [
         "bidder_wdc"
       ],
-      "counterparty_refs": [],
-      "summary": "WDC and sTec announced the executed merger agreement in a joint press release.",
-      "evidence_span_ids": [
-        "span_0033"
+      "counterparty_refs": [
+        "target_board_stec"
       ],
-      "process_kind": "press_release",
-      "process_scope": "bidder",
+      "summary": "WDC and sTec announced the execution of the merger agreement in a joint press release prior to the opening of trading.",
+      "evidence_span_ids": [
+        "span_0056"
+      ],
+      "process_kind": "other",
+      "process_scope": "other",
+      "other_detail": "public announcement of merger agreement execution"
+    },
+    {
+      "observation_id": "obs_evt_044",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "November 16, 2012",
+        "normalized_start": "2012-11-16",
+        "normalized_end": "2012-11-16",
+        "sort_date": "2012-11-16",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "activist_balch_hill"
+      ],
+      "counterparty_refs": [
+        "target_board_stec"
+      ],
+      "summary": "Balch Hill Partners filed a Schedule 13D with the SEC reporting a 6.4% stake in sTec and subsequently launched an activist campaign urging the board to reduce costs, focus products, and explore strategic alternatives, including nominating directors for election.",
+      "evidence_span_ids": [
+        "span_0006",
+        "span_0008",
+        "span_0067"
+      ],
+      "process_kind": "public_announcement",
+      "process_scope": "activist",
+      "other_detail": "Schedule 13D filing and activist campaign urging strategic alternatives"
+    },
+    {
+      "observation_id": "obs_evt_045",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "March 26, 2013",
+        "normalized_start": "2013-03-26",
+        "normalized_end": "2013-03-26",
+        "sort_date": "2013-03-26",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_board_stec"
+      ],
+      "counterparty_refs": [],
+      "summary": "sTec board approved retaining BofA Merrill Lynch as financial advisor and determined to confidentially approach strategic buyers most likely to have interest in a potential acquisition, while also conducting a limited confirmatory exploration of financial buyer interest.",
+      "evidence_span_ids": [
+        "span_0016",
+        "span_0018"
+      ],
+      "process_kind": "sale_launch",
+      "process_scope": "target",
       "other_detail": null
     }
   ],
   "exclusions": [
     {
-      "category": "unsigned_nda",
+      "category": "stale_process_reference",
       "block_ids": [
-        "B008"
+        "B002",
+        "B003",
+        "B005",
+        "B006"
       ],
-      "explanation": "Company A's advisor circulated only a draft non-disclosure agreement, and the scheduled meeting was canceled before any executed NDA is described."
+      "explanation": "Pre-2012 strategic considerations, informal third-party approaches, and 2011 lunch meetings between Moshayedi and WDC executives predate the formal sale process and involve no specific transaction terms."
     },
     {
-      "category": "partial_company_bid",
+      "category": "non_event_context",
       "block_ids": [
-        "B024",
-        "B037"
+        "B118",
+        "B119",
+        "B120",
+        "B121",
+        "B122",
+        "B123",
+        "B124",
+        "B128",
+        "B134",
+        "B148",
+        "B151",
+        "B156",
+        "B157",
+        "B158",
+        "B159",
+        "B160",
+        "B172",
+        "B175",
+        "B176",
+        "B177",
+        "B188",
+        "B195",
+        "B206",
+        "B209",
+        "B219",
+        "B227",
+        "B230",
+        "B231",
+        "B232",
+        "B233",
+        "B234",
+        "B235"
       ],
-      "explanation": "Company C expressed interest only in acquiring particular or limited assets of sTec rather than the whole company."
-    },
-    {
-      "category": "other",
-      "block_ids": [
-        "B092"
-      ],
-      "explanation": "The June 18, 2013 clean team agreement is a diligence-access arrangement, not a confidentiality agreement event under this extraction schema."
+      "explanation": "Windows w2 and w3 cover board rationale, fairness opinion valuation analysis, comparable transactions, and BofA Merrill Lynch advisory fee disclosures. These contain no extractable chronology observations."
     }
   ],
   "coverage": []

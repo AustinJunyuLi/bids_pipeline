@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from skill_pipeline.pipeline_models.source import ChronologyBlock, EvidenceItem
+from skill_pipeline.source.evidence import _extract_actor_hints, _extract_count_hint
 
 
 CRITICAL_CUE_FAMILIES = frozenset(
@@ -39,6 +40,8 @@ class CoverageCue:
     matched_terms: list[str]
     confidence: str
     suggested_event_types: list[str]
+    actor_hints: list[str] | None = None
+    count_hint: str | None = None
 
 
 def load_chronology_blocks(path: Path) -> list[ChronologyBlock]:
@@ -75,6 +78,10 @@ def build_coverage_cues(
         block_ids = _block_ids_for_evidence(item, blocks_by_document.get(item.document_id, []))
         if not block_ids:
             continue
+        # Re-extract actor hints from raw text at coverage time to handle
+        # pre-existing evidence items serialized with old single-hint extractor
+        hints = _extract_actor_hints(item.raw_text) or None
+        count_hint = item.count_hint or _extract_count_hint(item.raw_text)
         cues.append(
             CoverageCue(
                 cue_family=cue_family,
@@ -83,6 +90,8 @@ def build_coverage_cues(
                 matched_terms=item.matched_terms,
                 confidence=item.confidence,
                 suggested_event_types=_suggested_event_types(cue_family),
+                actor_hints=hints,
+                count_hint=count_hint,
             )
         )
     return cues

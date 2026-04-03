@@ -10,7 +10,7 @@
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
       "supporting_span_ids": [
-        "span_0022"
+        "span_0001"
       ],
       "block_ids": [
         "B002"
@@ -36,14 +36,16 @@
     },
     {
       "cue_family": "nda",
-      "status": "not_found",
-      "severity": "warning",
-      "repairability": "repairable",
-      "description": "Medium-confidence nda cue was not covered by canonical v2 artifacts.",
-      "reason_code": "uncovered_nda_cue",
+      "status": "observed",
+      "severity": "info",
+      "repairability": null,
+      "description": "Medium-confidence nda cue is covered by multiple canonical v2 observations.",
+      "reason_code": "matched_multiple_observations",
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
-      "supporting_span_ids": [],
+      "supporting_span_ids": [
+        "span_0011"
+      ],
       "block_ids": [
         "B012"
       ],
@@ -58,20 +60,25 @@
         "nda"
       ],
       "note": null,
-      "supporting_observation_ids": [],
+      "supporting_observation_ids": [
+        "obs_evt_006",
+        "obs_evt_007"
+      ],
       "supporting_party_ids": [],
       "supporting_cohort_ids": []
     },
     {
       "cue_family": "nda",
-      "status": "not_found",
-      "severity": "warning",
-      "repairability": "repairable",
-      "description": "Medium-confidence nda cue was not covered by canonical v2 artifacts.",
-      "reason_code": "uncovered_nda_cue",
+      "status": "observed",
+      "severity": "info",
+      "repairability": null,
+      "description": "Medium-confidence nda cue is covered by multiple canonical v2 observations.",
+      "reason_code": "matched_multiple_observations",
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
-      "supporting_span_ids": [],
+      "supporting_span_ids": [
+        "span_0011"
+      ],
       "block_ids": [
         "B012"
       ],
@@ -86,7 +93,10 @@
         "nda"
       ],
       "note": null,
-      "supporting_observation_ids": [],
+      "supporting_observation_ids": [
+        "obs_evt_006",
+        "obs_evt_007"
+      ],
       "supporting_party_ids": [],
       "supporting_cohort_ids": []
     },
@@ -100,7 +110,7 @@
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
       "supporting_span_ids": [
-        "span_0006"
+        "span_0013"
       ],
       "block_ids": [
         "B015"
@@ -117,7 +127,7 @@
       ],
       "note": null,
       "supporting_observation_ids": [
-        "obs_evt_007"
+        "obs_evt_009"
       ],
       "supporting_party_ids": [],
       "supporting_cohort_ids": []
@@ -132,7 +142,7 @@
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
       "supporting_span_ids": [
-        "span_0006"
+        "span_0013"
       ],
       "block_ids": [
         "B015"
@@ -149,7 +159,7 @@
       ],
       "note": null,
       "supporting_observation_ids": [
-        "obs_evt_007"
+        "obs_evt_009"
       ],
       "supporting_party_ids": [],
       "supporting_cohort_ids": []
@@ -164,7 +174,7 @@
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
       "supporting_span_ids": [
-        "span_0010"
+        "span_0021"
       ],
       "block_ids": [
         "B033"
@@ -183,7 +193,7 @@
       ],
       "note": null,
       "supporting_observation_ids": [
-        "obs_evt_013"
+        "obs_evt_016"
       ],
       "supporting_party_ids": [],
       "supporting_cohort_ids": []
@@ -198,7 +208,7 @@
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
       "supporting_span_ids": [
-        "span_0010"
+        "span_0021"
       ],
       "block_ids": [
         "B033"
@@ -216,7 +226,7 @@
       ],
       "note": null,
       "supporting_observation_ids": [
-        "obs_evt_013"
+        "obs_evt_016"
       ],
       "supporting_party_ids": [],
       "supporting_cohort_ids": []
@@ -281,15 +291,15 @@
     },
     {
       "cue_family": "advisor",
-      "status": "observed",
-      "severity": "info",
-      "repairability": null,
-      "description": "High-confidence advisor cue is covered by canonical v2 artifacts.",
-      "reason_code": "matched_party",
+      "status": "ambiguous",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "High-confidence advisor cue matched multiple canonical v2 candidates.",
+      "reason_code": "multiple_matching_candidates",
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
       "supporting_span_ids": [
-        "span_0024"
+        "span_0041"
       ],
       "block_ids": [
         "B058"
@@ -308,7 +318,9 @@
         "ib_retention"
       ],
       "note": null,
-      "supporting_observation_ids": [],
+      "supporting_observation_ids": [
+        "obs_evt_028"
+      ],
       "supporting_party_ids": [
         "advisor_morgan_stanley"
       ],
@@ -316,15 +328,15 @@
     },
     {
       "cue_family": "advisor",
-      "status": "observed",
-      "severity": "info",
-      "repairability": null,
-      "description": "Medium-confidence advisor cue is covered by canonical v2 artifacts.",
-      "reason_code": "matched_party",
+      "status": "ambiguous",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "Medium-confidence advisor cue matched multiple canonical v2 candidates.",
+      "reason_code": "multiple_matching_candidates",
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
       "supporting_span_ids": [
-        "span_0024"
+        "span_0041"
       ],
       "block_ids": [
         "B058"
@@ -342,7 +354,9 @@
         "ib_retention"
       ],
       "note": null,
-      "supporting_observation_ids": [],
+      "supporting_observation_ids": [
+        "obs_evt_028"
+      ],
       "supporting_party_ids": [
         "advisor_morgan_stanley"
       ],
@@ -421,8 +435,7 @@
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
       "supporting_span_ids": [
-        "span_0018",
-        "span_0019"
+        "span_0047"
       ],
       "block_ids": [
         "B062"
@@ -443,7 +456,7 @@
       ],
       "note": null,
       "supporting_observation_ids": [
-        "obs_evt_022"
+        "obs_evt_032"
       ],
       "supporting_party_ids": [],
       "supporting_cohort_ids": []
@@ -458,8 +471,7 @@
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
       "supporting_span_ids": [
-        "span_0018",
-        "span_0019"
+        "span_0047"
       ],
       "block_ids": [
         "B062"
@@ -477,24 +489,21 @@
       ],
       "note": null,
       "supporting_observation_ids": [
-        "obs_evt_022"
+        "obs_evt_032"
       ],
       "supporting_party_ids": [],
       "supporting_cohort_ids": []
     },
     {
       "cue_family": "nda",
-      "status": "observed",
-      "severity": "info",
-      "repairability": null,
-      "description": "Medium-confidence nda cue is covered by canonical v2 artifacts.",
-      "reason_code": "matched_observation",
+      "status": "not_found",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "Medium-confidence nda cue was not covered by canonical v2 artifacts.",
+      "reason_code": "uncovered_nda_cue",
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
-      "supporting_span_ids": [
-        "span_0018",
-        "span_0019"
-      ],
+      "supporting_span_ids": [],
       "block_ids": [
         "B064"
       ],
@@ -509,9 +518,33 @@
         "nda"
       ],
       "note": null,
-      "supporting_observation_ids": [
-        "obs_evt_022"
+      "supporting_observation_ids": [],
+      "supporting_party_ids": [],
+      "supporting_cohort_ids": []
+    },
+    {
+      "cue_family": "count_assertion",
+      "status": "not_found",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "Filing asserts 'six parties' but no cohort with exact_count=6 was extracted.",
+      "reason_code": "missing_count_cohort",
+      "supporting_event_ids": [],
+      "supporting_actor_ids": [],
+      "supporting_span_ids": [],
+      "block_ids": [
+        "B062"
       ],
+      "evidence_ids": [
+        "0001193125-13-390275:E0387"
+      ],
+      "matched_terms": [
+        "six parties"
+      ],
+      "confidence": "high",
+      "suggested_event_types": [],
+      "note": null,
+      "supporting_observation_ids": [],
       "supporting_party_ids": [],
       "supporting_cohort_ids": []
     }

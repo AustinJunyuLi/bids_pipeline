@@ -1,0 +1,2148 @@
+{
+  "deal_slug": "petsmart-inc",
+  "alex_target_name": "PETSMART INC",
+  "generated_at": "2026-04-02T15:50:39.096653",
+  "summary": {
+    "alex_total_rows": 53,
+    "alex_comparable_events": 50,
+    "pipeline_total_rows": 113,
+    "pipeline_comparable_events": 113,
+    "matched_events": 11,
+    "disagreements": 9,
+    "alex_only_events": 39,
+    "pipeline_only_events": 102,
+    "bidder_families_count": 68
+  },
+  "bid_comparison": {
+    "bidder 2": {
+      "alex_bids": 4,
+      "pipeline_bids": 4,
+      "matched": 4,
+      "exact": 2,
+      "with_disagreements": 2,
+      "alex_only": 0,
+      "pipeline_only": 0
+    },
+    "bidder 3": {
+      "alex_bids": 1,
+      "pipeline_bids": 0,
+      "matched": 0,
+      "exact": 0,
+      "with_disagreements": 0,
+      "alex_only": 1,
+      "pipeline_only": 0
+    },
+    "buyer group": {
+      "alex_bids": 4,
+      "pipeline_bids": 4,
+      "matched": 4,
+      "exact": 2,
+      "with_disagreements": 2,
+      "alex_only": 0,
+      "pipeline_only": 0
+    },
+    "unnamed party 4": {
+      "alex_bids": 1,
+      "pipeline_bids": 0,
+      "matched": 0,
+      "exact": 0,
+      "with_disagreements": 0,
+      "alex_only": 1,
+      "pipeline_only": 0
+    }
+  },
+  "bidder_families": {
+    "(unnamed)": {
+      "alex_count": 9,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [
+        {
+          "bidder_id": 0.8,
+          "category": "interest",
+          "bid_note": "Activist Sale",
+          "date": null,
+          "value": null
+        },
+        {
+          "bidder_id": 0.9,
+          "category": "target_sale_public",
+          "bid_note": "Target Sale Public",
+          "date": null,
+          "value": null
+        },
+        {
+          "bidder_id": 0.95,
+          "category": "sale_press_release",
+          "bid_note": "Sale Press Release",
+          "date": null,
+          "value": null
+        },
+        {
+          "bidder_id": 15.5,
+          "category": "final_round",
+          "bid_note": "Final Round Inf Ann",
+          "date": null,
+          "value": null
+        },
+        {
+          "bidder_id": 21.5,
+          "category": "final_round",
+          "bid_note": "Final Round Inf",
+          "date": null,
+          "value": null
+        },
+        {
+          "bidder_id": 34.5,
+          "category": "final_round",
+          "bid_note": "Final Round Ann",
+          "date": null,
+          "value": null
+        },
+        {
+          "bidder_id": 38.5,
+          "category": "final_round",
+          "bid_note": "Final Round",
+          "date": null,
+          "value": null
+        },
+        {
+          "bidder_id": 38.7,
+          "category": "final_round",
+          "bid_note": "Final Round Ext Ann",
+          "date": null,
+          "value": null
+        },
+        {
+          "bidder_id": 40.5,
+          "category": "final_round",
+          "bid_note": "Final Round Ext",
+          "date": null,
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0006",
+          "category": "target_sale",
+          "event_type": "target_sale",
+          "date": "2014-08-13",
+          "value": null,
+          "span_ids": "span_0016|span_0017"
+        },
+        {
+          "row_id": "row_0008",
+          "category": "sale_press_release",
+          "event_type": "sale_press_release",
+          "date": "2014-08-19",
+          "value": null,
+          "span_ids": "span_0018"
+        },
+        {
+          "row_id": "row_0009",
+          "category": "nda",
+          "event_type": "nda",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0025"
+        }
+      ]
+    },
+    "15 potentially interested financial buyers that entered into confidentiality and standstill agreements anon_slot_001": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0023:anon_slot_001",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2014-10-30",
+          "value": null,
+          "span_ids": "span_0026|span_0027"
+        },
+        {
+          "row_id": "row_0032:anon_slot_001",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2014-11-03",
+          "value": null,
+          "span_ids": "span_0031|span_0032"
+        },
+        {
+          "row_id": "row_0022:anon_slot_001",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0026|span_0027"
+        }
+      ]
+    },
+    "15 potentially interested financial buyers that entered into confidentiality and standstill agreements anon_slot_002": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0023:anon_slot_002",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2014-10-30",
+          "value": null,
+          "span_ids": "span_0026|span_0027"
+        },
+        {
+          "row_id": "row_0032:anon_slot_002",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2014-11-03",
+          "value": null,
+          "span_ids": "span_0031|span_0032"
+        },
+        {
+          "row_id": "row_0022:anon_slot_002",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0026|span_0027"
+        }
+      ]
+    },
+    "15 potentially interested financial buyers that entered into confidentiality and standstill agreements anon_slot_003": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0023:anon_slot_003",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2014-10-30",
+          "value": null,
+          "span_ids": "span_0026|span_0027"
+        },
+        {
+          "row_id": "row_0032:anon_slot_003",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2014-11-03",
+          "value": null,
+          "span_ids": "span_0031|span_0032"
+        },
+        {
+          "row_id": "row_0022:anon_slot_003",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0026|span_0027"
+        }
+      ]
+    },
+    "15 potentially interested financial buyers that entered into confidentiality and standstill agreements anon_slot_004": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0023:anon_slot_004",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2014-10-30",
+          "value": null,
+          "span_ids": "span_0026|span_0027"
+        },
+        {
+          "row_id": "row_0032:anon_slot_004",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2014-11-03",
+          "value": null,
+          "span_ids": "span_0031|span_0032"
+        },
+        {
+          "row_id": "row_0022:anon_slot_004",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0026|span_0027"
+        }
+      ]
+    },
+    "15 potentially interested financial buyers that entered into confidentiality and standstill agreements anon_slot_005": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0023:anon_slot_005",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2014-10-30",
+          "value": null,
+          "span_ids": "span_0026|span_0027"
+        },
+        {
+          "row_id": "row_0032:anon_slot_005",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2014-11-03",
+          "value": null,
+          "span_ids": "span_0031|span_0032"
+        },
+        {
+          "row_id": "row_0022:anon_slot_005",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0026|span_0027"
+        }
+      ]
+    },
+    "15 potentially interested financial buyers that entered into confidentiality and standstill agreements anon_slot_006": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0023:anon_slot_006",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2014-10-30",
+          "value": null,
+          "span_ids": "span_0026|span_0027"
+        },
+        {
+          "row_id": "row_0032:anon_slot_006",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2014-11-03",
+          "value": null,
+          "span_ids": "span_0031|span_0032"
+        },
+        {
+          "row_id": "row_0022:anon_slot_006",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0026|span_0027"
+        }
+      ]
+    },
+    "15 potentially interested financial buyers that entered into confidentiality and standstill agreements anon_slot_007": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0023:anon_slot_007",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2014-10-30",
+          "value": null,
+          "span_ids": "span_0026|span_0027"
+        },
+        {
+          "row_id": "row_0032:anon_slot_007",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2014-11-03",
+          "value": null,
+          "span_ids": "span_0031|span_0032"
+        },
+        {
+          "row_id": "row_0022:anon_slot_007",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0026|span_0027"
+        }
+      ]
+    },
+    "15 potentially interested financial buyers that entered into confidentiality and standstill agreements anon_slot_008": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0023:anon_slot_008",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2014-10-30",
+          "value": null,
+          "span_ids": "span_0026|span_0027"
+        },
+        {
+          "row_id": "row_0032:anon_slot_008",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2014-11-03",
+          "value": null,
+          "span_ids": "span_0031|span_0032"
+        },
+        {
+          "row_id": "row_0022:anon_slot_008",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0026|span_0027"
+        }
+      ]
+    },
+    "15 potentially interested financial buyers that entered into confidentiality and standstill agreements anon_slot_009": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0023:anon_slot_009",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2014-10-30",
+          "value": null,
+          "span_ids": "span_0026|span_0027"
+        },
+        {
+          "row_id": "row_0032:anon_slot_009",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2014-11-03",
+          "value": null,
+          "span_ids": "span_0031|span_0032"
+        },
+        {
+          "row_id": "row_0022:anon_slot_009",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0026|span_0027"
+        }
+      ]
+    },
+    "15 potentially interested financial buyers that entered into confidentiality and standstill agreements anon_slot_010": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0023:anon_slot_010",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2014-10-30",
+          "value": null,
+          "span_ids": "span_0026|span_0027"
+        },
+        {
+          "row_id": "row_0032:anon_slot_010",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2014-11-03",
+          "value": null,
+          "span_ids": "span_0031|span_0032"
+        },
+        {
+          "row_id": "row_0022:anon_slot_010",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0026|span_0027"
+        }
+      ]
+    },
+    "15 potentially interested financial buyers that entered into confidentiality and standstill agreements anon_slot_011": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0023:anon_slot_011",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2014-10-30",
+          "value": null,
+          "span_ids": "span_0026|span_0027"
+        },
+        {
+          "row_id": "row_0032:anon_slot_011",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2014-11-03",
+          "value": null,
+          "span_ids": "span_0031|span_0032"
+        },
+        {
+          "row_id": "row_0022:anon_slot_011",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0026|span_0027"
+        }
+      ]
+    },
+    "15 potentially interested financial buyers that entered into confidentiality and standstill agreements anon_slot_012": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0023:anon_slot_012",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2014-10-30",
+          "value": null,
+          "span_ids": "span_0026|span_0027"
+        },
+        {
+          "row_id": "row_0032:anon_slot_012",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2014-11-03",
+          "value": null,
+          "span_ids": "span_0031|span_0032"
+        },
+        {
+          "row_id": "row_0022:anon_slot_012",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0026|span_0027"
+        }
+      ]
+    },
+    "15 potentially interested financial buyers that entered into confidentiality and standstill agreements anon_slot_013": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0023:anon_slot_013",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2014-10-30",
+          "value": null,
+          "span_ids": "span_0026|span_0027"
+        },
+        {
+          "row_id": "row_0032:anon_slot_013",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2014-11-03",
+          "value": null,
+          "span_ids": "span_0031|span_0032"
+        },
+        {
+          "row_id": "row_0022:anon_slot_013",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0026|span_0027"
+        }
+      ]
+    },
+    "15 potentially interested financial buyers that entered into confidentiality and standstill agreements anon_slot_014": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0023:anon_slot_014",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2014-10-30",
+          "value": null,
+          "span_ids": "span_0026|span_0027"
+        },
+        {
+          "row_id": "row_0032:anon_slot_014",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2014-11-03",
+          "value": null,
+          "span_ids": "span_0031|span_0032"
+        },
+        {
+          "row_id": "row_0022:anon_slot_014",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0026|span_0027"
+        }
+      ]
+    },
+    "15 potentially interested financial buyers that entered into confidentiality and standstill agreements anon_slot_015": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0023:anon_slot_015",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2014-10-30",
+          "value": null,
+          "span_ids": "span_0026|span_0027"
+        },
+        {
+          "row_id": "row_0032:anon_slot_015",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2014-11-03",
+          "value": null,
+          "span_ids": "span_0031|span_0032"
+        },
+        {
+          "row_id": "row_0022:anon_slot_015",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0026|span_0027"
+        }
+      ]
+    },
+    "27 potential participants in a sale process contacted by j. p. morgan anon_slot_001": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0007:anon_slot_001",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0022"
+        }
+      ]
+    },
+    "27 potential participants in a sale process contacted by j. p. morgan anon_slot_002": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0007:anon_slot_002",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0022"
+        }
+      ]
+    },
+    "27 potential participants in a sale process contacted by j. p. morgan anon_slot_003": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0007:anon_slot_003",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0022"
+        }
+      ]
+    },
+    "27 potential participants in a sale process contacted by j. p. morgan anon_slot_004": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0007:anon_slot_004",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0022"
+        }
+      ]
+    },
+    "27 potential participants in a sale process contacted by j. p. morgan anon_slot_005": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0007:anon_slot_005",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0022"
+        }
+      ]
+    },
+    "27 potential participants in a sale process contacted by j. p. morgan anon_slot_006": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0007:anon_slot_006",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0022"
+        }
+      ]
+    },
+    "27 potential participants in a sale process contacted by j. p. morgan anon_slot_007": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0007:anon_slot_007",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0022"
+        }
+      ]
+    },
+    "27 potential participants in a sale process contacted by j. p. morgan anon_slot_008": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0007:anon_slot_008",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0022"
+        }
+      ]
+    },
+    "27 potential participants in a sale process contacted by j. p. morgan anon_slot_009": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0007:anon_slot_009",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0022"
+        }
+      ]
+    },
+    "27 potential participants in a sale process contacted by j. p. morgan anon_slot_010": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0007:anon_slot_010",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0022"
+        }
+      ]
+    },
+    "27 potential participants in a sale process contacted by j. p. morgan anon_slot_011": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0007:anon_slot_011",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0022"
+        }
+      ]
+    },
+    "27 potential participants in a sale process contacted by j. p. morgan anon_slot_012": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0007:anon_slot_012",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0022"
+        }
+      ]
+    },
+    "27 potential participants in a sale process contacted by j. p. morgan anon_slot_013": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0007:anon_slot_013",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0022"
+        }
+      ]
+    },
+    "27 potential participants in a sale process contacted by j. p. morgan anon_slot_014": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0007:anon_slot_014",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0022"
+        }
+      ]
+    },
+    "27 potential participants in a sale process contacted by j. p. morgan anon_slot_015": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0007:anon_slot_015",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0022"
+        }
+      ]
+    },
+    "27 potential participants in a sale process contacted by j. p. morgan anon_slot_016": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0007:anon_slot_016",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0022"
+        }
+      ]
+    },
+    "27 potential participants in a sale process contacted by j. p. morgan anon_slot_017": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0007:anon_slot_017",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0022"
+        }
+      ]
+    },
+    "27 potential participants in a sale process contacted by j. p. morgan anon_slot_018": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0007:anon_slot_018",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0022"
+        }
+      ]
+    },
+    "27 potential participants in a sale process contacted by j. p. morgan anon_slot_019": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0007:anon_slot_019",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0022"
+        }
+      ]
+    },
+    "27 potential participants in a sale process contacted by j. p. morgan anon_slot_020": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0007:anon_slot_020",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0022"
+        }
+      ]
+    },
+    "27 potential participants in a sale process contacted by j. p. morgan anon_slot_021": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0007:anon_slot_021",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0022"
+        }
+      ]
+    },
+    "27 potential participants in a sale process contacted by j. p. morgan anon_slot_022": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0007:anon_slot_022",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0022"
+        }
+      ]
+    },
+    "27 potential participants in a sale process contacted by j. p. morgan anon_slot_023": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0007:anon_slot_023",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0022"
+        }
+      ]
+    },
+    "27 potential participants in a sale process contacted by j. p. morgan anon_slot_024": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0007:anon_slot_024",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0022"
+        }
+      ]
+    },
+    "27 potential participants in a sale process contacted by j. p. morgan anon_slot_025": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0007:anon_slot_025",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0022"
+        }
+      ]
+    },
+    "27 potential participants in a sale process contacted by j. p. morgan anon_slot_026": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0007:anon_slot_026",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0022"
+        }
+      ]
+    },
+    "27 potential participants in a sale process contacted by j. p. morgan anon_slot_027": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0007:anon_slot_027",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0022"
+        }
+      ]
+    },
+    "bidder 1": {
+      "alex_count": 1,
+      "pipeline_count": 0,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [
+        {
+          "bidder_id": 13,
+          "category": "nda",
+          "bid_note": "NDA",
+          "date": null,
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": []
+    },
+    "bidder 2": {
+      "alex_count": 6,
+      "pipeline_count": 7,
+      "matched": 5,
+      "exact_matches": 2,
+      "disagreements": [
+        {
+          "match_quality": "date_category",
+          "disagreements": [
+            {
+              "field": "value",
+              "pipeline": null,
+              "alex": 78.0
+            }
+          ],
+          "pipeline_row_id": "row_0011",
+          "alex_bidder_id": 21,
+          "filing_evidence": [
+            "[span_0030] least $80.00 per share, including the Buyer Group, which indicated a range of\u2009 $81.00 to $83.00 per share, and another bidder, which suggested a range of\u2009 $80.00 to $85.00 per share. As a result of its discussions with J. P. Morgan, another bidder (which we refer to as \u201c Bidder 2\u201d), which had initially indicated a price of\u2009 $78.00, increased its indication to a range of\u2009 $81.00 to $84.00 per share.",
+            "[span_0057] On October 30, six of the potentially interested parties submitted indications of interest. From October 30 to November 2, 2014, representatives of J. P. Morgan spoke by telephone with all of the potentially interested parties, including those that did not submit an indication of interest, to hear the parties\u2019 respective rationales for the price levels suggested in their indications or rationales for not submitting an indication. Three bidders initially indicated price ranges that reached at"
+          ]
+        },
+        {
+          "match_quality": "category_only",
+          "disagreements": [
+            {
+              "field": "date",
+              "pipeline": "2014-11-03",
+              "alex": "2014-12-14"
+            }
+          ],
+          "pipeline_row_id": "row_0033",
+          "alex_bidder_id": 42,
+          "filing_evidence": [
+            "[span_0031] On November 3, 2014, the board met in person, together with members of management and representatives of J. P. Morgan and Wachtell Lipton, to continue its review of strategic alternatives, including a review of the indications of interest. The board determined to allow the four bidders that had indicated a price or range at or above $80.00 per share to proceed to the final round of the sale process. Following this meeting, representatives of J. P. Morgan notified the eliminated parties, none of",
+            "[span_0032] On November 3, 2014, the board met in person, together with members of management and representatives of J. P. Morgan and Wachtell Lipton, to continue its review of strategic alternatives, including a review of the indications of interest. The board determined to allow the four bidders that had indicated a price or range at or above $80.00 per share to proceed to the final round of the sale process. Following this meeting, representatives of J. P. Morgan notified the eliminated parties, none of "
+          ]
+        },
+        {
+          "match_quality": "category_only",
+          "disagreements": [
+            {
+              "field": "date",
+              "pipeline": "2014-12-06",
+              "alex": "2014-10-30"
+            },
+            {
+              "field": "value",
+              "pipeline": null,
+              "alex": 81.0
+            }
+          ],
+          "pipeline_row_id": "row_0013",
+          "alex_bidder_id": 22,
+          "filing_evidence": [
+            "[span_0038] On December 6, 2014, the Buyer Group and Bidder 2 submitted their respective comments on the draft merger agreement and other transaction documents, and the Buyer Group provided its financing commitment documents."
+          ]
+        }
+      ],
+      "unmatched_alex": [
+        {
+          "bidder_id": 14,
+          "category": "nda",
+          "bid_note": "NDA",
+          "date": null,
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0028",
+          "category": "final_round",
+          "event_type": "final_round_ann",
+          "date": "2014-12-10",
+          "value": null,
+          "span_ids": "span_0045|span_0046"
+        },
+        {
+          "row_id": "row_0029",
+          "category": "final_round",
+          "event_type": "final_round",
+          "date": "2014-12-12",
+          "value": null,
+          "span_ids": "span_0045|span_0046"
+        }
+      ]
+    },
+    "bidder 3": {
+      "alex_count": 2,
+      "pipeline_count": 0,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [
+        {
+          "bidder_id": 38,
+          "category": "bid",
+          "bid_note": "NA",
+          "date": "2014-12-10",
+          "value": 78.0
+        },
+        {
+          "bidder_id": 43,
+          "category": "drop",
+          "bid_note": "Drop",
+          "date": "2014-12-14",
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": []
+    },
+    "buyer group": {
+      "alex_count": 6,
+      "pipeline_count": 9,
+      "matched": 6,
+      "exact_matches": 2,
+      "disagreements": [
+        {
+          "match_quality": "date_category",
+          "disagreements": [
+            {
+              "field": "value",
+              "pipeline": null,
+              "alex": 81.0
+            }
+          ],
+          "pipeline_row_id": "row_0010",
+          "alex_bidder_id": 19,
+          "filing_evidence": [
+            "[span_0028] On October 30, six of the potentially interested parties submitted indications of interest. From October 30 to November 2, 2014, representatives of J. P. Morgan spoke by telephone with all of the potentially interested parties, including those that did not submit an indication of interest, to hear the parties\u2019 respective rationales for the price levels suggested in their indications or rationales for not submitting an indication. Three bidders initially indicated price ranges that reached at",
+            "[span_0029] On October 30, six of the potentially interested parties submitted indications of interest. From October 30 to November 2, 2014, representatives of J. P. Morgan spoke by telephone with all of the potentially interested parties, including those that did not submit an indication of interest, to hear the parties\u2019 respective rationales for the price levels suggested in their indications or rationales for not submitting an indication. Three bidders initially indicated price ranges that reached at lea"
+          ]
+        },
+        {
+          "match_quality": "category_only",
+          "disagreements": [
+            {
+              "field": "date",
+              "pipeline": "2014-12-06",
+              "alex": "2014-12-12"
+            },
+            {
+              "field": "value",
+              "pipeline": null,
+              "alex": 82.5
+            }
+          ],
+          "pipeline_row_id": "row_0012",
+          "alex_bidder_id": 40,
+          "filing_evidence": [
+            "[span_0038] On December 6, 2014, the Buyer Group and Bidder 2 submitted their respective comments on the draft merger agreement and other transaction documents, and the Buyer Group provided its financing commitment documents."
+          ]
+        },
+        {
+          "match_quality": "category_only",
+          "disagreements": [
+            {
+              "field": "date",
+              "pipeline": "2014-12-12",
+              "alex": null
+            }
+          ],
+          "pipeline_row_id": "row_0018",
+          "alex_bidder_id": 15,
+          "filing_evidence": [
+            "[span_0049] later that day, Longview and the Buyer Group entered into a confidentiality agreement permitting the exchange of detailed information between them, including bid price, which had not previously been shared with Longview. The ad hoc committee also instructed Wachtell Lipton to provide a form of voting agreement to Longview to secure Longview\u2019s commitment to vote for the merger subject to certain exceptions, including a change of recommendation by the board."
+          ]
+        },
+        {
+          "match_quality": "category_only",
+          "disagreements": [
+            {
+              "field": "date",
+              "pipeline": "2014-12-14",
+              "alex": "2014-12-12"
+            }
+          ],
+          "pipeline_row_id": "row_0021",
+          "alex_bidder_id": 43.5,
+          "filing_evidence": [
+            "[span_0055] Following the board meeting, the parties completed negotiations on terms satisfactory to both parties, and finalized the terms of the Longview voting agreement. On December 14, 2014, the parties executed the merger agreement, the voting agreement and related transaction agreements and issued a press release announcing the transaction."
+          ]
+        }
+      ],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0034",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2014-11-03",
+          "value": null,
+          "span_ids": "span_0031|span_0032"
+        },
+        {
+          "row_id": "row_0026",
+          "category": "final_round",
+          "event_type": "final_round_ann",
+          "date": "2014-12-10",
+          "value": null,
+          "span_ids": "span_0045|span_0046"
+        },
+        {
+          "row_id": "row_0027",
+          "category": "final_round",
+          "event_type": "final_round",
+          "date": "2014-12-12",
+          "value": null,
+          "span_ids": "span_0045|span_0046"
+        }
+      ]
+    },
+    "four bidders at or above $80.00 per share advancing to final round anon_slot_001": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0024:anon_slot_001",
+          "category": "final_round",
+          "event_type": "final_round_ann",
+          "date": "2014-12-04",
+          "value": null,
+          "span_ids": "span_0037"
+        },
+        {
+          "row_id": "row_0025:anon_slot_001",
+          "category": "final_round",
+          "event_type": "final_round",
+          "date": "2014-12-10",
+          "value": null,
+          "span_ids": "span_0037"
+        },
+        {
+          "row_id": "row_0035:anon_slot_001",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2014-12-12",
+          "value": null,
+          "span_ids": "span_0045|span_0046"
+        }
+      ]
+    },
+    "four bidders at or above $80.00 per share advancing to final round anon_slot_002": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0024:anon_slot_002",
+          "category": "final_round",
+          "event_type": "final_round_ann",
+          "date": "2014-12-04",
+          "value": null,
+          "span_ids": "span_0037"
+        },
+        {
+          "row_id": "row_0025:anon_slot_002",
+          "category": "final_round",
+          "event_type": "final_round",
+          "date": "2014-12-10",
+          "value": null,
+          "span_ids": "span_0037"
+        },
+        {
+          "row_id": "row_0035:anon_slot_002",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2014-12-12",
+          "value": null,
+          "span_ids": "span_0045|span_0046"
+        }
+      ]
+    },
+    "four bidders at or above $80.00 per share advancing to final round anon_slot_003": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0024:anon_slot_003",
+          "category": "final_round",
+          "event_type": "final_round_ann",
+          "date": "2014-12-04",
+          "value": null,
+          "span_ids": "span_0037"
+        },
+        {
+          "row_id": "row_0025:anon_slot_003",
+          "category": "final_round",
+          "event_type": "final_round",
+          "date": "2014-12-10",
+          "value": null,
+          "span_ids": "span_0037"
+        },
+        {
+          "row_id": "row_0035:anon_slot_003",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2014-12-12",
+          "value": null,
+          "span_ids": "span_0045|span_0046"
+        }
+      ]
+    },
+    "four bidders at or above $80.00 per share advancing to final round anon_slot_004": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0024:anon_slot_004",
+          "category": "final_round",
+          "event_type": "final_round_ann",
+          "date": "2014-12-04",
+          "value": null,
+          "span_ids": "span_0037"
+        },
+        {
+          "row_id": "row_0025:anon_slot_004",
+          "category": "final_round",
+          "event_type": "final_round",
+          "date": "2014-12-10",
+          "value": null,
+          "span_ids": "span_0037"
+        },
+        {
+          "row_id": "row_0035:anon_slot_004",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2014-12-12",
+          "value": null,
+          "span_ids": "span_0045|span_0046"
+        }
+      ]
+    },
+    "industry participant": {
+      "alex_count": 0,
+      "pipeline_count": 4,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0005",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": "2014-08-07",
+          "value": null,
+          "span_ids": "span_0015"
+        },
+        {
+          "row_id": "row_0031",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2014-08-22",
+          "value": null,
+          "span_ids": "span_0019|span_0020|span_0021"
+        },
+        {
+          "row_id": "row_0001",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0001|span_0002"
+        },
+        {
+          "row_id": "row_0030",
+          "category": "drop",
+          "event_type": "drop",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0003"
+        }
+      ]
+    },
+    "j. p. morgan": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0002",
+          "category": "ib_retention",
+          "event_type": "ib_retention",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0010"
+        }
+      ]
+    },
+    "j.p. morgan": {
+      "alex_count": 1,
+      "pipeline_count": 0,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [
+        {
+          "bidder_id": 0.7,
+          "category": "ib_retention",
+          "bid_note": "IB",
+          "date": null,
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": []
+    },
+    "jana partners": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0003",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": "2014-07-03",
+          "value": null,
+          "span_ids": "span_0011"
+        }
+      ]
+    },
+    "longview": {
+      "alex_count": 0,
+      "pipeline_count": 4,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0004",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": "2014-07-07",
+          "value": null,
+          "span_ids": "span_0012"
+        },
+        {
+          "row_id": "row_0014",
+          "category": "nda",
+          "event_type": "nda",
+          "date": "2014-12-09",
+          "value": null,
+          "span_ids": "span_0040"
+        },
+        {
+          "row_id": "row_0017",
+          "category": "nda",
+          "event_type": "nda",
+          "date": "2014-12-12",
+          "value": null,
+          "span_ids": "span_0049"
+        },
+        {
+          "row_id": "row_0036",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2014-12-12",
+          "value": null,
+          "span_ids": "span_0045|span_0046"
+        }
+      ]
+    },
+    "unnamed party 1": {
+      "alex_count": 2,
+      "pipeline_count": 0,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [
+        {
+          "bidder_id": 1,
+          "category": "nda",
+          "bid_note": "NDA",
+          "date": null,
+          "value": null
+        },
+        {
+          "bidder_id": 38.2,
+          "category": "drop",
+          "bid_note": "Drop",
+          "date": "2014-11-03",
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": []
+    },
+    "unnamed party 10": {
+      "alex_count": 2,
+      "pipeline_count": 0,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [
+        {
+          "bidder_id": 10,
+          "category": "nda",
+          "bid_note": "NDA",
+          "date": null,
+          "value": null
+        },
+        {
+          "bidder_id": 27,
+          "category": "drop",
+          "bid_note": "Drop",
+          "date": "2014-10-30",
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": []
+    },
+    "unnamed party 11": {
+      "alex_count": 2,
+      "pipeline_count": 0,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [
+        {
+          "bidder_id": 11,
+          "category": "nda",
+          "bid_note": "NDA",
+          "date": null,
+          "value": null
+        },
+        {
+          "bidder_id": 28,
+          "category": "drop",
+          "bid_note": "Drop",
+          "date": "2014-10-30",
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": []
+    },
+    "unnamed party 12": {
+      "alex_count": 2,
+      "pipeline_count": 0,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [
+        {
+          "bidder_id": 12,
+          "category": "nda",
+          "bid_note": "NDA",
+          "date": null,
+          "value": null
+        },
+        {
+          "bidder_id": 29,
+          "category": "drop",
+          "bid_note": "Drop",
+          "date": "2014-10-30",
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": []
+    },
+    "unnamed party 2": {
+      "alex_count": 2,
+      "pipeline_count": 0,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [
+        {
+          "bidder_id": 2,
+          "category": "nda",
+          "bid_note": "NDA",
+          "date": null,
+          "value": null
+        },
+        {
+          "bidder_id": 31,
+          "category": "drop",
+          "bid_note": "DropTarget",
+          "date": null,
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": []
+    },
+    "unnamed party 3": {
+      "alex_count": 2,
+      "pipeline_count": 0,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [
+        {
+          "bidder_id": 3,
+          "category": "nda",
+          "bid_note": "NDA",
+          "date": null,
+          "value": null
+        },
+        {
+          "bidder_id": 32,
+          "category": "drop",
+          "bid_note": "DropTarget",
+          "date": null,
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": []
+    },
+    "unnamed party 4": {
+      "alex_count": 3,
+      "pipeline_count": 0,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [
+        {
+          "bidder_id": 4,
+          "category": "nda",
+          "bid_note": "NDA",
+          "date": null,
+          "value": null
+        },
+        {
+          "bidder_id": 20,
+          "category": "bid",
+          "bid_note": "NA",
+          "date": "2014-10-30",
+          "value": 80.0
+        },
+        {
+          "bidder_id": 38.3,
+          "category": "drop",
+          "bid_note": "Drop",
+          "date": null,
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": []
+    },
+    "unnamed party 5": {
+      "alex_count": 2,
+      "pipeline_count": 0,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [
+        {
+          "bidder_id": 5,
+          "category": "nda",
+          "bid_note": "NDA",
+          "date": null,
+          "value": null
+        },
+        {
+          "bidder_id": 22.5,
+          "category": "drop",
+          "bid_note": "Drop",
+          "date": "2014-10-30",
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": []
+    },
+    "unnamed party 6": {
+      "alex_count": 2,
+      "pipeline_count": 0,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [
+        {
+          "bidder_id": 6,
+          "category": "nda",
+          "bid_note": "NDA",
+          "date": null,
+          "value": null
+        },
+        {
+          "bidder_id": 23,
+          "category": "drop",
+          "bid_note": "Drop",
+          "date": "2014-10-30",
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": []
+    },
+    "unnamed party 7": {
+      "alex_count": 2,
+      "pipeline_count": 0,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [
+        {
+          "bidder_id": 7,
+          "category": "nda",
+          "bid_note": "NDA",
+          "date": null,
+          "value": null
+        },
+        {
+          "bidder_id": 24,
+          "category": "drop",
+          "bid_note": "Drop",
+          "date": "2014-10-30",
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": []
+    },
+    "unnamed party 8": {
+      "alex_count": 2,
+      "pipeline_count": 0,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [
+        {
+          "bidder_id": 8,
+          "category": "nda",
+          "bid_note": "NDA",
+          "date": null,
+          "value": null
+        },
+        {
+          "bidder_id": 25,
+          "category": "drop",
+          "bid_note": "Drop",
+          "date": "2014-10-30",
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": []
+    },
+    "unnamed party 9": {
+      "alex_count": 2,
+      "pipeline_count": 0,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [
+        {
+          "bidder_id": 9,
+          "category": "nda",
+          "bid_note": "NDA",
+          "date": null,
+          "value": null
+        },
+        {
+          "bidder_id": 26,
+          "category": "drop",
+          "bid_note": "Drop",
+          "date": "2014-10-30",
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": []
+    }
+  },
+  "disagreement_details": [
+    {
+      "family": "bidder 2",
+      "match_quality": "date_category",
+      "disagreements": [
+        {
+          "field": "value",
+          "pipeline": null,
+          "alex": 78.0
+        }
+      ],
+      "pipeline_row_id": "row_0011",
+      "alex_bidder_id": 21,
+      "filing_evidence": [
+        "[span_0030] least $80.00 per share, including the Buyer Group, which indicated a range of\u2009 $81.00 to $83.00 per share, and another bidder, which suggested a range of\u2009 $80.00 to $85.00 per share. As a result of its discussions with J. P. Morgan, another bidder (which we refer to as \u201c Bidder 2\u201d), which had initially indicated a price of\u2009 $78.00, increased its indication to a range of\u2009 $81.00 to $84.00 per share.",
+        "[span_0057] On October 30, six of the potentially interested parties submitted indications of interest. From October 30 to November 2, 2014, representatives of J. P. Morgan spoke by telephone with all of the potentially interested parties, including those that did not submit an indication of interest, to hear the parties\u2019 respective rationales for the price levels suggested in their indications or rationales for not submitting an indication. Three bidders initially indicated price ranges that reached at"
+      ]
+    },
+    {
+      "family": "bidder 2",
+      "match_quality": "category_only",
+      "disagreements": [
+        {
+          "field": "date",
+          "pipeline": "2014-11-03",
+          "alex": "2014-12-14"
+        }
+      ],
+      "pipeline_row_id": "row_0033",
+      "alex_bidder_id": 42,
+      "filing_evidence": [
+        "[span_0031] On November 3, 2014, the board met in person, together with members of management and representatives of J. P. Morgan and Wachtell Lipton, to continue its review of strategic alternatives, including a review of the indications of interest. The board determined to allow the four bidders that had indicated a price or range at or above $80.00 per share to proceed to the final round of the sale process. Following this meeting, representatives of J. P. Morgan notified the eliminated parties, none of",
+        "[span_0032] On November 3, 2014, the board met in person, together with members of management and representatives of J. P. Morgan and Wachtell Lipton, to continue its review of strategic alternatives, including a review of the indications of interest. The board determined to allow the four bidders that had indicated a price or range at or above $80.00 per share to proceed to the final round of the sale process. Following this meeting, representatives of J. P. Morgan notified the eliminated parties, none of "
+      ]
+    },
+    {
+      "family": "bidder 2",
+      "match_quality": "category_only",
+      "disagreements": [
+        {
+          "field": "date",
+          "pipeline": "2014-12-06",
+          "alex": "2014-10-30"
+        },
+        {
+          "field": "value",
+          "pipeline": null,
+          "alex": 81.0
+        }
+      ],
+      "pipeline_row_id": "row_0013",
+      "alex_bidder_id": 22,
+      "filing_evidence": [
+        "[span_0038] On December 6, 2014, the Buyer Group and Bidder 2 submitted their respective comments on the draft merger agreement and other transaction documents, and the Buyer Group provided its financing commitment documents."
+      ]
+    },
+    {
+      "family": "buyer group",
+      "match_quality": "date_category",
+      "disagreements": [
+        {
+          "field": "value",
+          "pipeline": null,
+          "alex": 81.0
+        }
+      ],
+      "pipeline_row_id": "row_0010",
+      "alex_bidder_id": 19,
+      "filing_evidence": [
+        "[span_0028] On October 30, six of the potentially interested parties submitted indications of interest. From October 30 to November 2, 2014, representatives of J. P. Morgan spoke by telephone with all of the potentially interested parties, including those that did not submit an indication of interest, to hear the parties\u2019 respective rationales for the price levels suggested in their indications or rationales for not submitting an indication. Three bidders initially indicated price ranges that reached at",
+        "[span_0029] On October 30, six of the potentially interested parties submitted indications of interest. From October 30 to November 2, 2014, representatives of J. P. Morgan spoke by telephone with all of the potentially interested parties, including those that did not submit an indication of interest, to hear the parties\u2019 respective rationales for the price levels suggested in their indications or rationales for not submitting an indication. Three bidders initially indicated price ranges that reached at lea"
+      ]
+    },
+    {
+      "family": "buyer group",
+      "match_quality": "category_only",
+      "disagreements": [
+        {
+          "field": "date",
+          "pipeline": "2014-12-06",
+          "alex": "2014-12-12"
+        },
+        {
+          "field": "value",
+          "pipeline": null,
+          "alex": 82.5
+        }
+      ],
+      "pipeline_row_id": "row_0012",
+      "alex_bidder_id": 40,
+      "filing_evidence": [
+        "[span_0038] On December 6, 2014, the Buyer Group and Bidder 2 submitted their respective comments on the draft merger agreement and other transaction documents, and the Buyer Group provided its financing commitment documents."
+      ]
+    },
+    {
+      "family": "buyer group",
+      "match_quality": "category_only",
+      "disagreements": [
+        {
+          "field": "date",
+          "pipeline": "2014-12-12",
+          "alex": null
+        }
+      ],
+      "pipeline_row_id": "row_0018",
+      "alex_bidder_id": 15,
+      "filing_evidence": [
+        "[span_0049] later that day, Longview and the Buyer Group entered into a confidentiality agreement permitting the exchange of detailed information between them, including bid price, which had not previously been shared with Longview. The ad hoc committee also instructed Wachtell Lipton to provide a form of voting agreement to Longview to secure Longview\u2019s commitment to vote for the merger subject to certain exceptions, including a change of recommendation by the board."
+      ]
+    },
+    {
+      "family": "buyer group",
+      "match_quality": "category_only",
+      "disagreements": [
+        {
+          "field": "date",
+          "pipeline": "2014-12-14",
+          "alex": "2014-12-12"
+        }
+      ],
+      "pipeline_row_id": "row_0021",
+      "alex_bidder_id": 43.5,
+      "filing_evidence": [
+        "[span_0055] Following the board meeting, the parties completed negotiations on terms satisfactory to both parties, and finalized the terms of the Longview voting agreement. On December 14, 2014, the parties executed the merger agreement, the voting agreement and related transaction agreements and issued a press release announcing the transaction."
+      ]
+    }
+  ],
+  "verdicts": [
+    {
+      "family": "bidder 2",
+      "field": "value",
+      "pipeline_value": null,
+      "alex_value": 78.0,
+      "verdict": "both",
+      "reasoning": "Filing states Bidder 2 'initially indicated a price of $78.00' but then 'increased its indication to a range of $81.00 to $84.00 per share.' The pipeline recorded the updated range ($81-$84) as the indication-of-interest value and left scalar value null because it was a range. Alex recorded $78.00, the initial indication before JP Morgan discussions. Both are defensible: $78 was the initial IOI price submitted Oct 30, while $81-$84 was the revised range after Oct 30-Nov 2 discussions. The pipeline captures the post-discussion range (range_low=81, range_high=84); Alex captures the original submission price."
+    },
+    {
+      "family": "bidder 2",
+      "field": "date",
+      "pipeline_value": "2014-11-03",
+      "alex_value": "2014-12-14",
+      "verdict": "alex",
+      "reasoning": "This is a 'drop' event for Bidder 2. The pipeline dates it to Nov 3, 2014 when the board 'determined to allow the four bidders that had indicated a price or range at or above $80.00 per share to proceed to the final round.' But Bidder 2 was NOT eliminated on Nov 3 -- Bidder 2 had raised its indication to $81-$84 and was one of the four bidders advancing to the final round. The pipeline's derived drop row_0033 with reason 'not_invited' on Nov 3 is incorrect for Bidder 2, since Bidder 2 continued through Dec 6 (document comments), Dec 10 ($80.35 bid), and Dec 12 ($81.50 best-and-final). Bidder 2 lost when the board chose the Buyer Group on Dec 13 and the merger was executed Dec 14. Alex's date of Dec 14 correctly captures the deal close as the terminal event for Bidder 2's exit."
+    },
+    {
+      "family": "bidder 2",
+      "field": "date",
+      "pipeline_value": "2014-12-06",
+      "alex_value": "2014-10-30",
+      "verdict": "inconclusive",
+      "reasoning": "These appear to be different events matched only on category. Pipeline row_0013 is a 'proposal' event for Bidder 2 dated Dec 6 when 'the Buyer Group and Bidder 2 submitted their respective comments on the draft merger agreement and other transaction documents.' Alex's bidder_id 22 is dated Oct 30 with value $81.00. The Oct 30 date corresponds to the initial indications of interest; after JP Morgan discussions, Bidder 2's range moved to $81-$84. These are likely two separate events that were incorrectly matched: Alex's Oct 30/$81 entry captures the post-discussion revised indication, while the pipeline's Dec 6 entry captures the merger agreement markup submission (which had no price). The reconciler matched them only on category, but they represent different deal milestones."
+    },
+    {
+      "family": "bidder 2",
+      "field": "value",
+      "pipeline_value": null,
+      "alex_value": 81.0,
+      "verdict": "inconclusive",
+      "reasoning": "Same mismatch as above -- these are different events. The pipeline's Dec 6 entry is about document submission (no price involved). Alex's $81.00 on Oct 30 likely refers to the low end of Bidder 2's revised $81-$84 range after JP Morgan discussions. Neither is wrong per se; they are recording different events that were incorrectly matched."
+    },
+    {
+      "family": "buyer group",
+      "field": "value",
+      "pipeline_value": null,
+      "alex_value": 81.0,
+      "verdict": "both",
+      "reasoning": "Filing states the Buyer Group 'indicated a range of $81.00 to $83.00 per share' on Oct 30. The pipeline recorded this as a range (range_low=81, range_high=83) with scalar value null, which is accurate -- it was a range, not a point value. Alex recorded $81.00, the low end of the range. Both interpretations are defensible: the pipeline preserves the full range structure; Alex uses the low end as the representative value, which is a common convention for recording bid ranges."
+    },
+    {
+      "family": "buyer group",
+      "field": "date",
+      "pipeline_value": "2014-12-06",
+      "alex_value": "2014-12-12",
+      "verdict": "inconclusive",
+      "reasoning": "These appear to be different events matched only on category. Pipeline row_0012 is dated Dec 6 when 'the Buyer Group and Bidder 2 submitted their respective comments on the draft merger agreement and other transaction documents, and the Buyer Group provided its financing commitment documents.' Alex's entry (bidder_id 40) is dated Dec 12 with value $82.50, which matches the filing's statement that on Dec 12 'The Buyer Group initially submitted an oral offer of $82.50 per share.' These are distinct events: a document submission on Dec 6 vs. a revised bid on Dec 12. The reconciler incorrectly matched them."
+    },
+    {
+      "family": "buyer group",
+      "field": "value",
+      "pipeline_value": null,
+      "alex_value": 82.5,
+      "verdict": "inconclusive",
+      "reasoning": "Same mismatch as above -- different events. The pipeline's Dec 6 event is a document submission with no price. Alex's $82.50 is the Buyer Group's initial oral offer on Dec 12, which is a separate event the pipeline does not appear to have captured as a distinct row (the pipeline has row_0020 for the $83.00 best-and-final on Dec 12, but not the $82.50 intermediate oral offer)."
+    },
+    {
+      "family": "buyer group",
+      "field": "date",
+      "pipeline_value": "2014-12-12",
+      "alex_value": null,
+      "verdict": "pipeline",
+      "reasoning": "Pipeline row_0018 records an NDA/confidentiality agreement between the Buyer Group and Longview on Dec 12, 2014. The filing confirms: 'later that day, Longview and the Buyer Group entered into a confidentiality agreement permitting the exchange of detailed information between them, including bid price.' Alex has no date for this event (bidder_id 15). The pipeline's Dec 12 date is correct per the filing text. Alex's null date is simply missing data."
+    },
+    {
+      "family": "buyer group",
+      "field": "date",
+      "pipeline_value": "2014-12-14",
+      "alex_value": "2014-12-12",
+      "verdict": "pipeline",
+      "reasoning": "Pipeline row_0021 is an 'executed' event (merger agreement execution) dated Dec 14. The filing explicitly states: 'On December 14, 2014, the parties executed the merger agreement, the voting agreement and related transaction agreements and issued a press release announcing the transaction.' The board approved the deal on Dec 13, and execution happened Dec 14. Alex's date of Dec 12 is incorrect for the merger execution -- Dec 12 is when the final bids were submitted, not when the agreement was executed."
+    }
+  ]
+}

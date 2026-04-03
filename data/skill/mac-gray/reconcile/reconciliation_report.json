@@ -1,0 +1,3105 @@
+{
+  "deal_slug": "mac-gray",
+  "alex_target_name": "MAC GRAY CORP",
+  "generated_at": "2026-04-02T15:50:34.927726",
+  "summary": {
+    "alex_total_rows": 34,
+    "alex_comparable_events": 33,
+    "pipeline_total_rows": 234,
+    "pipeline_comparable_events": 234,
+    "matched_events": 21,
+    "disagreements": 13,
+    "alex_only_events": 12,
+    "pipeline_only_events": 213,
+    "bidder_families_count": 78
+  },
+  "bid_comparison": {
+    "csc/pamplona": {
+      "alex_bids": 4,
+      "pipeline_bids": 4,
+      "matched": 4,
+      "exact": 4,
+      "with_disagreements": 0,
+      "alex_only": 0,
+      "pipeline_only": 0
+    },
+    "party a": {
+      "alex_bids": 3,
+      "pipeline_bids": 3,
+      "matched": 3,
+      "exact": 0,
+      "with_disagreements": 3,
+      "alex_only": 0,
+      "pipeline_only": 0
+    },
+    "party b": {
+      "alex_bids": 3,
+      "pipeline_bids": 3,
+      "matched": 3,
+      "exact": 2,
+      "with_disagreements": 1,
+      "alex_only": 0,
+      "pipeline_only": 0
+    },
+    "party c": {
+      "alex_bids": 3,
+      "pipeline_bids": 3,
+      "matched": 3,
+      "exact": 0,
+      "with_disagreements": 3,
+      "alex_only": 0,
+      "pipeline_only": 0
+    }
+  },
+  "bidder_families": {
+    "(unnamed)": {
+      "alex_count": 6,
+      "pipeline_count": 0,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [
+        {
+          "bidder_id": 1.5,
+          "category": "final_round",
+          "bid_note": "Final Round Inf Ann",
+          "date": null,
+          "value": null
+        },
+        {
+          "bidder_id": 6.5,
+          "category": "final_round",
+          "bid_note": "Final Round Inf",
+          "date": null,
+          "value": null
+        },
+        {
+          "bidder_id": 9.5,
+          "category": "final_round",
+          "bid_note": "Final Round Inf Ext Ann",
+          "date": null,
+          "value": null
+        },
+        {
+          "bidder_id": 13.5,
+          "category": "final_round",
+          "bid_note": "Final Round Inf Ext",
+          "date": null,
+          "value": null
+        },
+        {
+          "bidder_id": 16,
+          "category": "final_round",
+          "bid_note": "Final Round Ann",
+          "date": "2013-09-11",
+          "value": null
+        },
+        {
+          "bidder_id": 20.5,
+          "category": "final_round",
+          "bid_note": "Final Round",
+          "date": "2013-09-11",
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": []
+    },
+    "16 financial bidders": {
+      "alex_count": 2,
+      "pipeline_count": 0,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [
+        {
+          "bidder_id": 2,
+          "category": "nda",
+          "bid_note": "NDA",
+          "date": null,
+          "value": null
+        },
+        {
+          "bidder_id": 9,
+          "category": "drop",
+          "bid_note": "Drop",
+          "date": "2013-07-25",
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": []
+    },
+    "20 potential bidders that entered ndas anon_slot_001": {
+      "alex_count": 0,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0048:anon_slot_001",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        },
+        {
+          "row_id": "row_0006:anon_slot_001",
+          "category": "nda",
+          "event_type": "nda",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0027|span_0028|span_0087"
+        }
+      ]
+    },
+    "20 potential bidders that entered ndas anon_slot_002": {
+      "alex_count": 0,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0048:anon_slot_002",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        },
+        {
+          "row_id": "row_0006:anon_slot_002",
+          "category": "nda",
+          "event_type": "nda",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0027|span_0028|span_0087"
+        }
+      ]
+    },
+    "20 potential bidders that entered ndas anon_slot_003": {
+      "alex_count": 0,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0048:anon_slot_003",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        },
+        {
+          "row_id": "row_0006:anon_slot_003",
+          "category": "nda",
+          "event_type": "nda",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0027|span_0028|span_0087"
+        }
+      ]
+    },
+    "20 potential bidders that entered ndas anon_slot_004": {
+      "alex_count": 0,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0048:anon_slot_004",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        },
+        {
+          "row_id": "row_0006:anon_slot_004",
+          "category": "nda",
+          "event_type": "nda",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0027|span_0028|span_0087"
+        }
+      ]
+    },
+    "20 potential bidders that entered ndas anon_slot_005": {
+      "alex_count": 0,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0048:anon_slot_005",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        },
+        {
+          "row_id": "row_0006:anon_slot_005",
+          "category": "nda",
+          "event_type": "nda",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0027|span_0028|span_0087"
+        }
+      ]
+    },
+    "20 potential bidders that entered ndas anon_slot_006": {
+      "alex_count": 0,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0048:anon_slot_006",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        },
+        {
+          "row_id": "row_0006:anon_slot_006",
+          "category": "nda",
+          "event_type": "nda",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0027|span_0028|span_0087"
+        }
+      ]
+    },
+    "20 potential bidders that entered ndas anon_slot_007": {
+      "alex_count": 0,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0048:anon_slot_007",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        },
+        {
+          "row_id": "row_0006:anon_slot_007",
+          "category": "nda",
+          "event_type": "nda",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0027|span_0028|span_0087"
+        }
+      ]
+    },
+    "20 potential bidders that entered ndas anon_slot_008": {
+      "alex_count": 0,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0048:anon_slot_008",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        },
+        {
+          "row_id": "row_0006:anon_slot_008",
+          "category": "nda",
+          "event_type": "nda",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0027|span_0028|span_0087"
+        }
+      ]
+    },
+    "20 potential bidders that entered ndas anon_slot_009": {
+      "alex_count": 0,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0048:anon_slot_009",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        },
+        {
+          "row_id": "row_0006:anon_slot_009",
+          "category": "nda",
+          "event_type": "nda",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0027|span_0028|span_0087"
+        }
+      ]
+    },
+    "20 potential bidders that entered ndas anon_slot_010": {
+      "alex_count": 0,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0048:anon_slot_010",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        },
+        {
+          "row_id": "row_0006:anon_slot_010",
+          "category": "nda",
+          "event_type": "nda",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0027|span_0028|span_0087"
+        }
+      ]
+    },
+    "20 potential bidders that entered ndas anon_slot_011": {
+      "alex_count": 0,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0048:anon_slot_011",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        },
+        {
+          "row_id": "row_0006:anon_slot_011",
+          "category": "nda",
+          "event_type": "nda",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0027|span_0028|span_0087"
+        }
+      ]
+    },
+    "20 potential bidders that entered ndas anon_slot_012": {
+      "alex_count": 0,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0048:anon_slot_012",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        },
+        {
+          "row_id": "row_0006:anon_slot_012",
+          "category": "nda",
+          "event_type": "nda",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0027|span_0028|span_0087"
+        }
+      ]
+    },
+    "20 potential bidders that entered ndas anon_slot_013": {
+      "alex_count": 0,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0048:anon_slot_013",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        },
+        {
+          "row_id": "row_0006:anon_slot_013",
+          "category": "nda",
+          "event_type": "nda",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0027|span_0028|span_0087"
+        }
+      ]
+    },
+    "20 potential bidders that entered ndas anon_slot_014": {
+      "alex_count": 0,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0048:anon_slot_014",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        },
+        {
+          "row_id": "row_0006:anon_slot_014",
+          "category": "nda",
+          "event_type": "nda",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0027|span_0028|span_0087"
+        }
+      ]
+    },
+    "20 potential bidders that entered ndas anon_slot_015": {
+      "alex_count": 0,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0048:anon_slot_015",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        },
+        {
+          "row_id": "row_0006:anon_slot_015",
+          "category": "nda",
+          "event_type": "nda",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0027|span_0028|span_0087"
+        }
+      ]
+    },
+    "20 potential bidders that entered ndas anon_slot_016": {
+      "alex_count": 0,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0048:anon_slot_016",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        },
+        {
+          "row_id": "row_0006:anon_slot_016",
+          "category": "nda",
+          "event_type": "nda",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0027|span_0028|span_0087"
+        }
+      ]
+    },
+    "20 potential bidders that entered ndas anon_slot_017": {
+      "alex_count": 0,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0048:anon_slot_017",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        },
+        {
+          "row_id": "row_0006:anon_slot_017",
+          "category": "nda",
+          "event_type": "nda",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0027|span_0028|span_0087"
+        }
+      ]
+    },
+    "20 potential bidders that entered ndas anon_slot_018": {
+      "alex_count": 0,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0048:anon_slot_018",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        },
+        {
+          "row_id": "row_0006:anon_slot_018",
+          "category": "nda",
+          "event_type": "nda",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0027|span_0028|span_0087"
+        }
+      ]
+    },
+    "20 potential bidders that entered ndas anon_slot_019": {
+      "alex_count": 0,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0048:anon_slot_019",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        },
+        {
+          "row_id": "row_0006:anon_slot_019",
+          "category": "nda",
+          "event_type": "nda",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0027|span_0028|span_0087"
+        }
+      ]
+    },
+    "20 potential bidders that entered ndas anon_slot_020": {
+      "alex_count": 0,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0048:anon_slot_020",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        },
+        {
+          "row_id": "row_0006:anon_slot_020",
+          "category": "nda",
+          "event_type": "nda",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0027|span_0028|span_0087"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_001": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_001",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_001",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_001",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_002": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_002",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_002",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_002",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_003": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_003",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_003",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_003",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_004": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_004",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_004",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_004",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_005": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_005",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_005",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_005",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_006": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_006",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_006",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_006",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_007": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_007",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_007",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_007",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_008": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_008",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_008",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_008",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_009": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_009",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_009",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_009",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_010": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_010",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_010",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_010",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_011": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_011",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_011",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_011",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_012": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_012",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_012",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_012",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_013": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_013",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_013",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_013",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_014": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_014",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_014",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_014",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_015": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_015",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_015",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_015",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_016": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_016",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_016",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_016",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_017": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_017",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_017",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_017",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_018": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_018",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_018",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_018",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_019": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_019",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_019",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_019",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_020": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_020",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_020",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_020",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_021": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_021",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_021",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_021",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_022": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_022",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_022",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_022",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_023": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_023",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_023",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_023",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_024": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_024",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_024",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_024",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_025": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_025",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_025",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_025",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_026": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_026",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_026",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_026",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_027": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_027",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_027",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_027",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_028": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_028",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_028",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_028",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_029": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_029",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_029",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_029",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_030": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_030",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_030",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_030",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_031": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_031",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_031",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_031",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_032": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_032",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_032",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_032",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_033": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_033",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_033",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_033",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_034": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_034",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_034",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_034",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_035": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_035",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_035",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_035",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_036": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_036",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_036",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_036",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_037": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_037",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_037",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_037",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_038": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_038",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_038",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_038",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_039": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_039",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_039",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_039",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_040": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_040",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_040",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_040",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_041": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_041",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_041",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_041",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_042": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_042",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_042",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_042",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_043": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_043",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_043",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_043",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_044": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_044",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_044",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_044",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_045": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_045",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_045",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_045",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_046": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_046",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_046",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_046",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_047": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_047",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_047",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_047",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_048": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_048",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_048",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_048",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_049": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_049",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_049",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_049",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "50 parties contacted in sale process anon_slot_050": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_050",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0028:anon_slot_050",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-07-23",
+          "value": null,
+          "span_ids": "span_0025|span_0026|span_0029"
+        },
+        {
+          "row_id": "row_0049:anon_slot_050",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-09-19",
+          "value": null,
+          "span_ids": "span_0060|span_0061"
+        }
+      ]
+    },
+    "bofa merrill lynch": {
+      "alex_count": 2,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [
+        {
+          "bidder_id": 0.5,
+          "category": "ib_retention",
+          "bid_note": "IB",
+          "date": null,
+          "value": null
+        },
+        {
+          "bidder_id": 0.9,
+          "category": "ib_retention",
+          "bid_note": "IB",
+          "date": null,
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0002",
+          "category": "ib_retention",
+          "event_type": "ib_retention",
+          "date": "2013-05-30",
+          "value": null,
+          "span_ids": "span_0013|span_0014|span_0015"
+        },
+        {
+          "row_id": "row_0003",
+          "category": "ib_retention",
+          "event_type": "ib_retention",
+          "date": "2013-05-31",
+          "value": null,
+          "span_ids": "span_0018"
+        }
+      ]
+    },
+    "csc/pamplona": {
+      "alex_count": 6,
+      "pipeline_count": 13,
+      "matched": 6,
+      "exact_matches": 5,
+      "disagreements": [
+        {
+          "match_quality": "category_only",
+          "disagreements": [
+            {
+              "field": "date",
+              "pipeline": "2013-10-14",
+              "alex": "2013-09-21"
+            }
+          ],
+          "pipeline_row_id": "row_0025",
+          "alex_bidder_id": 21,
+          "filing_evidence": [
+            "[span_0084] projected closing timetable should the Board approve the merger. After discussion, the Board (upon the recommendation of the Special Committee) unanimously determined that the merger agreement and the merger were advisable and in the best interests of Mac-Gray's stockholders, approved the merger on the terms and subject to the conditions set forth in the merger agreement, adopted the merger agreement and recommended that the Mac-Gray stockholders adopt and approve the merger agreement.",
+            "[span_0085] in the day, on October 14, 2013, the merger agreement was executed, the Pamplona commitment letter was delivered, Moab and Parent executed the Moab voting agreement and the Mac-Donald voting agreements became effective."
+          ]
+        }
+      ],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0035",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-08-27",
+          "value": null,
+          "span_ids": "span_0049"
+        },
+        {
+          "row_id": "row_0036",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-09-09",
+          "value": null,
+          "span_ids": "span_0049"
+        },
+        {
+          "row_id": "row_0043",
+          "category": "final_round",
+          "event_type": "final_round_ann",
+          "date": "2013-09-11",
+          "value": null,
+          "span_ids": "span_0054|span_0055|span_0090"
+        },
+        {
+          "row_id": "row_0044",
+          "category": "final_round",
+          "event_type": "final_round",
+          "date": "2013-09-18",
+          "value": null,
+          "span_ids": "span_0054|span_0055|span_0090"
+        },
+        {
+          "row_id": "row_0023",
+          "category": "exclusivity",
+          "event_type": "exclusivity",
+          "date": "2013-09-24",
+          "value": null,
+          "span_ids": "span_0065"
+        },
+        {
+          "row_id": "row_0024",
+          "category": "exclusivity",
+          "event_type": "exclusivity",
+          "date": "2013-10-12",
+          "value": null,
+          "span_ids": "span_0078"
+        },
+        {
+          "row_id": "row_0026",
+          "category": "bid_press_release",
+          "event_type": "bid_press_release",
+          "date": "2013-10-15",
+          "value": null,
+          "span_ids": "span_0086"
+        }
+      ]
+    },
+    "party a": {
+      "alex_count": 7,
+      "pipeline_count": 10,
+      "matched": 5,
+      "exact_matches": 1,
+      "disagreements": [
+        {
+          "match_quality": "date_category",
+          "disagreements": [
+            {
+              "field": "value",
+              "pipeline": null,
+              "alex": 17.0
+            },
+            {
+              "field": "bid_type",
+              "pipeline": "Uncertain",
+              "alex": "Informal"
+            }
+          ],
+          "pipeline_row_id": "row_0004",
+          "alex_bidder_id": 1,
+          "filing_evidence": [
+            "[span_0021] June 21, 2013, Party A submitted an unsolicited proposal to the Mac-Gray Board of Directors offering to purchase Mac-Gray for an all-cash purchase price of $17.00 to $19.00 per share, which we refer to as the Party A June 21 proposal."
+          ]
+        },
+        {
+          "match_quality": "date_category",
+          "disagreements": [
+            {
+              "field": "value",
+              "pipeline": null,
+              "alex": 18.0
+            }
+          ],
+          "pipeline_row_id": "row_0017",
+          "alex_bidder_id": 14,
+          "filing_evidence": [
+            "[span_0052] September 10, 2013, Party A submitted a revised indication of interest with an all-cash purchase price of $18.00 to $19.00 per share, to be financed by outstanding credit facilities or affiliated equity sources. Also on September 10, 2013, in a telephone call to a representative of BofA Merrill Lynch, a representative of Party C indicated that it was submitting"
+          ]
+        },
+        {
+          "match_quality": "date_category",
+          "disagreements": [
+            {
+              "field": "value",
+              "pipeline": null,
+              "alex": 18.0
+            },
+            {
+              "field": "bid_type",
+              "pipeline": "Informal",
+              "alex": "Formal"
+            }
+          ],
+          "pipeline_row_id": "row_0020",
+          "alex_bidder_id": 18,
+          "filing_evidence": [
+            "[span_0057] required to consummate the transaction and requesting that CSC/Pamplona and Mac-Gray agree to engage in exclusive negotiations for two weeks. Also on September 18, 2013, Party A reiterated in a telephone call to a representative of BofA Merrill Lynch that its previous indication of interest with an all-cash purchase price of $18.00 to $19.00 per share was its best and final offer. On"
+          ]
+        },
+        {
+          "match_quality": "category_only",
+          "disagreements": [
+            {
+              "field": "date",
+              "pipeline": "2013-09-19",
+              "alex": "2013-09-24"
+            }
+          ],
+          "pipeline_row_id": "row_0046",
+          "alex_bidder_id": 22,
+          "filing_evidence": [
+            "[span_0060] funds and third party debt capital, which would involve more risk than the Pamplona-funded CSC/Pamplona proposal, which did not require any third party financing. Following a discussion, the Special Committee concluded that the revised indication of interest submitted by CSC/Pamplona had the potential of delivering the most value to stockholders, provided greater certainty and involved less potential risk than the other indications. However, the Special Committee also concluded that, primarily i",
+            "[span_0061] potential risk than the other indications. However, the Special Committee also concluded that, primarily in view of potential synergies between Mac-Gray and CSC, CSC/Pamplona should be in a position to increase their offer price above $20.75. The Special Committee then authorized the Transaction Committee to inform CSC/Pamplona that the Special Committee would be prepared to move into exclusivity at a price of $21.25 per share and authorized the Transaction Committee and Goodwin Procter to negot"
+          ]
+        }
+      ],
+      "unmatched_alex": [
+        {
+          "bidder_id": 0.7,
+          "category": "interest",
+          "bid_note": "Target Interest",
+          "date": null,
+          "value": null
+        },
+        {
+          "bidder_id": 0.95,
+          "category": "interest",
+          "bid_note": "Bidder Sale",
+          "date": "2013-06-21",
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0001",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": "2013-04-08",
+          "value": null,
+          "span_ids": "span_0005"
+        },
+        {
+          "row_id": "row_0029",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-08-27",
+          "value": null,
+          "span_ids": "span_0049"
+        },
+        {
+          "row_id": "row_0030",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-09-09",
+          "value": null,
+          "span_ids": "span_0049"
+        },
+        {
+          "row_id": "row_0037",
+          "category": "final_round",
+          "event_type": "final_round_ann",
+          "date": "2013-09-11",
+          "value": null,
+          "span_ids": "span_0054|span_0055|span_0090"
+        },
+        {
+          "row_id": "row_0038",
+          "category": "final_round",
+          "event_type": "final_round",
+          "date": "2013-09-18",
+          "value": null,
+          "span_ids": "span_0054|span_0055|span_0090"
+        }
+      ]
+    },
+    "party b": {
+      "alex_count": 5,
+      "pipeline_count": 9,
+      "matched": 5,
+      "exact_matches": 3,
+      "disagreements": [
+        {
+          "match_quality": "date_category",
+          "disagreements": [
+            {
+              "field": "value",
+              "pipeline": null,
+              "alex": 17.0
+            }
+          ],
+          "pipeline_row_id": "row_0011",
+          "alex_bidder_id": 7,
+          "filing_evidence": [
+            "[span_0041] July 24, 2013, Party B submitted a preliminary indication of interest at an all-cash purchase price of $17.00 to $18.00 per share. Also on July 24, 2013, representatives from Party C called BofA Merrill Lynch and presented an oral preliminary indication of interest at an all-cash purchase price of $15.00 to $17.00 per share."
+          ]
+        },
+        {
+          "match_quality": "category_only",
+          "disagreements": [
+            {
+              "field": "date",
+              "pipeline": "2013-09-19",
+              "alex": "2013-09-24"
+            }
+          ],
+          "pipeline_row_id": "row_0047",
+          "alex_bidder_id": 23,
+          "filing_evidence": [
+            "[span_0060] funds and third party debt capital, which would involve more risk than the Pamplona-funded CSC/Pamplona proposal, which did not require any third party financing. Following a discussion, the Special Committee concluded that the revised indication of interest submitted by CSC/Pamplona had the potential of delivering the most value to stockholders, provided greater certainty and involved less potential risk than the other indications. However, the Special Committee also concluded that, primarily i",
+            "[span_0061] potential risk than the other indications. However, the Special Committee also concluded that, primarily in view of potential synergies between Mac-Gray and CSC, CSC/Pamplona should be in a position to increase their offer price above $20.75. The Special Committee then authorized the Transaction Committee to inform CSC/Pamplona that the Special Committee would be prepared to move into exclusivity at a price of $21.25 per share and authorized the Transaction Committee and Goodwin Procter to negot"
+          ]
+        }
+      ],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0031",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-08-27",
+          "value": null,
+          "span_ids": "span_0049"
+        },
+        {
+          "row_id": "row_0032",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-09-09",
+          "value": null,
+          "span_ids": "span_0049"
+        },
+        {
+          "row_id": "row_0039",
+          "category": "final_round",
+          "event_type": "final_round_ann",
+          "date": "2013-09-11",
+          "value": null,
+          "span_ids": "span_0054|span_0055|span_0090"
+        },
+        {
+          "row_id": "row_0040",
+          "category": "final_round",
+          "event_type": "final_round",
+          "date": "2013-09-18",
+          "value": null,
+          "span_ids": "span_0054|span_0055|span_0090"
+        }
+      ]
+    },
+    "party c": {
+      "alex_count": 5,
+      "pipeline_count": 9,
+      "matched": 5,
+      "exact_matches": 1,
+      "disagreements": [
+        {
+          "match_quality": "date_category",
+          "disagreements": [
+            {
+              "field": "value",
+              "pipeline": null,
+              "alex": 15.0
+            }
+          ],
+          "pipeline_row_id": "row_0012",
+          "alex_bidder_id": 8,
+          "filing_evidence": [
+            "[span_0041] July 24, 2013, Party B submitted a preliminary indication of interest at an all-cash purchase price of $17.00 to $18.00 per share. Also on July 24, 2013, representatives from Party C called BofA Merrill Lynch and presented an oral preliminary indication of interest at an all-cash purchase price of $15.00 to $17.00 per share."
+          ]
+        },
+        {
+          "match_quality": "date_category",
+          "disagreements": [
+            {
+              "field": "value",
+              "pipeline": null,
+              "alex": 16.0
+            }
+          ],
+          "pipeline_row_id": "row_0013",
+          "alex_bidder_id": 10,
+          "filing_evidence": [
+            "[span_0047] on July 25, 2013, Party C submitted a written indication of interest at an all-cash purchase price of $16.00 to $16.50 per share."
+          ]
+        },
+        {
+          "match_quality": "date_category",
+          "disagreements": [
+            {
+              "field": "value",
+              "pipeline": null,
+              "alex": 16.0
+            }
+          ],
+          "pipeline_row_id": "row_0018",
+          "alex_bidder_id": 15,
+          "filing_evidence": [
+            "[span_0053] facilities or affiliated equity sources. Also on September 10, 2013, in a telephone call to a representative of BofA Merrill Lynch, a representative of Party C indicated that it was submitting a revised oral indication of interest with an all-cash purchase price of $16.00 to $17.00 per share. Neither Party A's nor Party C's revised indication of interest included a firm financing commitment."
+          ]
+        },
+        {
+          "match_quality": "category_only",
+          "disagreements": [
+            {
+              "field": "date",
+              "pipeline": "2013-06-30",
+              "alex": "2013-06-20"
+            }
+          ],
+          "pipeline_row_id": "row_0008",
+          "alex_bidder_id": 4,
+          "filing_evidence": [
+            "[span_0034] June 30, 2013, Party C entered into a confidentiality and standstill agreement with Mac-Gray and was provided with an informational package for the purpose of providing Party C with data to formulate a preliminary indication of interest."
+          ]
+        }
+      ],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0033",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-08-27",
+          "value": null,
+          "span_ids": "span_0049"
+        },
+        {
+          "row_id": "row_0034",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-09-09",
+          "value": null,
+          "span_ids": "span_0049"
+        },
+        {
+          "row_id": "row_0041",
+          "category": "final_round",
+          "event_type": "final_round_ann",
+          "date": "2013-09-11",
+          "value": null,
+          "span_ids": "span_0054|span_0055|span_0090"
+        },
+        {
+          "row_id": "row_0042",
+          "category": "final_round",
+          "event_type": "final_round",
+          "date": "2013-09-18",
+          "value": null,
+          "span_ids": "span_0054|span_0055|span_0090"
+        }
+      ]
+    },
+    "special committee": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0005",
+          "category": "target_sale",
+          "event_type": "target_sale",
+          "date": "2013-06-24",
+          "value": null,
+          "span_ids": "span_0022|span_0023|span_0024|span_0104"
+        }
+      ]
+    }
+  },
+  "disagreement_details": [
+    {
+      "family": "csc/pamplona",
+      "match_quality": "category_only",
+      "disagreements": [
+        {
+          "field": "date",
+          "pipeline": "2013-10-14",
+          "alex": "2013-09-21"
+        }
+      ],
+      "pipeline_row_id": "row_0025",
+      "alex_bidder_id": 21,
+      "filing_evidence": [
+        "[span_0084] projected closing timetable should the Board approve the merger. After discussion, the Board (upon the recommendation of the Special Committee) unanimously determined that the merger agreement and the merger were advisable and in the best interests of Mac-Gray's stockholders, approved the merger on the terms and subject to the conditions set forth in the merger agreement, adopted the merger agreement and recommended that the Mac-Gray stockholders adopt and approve the merger agreement.",
+        "[span_0085] in the day, on October 14, 2013, the merger agreement was executed, the Pamplona commitment letter was delivered, Moab and Parent executed the Moab voting agreement and the Mac-Donald voting agreements became effective."
+      ]
+    },
+    {
+      "family": "party a",
+      "match_quality": "date_category",
+      "disagreements": [
+        {
+          "field": "value",
+          "pipeline": null,
+          "alex": 17.0
+        },
+        {
+          "field": "bid_type",
+          "pipeline": "Uncertain",
+          "alex": "Informal"
+        }
+      ],
+      "pipeline_row_id": "row_0004",
+      "alex_bidder_id": 1,
+      "filing_evidence": [
+        "[span_0021] June 21, 2013, Party A submitted an unsolicited proposal to the Mac-Gray Board of Directors offering to purchase Mac-Gray for an all-cash purchase price of $17.00 to $19.00 per share, which we refer to as the Party A June 21 proposal."
+      ]
+    },
+    {
+      "family": "party a",
+      "match_quality": "date_category",
+      "disagreements": [
+        {
+          "field": "value",
+          "pipeline": null,
+          "alex": 18.0
+        }
+      ],
+      "pipeline_row_id": "row_0017",
+      "alex_bidder_id": 14,
+      "filing_evidence": [
+        "[span_0052] September 10, 2013, Party A submitted a revised indication of interest with an all-cash purchase price of $18.00 to $19.00 per share, to be financed by outstanding credit facilities or affiliated equity sources. Also on September 10, 2013, in a telephone call to a representative of BofA Merrill Lynch, a representative of Party C indicated that it was submitting"
+      ]
+    },
+    {
+      "family": "party a",
+      "match_quality": "date_category",
+      "disagreements": [
+        {
+          "field": "value",
+          "pipeline": null,
+          "alex": 18.0
+        },
+        {
+          "field": "bid_type",
+          "pipeline": "Informal",
+          "alex": "Formal"
+        }
+      ],
+      "pipeline_row_id": "row_0020",
+      "alex_bidder_id": 18,
+      "filing_evidence": [
+        "[span_0057] required to consummate the transaction and requesting that CSC/Pamplona and Mac-Gray agree to engage in exclusive negotiations for two weeks. Also on September 18, 2013, Party A reiterated in a telephone call to a representative of BofA Merrill Lynch that its previous indication of interest with an all-cash purchase price of $18.00 to $19.00 per share was its best and final offer. On"
+      ]
+    },
+    {
+      "family": "party a",
+      "match_quality": "category_only",
+      "disagreements": [
+        {
+          "field": "date",
+          "pipeline": "2013-09-19",
+          "alex": "2013-09-24"
+        }
+      ],
+      "pipeline_row_id": "row_0046",
+      "alex_bidder_id": 22,
+      "filing_evidence": [
+        "[span_0060] funds and third party debt capital, which would involve more risk than the Pamplona-funded CSC/Pamplona proposal, which did not require any third party financing. Following a discussion, the Special Committee concluded that the revised indication of interest submitted by CSC/Pamplona had the potential of delivering the most value to stockholders, provided greater certainty and involved less potential risk than the other indications. However, the Special Committee also concluded that, primarily i",
+        "[span_0061] potential risk than the other indications. However, the Special Committee also concluded that, primarily in view of potential synergies between Mac-Gray and CSC, CSC/Pamplona should be in a position to increase their offer price above $20.75. The Special Committee then authorized the Transaction Committee to inform CSC/Pamplona that the Special Committee would be prepared to move into exclusivity at a price of $21.25 per share and authorized the Transaction Committee and Goodwin Procter to negot"
+      ]
+    },
+    {
+      "family": "party b",
+      "match_quality": "date_category",
+      "disagreements": [
+        {
+          "field": "value",
+          "pipeline": null,
+          "alex": 17.0
+        }
+      ],
+      "pipeline_row_id": "row_0011",
+      "alex_bidder_id": 7,
+      "filing_evidence": [
+        "[span_0041] July 24, 2013, Party B submitted a preliminary indication of interest at an all-cash purchase price of $17.00 to $18.00 per share. Also on July 24, 2013, representatives from Party C called BofA Merrill Lynch and presented an oral preliminary indication of interest at an all-cash purchase price of $15.00 to $17.00 per share."
+      ]
+    },
+    {
+      "family": "party b",
+      "match_quality": "category_only",
+      "disagreements": [
+        {
+          "field": "date",
+          "pipeline": "2013-09-19",
+          "alex": "2013-09-24"
+        }
+      ],
+      "pipeline_row_id": "row_0047",
+      "alex_bidder_id": 23,
+      "filing_evidence": [
+        "[span_0060] funds and third party debt capital, which would involve more risk than the Pamplona-funded CSC/Pamplona proposal, which did not require any third party financing. Following a discussion, the Special Committee concluded that the revised indication of interest submitted by CSC/Pamplona had the potential of delivering the most value to stockholders, provided greater certainty and involved less potential risk than the other indications. However, the Special Committee also concluded that, primarily i",
+        "[span_0061] potential risk than the other indications. However, the Special Committee also concluded that, primarily in view of potential synergies between Mac-Gray and CSC, CSC/Pamplona should be in a position to increase their offer price above $20.75. The Special Committee then authorized the Transaction Committee to inform CSC/Pamplona that the Special Committee would be prepared to move into exclusivity at a price of $21.25 per share and authorized the Transaction Committee and Goodwin Procter to negot"
+      ]
+    },
+    {
+      "family": "party c",
+      "match_quality": "date_category",
+      "disagreements": [
+        {
+          "field": "value",
+          "pipeline": null,
+          "alex": 15.0
+        }
+      ],
+      "pipeline_row_id": "row_0012",
+      "alex_bidder_id": 8,
+      "filing_evidence": [
+        "[span_0041] July 24, 2013, Party B submitted a preliminary indication of interest at an all-cash purchase price of $17.00 to $18.00 per share. Also on July 24, 2013, representatives from Party C called BofA Merrill Lynch and presented an oral preliminary indication of interest at an all-cash purchase price of $15.00 to $17.00 per share."
+      ]
+    },
+    {
+      "family": "party c",
+      "match_quality": "date_category",
+      "disagreements": [
+        {
+          "field": "value",
+          "pipeline": null,
+          "alex": 16.0
+        }
+      ],
+      "pipeline_row_id": "row_0013",
+      "alex_bidder_id": 10,
+      "filing_evidence": [
+        "[span_0047] on July 25, 2013, Party C submitted a written indication of interest at an all-cash purchase price of $16.00 to $16.50 per share."
+      ]
+    },
+    {
+      "family": "party c",
+      "match_quality": "date_category",
+      "disagreements": [
+        {
+          "field": "value",
+          "pipeline": null,
+          "alex": 16.0
+        }
+      ],
+      "pipeline_row_id": "row_0018",
+      "alex_bidder_id": 15,
+      "filing_evidence": [
+        "[span_0053] facilities or affiliated equity sources. Also on September 10, 2013, in a telephone call to a representative of BofA Merrill Lynch, a representative of Party C indicated that it was submitting a revised oral indication of interest with an all-cash purchase price of $16.00 to $17.00 per share. Neither Party A's nor Party C's revised indication of interest included a firm financing commitment."
+      ]
+    },
+    {
+      "family": "party c",
+      "match_quality": "category_only",
+      "disagreements": [
+        {
+          "field": "date",
+          "pipeline": "2013-06-30",
+          "alex": "2013-06-20"
+        }
+      ],
+      "pipeline_row_id": "row_0008",
+      "alex_bidder_id": 4,
+      "filing_evidence": [
+        "[span_0034] June 30, 2013, Party C entered into a confidentiality and standstill agreement with Mac-Gray and was provided with an informational package for the purpose of providing Party C with data to formulate a preliminary indication of interest."
+      ]
+    }
+  ],
+  "verdicts": [
+    {
+      "family": "csc/pamplona",
+      "field": "date",
+      "pipeline_value": "2013-10-14",
+      "alex_value": "2013-09-21",
+      "verdict": "both",
+      "reasoning": "Both dates are defensible but refer to different events. The pipeline's 2013-10-14 is the date the merger agreement was executed ('on October 14, 2013, the merger agreement was executed'). Alex's 2013-09-21 is the date CSC/Pamplona confirmed they would increase their price to $21.25 ('On September 21, 2013, the members of the Transaction Committee called the representative of CSC/Pamplona... Later that same day, the representative of CSC/Pamplona called the members of the Transaction Committee to confirm that CSC/Pamplona were willing to increase their all-cash purchase price to $21.25 per share'). These are different valid milestone dates for the winning bid. The pipeline treats the formal execution as the 'executed' event; Alex treats the oral price confirmation as the definitive bid event. Both are textually supported."
+    },
+    {
+      "family": "party a",
+      "field": "value",
+      "pipeline_value": null,
+      "alex_value": 17.0,
+      "verdict": "both",
+      "reasoning": "The filing states Party A offered '$17.00 to $19.00 per share.' The pipeline correctly records this as a range (range_low=17.00, range_high=19.00) with no single per_share value, so value is null. Alex records 17.0, using the low end of the range as the representative value. Both are defensible conventions for encoding a range bid. The pipeline is more precise; Alex follows a common analyst convention of using the range floor."
+    },
+    {
+      "family": "party a",
+      "field": "bid_type",
+      "pipeline_value": "Uncertain",
+      "alex_value": "Informal",
+      "verdict": "alex",
+      "reasoning": "The filing describes this as an 'unsolicited proposal' submitted before any formal process was initiated. At this stage no management presentation, data room access, or formal bid instructions had been issued. The filing later describes the Special Committee formalizing its review process and inviting indications of interest, making this initial approach clearly informal/unsolicited. 'Informal' is the correct classification. The pipeline's 'Uncertain' is overly conservative."
+    },
+    {
+      "family": "party a",
+      "field": "value",
+      "pipeline_value": null,
+      "alex_value": 18.0,
+      "verdict": "both",
+      "reasoning": "The filing states Party A submitted a revised indication of interest with '$18.00 to $19.00 per share.' The pipeline correctly records this as a range (range_low=18.00, range_high=19.00) with no single value. Alex records 18.0 (the range floor). Same convention difference as the June 21 proposal -- both are defensible."
+    },
+    {
+      "family": "party a",
+      "field": "value",
+      "pipeline_value": null,
+      "alex_value": 18.0,
+      "verdict": "both",
+      "reasoning": "The filing states Party A 'reiterated in a telephone call... that its previous indication of interest with an all-cash purchase price of $18.00 to $19.00 per share was its best and final offer.' The pipeline records the range (18.00-19.00) with null single value. Alex records 18.0 as the range floor. Same convention difference."
+    },
+    {
+      "family": "party a",
+      "field": "bid_type",
+      "pipeline_value": "Informal",
+      "alex_value": "Formal",
+      "verdict": "pipeline",
+      "reasoning": "The filing describes this September 18 event as Party A 'reiterated in a telephone call to a representative of BofA Merrill Lynch that its previous indication of interest... was its best and final offer.' This was an oral reiteration via telephone, not a formal written submission. Additionally, unlike CSC/Pamplona which submitted a formal written proposal with commitment letters on this date, Party A merely restated its prior range by phone. 'Informal' is the correct classification for an oral telephone reiteration."
+    },
+    {
+      "family": "party a",
+      "field": "date",
+      "pipeline_value": "2013-09-19",
+      "alex_value": "2013-09-24",
+      "verdict": "both",
+      "reasoning": "Both dates are textually supported but represent different interpretations of the 'drop' event. The pipeline uses 2013-09-19, the date of the Special Committee meeting where the committee concluded CSC/Pamplona had the best proposal and effectively decided to proceed with CSC/Pamplona exclusively, implicitly rejecting Party A. Alex uses 2013-09-24, the date the exclusivity agreement with CSC/Pamplona was formally executed, which formally excluded all other bidders. The pipeline's date captures the decision point; Alex's date captures the formal execution of exclusivity. Both are valid interpretations of when Party A was effectively dropped."
+    },
+    {
+      "family": "party b",
+      "field": "value",
+      "pipeline_value": null,
+      "alex_value": 17.0,
+      "verdict": "both",
+      "reasoning": "The filing states Party B submitted a preliminary indication of interest at '$17.00 to $18.00 per share.' The pipeline correctly records this as a range (range_low=17.00, range_high=18.00) with null single value. Alex records 17.0 as the range floor. Same convention difference as other range bids."
+    },
+    {
+      "family": "party b",
+      "field": "date",
+      "pipeline_value": "2013-09-19",
+      "alex_value": "2013-09-24",
+      "verdict": "both",
+      "reasoning": "Same reasoning as Party A drop date. Pipeline uses 2013-09-19 (Special Committee decision meeting where CSC/Pamplona was selected as preferred bidder). Alex uses 2013-09-24 (formal execution of exclusivity agreement with CSC/Pamplona). Both are valid interpretations of when Party B was effectively dropped from the process."
+    },
+    {
+      "family": "party c",
+      "field": "value",
+      "pipeline_value": null,
+      "alex_value": 15.0,
+      "verdict": "both",
+      "reasoning": "The filing states Party C presented 'an oral preliminary indication of interest at an all-cash purchase price of $15.00 to $17.00 per share.' The pipeline correctly records this as a range (range_low=15.00, range_high=17.00) with null single value. Alex records 15.0 as the range floor. Same convention difference."
+    },
+    {
+      "family": "party c",
+      "field": "value",
+      "pipeline_value": null,
+      "alex_value": 16.0,
+      "verdict": "both",
+      "reasoning": "The filing states Party C submitted 'a written indication of interest at an all-cash purchase price of $16.00 to $16.50 per share.' The pipeline correctly records this as a range (range_low=16.00, range_high=16.50) with null single value. Alex records 16.0 as the range floor. Same convention difference."
+    },
+    {
+      "family": "party c",
+      "field": "value",
+      "pipeline_value": null,
+      "alex_value": 16.0,
+      "verdict": "both",
+      "reasoning": "The filing states Party C submitted 'a revised oral indication of interest with an all-cash purchase price of $16.00 to $17.00 per share.' The pipeline correctly records this as a range (range_low=16.00, range_high=17.00) with null single value. Alex records 16.0 as the range floor. Same convention difference."
+    },
+    {
+      "family": "party c",
+      "field": "date",
+      "pipeline_value": "2013-06-30",
+      "alex_value": "2013-06-20",
+      "verdict": "pipeline",
+      "reasoning": "The filing explicitly states: 'June 30, 2013, Party C entered into a confidentiality and standstill agreement with Mac-Gray and was provided with an informational package.' The pipeline's date of 2013-06-30 matches the filing text exactly. Alex's date of 2013-06-20 has no support in the filing text for a Party C NDA event. This appears to be a data entry error in Alex's benchmark."
+    }
+  ]
+}

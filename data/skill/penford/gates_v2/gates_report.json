@@ -1,8 +1,42 @@
 {
-  "findings": [],
+  "findings": [
+    {
+      "gate_id": "agreement_kind_surface_warning",
+      "rule_id": "agreement_kind_surface_warning",
+      "severity": "warning",
+      "description": "Agreement 'obs_evt_013' appears to be 'standstill' but is classified as 'nda'.",
+      "party_ids": [],
+      "cohort_ids": [],
+      "observation_ids": [
+        "obs_evt_013"
+      ]
+    },
+    {
+      "gate_id": "agreement_kind_surface_warning",
+      "rule_id": "agreement_kind_surface_warning",
+      "severity": "warning",
+      "description": "Agreement 'obs_evt_015' appears to be 'standstill' but is classified as 'nda'.",
+      "party_ids": [],
+      "cohort_ids": [],
+      "observation_ids": [
+        "obs_evt_015"
+      ]
+    },
+    {
+      "gate_id": "agreement_kind_surface_warning",
+      "rule_id": "agreement_kind_surface_warning",
+      "severity": "warning",
+      "description": "Agreement 'obs_evt_017' appears to be 'standstill' but is classified as 'nda'.",
+      "party_ids": [],
+      "cohort_ids": [],
+      "observation_ids": [
+        "obs_evt_017"
+      ]
+    }
+  ],
   "summary": {
     "blocker_count": 0,
-    "warning_count": 0,
+    "warning_count": 3,
     "status": "pass"
   }
 }

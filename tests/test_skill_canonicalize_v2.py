@@ -372,3 +372,188 @@ def test_canonicalize_v2_cli_runs_on_quote_first_fixture(tmp_path: Path) -> None
 
     assert exit_code == 0
     assert observations["observations"][0]["observation_id"] == "obs_proposal"
+
+
+# ---------------------------------------------------------------------------
+# Repair: forward requested_by_observation_id
+# ---------------------------------------------------------------------------
+
+
+def _raw_payload_with_forward_ref(*, forward: bool) -> dict:
+    """Build a raw payload where a proposal links to a solicitation.
+
+    If *forward* is True the solicitation date is after the proposal date
+    (temporal inversion).  If False the solicitation precedes the proposal.
+    """
+    base = _raw_observations_payload()
+    solicitation_date = "2026-04-15" if forward else "2026-03-15"
+    base["quotes"].append(
+        {"quote_id": "Q201", "block_id": "B001", "text": "Bidder A"},
+    )
+    base["observations"] = [
+        {
+            "observation_id": "obs_solicitation",
+            "obs_type": "solicitation",
+            "date": _resolved_date_payload(solicitation_date),
+            "subject_refs": [],
+            "counterparty_refs": [],
+            "summary": "The board requested final bids.",
+            "quote_ids": ["Q201"],
+            "requested_submission": "best_and_final",
+            "binding_level": "binding",
+            "due_date": None,
+            "recipient_refs": [],
+            "attachments": [],
+        },
+        {
+            "observation_id": "obs_proposal",
+            "obs_type": "proposal",
+            "date": _resolved_date_payload("2026-03-31"),
+            "subject_refs": ["party_bidder_a"],
+            "counterparty_refs": [],
+            "summary": "Bidder A submitted a proposal.",
+            "quote_ids": ["Q101"],
+            "requested_by_observation_id": "obs_solicitation",
+            "revises_observation_id": None,
+            "delivery_mode": "written",
+            "terms": None,
+            "mentions_non_binding": None,
+            "includes_draft_merger_agreement": False,
+            "includes_markup": False,
+        },
+    ]
+    return base
+
+
+def test_canonicalize_v2_nullifies_forward_requested_by(tmp_path: Path) -> None:
+    _write_v2_raw_fixture(tmp_path)
+    extract_dir = tmp_path / "data" / "skill" / "imprivata" / "extract_v2"
+    extract_dir.mkdir(parents=True, exist_ok=True)
+    (extract_dir / "observations_raw.json").write_text(
+        json.dumps(_raw_payload_with_forward_ref(forward=True)),
+        encoding="utf-8",
+    )
+
+    run_canonicalize_v2("imprivata", project_root=tmp_path)
+
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    observations = json.loads(paths.observations_path.read_text(encoding="utf-8"))
+    proposal = next(
+        o for o in observations["observations"] if o["obs_type"] == "proposal"
+    )
+    assert proposal["requested_by_observation_id"] is None
+
+
+def test_canonicalize_v2_preserves_valid_requested_by(tmp_path: Path) -> None:
+    _write_v2_raw_fixture(tmp_path)
+    extract_dir = tmp_path / "data" / "skill" / "imprivata" / "extract_v2"
+    extract_dir.mkdir(parents=True, exist_ok=True)
+    (extract_dir / "observations_raw.json").write_text(
+        json.dumps(_raw_payload_with_forward_ref(forward=False)),
+        encoding="utf-8",
+    )
+
+    run_canonicalize_v2("imprivata", project_root=tmp_path)
+
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    observations = json.loads(paths.observations_path.read_text(encoding="utf-8"))
+    proposal = next(
+        o for o in observations["observations"] if o["obs_type"] == "proposal"
+    )
+    assert proposal["requested_by_observation_id"] == "obs_solicitation"
+
+
+# ---------------------------------------------------------------------------
+# Repair: outcome bidder refs
+# ---------------------------------------------------------------------------
+
+
+def _raw_payload_with_outcome(*, bidder_in_refs: bool, bidder_in_summary: bool) -> dict:
+    """Build a raw payload with an executed outcome.
+
+    *bidder_in_refs*: whether the bidder party_id is already in subject_refs.
+    *bidder_in_summary*: whether the summary text names the bidder.
+    """
+    base = _raw_observations_payload()
+    summary = (
+        "Bidder A and the target executed the merger agreement."
+        if bidder_in_summary
+        else "The merger agreement was executed."
+    )
+    base["observations"] = [
+        {
+            "observation_id": "obs_outcome",
+            "obs_type": "outcome",
+            "date": _resolved_date_payload(),
+            "subject_refs": ["party_bidder_a"] if bidder_in_refs else [],
+            "counterparty_refs": [],
+            "summary": summary,
+            "quote_ids": ["Q101"],
+            "outcome_kind": "executed",
+            "related_observation_id": None,
+        },
+    ]
+    return base
+
+
+def test_canonicalize_v2_repairs_outcome_bidder_refs_from_summary(
+    tmp_path: Path,
+) -> None:
+    _write_v2_raw_fixture(tmp_path)
+    extract_dir = tmp_path / "data" / "skill" / "imprivata" / "extract_v2"
+    extract_dir.mkdir(parents=True, exist_ok=True)
+    (extract_dir / "observations_raw.json").write_text(
+        json.dumps(_raw_payload_with_outcome(bidder_in_refs=False, bidder_in_summary=True)),
+        encoding="utf-8",
+    )
+
+    run_canonicalize_v2("imprivata", project_root=tmp_path)
+
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    observations = json.loads(paths.observations_path.read_text(encoding="utf-8"))
+    outcome = next(
+        o for o in observations["observations"] if o["obs_type"] == "outcome"
+    )
+    assert "party_bidder_a" in outcome["subject_refs"]
+
+
+def test_canonicalize_v2_preserves_existing_outcome_bidder_refs(
+    tmp_path: Path,
+) -> None:
+    _write_v2_raw_fixture(tmp_path)
+    extract_dir = tmp_path / "data" / "skill" / "imprivata" / "extract_v2"
+    extract_dir.mkdir(parents=True, exist_ok=True)
+    (extract_dir / "observations_raw.json").write_text(
+        json.dumps(_raw_payload_with_outcome(bidder_in_refs=True, bidder_in_summary=True)),
+        encoding="utf-8",
+    )
+
+    run_canonicalize_v2("imprivata", project_root=tmp_path)
+
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    observations = json.loads(paths.observations_path.read_text(encoding="utf-8"))
+    outcome = next(
+        o for o in observations["observations"] if o["obs_type"] == "outcome"
+    )
+    assert outcome["subject_refs"].count("party_bidder_a") == 1
+
+
+def test_canonicalize_v2_no_false_positive_bidder_injection(
+    tmp_path: Path,
+) -> None:
+    _write_v2_raw_fixture(tmp_path)
+    extract_dir = tmp_path / "data" / "skill" / "imprivata" / "extract_v2"
+    extract_dir.mkdir(parents=True, exist_ok=True)
+    (extract_dir / "observations_raw.json").write_text(
+        json.dumps(_raw_payload_with_outcome(bidder_in_refs=False, bidder_in_summary=False)),
+        encoding="utf-8",
+    )
+
+    run_canonicalize_v2("imprivata", project_root=tmp_path)
+
+    paths = build_skill_paths("imprivata", project_root=tmp_path)
+    observations = json.loads(paths.observations_path.read_text(encoding="utf-8"))
+    outcome = next(
+        o for o in observations["observations"] if o["obs_type"] == "outcome"
+    )
+    assert outcome["subject_refs"] == []

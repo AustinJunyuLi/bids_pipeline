@@ -190,6 +190,8 @@ def scan_document_evidence(
                     matched_terms=matched_terms,
                     date_text=_first_match(DATE_FRAGMENT_RE, raw_text),
                     actor_hint=_extract_actor_hint(raw_text),
+                    actor_hints=_extract_actor_hints(raw_text),
+                    count_hint=_extract_count_hint(raw_text),
                     value_hint=_first_match(MONEY_RE, raw_text),
                     note=_build_note(evidence_type, matched_terms),
                 )
@@ -219,7 +221,7 @@ def _classify_paragraph(raw_text: str, lowered: str) -> list[tuple[EvidenceType,
         matches.append((EvidenceType.FINANCIAL_TERM, normalized_terms))
 
     actor_terms = [term for term in ACTOR_TERMS if term in lowered]
-    if actor_terms or _extract_actor_hint(raw_text):
+    if actor_terms or _extract_actor_hints(raw_text):
         matches.append((EvidenceType.ACTOR_IDENTIFICATION, sorted(set(actor_terms))))
 
     process_terms = [term for term in PROCESS_TERMS if term in lowered]
@@ -265,17 +267,43 @@ def _first_match(pattern: re.Pattern[str], text: str) -> str | None:
     return match.group(0) if match else None
 
 
+_ACTOR_PATTERNS = [
+    re.compile(r"\b(?:Party|Bidder|Company|Sponsor)\s+[A-Z0-9]\b"),
+    re.compile(r"\b(?:Board|Special Committee|Transaction Committee)\b"),
+    re.compile(r"\b[A-Z][A-Za-z&'.,-]+\s+(?:Partners|Sachs|Lynch|Morgan|Cooley|Gabelli|JANA|GAMCO|BMO)\b"),
+]
+
+_COUNT_RE = re.compile(
+    r"\b(\d+|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen)"
+    r"\s+(?:parties|bidders|potential\s+buyers|potential\s+acquirers|interested\s+parties"
+    r"|financial\s+sponsors|strategic\s+buyers|participants)\b",
+    re.IGNORECASE,
+)
+
+
 def _extract_actor_hint(text: str) -> str | None:
-    patterns = [
-        re.compile(r"\b(?:Party|Bidder)\s+[A-Z]\b"),
-        re.compile(r"\b(?:Board|Special Committee|Transaction Committee)\b"),
-        re.compile(r"\b[A-Z][A-Za-z&'.,-]+\s+(?:Partners|Sachs|Lynch|Morgan|Cooley|Gabelli|JANA|GAMCO|BMO)\b"),
-    ]
-    for pattern in patterns:
-        match = pattern.search(text)
-        if match:
-            return match.group(0)
-    return None
+    """Legacy single-actor extraction for backward compat."""
+    hints = _extract_actor_hints(text)
+    return hints[0] if hints else None
+
+
+def _extract_actor_hints(text: str) -> list[str]:
+    """Extract ALL actor mentions from text, not just the first."""
+    seen: set[str] = set()
+    hints: list[str] = []
+    for pattern in _ACTOR_PATTERNS:
+        for match in pattern.finditer(text):
+            val = match.group(0)
+            if val not in seen:
+                seen.add(val)
+                hints.append(val)
+    return hints
+
+
+def _extract_count_hint(text: str) -> str | None:
+    """Extract count assertions like 'five parties' or '9 bidders'."""
+    match = _COUNT_RE.search(text)
+    return match.group(0) if match else None
 
 
 def _build_note(evidence_type: EvidenceType, matched_terms: list[str]) -> str | None:

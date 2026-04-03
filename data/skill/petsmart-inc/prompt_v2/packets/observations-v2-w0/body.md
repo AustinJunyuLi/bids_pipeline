@@ -154,13 +154,29 @@ Step 2 - EXTRACT: Return filing-literal structure only. Build:
 - cohorts: unnamed bidder groups with exact_count, known members when explicit, and the observation that created the cohort
 - observations: only the six v2 observation types (process, agreement, solicitation, proposal, status, outcome)
 
+--- TEMPORAL ORDER CONSTRAINT ---
+`requested_by_observation_id` links a proposal to the solicitation that prompted it.
+RULE: The linked solicitation MUST have date <= proposal date.
+If no solicitation occurred on or before the proposal date, set `requested_by_observation_id` to null.
+Common mistake: linking all proposals to the final-round solicitation even when earlier proposals predate it. An unsolicited proposal MUST have null.
+--- END TEMPORAL ORDER CONSTRAINT ---
+
+--- OUTCOME ACTOR CONSTRAINT ---
+When `outcome_kind` is `executed` or `restarted`, include the bidder or bidder-cohort in `subject_refs` or `counterparty_refs`.
+If the summary names an actor like 'Buyer Group' or 'New Mountain Capital', their `party_id` MUST appear in the refs.
+--- END OUTCOME ACTOR CONSTRAINT ---
+
 Observation rules:
 - Do not emit analyst rows, benchmark rows, dropout labels, bid labels, or other derived judgments.
 - Keep every field filing-literal. If a structured field is ambiguous, set it to null or use the appropriate `other` escape hatch with a short detail string.
 - Use quote_ids, never evidence_refs or inline anchor_text.
+- Populate `recipient_refs` whenever the filing names invitees or gives a reusable cohort such as finalists, remaining bidders, or a named bidder set.
 - Proposals must use bidder or bidder-cohort subject_refs.
+- Preserve proposal-local formality clues when literal text supports them: `mentions_non_binding`, `includes_draft_merger_agreement`, and `includes_markup`.
+- Keep agreement families distinct: `nda`, `amendment`, `standstill`, `exclusivity`, `clean_team`, and `merger_agreement` are not interchangeable.
 - Solicitation observations should represent the request/announcement, with due_date when the filing gives a deadline.
 - Status observations cover expressed interest, withdrawal, exclusion, cannot-improve, selected-to-advance, and similar literal process states.
+- When the filing gives only a relative date, anchor it to the nearest explicit date in the same local context and preserve the resulting non-exact precision.
 
 Return a single JSON object with keys in this order: quotes, parties, cohorts, observations, exclusions, coverage.
 </task_instructions>

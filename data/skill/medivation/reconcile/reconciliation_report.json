@@ -1,0 +1,1191 @@
+{
+  "deal_slug": "medivation",
+  "alex_target_name": "MEDIVATION INC",
+  "generated_at": "2026-04-02T15:50:36.314103",
+  "summary": {
+    "alex_total_rows": 16,
+    "alex_comparable_events": 16,
+    "pipeline_total_rows": 87,
+    "pipeline_comparable_events": 87,
+    "matched_events": 7,
+    "disagreements": 2,
+    "alex_only_events": 9,
+    "pipeline_only_events": 80,
+    "bidder_families_count": 33
+  },
+  "bid_comparison": {
+    "company 1": {
+      "alex_bids": 0,
+      "pipeline_bids": 3,
+      "matched": 0,
+      "exact": 0,
+      "with_disagreements": 0,
+      "alex_only": 0,
+      "pipeline_only": 3
+    },
+    "company 2": {
+      "alex_bids": 0,
+      "pipeline_bids": 4,
+      "matched": 0,
+      "exact": 0,
+      "with_disagreements": 0,
+      "alex_only": 0,
+      "pipeline_only": 4
+    },
+    "company 3": {
+      "alex_bids": 0,
+      "pipeline_bids": 3,
+      "matched": 0,
+      "exact": 0,
+      "with_disagreements": 0,
+      "alex_only": 0,
+      "pipeline_only": 3
+    },
+    "company 4": {
+      "alex_bids": 0,
+      "pipeline_bids": 1,
+      "matched": 0,
+      "exact": 0,
+      "with_disagreements": 0,
+      "alex_only": 0,
+      "pipeline_only": 1
+    },
+    "pfizer": {
+      "alex_bids": 3,
+      "pipeline_bids": 3,
+      "matched": 3,
+      "exact": 3,
+      "with_disagreements": 0,
+      "alex_only": 0,
+      "pipeline_only": 0
+    },
+    "sanofi": {
+      "alex_bids": 1,
+      "pipeline_bids": 2,
+      "matched": 1,
+      "exact": 0,
+      "with_disagreements": 1,
+      "alex_only": 0,
+      "pipeline_only": 1
+    }
+  },
+  "bidder_families": {
+    "(unnamed)": {
+      "alex_count": 5,
+      "pipeline_count": 0,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [
+        {
+          "bidder_id": 1.3,
+          "category": "bid_press_release",
+          "bid_note": "Bid Press Release",
+          "date": "2016-04-13",
+          "value": null
+        },
+        {
+          "bidder_id": 5,
+          "category": "final_round",
+          "bid_note": "Final Round Inf Ann",
+          "date": "2016-08-14",
+          "value": null
+        },
+        {
+          "bidder_id": 4.5,
+          "category": "final_round",
+          "bid_note": "Final Round Inf",
+          "date": "2016-08-14",
+          "value": null
+        },
+        {
+          "bidder_id": 4.7,
+          "category": "final_round",
+          "bid_note": "Final Round Ann",
+          "date": "2016-08-14",
+          "value": null
+        },
+        {
+          "bidder_id": 5,
+          "category": "final_round",
+          "bid_note": "Final Round",
+          "date": "2016-08-14",
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": []
+    },
+    "company 1": {
+      "alex_count": 0,
+      "pipeline_count": 6,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0016",
+          "category": "bid",
+          "event_type": "proposal",
+          "date": "2016-08-08",
+          "value": 71.0,
+          "span_ids": "span_0027"
+        },
+        {
+          "row_id": "row_0023",
+          "category": "bid",
+          "event_type": "proposal",
+          "date": "2016-08-19",
+          "value": 73.0,
+          "span_ids": "span_0034|span_0036|span_0037"
+        },
+        {
+          "row_id": "row_0038",
+          "category": "final_round",
+          "event_type": "final_round_ann",
+          "date": "2016-08-19",
+          "value": null,
+          "span_ids": "span_0038|span_0047"
+        },
+        {
+          "row_id": "row_0027",
+          "category": "bid",
+          "event_type": "proposal",
+          "date": "2016-08-20",
+          "value": 80.25,
+          "span_ids": "span_0040"
+        },
+        {
+          "row_id": "row_0051",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2016-08-20",
+          "value": null,
+          "span_ids": "span_0038|span_0047"
+        },
+        {
+          "row_id": "row_0039",
+          "category": "final_round",
+          "event_type": "final_round",
+          "date": "2016-08-20",
+          "value": null,
+          "span_ids": "span_0038|span_0047"
+        }
+      ]
+    },
+    "company 2": {
+      "alex_count": 0,
+      "pipeline_count": 8,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0017",
+          "category": "bid",
+          "event_type": "proposal",
+          "date": "2016-08-08",
+          "value": null,
+          "span_ids": "span_0027"
+        },
+        {
+          "row_id": "row_0044",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2016-08-10",
+          "value": null,
+          "span_ids": "span_0028"
+        },
+        {
+          "row_id": "row_0047",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2016-08-10",
+          "value": null,
+          "span_ids": "span_0029"
+        },
+        {
+          "row_id": "row_0020",
+          "category": "bid",
+          "event_type": "proposal",
+          "date": "2016-08-12",
+          "value": 70.0,
+          "span_ids": "span_0032"
+        },
+        {
+          "row_id": "row_0024",
+          "category": "bid",
+          "event_type": "proposal",
+          "date": "2016-08-19",
+          "value": 75.5,
+          "span_ids": "span_0034|span_0036"
+        },
+        {
+          "row_id": "row_0040",
+          "category": "final_round",
+          "event_type": "final_round_ann",
+          "date": "2016-08-19",
+          "value": null,
+          "span_ids": "span_0038|span_0047"
+        },
+        {
+          "row_id": "row_0028",
+          "category": "bid",
+          "event_type": "proposal",
+          "date": "2016-08-20",
+          "value": 80.0,
+          "span_ids": "span_0040"
+        },
+        {
+          "row_id": "row_0041",
+          "category": "final_round",
+          "event_type": "final_round",
+          "date": "2016-08-20",
+          "value": null,
+          "span_ids": "span_0038|span_0047"
+        }
+      ]
+    },
+    "company 3": {
+      "alex_count": 0,
+      "pipeline_count": 9,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0013",
+          "category": "nda",
+          "event_type": "nda",
+          "date": "2016-07-09",
+          "value": null,
+          "span_ids": "span_0023"
+        },
+        {
+          "row_id": "row_0018",
+          "category": "bid",
+          "event_type": "proposal",
+          "date": "2016-08-08",
+          "value": 60.0,
+          "span_ids": "span_0027"
+        },
+        {
+          "row_id": "row_0045",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2016-08-10",
+          "value": null,
+          "span_ids": "span_0028"
+        },
+        {
+          "row_id": "row_0048",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2016-08-10",
+          "value": null,
+          "span_ids": "span_0029"
+        },
+        {
+          "row_id": "row_0021",
+          "category": "bid",
+          "event_type": "proposal",
+          "date": "2016-08-12",
+          "value": 70.5,
+          "span_ids": "span_0032"
+        },
+        {
+          "row_id": "row_0025",
+          "category": "bid",
+          "event_type": "proposal",
+          "date": "2016-08-19",
+          "value": 72.5,
+          "span_ids": "span_0034|span_0036|span_0037"
+        },
+        {
+          "row_id": "row_0050",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2016-08-19",
+          "value": null,
+          "span_ids": "span_0039"
+        },
+        {
+          "row_id": "row_0042",
+          "category": "final_round",
+          "event_type": "final_round_ann",
+          "date": "2016-08-19",
+          "value": null,
+          "span_ids": "span_0038|span_0047"
+        },
+        {
+          "row_id": "row_0043",
+          "category": "final_round",
+          "event_type": "final_round",
+          "date": "2016-08-20",
+          "value": null,
+          "span_ids": "span_0038|span_0047"
+        }
+      ]
+    },
+    "company 4": {
+      "alex_count": 0,
+      "pipeline_count": 3,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0014",
+          "category": "nda",
+          "event_type": "nda",
+          "date": "2016-07-13",
+          "value": null,
+          "span_ids": "span_0024"
+        },
+        {
+          "row_id": "row_0019",
+          "category": "bid",
+          "event_type": "proposal",
+          "date": "2016-08-08",
+          "value": 63.0,
+          "span_ids": "span_0027"
+        },
+        {
+          "row_id": "row_0049",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2016-08-19",
+          "value": null,
+          "span_ids": "span_0035|span_0036"
+        }
+      ]
+    },
+    "evercore": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0006",
+          "category": "ib_retention",
+          "event_type": "ib_retention",
+          "date": "2016-04-22",
+          "value": null,
+          "span_ids": "span_0008"
+        }
+      ]
+    },
+    "four industry participants who expressed interest in late march 2016 anon_slot_001": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0003:anon_slot_001",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0003"
+        }
+      ]
+    },
+    "four industry participants who expressed interest in late march 2016 anon_slot_002": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0003:anon_slot_002",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0003"
+        }
+      ]
+    },
+    "four industry participants who expressed interest in late march 2016 anon_slot_003": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0003:anon_slot_003",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0003"
+        }
+      ]
+    },
+    "four industry participants who expressed interest in late march 2016 anon_slot_004": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0003:anon_slot_004",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0003"
+        }
+      ]
+    },
+    "interested parties (pfizer, company 1, company 2, company 3, and company 4) anon_slot_001": {
+      "alex_count": 0,
+      "pipeline_count": 5,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0033:anon_slot_001",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2016-08-08",
+          "value": null,
+          "span_ids": "span_0026"
+        },
+        {
+          "row_id": "row_0034:anon_slot_001",
+          "category": "final_round",
+          "event_type": "final_round_ann",
+          "date": "2016-08-14",
+          "value": null,
+          "span_ids": "span_0033"
+        },
+        {
+          "row_id": "row_0035:anon_slot_001",
+          "category": "final_round",
+          "event_type": "final_round",
+          "date": "2016-08-19",
+          "value": null,
+          "span_ids": "span_0033"
+        },
+        {
+          "row_id": "row_0052:anon_slot_001",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2016-08-20",
+          "value": null,
+          "span_ids": "span_0038|span_0047"
+        },
+        {
+          "row_id": "row_0032:anon_slot_001",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0026"
+        }
+      ]
+    },
+    "interested parties (pfizer, company 1, company 2, company 3, and company 4) anon_slot_002": {
+      "alex_count": 0,
+      "pipeline_count": 5,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0033:anon_slot_002",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2016-08-08",
+          "value": null,
+          "span_ids": "span_0026"
+        },
+        {
+          "row_id": "row_0034:anon_slot_002",
+          "category": "final_round",
+          "event_type": "final_round_ann",
+          "date": "2016-08-14",
+          "value": null,
+          "span_ids": "span_0033"
+        },
+        {
+          "row_id": "row_0035:anon_slot_002",
+          "category": "final_round",
+          "event_type": "final_round",
+          "date": "2016-08-19",
+          "value": null,
+          "span_ids": "span_0033"
+        },
+        {
+          "row_id": "row_0052:anon_slot_002",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2016-08-20",
+          "value": null,
+          "span_ids": "span_0038|span_0047"
+        },
+        {
+          "row_id": "row_0032:anon_slot_002",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0026"
+        }
+      ]
+    },
+    "interested parties (pfizer, company 1, company 2, company 3, and company 4) anon_slot_003": {
+      "alex_count": 0,
+      "pipeline_count": 5,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0033:anon_slot_003",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2016-08-08",
+          "value": null,
+          "span_ids": "span_0026"
+        },
+        {
+          "row_id": "row_0034:anon_slot_003",
+          "category": "final_round",
+          "event_type": "final_round_ann",
+          "date": "2016-08-14",
+          "value": null,
+          "span_ids": "span_0033"
+        },
+        {
+          "row_id": "row_0035:anon_slot_003",
+          "category": "final_round",
+          "event_type": "final_round",
+          "date": "2016-08-19",
+          "value": null,
+          "span_ids": "span_0033"
+        },
+        {
+          "row_id": "row_0052:anon_slot_003",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2016-08-20",
+          "value": null,
+          "span_ids": "span_0038|span_0047"
+        },
+        {
+          "row_id": "row_0032:anon_slot_003",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0026"
+        }
+      ]
+    },
+    "interested parties (pfizer, company 1, company 2, company 3, and company 4) anon_slot_004": {
+      "alex_count": 0,
+      "pipeline_count": 5,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0033:anon_slot_004",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2016-08-08",
+          "value": null,
+          "span_ids": "span_0026"
+        },
+        {
+          "row_id": "row_0034:anon_slot_004",
+          "category": "final_round",
+          "event_type": "final_round_ann",
+          "date": "2016-08-14",
+          "value": null,
+          "span_ids": "span_0033"
+        },
+        {
+          "row_id": "row_0035:anon_slot_004",
+          "category": "final_round",
+          "event_type": "final_round",
+          "date": "2016-08-19",
+          "value": null,
+          "span_ids": "span_0033"
+        },
+        {
+          "row_id": "row_0052:anon_slot_004",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2016-08-20",
+          "value": null,
+          "span_ids": "span_0038|span_0047"
+        },
+        {
+          "row_id": "row_0032:anon_slot_004",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0026"
+        }
+      ]
+    },
+    "interested parties (pfizer, company 1, company 2, company 3, and company 4) anon_slot_005": {
+      "alex_count": 0,
+      "pipeline_count": 5,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0033:anon_slot_005",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2016-08-08",
+          "value": null,
+          "span_ids": "span_0026"
+        },
+        {
+          "row_id": "row_0034:anon_slot_005",
+          "category": "final_round",
+          "event_type": "final_round_ann",
+          "date": "2016-08-14",
+          "value": null,
+          "span_ids": "span_0033"
+        },
+        {
+          "row_id": "row_0035:anon_slot_005",
+          "category": "final_round",
+          "event_type": "final_round",
+          "date": "2016-08-19",
+          "value": null,
+          "span_ids": "span_0033"
+        },
+        {
+          "row_id": "row_0052:anon_slot_005",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2016-08-20",
+          "value": null,
+          "span_ids": "span_0038|span_0047"
+        },
+        {
+          "row_id": "row_0032:anon_slot_005",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0026"
+        }
+      ]
+    },
+    "j.p. morgan": {
+      "alex_count": 1,
+      "pipeline_count": 0,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [
+        {
+          "bidder_id": 1.5,
+          "category": "ib_retention",
+          "bid_note": "IB",
+          "date": "2016-06-29",
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": []
+    },
+    "medivation board of directors": {
+      "alex_count": 0,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0031",
+          "category": "target_sale_public",
+          "event_type": "target_sale_public",
+          "date": "2016-08-22",
+          "value": null,
+          "span_ids": "span_0043"
+        },
+        {
+          "row_id": "row_0009",
+          "category": "target_sale",
+          "event_type": "target_sale",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0014|span_0015"
+        }
+      ]
+    },
+    "pfizer": {
+      "alex_count": 5,
+      "pipeline_count": 9,
+      "matched": 5,
+      "exact_matches": 5,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0005",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": "2016-04-20",
+          "value": null,
+          "span_ids": "span_0007"
+        },
+        {
+          "row_id": "row_0036",
+          "category": "final_round",
+          "event_type": "final_round_ann",
+          "date": "2016-08-19",
+          "value": null,
+          "span_ids": "span_0038|span_0047"
+        },
+        {
+          "row_id": "row_0037",
+          "category": "final_round",
+          "event_type": "final_round",
+          "date": "2016-08-20",
+          "value": null,
+          "span_ids": "span_0038|span_0047"
+        },
+        {
+          "row_id": "row_0030",
+          "category": "target_sale_public",
+          "event_type": "target_sale_public",
+          "date": "2016-08-22",
+          "value": null,
+          "span_ids": "span_0043"
+        }
+      ]
+    },
+    "sanofi": {
+      "alex_count": 3,
+      "pipeline_count": 8,
+      "matched": 2,
+      "exact_matches": 0,
+      "disagreements": [
+        {
+          "match_quality": "category_only",
+          "disagreements": [
+            {
+              "field": "date",
+              "pipeline": "2016-04-15",
+              "alex": "2016-04-13"
+            }
+          ],
+          "pipeline_row_id": "row_0004",
+          "alex_bidder_id": 1,
+          "filing_evidence": [
+            "[span_0006] On April 15, 2016, Dr. Hung received an unsolicited letter, dated April 13, 2016, from Dr. Brandicourt, setting forth a non-binding proposal from Sanofi to acquire Medivation for $52.50 per share of Medivation\u0092s Common Stock, subject to the completion of due diligence, the negotiation and execution of definitive agreements, and the approval of Sanofi\u0092s board of directors (\u0093 Sanofi\u0092s $52.50 proposal\u0094)."
+          ]
+        },
+        {
+          "match_quality": "category_only",
+          "disagreements": [
+            {
+              "field": "date",
+              "pipeline": "2016-08-10",
+              "alex": "2016-08-20"
+            }
+          ],
+          "pipeline_row_id": "row_0046",
+          "alex_bidder_id": 8,
+          "filing_evidence": [
+            "[span_0028] On August 10, 2016, the Medivation board of directors met telephonically with Medivation\u0092s senior management and legal and financial advisors to discuss the preliminary proposals. After a presentation from the financial advisors, including a review of the Company\u0092s stock price and a comparison of the non-binding proposals, the Medivation board of directors discussed strategies for next steps and a proposed timeline for the transaction process. Following that discussion, the Medivation board of d"
+          ]
+        }
+      ],
+      "unmatched_alex": [
+        {
+          "bidder_id": 0.7,
+          "category": "interest",
+          "bid_note": "Bidder Sale",
+          "date": "2016-04-13",
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0001",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": "2016-03-22",
+          "value": null,
+          "span_ids": "span_0001"
+        },
+        {
+          "row_id": "row_0002",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": "2016-03-25",
+          "value": null,
+          "span_ids": "span_0002"
+        },
+        {
+          "row_id": "row_0007",
+          "category": "bid_press_release",
+          "event_type": "bid_press_release",
+          "date": "2016-04-28",
+          "value": null,
+          "span_ids": "span_0009"
+        },
+        {
+          "row_id": "row_0008",
+          "category": "bid_press_release",
+          "event_type": "bid_press_release",
+          "date": "2016-05-05",
+          "value": null,
+          "span_ids": "span_0012"
+        },
+        {
+          "row_id": "row_0010",
+          "category": "bid",
+          "event_type": "proposal",
+          "date": "2016-06-27",
+          "value": 58.0,
+          "span_ids": "span_0017"
+        },
+        {
+          "row_id": "row_0012",
+          "category": "nda",
+          "event_type": "nda",
+          "date": "2016-07-05",
+          "value": null,
+          "span_ids": "span_0021"
+        }
+      ]
+    },
+    "several parties": {
+      "alex_count": 1,
+      "pipeline_count": 0,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [
+        {
+          "bidder_id": 9,
+          "category": "drop",
+          "bid_note": "Drop",
+          "date": "2016-08-20",
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": []
+    },
+    "several parties, including sanofi": {
+      "alex_count": 1,
+      "pipeline_count": 0,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [
+        {
+          "bidder_id": 3,
+          "category": "nda",
+          "bid_note": "NDA",
+          "date": null,
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": []
+    },
+    "twelve industry participants contacted in strategic outreach anon_slot_001": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0053:anon_slot_001",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2016-08-20",
+          "value": null,
+          "span_ids": "span_0038|span_0047"
+        }
+      ]
+    },
+    "twelve industry participants contacted in strategic outreach anon_slot_002": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0053:anon_slot_002",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2016-08-20",
+          "value": null,
+          "span_ids": "span_0038|span_0047"
+        }
+      ]
+    },
+    "twelve industry participants contacted in strategic outreach anon_slot_003": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0053:anon_slot_003",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2016-08-20",
+          "value": null,
+          "span_ids": "span_0038|span_0047"
+        }
+      ]
+    },
+    "twelve industry participants contacted in strategic outreach anon_slot_004": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0053:anon_slot_004",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2016-08-20",
+          "value": null,
+          "span_ids": "span_0038|span_0047"
+        }
+      ]
+    },
+    "twelve industry participants contacted in strategic outreach anon_slot_005": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0053:anon_slot_005",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2016-08-20",
+          "value": null,
+          "span_ids": "span_0038|span_0047"
+        }
+      ]
+    },
+    "twelve industry participants contacted in strategic outreach anon_slot_006": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0053:anon_slot_006",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2016-08-20",
+          "value": null,
+          "span_ids": "span_0038|span_0047"
+        }
+      ]
+    },
+    "twelve industry participants contacted in strategic outreach anon_slot_007": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0053:anon_slot_007",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2016-08-20",
+          "value": null,
+          "span_ids": "span_0038|span_0047"
+        }
+      ]
+    },
+    "twelve industry participants contacted in strategic outreach anon_slot_008": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0053:anon_slot_008",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2016-08-20",
+          "value": null,
+          "span_ids": "span_0038|span_0047"
+        }
+      ]
+    },
+    "twelve industry participants contacted in strategic outreach anon_slot_009": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0053:anon_slot_009",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2016-08-20",
+          "value": null,
+          "span_ids": "span_0038|span_0047"
+        }
+      ]
+    },
+    "twelve industry participants contacted in strategic outreach anon_slot_010": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0053:anon_slot_010",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2016-08-20",
+          "value": null,
+          "span_ids": "span_0038|span_0047"
+        }
+      ]
+    },
+    "twelve industry participants contacted in strategic outreach anon_slot_011": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0053:anon_slot_011",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2016-08-20",
+          "value": null,
+          "span_ids": "span_0038|span_0047"
+        }
+      ]
+    },
+    "twelve industry participants contacted in strategic outreach anon_slot_012": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0053:anon_slot_012",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2016-08-20",
+          "value": null,
+          "span_ids": "span_0038|span_0047"
+        }
+      ]
+    }
+  },
+  "disagreement_details": [
+    {
+      "family": "sanofi",
+      "match_quality": "category_only",
+      "disagreements": [
+        {
+          "field": "date",
+          "pipeline": "2016-04-15",
+          "alex": "2016-04-13"
+        }
+      ],
+      "pipeline_row_id": "row_0004",
+      "alex_bidder_id": 1,
+      "filing_evidence": [
+        "[span_0006] On April 15, 2016, Dr. Hung received an unsolicited letter, dated April 13, 2016, from Dr. Brandicourt, setting forth a non-binding proposal from Sanofi to acquire Medivation for $52.50 per share of Medivation\u0092s Common Stock, subject to the completion of due diligence, the negotiation and execution of definitive agreements, and the approval of Sanofi\u0092s board of directors (\u0093 Sanofi\u0092s $52.50 proposal\u0094)."
+      ]
+    },
+    {
+      "family": "sanofi",
+      "match_quality": "category_only",
+      "disagreements": [
+        {
+          "field": "date",
+          "pipeline": "2016-08-10",
+          "alex": "2016-08-20"
+        }
+      ],
+      "pipeline_row_id": "row_0046",
+      "alex_bidder_id": 8,
+      "filing_evidence": [
+        "[span_0028] On August 10, 2016, the Medivation board of directors met telephonically with Medivation\u0092s senior management and legal and financial advisors to discuss the preliminary proposals. After a presentation from the financial advisors, including a review of the Company\u0092s stock price and a comparison of the non-binding proposals, the Medivation board of directors discussed strategies for next steps and a proposed timeline for the transaction process. Following that discussion, the Medivation board of d"
+      ]
+    }
+  ],
+  "verdicts": [
+    {
+      "family": "sanofi",
+      "field": "date",
+      "pipeline_value": "2016-04-15",
+      "alex_value": "2016-04-13",
+      "verdict": "both",
+      "reasoning": "The filing states: 'On April 15, 2016, Dr. Hung received an unsolicited letter, dated April 13, 2016, from Dr. Brandicourt, setting forth a non-binding proposal from Sanofi to acquire Medivation for $52.50 per share.' The letter was dated April 13 (when Sanofi made the offer) but received April 15 (when Medivation learned of it). Alex used the letter date (April 13), which is the conventional choice for when the bidder made the proposal. The pipeline used the receipt date (April 15), which is the date the target became aware of it. Both are defensible readings of the filing text, though the letter-date convention is more standard in M&A bid coding."
+    },
+    {
+      "family": "sanofi",
+      "field": "date",
+      "pipeline_value": "2016-08-10",
+      "alex_value": "2016-08-20",
+      "verdict": "inconclusive",
+      "reasoning": "The pipeline derived a Sanofi 'drop' on August 10 via EXIT-03 (selected-to-advance observation omitted an otherwise active subject), citing span_0028 where the board authorized advancing Pfizer, Company 1, and Company 4 into a second round. However, Sanofi was NOT one of the five 'Interested Parties' (Pfizer + Companies 1-4, defined at lines 839-841 of the filing). Sanofi signed a confidentiality agreement on July 5 and received data room access July 7, but never submitted a preliminary proposal on August 8 alongside the Interested Parties. The span_0028 board decision on August 10 concerned which Interested Parties to advance -- it did not directly address Sanofi. Alex dated the drop at August 20 (the final bid deadline day), but the filing provides no explicit statement of when Sanofi ceased participation. The pipeline's inference is structurally flawed because it attributes a board decision about the Interested Parties to Sanofi, who was on a separate track. Neither date is cleanly grounded in filing text for Sanofi specifically."
+    }
+  ]
+}

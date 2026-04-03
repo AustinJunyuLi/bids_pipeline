@@ -1,8 +1,20 @@
 {
-  "findings": [],
+  "findings": [
+    {
+      "gate_id": "agreement_kind_surface_warning",
+      "rule_id": "agreement_kind_surface_warning",
+      "severity": "warning",
+      "description": "Agreement 'obs_evt_012' appears to be 'standstill' but is classified as 'nda'.",
+      "party_ids": [],
+      "cohort_ids": [],
+      "observation_ids": [
+        "obs_evt_012"
+      ]
+    }
+  ],
   "summary": {
     "blocker_count": 0,
-    "warning_count": 0,
+    "warning_count": 1,
     "status": "pass"
   }
 }

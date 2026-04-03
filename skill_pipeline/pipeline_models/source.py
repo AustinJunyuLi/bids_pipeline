@@ -132,6 +132,8 @@ class EvidenceItem(PipelineModel):
     matched_terms: list[str] = Field(default_factory=list)
     date_text: str | None = None
     actor_hint: str | None = None
+    actor_hints: list[str] = Field(default_factory=list)
+    count_hint: str | None = None
     value_hint: str | None = None
     note: str | None = None
 

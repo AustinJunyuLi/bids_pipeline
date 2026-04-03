@@ -1,0 +1,1152 @@
+{
+  "deal_slug": "stec",
+  "alex_target_name": "S T E C INC",
+  "generated_at": "2026-04-02T15:50:43.325839",
+  "summary": {
+    "alex_total_rows": 28,
+    "alex_comparable_events": 27,
+    "pipeline_total_rows": 85,
+    "pipeline_comparable_events": 84,
+    "matched_events": 18,
+    "disagreements": 5,
+    "alex_only_events": 9,
+    "pipeline_only_events": 66,
+    "bidder_families_count": 31
+  },
+  "bid_comparison": {
+    "company d": {
+      "alex_bids": 1,
+      "pipeline_bids": 2,
+      "matched": 1,
+      "exact": 1,
+      "with_disagreements": 0,
+      "alex_only": 0,
+      "pipeline_only": 1
+    },
+    "company h": {
+      "alex_bids": 1,
+      "pipeline_bids": 1,
+      "matched": 1,
+      "exact": 0,
+      "with_disagreements": 1,
+      "alex_only": 0,
+      "pipeline_only": 0
+    },
+    "wdc": {
+      "alex_bids": 4,
+      "pipeline_bids": 5,
+      "matched": 4,
+      "exact": 2,
+      "with_disagreements": 2,
+      "alex_only": 0,
+      "pipeline_only": 1
+    }
+  },
+  "bidder_families": {
+    "(unnamed)": {
+      "alex_count": 6,
+      "pipeline_count": 0,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [
+        {
+          "bidder_id": 5.5,
+          "category": "final_round",
+          "bid_note": "Final Round Inf Ann",
+          "date": "2013-04-23",
+          "value": null
+        },
+        {
+          "bidder_id": 10.5,
+          "category": "final_round",
+          "bid_note": "Final Round Inf",
+          "date": "2013-04-23",
+          "value": null
+        },
+        {
+          "bidder_id": 14,
+          "category": "final_round",
+          "bid_note": "Final Round Ann",
+          "date": "2013-05-16",
+          "value": null
+        },
+        {
+          "bidder_id": 16.5,
+          "category": "final_round",
+          "bid_note": "Final Round",
+          "date": "2013-05-16",
+          "value": null
+        },
+        {
+          "bidder_id": 16.6,
+          "category": "final_round",
+          "bid_note": "Final Round Ext Ann",
+          "date": "2013-05-16",
+          "value": null
+        },
+        {
+          "bidder_id": 16.7,
+          "category": "final_round",
+          "bid_note": "Final Round Ext",
+          "date": "2013-05-16",
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": []
+    },
+    "18 prospective acquirers contacted by bofa merrill lynch anon_slot_001": {
+      "alex_count": 0,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_001",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-04-01",
+          "value": null,
+          "span_ids": "span_0019|span_0020"
+        },
+        {
+          "row_id": "row_0051:anon_slot_001",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-06-11",
+          "value": null,
+          "span_ids": "span_0050"
+        }
+      ]
+    },
+    "18 prospective acquirers contacted by bofa merrill lynch anon_slot_002": {
+      "alex_count": 0,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_002",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-04-01",
+          "value": null,
+          "span_ids": "span_0019|span_0020"
+        },
+        {
+          "row_id": "row_0051:anon_slot_002",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-06-11",
+          "value": null,
+          "span_ids": "span_0050"
+        }
+      ]
+    },
+    "18 prospective acquirers contacted by bofa merrill lynch anon_slot_003": {
+      "alex_count": 0,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_003",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-04-01",
+          "value": null,
+          "span_ids": "span_0019|span_0020"
+        },
+        {
+          "row_id": "row_0051:anon_slot_003",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-06-11",
+          "value": null,
+          "span_ids": "span_0050"
+        }
+      ]
+    },
+    "18 prospective acquirers contacted by bofa merrill lynch anon_slot_004": {
+      "alex_count": 0,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_004",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-04-01",
+          "value": null,
+          "span_ids": "span_0019|span_0020"
+        },
+        {
+          "row_id": "row_0051:anon_slot_004",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-06-11",
+          "value": null,
+          "span_ids": "span_0050"
+        }
+      ]
+    },
+    "18 prospective acquirers contacted by bofa merrill lynch anon_slot_005": {
+      "alex_count": 0,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_005",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-04-01",
+          "value": null,
+          "span_ids": "span_0019|span_0020"
+        },
+        {
+          "row_id": "row_0051:anon_slot_005",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-06-11",
+          "value": null,
+          "span_ids": "span_0050"
+        }
+      ]
+    },
+    "18 prospective acquirers contacted by bofa merrill lynch anon_slot_006": {
+      "alex_count": 0,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_006",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-04-01",
+          "value": null,
+          "span_ids": "span_0019|span_0020"
+        },
+        {
+          "row_id": "row_0051:anon_slot_006",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-06-11",
+          "value": null,
+          "span_ids": "span_0050"
+        }
+      ]
+    },
+    "18 prospective acquirers contacted by bofa merrill lynch anon_slot_007": {
+      "alex_count": 0,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_007",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-04-01",
+          "value": null,
+          "span_ids": "span_0019|span_0020"
+        },
+        {
+          "row_id": "row_0051:anon_slot_007",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-06-11",
+          "value": null,
+          "span_ids": "span_0050"
+        }
+      ]
+    },
+    "18 prospective acquirers contacted by bofa merrill lynch anon_slot_008": {
+      "alex_count": 0,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_008",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-04-01",
+          "value": null,
+          "span_ids": "span_0019|span_0020"
+        },
+        {
+          "row_id": "row_0051:anon_slot_008",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-06-11",
+          "value": null,
+          "span_ids": "span_0050"
+        }
+      ]
+    },
+    "18 prospective acquirers contacted by bofa merrill lynch anon_slot_009": {
+      "alex_count": 0,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_009",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-04-01",
+          "value": null,
+          "span_ids": "span_0019|span_0020"
+        },
+        {
+          "row_id": "row_0051:anon_slot_009",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-06-11",
+          "value": null,
+          "span_ids": "span_0050"
+        }
+      ]
+    },
+    "18 prospective acquirers contacted by bofa merrill lynch anon_slot_010": {
+      "alex_count": 0,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_010",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-04-01",
+          "value": null,
+          "span_ids": "span_0019|span_0020"
+        },
+        {
+          "row_id": "row_0051:anon_slot_010",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-06-11",
+          "value": null,
+          "span_ids": "span_0050"
+        }
+      ]
+    },
+    "18 prospective acquirers contacted by bofa merrill lynch anon_slot_011": {
+      "alex_count": 0,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_011",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-04-01",
+          "value": null,
+          "span_ids": "span_0019|span_0020"
+        },
+        {
+          "row_id": "row_0051:anon_slot_011",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-06-11",
+          "value": null,
+          "span_ids": "span_0050"
+        }
+      ]
+    },
+    "18 prospective acquirers contacted by bofa merrill lynch anon_slot_012": {
+      "alex_count": 0,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_012",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-04-01",
+          "value": null,
+          "span_ids": "span_0019|span_0020"
+        },
+        {
+          "row_id": "row_0051:anon_slot_012",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-06-11",
+          "value": null,
+          "span_ids": "span_0050"
+        }
+      ]
+    },
+    "18 prospective acquirers contacted by bofa merrill lynch anon_slot_013": {
+      "alex_count": 0,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_013",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-04-01",
+          "value": null,
+          "span_ids": "span_0019|span_0020"
+        },
+        {
+          "row_id": "row_0051:anon_slot_013",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-06-11",
+          "value": null,
+          "span_ids": "span_0050"
+        }
+      ]
+    },
+    "18 prospective acquirers contacted by bofa merrill lynch anon_slot_014": {
+      "alex_count": 0,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_014",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-04-01",
+          "value": null,
+          "span_ids": "span_0019|span_0020"
+        },
+        {
+          "row_id": "row_0051:anon_slot_014",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-06-11",
+          "value": null,
+          "span_ids": "span_0050"
+        }
+      ]
+    },
+    "18 prospective acquirers contacted by bofa merrill lynch anon_slot_015": {
+      "alex_count": 0,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_015",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-04-01",
+          "value": null,
+          "span_ids": "span_0019|span_0020"
+        },
+        {
+          "row_id": "row_0051:anon_slot_015",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-06-11",
+          "value": null,
+          "span_ids": "span_0050"
+        }
+      ]
+    },
+    "18 prospective acquirers contacted by bofa merrill lynch anon_slot_016": {
+      "alex_count": 0,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_016",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-04-01",
+          "value": null,
+          "span_ids": "span_0019|span_0020"
+        },
+        {
+          "row_id": "row_0051:anon_slot_016",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-06-11",
+          "value": null,
+          "span_ids": "span_0050"
+        }
+      ]
+    },
+    "18 prospective acquirers contacted by bofa merrill lynch anon_slot_017": {
+      "alex_count": 0,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_017",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-04-01",
+          "value": null,
+          "span_ids": "span_0019|span_0020"
+        },
+        {
+          "row_id": "row_0051:anon_slot_017",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-06-11",
+          "value": null,
+          "span_ids": "span_0050"
+        }
+      ]
+    },
+    "18 prospective acquirers contacted by bofa merrill lynch anon_slot_018": {
+      "alex_count": 0,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0027:anon_slot_018",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-04-01",
+          "value": null,
+          "span_ids": "span_0019|span_0020"
+        },
+        {
+          "row_id": "row_0051:anon_slot_018",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-06-11",
+          "value": null,
+          "span_ids": "span_0050"
+        }
+      ]
+    },
+    "balch hill partners": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0003",
+          "category": "bid_press_release",
+          "event_type": "bid_press_release",
+          "date": "2012-11-16",
+          "value": null,
+          "span_ids": "span_0006|span_0008|span_0067"
+        }
+      ]
+    },
+    "bofa merrill lynch": {
+      "alex_count": 1,
+      "pipeline_count": 0,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [
+        {
+          "bidder_id": 0.8,
+          "category": "ib_retention",
+          "bid_note": "IB",
+          "date": "2013-04-04",
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": []
+    },
+    "company a": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0002",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": "2012-11-14",
+          "value": null,
+          "span_ids": "span_0005"
+        }
+      ]
+    },
+    "company b": {
+      "alex_count": 1,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [
+        {
+          "bidder_id": 0.5,
+          "category": "interest",
+          "bid_note": "Bidder Interest",
+          "date": "2013-04-04",
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0004",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": "2013-02-13",
+          "value": null,
+          "span_ids": "span_0011"
+        },
+        {
+          "row_id": "row_0043",
+          "category": "drop",
+          "event_type": "drop",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0012"
+        }
+      ]
+    },
+    "company c": {
+      "alex_count": 0,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0005",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": "2013-03-13",
+          "value": null,
+          "span_ids": "span_0013"
+        },
+        {
+          "row_id": "row_0044",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-04-15",
+          "value": null,
+          "span_ids": "span_0024"
+        }
+      ]
+    },
+    "company d": {
+      "alex_count": 4,
+      "pipeline_count": 13,
+      "matched": 3,
+      "exact_matches": 3,
+      "disagreements": [],
+      "unmatched_alex": [
+        {
+          "bidder_id": 0.7,
+          "category": "interest",
+          "bid_note": "Bidder Interest",
+          "date": "2013-04-04",
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0013",
+          "category": "bid",
+          "event_type": "proposal",
+          "date": "2013-04-23",
+          "value": null,
+          "span_ids": "span_0028"
+        },
+        {
+          "row_id": "row_0030",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-04-23",
+          "value": null,
+          "span_ids": "span_0027"
+        },
+        {
+          "row_id": "row_0031",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-05-03",
+          "value": null,
+          "span_ids": "span_0027"
+        },
+        {
+          "row_id": "row_0036",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-05-16",
+          "value": null,
+          "span_ids": "span_0037"
+        },
+        {
+          "row_id": "row_0020",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": "2013-05-28",
+          "value": null,
+          "span_ids": "span_0040"
+        },
+        {
+          "row_id": "row_0037",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-05-28",
+          "value": null,
+          "span_ids": "span_0037"
+        },
+        {
+          "row_id": "row_0040",
+          "category": "final_round",
+          "event_type": "final_round_ann",
+          "date": "2013-05-29",
+          "value": null,
+          "span_ids": "span_0041"
+        },
+        {
+          "row_id": "row_0022",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": "2013-05-30",
+          "value": null,
+          "span_ids": "span_0043"
+        },
+        {
+          "row_id": "row_0041",
+          "category": "final_round",
+          "event_type": "final_round",
+          "date": "2013-05-30",
+          "value": null,
+          "span_ids": "span_0041"
+        },
+        {
+          "row_id": "row_0006",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0014"
+        }
+      ]
+    },
+    "company e": {
+      "alex_count": 2,
+      "pipeline_count": 2,
+      "matched": 2,
+      "exact_matches": 1,
+      "disagreements": [
+        {
+          "match_quality": "category_only",
+          "disagreements": [
+            {
+              "field": "date",
+              "pipeline": null,
+              "alex": "2013-04-24"
+            }
+          ],
+          "pipeline_row_id": "row_0046",
+          "alex_bidder_id": 7,
+          "filing_evidence": [
+            "[span_0026] or sTec regarding a possible transaction. Shortly thereafter, Company E indicated it was also only interested in purchasing limited, select assets of sTec, and as a result the special committee decided not to continue discussions with Company E."
+          ]
+        }
+      ],
+      "unmatched_alex": [],
+      "unmatched_pipeline": []
+    },
+    "company f": {
+      "alex_count": 2,
+      "pipeline_count": 2,
+      "matched": 2,
+      "exact_matches": 2,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": []
+    },
+    "company g": {
+      "alex_count": 2,
+      "pipeline_count": 4,
+      "matched": 2,
+      "exact_matches": 2,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0032",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-04-26",
+          "value": null,
+          "span_ids": "span_0029"
+        },
+        {
+          "row_id": "row_0033",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-05-03",
+          "value": null,
+          "span_ids": "span_0029"
+        }
+      ]
+    },
+    "company h": {
+      "alex_count": 3,
+      "pipeline_count": 4,
+      "matched": 3,
+      "exact_matches": 2,
+      "disagreements": [
+        {
+          "match_quality": "date_category",
+          "disagreements": [
+            {
+              "field": "value",
+              "pipeline": null,
+              "alex": 5.0
+            }
+          ],
+          "pipeline_row_id": "row_0018",
+          "alex_bidder_id": 13,
+          "filing_evidence": [
+            "[span_0035] On May 15, 2013, Company H submitted a written non-binding indication of interest to acquire the company at a purchase price in the range of $5.00 \u0096 $5.75 per share in cash."
+          ]
+        }
+      ],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0014",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": "2013-05-01",
+          "value": null,
+          "span_ids": "span_0030"
+        }
+      ]
+    },
+    "stec board of directors": {
+      "alex_count": 0,
+      "pipeline_count": 2,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0007",
+          "category": "target_sale",
+          "event_type": "target_sale",
+          "date": "2013-03-26",
+          "value": null,
+          "span_ids": "span_0016|span_0018"
+        },
+        {
+          "row_id": "row_0001",
+          "category": "target_sale",
+          "event_type": "target_sale",
+          "date": null,
+          "value": null,
+          "span_ids": "span_0003|span_0004"
+        }
+      ]
+    },
+    "wdc": {
+      "alex_count": 6,
+      "pipeline_count": 15,
+      "matched": 6,
+      "exact_matches": 3,
+      "disagreements": [
+        {
+          "match_quality": "date_category",
+          "disagreements": [
+            {
+              "field": "value",
+              "pipeline": null,
+              "alex": 6.6
+            }
+          ],
+          "pipeline_row_id": "row_0015",
+          "alex_bidder_id": 9,
+          "filing_evidence": [
+            "[span_0031] On May 3, 2013, WDC submitted a written indication of interest to acquire the company at a purchase price in the range of $6.60 \u0096 $7.10 per share in cash. Also on May 3, 2013, Company G indicated it would not continue in the process."
+          ]
+        },
+        {
+          "match_quality": "date_category",
+          "disagreements": [
+            {
+              "field": "value",
+              "pipeline": null,
+              "alex": 6.6
+            }
+          ],
+          "pipeline_row_id": "row_0023",
+          "alex_bidder_id": 18,
+          "filing_evidence": [
+            "[span_0048] On June 10, 2013, WDC submitted a revised written indication of interest to acquire the company at a price range of $6.60 to $7.10 per share in cash. The representative from WDC also communicated to BofA Merrill Lynch that WDC had given serious consideration to not proceeding with a transaction, that WDC did not view the acquisition of sTec as essential to its SSD strategy in",
+            "[span_0049] per share in cash. The representative from WDC also communicated to BofA Merrill Lynch that WDC had given serious consideration to not proceeding with a transaction, that WDC did not view the acquisition of sTec as essential to its SSD strategy in light of other available alternatives (including internal development efforts), and that according to WDC certain business factors related to the company had also influenced WDC\u0092s decision to lower the price from its May 30, 2013 written indication of "
+          ]
+        },
+        {
+          "match_quality": "category_only",
+          "disagreements": [
+            {
+              "field": "date",
+              "pipeline": "2013-06-23",
+              "alex": "2013-06-14"
+            }
+          ],
+          "pipeline_row_id": "row_0026",
+          "alex_bidder_id": 20,
+          "filing_evidence": [
+            "[span_0054] On June 23, 2013, sTec, WDC, and Merger Sub executed the merger agreement; each of our officers and directors executed their"
+          ]
+        }
+      ],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0028",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-04-23",
+          "value": null,
+          "span_ids": "span_0027"
+        },
+        {
+          "row_id": "row_0029",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-05-03",
+          "value": null,
+          "span_ids": "span_0027"
+        },
+        {
+          "row_id": "row_0034",
+          "category": "final_round",
+          "event_type": "final_round_inf_ann",
+          "date": "2013-05-16",
+          "value": null,
+          "span_ids": "span_0037"
+        },
+        {
+          "row_id": "row_0035",
+          "category": "final_round",
+          "event_type": "final_round_inf",
+          "date": "2013-05-28",
+          "value": null,
+          "span_ids": "span_0037"
+        },
+        {
+          "row_id": "row_0038",
+          "category": "final_round",
+          "event_type": "final_round_ann",
+          "date": "2013-05-29",
+          "value": null,
+          "span_ids": "span_0041"
+        },
+        {
+          "row_id": "row_0021",
+          "category": "bid",
+          "event_type": "proposal",
+          "date": "2013-05-30",
+          "value": 9.15,
+          "span_ids": "span_0042"
+        },
+        {
+          "row_id": "row_0039",
+          "category": "final_round",
+          "event_type": "final_round",
+          "date": "2013-05-30",
+          "value": null,
+          "span_ids": "span_0041"
+        },
+        {
+          "row_id": "row_0049",
+          "category": "drop",
+          "event_type": "drop",
+          "date": "2013-05-31",
+          "value": null,
+          "span_ids": "span_0045|span_0066"
+        },
+        {
+          "row_id": "row_0042",
+          "category": "final_round",
+          "event_type": "final_round_ann",
+          "date": "2013-06-11",
+          "value": null,
+          "span_ids": "span_0050"
+        }
+      ]
+    }
+  },
+  "disagreement_details": [
+    {
+      "family": "company e",
+      "match_quality": "category_only",
+      "disagreements": [
+        {
+          "field": "date",
+          "pipeline": null,
+          "alex": "2013-04-24"
+        }
+      ],
+      "pipeline_row_id": "row_0046",
+      "alex_bidder_id": 7,
+      "filing_evidence": [
+        "[span_0026] or sTec regarding a possible transaction. Shortly thereafter, Company E indicated it was also only interested in purchasing limited, select assets of sTec, and as a result the special committee decided not to continue discussions with Company E."
+      ]
+    },
+    {
+      "family": "company h",
+      "match_quality": "date_category",
+      "disagreements": [
+        {
+          "field": "value",
+          "pipeline": null,
+          "alex": 5.0
+        }
+      ],
+      "pipeline_row_id": "row_0018",
+      "alex_bidder_id": 13,
+      "filing_evidence": [
+        "[span_0035] On May 15, 2013, Company H submitted a written non-binding indication of interest to acquire the company at a purchase price in the range of $5.00 \u0096 $5.75 per share in cash."
+      ]
+    },
+    {
+      "family": "wdc",
+      "match_quality": "date_category",
+      "disagreements": [
+        {
+          "field": "value",
+          "pipeline": null,
+          "alex": 6.6
+        }
+      ],
+      "pipeline_row_id": "row_0015",
+      "alex_bidder_id": 9,
+      "filing_evidence": [
+        "[span_0031] On May 3, 2013, WDC submitted a written indication of interest to acquire the company at a purchase price in the range of $6.60 \u0096 $7.10 per share in cash. Also on May 3, 2013, Company G indicated it would not continue in the process."
+      ]
+    },
+    {
+      "family": "wdc",
+      "match_quality": "date_category",
+      "disagreements": [
+        {
+          "field": "value",
+          "pipeline": null,
+          "alex": 6.6
+        }
+      ],
+      "pipeline_row_id": "row_0023",
+      "alex_bidder_id": 18,
+      "filing_evidence": [
+        "[span_0048] On June 10, 2013, WDC submitted a revised written indication of interest to acquire the company at a price range of $6.60 to $7.10 per share in cash. The representative from WDC also communicated to BofA Merrill Lynch that WDC had given serious consideration to not proceeding with a transaction, that WDC did not view the acquisition of sTec as essential to its SSD strategy in",
+        "[span_0049] per share in cash. The representative from WDC also communicated to BofA Merrill Lynch that WDC had given serious consideration to not proceeding with a transaction, that WDC did not view the acquisition of sTec as essential to its SSD strategy in light of other available alternatives (including internal development efforts), and that according to WDC certain business factors related to the company had also influenced WDC\u0092s decision to lower the price from its May 30, 2013 written indication of "
+      ]
+    },
+    {
+      "family": "wdc",
+      "match_quality": "category_only",
+      "disagreements": [
+        {
+          "field": "date",
+          "pipeline": "2013-06-23",
+          "alex": "2013-06-14"
+        }
+      ],
+      "pipeline_row_id": "row_0026",
+      "alex_bidder_id": 20,
+      "filing_evidence": [
+        "[span_0054] On June 23, 2013, sTec, WDC, and Merger Sub executed the merger agreement; each of our officers and directors executed their"
+      ]
+    }
+  ],
+  "verdicts": [
+    {
+      "family": "company e",
+      "field": "date",
+      "pipeline_value": null,
+      "alex_value": "2013-04-24",
+      "verdict": "both",
+      "reasoning": "The filing states Company F declined on April 24, and 'Shortly thereafter, Company E indicated it was also only interested in purchasing limited, select assets of sTec.' No explicit date is given for Company E's withdrawal. Alex anchors on April 24 (Company F's date); the pipeline records null with a derived sort-proxy of 2013-04-27. Neither is precisely filing-grounded. Both are defensible interpretations of imprecise temporal language."
+    },
+    {
+      "family": "company h",
+      "field": "value",
+      "pipeline_value": null,
+      "alex_value": 5.0,
+      "verdict": "both",
+      "reasoning": "The filing states Company H's indication of interest was '$5.00 - $5.75 per share in cash' -- a range, not a point price. The pipeline correctly records this as a range (range_low=5.0, range_high=5.75) and leaves the single-value field null. Alex records 5.0 (the low end of the range), which is a standard analyst convention. Both approaches are valid: pipeline preserves range fidelity, Alex uses low-end convention."
+    },
+    {
+      "family": "wdc",
+      "field": "value",
+      "pipeline_value": null,
+      "alex_value": 6.6,
+      "verdict": "both",
+      "reasoning": "The filing states WDC's May 3, 2013 indication of interest was '$6.60 - $7.10 per share in cash' -- a range. The pipeline records range_low=6.6 and range_high=7.1 but leaves the single-value field null. Alex records 6.6 (low end). Same range-vs-point convention difference as Company H. Both are valid representations."
+    },
+    {
+      "family": "wdc",
+      "field": "value",
+      "pipeline_value": null,
+      "alex_value": 6.6,
+      "verdict": "both",
+      "reasoning": "The filing states WDC's June 10, 2013 revised indication of interest was '$6.60 to $7.10 per share in cash' -- again a range. The pipeline records range_low=6.6 and range_high=7.1, leaving single-value null. Alex records 6.6 (low end). This is the same range-vs-point convention difference. Both are valid. Note: this was a significant downward revision from WDC's May 30 indication at $9.15/share."
+    },
+    {
+      "family": "wdc",
+      "field": "date",
+      "pipeline_value": "2013-06-23",
+      "alex_value": "2013-06-14",
+      "verdict": "pipeline",
+      "reasoning": "The filing is unambiguous: 'On June 23, 2013, sTec, WDC, and Merger Sub executed the merger agreement.' The June 14 date corresponds to WDC submitting its final $6.85/share proposal, not the merger agreement execution. Alex appears to have recorded the final proposal date rather than the actual execution/signing date. Pipeline is correct for an 'executed' event type."
+    }
+  ]
+}

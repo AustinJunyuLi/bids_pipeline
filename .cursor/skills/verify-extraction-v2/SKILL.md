@@ -81,6 +81,17 @@ After canonicalization / validation:
   bidder-cohort refs.
 - Every cohort `created_by_observation_id` must resolve to a real observation.
 
+### Actor Completeness
+
+- Verify all named parties in the filing (Party A, Bidder 2, Company C, etc.)
+  have corresponding extracted party records with `role: bidder`.
+- Check `coverage_findings.json` for `bidder_inventory` or `actor_roster`
+  findings — these indicate the filing names actors that have no extracted party.
+- Check `count_assertion` findings — these indicate the filing asserts a bidder
+  count (e.g., "five parties submitted") that no cohort's `exact_count` matches.
+- When actor completeness findings exist, search the filing text for the named
+  actor and add the missing party + observations to `observations_raw.json`.
+
 ### Literal-Only Boundary
 
 - Do not add analyst rows.

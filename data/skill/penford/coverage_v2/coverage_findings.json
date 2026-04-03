@@ -637,6 +637,31 @@
       "supporting_observation_ids": [],
       "supporting_party_ids": [],
       "supporting_cohort_ids": []
+    },
+    {
+      "cue_family": "actor_roster",
+      "status": "not_found",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "Party alias 'Party G' appears 2 times in chronology blocks but no extracted party matches.",
+      "reason_code": "missing_roster_party",
+      "supporting_event_ids": [],
+      "supporting_actor_ids": [],
+      "supporting_span_ids": [],
+      "block_ids": [
+        "B058",
+        "B070"
+      ],
+      "evidence_ids": [],
+      "matched_terms": [
+        "Party G"
+      ],
+      "confidence": "medium",
+      "suggested_event_types": [],
+      "note": null,
+      "supporting_observation_ids": [],
+      "supporting_party_ids": [],
+      "supporting_cohort_ids": []
     }
   ]
 }

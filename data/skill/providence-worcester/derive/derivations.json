@@ -24,6 +24,17 @@
       "transition_id": "exit-01_bidder_party_d_obs_evt_022",
       "subject_ref": "bidder_party_d",
       "subject_count": 1,
+      "event_date": {
+        "raw_text": "August 2, 2016",
+        "normalized_start": "2016-08-02",
+        "normalized_end": "2016-08-02",
+        "sort_date": "2016-08-02",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
       "from_state": "submitted",
       "to_state": "inactive",
       "reason_kind": "literal",
@@ -40,95 +51,159 @@
       }
     },
     {
-      "transition_id": "exit-04_bidder_party_a_obs_evt_024",
+      "transition_id": "exit-04_bidder_party_a_obs_evt_008",
       "subject_ref": "bidder_party_a",
       "subject_count": 1,
+      "event_date": {
+        "raw_text": "July 20, 2016",
+        "normalized_start": "2016-07-20",
+        "normalized_end": "2016-07-20",
+        "sort_date": "2016-07-20",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
       "from_state": "active",
       "to_state": "inactive",
       "reason_kind": "lost_to_winner",
       "basis": {
         "rule_id": "EXIT-04",
         "source_observation_ids": [
-          "obs_evt_024"
+          "obs_evt_008"
         ],
         "source_span_ids": [
-          "span_0022"
+          "span_0001"
         ],
         "confidence": "high",
         "explanation": "Execution outcome closed out remaining active bidders in favor of the winner."
       }
     },
     {
-      "transition_id": "exit-04_bidder_party_b_obs_evt_024",
+      "transition_id": "exit-04_bidder_party_b_obs_evt_014",
       "subject_ref": "bidder_party_b",
       "subject_count": 1,
+      "event_date": {
+        "raw_text": "late July 2016",
+        "normalized_start": "2016-07-21",
+        "normalized_end": "2016-07-31",
+        "sort_date": "2016-07-25",
+        "precision": "month_late",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
       "from_state": "submitted",
       "to_state": "inactive",
       "reason_kind": "lost_to_winner",
       "basis": {
         "rule_id": "EXIT-04",
         "source_observation_ids": [
-          "obs_evt_024"
+          "obs_evt_014"
         ],
         "source_span_ids": [
-          "span_0022"
+          "span_0011",
+          "span_0001",
+          "span_0010"
         ],
         "confidence": "high",
         "explanation": "Execution outcome closed out remaining active bidders in favor of the winner."
       }
     },
     {
-      "transition_id": "exit-04_bidder_party_c_obs_evt_024",
+      "transition_id": "exit-04_bidder_party_c_obs_evt_017",
       "subject_ref": "bidder_party_c",
       "subject_count": 1,
+      "event_date": {
+        "raw_text": "late July 2016",
+        "normalized_start": "2016-07-21",
+        "normalized_end": "2016-07-31",
+        "sort_date": "2016-07-25",
+        "precision": "month_late",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
       "from_state": "submitted",
       "to_state": "inactive",
       "reason_kind": "lost_to_winner",
       "basis": {
         "rule_id": "EXIT-04",
         "source_observation_ids": [
-          "obs_evt_024"
+          "obs_evt_017"
         ],
         "source_span_ids": [
-          "span_0022"
+          "span_0015",
+          "span_0001"
         ],
         "confidence": "high",
         "explanation": "Execution outcome closed out remaining active bidders in favor of the winner."
       }
     },
     {
-      "transition_id": "exit-04_bidder_party_e_obs_evt_024",
+      "transition_id": "exit-04_bidder_party_e_obs_evt_021",
       "subject_ref": "bidder_party_e",
       "subject_count": 1,
+      "event_date": {
+        "raw_text": "August 1, 2016",
+        "normalized_start": "2016-08-01",
+        "normalized_end": "2016-08-01",
+        "sort_date": "2016-08-01",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
       "from_state": "submitted",
       "to_state": "inactive",
       "reason_kind": "lost_to_winner",
       "basis": {
         "rule_id": "EXIT-04",
         "source_observation_ids": [
-          "obs_evt_024"
+          "obs_evt_021"
         ],
         "source_span_ids": [
-          "span_0022"
+          "span_0017",
+          "span_0018",
+          "span_0018",
+          "span_0001"
         ],
         "confidence": "high",
         "explanation": "Execution outcome closed out remaining active bidders in favor of the winner."
       }
     },
     {
-      "transition_id": "exit-04_bidder_party_f_obs_evt_024",
+      "transition_id": "exit-04_bidder_party_f_obs_evt_021",
       "subject_ref": "bidder_party_f",
       "subject_count": 1,
+      "event_date": {
+        "raw_text": "August 1, 2016",
+        "normalized_start": "2016-08-01",
+        "normalized_end": "2016-08-01",
+        "sort_date": "2016-08-01",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
       "from_state": "submitted",
       "to_state": "inactive",
       "reason_kind": "lost_to_winner",
       "basis": {
         "rule_id": "EXIT-04",
         "source_observation_ids": [
-          "obs_evt_024"
+          "obs_evt_021"
         ],
         "source_span_ids": [
-          "span_0022"
+          "span_0017",
+          "span_0018",
+          "span_0018",
+          "span_0001"
         ],
         "confidence": "high",
         "explanation": "Execution outcome closed out remaining active bidders in favor of the winner."
@@ -190,8 +265,11 @@
       "value": null,
       "range_low": null,
       "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
       "date_recorded": "2016-01-27",
       "date_public": "2016-01-27",
+      "date_sort_proxy": null,
       "all_cash": null,
       "review_flags": [],
       "basis": {
@@ -218,8 +296,11 @@
       "value": null,
       "range_low": null,
       "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
       "date_recorded": "2016-03-14",
       "date_public": "2016-03-14",
+      "date_sort_proxy": null,
       "all_cash": null,
       "review_flags": [],
       "basis": {
@@ -247,8 +328,11 @@
       "value": null,
       "range_low": null,
       "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
       "date_recorded": "2016-04-22",
       "date_public": "2016-04-22",
+      "date_sort_proxy": null,
       "all_cash": null,
       "review_flags": [],
       "basis": {
@@ -275,8 +359,11 @@
       "value": null,
       "range_low": null,
       "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
       "date_recorded": "2016-04-22",
       "date_public": "2016-04-22",
+      "date_sort_proxy": null,
       "all_cash": null,
       "review_flags": [],
       "basis": {
@@ -303,8 +390,11 @@
       "value": null,
       "range_low": null,
       "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
       "date_recorded": "2016-04-22",
       "date_public": "2016-04-22",
+      "date_sort_proxy": null,
       "all_cash": null,
       "review_flags": [],
       "basis": {
@@ -331,8 +421,11 @@
       "value": null,
       "range_low": null,
       "range_high": null,
-      "date_recorded": "2016-07-05",
+      "enterprise_value": null,
+      "date_precision": "month_early",
+      "date_recorded": null,
       "date_public": null,
+      "date_sort_proxy": "2016-07-05",
       "all_cash": null,
       "review_flags": [],
       "basis": {
@@ -359,8 +452,11 @@
       "value": null,
       "range_low": null,
       "range_high": null,
-      "date_recorded": "2016-07-05",
+      "enterprise_value": null,
+      "date_precision": "month_early",
+      "date_recorded": null,
       "date_public": null,
+      "date_sort_proxy": "2016-07-05",
       "all_cash": null,
       "review_flags": [],
       "basis": {
@@ -387,8 +483,11 @@
       "value": "21.00",
       "range_low": null,
       "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
       "date_recorded": "2016-07-12",
       "date_public": "2016-07-12",
+      "date_sort_proxy": null,
       "all_cash": true,
       "review_flags": [],
       "basis": {
@@ -415,8 +514,11 @@
       "value": "21.15",
       "range_low": null,
       "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
       "date_recorded": "2016-07-21",
       "date_public": "2016-07-21",
+      "date_sort_proxy": null,
       "all_cash": true,
       "review_flags": [],
       "basis": {
@@ -445,8 +547,11 @@
       "value": "24.00",
       "range_low": null,
       "range_high": null,
-      "date_recorded": "2016-07-25",
+      "enterprise_value": null,
+      "date_precision": "month_late",
+      "date_recorded": null,
       "date_public": null,
+      "date_sort_proxy": "2016-07-25",
       "all_cash": true,
       "review_flags": [],
       "basis": {
@@ -475,8 +580,11 @@
       "value": "21.26",
       "range_low": null,
       "range_high": null,
-      "date_recorded": "2016-07-25",
+      "enterprise_value": null,
+      "date_precision": "month_late",
+      "date_recorded": null,
       "date_public": null,
+      "date_sort_proxy": "2016-07-25",
       "all_cash": true,
       "review_flags": [],
       "basis": {
@@ -505,8 +613,11 @@
       "value": "21.00",
       "range_low": null,
       "range_high": null,
-      "date_recorded": "2016-07-25",
+      "enterprise_value": null,
+      "date_precision": "month_late",
+      "date_recorded": null,
       "date_public": null,
+      "date_sort_proxy": "2016-07-25",
       "all_cash": true,
       "review_flags": [],
       "basis": {
@@ -531,12 +642,15 @@
       "row_count": 1,
       "bidder_name": "Party C",
       "bidder_type": "S",
-      "bid_type": "Formal",
+      "bid_type": "Informal",
       "value": "19.30",
       "range_low": null,
       "range_high": null,
-      "date_recorded": "2016-07-25",
+      "enterprise_value": null,
+      "date_precision": "month_late",
+      "date_recorded": null,
       "date_public": null,
+      "date_sort_proxy": "2016-07-25",
       "all_cash": true,
       "review_flags": [],
       "basis": {
@@ -560,12 +674,15 @@
       "row_count": 1,
       "bidder_name": "Party F",
       "bidder_type": "S",
-      "bid_type": "Formal",
+      "bid_type": "Informal",
       "value": "19.20",
       "range_low": null,
       "range_high": null,
-      "date_recorded": "2016-07-25",
+      "enterprise_value": null,
+      "date_precision": "month_late",
+      "date_recorded": null,
       "date_public": null,
+      "date_sort_proxy": "2016-07-25",
       "all_cash": true,
       "review_flags": [],
       "basis": {
@@ -589,12 +706,15 @@
       "row_count": 1,
       "bidder_name": "Party D",
       "bidder_type": "F",
-      "bid_type": "Formal",
+      "bid_type": "Informal",
       "value": "24.00",
       "range_low": null,
       "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
       "date_recorded": "2016-08-01",
       "date_public": "2016-08-01",
+      "date_sort_proxy": null,
       "all_cash": true,
       "review_flags": [],
       "basis": {
@@ -618,12 +738,15 @@
       "row_count": 1,
       "bidder_name": "Party E",
       "bidder_type": "S",
-      "bid_type": "Formal",
+      "bid_type": "Informal",
       "value": "23.81",
       "range_low": null,
       "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
       "date_recorded": "2016-08-01",
       "date_public": "2016-08-01",
+      "date_sort_proxy": null,
       "all_cash": true,
       "review_flags": [],
       "basis": {
@@ -649,12 +772,15 @@
       "row_count": 1,
       "bidder_name": "Party F",
       "bidder_type": "S",
-      "bid_type": "Formal",
+      "bid_type": "Informal",
       "value": "23.81",
       "range_low": null,
       "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
       "date_recorded": "2016-08-01",
       "date_public": "2016-08-01",
+      "date_sort_proxy": null,
       "all_cash": true,
       "review_flags": [],
       "basis": {
@@ -684,8 +810,11 @@
       "value": "25.00",
       "range_low": null,
       "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
       "date_recorded": "2016-08-12",
       "date_public": "2016-08-12",
+      "date_sort_proxy": null,
       "all_cash": true,
       "review_flags": [],
       "basis": {
@@ -713,8 +842,11 @@
       "value": null,
       "range_low": null,
       "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
       "date_recorded": "2016-08-15",
       "date_public": "2016-08-15",
+      "date_sort_proxy": null,
       "all_cash": null,
       "review_flags": [],
       "basis": {
@@ -741,8 +873,11 @@
       "value": null,
       "range_low": null,
       "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "unknown",
       "date_recorded": null,
       "date_public": null,
+      "date_sort_proxy": null,
       "all_cash": null,
       "review_flags": [],
       "basis": {
@@ -769,8 +904,11 @@
       "value": null,
       "range_low": null,
       "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "unknown",
       "date_recorded": null,
       "date_public": null,
+      "date_sort_proxy": null,
       "all_cash": null,
       "review_flags": [],
       "basis": {
@@ -797,8 +935,11 @@
       "value": null,
       "range_low": null,
       "range_high": null,
-      "date_recorded": "2016-06-15",
+      "enterprise_value": null,
+      "date_precision": "month_mid",
+      "date_recorded": null,
       "date_public": null,
+      "date_sort_proxy": "2016-06-15",
       "all_cash": true,
       "review_flags": [],
       "basis": {
@@ -825,8 +966,11 @@
       "value": null,
       "range_low": null,
       "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
       "date_recorded": "2016-07-20",
       "date_public": "2016-07-20",
+      "date_sort_proxy": null,
       "all_cash": true,
       "review_flags": [],
       "basis": {
@@ -853,8 +997,11 @@
       "value": null,
       "range_low": null,
       "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
       "date_recorded": "2016-08-02",
       "date_public": "2016-08-02",
+      "date_sort_proxy": null,
       "all_cash": null,
       "review_flags": [],
       "basis": {
@@ -881,8 +1028,11 @@
       "value": null,
       "range_low": null,
       "range_high": null,
-      "date_recorded": null,
-      "date_public": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2016-07-20",
+      "date_public": "2016-07-20",
+      "date_sort_proxy": null,
       "all_cash": null,
       "review_flags": [
         "reason:lost_to_winner"
@@ -890,10 +1040,10 @@
       "basis": {
         "rule_id": "EXIT-04",
         "source_observation_ids": [
-          "obs_evt_024"
+          "obs_evt_008"
         ],
         "source_span_ids": [
-          "span_0022"
+          "span_0001"
         ],
         "confidence": "high",
         "explanation": "Execution outcome closed out remaining active bidders in favor of the winner."
@@ -911,8 +1061,11 @@
       "value": null,
       "range_low": null,
       "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "month_late",
       "date_recorded": null,
       "date_public": null,
+      "date_sort_proxy": "2016-07-25",
       "all_cash": null,
       "review_flags": [
         "reason:lost_to_winner"
@@ -920,10 +1073,12 @@
       "basis": {
         "rule_id": "EXIT-04",
         "source_observation_ids": [
-          "obs_evt_024"
+          "obs_evt_014"
         ],
         "source_span_ids": [
-          "span_0022"
+          "span_0011",
+          "span_0001",
+          "span_0010"
         ],
         "confidence": "high",
         "explanation": "Execution outcome closed out remaining active bidders in favor of the winner."
@@ -941,8 +1096,11 @@
       "value": null,
       "range_low": null,
       "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "month_late",
       "date_recorded": null,
       "date_public": null,
+      "date_sort_proxy": "2016-07-25",
       "all_cash": null,
       "review_flags": [
         "reason:lost_to_winner"
@@ -950,10 +1108,11 @@
       "basis": {
         "rule_id": "EXIT-04",
         "source_observation_ids": [
-          "obs_evt_024"
+          "obs_evt_017"
         ],
         "source_span_ids": [
-          "span_0022"
+          "span_0015",
+          "span_0001"
         ],
         "confidence": "high",
         "explanation": "Execution outcome closed out remaining active bidders in favor of the winner."
@@ -971,8 +1130,11 @@
       "value": null,
       "range_low": null,
       "range_high": null,
-      "date_recorded": null,
-      "date_public": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2016-08-01",
+      "date_public": "2016-08-01",
+      "date_sort_proxy": null,
       "all_cash": null,
       "review_flags": [
         "reason:lost_to_winner"
@@ -980,10 +1142,13 @@
       "basis": {
         "rule_id": "EXIT-04",
         "source_observation_ids": [
-          "obs_evt_024"
+          "obs_evt_021"
         ],
         "source_span_ids": [
-          "span_0022"
+          "span_0017",
+          "span_0018",
+          "span_0018",
+          "span_0001"
         ],
         "confidence": "high",
         "explanation": "Execution outcome closed out remaining active bidders in favor of the winner."
@@ -1001,8 +1166,11 @@
       "value": null,
       "range_low": null,
       "range_high": null,
-      "date_recorded": null,
-      "date_public": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2016-08-01",
+      "date_public": "2016-08-01",
+      "date_sort_proxy": null,
       "all_cash": null,
       "review_flags": [
         "reason:lost_to_winner"
@@ -1010,10 +1178,13 @@
       "basis": {
         "rule_id": "EXIT-04",
         "source_observation_ids": [
-          "obs_evt_024"
+          "obs_evt_021"
         ],
         "source_span_ids": [
-          "span_0022"
+          "span_0017",
+          "span_0018",
+          "span_0018",
+          "span_0001"
         ],
         "confidence": "high",
         "explanation": "Execution outcome closed out remaining active bidders in favor of the winner."

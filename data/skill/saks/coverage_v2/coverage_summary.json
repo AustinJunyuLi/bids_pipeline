@@ -1,10 +1,11 @@
 {
   "status": "pass",
-  "finding_count": 6,
+  "finding_count": 8,
   "error_count": 0,
-  "warning_count": 6,
+  "warning_count": 8,
   "counts_by_cue_family": {
-    "nda": 2,
-    "advisor": 4
+    "advisor": 6,
+    "nda": 1,
+    "count_assertion": 1
   }
 }

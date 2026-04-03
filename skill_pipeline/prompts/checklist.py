@@ -68,7 +68,9 @@ def _format_checklist_bullet(item: EvidenceItem) -> str:
     hint_parts: list[str] = []
     if item.date_text:
         hint_parts.append(f"date: {item.date_text}")
-    if item.actor_hint:
+    if item.actor_hints:
+        hint_parts.append(f"actors: {', '.join(item.actor_hints)}")
+    elif item.actor_hint:
         hint_parts.append(f"actor: {item.actor_hint}")
     if item.value_hint:
         hint_parts.append(f"value: {item.value_hint}")

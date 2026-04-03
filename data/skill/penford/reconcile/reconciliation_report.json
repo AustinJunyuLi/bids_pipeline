@@ -1,0 +1,514 @@
+{
+  "deal_slug": "penford",
+  "alex_target_name": "PENFORD CORP",
+  "generated_at": "2026-04-02T15:50:37.714581",
+  "summary": {
+    "alex_total_rows": 25,
+    "alex_comparable_events": 25,
+    "pipeline_total_rows": 26,
+    "pipeline_comparable_events": 26,
+    "matched_events": 17,
+    "disagreements": 8,
+    "alex_only_events": 8,
+    "pipeline_only_events": 9,
+    "bidder_families_count": 9
+  },
+  "bid_comparison": {
+    "ingredion": {
+      "alex_bids": 6,
+      "pipeline_bids": 6,
+      "matched": 6,
+      "exact": 4,
+      "with_disagreements": 2,
+      "alex_only": 0,
+      "pipeline_only": 0
+    },
+    "party a": {
+      "alex_bids": 3,
+      "pipeline_bids": 3,
+      "matched": 3,
+      "exact": 1,
+      "with_disagreements": 2,
+      "alex_only": 0,
+      "pipeline_only": 0
+    }
+  },
+  "bidder_families": {
+    "(unnamed)": {
+      "alex_count": 1,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [
+        {
+          "bidder_id": 14.5,
+          "category": "final_round",
+          "bid_note": "Final Round Ann",
+          "date": null,
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0003",
+          "category": "target_sale",
+          "event_type": "target_sale",
+          "date": "2014-07-24",
+          "value": null,
+          "span_ids": "span_0003"
+        }
+      ]
+    },
+    "1 party": {
+      "alex_count": 2,
+      "pipeline_count": 0,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [
+        {
+          "bidder_id": 1,
+          "category": "nda",
+          "bid_note": "NDA",
+          "date": null,
+          "value": null
+        },
+        {
+          "bidder_id": 2,
+          "category": "drop",
+          "bid_note": "Drop",
+          "date": null,
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": []
+    },
+    "a diffferent party": {
+      "alex_count": 2,
+      "pipeline_count": 0,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [
+        {
+          "bidder_id": 3,
+          "category": "nda",
+          "bid_note": "NDA",
+          "date": null,
+          "value": null
+        },
+        {
+          "bidder_id": 4,
+          "category": "drop",
+          "bid_note": "Drop",
+          "date": null,
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": []
+    },
+    "deutsche bank": {
+      "alex_count": 1,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [
+        {
+          "bidder_id": 5.5,
+          "category": "ib_retention",
+          "bid_note": "IB",
+          "date": "2014-08-21",
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0004",
+          "category": "ib_retention",
+          "event_type": "ib_retention",
+          "date": "2014-07-24",
+          "value": null,
+          "span_ids": "span_0004"
+        }
+      ]
+    },
+    "ingredion": {
+      "alex_count": 10,
+      "pipeline_count": 10,
+      "matched": 8,
+      "exact_matches": 5,
+      "disagreements": [
+        {
+          "match_quality": "date_category",
+          "disagreements": [
+            {
+              "field": "value",
+              "pipeline": null,
+              "alex": 18.25
+            },
+            {
+              "field": "bid_type",
+              "pipeline": "Uncertain",
+              "alex": "Informal"
+            }
+          ],
+          "pipeline_row_id": "row_0013",
+          "alex_bidder_id": 10,
+          "filing_evidence": [
+            "[span_0014] that Ingredion could potentially increase its proposal from $18.00 to $18.25 or $18.50 per share on a fully diluted basis. Based on the $14.70 per share closing price of Penford\u0092s common stock on September 16, 2014, the last business day"
+          ]
+        },
+        {
+          "match_quality": "category_only",
+          "disagreements": [
+            {
+              "field": "date",
+              "pipeline": "2014-10-14",
+              "alex": "2014-10-08"
+            }
+          ],
+          "pipeline_row_id": "row_0020",
+          "alex_bidder_id": 18.5,
+          "filing_evidence": [
+            "[span_0022] On October 14, 2014, Mr. Fortnum called Mr. Malkoski to confirm the proposed price of $19.00 and discuss finalizing the draft"
+          ]
+        },
+        {
+          "match_quality": "category_only",
+          "disagreements": [
+            {
+              "field": "date",
+              "pipeline": "2014-10-14",
+              "alex": "2014-10-08"
+            }
+          ],
+          "pipeline_row_id": "row_0022",
+          "alex_bidder_id": 21.5,
+          "filing_evidence": [
+            "[span_0025] During the evening on October 14, 2014, Penford and Ingredion finalized and executed the merger agreement, and Penford, Ingredion and SEACOR executed the voting and support agreement. Penford and Ingredion issued press releases announcing the transaction on October 15, 2014 prior to the opening of trading."
+          ]
+        }
+      ],
+      "unmatched_alex": [
+        {
+          "bidder_id": 4.5,
+          "category": "interest",
+          "bid_note": "Bidder Interest",
+          "date": "2014-07-20",
+          "value": null
+        },
+        {
+          "bidder_id": 8,
+          "category": "nda",
+          "bid_note": "NDA",
+          "date": "2014-08-21",
+          "value": null
+        }
+      ],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0001",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": "2014-07-17",
+          "value": null,
+          "span_ids": "span_0001"
+        },
+        {
+          "row_id": "row_0023",
+          "category": "bid_press_release",
+          "event_type": "bid_press_release",
+          "date": "2014-10-15",
+          "value": null,
+          "span_ids": "span_0026"
+        }
+      ]
+    },
+    "party a": {
+      "alex_count": 5,
+      "pipeline_count": 7,
+      "matched": 5,
+      "exact_matches": 3,
+      "disagreements": [
+        {
+          "match_quality": "date_category",
+          "disagreements": [
+            {
+              "field": "value",
+              "pipeline": null,
+              "alex": 16.0
+            },
+            {
+              "field": "bid_type",
+              "pipeline": "Uncertain",
+              "alex": "Informal"
+            }
+          ],
+          "pipeline_row_id": "row_0019",
+          "alex_bidder_id": 18,
+          "filing_evidence": [
+            "[span_0021] transaction had been reduced from $17.50 - $18.00 per share to $16.00 - $18.00 per share, due to increased volatility in the markets."
+          ]
+        },
+        {
+          "match_quality": "category_only",
+          "disagreements": [
+            {
+              "field": "date",
+              "pipeline": "2014-10-04",
+              "alex": "2014-10-03"
+            },
+            {
+              "field": "value",
+              "pipeline": null,
+              "alex": 17.5
+            }
+          ],
+          "pipeline_row_id": "row_0018",
+          "alex_bidder_id": 15,
+          "filing_evidence": [
+            "[span_0019] Ingredion\u0092s legal counsel. On October 4, Deutsche Bank followed up with Party A regarding the potential transaction with Penford, pursuant to which Party A indicated any offer would be below $17.50 - $18.00 per share in cash. Deutsche Bank"
+          ]
+        }
+      ],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0007",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": "2014-08-11",
+          "value": null,
+          "span_ids": "span_0008"
+        },
+        {
+          "row_id": "row_0008",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": "2014-09-09",
+          "value": null,
+          "span_ids": "span_0009"
+        }
+      ]
+    },
+    "party b": {
+      "alex_count": 0,
+      "pipeline_count": 1,
+      "matched": 0,
+      "exact_matches": 0,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0009",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": "2014-09-09",
+          "value": null,
+          "span_ids": "span_0010"
+        }
+      ]
+    },
+    "party c": {
+      "alex_count": 2,
+      "pipeline_count": 3,
+      "matched": 2,
+      "exact_matches": 2,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0010",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": "2014-09-10",
+          "value": null,
+          "span_ids": "span_0011"
+        }
+      ]
+    },
+    "party d": {
+      "alex_count": 2,
+      "pipeline_count": 3,
+      "matched": 2,
+      "exact_matches": 2,
+      "disagreements": [],
+      "unmatched_alex": [],
+      "unmatched_pipeline": [
+        {
+          "row_id": "row_0011",
+          "category": "interest",
+          "event_type": "bidder_interest",
+          "date": "2014-09-11",
+          "value": null,
+          "span_ids": "span_0012"
+        }
+      ]
+    }
+  },
+  "verdicts": [
+    {
+      "family": "ingredion",
+      "field": "value",
+      "pipeline_value": null,
+      "alex_value": 18.25,
+      "verdict": "both",
+      "reasoning": "Filing says Ingredion 'could potentially increase its proposal from $18.00 to $18.25 or $18.50 per share.' This is a conditional range, not a firm single value. Pipeline correctly recorded range_low=18.25 and range_high=18.50 with no single 'value' since two alternatives were mentioned. Alex chose 18.25 as a point value, which is the low end of the range. Both interpretations are defensible: pipeline is more faithful to the range, Alex picks the lower bound as the representative value."
+    },
+    {
+      "family": "ingredion",
+      "field": "bid_type",
+      "pipeline_value": "Uncertain",
+      "alex_value": "Informal",
+      "verdict": "alex",
+      "reasoning": "Filing says Ingredion 'could potentially increase its proposal' -- this is a verbal, tentative indication conveyed by Mr. Fortnum in a phone call, not a written offer. 'Informal' is the correct classification for a verbal price indication during a phone conversation. Pipeline's 'Uncertain' is less informative and doesn't capture the nature of the communication."
+    },
+    {
+      "family": "ingredion",
+      "field": "date",
+      "pipeline_value": "2014-10-14",
+      "alex_value": "2014-10-08",
+      "verdict": "pipeline",
+      "reasoning": "Disagreement on row_0020 (Ingredion proposal confirmation at $19.00). Filing text at line 1622 states: 'On October 14, 2014, Mr. Fortnum called Mr. Malkoski to confirm the proposed price of $19.00.' The October 8 events in the filing were: (1) Sidley Austin circulating a revised draft merger agreement, and (2) Deutsche Bank meeting Party D about dropping out. No Ingredion price confirmation occurred on Oct 8. Pipeline's Oct 14 date is correct per the filing."
+    },
+    {
+      "family": "ingredion",
+      "field": "date",
+      "pipeline_value": "2014-10-14",
+      "alex_value": "2014-10-08",
+      "verdict": "pipeline",
+      "reasoning": "Disagreement on row_0022 (merger agreement execution). Filing text at line 1655 states: 'During the evening on October 14, 2014, Penford and Ingredion finalized and executed the merger agreement.' There is no merger execution event on Oct 8 in the filing. Pipeline's Oct 14 date is correct per the filing."
+    },
+    {
+      "family": "party a",
+      "field": "value",
+      "pipeline_value": null,
+      "alex_value": 16.0,
+      "verdict": "pipeline",
+      "reasoning": "For the Oct 13 event (row_0019), filing text at line 1616-1617 states Party A 'indicated that its value range for a potential transaction had been reduced from $17.50 - $18.00 per share to $16.00 - $18.00 per share.' This is explicitly a range ($16.00-$18.00), not a single value. Pipeline correctly recorded range_low=16 and range_high=18 with value=null. Alex's $16.00 picks only the low end and loses the upper bound. The formal $16.00 letter came later on October 14 (line 1628), which is a separate event."
+    },
+    {
+      "family": "party a",
+      "field": "bid_type",
+      "pipeline_value": "Uncertain",
+      "alex_value": "Informal",
+      "verdict": "alex",
+      "reasoning": "For the Oct 13 event (row_0019), the filing describes Deutsche Bank having 'a discussion with representatives of Party A' who 'indicated' a value range. This is a verbal indication during a discussion, which is the definition of an informal bid. 'Informal' is the correct classification. Pipeline's 'Uncertain' fails to characterize the communication type."
+    },
+    {
+      "family": "party a",
+      "field": "date",
+      "pipeline_value": "2014-10-04",
+      "alex_value": "2014-10-03",
+      "verdict": "pipeline",
+      "reasoning": "For row_0018 (Party A bid indication). Filing text at line 1570 states: 'On October 4, Deutsche Bank followed up with Party A regarding the potential transaction with Penford, pursuant to which Party A indicated any offer would be below $17.50 - $18.00 per share.' The Oct 3 events in the filing were about Penford's board meeting and Perkins Coie sending a draft merger agreement to Sidley Austin. The Party A follow-up was explicitly on October 4. Pipeline's date is correct."
+    },
+    {
+      "family": "party a",
+      "field": "value",
+      "pipeline_value": null,
+      "alex_value": 17.5,
+      "verdict": "pipeline",
+      "reasoning": "For row_0018, filing says Party A 'indicated any offer would be below $17.50 - $18.00 per share in cash.' This describes a ceiling range that Party A would be below, not a firm offer at $17.50. Pipeline correctly recorded range_low=17.5, range_high=18 with value=null, representing the range Party A referenced as its upper bound. Alex's $17.5 picks one number from the range and mischaracterizes it as the offer value when the filing actually says Party A would be BELOW this range."
+    }
+  ],
+  "disagreement_details": [
+    {
+      "family": "ingredion",
+      "match_quality": "date_category",
+      "disagreements": [
+        {
+          "field": "value",
+          "pipeline": null,
+          "alex": 18.25
+        },
+        {
+          "field": "bid_type",
+          "pipeline": "Uncertain",
+          "alex": "Informal"
+        }
+      ],
+      "pipeline_row_id": "row_0013",
+      "alex_bidder_id": 10,
+      "filing_evidence": [
+        "[span_0014] that Ingredion could potentially increase its proposal from $18.00 to $18.25 or $18.50 per share on a fully diluted basis. Based on the $14.70 per share closing price of Penford\u0092s common stock on September 16, 2014, the last business day"
+      ]
+    },
+    {
+      "family": "ingredion",
+      "match_quality": "category_only",
+      "disagreements": [
+        {
+          "field": "date",
+          "pipeline": "2014-10-14",
+          "alex": "2014-10-08"
+        }
+      ],
+      "pipeline_row_id": "row_0020",
+      "alex_bidder_id": 18.5,
+      "filing_evidence": [
+        "[span_0022] On October 14, 2014, Mr. Fortnum called Mr. Malkoski to confirm the proposed price of $19.00 and discuss finalizing the draft"
+      ]
+    },
+    {
+      "family": "ingredion",
+      "match_quality": "category_only",
+      "disagreements": [
+        {
+          "field": "date",
+          "pipeline": "2014-10-14",
+          "alex": "2014-10-08"
+        }
+      ],
+      "pipeline_row_id": "row_0022",
+      "alex_bidder_id": 21.5,
+      "filing_evidence": [
+        "[span_0025] During the evening on October 14, 2014, Penford and Ingredion finalized and executed the merger agreement, and Penford, Ingredion and SEACOR executed the voting and support agreement. Penford and Ingredion issued press releases announcing the transaction on October 15, 2014 prior to the opening of trading."
+      ]
+    },
+    {
+      "family": "party a",
+      "match_quality": "date_category",
+      "disagreements": [
+        {
+          "field": "value",
+          "pipeline": null,
+          "alex": 16.0
+        },
+        {
+          "field": "bid_type",
+          "pipeline": "Uncertain",
+          "alex": "Informal"
+        }
+      ],
+      "pipeline_row_id": "row_0019",
+      "alex_bidder_id": 18,
+      "filing_evidence": [
+        "[span_0021] transaction had been reduced from $17.50 - $18.00 per share to $16.00 - $18.00 per share, due to increased volatility in the markets."
+      ]
+    },
+    {
+      "family": "party a",
+      "match_quality": "category_only",
+      "disagreements": [
+        {
+          "field": "date",
+          "pipeline": "2014-10-04",
+          "alex": "2014-10-03"
+        },
+        {
+          "field": "value",
+          "pipeline": null,
+          "alex": 17.5
+        }
+      ],
+      "pipeline_row_id": "row_0018",
+      "alex_bidder_id": 15,
+      "filing_evidence": [
+        "[span_0019] Ingredion\u0092s legal counsel. On October 4, Deutsche Bank followed up with Party A regarding the potential transaction with Penford, pursuant to which Party A indicated any offer would be below $17.50 - $18.00 per share in cash. Deutsche Bank"
+      ]
+    }
+  ]
+}

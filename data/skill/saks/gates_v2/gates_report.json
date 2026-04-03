@@ -1,8 +1,53 @@
 {
-  "findings": [],
+  "findings": [
+    {
+      "gate_id": "proxy_date_export_warning",
+      "rule_id": "rough_date_export_warning",
+      "severity": "warning",
+      "description": "Observation 'obs_evt_004' uses non-exact date precision 'range'; downstream analyst surfaces should treat it as a proxy date.",
+      "party_ids": [],
+      "cohort_ids": [],
+      "observation_ids": [
+        "obs_evt_004"
+      ]
+    },
+    {
+      "gate_id": "proxy_date_export_warning",
+      "rule_id": "rough_date_export_warning",
+      "severity": "warning",
+      "description": "Observation 'obs_evt_005' uses non-exact date precision 'range'; downstream analyst surfaces should treat it as a proxy date.",
+      "party_ids": [],
+      "cohort_ids": [],
+      "observation_ids": [
+        "obs_evt_005"
+      ]
+    },
+    {
+      "gate_id": "proxy_date_export_warning",
+      "rule_id": "rough_date_export_warning",
+      "severity": "warning",
+      "description": "Observation 'obs_evt_010' uses non-exact date precision 'range'; downstream analyst surfaces should treat it as a proxy date.",
+      "party_ids": [],
+      "cohort_ids": [],
+      "observation_ids": [
+        "obs_evt_010"
+      ]
+    },
+    {
+      "gate_id": "proxy_date_export_warning",
+      "rule_id": "rough_date_export_warning",
+      "severity": "warning",
+      "description": "Observation 'obs_evt_011' uses non-exact date precision 'range'; downstream analyst surfaces should treat it as a proxy date.",
+      "party_ids": [],
+      "cohort_ids": [],
+      "observation_ids": [
+        "obs_evt_011"
+      ]
+    }
+  ],
   "summary": {
     "blocker_count": 0,
-    "warning_count": 0,
+    "warning_count": 4,
     "status": "pass"
   }
 }

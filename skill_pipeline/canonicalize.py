@@ -3,9 +3,13 @@
 from __future__ import annotations
 
 import json
+import logging
+from datetime import date
 from pathlib import Path
 
 from skill_pipeline.config import PROJECT_ROOT
+
+logger = logging.getLogger(__name__)
 from skill_pipeline.extract_artifacts_v2 import (
     RawObservationArtifactV2,
     load_observation_artifacts,
@@ -137,6 +141,118 @@ def _upgrade_raw_observation_artifact_v2(
     return payload
 
 
+def _parse_sort_date(date_value) -> date | None:
+    """Extract a date from a ResolvedDate dict or object."""
+    if date_value is None:
+        return None
+    if isinstance(date_value, dict):
+        raw = date_value.get("sort_date")
+    else:
+        raw = getattr(date_value, "sort_date", None)
+    if raw is None:
+        return None
+    if isinstance(raw, date):
+        return raw
+    try:
+        return date.fromisoformat(str(raw))
+    except (ValueError, TypeError):
+        return None
+
+
+def _repair_forward_requested_by(observations_dict: dict) -> dict:
+    """Null out requested_by_observation_id when it points to a future solicitation."""
+    obs_list = observations_dict.get("observations", [])
+    obs_index = {obs["observation_id"]: obs for obs in obs_list}
+
+    for obs in obs_list:
+        if obs.get("obs_type") != "proposal":
+            continue
+        linked_id = obs.get("requested_by_observation_id")
+        if not linked_id:
+            continue
+        linked_obs = obs_index.get(linked_id)
+        if linked_obs is None:
+            continue
+        if linked_obs.get("obs_type") != "solicitation":
+            logger.info(
+                "Repair: %s requested_by_observation_id %r is not a solicitation — nullified",
+                obs["observation_id"],
+                linked_id,
+            )
+            obs["requested_by_observation_id"] = None
+            continue
+        proposal_date = _parse_sort_date(obs.get("date"))
+        solicitation_date = _parse_sort_date(linked_obs.get("date"))
+        if proposal_date is None or solicitation_date is None:
+            continue
+        if solicitation_date > proposal_date:
+            logger.info(
+                "Repair: %s requested_by_observation_id %r points forward "
+                "(%s > %s) — nullified",
+                obs["observation_id"],
+                linked_id,
+                solicitation_date.isoformat(),
+                proposal_date.isoformat(),
+            )
+            obs["requested_by_observation_id"] = None
+
+    return observations_dict
+
+
+def _repair_outcome_bidder_refs(observations_dict: dict) -> dict:
+    """Populate missing bidder refs on executed/restarted outcomes from summary text."""
+    parties = observations_dict.get("parties", [])
+    cohorts = observations_dict.get("cohorts", [])
+
+    # Build name → party_id index for bidders only
+    bidder_names: dict[str, str] = {}
+    bidder_party_ids: set[str] = set()
+    for party in parties:
+        if party.get("role") != "bidder":
+            continue
+        pid = party["party_id"]
+        bidder_party_ids.add(pid)
+        for name_field in ("display_name", "canonical_name"):
+            name = party.get(name_field)
+            if name:
+                bidder_names[name.lower()] = pid
+        for alias in party.get("aliases", []):
+            if alias:
+                bidder_names[alias.lower()] = pid
+
+    cohort_ids = {c["cohort_id"] for c in cohorts}
+
+    for obs in observations_dict.get("observations", []):
+        if obs.get("obs_type") != "outcome":
+            continue
+        if obs.get("outcome_kind") not in ("executed", "restarted"):
+            continue
+
+        all_refs = obs.get("subject_refs", []) + obs.get("counterparty_refs", [])
+        has_bidder = any(
+            ref in bidder_party_ids or ref in cohort_ids for ref in all_refs
+        )
+        if has_bidder:
+            continue
+
+        summary = (obs.get("summary") or "").lower()
+        matched_ids: list[str] = []
+        for name, pid in bidder_names.items():
+            if name in summary and pid not in matched_ids:
+                matched_ids.append(pid)
+
+        if matched_ids:
+            obs.setdefault("subject_refs", []).extend(matched_ids)
+            logger.info(
+                "Repair: %s (%s) missing bidder refs — added %s from summary",
+                obs["observation_id"],
+                obs["outcome_kind"],
+                matched_ids,
+            )
+
+    return observations_dict
+
+
 def run_canonicalize_v2(deal_slug: str, *, project_root: Path = PROJECT_ROOT) -> int:
     """Upgrade quote-first v2 observation artifacts to canonical span-backed form."""
     paths = build_skill_paths(deal_slug, project_root=project_root)
@@ -167,6 +283,8 @@ def run_canonicalize_v2(deal_slug: str, *, project_root: Path = PROJECT_ROOT) ->
             loaded.raw_artifact,
             quote_to_span=quote_to_span,
         )
+        observations_dict = _repair_forward_requested_by(observations_dict)
+        observations_dict = _repair_outcome_bidder_refs(observations_dict)
     else:
         observations_dict = loaded.observations.model_dump(mode="json")
         spans = loaded.spans.model_dump(mode="json")["spans"]
