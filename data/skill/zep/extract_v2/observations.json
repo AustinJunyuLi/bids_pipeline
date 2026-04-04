@@ -1,12 +1,11 @@
 {
   "parties": [
     {
-      "party_id": "target_board_zep",
-      "display_name": "Zep Inc. board of directors",
-      "canonical_name": "ZEP INC. BOARD OF DIRECTORS",
+      "party_id": "target_zep",
+      "display_name": "ZEP INC",
+      "canonical_name": null,
       "aliases": [
-        "our board of directors",
-        "the Board Representatives"
+        "the Company"
       ],
       "role": "target_board",
       "bidder_kind": null,
@@ -15,163 +14,262 @@
       "listing_status": null,
       "geography": null,
       "evidence_span_ids": [
-        "span_0001",
         "span_0002"
       ]
     },
     {
-      "party_id": "advisor_bofa",
-      "display_name": "BofA Merrill Lynch",
-      "canonical_name": "BOFA MERRILL LYNCH",
-      "aliases": [
-        "BofA Merrill Lynch",
-        "Merrill Lynch"
-      ],
-      "role": "advisor",
-      "bidder_kind": null,
-      "advisor_kind": "financial",
-      "advised_party_id": "target_board_zep",
-      "listing_status": null,
-      "geography": null,
-      "evidence_span_ids": [
-        "span_0011",
-        "span_0059"
-      ]
-    },
-    {
-      "party_id": "advisor_king_spalding",
-      "display_name": "King & Spalding LLP",
-      "canonical_name": "KING & SPALDING LLP",
-      "aliases": [
-        "King & Spalding"
-      ],
-      "role": "advisor",
-      "bidder_kind": null,
-      "advisor_kind": "legal",
-      "advised_party_id": "target_board_zep",
-      "listing_status": null,
-      "geography": null,
-      "evidence_span_ids": [
-        "span_0058"
-      ]
-    },
-    {
-      "party_id": "bidder_new_mountain",
+      "party_id": "bidder_new_mountain_capital",
       "display_name": "New Mountain Capital",
-      "canonical_name": "NEW MOUNTAIN CAPITAL",
+      "canonical_name": null,
       "aliases": [],
       "role": "bidder",
-      "bidder_kind": "financial",
+      "bidder_kind": null,
       "advisor_kind": null,
       "advised_party_id": null,
       "listing_status": null,
       "geography": null,
       "evidence_span_ids": [
-        "span_0017",
-        "span_0061"
+        "span_0011",
+        "span_0026",
+        "span_0027"
       ]
     },
     {
       "party_id": "bidder_party_x",
       "display_name": "Party X",
-      "canonical_name": "PARTY X",
+      "canonical_name": null,
       "aliases": [],
       "role": "bidder",
-      "bidder_kind": "financial",
+      "bidder_kind": null,
       "advisor_kind": null,
       "advised_party_id": null,
       "listing_status": null,
       "geography": null,
       "evidence_span_ids": [
-        "span_0060"
+        "span_0015",
+        "span_0017"
       ]
     },
     {
       "party_id": "bidder_party_y",
       "display_name": "Party Y",
-      "canonical_name": "PARTY Y",
+      "canonical_name": null,
       "aliases": [],
       "role": "bidder",
-      "bidder_kind": "strategic",
+      "bidder_kind": null,
       "advisor_kind": null,
       "advised_party_id": null,
       "listing_status": null,
       "geography": null,
       "evidence_span_ids": [
-        "span_0060"
+        "span_0015",
+        "span_0019"
+      ]
+    },
+    {
+      "party_id": "advisor_bofa",
+      "display_name": "BofA Merrill Lynch",
+      "canonical_name": null,
+      "aliases": [],
+      "role": "advisor",
+      "bidder_kind": null,
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": [
+        "span_0007",
+        "span_0008"
+      ]
+    },
+    {
+      "party_id": "advisor_king_spalding",
+      "display_name": "King & Spalding LLP",
+      "canonical_name": null,
+      "aliases": [
+        "King & Spalding"
+      ],
+      "role": "advisor",
+      "bidder_kind": null,
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": [
+        "span_0003"
+      ]
+    },
+    {
+      "party_id": "advisor_jefferies",
+      "display_name": "Jefferies Finance LLC",
+      "canonical_name": null,
+      "aliases": [],
+      "role": "advisor",
+      "bidder_kind": null,
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": [
+        "span_0027"
+      ]
+    },
+    {
+      "party_id": "other_morgan",
+      "display_name": "Mr. John K. Morgan",
+      "canonical_name": null,
+      "aliases": [
+        "Mr. Morgan"
+      ],
+      "role": "other",
+      "bidder_kind": null,
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": [
+        "span_0002"
+      ]
+    },
+    {
+      "party_id": "other_nurkin",
+      "display_name": "Mr. Sidney J. Nurkin",
+      "canonical_name": null,
+      "aliases": [
+        "Mr. Nurkin"
+      ],
+      "role": "other",
+      "bidder_kind": null,
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": [
+        "span_0002"
+      ]
+    },
+    {
+      "party_id": "other_squicciarino",
+      "display_name": "Mr. Joseph Squicciarino",
+      "canonical_name": null,
+      "aliases": [
+        "Mr. Squicciarino"
+      ],
+      "role": "other",
+      "bidder_kind": null,
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": [
+        "span_0002"
+      ]
+    },
+    {
+      "party_id": "other_manganello",
+      "display_name": "Mr. Timothy M. Manganello",
+      "canonical_name": null,
+      "aliases": [
+        "Mr. Manganello"
+      ],
+      "role": "other",
+      "bidder_kind": null,
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": [
+        "span_0008"
       ]
     }
   ],
   "cohorts": [
     {
-      "cohort_id": "cohort_50_contacted",
-      "label": "50 potential buyers contacted in 2014 process",
+      "cohort_id": "cohort_50_potential_buyers",
+      "label": "fifty potential buyers (comprising twenty-eight strategic buyers and twenty-two financial buyers)",
       "parent_cohort_id": null,
       "exact_count": 50,
       "known_member_party_ids": [
-        "bidder_new_mountain"
+        "bidder_new_mountain_capital"
       ],
       "unknown_member_count": 49,
-      "membership_basis": "contacted fifty potential buyers (comprising twenty-eight strategic buyers and twenty-two financial buyers)",
-      "created_by_observation_id": "obs_evt_006",
+      "membership_basis": "filing_stated",
+      "created_by_observation_id": "obs_evt_007",
       "evidence_span_ids": [
-        "span_0062"
+        "span_0010"
       ]
     },
     {
-      "cohort_id": "cohort_25_nda",
-      "label": "25 potential buyers who executed confidentiality agreements",
-      "parent_cohort_id": "cohort_50_contacted",
+      "cohort_id": "cohort_25_signed_ca",
+      "label": "twenty-five potential buyers executed confidentiality agreements with us",
+      "parent_cohort_id": null,
       "exact_count": 25,
       "known_member_party_ids": [
-        "bidder_new_mountain"
+        "bidder_new_mountain_capital"
       ],
       "unknown_member_count": 24,
-      "membership_basis": "twenty-five potential buyers executed confidentiality agreements with us",
-      "created_by_observation_id": "obs_evt_006",
+      "membership_basis": "filing_stated",
+      "created_by_observation_id": "obs_evt_009",
       "evidence_span_ids": [
-        "span_0064"
+        "span_0013"
       ]
     },
     {
-      "cohort_id": "cohort_5_first_round",
-      "label": "5 parties who submitted first-round indications of interest on April 14, 2014",
-      "parent_cohort_id": "cohort_25_nda",
+      "cohort_id": "cohort_5_first_round_bidders",
+      "label": "five parties, comprising four financial buyers and one strategic buyer",
+      "parent_cohort_id": null,
       "exact_count": 5,
       "known_member_party_ids": [],
       "unknown_member_count": 5,
-      "membership_basis": "five parties, comprising four financial buyers and one strategic buyer",
-      "created_by_observation_id": "obs_evt_009",
+      "membership_basis": "filing_stated",
+      "created_by_observation_id": "obs_evt_011",
       "evidence_span_ids": [
-        "span_0063"
+        "span_0014"
+      ]
+    },
+    {
+      "cohort_id": "cohort_7_total_ioi",
+      "label": "seven parties that submitted a preliminary indication of interest",
+      "parent_cohort_id": null,
+      "exact_count": 7,
+      "known_member_party_ids": [
+        "bidder_party_x",
+        "bidder_party_y"
+      ],
+      "unknown_member_count": 5,
+      "membership_basis": "filing_stated",
+      "created_by_observation_id": "obs_evt_016",
+      "evidence_span_ids": [
+        "span_0019",
+        "span_0023"
       ]
     },
     {
       "cohort_id": "cohort_6_remaining_bidders",
-      "label": "6 remaining bidders after Party X withdrawal (received draft merger agreement May 22)",
+      "label": "six remaining bidders (Party X having withdrawn from the process on May 14, 2014)",
       "parent_cohort_id": null,
       "exact_count": 6,
       "known_member_party_ids": [
         "bidder_party_y"
       ],
       "unknown_member_count": 5,
-      "membership_basis": "the six remaining bidders (Party X having withdrawn from the process on May 14, 2014)",
-      "created_by_observation_id": "obs_evt_015",
+      "membership_basis": "filing_stated",
+      "created_by_observation_id": "obs_evt_017",
       "evidence_span_ids": [
-        "span_0065"
+        "span_0020"
       ]
     },
     {
       "cohort_id": "cohort_58_goshop",
-      "label": "58 parties contacted during go-shop period",
+      "label": "fifty-eight parties (including potential strategic and financial buyers) contacted during the go-shop process",
       "parent_cohort_id": null,
       "exact_count": 58,
       "known_member_party_ids": [],
       "unknown_member_count": 58,
-      "membership_basis": "contacted a total of fifty-eight parties (including potential strategic and financial buyers)",
-      "created_by_observation_id": "obs_evt_029",
+      "membership_basis": "filing_stated",
+      "created_by_observation_id": "obs_evt_035",
       "evidence_span_ids": [
-        "span_0069"
+        "span_0048"
       ]
     }
   ],
@@ -180,7 +278,7 @@
       "observation_id": "obs_evt_001",
       "obs_type": "process",
       "date": {
-        "raw_text": "June 20, 2013",
+        "raw_text": "2013-06-20",
         "normalized_start": "2013-06-20",
         "normalized_end": "2013-06-20",
         "sort_date": "2013-06-20",
@@ -191,22 +289,22 @@
         "is_inferred": false
       },
       "subject_refs": [
-        "target_board_zep"
+        "target_zep"
       ],
       "counterparty_refs": [],
-      "summary": "Board of directors first discussed the possibility of exploring strategic alternatives, including a potential sale of the Company.",
+      "summary": "Board first discussed exploring strategic alternatives including a potential sale of the Company.",
       "evidence_span_ids": [
         "span_0001"
       ],
       "process_kind": "other",
-      "process_scope": "target",
-      "other_detail": "initial board discussion of strategic alternatives"
+      "process_scope": null,
+      "other_detail": "strategic_review"
     },
     {
       "observation_id": "obs_evt_002",
       "obs_type": "process",
       "date": {
-        "raw_text": "July 1, 2013",
+        "raw_text": "2013-07-01",
         "normalized_start": "2013-07-01",
         "normalized_end": "2013-07-01",
         "sort_date": "2013-07-01",
@@ -217,22 +315,74 @@
         "is_inferred": false
       },
       "subject_refs": [
-        "target_board_zep"
+        "target_zep"
       ],
       "counterparty_refs": [],
-      "summary": "Board unanimously agreed to proceed with certain initial steps related to exploring strategic alternatives, including a potential sale of the Company.",
+      "summary": "Board unanimously agreed to proceed with initial steps related to exploring strategic alternatives, including a potential sale. Appointed Mr. Nurkin and Mr. Squicciarino to oversee review.",
       "evidence_span_ids": [
         "span_0002"
       ],
-      "process_kind": "sale_launch",
-      "process_scope": "target",
-      "other_detail": null
+      "process_kind": "other",
+      "process_scope": null,
+      "other_detail": "strategic_review"
     },
     {
       "observation_id": "obs_evt_003",
       "obs_type": "process",
       "date": {
-        "raw_text": "January 28, 2014",
+        "raw_text": "2013-08-20",
+        "normalized_start": "2013-08-20",
+        "normalized_end": "2013-08-20",
+        "sort_date": "2013-08-20",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_zep"
+      ],
+      "counterparty_refs": [],
+      "summary": "Board concluded it was not an appropriate time to explore strategic alternatives or engage a financial advisor after hearing presentations from BofA Merrill Lynch and two other investment banks.",
+      "evidence_span_ids": [
+        "span_0004"
+      ],
+      "process_kind": "other",
+      "process_scope": null,
+      "other_detail": "Board decided not to proceed with strategic alternatives at this time"
+    },
+    {
+      "observation_id": "obs_evt_004",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "2014-01-08",
+        "normalized_start": "2014-01-08",
+        "normalized_end": "2014-01-08",
+        "sort_date": "2014-01-08",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_zep"
+      ],
+      "counterparty_refs": [],
+      "summary": "Board concluded it was timely to revisit the previously discussed exploration of strategic alternatives.",
+      "evidence_span_ids": [
+        "span_0005"
+      ],
+      "process_kind": "other",
+      "process_scope": null,
+      "other_detail": "strategic_review"
+    },
+    {
+      "observation_id": "obs_evt_005",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "2014-01-28",
         "normalized_start": "2014-01-28",
         "normalized_end": "2014-01-28",
         "sort_date": "2014-01-28",
@@ -243,24 +393,25 @@
         "is_inferred": false
       },
       "subject_refs": [
-        "target_board_zep"
+        "target_zep",
+        "advisor_bofa"
       ],
       "counterparty_refs": [],
-      "summary": "Board decided to engage in a process to consider strategic alternatives and unanimously approved engagement letter with BofA Merrill Lynch as financial advisor.",
+      "summary": "Board decided to engage in a process to consider strategic alternatives. Unanimously approved engagement letter with BofA Merrill Lynch as financial advisor.",
       "evidence_span_ids": [
-        "span_0009",
-        "span_0010",
-        "span_0011"
+        "span_0006",
+        "span_0007",
+        "span_0008"
       ],
-      "process_kind": "advisor_retention",
-      "process_scope": "target",
+      "process_kind": "sale_launch",
+      "process_scope": null,
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_004",
+      "observation_id": "obs_evt_006",
       "obs_type": "process",
       "date": {
-        "raw_text": "February 27, 2014",
+        "raw_text": "2014-02-27",
         "normalized_start": "2014-02-27",
         "normalized_end": "2014-02-27",
         "sort_date": "2014-02-27",
@@ -271,23 +422,54 @@
         "is_inferred": false
       },
       "subject_refs": [
-        "target_board_zep"
+        "target_zep"
       ],
       "counterparty_refs": [],
-      "summary": "Board unanimously approved moving forward with contacting potential buyers, executing confidentiality agreements, and conducting meetings.",
+      "summary": "Board unanimously approved moving forward with contacting potential buyers, executing confidentiality agreements and conducting meetings.",
       "evidence_span_ids": [
-        "span_0013",
-        "span_0014"
+        "span_0009"
       ],
       "process_kind": "sale_launch",
-      "process_scope": "target",
+      "process_scope": null,
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_005",
+      "observation_id": "obs_evt_007",
+      "obs_type": "solicitation",
+      "date": {
+        "raw_text": "2014-02-27",
+        "normalized_start": "2014-02-27",
+        "normalized_end": "2014-02-27",
+        "sort_date": "2014-02-27",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_zep",
+        "advisor_bofa"
+      ],
+      "counterparty_refs": [],
+      "summary": "BofA Merrill Lynch contacted fifty potential buyers (twenty-eight strategic and twenty-two financial) at the direction of the board, and confidentiality agreements were executed with a number of them.",
+      "evidence_span_ids": [
+        "span_0010"
+      ],
+      "requested_submission": "other",
+      "binding_level": null,
+      "due_date": null,
+      "recipient_refs": [
+        "cohort_50_potential_buyers"
+      ],
+      "attachments": [],
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_008",
       "obs_type": "agreement",
       "date": {
-        "raw_text": "March 19, 2014",
+        "raw_text": "2014-03-19",
         "normalized_start": "2014-03-19",
         "normalized_end": "2014-03-19",
         "sort_date": "2014-03-19",
@@ -298,29 +480,28 @@
         "is_inferred": false
       },
       "subject_refs": [
-        "target_board_zep"
+        "target_zep"
       ],
       "counterparty_refs": [
-        "bidder_new_mountain"
+        "bidder_new_mountain_capital"
       ],
-      "summary": "Company entered into a confidentiality agreement with New Mountain Capital.",
+      "summary": "The Company entered into a confidentiality agreement with New Mountain Capital.",
       "evidence_span_ids": [
-        "span_0017",
-        "span_0053"
+        "span_0011"
       ],
       "agreement_kind": "nda",
-      "signed": true,
+      "signed": null,
       "grants_diligence_access": null,
-      "includes_standstill": true,
+      "includes_standstill": null,
       "consideration_type": null,
       "supersedes_observation_id": null,
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_006",
+      "observation_id": "obs_evt_009",
       "obs_type": "solicitation",
       "date": {
-        "raw_text": "March 27, 2014",
+        "raw_text": "2014-03-27",
         "normalized_start": "2014-03-27",
         "normalized_end": "2014-03-27",
         "sort_date": "2014-03-27",
@@ -331,24 +512,19 @@
         "is_inferred": false
       },
       "subject_refs": [
-        "target_board_zep",
+        "target_zep",
         "advisor_bofa"
       ],
-      "counterparty_refs": [
-        "cohort_50_contacted"
-      ],
-      "summary": "BofA Merrill Lynch distributed a first round process letter to potential buyers requesting non-binding preliminary indications of interest due no later than April 14, 2014. Fifty potential buyers had been contacted (28 strategic, 22 financial); 25 executed confidentiality agreements.",
+      "counterparty_refs": [],
+      "summary": "BofA Merrill Lynch distributed a first round process letter informing potential buyers that non-binding preliminary indications of interest would be due no later than April 14, 2014. Twenty-five buyers signed CAs; twenty-five declined.",
       "evidence_span_ids": [
-        "span_0015",
-        "span_0018",
-        "span_0019",
-        "span_0062",
-        "span_0064"
+        "span_0012",
+        "span_0013"
       ],
-      "requested_submission": "ioi",
-      "binding_level": "non_binding",
+      "requested_submission": "other",
+      "binding_level": null,
       "due_date": {
-        "raw_text": "April 14, 2014",
+        "raw_text": "2014-04-14",
         "normalized_start": "2014-04-14",
         "normalized_end": "2014-04-14",
         "sort_date": "2014-04-14",
@@ -359,16 +535,16 @@
         "is_inferred": false
       },
       "recipient_refs": [
-        "cohort_25_nda"
+        "cohort_25_signed_ca"
       ],
       "attachments": [],
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_007",
+      "observation_id": "obs_evt_010",
       "obs_type": "status",
       "date": {
-        "raw_text": "March 27, 2014",
+        "raw_text": "2014-03-27",
         "normalized_start": "2014-03-27",
         "normalized_end": "2014-03-27",
         "sort_date": "2014-03-27",
@@ -379,49 +555,22 @@
         "is_inferred": false
       },
       "subject_refs": [
-        "bidder_new_mountain"
+        "bidder_new_mountain_capital"
       ],
       "counterparty_refs": [],
-      "summary": "New Mountain Capital received the marketing materials and the first round process letter but decided not to submit a preliminary indication of interest.",
+      "summary": "New Mountain Capital received the marketing materials and the first round process letter but decided at the time not to submit a preliminary indication of interest.",
       "evidence_span_ids": [
-        "span_0020"
+        "span_0013"
       ],
       "status_kind": "not_interested",
-      "related_observation_id": "obs_evt_006",
-      "other_detail": null
-    },
-    {
-      "observation_id": "obs_evt_008",
-      "obs_type": "status",
-      "date": {
-        "raw_text": "after April 14, 2014",
-        "normalized_start": "2014-04-15",
-        "normalized_end": "2014-05-07",
-        "sort_date": "2014-04-21",
-        "precision": "relative",
-        "anchor_event_id": null,
-        "anchor_span_id": null,
-        "resolution_note": "Anchored to weeks after the April 14 deadline; two additional parties emerged before the May 7 data room opening.",
-        "is_inferred": false
-      },
-      "subject_refs": [
-        "bidder_party_x",
-        "bidder_party_y"
-      ],
-      "counterparty_refs": [],
-      "summary": "Two additional parties (Party X, financial, and Party Y, strategic) contacted BofA Merrill Lynch on an unsolicited basis to inquire about the process.",
-      "evidence_span_ids": [
-        "span_0022"
-      ],
-      "status_kind": "expressed_interest",
       "related_observation_id": null,
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_009",
+      "observation_id": "obs_evt_011",
       "obs_type": "proposal",
       "date": {
-        "raw_text": "April 14, 2014",
+        "raw_text": "2014-04-14",
         "normalized_start": "2014-04-14",
         "normalized_end": "2014-04-14",
         "sort_date": "2014-04-14",
@@ -432,36 +581,81 @@
         "is_inferred": false
       },
       "subject_refs": [
-        "cohort_5_first_round"
+        "cohort_5_first_round_bidders"
       ],
       "counterparty_refs": [
-        "target_board_zep"
+        "target_zep"
       ],
-      "summary": "Five parties (four financial, one strategic) submitted preliminary and non-binding indications of interest ranging from $20.00 to $22.00 per share.",
+      "summary": "Five parties (four financial buyers and one strategic buyer) submitted preliminary and non-binding indications of interest ranging from $20.00 to $22.00 per share.",
       "evidence_span_ids": [
-        "span_0021",
-        "span_0063"
+        "span_0014"
       ],
-      "requested_by_observation_id": "obs_evt_006",
+      "requested_by_observation_id": "obs_evt_009",
       "revises_observation_id": null,
       "delivery_mode": null,
-      "terms": {
-        "per_share": null,
-        "range_low": "20.00",
-        "range_high": "22.00",
-        "enterprise_value": null,
-        "consideration_type": "cash"
-      },
+      "terms": null,
       "mentions_non_binding": true,
-      "includes_draft_merger_agreement": null,
-      "includes_markup": null,
+      "includes_draft_merger_agreement": false,
+      "includes_markup": false,
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_010",
+      "observation_id": "obs_evt_012",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "2014-04-16",
+        "normalized_start": "2014-04-16",
+        "normalized_end": "2014-04-16",
+        "sort_date": "2014-04-16",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_zep"
+      ],
+      "counterparty_refs": [],
+      "summary": "Board determined to continue the process with the parties who had submitted preliminary indications of interest.",
+      "evidence_span_ids": [
+        "span_0051"
+      ],
+      "process_kind": "other",
+      "process_scope": null,
+      "other_detail": "Board decision to continue process with preliminary IOI submitters"
+    },
+    {
+      "observation_id": "obs_evt_013",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "2014-05-07",
+        "normalized_start": "2014-05-07",
+        "normalized_end": "2014-05-07",
+        "sort_date": "2014-05-07",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_zep"
+      ],
+      "counterparty_refs": [],
+      "summary": "Access to electronic data room containing diligence materials was made available to the five parties who submitted preliminary indications of interest.",
+      "evidence_span_ids": [
+        "span_0016"
+      ],
+      "process_kind": "other",
+      "process_scope": null,
+      "other_detail": "Data room access granted to first-round bidders"
+    },
+    {
+      "observation_id": "obs_evt_014",
       "obs_type": "proposal",
       "date": {
-        "raw_text": "May 9, 2014",
+        "raw_text": "2014-05-09",
         "normalized_start": "2014-05-09",
         "normalized_end": "2014-05-09",
         "sort_date": "2014-05-09",
@@ -475,32 +669,27 @@
         "bidder_party_x"
       ],
       "counterparty_refs": [
-        "target_board_zep"
+        "target_zep"
       ],
-      "summary": "Party X submitted a preliminary and non-binding indication of interest ranging from $21.50 to $23.00 per share.",
+      "summary": "Party X submitted a preliminary and non-binding indication of interest ranging from $21.50 to $23.00 per share, on an unsolicited basis.",
       "evidence_span_ids": [
-        "span_0023"
+        "span_0015",
+        "span_0017"
       ],
       "requested_by_observation_id": null,
       "revises_observation_id": null,
       "delivery_mode": null,
-      "terms": {
-        "per_share": null,
-        "range_low": "21.50",
-        "range_high": "23.00",
-        "enterprise_value": null,
-        "consideration_type": "cash"
-      },
+      "terms": null,
       "mentions_non_binding": true,
-      "includes_draft_merger_agreement": null,
-      "includes_markup": null,
+      "includes_draft_merger_agreement": false,
+      "includes_markup": false,
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_011",
+      "observation_id": "obs_evt_015",
       "obs_type": "status",
       "date": {
-        "raw_text": "May 14, 2014",
+        "raw_text": "2014-05-14",
         "normalized_start": "2014-05-14",
         "normalized_end": "2014-05-14",
         "sort_date": "2014-05-14",
@@ -516,17 +705,17 @@
       "counterparty_refs": [],
       "summary": "Party X informed BofA Merrill Lynch that it was no longer interested in pursuing a potential transaction with the Company, prior to receiving data room access.",
       "evidence_span_ids": [
-        "span_0024"
+        "span_0018"
       ],
       "status_kind": "not_interested",
       "related_observation_id": null,
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_012",
+      "observation_id": "obs_evt_016",
       "obs_type": "proposal",
       "date": {
-        "raw_text": "May 20, 2014",
+        "raw_text": "2014-05-20",
         "normalized_start": "2014-05-20",
         "normalized_end": "2014-05-20",
         "sort_date": "2014-05-20",
@@ -540,93 +729,27 @@
         "bidder_party_y"
       ],
       "counterparty_refs": [
-        "target_board_zep"
+        "target_zep"
       ],
-      "summary": "Party Y submitted a preliminary and non-binding indication of interest ranging from $19.50 to $20.50 per share.",
+      "summary": "Party Y submitted a preliminary and non-binding indication of interest ranging from $19.50 to $20.50 per share, bringing the total number of preliminary IOIs received to seven.",
       "evidence_span_ids": [
-        "span_0025"
+        "span_0015",
+        "span_0019"
       ],
       "requested_by_observation_id": null,
       "revises_observation_id": null,
       "delivery_mode": null,
-      "terms": {
-        "per_share": null,
-        "range_low": "19.50",
-        "range_high": "20.50",
-        "enterprise_value": null,
-        "consideration_type": "cash"
-      },
+      "terms": null,
       "mentions_non_binding": true,
-      "includes_draft_merger_agreement": null,
-      "includes_markup": null,
+      "includes_draft_merger_agreement": false,
+      "includes_markup": false,
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_013",
+      "observation_id": "obs_evt_017",
       "obs_type": "solicitation",
       "date": {
-        "raw_text": "May 7, 2014",
-        "normalized_start": "2014-05-07",
-        "normalized_end": "2014-05-07",
-        "sort_date": "2014-05-07",
-        "precision": "exact_day",
-        "anchor_event_id": null,
-        "anchor_span_id": null,
-        "resolution_note": null,
-        "is_inferred": false
-      },
-      "subject_refs": [
-        "target_board_zep"
-      ],
-      "counterparty_refs": [
-        "cohort_5_first_round"
-      ],
-      "summary": "Data room access was provided to the five parties who had submitted preliminary indications of interest for extensive due diligence investigations.",
-      "evidence_span_ids": [
-        "span_0054"
-      ],
-      "requested_submission": "other",
-      "binding_level": null,
-      "due_date": null,
-      "recipient_refs": [
-        "cohort_5_first_round"
-      ],
-      "attachments": [],
-      "other_detail": "due diligence data room access to first-round bidders"
-    },
-    {
-      "observation_id": "obs_evt_014",
-      "obs_type": "status",
-      "date": {
-        "raw_text": "after May 22, 2014",
-        "normalized_start": "2014-05-23",
-        "normalized_end": "2014-06-19",
-        "sort_date": "2014-06-01",
-        "precision": "relative",
-        "anchor_event_id": null,
-        "anchor_span_id": null,
-        "resolution_note": "Anchored to the weeks after the May 22 draft merger agreement distribution and before the June 19 board meeting.",
-        "is_inferred": false
-      },
-      "subject_refs": [
-        "cohort_6_remaining_bidders"
-      ],
-      "counterparty_refs": [],
-      "summary": "Five of the remaining six interested parties communicated they were unable to proceed due to valuation concerns. The sixth remaining interested party declined to respond.",
-      "evidence_span_ids": [
-        "span_0027",
-        "span_0067",
-        "span_0068"
-      ],
-      "status_kind": "cannot_proceed",
-      "related_observation_id": null,
-      "other_detail": null
-    },
-    {
-      "observation_id": "obs_evt_015",
-      "obs_type": "solicitation",
-      "date": {
-        "raw_text": "May 22, 2014",
+        "raw_text": "2014-05-22",
         "normalized_start": "2014-05-22",
         "normalized_end": "2014-05-22",
         "sort_date": "2014-05-22",
@@ -637,112 +760,112 @@
         "is_inferred": false
       },
       "subject_refs": [
-        "target_board_zep"
+        "target_zep"
       ],
-      "counterparty_refs": [
-        "cohort_6_remaining_bidders"
-      ],
-      "summary": "Draft merger agreement was distributed to the six remaining bidders (Party X having withdrawn).",
+      "counterparty_refs": [],
+      "summary": "A draft of the merger agreement was distributed to the six remaining bidders (Party X having withdrawn) that had submitted preliminary indications of interest.",
       "evidence_span_ids": [
-        "span_0026",
-        "span_0065"
+        "span_0020"
       ],
-      "requested_submission": "binding_offer",
+      "requested_submission": "other",
       "binding_level": null,
       "due_date": null,
       "recipient_refs": [
         "cohort_6_remaining_bidders"
       ],
-      "attachments": [
-        "draft merger agreement"
-      ],
+      "attachments": [],
       "other_detail": null
-    },
-    {
-      "observation_id": "obs_evt_016",
-      "obs_type": "outcome",
-      "date": {
-        "raw_text": "June 26, 2014",
-        "normalized_start": "2014-06-26",
-        "normalized_end": "2014-06-26",
-        "sort_date": "2014-06-26",
-        "precision": "exact_day",
-        "anchor_event_id": null,
-        "anchor_span_id": null,
-        "resolution_note": null,
-        "is_inferred": false
-      },
-      "subject_refs": [
-        "target_board_zep"
-      ],
-      "counterparty_refs": [],
-      "summary": "Board decided to terminate the process to explore strategic alternatives based on lack of buyer interest and uncertainty from the fire at the aerosol facility.",
-      "evidence_span_ids": [
-        "span_0029"
-      ],
-      "outcome_kind": "terminated",
-      "related_observation_id": null,
-      "other_detail": null
-    },
-    {
-      "observation_id": "obs_evt_017",
-      "obs_type": "process",
-      "date": {
-        "raw_text": "June 26, 2014",
-        "normalized_start": "2014-06-26",
-        "normalized_end": "2014-06-26",
-        "sort_date": "2014-06-26",
-        "precision": "exact_day",
-        "anchor_event_id": null,
-        "anchor_span_id": null,
-        "resolution_note": null,
-        "is_inferred": false
-      },
-      "subject_refs": [
-        "target_board_zep"
-      ],
-      "counterparty_refs": [],
-      "summary": "Board authorized letters waiving the 'don't ask to waive' provisions, permitting parties to make confidential proposals to acquire the Company.",
-      "evidence_span_ids": [
-        "span_0030"
-      ],
-      "process_kind": "other",
-      "process_scope": "target",
-      "other_detail": "waiver of standstill don't-ask-to-waive provisions"
     },
     {
       "observation_id": "obs_evt_018",
       "obs_type": "status",
       "date": {
-        "raw_text": "early February 2015",
-        "normalized_start": "2015-02-01",
-        "normalized_end": "2015-02-10",
-        "sort_date": "2015-02-05",
-        "precision": "month_early",
+        "raw_text": "2014-05-23",
+        "normalized_start": "2014-05-23",
+        "normalized_end": "2014-05-23",
+        "sort_date": "2014-05-23",
+        "precision": "exact_day",
         "anchor_event_id": null,
         "anchor_span_id": null,
         "resolution_note": null,
         "is_inferred": false
       },
       "subject_refs": [
-        "bidder_new_mountain"
+        "cohort_6_remaining_bidders"
       ],
-      "counterparty_refs": [
-        "advisor_bofa"
-      ],
-      "summary": "New Mountain Capital contacted BofA Merrill Lynch and requested a meeting. On February 10, 2015, New Mountain Capital met with BofA Merrill Lynch and expressed interest in a potential transaction.",
+      "counterparty_refs": [],
+      "summary": "Five of the remaining six interested parties communicated they were unable to proceed due to valuation concerns. The sixth remaining party declined to respond.",
       "evidence_span_ids": [
-        "span_0032"
+        "span_0021",
+        "span_0022"
       ],
-      "status_kind": "expressed_interest",
+      "status_kind": "not_interested",
       "related_observation_id": null,
       "other_detail": null
     },
     {
       "observation_id": "obs_evt_019",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "2014-06-26",
+        "normalized_start": "2014-06-26",
+        "normalized_end": "2014-06-26",
+        "sort_date": "2014-06-26",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_zep"
+      ],
+      "counterparty_refs": [],
+      "summary": "Board decided to terminate the process to explore potential strategic alternatives due to lack of buyer interest and uncertainty from the facility fire.",
+      "evidence_span_ids": [
+        "span_0024"
+      ],
+      "process_kind": "other",
+      "process_scope": null,
+      "other_detail": "Process terminated due to lack of buyer interest"
+    },
+    {
+      "observation_id": "obs_evt_020",
+      "obs_type": "agreement",
+      "date": {
+        "raw_text": "2014-06-26",
+        "normalized_start": "2014-06-26",
+        "normalized_end": "2014-06-26",
+        "sort_date": "2014-06-26",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_zep"
+      ],
+      "counterparty_refs": [
+        "cohort_25_signed_ca"
+      ],
+      "summary": "Board authorized letters waiving the \"don't ask to waive\" provisions in confidentiality agreements, permitting parties to make confidential acquisition proposals.",
+      "evidence_span_ids": [
+        "span_0025"
+      ],
+      "agreement_kind": "amendment",
+      "signed": null,
+      "grants_diligence_access": null,
+      "includes_standstill": null,
+      "consideration_type": null,
+      "supersedes_observation_id": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_021",
       "obs_type": "proposal",
       "date": {
-        "raw_text": "February 19, 2015",
+        "raw_text": "2015-02-19",
         "normalized_start": "2015-02-19",
         "normalized_end": "2015-02-19",
         "sort_date": "2015-02-19",
@@ -753,14 +876,14 @@
         "is_inferred": false
       },
       "subject_refs": [
-        "bidder_new_mountain"
+        "bidder_new_mountain_capital"
       ],
       "counterparty_refs": [
-        "target_board_zep"
+        "target_zep"
       ],
-      "summary": "New Mountain Capital delivered an unsolicited indication of interest to acquire the Company for $19.25 per share, supported by a highly confident financing letter from Jefferies Finance LLC, with a request for 45-day exclusivity and a contemplated go-shop provision.",
+      "summary": "New Mountain Capital delivered an unsolicited indication of interest to acquire the Company for $19.25 per share, supported by a highly confident financing letter from Jefferies Finance LLC, with a request for forty-five day exclusivity and a contemplated go-shop provision.",
       "evidence_span_ids": [
-        "span_0033"
+        "span_0027"
       ],
       "requested_by_observation_id": null,
       "revises_observation_id": null,
@@ -770,18 +893,18 @@
         "range_low": null,
         "range_high": null,
         "enterprise_value": null,
-        "consideration_type": "cash"
+        "consideration_type": null
       },
-      "mentions_non_binding": true,
-      "includes_draft_merger_agreement": null,
-      "includes_markup": null,
+      "mentions_non_binding": null,
+      "includes_draft_merger_agreement": false,
+      "includes_markup": false,
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_020",
+      "observation_id": "obs_evt_022",
       "obs_type": "proposal",
       "date": {
-        "raw_text": "February 26, 2015",
+        "raw_text": "2015-02-26",
         "normalized_start": "2015-02-26",
         "normalized_end": "2015-02-26",
         "sort_date": "2015-02-26",
@@ -792,35 +915,35 @@
         "is_inferred": false
       },
       "subject_refs": [
-        "bidder_new_mountain"
+        "bidder_new_mountain_capital"
       ],
       "counterparty_refs": [
-        "target_board_zep"
+        "target_zep"
       ],
-      "summary": "New Mountain Capital delivered a revised indication of interest at $20.05 per share, indicating this was the highest price it was willing to offer. Requested 45-day exclusivity and reiterated willingness to accept a go-shop provision.",
+      "summary": "New Mountain Capital delivered a revised indication of interest reflecting an increased per share price of $20.05, indicated this was the highest price it was willing to offer, again requested forty-five day exclusivity, and reiterated willingness to accept a go-shop provision.",
       "evidence_span_ids": [
-        "span_0034"
+        "span_0029"
       ],
       "requested_by_observation_id": null,
-      "revises_observation_id": "obs_evt_019",
+      "revises_observation_id": null,
       "delivery_mode": null,
       "terms": {
         "per_share": "20.05",
         "range_low": null,
         "range_high": null,
         "enterprise_value": null,
-        "consideration_type": "cash"
+        "consideration_type": null
       },
-      "mentions_non_binding": true,
-      "includes_draft_merger_agreement": null,
-      "includes_markup": null,
+      "mentions_non_binding": null,
+      "includes_draft_merger_agreement": false,
+      "includes_markup": false,
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_021",
+      "observation_id": "obs_evt_023",
       "obs_type": "agreement",
       "date": {
-        "raw_text": "February 27, 2015",
+        "raw_text": "2015-02-27",
         "normalized_start": "2015-02-27",
         "normalized_end": "2015-02-27",
         "sort_date": "2015-02-27",
@@ -831,28 +954,54 @@
         "is_inferred": false
       },
       "subject_refs": [
-        "target_board_zep"
+        "target_zep"
       ],
       "counterparty_refs": [
-        "bidder_new_mountain"
+        "bidder_new_mountain_capital"
       ],
-      "summary": "Company signed an agreement with New Mountain Capital extending confidentiality, standstill, and non-solicitation provisions, and providing for an exclusivity period through March 31, 2015.",
+      "summary": "The Company signed an agreement with New Mountain Capital extending the confidentiality, standstill, and employee non-solicitation provisions, and providing for an exclusivity period through March 31, 2015.",
       "evidence_span_ids": [
-        "span_0035"
+        "span_0031"
       ],
       "agreement_kind": "exclusivity",
-      "signed": true,
+      "signed": null,
       "grants_diligence_access": null,
-      "includes_standstill": true,
+      "includes_standstill": null,
       "consideration_type": null,
       "supersedes_observation_id": null,
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_022",
+      "observation_id": "obs_evt_024",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "2015-03-02",
+        "normalized_start": "2015-03-02",
+        "normalized_end": "2015-03-02",
+        "sort_date": "2015-03-02",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_zep"
+      ],
+      "counterparty_refs": [],
+      "summary": "The Company granted New Mountain Capital access to the electronic data room populated during the 2014 sale process.",
+      "evidence_span_ids": [
+        "span_0032"
+      ],
+      "process_kind": "other",
+      "process_scope": null,
+      "other_detail": "Data room access granted to New Mountain Capital"
+    },
+    {
+      "observation_id": "obs_evt_025",
       "obs_type": "proposal",
       "date": {
-        "raw_text": "March 13, 2015",
+        "raw_text": "2015-03-13",
         "normalized_start": "2015-03-13",
         "normalized_end": "2015-03-13",
         "sort_date": "2015-03-13",
@@ -863,35 +1012,35 @@
         "is_inferred": false
       },
       "subject_refs": [
-        "bidder_new_mountain"
+        "bidder_new_mountain_capital"
       ],
       "counterparty_refs": [
-        "target_board_zep"
+        "target_zep"
       ],
-      "summary": "New Mountain Capital communicated that $20.05 per share was its 'best and final' offer. Requested extension of exclusivity through April 15, 2015.",
+      "summary": "New Mountain Capital communicated that $20.05 per share was its \"best and final\" offer. Indicated willingness to sign a definitive merger agreement by April 15, 2015 and requested extension of exclusivity through that date.",
       "evidence_span_ids": [
-        "span_0036"
+        "span_0033"
       ],
       "requested_by_observation_id": null,
-      "revises_observation_id": "obs_evt_020",
+      "revises_observation_id": null,
       "delivery_mode": null,
       "terms": {
         "per_share": "20.05",
         "range_low": null,
         "range_high": null,
         "enterprise_value": null,
-        "consideration_type": "cash"
+        "consideration_type": null
       },
       "mentions_non_binding": null,
-      "includes_draft_merger_agreement": null,
-      "includes_markup": null,
+      "includes_draft_merger_agreement": false,
+      "includes_markup": false,
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_023",
+      "observation_id": "obs_evt_026",
       "obs_type": "agreement",
       "date": {
-        "raw_text": "March 18, 2015",
+        "raw_text": "2015-03-18",
         "normalized_start": "2015-03-18",
         "normalized_end": "2015-03-18",
         "sort_date": "2015-03-18",
@@ -902,28 +1051,28 @@
         "is_inferred": false
       },
       "subject_refs": [
-        "target_board_zep"
+        "target_zep"
       ],
       "counterparty_refs": [
-        "bidder_new_mountain"
+        "bidder_new_mountain_capital"
       ],
-      "summary": "Exclusivity extension signed, extending exclusivity with New Mountain Capital through April 7, 2015.",
+      "summary": "Board authorized extension of exclusivity with New Mountain Capital through April 7, 2015; extension letter signed on March 18, 2015.",
       "evidence_span_ids": [
-        "span_0038"
+        "span_0035"
       ],
       "agreement_kind": "exclusivity",
-      "signed": true,
+      "signed": null,
       "grants_diligence_access": null,
       "includes_standstill": null,
       "consideration_type": null,
-      "supersedes_observation_id": "obs_evt_021",
+      "supersedes_observation_id": null,
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_024",
-      "obs_type": "solicitation",
+      "observation_id": "obs_evt_027",
+      "obs_type": "agreement",
       "date": {
-        "raw_text": "March 18, 2015",
+        "raw_text": "2015-03-18",
         "normalized_start": "2015-03-18",
         "normalized_end": "2015-03-18",
         "sort_date": "2015-03-18",
@@ -934,31 +1083,28 @@
         "is_inferred": false
       },
       "subject_refs": [
-        "target_board_zep"
+        "target_zep"
       ],
       "counterparty_refs": [
-        "bidder_new_mountain"
+        "bidder_new_mountain_capital"
       ],
-      "summary": "Draft merger agreement delivered to New Mountain Capital, including a 60-day go-shop provision permitting the Company to solicit alternative proposals and to terminate the merger agreement for a superior offer.",
+      "summary": "A draft merger agreement was delivered to New Mountain Capital and its advisors, including a sixty-day go-shop provision and the ability to terminate to accept a superior offer.",
       "evidence_span_ids": [
-        "span_0039"
+        "span_0036"
       ],
-      "requested_submission": "binding_offer",
-      "binding_level": null,
-      "due_date": null,
-      "recipient_refs": [
-        "bidder_new_mountain"
-      ],
-      "attachments": [
-        "draft merger agreement"
-      ],
-      "other_detail": null
+      "agreement_kind": "merger_agreement",
+      "signed": null,
+      "grants_diligence_access": null,
+      "includes_standstill": null,
+      "consideration_type": null,
+      "supersedes_observation_id": null,
+      "other_detail": "Draft merger agreement delivered; not yet executed"
     },
     {
-      "observation_id": "obs_evt_025",
+      "observation_id": "obs_evt_028",
       "obs_type": "proposal",
       "date": {
-        "raw_text": "March 29, 2015",
+        "raw_text": "2015-03-29",
         "normalized_start": "2015-03-29",
         "normalized_end": "2015-03-29",
         "sort_date": "2015-03-29",
@@ -969,16 +1115,16 @@
         "is_inferred": false
       },
       "subject_refs": [
-        "bidder_new_mountain"
+        "bidder_new_mountain_capital"
       ],
       "counterparty_refs": [
-        "target_board_zep"
+        "target_zep"
       ],
-      "summary": "New Mountain Capital returned a revised draft of the merger agreement, reducing the go-shop period from sixty days to thirty days.",
+      "summary": "New Mountain Capital sent a revised draft of the merger agreement reducing the go-shop period from sixty days to thirty days.",
       "evidence_span_ids": [
-        "span_0040"
+        "span_0037"
       ],
-      "requested_by_observation_id": "obs_evt_024",
+      "requested_by_observation_id": null,
       "revises_observation_id": null,
       "delivery_mode": null,
       "terms": null,
@@ -988,36 +1134,69 @@
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_026",
+      "observation_id": "obs_evt_029",
       "obs_type": "status",
       "date": {
-        "raw_text": "April 2015",
-        "normalized_start": "2015-04-01",
+        "raw_text": "2015-04-06",
+        "normalized_start": "2015-04-06",
         "normalized_end": "2015-04-06",
-        "sort_date": "2015-04-03",
-        "precision": "month_early",
+        "sort_date": "2015-04-06",
+        "precision": "exact_day",
         "anchor_event_id": null,
         "anchor_span_id": null,
-        "resolution_note": "Anchored to early April before the April 6 board meeting, during continuing negotiations.",
+        "resolution_note": null,
         "is_inferred": false
       },
       "subject_refs": [
-        "bidder_new_mountain"
+        "bidder_new_mountain_capital"
       ],
       "counterparty_refs": [],
-      "summary": "New Mountain Capital reiterated that $20.05 per share was its best and final offer when approached by both Mr. Morgan and BofA Merrill Lynch about a price increase.",
+      "summary": "New Mountain Capital reiterated its previous position that $20.05 per share was its \"best and final\" offer after the Company's attempts to negotiate an increase.",
       "evidence_span_ids": [
-        "span_0041"
+        "span_0038"
       ],
-      "status_kind": "cannot_improve",
+      "status_kind": "other",
       "related_observation_id": null,
-      "other_detail": null
+      "other_detail": "Reiterated best and final offer of $20.05 per share; declined to increase price"
     },
     {
-      "observation_id": "obs_evt_027",
-      "obs_type": "outcome",
+      "observation_id": "obs_evt_030",
+      "obs_type": "agreement",
       "date": {
-        "raw_text": "April 7, 2015",
+        "raw_text": "2015-04-06",
+        "normalized_start": "2015-04-06",
+        "normalized_end": "2015-04-06",
+        "sort_date": "2015-04-06",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_new_mountain_capital"
+      ],
+      "counterparty_refs": [
+        "target_zep"
+      ],
+      "summary": "New Mountain Capital agreed to Company's proposal on termination fees: go-shop termination fee of $8.75 million, post-go-shop termination fee of $17.5 million, and reverse termination fee of $33.75 million. Insisted on thirty-day go-shop period.",
+      "evidence_span_ids": [
+        "span_0042",
+        "span_0053"
+      ],
+      "agreement_kind": "merger_agreement",
+      "signed": null,
+      "grants_diligence_access": null,
+      "includes_standstill": null,
+      "consideration_type": null,
+      "supersedes_observation_id": null,
+      "other_detail": "Negotiated termination fee structure; not yet executed"
+    },
+    {
+      "observation_id": "obs_evt_031",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "2015-04-07",
         "normalized_start": "2015-04-07",
         "normalized_end": "2015-04-07",
         "sort_date": "2015-04-07",
@@ -1028,25 +1207,52 @@
         "is_inferred": false
       },
       "subject_refs": [
-        "target_board_zep"
+        "target_zep",
+        "advisor_bofa"
+      ],
+      "counterparty_refs": [],
+      "summary": "Board met to consider approval of the proposed transaction. BofA Merrill Lynch delivered fairness opinion confirming merger consideration was fair to stockholders.",
+      "evidence_span_ids": [
+        "span_0043",
+        "span_0044"
+      ],
+      "process_kind": "other",
+      "process_scope": null,
+      "other_detail": "Board meeting for final approval; fairness opinion delivered"
+    },
+    {
+      "observation_id": "obs_evt_032",
+      "obs_type": "outcome",
+      "date": {
+        "raw_text": "2015-04-07",
+        "normalized_start": "2015-04-07",
+        "normalized_end": "2015-04-07",
+        "sort_date": "2015-04-07",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_zep"
       ],
       "counterparty_refs": [
-        "bidder_new_mountain"
+        "bidder_new_mountain_capital"
       ],
-      "summary": "Board unanimously determined the merger agreement was advisable and in the best interests of stockholders, and resolved to recommend stockholder approval. BofA Merrill Lynch delivered a fairness opinion.",
+      "summary": "Board unanimously determined the merger agreement and merger were advisable and in the best interests of stockholders and the Company, and resolved to recommend stockholder adoption.",
       "evidence_span_ids": [
-        "span_0047",
-        "span_0048"
+        "span_0045"
       ],
       "outcome_kind": "other",
       "related_observation_id": null,
-      "other_detail": "board approval and recommendation of merger agreement"
+      "other_detail": "Board approval and recommendation to stockholders"
     },
     {
-      "observation_id": "obs_evt_028",
+      "observation_id": "obs_evt_033",
       "obs_type": "outcome",
       "date": {
-        "raw_text": "April 8, 2015",
+        "raw_text": "2015-04-08",
         "normalized_start": "2015-04-08",
         "normalized_end": "2015-04-08",
         "sort_date": "2015-04-08",
@@ -1057,24 +1263,24 @@
         "is_inferred": false
       },
       "subject_refs": [
-        "bidder_new_mountain"
+        "bidder_new_mountain_capital"
       ],
       "counterparty_refs": [
-        "target_board_zep"
+        "target_zep"
       ],
-      "summary": "The parties executed the merger agreement and the related transaction documents and issued a press release announcing the transaction.",
+      "summary": "The parties executed the merger agreement and related transaction documents. A press release was issued announcing the transaction.",
       "evidence_span_ids": [
-        "span_0049"
+        "span_0046"
       ],
       "outcome_kind": "executed",
       "related_observation_id": null,
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_029",
-      "obs_type": "solicitation",
+      "observation_id": "obs_evt_034",
+      "obs_type": "process",
       "date": {
-        "raw_text": "April 8, 2015",
+        "raw_text": "2015-04-08",
         "normalized_start": "2015-04-08",
         "normalized_end": "2015-04-08",
         "sort_date": "2015-04-08",
@@ -1085,22 +1291,46 @@
         "is_inferred": false
       },
       "subject_refs": [
-        "target_board_zep",
+        "target_zep",
         "advisor_bofa"
       ],
-      "counterparty_refs": [
-        "cohort_58_goshop"
-      ],
-      "summary": "Go-shop process commenced; BofA Merrill Lynch contacted 58 parties (strategic and financial buyers) regarding their interest in exploring a transaction. Go-shop period ran until May 7, 2015.",
+      "counterparty_refs": [],
+      "summary": "Go-shop period began on the date of the merger agreement. BofA Merrill Lynch commenced go-shop process on April 8, 2015.",
       "evidence_span_ids": [
-        "span_0050",
-        "span_0051",
-        "span_0069"
+        "span_0047",
+        "span_0048"
+      ],
+      "process_kind": "other",
+      "process_scope": null,
+      "other_detail": "Go-shop process commenced"
+    },
+    {
+      "observation_id": "obs_evt_035",
+      "obs_type": "solicitation",
+      "date": {
+        "raw_text": "2015-04-08",
+        "normalized_start": "2015-04-08",
+        "normalized_end": "2015-04-08",
+        "sort_date": "2015-04-08",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_zep",
+        "advisor_bofa"
+      ],
+      "counterparty_refs": [],
+      "summary": "During the go-shop process, BofA Merrill Lynch contacted fifty-eight parties (including strategic and financial buyers) regarding interest in exploring a transaction.",
+      "evidence_span_ids": [
+        "span_0048"
       ],
       "requested_submission": "other",
       "binding_level": null,
       "due_date": {
-        "raw_text": "May 7, 2015",
+        "raw_text": "2015-05-07",
         "normalized_start": "2015-05-07",
         "normalized_end": "2015-05-07",
         "sort_date": "2015-05-07",
@@ -1114,13 +1344,13 @@
         "cohort_58_goshop"
       ],
       "attachments": [],
-      "other_detail": "go-shop solicitation of alternative acquisition proposals"
+      "other_detail": null
     },
     {
-      "observation_id": "obs_evt_030",
+      "observation_id": "obs_evt_036",
       "obs_type": "outcome",
       "date": {
-        "raw_text": "May 7, 2015",
+        "raw_text": "2015-05-07",
         "normalized_start": "2015-05-07",
         "normalized_end": "2015-05-07",
         "sort_date": "2015-05-07",
@@ -1131,284 +1361,46 @@
         "is_inferred": false
       },
       "subject_refs": [
-        "target_board_zep"
+        "cohort_58_goshop"
       ],
-      "counterparty_refs": [],
-      "summary": "Go-shop period expired. None of the 58 parties contacted had submitted a competing acquisition proposal or remained engaged in discussions.",
+      "counterparty_refs": [
+        "target_zep"
+      ],
+      "summary": "As of the end of the go-shop period, none of the parties contacted had submitted a competing acquisition proposal, and no party remained engaged in discussions.",
       "evidence_span_ids": [
-        "span_0052"
+        "span_0049"
       ],
       "outcome_kind": "other",
       "related_observation_id": null,
-      "other_detail": "go-shop expired with no competing proposals"
+      "other_detail": "Go-shop period expired with no competing proposals received"
     }
   ],
   "exclusions": [
     {
-      "category": "non_event_context",
-      "block_ids": [
-        "B002",
-        "B004",
-        "B006"
-      ],
-      "explanation": "Background framing describing the Company's general periodic review of business and strategic alternatives, not a discrete dated event."
+      "category": "other",
+      "block_ids": [],
+      "explanation": "Fiscal year plan discussions and financial performance reviews: Internal business performance discussions without M&A observation content"
     },
     {
-      "category": "non_event_context",
-      "block_ids": [
-        "B019"
-      ],
-      "explanation": "Late 2013 informal conversations among board members about commencing a review of strategic alternatives; no discrete event or decision recorded."
+      "category": "other",
+      "block_ids": [],
+      "explanation": "May 23, 2014 fire at aerosol manufacturing facility in Marietta, Georgia: External event affecting process context but not itself a process, agreement, solicitation, proposal, status, or outcome observation"
     },
     {
-      "category": "non_event_context",
-      "block_ids": [
-        "B062"
-      ],
-      "explanation": "Fire at the aerosol manufacturing facility on May 23, 2014 is contextual background for the process, not an M&A event."
+      "category": "other",
+      "block_ids": [],
+      "explanation": "March 24, 2015 board decision not to proceed with supply chain transformation project: Internal strategic decision about standalone operations, not an M&A process observation"
     },
     {
-      "category": "non_event_context",
-      "block_ids": [
-        "B073"
-      ],
-      "explanation": "Second half of 2014 general business focus description; no M&A event."
+      "category": "other",
+      "block_ids": [],
+      "explanation": "Informal conversations among board members in latter part of 2013: No specific dated action or structural M&A event; background context only"
+    },
+    {
+      "category": "other",
+      "block_ids": [],
+      "explanation": "PIPE financing inquiries from third parties after 2014 process termination: Not acquisition proposals; minority financing inquiries outside scope of M&A observations"
     }
   ],
-  "coverage": [
-    {
-      "cue_family": "sale_process_launch",
-      "status": "observed",
-      "severity": "info",
-      "repairability": null,
-      "description": "Board first discussed strategic alternatives on June 20, 2013; formal process launch decisions on July 1, 2013 and January 28, 2014.",
-      "reason_code": null,
-      "supporting_event_ids": [
-        "obs_evt_001",
-        "obs_evt_002",
-        "obs_evt_003"
-      ],
-      "supporting_actor_ids": [],
-      "supporting_span_ids": [],
-      "block_ids": [
-        "B008",
-        "B010",
-        "B025"
-      ],
-      "evidence_ids": [],
-      "matched_terms": [],
-      "confidence": "high",
-      "suggested_event_types": [],
-      "note": null
-    },
-    {
-      "cue_family": "advisor_engagement",
-      "status": "observed",
-      "severity": "info",
-      "repairability": null,
-      "description": "BofA Merrill Lynch engaged as financial advisor on January 28, 2014. King & Spalding LLP served as legal counsel.",
-      "reason_code": null,
-      "supporting_event_ids": [
-        "obs_evt_003"
-      ],
-      "supporting_actor_ids": [
-        "advisor_bofa",
-        "advisor_king_spalding"
-      ],
-      "supporting_span_ids": [],
-      "block_ids": [
-        "B025",
-        "B028",
-        "B015"
-      ],
-      "evidence_ids": [],
-      "matched_terms": [],
-      "confidence": "high",
-      "suggested_event_types": [],
-      "note": null
-    },
-    {
-      "cue_family": "first_round_bids",
-      "status": "observed",
-      "severity": "info",
-      "repairability": null,
-      "description": "First-round process letter sent March 27, 2014 with April 14, 2014 deadline. Five parties submitted IOIs ranging $20.00-$22.00/share.",
-      "reason_code": null,
-      "supporting_event_ids": [
-        "obs_evt_006",
-        "obs_evt_009"
-      ],
-      "supporting_actor_ids": [],
-      "supporting_span_ids": [],
-      "block_ids": [
-        "B044",
-        "B046"
-      ],
-      "evidence_ids": [],
-      "matched_terms": [],
-      "confidence": "high",
-      "suggested_event_types": [],
-      "note": null
-    },
-    {
-      "cue_family": "late_entrant_proposals",
-      "status": "observed",
-      "severity": "info",
-      "repairability": null,
-      "description": "Party X submitted IOI of $21.50-$23.00 on May 9, 2014 then withdrew May 14, 2014. Party Y submitted IOI of $19.50-$20.50 on May 20, 2014.",
-      "reason_code": null,
-      "supporting_event_ids": [
-        "obs_evt_010",
-        "obs_evt_011",
-        "obs_evt_012"
-      ],
-      "supporting_actor_ids": [],
-      "supporting_span_ids": [],
-      "block_ids": [
-        "B054",
-        "B056",
-        "B058"
-      ],
-      "evidence_ids": [],
-      "matched_terms": [],
-      "confidence": "high",
-      "suggested_event_types": [],
-      "note": null
-    },
-    {
-      "cue_family": "process_termination",
-      "status": "observed",
-      "severity": "info",
-      "repairability": null,
-      "description": "Board terminated the 2014 sale process on June 26, 2014 due to lack of buyer interest and facility fire uncertainty.",
-      "reason_code": null,
-      "supporting_event_ids": [
-        "obs_evt_016"
-      ],
-      "supporting_actor_ids": [],
-      "supporting_span_ids": [],
-      "block_ids": [
-        "B068"
-      ],
-      "evidence_ids": [],
-      "matched_terms": [],
-      "confidence": "high",
-      "suggested_event_types": [],
-      "note": null
-    },
-    {
-      "cue_family": "unsolicited_approach",
-      "status": "observed",
-      "severity": "info",
-      "repairability": null,
-      "description": "New Mountain Capital re-approached in early February 2015, delivered unsolicited IOI at $19.25/share on February 19, 2015, then revised to $20.05/share on February 26, 2015.",
-      "reason_code": null,
-      "supporting_event_ids": [
-        "obs_evt_018",
-        "obs_evt_019",
-        "obs_evt_020"
-      ],
-      "supporting_actor_ids": [],
-      "supporting_span_ids": [],
-      "block_ids": [
-        "B075",
-        "B079"
-      ],
-      "evidence_ids": [],
-      "matched_terms": [],
-      "confidence": "high",
-      "suggested_event_types": [],
-      "note": null
-    },
-    {
-      "cue_family": "exclusivity_agreement",
-      "status": "observed",
-      "severity": "info",
-      "repairability": null,
-      "description": "Exclusivity agreement signed February 27, 2015 through March 31, 2015; extended through April 7, 2015 via March 18, 2015 extension letter.",
-      "reason_code": null,
-      "supporting_event_ids": [
-        "obs_evt_021",
-        "obs_evt_023"
-      ],
-      "supporting_actor_ids": [],
-      "supporting_span_ids": [],
-      "block_ids": [
-        "B085",
-        "B093"
-      ],
-      "evidence_ids": [],
-      "matched_terms": [],
-      "confidence": "high",
-      "suggested_event_types": [],
-      "note": null
-    },
-    {
-      "cue_family": "merger_agreement_execution",
-      "status": "observed",
-      "severity": "info",
-      "repairability": null,
-      "description": "Merger agreement executed April 8, 2015 between New Mountain Capital and the Company at $20.05/share.",
-      "reason_code": null,
-      "supporting_event_ids": [
-        "obs_evt_028"
-      ],
-      "supporting_actor_ids": [],
-      "supporting_span_ids": [],
-      "block_ids": [
-        "B113"
-      ],
-      "evidence_ids": [],
-      "matched_terms": [],
-      "confidence": "high",
-      "suggested_event_types": [],
-      "note": null
-    },
-    {
-      "cue_family": "go_shop",
-      "status": "observed",
-      "severity": "info",
-      "repairability": null,
-      "description": "30-day go-shop period from April 8 to May 7, 2015. 58 parties contacted; no competing proposals received.",
-      "reason_code": null,
-      "supporting_event_ids": [
-        "obs_evt_029",
-        "obs_evt_030"
-      ],
-      "supporting_actor_ids": [],
-      "supporting_span_ids": [],
-      "block_ids": [
-        "B114"
-      ],
-      "evidence_ids": [],
-      "matched_terms": [],
-      "confidence": "high",
-      "suggested_event_types": [],
-      "note": null
-    },
-    {
-      "cue_family": "confidentiality_agreements",
-      "status": "observed",
-      "severity": "info",
-      "repairability": null,
-      "description": "25 potential buyers executed confidentiality agreements including standstill and don't-ask-to-waive provisions. New Mountain Capital NDA on March 19, 2014.",
-      "reason_code": null,
-      "supporting_event_ids": [
-        "obs_evt_005",
-        "obs_evt_006"
-      ],
-      "supporting_actor_ids": [],
-      "supporting_span_ids": [],
-      "block_ids": [
-        "B038",
-        "B040",
-        "B044"
-      ],
-      "evidence_ids": [],
-      "matched_terms": [],
-      "confidence": "high",
-      "suggested_event_types": [],
-      "note": null
-    }
-  ]
+  "coverage": []
 }

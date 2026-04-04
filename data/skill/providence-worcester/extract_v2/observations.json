@@ -1,13 +1,56 @@
 {
   "parties": [
     {
-      "party_id": "target_board_board",
-      "display_name": "Board of Directors",
-      "canonical_name": "BOARD OF DIRECTORS",
-      "aliases": [
-        "Board"
-      ],
-      "role": "target_board",
+      "party_id": "party_a",
+      "display_name": "Party A",
+      "canonical_name": null,
+      "aliases": [],
+      "role": "bidder",
+      "bidder_kind": null,
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": [
+        "span_0001"
+      ]
+    },
+    {
+      "party_id": "party_b",
+      "display_name": "Party B",
+      "canonical_name": null,
+      "aliases": [],
+      "role": "bidder",
+      "bidder_kind": null,
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": [
+        "span_0016"
+      ]
+    },
+    {
+      "party_id": "gw",
+      "display_name": "G& W",
+      "canonical_name": null,
+      "aliases": [],
+      "role": "bidder",
+      "bidder_kind": null,
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": [
+        "span_0014"
+      ]
+    },
+    {
+      "party_id": "party_c",
+      "display_name": "Party C",
+      "canonical_name": null,
+      "aliases": [],
+      "role": "bidder",
       "bidder_kind": null,
       "advisor_kind": null,
       "advised_party_id": null,
@@ -18,93 +61,12 @@
       ]
     },
     {
-      "party_id": "target_board_transaction_committee",
-      "display_name": "Transaction Committee",
-      "canonical_name": "TRANSACTION COMMITTEE",
-      "aliases": [],
-      "role": "target_board",
-      "bidder_kind": null,
-      "advisor_kind": null,
-      "advised_party_id": null,
-      "listing_status": null,
-      "geography": null,
-      "evidence_span_ids": [
-        "span_0025"
-      ]
-    },
-    {
-      "party_id": "bidder_party_a",
-      "display_name": "Party A",
-      "canonical_name": "PARTY A",
+      "party_id": "party_d",
+      "display_name": "Party D",
+      "canonical_name": null,
       "aliases": [],
       "role": "bidder",
-      "bidder_kind": "strategic",
-      "advisor_kind": null,
-      "advised_party_id": null,
-      "listing_status": null,
-      "geography": null,
-      "evidence_span_ids": [
-        "span_0026"
-      ]
-    },
-    {
-      "party_id": "advisor_bmo_capital_markets",
-      "display_name": "BMO Capital Markets Corp. / Greene Holcomb & Fisher LLC",
-      "canonical_name": "BMO CAPITAL MARKETS CORP.",
-      "aliases": [
-        "Greene Holcomb & Fisher LLC",
-        "GHF",
-        "BMO"
-      ],
-      "role": "advisor",
       "bidder_kind": null,
-      "advisor_kind": "financial",
-      "advised_party_id": "target_board_board",
-      "listing_status": null,
-      "geography": null,
-      "evidence_span_ids": [
-        "span_0027"
-      ]
-    },
-    {
-      "party_id": "advisor_hinckley_allen",
-      "display_name": "Hinckley, Allen & Snyder LLP",
-      "canonical_name": "HINCKLEY, ALLEN & SNYDER LLP",
-      "aliases": [
-        "Hinckley Allen"
-      ],
-      "role": "advisor",
-      "bidder_kind": null,
-      "advisor_kind": "legal",
-      "advised_party_id": "target_board_board",
-      "listing_status": null,
-      "geography": null,
-      "evidence_span_ids": [
-        "span_0028"
-      ]
-    },
-    {
-      "party_id": "bidder_gw",
-      "display_name": "G& W",
-      "canonical_name": "G& W",
-      "aliases": [],
-      "role": "bidder",
-      "bidder_kind": "strategic",
-      "advisor_kind": null,
-      "advised_party_id": null,
-      "listing_status": null,
-      "geography": null,
-      "evidence_span_ids": [
-        "span_0029"
-      ]
-    },
-    {
-      "party_id": "bidder_party_b",
-      "display_name": "Party B",
-      "canonical_name": "PARTY B",
-      "aliases": [],
-      "role": "bidder",
-      "bidder_kind": "strategic",
       "advisor_kind": null,
       "advised_party_id": null,
       "listing_status": null,
@@ -114,27 +76,62 @@
       ]
     },
     {
-      "party_id": "bidder_party_c",
-      "display_name": "Party C",
-      "canonical_name": "PARTY C",
+      "party_id": "party_e",
+      "display_name": "Party E",
+      "canonical_name": null,
       "aliases": [],
       "role": "bidder",
-      "bidder_kind": "strategic",
+      "bidder_kind": null,
       "advisor_kind": null,
       "advised_party_id": null,
       "listing_status": null,
       "geography": null,
       "evidence_span_ids": [
-        "span_0008"
+        "span_0029"
       ]
     },
     {
-      "party_id": "bidder_party_d",
-      "display_name": "Party D",
-      "canonical_name": "PARTY D",
+      "party_id": "party_f",
+      "display_name": "Party F",
+      "canonical_name": null,
       "aliases": [],
       "role": "bidder",
-      "bidder_kind": "financial",
+      "bidder_kind": null,
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": [
+        "span_0032"
+      ]
+    },
+    {
+      "party_id": "ghf_bmo",
+      "display_name": "Greene Holcomb & Fisher LLC / BMO Capital Markets Corp.",
+      "canonical_name": null,
+      "aliases": [
+        "GHF",
+        "BMO"
+      ],
+      "role": "advisor",
+      "bidder_kind": null,
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": [
+        "span_0003"
+      ]
+    },
+    {
+      "party_id": "hinckley_allen",
+      "display_name": "Hinckley, Allen & Snyder LLP",
+      "canonical_name": null,
+      "aliases": [
+        "Hinckley Allen"
+      ],
+      "role": "advisor",
+      "bidder_kind": null,
       "advisor_kind": null,
       "advised_party_id": null,
       "listing_status": null,
@@ -144,82 +141,480 @@
       ]
     },
     {
-      "party_id": "bidder_party_e",
-      "display_name": "Party E",
-      "canonical_name": "PARTY E",
-      "aliases": [],
-      "role": "bidder",
-      "bidder_kind": "strategic",
-      "advisor_kind": null,
-      "advised_party_id": null,
-      "listing_status": null,
-      "geography": null,
-      "evidence_span_ids": [
-        "span_0012"
-      ]
-    },
-    {
-      "party_id": "bidder_party_f",
-      "display_name": "Party F",
-      "canonical_name": "PARTY F",
-      "aliases": [],
-      "role": "bidder",
-      "bidder_kind": "strategic",
-      "advisor_kind": null,
-      "advised_party_id": null,
-      "listing_status": null,
-      "geography": null,
-      "evidence_span_ids": [
-        "span_0016"
-      ]
-    },
-    {
-      "party_id": "advisor_simpson_thacher",
+      "party_id": "simpson_thacher",
       "display_name": "Simpson Thacher & Bartlett LLP",
-      "canonical_name": "SIMPSON THACHER & BARTLETT LLP",
+      "canonical_name": null,
       "aliases": [
         "Simpson Thacher"
       ],
       "role": "advisor",
       "bidder_kind": null,
-      "advisor_kind": "legal",
-      "advised_party_id": "bidder_gw",
+      "advisor_kind": null,
+      "advised_party_id": null,
       "listing_status": null,
       "geography": null,
       "evidence_span_ids": [
-        "span_0031"
+        "span_0047"
+      ]
+    },
+    {
+      "party_id": "target_board",
+      "display_name": "Providence & Worcester Railroad Company Board",
+      "canonical_name": null,
+      "aliases": [
+        "the Board",
+        "Transaction Committee"
+      ],
+      "role": "target_board",
+      "bidder_kind": null,
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": [
+        "span_0004",
+        "span_0008"
+      ]
+    },
+    {
+      "party_id": "gatx",
+      "display_name": "GATX Corporation",
+      "canonical_name": null,
+      "aliases": [
+        "GATX"
+      ],
+      "role": "other",
+      "bidder_kind": null,
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": [
+        "span_0063"
       ]
     }
   ],
-  "cohorts": [],
+  "cohorts": [
+    {
+      "cohort_id": "cohort_initial_strategic",
+      "label": "potential strategic buyers contacted during week of March 28, 2016",
+      "parent_cohort_id": null,
+      "exact_count": 11,
+      "known_member_party_ids": [
+        "party_a"
+      ],
+      "unknown_member_count": 10,
+      "membership_basis": "filing_stated",
+      "created_by_observation_id": "obs_evt_001",
+      "evidence_span_ids": [
+        "span_0012"
+      ]
+    },
+    {
+      "cohort_id": "cohort_initial_financial",
+      "label": "potential financial buyers contacted during week of March 28, 2016",
+      "parent_cohort_id": null,
+      "exact_count": 18,
+      "known_member_party_ids": [],
+      "unknown_member_count": 18,
+      "membership_basis": "filing_stated",
+      "created_by_observation_id": "obs_evt_001",
+      "evidence_span_ids": [
+        "span_0012"
+      ]
+    },
+    {
+      "cohort_id": "cohort_nda_strategic",
+      "label": "potential strategic buyers that executed confidentiality agreements",
+      "parent_cohort_id": null,
+      "exact_count": 11,
+      "known_member_party_ids": [
+        "party_a"
+      ],
+      "unknown_member_count": 10,
+      "membership_basis": "filing_stated",
+      "created_by_observation_id": "obs_evt_001",
+      "evidence_span_ids": [
+        "span_0013"
+      ]
+    },
+    {
+      "cohort_id": "cohort_nda_financial",
+      "label": "potential financial buyers that executed confidentiality agreements",
+      "parent_cohort_id": null,
+      "exact_count": 14,
+      "known_member_party_ids": [],
+      "unknown_member_count": 14,
+      "membership_basis": "filing_stated",
+      "created_by_observation_id": "obs_evt_001",
+      "evidence_span_ids": [
+        "span_0013"
+      ]
+    },
+    {
+      "cohort_id": "cohort_ioi_submitters",
+      "label": "potential buyers that submitted written indications of interest between May 19 and June 1, 2016",
+      "parent_cohort_id": null,
+      "exact_count": 9,
+      "known_member_party_ids": [],
+      "unknown_member_count": 9,
+      "membership_basis": "filing_stated",
+      "created_by_observation_id": "obs_evt_001",
+      "evidence_span_ids": [
+        "span_0019"
+      ]
+    },
+    {
+      "cohort_id": "cohort_mgmt_presentation",
+      "label": "remaining seven potential buyers invited to management presentations after two low bidders excluded",
+      "parent_cohort_id": null,
+      "exact_count": 7,
+      "known_member_party_ids": [],
+      "unknown_member_count": 7,
+      "membership_basis": "filing_stated",
+      "created_by_observation_id": "obs_evt_001",
+      "evidence_span_ids": [
+        "span_0021"
+      ]
+    },
+    {
+      "cohort_id": "cohort_loi_submitters",
+      "label": "parties that submitted LOIs in late July 2016",
+      "parent_cohort_id": null,
+      "exact_count": 6,
+      "known_member_party_ids": [
+        "party_b",
+        "gw",
+        "party_d",
+        "party_e",
+        "party_c",
+        "party_f"
+      ],
+      "unknown_member_count": 0,
+      "membership_basis": "filing_stated",
+      "created_by_observation_id": "obs_evt_001",
+      "evidence_span_ids": [
+        "span_0026"
+      ]
+    }
+  ],
   "observations": [
     {
-      "observation_id": "obs_evt_008",
-      "obs_type": "solicitation",
+      "observation_id": "obs_evt_001",
+      "obs_type": "process",
       "date": {
-        "raw_text": "mid-June 2016",
-        "normalized_start": "2016-06-11",
-        "normalized_end": "2016-06-20",
-        "sort_date": "2016-06-15",
-        "precision": "month_mid",
+        "raw_text": "2015-Q4",
+        "normalized_start": null,
+        "normalized_end": null,
+        "sort_date": null,
+        "precision": "unknown",
         "anchor_event_id": null,
         "anchor_span_id": null,
         "resolution_note": null,
         "is_inferred": false
       },
-      "subject_refs": [],
-      "counterparty_refs": [],
-      "summary": "GHF instructed all potential buyers to submit non-binding LOIs and agreement mark-ups by July 20, 2016.",
+      "subject_refs": [
+        "party_a"
+      ],
+      "counterparty_refs": [
+        "target_board"
+      ],
+      "summary": "In Q4 2015, Company management met with Party A, a Class I rail partner, who expressed interest in acquiring equity in the Company.",
       "evidence_span_ids": [
         "span_0001"
       ],
-      "requested_submission": "best_and_final",
-      "binding_level": "binding",
+      "process_kind": "other",
+      "process_scope": null,
+      "other_detail": "initial meeting between Company management and Party A discussing joint commercial opportunities"
+    },
+    {
+      "observation_id": "obs_evt_002",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "2015-Q4",
+        "normalized_start": null,
+        "normalized_end": null,
+        "sort_date": null,
+        "precision": "unknown",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_board"
+      ],
+      "counterparty_refs": [],
+      "summary": "Upon receiving report of Party A meeting, the Board appointed a subcommittee of two independent directors to interview potential investment bankers.",
+      "evidence_span_ids": [
+        "span_0002"
+      ],
+      "process_kind": "other",
+      "process_scope": null,
+      "other_detail": "Board appointed subcommittee to interview investment bankers"
+    },
+    {
+      "observation_id": "obs_evt_003",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "2016-01-27",
+        "normalized_start": "2016-01-27",
+        "normalized_end": "2016-01-27",
+        "sort_date": "2016-01-27",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_board"
+      ],
+      "counterparty_refs": [
+        "ghf_bmo"
+      ],
+      "summary": "At the January 27, 2016 Board meeting, the subcommittee recommended retaining GHF as investment banking firm. The Board approved and the Company engaged GHF.",
+      "evidence_span_ids": [
+        "span_0004",
+        "span_0005"
+      ],
+      "process_kind": "advisor_retention",
+      "process_scope": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_004",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "2016-03-14",
+        "normalized_start": "2016-03-14",
+        "normalized_end": "2016-03-14",
+        "sort_date": "2016-03-14",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_board"
+      ],
+      "counterparty_refs": [],
+      "summary": "At a special Board meeting on March 14, 2016, GHF proposed a process to proceed with Party A discussions and solicit interest from other third parties regarding a change in control transaction. The Board concluded it was in the best interest of the Company and its shareholders to proceed.",
+      "evidence_span_ids": [
+        "span_0006",
+        "span_0007",
+        "span_0008"
+      ],
+      "process_kind": "sale_launch",
+      "process_scope": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_004b",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "2016-03-14",
+        "normalized_start": "2016-03-14",
+        "normalized_end": "2016-03-14",
+        "sort_date": "2016-03-14",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_board"
+      ],
+      "counterparty_refs": [],
+      "summary": "At the conclusion of the March 14, 2016 meeting, the Board appointed a Transaction Committee composed of Frank W. Barrett (Chair), Richard W. Anderson, and James C. Garvey to supervise and oversee the process.",
+      "evidence_span_ids": [
+        "span_0008"
+      ],
+      "process_kind": "other",
+      "process_scope": null,
+      "other_detail": "appointment of Transaction Committee"
+    },
+    {
+      "observation_id": "obs_evt_005",
+      "obs_type": "solicitation",
+      "date": {
+        "raw_text": "2016-03-28",
+        "normalized_start": "2016-03-28",
+        "normalized_end": "2016-03-28",
+        "sort_date": "2016-03-28",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_board"
+      ],
+      "counterparty_refs": [],
+      "summary": "During the week of March 28, 2016, representatives of GHF contacted 11 potential strategic buyers (including Party A) and 18 potential financial buyers.",
+      "evidence_span_ids": [
+        "span_0011",
+        "span_0012"
+      ],
+      "requested_submission": "other",
+      "binding_level": null,
+      "due_date": null,
+      "recipient_refs": [
+        "cohort_initial_strategic",
+        "cohort_initial_financial"
+      ],
+      "attachments": [],
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_006",
+      "obs_type": "agreement",
+      "date": {
+        "raw_text": "2016-03-28",
+        "normalized_start": "2016-03-28",
+        "normalized_end": "2016-03-28",
+        "sort_date": "2016-03-28",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "cohort_nda_strategic",
+        "cohort_nda_financial"
+      ],
+      "counterparty_refs": [
+        "target_board"
+      ],
+      "summary": "Each of the 11 potential strategic buyers and 14 potential financial buyers subsequently executed confidentiality agreements. The agreements did not contain any standstill or similar provision.",
+      "evidence_span_ids": [
+        "span_0013"
+      ],
+      "agreement_kind": "nda",
+      "signed": null,
+      "grants_diligence_access": null,
+      "includes_standstill": null,
+      "consideration_type": null,
+      "supersedes_observation_id": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_007",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "2016-03-22",
+        "normalized_start": "2016-03-22",
+        "normalized_end": "2016-03-22",
+        "sort_date": "2016-03-22",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "party_a"
+      ],
+      "counterparty_refs": [
+        "target_board"
+      ],
+      "summary": "On March 22-23, 2016, the Company's CFO and senior management met with various representatives of Party A.",
+      "evidence_span_ids": [
+        "span_0009"
+      ],
+      "process_kind": "other",
+      "process_scope": null,
+      "other_detail": "management meeting with Party A"
+    },
+    {
+      "observation_id": "obs_evt_008",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "2016-04-03",
+        "normalized_start": "2016-04-03",
+        "normalized_end": "2016-04-03",
+        "sort_date": "2016-04-03",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "gw"
+      ],
+      "counterparty_refs": [
+        "target_board"
+      ],
+      "summary": "Between April 3-6, 2016, representatives of GHF and Company management held introductory meetings with five potential strategic buyers (including G&W) at the 2016 Connections Convention.",
+      "evidence_span_ids": [
+        "span_0014"
+      ],
+      "process_kind": "other",
+      "process_scope": null,
+      "other_detail": "introductory meetings at 2016 Connections Convention"
+    },
+    {
+      "observation_id": "obs_evt_009",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "2016-04-21",
+        "normalized_start": "2016-04-21",
+        "normalized_end": "2016-04-21",
+        "sort_date": "2016-04-21",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "party_b"
+      ],
+      "counterparty_refs": [
+        "target_board"
+      ],
+      "summary": "On April 21, 2016, the Company and GHF held an introductory meeting with Party B, another potential strategic buyer.",
+      "evidence_span_ids": [
+        "span_0016"
+      ],
+      "process_kind": "other",
+      "process_scope": null,
+      "other_detail": "introductory meeting with Party B"
+    },
+    {
+      "observation_id": "obs_evt_010",
+      "obs_type": "solicitation",
+      "date": {
+        "raw_text": "2016-04-27",
+        "normalized_start": "2016-04-27",
+        "normalized_end": "2016-04-27",
+        "sort_date": "2016-04-27",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_board"
+      ],
+      "counterparty_refs": [],
+      "summary": "On April 27, 2016, the Board discussed the process status, including that each potential buyer had been advised to submit a non-binding IOI by May 10, 2016 (subsequently postponed to May 19, 2016).",
+      "evidence_span_ids": [
+        "span_0018"
+      ],
+      "requested_submission": "other",
+      "binding_level": null,
       "due_date": {
-        "raw_text": "July 20, 2016",
-        "normalized_start": "2016-07-20",
-        "normalized_end": "2016-07-20",
-        "sort_date": "2016-07-20",
+        "raw_text": "2016-05-19",
+        "normalized_start": "2016-05-19",
+        "normalized_end": "2016-05-19",
+        "sort_date": "2016-05-19",
         "precision": "exact_day",
         "anchor_event_id": null,
         "anchor_span_id": null,
@@ -231,39 +626,13 @@
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_001",
-      "obs_type": "status",
+      "observation_id": "obs_evt_013",
+      "obs_type": "proposal",
       "date": {
-        "raw_text": "the fourth quarter of 2015",
-        "normalized_start": null,
-        "normalized_end": null,
-        "sort_date": null,
-        "precision": "unknown",
-        "anchor_event_id": null,
-        "anchor_span_id": null,
-        "resolution_note": "Unable to parse date deterministically.",
-        "is_inferred": false
-      },
-      "subject_refs": [
-        "bidder_party_a"
-      ],
-      "counterparty_refs": [],
-      "summary": "Party A expressed interest in acquiring equity in the Company.",
-      "evidence_span_ids": [
-        "span_0002"
-      ],
-      "status_kind": "expressed_interest",
-      "related_observation_id": null,
-      "other_detail": null
-    },
-    {
-      "observation_id": "obs_evt_002",
-      "obs_type": "process",
-      "date": {
-        "raw_text": "January 27, 2016",
-        "normalized_start": "2016-01-27",
-        "normalized_end": "2016-01-27",
-        "sort_date": "2016-01-27",
+        "raw_text": "2016-05-19",
+        "normalized_start": "2016-05-19",
+        "normalized_end": "2016-05-19",
+        "sort_date": "2016-05-19",
         "precision": "exact_day",
         "anchor_event_id": null,
         "anchor_span_id": null,
@@ -271,25 +640,32 @@
         "is_inferred": false
       },
       "subject_refs": [
-        "advisor_bmo_capital_markets"
+        "cohort_ioi_submitters"
       ],
-      "counterparty_refs": [],
-      "summary": "The Board retained GHF as the Company's investment banking firm.",
+      "counterparty_refs": [
+        "target_board"
+      ],
+      "summary": "Between May 19 and June 1, 2016, the Company received nine written IOIs from potential buyers, with offer prices per share ranging from $17.93 to $26.50, implying equity values of $90 million to $134 million.",
       "evidence_span_ids": [
-        "span_0003"
+        "span_0019"
       ],
-      "process_kind": "advisor_retention",
-      "process_scope": "target",
+      "requested_by_observation_id": "obs_evt_010",
+      "revises_observation_id": null,
+      "delivery_mode": null,
+      "terms": null,
+      "mentions_non_binding": true,
+      "includes_draft_merger_agreement": false,
+      "includes_markup": false,
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_003",
-      "obs_type": "process",
+      "observation_id": "obs_evt_014",
+      "obs_type": "status",
       "date": {
-        "raw_text": "March 14, 2016",
-        "normalized_start": "2016-03-14",
-        "normalized_end": "2016-03-14",
-        "sort_date": "2016-03-14",
+        "raw_text": "2016-06-01",
+        "normalized_start": "2016-06-01",
+        "normalized_end": "2016-06-01",
+        "sort_date": "2016-06-01",
         "precision": "exact_day",
         "anchor_event_id": null,
         "anchor_span_id": null,
@@ -297,167 +673,177 @@
         "is_inferred": false
       },
       "subject_refs": [],
-      "counterparty_refs": [],
-      "summary": "The Board decided to proceed with a transaction strategy and formed the Transaction Committee to supervise the process.",
+      "counterparty_refs": [
+        "target_board"
+      ],
+      "summary": "The Transaction Committee concluded that the two low bidders should be excluded from the management presentation process.",
       "evidence_span_ids": [
-        "span_0004",
-        "span_0005"
+        "span_0020"
       ],
-      "process_kind": "sale_launch",
-      "process_scope": "target",
-      "other_detail": null
-    },
-    {
-      "observation_id": "obs_evt_004",
-      "obs_type": "agreement",
-      "date": {
-        "raw_text": "2016-04-22",
-        "normalized_start": "2016-04-22",
-        "normalized_end": "2016-04-22",
-        "sort_date": "2016-04-22",
-        "precision": "exact_day",
-        "anchor_event_id": null,
-        "anchor_span_id": null,
-        "resolution_note": null,
-        "is_inferred": false
-      },
-      "subject_refs": [
-        "bidder_party_a"
-      ],
-      "counterparty_refs": [],
-      "summary": "Party A had executed a confidentiality agreement with the Company by April 22, 2016.",
-      "evidence_span_ids": [
-        "span_0006"
-      ],
-      "agreement_kind": "nda",
-      "signed": true,
-      "grants_diligence_access": true,
-      "includes_standstill": null,
-      "consideration_type": null,
-      "supersedes_observation_id": null,
-      "other_detail": null
-    },
-    {
-      "observation_id": "obs_evt_005",
-      "obs_type": "agreement",
-      "date": {
-        "raw_text": "2016-04-22",
-        "normalized_start": "2016-04-22",
-        "normalized_end": "2016-04-22",
-        "sort_date": "2016-04-22",
-        "precision": "exact_day",
-        "anchor_event_id": null,
-        "anchor_span_id": null,
-        "resolution_note": null,
-        "is_inferred": false
-      },
-      "subject_refs": [
-        "bidder_gw"
-      ],
-      "counterparty_refs": [],
-      "summary": "G& W had executed a confidentiality agreement with the Company by April 22, 2016.",
-      "evidence_span_ids": [
-        "span_0006"
-      ],
-      "agreement_kind": "nda",
-      "signed": true,
-      "grants_diligence_access": true,
-      "includes_standstill": null,
-      "consideration_type": null,
-      "supersedes_observation_id": null,
-      "other_detail": null
-    },
-    {
-      "observation_id": "obs_evt_006",
-      "obs_type": "agreement",
-      "date": {
-        "raw_text": "2016-04-22",
-        "normalized_start": "2016-04-22",
-        "normalized_end": "2016-04-22",
-        "sort_date": "2016-04-22",
-        "precision": "exact_day",
-        "anchor_event_id": null,
-        "anchor_span_id": null,
-        "resolution_note": null,
-        "is_inferred": false
-      },
-      "subject_refs": [
-        "bidder_party_b"
-      ],
-      "counterparty_refs": [],
-      "summary": "Party B had executed a confidentiality agreement with the Company by April 22, 2016.",
-      "evidence_span_ids": [
-        "span_0006"
-      ],
-      "agreement_kind": "nda",
-      "signed": true,
-      "grants_diligence_access": true,
-      "includes_standstill": null,
-      "consideration_type": null,
-      "supersedes_observation_id": null,
-      "other_detail": null
-    },
-    {
-      "observation_id": "obs_evt_009",
-      "obs_type": "status",
-      "date": {
-        "raw_text": "early July 2016",
-        "normalized_start": "2016-07-01",
-        "normalized_end": "2016-07-10",
-        "sort_date": "2016-07-05",
-        "precision": "month_early",
-        "anchor_event_id": null,
-        "anchor_span_id": null,
-        "resolution_note": null,
-        "is_inferred": false
-      },
-      "subject_refs": [
-        "bidder_party_c"
-      ],
-      "counterparty_refs": [],
-      "summary": "Party C approached management and expressed interest in acquiring the Company.",
-      "evidence_span_ids": [
-        "span_0007"
-      ],
-      "status_kind": "expressed_interest",
+      "status_kind": "excluded",
       "related_observation_id": null,
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_010",
-      "obs_type": "agreement",
+      "observation_id": "obs_evt_015",
+      "obs_type": "status",
       "date": {
-        "raw_text": "early July 2016",
-        "normalized_start": "2016-07-01",
-        "normalized_end": "2016-07-10",
-        "sort_date": "2016-07-05",
-        "precision": "month_early",
+        "raw_text": "2016-06-01",
+        "normalized_start": "2016-06-01",
+        "normalized_end": "2016-06-01",
+        "sort_date": "2016-06-01",
+        "precision": "exact_day",
         "anchor_event_id": null,
         "anchor_span_id": null,
         "resolution_note": null,
         "is_inferred": false
       },
       "subject_refs": [
-        "bidder_party_c"
+        "cohort_mgmt_presentation"
+      ],
+      "counterparty_refs": [
+        "target_board"
+      ],
+      "summary": "The Transaction Committee authorized GHF to schedule in-person management presentations with the remaining seven potential buyers and allow them to conduct additional due diligence.",
+      "evidence_span_ids": [
+        "span_0021"
+      ],
+      "status_kind": "selected_to_advance",
+      "related_observation_id": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_016",
+      "obs_type": "solicitation",
+      "date": {
+        "raw_text": "2016-06-15",
+        "normalized_start": "2016-06-15",
+        "normalized_end": "2016-06-15",
+        "sort_date": "2016-06-15",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_board"
       ],
       "counterparty_refs": [],
-      "summary": "Party C executed a confidentiality agreement with the Company.",
+      "summary": "In mid-June 2016, GHF instructed all potential buyers to submit non-binding LOIs by July 20, 2016, together with mark-ups of merger agreement, disclosure letter, and voting agreement forms.",
       "evidence_span_ids": [
-        "span_0007"
+        "span_0022"
+      ],
+      "requested_submission": "other",
+      "binding_level": null,
+      "due_date": {
+        "raw_text": "2016-07-20",
+        "normalized_start": "2016-07-20",
+        "normalized_end": "2016-07-20",
+        "sort_date": "2016-07-20",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "recipient_refs": [
+        "cohort_mgmt_presentation"
+      ],
+      "attachments": [],
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_016b",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "2016-06-29",
+        "normalized_start": "2016-06-29",
+        "normalized_end": "2016-06-29",
+        "sort_date": "2016-06-29",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_board"
+      ],
+      "counterparty_refs": [],
+      "summary": "On June 29, 2016, the Company posted an initial draft of merger agreement to the data site; on June 30, 2016, a draft voting agreement; on July 11, 2016, a draft disclosure letter.",
+      "evidence_span_ids": [
+        "span_0023"
+      ],
+      "process_kind": "other",
+      "process_scope": null,
+      "other_detail": "draft merger agreement posted to data site"
+    },
+    {
+      "observation_id": "obs_evt_017",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "2016-07-01",
+        "normalized_start": "2016-07-01",
+        "normalized_end": "2016-07-01",
+        "sort_date": "2016-07-01",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "party_c"
+      ],
+      "counterparty_refs": [
+        "target_board"
+      ],
+      "summary": "In early July 2016, Party C, a potential strategic buyer not previously part of the process, approached the Company's management and expressed interest in acquiring the Company.",
+      "evidence_span_ids": [
+        "span_0024"
+      ],
+      "status_kind": "other",
+      "related_observation_id": null,
+      "other_detail": "interested"
+    },
+    {
+      "observation_id": "obs_evt_017b",
+      "obs_type": "agreement",
+      "date": {
+        "raw_text": "2016-07-01",
+        "normalized_start": "2016-07-01",
+        "normalized_end": "2016-07-01",
+        "sort_date": "2016-07-01",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "party_c"
+      ],
+      "counterparty_refs": [
+        "target_board"
+      ],
+      "summary": "Party C executed a confidentiality agreement and was provided the Company memorandum.",
+      "evidence_span_ids": [
+        "span_0024"
       ],
       "agreement_kind": "nda",
-      "signed": true,
-      "grants_diligence_access": true,
+      "signed": null,
+      "grants_diligence_access": null,
       "includes_standstill": null,
       "consideration_type": null,
       "supersedes_observation_id": null,
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_011",
+      "observation_id": "obs_evt_017c",
       "obs_type": "proposal",
       "date": {
-        "raw_text": "July 12, 2016",
+        "raw_text": "2016-07-12",
         "normalized_start": "2016-07-12",
         "normalized_end": "2016-07-12",
         "sort_date": "2016-07-12",
@@ -468,218 +854,26 @@
         "is_inferred": false
       },
       "subject_refs": [
-        "bidder_party_c"
+        "party_c"
       ],
-      "counterparty_refs": [],
-      "summary": "Party C submitted an IOI at $21.00 per share.",
+      "counterparty_refs": [
+        "target_board"
+      ],
+      "summary": "On July 12, 2016, Party C submitted an IOI with an offer price per share of $21.00 (implying equity value of $108 million).",
       "evidence_span_ids": [
-        "span_0008"
+        "span_0025"
       ],
-      "requested_by_observation_id": "obs_evt_008",
+      "requested_by_observation_id": null,
       "revises_observation_id": null,
       "delivery_mode": null,
       "terms": {
-        "per_share": "21.00",
+        "per_share": "21.0",
         "range_low": null,
         "range_high": null,
         "enterprise_value": null,
         "consideration_type": null
       },
-      "mentions_non_binding": false,
-      "includes_draft_merger_agreement": false,
-      "includes_markup": false,
-      "other_detail": null
-    },
-    {
-      "observation_id": "obs_evt_013",
-      "obs_type": "proposal",
-      "date": {
-        "raw_text": "July 21, 2016",
-        "normalized_start": "2016-07-21",
-        "normalized_end": "2016-07-21",
-        "sort_date": "2016-07-21",
-        "precision": "exact_day",
-        "anchor_event_id": null,
-        "anchor_span_id": null,
-        "resolution_note": null,
-        "is_inferred": false
-      },
-      "subject_refs": [
-        "bidder_gw"
-      ],
-      "counterparty_refs": [],
-      "summary": "G& W submitted an LOI at $21.15 per share, subject to a three-week exclusive diligence period.",
-      "evidence_span_ids": [
-        "span_0009",
-        "span_0001",
-        "span_0010"
-      ],
-      "requested_by_observation_id": "obs_evt_008",
-      "revises_observation_id": null,
-      "delivery_mode": null,
-      "terms": {
-        "per_share": "21.15",
-        "range_low": null,
-        "range_high": null,
-        "enterprise_value": null,
-        "consideration_type": null
-      },
-      "mentions_non_binding": true,
-      "includes_draft_merger_agreement": true,
-      "includes_markup": true,
-      "other_detail": null
-    },
-    {
-      "observation_id": "obs_evt_014",
-      "obs_type": "proposal",
-      "date": {
-        "raw_text": "late July 2016",
-        "normalized_start": "2016-07-21",
-        "normalized_end": "2016-07-31",
-        "sort_date": "2016-07-25",
-        "precision": "month_late",
-        "anchor_event_id": null,
-        "anchor_span_id": null,
-        "resolution_note": null,
-        "is_inferred": false
-      },
-      "subject_refs": [
-        "bidder_party_b"
-      ],
-      "counterparty_refs": [],
-      "summary": "Party B submitted a late-July LOI at $24.00 per share, subject to expedited diligence review.",
-      "evidence_span_ids": [
-        "span_0011",
-        "span_0001",
-        "span_0010"
-      ],
-      "requested_by_observation_id": "obs_evt_008",
-      "revises_observation_id": null,
-      "delivery_mode": null,
-      "terms": {
-        "per_share": "24.00",
-        "range_low": null,
-        "range_high": null,
-        "enterprise_value": null,
-        "consideration_type": null
-      },
-      "mentions_non_binding": true,
-      "includes_draft_merger_agreement": true,
-      "includes_markup": true,
-      "other_detail": null
-    },
-    {
-      "observation_id": "obs_evt_015",
-      "obs_type": "proposal",
-      "date": {
-        "raw_text": "late July 2016",
-        "normalized_start": "2016-07-21",
-        "normalized_end": "2016-07-31",
-        "sort_date": "2016-07-25",
-        "precision": "month_late",
-        "anchor_event_id": null,
-        "anchor_span_id": null,
-        "resolution_note": null,
-        "is_inferred": false
-      },
-      "subject_refs": [
-        "bidder_party_e"
-      ],
-      "counterparty_refs": [],
-      "summary": "Party E submitted a late-July LOI at $21.26 per share with a 60-day exclusivity period.",
-      "evidence_span_ids": [
-        "span_0012",
-        "span_0001",
-        "span_0013"
-      ],
-      "requested_by_observation_id": "obs_evt_008",
-      "revises_observation_id": null,
-      "delivery_mode": null,
-      "terms": {
-        "per_share": "21.26",
-        "range_low": null,
-        "range_high": null,
-        "enterprise_value": null,
-        "consideration_type": null
-      },
-      "mentions_non_binding": true,
-      "includes_draft_merger_agreement": true,
-      "includes_markup": false,
-      "other_detail": null
-    },
-    {
-      "observation_id": "obs_evt_016",
-      "obs_type": "proposal",
-      "date": {
-        "raw_text": "late July 2016",
-        "normalized_start": "2016-07-21",
-        "normalized_end": "2016-07-31",
-        "sort_date": "2016-07-25",
-        "precision": "month_late",
-        "anchor_event_id": null,
-        "anchor_span_id": null,
-        "resolution_note": null,
-        "is_inferred": false
-      },
-      "subject_refs": [
-        "bidder_party_d"
-      ],
-      "counterparty_refs": [],
-      "summary": "Party D submitted a late-July LOI at $21.00 per share, subject to a four-week diligence period.",
-      "evidence_span_ids": [
-        "span_0014",
-        "span_0001",
-        "span_0010"
-      ],
-      "requested_by_observation_id": "obs_evt_008",
-      "revises_observation_id": null,
-      "delivery_mode": null,
-      "terms": {
-        "per_share": "21.00",
-        "range_low": null,
-        "range_high": null,
-        "enterprise_value": null,
-        "consideration_type": null
-      },
-      "mentions_non_binding": true,
-      "includes_draft_merger_agreement": true,
-      "includes_markup": true,
-      "other_detail": null
-    },
-    {
-      "observation_id": "obs_evt_017",
-      "obs_type": "proposal",
-      "date": {
-        "raw_text": "late July 2016",
-        "normalized_start": "2016-07-21",
-        "normalized_end": "2016-07-31",
-        "sort_date": "2016-07-25",
-        "precision": "month_late",
-        "anchor_event_id": null,
-        "anchor_span_id": null,
-        "resolution_note": null,
-        "is_inferred": false
-      },
-      "subject_refs": [
-        "bidder_party_c"
-      ],
-      "counterparty_refs": [],
-      "summary": "Party C submitted a late-July LOI at $19.30 per share, subject to a 30-day diligence period.",
-      "evidence_span_ids": [
-        "span_0015",
-        "span_0001"
-      ],
-      "requested_by_observation_id": "obs_evt_008",
-      "revises_observation_id": "obs_evt_011",
-      "delivery_mode": null,
-      "terms": {
-        "per_share": "19.30",
-        "range_low": null,
-        "range_high": null,
-        "enterprise_value": null,
-        "consideration_type": null
-      },
-      "mentions_non_binding": true,
+      "mentions_non_binding": null,
       "includes_draft_merger_agreement": false,
       "includes_markup": false,
       "other_detail": null
@@ -688,30 +882,64 @@
       "observation_id": "obs_evt_018",
       "obs_type": "proposal",
       "date": {
-        "raw_text": "late July 2016",
-        "normalized_start": "2016-07-21",
-        "normalized_end": "2016-07-31",
-        "sort_date": "2016-07-25",
-        "precision": "month_late",
+        "raw_text": "2016-07-20",
+        "normalized_start": "2016-07-20",
+        "normalized_end": "2016-07-20",
+        "sort_date": "2016-07-20",
+        "precision": "exact_day",
         "anchor_event_id": null,
         "anchor_span_id": null,
         "resolution_note": null,
         "is_inferred": false
       },
       "subject_refs": [
-        "bidder_party_f"
+        "cohort_loi_submitters"
       ],
-      "counterparty_refs": [],
-      "summary": "Party F submitted a late-July LOI at $19.20 per share, subject to a 30-day due diligence period.",
+      "counterparty_refs": [
+        "target_board"
+      ],
+      "summary": "In late July 2016, the Company received six LOIs with offer prices per share ranging from $19.20 to $24.00 (implying equity values of $96M to $121M). Party B, G&W, and Party D provided mark-ups of the draft merger agreement. Party E provided a summary of material issues.",
       "evidence_span_ids": [
-        "span_0016",
-        "span_0001"
+        "span_0026"
       ],
-      "requested_by_observation_id": "obs_evt_008",
+      "requested_by_observation_id": "obs_evt_016",
+      "revises_observation_id": null,
+      "delivery_mode": null,
+      "terms": null,
+      "mentions_non_binding": true,
+      "includes_draft_merger_agreement": false,
+      "includes_markup": true,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_019",
+      "obs_type": "proposal",
+      "date": {
+        "raw_text": "2016-07-20",
+        "normalized_start": "2016-07-20",
+        "normalized_end": "2016-07-20",
+        "sort_date": "2016-07-20",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "party_b"
+      ],
+      "counterparty_refs": [
+        "target_board"
+      ],
+      "summary": "Party B submitted an LOI to acquire the Company for $24.00 per share, subject to an expedited diligence review.",
+      "evidence_span_ids": [
+        "span_0027"
+      ],
+      "requested_by_observation_id": "obs_evt_016",
       "revises_observation_id": null,
       "delivery_mode": null,
       "terms": {
-        "per_share": "19.20",
+        "per_share": "24.0",
         "range_low": null,
         "range_high": null,
         "enterprise_value": null,
@@ -726,10 +954,10 @@
       "observation_id": "obs_evt_020",
       "obs_type": "proposal",
       "date": {
-        "raw_text": "August 1, 2016",
-        "normalized_start": "2016-08-01",
-        "normalized_end": "2016-08-01",
-        "sort_date": "2016-08-01",
+        "raw_text": "2016-07-21",
+        "normalized_start": "2016-07-21",
+        "normalized_end": "2016-07-21",
+        "sort_date": "2016-07-21",
         "precision": "exact_day",
         "anchor_event_id": null,
         "anchor_span_id": null,
@@ -737,19 +965,20 @@
         "is_inferred": false
       },
       "subject_refs": [
-        "bidder_party_d"
+        "gw"
       ],
-      "counterparty_refs": [],
-      "summary": "Party D submitted a revised LOI at $24.00 per share.",
+      "counterparty_refs": [
+        "target_board"
+      ],
+      "summary": "G&W submitted an LOI on July 21, 2016 for $21.15 per share, subject to a three-week exclusive diligence period. The price included $20.02 cash at closing plus a CVR.",
       "evidence_span_ids": [
-        "span_0017",
-        "span_0001"
+        "span_0028"
       ],
-      "requested_by_observation_id": "obs_evt_008",
-      "revises_observation_id": "obs_evt_016",
+      "requested_by_observation_id": "obs_evt_016",
+      "revises_observation_id": null,
       "delivery_mode": null,
       "terms": {
-        "per_share": "24.00",
+        "per_share": "21.15",
         "range_low": null,
         "range_high": null,
         "enterprise_value": null,
@@ -764,7 +993,274 @@
       "observation_id": "obs_evt_021",
       "obs_type": "proposal",
       "date": {
-        "raw_text": "August 1, 2016",
+        "raw_text": "2016-07-20",
+        "normalized_start": "2016-07-20",
+        "normalized_end": "2016-07-20",
+        "sort_date": "2016-07-20",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "party_e"
+      ],
+      "counterparty_refs": [
+        "target_board"
+      ],
+      "summary": "Party E (a strategic buyer) submitted an LOI for $21.26 per share, subject to a 60-day exclusivity period for due diligence and negotiation.",
+      "evidence_span_ids": [
+        "span_0029"
+      ],
+      "requested_by_observation_id": "obs_evt_016",
+      "revises_observation_id": null,
+      "delivery_mode": null,
+      "terms": {
+        "per_share": "21.26",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": null
+      },
+      "mentions_non_binding": true,
+      "includes_draft_merger_agreement": false,
+      "includes_markup": false,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_022",
+      "obs_type": "proposal",
+      "date": {
+        "raw_text": "2016-07-20",
+        "normalized_start": "2016-07-20",
+        "normalized_end": "2016-07-20",
+        "sort_date": "2016-07-20",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "party_d"
+      ],
+      "counterparty_refs": [
+        "target_board"
+      ],
+      "summary": "Party D (a financial buyer) submitted an LOI for $21.00 per share, subject to a four-week diligence period.",
+      "evidence_span_ids": [
+        "span_0030"
+      ],
+      "requested_by_observation_id": "obs_evt_016",
+      "revises_observation_id": null,
+      "delivery_mode": null,
+      "terms": {
+        "per_share": "21.0",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": null
+      },
+      "mentions_non_binding": true,
+      "includes_draft_merger_agreement": false,
+      "includes_markup": false,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_023",
+      "obs_type": "proposal",
+      "date": {
+        "raw_text": "2016-07-20",
+        "normalized_start": "2016-07-20",
+        "normalized_end": "2016-07-20",
+        "sort_date": "2016-07-20",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "party_c"
+      ],
+      "counterparty_refs": [
+        "target_board"
+      ],
+      "summary": "Party C submitted an LOI for $19.30 per share, subject to a 30-day diligence period.",
+      "evidence_span_ids": [
+        "span_0031"
+      ],
+      "requested_by_observation_id": "obs_evt_016",
+      "revises_observation_id": null,
+      "delivery_mode": null,
+      "terms": {
+        "per_share": "19.3",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": null
+      },
+      "mentions_non_binding": true,
+      "includes_draft_merger_agreement": false,
+      "includes_markup": false,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_024",
+      "obs_type": "proposal",
+      "date": {
+        "raw_text": "2016-07-20",
+        "normalized_start": "2016-07-20",
+        "normalized_end": "2016-07-20",
+        "sort_date": "2016-07-20",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "party_f"
+      ],
+      "counterparty_refs": [
+        "target_board"
+      ],
+      "summary": "Party F (a strategic buyer) submitted an LOI for $19.20 per share, subject to a 30-day due diligence period.",
+      "evidence_span_ids": [
+        "span_0032"
+      ],
+      "requested_by_observation_id": "obs_evt_016",
+      "revises_observation_id": null,
+      "delivery_mode": null,
+      "terms": {
+        "per_share": "19.2",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": null
+      },
+      "mentions_non_binding": true,
+      "includes_draft_merger_agreement": false,
+      "includes_markup": false,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_025",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "2016-07-20",
+        "normalized_start": "2016-07-20",
+        "normalized_end": "2016-07-20",
+        "sort_date": "2016-07-20",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [],
+      "counterparty_refs": [
+        "target_board"
+      ],
+      "summary": "One strategic buyer and one financial buyer elected not to submit an LOI.",
+      "evidence_span_ids": [
+        "span_0033"
+      ],
+      "status_kind": "not_interested",
+      "related_observation_id": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_026",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "2016-07-27",
+        "normalized_start": "2016-07-27",
+        "normalized_end": "2016-07-27",
+        "sort_date": "2016-07-27",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "gw",
+        "party_b"
+      ],
+      "counterparty_refs": [
+        "target_board"
+      ],
+      "summary": "The Transaction Committee concluded that the Company should proceed with confirmatory due diligence and negotiations with G&W and Party B because of their higher offers relative to other potential buyers.",
+      "evidence_span_ids": [
+        "span_0034",
+        "span_0035"
+      ],
+      "status_kind": "selected_to_advance",
+      "related_observation_id": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_027",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "2016-07-27",
+        "normalized_start": "2016-07-27",
+        "normalized_end": "2016-07-27",
+        "sort_date": "2016-07-27",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [],
+      "counterparty_refs": [
+        "target_board"
+      ],
+      "summary": "At the direction of the Transaction Committee, GHF contacted the remaining bidders to inform them they were no longer involved in the process.",
+      "evidence_span_ids": [
+        "span_0036"
+      ],
+      "status_kind": "excluded",
+      "related_observation_id": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_028",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "2016-07-29",
+        "normalized_start": "2016-07-29",
+        "normalized_end": "2016-07-29",
+        "sort_date": "2016-07-29",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "party_d",
+        "party_e"
+      ],
+      "counterparty_refs": [
+        "target_board"
+      ],
+      "summary": "On July 29, 2016, Party D and Party E both expressed interest in reengaging and enhancing their offers during calls with GHF.",
+      "evidence_span_ids": [
+        "span_0037"
+      ],
+      "status_kind": "other",
+      "related_observation_id": null,
+      "other_detail": "interested"
+    },
+    {
+      "observation_id": "obs_evt_029",
+      "obs_type": "proposal",
+      "date": {
+        "raw_text": "2016-08-01",
         "normalized_start": "2016-08-01",
         "normalized_end": "2016-08-01",
         "sort_date": "2016-08-01",
@@ -775,18 +1271,55 @@
         "is_inferred": false
       },
       "subject_refs": [
-        "bidder_party_e",
-        "bidder_party_f"
+        "party_d"
       ],
-      "counterparty_refs": [],
-      "summary": "Party E submitted a revised LOI at $23.81 per share with financing support from Party F.",
+      "counterparty_refs": [
+        "target_board"
+      ],
+      "summary": "On August 1, 2016, Party D submitted a revised LOI at a price of $24.00 per share with a 30-day due diligence period.",
       "evidence_span_ids": [
-        "span_0017",
-        "span_0018",
-        "span_0018",
-        "span_0001"
+        "span_0038"
       ],
-      "requested_by_observation_id": "obs_evt_008",
+      "requested_by_observation_id": null,
+      "revises_observation_id": null,
+      "delivery_mode": null,
+      "terms": {
+        "per_share": "24.0",
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": null
+      },
+      "mentions_non_binding": true,
+      "includes_draft_merger_agreement": false,
+      "includes_markup": false,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_030",
+      "obs_type": "proposal",
+      "date": {
+        "raw_text": "2016-08-01",
+        "normalized_start": "2016-08-01",
+        "normalized_end": "2016-08-01",
+        "sort_date": "2016-08-01",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "party_e"
+      ],
+      "counterparty_refs": [
+        "target_board"
+      ],
+      "summary": "On August 1, 2016, Party E submitted a revised LOI at $23.81 per share, along with financing support from Party F, with a 30-day due diligence period.",
+      "evidence_span_ids": [
+        "span_0038"
+      ],
+      "requested_by_observation_id": null,
       "revises_observation_id": null,
       "delivery_mode": null,
       "terms": {
@@ -802,10 +1335,10 @@
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_022",
+      "observation_id": "obs_evt_031",
       "obs_type": "status",
       "date": {
-        "raw_text": "August 2, 2016",
+        "raw_text": "2016-08-02",
         "normalized_start": "2016-08-02",
         "normalized_end": "2016-08-02",
         "sort_date": "2016-08-02",
@@ -816,22 +1349,139 @@
         "is_inferred": false
       },
       "subject_refs": [
-        "bidder_party_d"
+        "party_e"
       ],
-      "counterparty_refs": [],
-      "summary": "Party D indicated that it would not proceed with further due diligence after the Company declined to restrict talks with other bidders.",
+      "counterparty_refs": [
+        "target_board"
+      ],
+      "summary": "On August 2, 2016, Party E withdrew its revised proposal of $23.81 per share but confirmed its original proposal of $21.26 per share.",
       "evidence_span_ids": [
-        "span_0019"
+        "span_0039"
       ],
-      "status_kind": "cannot_proceed",
+      "status_kind": "other",
       "related_observation_id": null,
-      "other_detail": "the Company declined to make such a commitment, at which point Party D indicated that it would not proceed with further due diligence at that time"
+      "other_detail": "withdrew revised proposal but confirmed original proposal"
     },
     {
-      "observation_id": "obs_evt_023",
+      "observation_id": "obs_evt_032",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "2016-08-02",
+        "normalized_start": "2016-08-02",
+        "normalized_end": "2016-08-02",
+        "sort_date": "2016-08-02",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "party_d"
+      ],
+      "counterparty_refs": [
+        "target_board"
+      ],
+      "summary": "Party D declined to shorten its due diligence period and requested exclusivity. The Company declined, at which point Party D indicated it would not proceed with further due diligence at that time.",
+      "evidence_span_ids": [
+        "span_0039",
+        "span_0040"
+      ],
+      "status_kind": "not_interested",
+      "related_observation_id": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_033",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "2016-08-04",
+        "normalized_start": "2016-08-04",
+        "normalized_end": "2016-08-04",
+        "sort_date": "2016-08-04",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_board"
+      ],
+      "counterparty_refs": [
+        "party_b",
+        "gw"
+      ],
+      "summary": "On August 4, 2016, the Transaction Committee directed the team to continue diligence and negotiations with both G&W and Party B, but to prioritize Party B given the higher price offered by Party B.",
+      "evidence_span_ids": [
+        "span_0043"
+      ],
+      "process_kind": "other",
+      "process_scope": null,
+      "other_detail": "Transaction Committee directed to prioritize Party B for merger agreement negotiation"
+    },
+    {
+      "observation_id": "obs_evt_034",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "2016-08-09",
+        "normalized_start": "2016-08-09",
+        "normalized_end": "2016-08-09",
+        "sort_date": "2016-08-09",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "gw"
+      ],
+      "counterparty_refs": [
+        "target_board"
+      ],
+      "summary": "On August 9, 2016, the Transaction Committee directed BMO to inform G&W that the Company intended to enter into a merger agreement with another bidder. G&W requested to continue due diligence to facilitate an improved offer, which was granted.",
+      "evidence_span_ids": [
+        "span_0045",
+        "span_0046"
+      ],
+      "status_kind": "other",
+      "related_observation_id": null,
+      "other_detail": "Transaction Committee directed BMO to inform G&W that Company intended to enter into merger agreement with another bidder"
+    },
+    {
+      "observation_id": "obs_evt_035",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "2016-08-11",
+        "normalized_start": "2016-08-11",
+        "normalized_end": "2016-08-11",
+        "sort_date": "2016-08-11",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "gw"
+      ],
+      "counterparty_refs": [
+        "target_board"
+      ],
+      "summary": "On August 11, 2016, G&W indicated its possible intention to submit a revised LOI on August 12, 2016, having just completed its physical diligence.",
+      "evidence_span_ids": [
+        "span_0048"
+      ],
+      "status_kind": "other",
+      "related_observation_id": null,
+      "other_detail": "interested"
+    },
+    {
+      "observation_id": "obs_evt_036",
       "obs_type": "proposal",
       "date": {
-        "raw_text": "August 12, 2016",
+        "raw_text": "2016-08-12",
         "normalized_start": "2016-08-12",
         "normalized_end": "2016-08-12",
         "sort_date": "2016-08-12",
@@ -842,79 +1492,197 @@
         "is_inferred": false
       },
       "subject_refs": [
-        "bidder_gw"
+        "gw"
       ],
-      "counterparty_refs": [],
-      "summary": "G& W submitted a revised LOI at $25.00 per share in cash together with marked-up deal documents.",
+      "counterparty_refs": [
+        "target_board"
+      ],
+      "summary": "On the morning of August 12, 2016, G&W submitted a revised LOI for $25.00 per share in cash (excluding the previously proposed CVR), together with mark-ups of the merger agreement and voting agreement. The offer would expire at 6:00 p.m. the following day.",
       "evidence_span_ids": [
-        "span_0020",
-        "span_0021"
+        "span_0049"
       ],
-      "requested_by_observation_id": "obs_evt_008",
-      "revises_observation_id": "obs_evt_013",
+      "requested_by_observation_id": null,
+      "revises_observation_id": null,
       "delivery_mode": null,
       "terms": {
-        "per_share": "25.00",
+        "per_share": "25.0",
         "range_low": null,
         "range_high": null,
         "enterprise_value": null,
         "consideration_type": "cash"
       },
       "mentions_non_binding": true,
-      "includes_draft_merger_agreement": true,
+      "includes_draft_merger_agreement": false,
       "includes_markup": true,
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_024",
-      "obs_type": "outcome",
+      "observation_id": "obs_evt_037",
+      "obs_type": "status",
       "date": {
-        "raw_text": "Shortly thereafter",
-        "normalized_start": null,
-        "normalized_end": null,
-        "sort_date": null,
-        "precision": "unknown",
+        "raw_text": "2016-08-12",
+        "normalized_start": "2016-08-12",
+        "normalized_end": "2016-08-12",
+        "sort_date": "2016-08-12",
+        "precision": "exact_day",
         "anchor_event_id": null,
         "anchor_span_id": null,
-        "resolution_note": "Unable to parse date deterministically.",
+        "resolution_note": null,
         "is_inferred": false
       },
-      "subject_refs": [],
-      "counterparty_refs": [
-        "bidder_gw"
+      "subject_refs": [
+        "party_b"
       ],
-      "summary": "The Company and G& W executed the merger agreement.",
+      "counterparty_refs": [
+        "target_board"
+      ],
+      "summary": "On August 12, 2016, the Transaction Committee directed BMO to inform Party B that another party had submitted a revised LOI at a higher price.",
       "evidence_span_ids": [
-        "span_0022"
+        "span_0050"
+      ],
+      "status_kind": "other",
+      "related_observation_id": null,
+      "other_detail": "Party B informed that another party submitted revised LOI at higher price"
+    },
+    {
+      "observation_id": "obs_evt_038",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "2016-08-12",
+        "normalized_start": "2016-08-12",
+        "normalized_end": "2016-08-12",
+        "sort_date": "2016-08-12",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "party_b"
+      ],
+      "counterparty_refs": [
+        "target_board"
+      ],
+      "summary": "BMO contacted Party B to determine if it would increase its offer price. Party B indicated that it would not increase its price.",
+      "evidence_span_ids": [
+        "span_0054"
+      ],
+      "status_kind": "cannot_improve",
+      "related_observation_id": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_039",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "2016-08-12",
+        "normalized_start": "2016-08-12",
+        "normalized_end": "2016-08-12",
+        "sort_date": "2016-08-12",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_board"
+      ],
+      "counterparty_refs": [
+        "gw"
+      ],
+      "summary": "On August 12, 2016, the Board determined that the G&W offer represented the superior proposal. BMO rendered an oral opinion (subsequently confirmed in writing) that the merger consideration was fair from a financial point of view to the holders of common stock.",
+      "evidence_span_ids": [
+        "span_0055",
+        "span_0056"
+      ],
+      "process_kind": "other",
+      "process_scope": null,
+      "other_detail": "Board determined G&W offer was superior proposal; BMO rendered fairness opinion"
+    },
+    {
+      "observation_id": "obs_evt_040",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "2016-08-12",
+        "normalized_start": "2016-08-12",
+        "normalized_end": "2016-08-12",
+        "sort_date": "2016-08-12",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_board"
+      ],
+      "counterparty_refs": [
+        "gw"
+      ],
+      "summary": "On August 12, 2016, the Board determined the merger agreement was fair, advisable and in the best interests of the Company and its shareholders, approved the merger agreement and transactions, directed submission to shareholders for approval, and resolved to recommend shareholder approval.",
+      "evidence_span_ids": [
+        "span_0057"
+      ],
+      "process_kind": "other",
+      "process_scope": null,
+      "other_detail": "board_approval"
+    },
+    {
+      "observation_id": "obs_evt_041",
+      "obs_type": "outcome",
+      "date": {
+        "raw_text": "2016-08-12",
+        "normalized_start": "2016-08-12",
+        "normalized_end": "2016-08-12",
+        "sort_date": "2016-08-12",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "gw"
+      ],
+      "counterparty_refs": [
+        "target_board"
+      ],
+      "summary": "Shortly after Board approval on August 12, 2016, the Company and G&W executed the merger agreement, and the Company, G&W and the Eder Trusts executed the voting agreement.",
+      "evidence_span_ids": [
+        "span_0058"
       ],
       "outcome_kind": "executed",
       "related_observation_id": null,
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_024_agreement",
+      "observation_id": "obs_evt_042",
       "obs_type": "agreement",
       "date": {
-        "raw_text": "Shortly thereafter",
-        "normalized_start": null,
-        "normalized_end": null,
-        "sort_date": null,
-        "precision": "unknown",
+        "raw_text": "2016-08-12",
+        "normalized_start": "2016-08-12",
+        "normalized_end": "2016-08-12",
+        "sort_date": "2016-08-12",
+        "precision": "exact_day",
         "anchor_event_id": null,
         "anchor_span_id": null,
-        "resolution_note": "Unable to parse date deterministically.",
+        "resolution_note": null,
         "is_inferred": false
       },
       "subject_refs": [
-        "bidder_gw"
+        "gw"
       ],
-      "counterparty_refs": [],
-      "summary": "The Company and G& W executed the merger agreement.",
+      "counterparty_refs": [
+        "target_board"
+      ],
+      "summary": "The Company and G&W executed the merger agreement on August 12, 2016.",
       "evidence_span_ids": [
-        "span_0022"
+        "span_0058"
       ],
       "agreement_kind": "merger_agreement",
-      "signed": true,
+      "signed": null,
       "grants_diligence_access": null,
       "includes_standstill": null,
       "consideration_type": null,
@@ -922,10 +1690,10 @@
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_025",
+      "observation_id": "obs_evt_043",
       "obs_type": "process",
       "date": {
-        "raw_text": "Monday, August 15, 2016",
+        "raw_text": "2016-08-15",
         "normalized_start": "2016-08-15",
         "normalized_end": "2016-08-15",
         "sort_date": "2016-08-15",
@@ -935,38 +1703,75 @@
         "resolution_note": null,
         "is_inferred": false
       },
-      "subject_refs": [],
-      "counterparty_refs": [],
-      "summary": "The Company publicly announced the transaction by press release before the market opened on August 15, 2016.",
-      "evidence_span_ids": [
-        "span_0023"
+      "subject_refs": [
+        "target_board"
       ],
-      "process_kind": "press_release",
-      "process_scope": "bidder",
-      "other_detail": null
+      "counterparty_refs": [
+        "gw"
+      ],
+      "summary": "On August 15, 2016, the Company issued a press release publicly announcing the transaction prior to the opening of trading on NASDAQ.",
+      "evidence_span_ids": [
+        "span_0059"
+      ],
+      "process_kind": "other",
+      "process_scope": null,
+      "other_detail": "public announcement of transaction"
+    },
+    {
+      "observation_id": "obs_evt_044",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "2016-09-06",
+        "normalized_start": "2016-09-06",
+        "normalized_end": "2016-09-06",
+        "sort_date": "2016-09-06",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_board"
+      ],
+      "counterparty_refs": [
+        "ghf_bmo"
+      ],
+      "summary": "On September 6, 2016, the Board considered BMO's disclosure that it had failed to identify a BMO affiliate's participation in G&W's syndicated debt facility, determined this was not material to BMO's independence, and confirmed comfort with BMO's engagement and opinion.",
+      "evidence_span_ids": [
+        "span_0060",
+        "span_0061"
+      ],
+      "process_kind": "other",
+      "process_scope": null,
+      "other_detail": "Board considered BMO conflict disclosure and confirmed independence"
     }
   ],
   "exclusions": [
     {
       "category": "other",
-      "block_ids": [
-        "B013"
-      ],
-      "explanation": "The filing reports the May 19 to June 1 IOI round only in the aggregate, without identifying the bidder attached to each proposal in that range."
-    },
-    {
-      "category": "duplicate_mention",
-      "block_ids": [
-        "B017"
-      ],
-      "explanation": "The aggregate late-July LOI range is superseded by the bidder-specific LOI descriptions in blocks B018 through B024."
+      "block_ids": [],
+      "explanation": "Fairness opinion financial analyses detail: The filing references BMO's financial analyses supporting its opinion but the detailed analyses are described elsewhere in the proxy. Only the opinion delivery event is extracted."
     },
     {
       "category": "other",
-      "block_ids": [
-        "B025"
-      ],
-      "explanation": "The one strategic buyer and one financial buyer that elected not to submit LOIs are not individually identified in the filing and cannot be linked to the locked actor roster."
+      "block_ids": [],
+      "explanation": "Eder Trusts voting agreement terms: The voting agreement with the Eder Trusts is mentioned as executed alongside the merger agreement but specific terms are not detailed in the Background of the Merger section."
+    },
+    {
+      "category": "other",
+      "block_ids": [],
+      "explanation": "Director Smith/GATX recusal details: Director Smith's recusal is noted as context. GATX's 4.92% ownership and the possibility it might be a potential buyer are disclosed but no GATX bid or participation in the process is described."
+    },
+    {
+      "category": "other",
+      "block_ids": [],
+      "explanation": "STB regulatory approval process details: The Board's discussion of STB approval processes for G&W versus Party B is referenced but constitutes regulatory analysis rather than an extractable M&A observation."
+    },
+    {
+      "category": "other",
+      "block_ids": [],
+      "explanation": "Termination fee terms: The filing describes termination fee provisions (3% for G&W, 3% plus expenses capped at 1% for Party B) as part of draft merger agreement comparison. These are agreement terms noted in context but not separate agreement observations since they describe proposed terms within draft agreements under negotiation."
     }
   ],
   "coverage": []

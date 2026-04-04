@@ -574,6 +574,18 @@ class TestRunComposePrompts:
         assert "quotes, parties, cohorts, observations, exclusions, coverage" in rendered
         assert "quote_ids" in rendered
 
+    def test_rendered_includes_json_schema_reference(self, tmp_path: Path):
+        self._setup_deal(tmp_path)
+        from skill_pipeline.compose_prompts import run_compose_prompts
+
+        manifest = run_compose_prompts("test-deal", tmp_path, chunk_budget=99999)
+        rendered = Path(manifest.packets[0].rendered_path).read_text(encoding="utf-8")
+        assert "<json_schema_reference>" in rendered
+        assert '"obs_type_values"' in rendered
+        assert '"display_name": "string"' in rendered
+        assert '"per_share": "number | null"' in rendered
+        assert '"known_member_party_ids": "array[string]"' in rendered
+
     def test_evidence_ids_in_rendered(self, tmp_path: Path):
         self._setup_deal(tmp_path)
         from skill_pipeline.compose_prompts import run_compose_prompts

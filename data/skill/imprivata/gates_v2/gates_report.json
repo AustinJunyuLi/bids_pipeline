@@ -1,53 +1,8 @@
 {
-  "findings": [
-    {
-      "gate_id": "proxy_date_export_warning",
-      "rule_id": "rough_date_export_warning",
-      "severity": "warning",
-      "description": "Observation 'obs_evt_008' uses non-exact date precision 'range'; downstream analyst surfaces should treat it as a proxy date.",
-      "party_ids": [],
-      "cohort_ids": [],
-      "observation_ids": [
-        "obs_evt_008"
-      ]
-    },
-    {
-      "gate_id": "proxy_date_export_warning",
-      "rule_id": "rough_date_export_warning",
-      "severity": "warning",
-      "description": "Observation 'obs_evt_029' uses non-exact date precision 'range'; downstream analyst surfaces should treat it as a proxy date.",
-      "party_ids": [],
-      "cohort_ids": [],
-      "observation_ids": [
-        "obs_evt_029"
-      ]
-    },
-    {
-      "gate_id": "agreement_kind_surface_warning",
-      "rule_id": "agreement_kind_surface_warning",
-      "severity": "warning",
-      "description": "Agreement 'obs_evt_007' appears to be 'standstill' but is classified as 'nda'.",
-      "party_ids": [],
-      "cohort_ids": [],
-      "observation_ids": [
-        "obs_evt_007"
-      ]
-    },
-    {
-      "gate_id": "agreement_kind_surface_warning",
-      "rule_id": "agreement_kind_surface_warning",
-      "severity": "warning",
-      "description": "Agreement 'obs_evt_008' appears to be 'standstill' but is classified as 'nda'.",
-      "party_ids": [],
-      "cohort_ids": [],
-      "observation_ids": [
-        "obs_evt_008"
-      ]
-    }
-  ],
+  "findings": [],
   "summary": {
     "blocker_count": 0,
-    "warning_count": 4,
+    "warning_count": 0,
     "status": "pass"
   }
 }

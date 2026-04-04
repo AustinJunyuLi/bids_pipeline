@@ -19,16 +19,16 @@ B233 [L2030-L2034]: BofA Merrill Lynch and its affiliates comprise a full servic
 
 <evidence_checklist>
 ### Dated actions to extract
-- [ ] **0001193125-13-325730:E0539** L2036-L2041 (date: may; actor: Merrill Lynch; value: $45; terms: received)
+- [ ] **0001193125-13-325730:E0550** L2036-L2041 (date: may; actors: Merrill Lynch; value: $45; terms: received)
 
 ### Financial terms to capture
-- [ ] **0001193125-13-325730:E0536** L2025-L2028 (actor: Merrill Lynch; value: $4.3; terms: $250,000, $4.3)
-- [ ] **0001193125-13-325730:E0540** L2036-L2041 (date: may; actor: Merrill Lynch; value: $45; terms: $45)
+- [ ] **0001193125-13-325730:E0547** L2025-L2028 (actors: Merrill Lynch; value: $4.3; terms: $250,000, $4.3)
+- [ ] **0001193125-13-325730:E0551** L2036-L2041 (date: may; actors: Merrill Lynch; value: $45; terms: $45)
 
 ### Actors to identify
-- [ ] **0001193125-13-325730:E0537** L2025-L2028 (actor: Merrill Lynch; value: $4.3)
-- [ ] **0001193125-13-325730:E0538** L2030-L2034 (actor: Merrill Lynch; terms: advisor, financial advisor)
-- [ ] **0001193125-13-325730:E0541** L2036-L2041 (date: may; actor: Merrill Lynch; value: $45; terms: advisor, financial advisor, investment bank)
+- [ ] **0001193125-13-325730:E0548** L2025-L2028 (actors: Merrill Lynch; value: $4.3)
+- [ ] **0001193125-13-325730:E0549** L2030-L2034 (actors: Merrill Lynch; terms: advisor, financial advisor)
+- [ ] **0001193125-13-325730:E0552** L2036-L2041 (date: may; actors: Merrill Lynch; value: $45; terms: advisor, financial advisor, investment bank)
 </evidence_checklist>
 
 <task_instructions>

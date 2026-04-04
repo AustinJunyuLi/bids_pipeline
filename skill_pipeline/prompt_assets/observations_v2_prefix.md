@@ -20,4 +20,6 @@ CRITICAL — OUTCOME ACTOR:
 Outcomes with `outcome_kind` of `executed` or `restarted` MUST include the bidder `party_id` or `cohort_id` in `subject_refs` or `counterparty_refs`.
 If the summary names the buyer or bidder, their `party_id` MUST appear in the structured refs — do not leave it only in the summary text.
 
+Consult the <json_schema_reference> section for exact field names, types, and enum values.
+
 Return valid JSON only.

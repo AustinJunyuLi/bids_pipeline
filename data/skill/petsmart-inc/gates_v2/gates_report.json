@@ -4,22 +4,22 @@
       "gate_id": "proxy_date_export_warning",
       "rule_id": "rough_date_export_warning",
       "severity": "warning",
-      "description": "Observation 'obs_evt_010' uses non-exact date precision 'range'; downstream analyst surfaces should treat it as a proxy date.",
+      "description": "Observation 'obs_evt_014' uses non-exact date precision 'month'; downstream analyst surfaces should treat it as a proxy date.",
       "party_ids": [],
       "cohort_ids": [],
       "observation_ids": [
-        "obs_evt_010"
+        "obs_evt_014"
       ]
     },
     {
       "gate_id": "agreement_kind_surface_warning",
       "rule_id": "agreement_kind_surface_warning",
       "severity": "warning",
-      "description": "Agreement 'obs_evt_010' appears to be 'standstill' but is classified as 'nda'.",
+      "description": "Agreement 'obs_evt_014' appears to be 'standstill' but is classified as 'nda'.",
       "party_ids": [],
       "cohort_ids": [],
       "observation_ids": [
-        "obs_evt_010"
+        "obs_evt_014"
       ]
     }
   ],

@@ -19,6 +19,7 @@ from skill_pipeline.models import (
     SpanRegistryArtifact,
 )
 from skill_pipeline.models_v2 import DerivedArtifactV2, ObservationArtifactV2
+from skill_pipeline.normalize import normalize_raw_extraction
 
 
 class RawPartyRecordV2(SkillModel):
@@ -236,11 +237,11 @@ def load_observation_artifacts(
             raise FileNotFoundError(
                 f"Missing required raw v2 artifact: {paths.observations_raw_path}"
             )
+        raw_data = _read_json(paths.observations_raw_path)
+        raw_data = normalize_raw_extraction(raw_data)
         return LoadedObservationArtifacts(
             mode="quote_first",
-            raw_artifact=RawObservationArtifactV2.model_validate(
-                _read_json(paths.observations_raw_path)
-            ),
+            raw_artifact=RawObservationArtifactV2.model_validate(raw_data),
             observations=None,
             spans=None,
             derivations=derivations,

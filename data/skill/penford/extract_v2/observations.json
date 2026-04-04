@@ -1,44 +1,117 @@
 {
   "parties": [
     {
-      "party_id": "target_board_penford",
-      "display_name": "Penford Board of Directors",
-      "canonical_name": "PENFORD BOARD OF DIRECTORS",
+      "party_id": "bidder_ingredion",
+      "display_name": "Ingredion Incorporated",
+      "canonical_name": null,
       "aliases": [
-        "Executive Committee of the Penford board",
-        "board of directors"
+        "Ingredion"
       ],
-      "role": "target_board",
+      "role": "bidder",
       "bidder_kind": null,
       "advisor_kind": null,
       "advised_party_id": null,
       "listing_status": null,
       "geography": null,
-      "evidence_span_ids": [
-        "span_0027"
-      ]
+      "evidence_span_ids": []
     },
     {
-      "party_id": "bidder_ingredion",
-      "display_name": "Ingredion",
-      "canonical_name": "INGREDION",
+      "party_id": "bidder_party_a",
+      "display_name": "Party A",
+      "canonical_name": null,
       "aliases": [],
       "role": "bidder",
-      "bidder_kind": "strategic",
+      "bidder_kind": null,
       "advisor_kind": null,
       "advised_party_id": null,
       "listing_status": null,
       "geography": null,
-      "evidence_span_ids": [
-        "span_0001"
-      ]
+      "evidence_span_ids": []
+    },
+    {
+      "party_id": "bidder_party_b",
+      "display_name": "Party B",
+      "canonical_name": null,
+      "aliases": [],
+      "role": "bidder",
+      "bidder_kind": null,
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": []
+    },
+    {
+      "party_id": "bidder_party_c",
+      "display_name": "Party C",
+      "canonical_name": null,
+      "aliases": [],
+      "role": "bidder",
+      "bidder_kind": null,
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": []
+    },
+    {
+      "party_id": "bidder_party_d",
+      "display_name": "Party D",
+      "canonical_name": null,
+      "aliases": [],
+      "role": "bidder",
+      "bidder_kind": null,
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": []
+    },
+    {
+      "party_id": "bidder_party_e",
+      "display_name": "Party E",
+      "canonical_name": null,
+      "aliases": [],
+      "role": "bidder",
+      "bidder_kind": null,
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": []
+    },
+    {
+      "party_id": "bidder_party_f",
+      "display_name": "Party F",
+      "canonical_name": null,
+      "aliases": [],
+      "role": "bidder",
+      "bidder_kind": null,
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": []
+    },
+    {
+      "party_id": "bidder_party_g",
+      "display_name": "Party G",
+      "canonical_name": null,
+      "aliases": [],
+      "role": "bidder",
+      "bidder_kind": null,
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": []
     },
     {
       "party_id": "activist_seacor",
-      "display_name": "SEACOR",
-      "canonical_name": "SEACOR",
+      "display_name": "SEACOR Holdings Inc.",
+      "canonical_name": null,
       "aliases": [
-        "SEACOR Filing"
+        "SEACOR"
       ],
       "role": "activist",
       "bidder_kind": null,
@@ -46,203 +119,214 @@
       "advised_party_id": null,
       "listing_status": null,
       "geography": null,
-      "evidence_span_ids": [
-        "span_0028"
-      ]
+      "evidence_span_ids": []
     },
     {
-      "party_id": "bidder_party_a",
-      "display_name": "Party A",
-      "canonical_name": "PARTY A",
-      "aliases": [],
-      "role": "bidder",
-      "bidder_kind": "strategic",
+      "party_id": "target_board_penford",
+      "display_name": "Penford Corporation",
+      "canonical_name": null,
+      "aliases": [
+        "Penford"
+      ],
+      "role": "target_board",
+      "bidder_kind": null,
       "advisor_kind": null,
       "advised_party_id": null,
       "listing_status": null,
       "geography": null,
-      "evidence_span_ids": [
-        "span_0029"
-      ]
-    },
-    {
-      "party_id": "bidder_party_b",
-      "display_name": "Party B",
-      "canonical_name": "PARTY B",
-      "aliases": [],
-      "role": "bidder",
-      "bidder_kind": "strategic",
-      "advisor_kind": null,
-      "advised_party_id": null,
-      "listing_status": null,
-      "geography": null,
-      "evidence_span_ids": [
-        "span_0010"
-      ]
-    },
-    {
-      "party_id": "bidder_party_c",
-      "display_name": "Party C",
-      "canonical_name": "PARTY C",
-      "aliases": [],
-      "role": "bidder",
-      "bidder_kind": "strategic",
-      "advisor_kind": null,
-      "advised_party_id": null,
-      "listing_status": null,
-      "geography": null,
-      "evidence_span_ids": [
-        "span_0030"
-      ]
-    },
-    {
-      "party_id": "bidder_party_d",
-      "display_name": "Party D",
-      "canonical_name": "PARTY D",
-      "aliases": [],
-      "role": "bidder",
-      "bidder_kind": "strategic",
-      "advisor_kind": null,
-      "advised_party_id": null,
-      "listing_status": null,
-      "geography": null,
-      "evidence_span_ids": [
-        "span_0031"
-      ]
-    },
-    {
-      "party_id": "bidder_party_e",
-      "display_name": "Party E",
-      "canonical_name": "PARTY E",
-      "aliases": [],
-      "role": "bidder",
-      "bidder_kind": "strategic",
-      "advisor_kind": null,
-      "advised_party_id": null,
-      "listing_status": null,
-      "geography": null,
-      "evidence_span_ids": [
-        "span_0032"
-      ]
-    },
-    {
-      "party_id": "bidder_party_f",
-      "display_name": "Party F",
-      "canonical_name": "PARTY F",
-      "aliases": [],
-      "role": "bidder",
-      "bidder_kind": "strategic",
-      "advisor_kind": null,
-      "advised_party_id": null,
-      "listing_status": null,
-      "geography": null,
-      "evidence_span_ids": [
-        "span_0033"
-      ]
+      "evidence_span_ids": []
     },
     {
       "party_id": "advisor_deutsche_bank",
-      "display_name": "Deutsche Bank",
-      "canonical_name": "DEUTSCHE BANK",
-      "aliases": [],
+      "display_name": "Deutsche Bank Securities Inc.",
+      "canonical_name": null,
+      "aliases": [
+        "Deutsche Bank"
+      ],
       "role": "advisor",
       "bidder_kind": null,
-      "advisor_kind": "financial",
-      "advised_party_id": "target_board_penford",
+      "advisor_kind": null,
+      "advised_party_id": null,
       "listing_status": null,
       "geography": null,
-      "evidence_span_ids": [
-        "span_0004"
-      ]
+      "evidence_span_ids": []
     },
     {
       "party_id": "advisor_perkins_coie",
       "display_name": "Perkins Coie LLP",
-      "canonical_name": "PERKINS COIE LLP",
+      "canonical_name": null,
       "aliases": [
         "Perkins Coie"
       ],
       "role": "advisor",
       "bidder_kind": null,
-      "advisor_kind": "legal",
-      "advised_party_id": "target_board_penford",
+      "advisor_kind": null,
+      "advised_party_id": null,
       "listing_status": null,
       "geography": null,
-      "evidence_span_ids": [
-        "span_0035"
-      ]
+      "evidence_span_ids": []
     },
     {
       "party_id": "advisor_jp_morgan",
       "display_name": "J. P. Morgan Securities",
-      "canonical_name": "J. P. MORGAN SECURITIES",
-      "aliases": [],
+      "canonical_name": null,
+      "aliases": [
+        "J. P. Morgan Securities"
+      ],
       "role": "advisor",
       "bidder_kind": null,
-      "advisor_kind": "financial",
-      "advised_party_id": "bidder_ingredion",
+      "advisor_kind": null,
+      "advised_party_id": null,
       "listing_status": null,
       "geography": null,
-      "evidence_span_ids": [
-        "span_0036"
-      ]
+      "evidence_span_ids": []
     },
     {
       "party_id": "advisor_sidley_austin",
       "display_name": "Sidley Austin LLP",
-      "canonical_name": "SIDLEY AUSTIN LLP",
+      "canonical_name": null,
       "aliases": [
         "Sidley Austin"
       ],
       "role": "advisor",
       "bidder_kind": null,
-      "advisor_kind": "legal",
-      "advised_party_id": "bidder_ingredion",
+      "advisor_kind": null,
+      "advised_party_id": null,
       "listing_status": null,
       "geography": null,
-      "evidence_span_ids": [
-        "span_0037"
-      ]
+      "evidence_span_ids": []
     },
     {
       "party_id": "advisor_milbank",
       "display_name": "Milbank, Tweed, Hadley & McCloy, LLP",
-      "canonical_name": "MILBANK, TWEED, HADLEY & MCCLOY, LLP",
+      "canonical_name": null,
       "aliases": [
         "Milbank"
       ],
       "role": "advisor",
       "bidder_kind": null,
-      "advisor_kind": "legal",
-      "advised_party_id": "activist_seacor",
+      "advisor_kind": null,
+      "advised_party_id": null,
       "listing_status": null,
       "geography": null,
-      "evidence_span_ids": [
-        "span_0038"
-      ]
+      "evidence_span_ids": []
+    },
+    {
+      "party_id": "other_prospect_sub",
+      "display_name": "Prospect Sub, Inc.",
+      "canonical_name": null,
+      "aliases": [
+        "Merger Sub"
+      ],
+      "role": "other",
+      "bidder_kind": null,
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": []
     }
   ],
   "cohorts": [
     {
-      "cohort_id": "bidder_prior_industry_parties",
-      "label": "2007 and 2009 unsolicited industry parties",
+      "cohort_id": "cohort_market_check_six",
+      "label": "six potential strategic counterparties in the same or similar industries contacted by Deutsche Bank during market check",
+      "parent_cohort_id": null,
+      "exact_count": 6,
+      "known_member_party_ids": [
+        "bidder_party_a",
+        "bidder_party_b",
+        "bidder_party_c",
+        "bidder_party_d",
+        "bidder_party_e",
+        "bidder_party_f"
+      ],
+      "unknown_member_count": 0,
+      "membership_basis": "filing_stated",
+      "created_by_observation_id": "obs_evt_022",
+      "evidence_span_ids": []
+    },
+    {
+      "cohort_id": "cohort_2007_2009_parties",
+      "label": "two parties engaged in the Companys industry who sent unsolicited indications of interest in 2007 and 2009",
       "parent_cohort_id": null,
       "exact_count": 2,
       "known_member_party_ids": [],
       "unknown_member_count": 2,
-      "membership_basis": "2007 and 2009 unsolicited industry parties",
+      "membership_basis": "filing_stated",
       "created_by_observation_id": "obs_evt_001",
-      "evidence_span_ids": [
-        "span_0034"
-      ]
+      "evidence_span_ids": []
     }
   ],
   "observations": [
     {
       "observation_id": "obs_evt_001",
-      "obs_type": "status",
+      "obs_type": "process",
+      "date": null,
+      "subject_refs": [],
+      "counterparty_refs": [],
+      "summary": "Penford management and board regularly reviewed strategic options including potential acquisition of Penford; in 2007 and 2009 received unsolicited indications of interest from two industry parties that did not result in offers",
+      "evidence_span_ids": [
+        "span_0001",
+        "span_0002"
+      ],
+      "process_kind": "other",
+      "process_scope": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_002",
+      "obs_type": "process",
       "date": {
-        "raw_text": "July 17, 2014",
+        "raw_text": "2014-07-08",
+        "normalized_start": "2014-07-08",
+        "normalized_end": "2014-07-08",
+        "sort_date": "2014-07-08",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [],
+      "counterparty_refs": [],
+      "summary": "Ingredion Chairman and CEO Ilene Gordon left voicemail for Penford CEO Thomas Malkoski seeking a meeting; initial contact that led to acquisition discussions",
+      "evidence_span_ids": [
+        "span_0003"
+      ],
+      "process_kind": "other",
+      "process_scope": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_003",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "2014-07-11",
+        "normalized_start": "2014-07-11",
+        "normalized_end": "2014-07-11",
+        "sort_date": "2014-07-11",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [],
+      "counterparty_refs": [],
+      "summary": "SEACOR filed an amendment to its Schedule 13D stating its intent to nominate four director candidates at Penford's next annual meeting",
+      "evidence_span_ids": [
+        "span_0004"
+      ],
+      "process_kind": "other",
+      "process_scope": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_004",
+      "obs_type": "proposal",
+      "date": {
+        "raw_text": "2014-07-17",
         "normalized_start": "2014-07-17",
         "normalized_end": "2014-07-17",
         "sort_date": "2014-07-17",
@@ -255,20 +339,27 @@
       "subject_refs": [
         "bidder_ingredion"
       ],
-      "counterparty_refs": [],
-      "summary": "Ingredion expressed interest in acquiring Penford.",
-      "evidence_span_ids": [
-        "span_0001"
+      "counterparty_refs": [
+        "target_board_penford"
       ],
-      "status_kind": "expressed_interest",
-      "related_observation_id": null,
+      "summary": "At lunch meeting, Ingredion CEO Gordon advised Malkoski of Ingredion's interest in acquiring Penford; did not cite a specific price but referenced Penford's 52-week high of approximately $16.00 per share and current trading price of approximately $12.00 per share",
+      "evidence_span_ids": [
+        "span_0005"
+      ],
+      "requested_by_observation_id": null,
+      "revises_observation_id": null,
+      "delivery_mode": null,
+      "terms": null,
+      "mentions_non_binding": null,
+      "includes_draft_merger_agreement": null,
+      "includes_markup": null,
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_002",
+      "observation_id": "obs_evt_005",
       "obs_type": "agreement",
       "date": {
-        "raw_text": "July 20, 2014",
+        "raw_text": "2014-07-20",
         "normalized_start": "2014-07-20",
         "normalized_end": "2014-07-20",
         "sort_date": "2014-07-20",
@@ -279,26 +370,27 @@
         "is_inferred": false
       },
       "subject_refs": [
+        "target_board_penford",
         "bidder_ingredion"
       ],
       "counterparty_refs": [],
-      "summary": "Penford and Ingredion executed a secrecy agreement to facilitate confidential information sharing.",
+      "summary": "Penford and Ingredion executed a Secrecy Agreement providing for limited exchange of confidential information",
       "evidence_span_ids": [
-        "span_0002"
+        "span_0006"
       ],
-      "agreement_kind": "nda",
-      "signed": true,
-      "grants_diligence_access": true,
+      "agreement_kind": "other",
+      "signed": null,
+      "grants_diligence_access": null,
       "includes_standstill": null,
       "consideration_type": null,
       "supersedes_observation_id": null,
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_003",
+      "observation_id": "obs_evt_006",
       "obs_type": "process",
       "date": {
-        "raw_text": "July 24, 2014",
+        "raw_text": "2014-07-24",
         "normalized_start": "2014-07-24",
         "normalized_end": "2014-07-24",
         "sort_date": "2014-07-24",
@@ -310,45 +402,20 @@
       },
       "subject_refs": [],
       "counterparty_refs": [],
-      "summary": "Penford's Executive Committee decided to evaluate strategic alternatives in response to Ingredion's approach and related developments.",
+      "summary": "Executive Committee directed management to retain Deutsche Bank as financial advisor to evaluate strategic alternatives; engagement letter executed on September 11, 2014",
       "evidence_span_ids": [
-        "span_0003"
+        "span_0007",
+        "span_0008"
       ],
-      "process_kind": "sale_launch",
-      "process_scope": "target",
+      "process_kind": "other",
+      "process_scope": null,
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_004",
-      "obs_type": "process",
-      "date": {
-        "raw_text": "July 24, 2014",
-        "normalized_start": "2014-07-24",
-        "normalized_end": "2014-07-24",
-        "sort_date": "2014-07-24",
-        "precision": "exact_day",
-        "anchor_event_id": null,
-        "anchor_span_id": null,
-        "resolution_note": null,
-        "is_inferred": false
-      },
-      "subject_refs": [
-        "advisor_deutsche_bank"
-      ],
-      "counterparty_refs": [],
-      "summary": "The Executive Committee directed management to retain Deutsche Bank as Penford's financial advisor.",
-      "evidence_span_ids": [
-        "span_0004"
-      ],
-      "process_kind": "advisor_retention",
-      "process_scope": "target",
-      "other_detail": null
-    },
-    {
-      "observation_id": "obs_evt_005",
+      "observation_id": "obs_evt_007",
       "obs_type": "proposal",
       "date": {
-        "raw_text": "August 6, 2014",
+        "raw_text": "2014-08-06",
         "normalized_start": "2014-08-06",
         "normalized_end": "2014-08-06",
         "sort_date": "2014-08-06",
@@ -361,31 +428,27 @@
       "subject_refs": [
         "bidder_ingredion"
       ],
-      "counterparty_refs": [],
-      "summary": "Ingredion orally proposed $17.00 per share on a fully diluted basis.",
+      "counterparty_refs": [
+        "target_board_penford"
+      ],
+      "summary": "Ingredion CFO Fortnum indicated Ingredion was prepared to submit a proposal; suggested $17.00 per share on a fully diluted basis could likely get support from Ingredion's board; Malkoski responded price would probably not be high enough for Penford's board",
       "evidence_span_ids": [
-        "span_0005"
+        "span_0010"
       ],
       "requested_by_observation_id": null,
       "revises_observation_id": null,
-      "delivery_mode": "oral",
-      "terms": {
-        "per_share": "17.0",
-        "range_low": null,
-        "range_high": null,
-        "enterprise_value": null,
-        "consideration_type": null
-      },
-      "mentions_non_binding": false,
-      "includes_draft_merger_agreement": false,
-      "includes_markup": false,
+      "delivery_mode": null,
+      "terms": null,
+      "mentions_non_binding": null,
+      "includes_draft_merger_agreement": null,
+      "includes_markup": null,
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_006",
+      "observation_id": "obs_evt_008",
       "obs_type": "proposal",
       "date": {
-        "raw_text": "August 10, 2014",
+        "raw_text": "2014-08-10",
         "normalized_start": "2014-08-10",
         "normalized_end": "2014-08-10",
         "sort_date": "2014-08-10",
@@ -398,32 +461,27 @@
       "subject_refs": [
         "bidder_ingredion"
       ],
-      "counterparty_refs": [],
-      "summary": "Ingredion delivered a non-binding indication of interest at $18.00 per share in cash for all outstanding Penford stock.",
+      "counterparty_refs": [
+        "target_board_penford"
+      ],
+      "summary": "Penford received written letter from Ingredion confirming interest in business combination and providing indicative valuation of $18.00 per share in cash on a fully diluted basis; represented a 49% premium based on $12.10 closing price on August 8",
       "evidence_span_ids": [
-        "span_0006",
-        "span_0007"
+        "span_0011"
       ],
       "requested_by_observation_id": null,
-      "revises_observation_id": "obs_evt_005",
+      "revises_observation_id": null,
       "delivery_mode": null,
-      "terms": {
-        "per_share": "18.0",
-        "range_low": null,
-        "range_high": null,
-        "enterprise_value": null,
-        "consideration_type": "cash"
-      },
-      "mentions_non_binding": true,
-      "includes_draft_merger_agreement": false,
-      "includes_markup": false,
+      "terms": null,
+      "mentions_non_binding": null,
+      "includes_draft_merger_agreement": null,
+      "includes_markup": null,
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_007",
-      "obs_type": "status",
+      "observation_id": "obs_evt_009",
+      "obs_type": "proposal",
       "date": {
-        "raw_text": "August 11, 2014",
+        "raw_text": "2014-08-11",
         "normalized_start": "2014-08-11",
         "normalized_end": "2014-08-11",
         "sort_date": "2014-08-11",
@@ -436,127 +494,80 @@
       "subject_refs": [
         "bidder_party_a"
       ],
-      "counterparty_refs": [],
-      "summary": "Party A informally discussed potential interest in acquiring or combining with Penford.",
+      "counterparty_refs": [
+        "target_board_penford"
+      ],
+      "summary": "Party A CEO informally discussed interest in acquiring or combining with Penford; indicated it saw value but only at a typical takeover premium based on current trading price and last twelve months performance",
       "evidence_span_ids": [
-        "span_0008"
+        "span_0014"
       ],
-      "status_kind": "expressed_interest",
-      "related_observation_id": null,
-      "other_detail": null
-    },
-    {
-      "observation_id": "obs_evt_008",
-      "obs_type": "status",
-      "date": {
-        "raw_text": "September 9, 2014",
-        "normalized_start": "2014-09-09",
-        "normalized_end": "2014-09-09",
-        "sort_date": "2014-09-09",
-        "precision": "exact_day",
-        "anchor_event_id": null,
-        "anchor_span_id": null,
-        "resolution_note": null,
-        "is_inferred": false
-      },
-      "subject_refs": [
-        "bidder_party_a"
-      ],
-      "counterparty_refs": [],
-      "summary": "Party A expressed interest in further discussions regarding a transaction with Penford.",
-      "evidence_span_ids": [
-        "span_0009"
-      ],
-      "status_kind": "expressed_interest",
-      "related_observation_id": null,
-      "other_detail": null
-    },
-    {
-      "observation_id": "obs_evt_009",
-      "obs_type": "status",
-      "date": {
-        "raw_text": "September 9, 2014",
-        "normalized_start": "2014-09-09",
-        "normalized_end": "2014-09-09",
-        "sort_date": "2014-09-09",
-        "precision": "exact_day",
-        "anchor_event_id": null,
-        "anchor_span_id": null,
-        "resolution_note": null,
-        "is_inferred": false
-      },
-      "subject_refs": [
-        "bidder_party_b"
-      ],
-      "counterparty_refs": [],
-      "summary": "Party B expressed interest in further discussions regarding a transaction with Penford.",
-      "evidence_span_ids": [
-        "span_0010"
-      ],
-      "status_kind": "expressed_interest",
-      "related_observation_id": null,
+      "requested_by_observation_id": null,
+      "revises_observation_id": null,
+      "delivery_mode": null,
+      "terms": null,
+      "mentions_non_binding": null,
+      "includes_draft_merger_agreement": null,
+      "includes_markup": null,
       "other_detail": null
     },
     {
       "observation_id": "obs_evt_010",
       "obs_type": "status",
       "date": {
-        "raw_text": "September 10, 2014",
-        "normalized_start": "2014-09-10",
-        "normalized_end": "2014-09-10",
-        "sort_date": "2014-09-10",
+        "raw_text": "2014-08-12",
+        "normalized_start": "2014-08-12",
+        "normalized_end": "2014-08-12",
+        "sort_date": "2014-08-12",
         "precision": "exact_day",
         "anchor_event_id": null,
         "anchor_span_id": null,
         "resolution_note": null,
         "is_inferred": false
       },
-      "subject_refs": [
-        "bidder_party_c"
-      ],
+      "subject_refs": [],
       "counterparty_refs": [],
-      "summary": "Party C expressed interest in pursuing a transaction with Penford.",
+      "summary": "SEACOR confirmed through Mr. Behrens that it was not interested in participating in any potential sale process at that time",
       "evidence_span_ids": [
-        "span_0011"
+        "span_0015",
+        "span_0058"
       ],
-      "status_kind": "expressed_interest",
+      "status_kind": "other",
       "related_observation_id": null,
       "other_detail": null
     },
     {
       "observation_id": "obs_evt_011",
-      "obs_type": "status",
+      "obs_type": "process",
       "date": {
-        "raw_text": "September 11, 2014",
-        "normalized_start": "2014-09-11",
-        "normalized_end": "2014-09-11",
-        "sort_date": "2014-09-11",
+        "raw_text": "2014-08-13",
+        "normalized_start": "2014-08-13",
+        "normalized_end": "2014-08-13",
+        "sort_date": "2014-08-13",
         "precision": "exact_day",
         "anchor_event_id": null,
         "anchor_span_id": null,
         "resolution_note": null,
         "is_inferred": false
       },
-      "subject_refs": [
-        "bidder_party_d"
-      ],
+      "subject_refs": [],
       "counterparty_refs": [],
-      "summary": "Party D expressed interest in a potential transaction with Penford.",
+      "summary": "Board held special meeting to discuss Ingredion's indication of interest; board and Deutsche Bank discussed market check process; board unanimously directed management to proceed with further investigation of Ingredion's proposal",
       "evidence_span_ids": [
-        "span_0012"
+        "span_0016",
+        "span_0017"
       ],
-      "status_kind": "expressed_interest",
-      "related_observation_id": null,
+      "process_kind": "other",
+      "process_scope": null,
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_013",
+      "observation_id": "obs_evt_012",
       "obs_type": "agreement",
       "date": {
-        "raw_text": "September 15, 2014",
-        "normalized_start": "2014-09-15",
-        "normalized_end": "2014-09-15",
-        "sort_date": "2014-09-15",
+        "raw_text": "2014-08-21",
+        "normalized_start": "2014-08-21",
+        "normalized_end": "2014-08-21",
+        "sort_date": "2014-08-21",
         "precision": "exact_day",
         "anchor_event_id": null,
         "anchor_span_id": null,
@@ -564,26 +575,83 @@
         "is_inferred": false
       },
       "subject_refs": [
-        "bidder_party_c"
+        "target_board_penford",
+        "bidder_ingredion"
       ],
       "counterparty_refs": [],
-      "summary": "Penford and Party C executed a nondisclosure and standstill agreement.",
+      "summary": "Ingredion and Penford executed a nondisclosure and standstill agreement that superseded the prior Secrecy Agreement; Penford again declined to enter into exclusive negotiations",
       "evidence_span_ids": [
-        "span_0013"
+        "span_0020"
       ],
-      "agreement_kind": "nda",
-      "signed": true,
-      "grants_diligence_access": true,
+      "agreement_kind": "other",
+      "signed": null,
+      "grants_diligence_access": null,
       "includes_standstill": null,
       "consideration_type": null,
       "supersedes_observation_id": null,
       "other_detail": null
     },
     {
+      "observation_id": "obs_evt_012b",
+      "obs_type": "agreement",
+      "date": {
+        "raw_text": "2014-08-21",
+        "normalized_start": "2014-08-21",
+        "normalized_end": "2014-08-21",
+        "sort_date": "2014-08-21",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_board_penford",
+        "bidder_ingredion"
+      ],
+      "counterparty_refs": [],
+      "summary": "Ingredion and Penford executed a standstill agreement (combined with the NDA) that superseded the prior Secrecy Agreement",
+      "evidence_span_ids": [
+        "span_0020"
+      ],
+      "agreement_kind": "other",
+      "signed": null,
+      "grants_diligence_access": null,
+      "includes_standstill": null,
+      "consideration_type": null,
+      "supersedes_observation_id": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_013",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "2014-08-28",
+        "normalized_start": "2014-08-28",
+        "normalized_end": "2014-08-28",
+        "sort_date": "2014-08-28",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [],
+      "counterparty_refs": [],
+      "summary": "Board authorized management and Deutsche Bank to proceed with market check process; Deutsche Bank reviewed potential counterparties selected based on financial capacity, perceived level of interest, acquisition track record, strategic rationale and ability to timely execute",
+      "evidence_span_ids": [
+        "span_0022",
+        "span_0023"
+      ],
+      "process_kind": "other",
+      "process_scope": null,
+      "other_detail": null
+    },
+    {
       "observation_id": "obs_evt_014",
       "obs_type": "proposal",
       "date": {
-        "raw_text": "September 17, 2014",
+        "raw_text": "2014-09-17",
         "normalized_start": "2014-09-17",
         "normalized_end": "2014-09-17",
         "sort_date": "2014-09-17",
@@ -596,31 +664,261 @@
       "subject_refs": [
         "bidder_ingredion"
       ],
-      "counterparty_refs": [],
-      "summary": "Ingredion indicated it could increase its proposal to $18.25 or $18.50 per share on a fully diluted basis.",
+      "counterparty_refs": [
+        "target_board_penford"
+      ],
+      "summary": "Ingredion CFO Fortnum indicated verbally that Ingredion could potentially increase its proposal from $18.00 to $18.25 or $18.50 per share on a fully diluted basis; represented 24-26% premium over $14.70 closing on September 16",
       "evidence_span_ids": [
-        "span_0014"
+        "span_0032"
       ],
       "requested_by_observation_id": null,
-      "revises_observation_id": "obs_evt_006",
-      "delivery_mode": "oral",
-      "terms": {
-        "per_share": null,
-        "range_low": "18.25",
-        "range_high": "18.5",
-        "enterprise_value": null,
-        "consideration_type": null
-      },
-      "mentions_non_binding": false,
-      "includes_draft_merger_agreement": false,
-      "includes_markup": false,
+      "revises_observation_id": null,
+      "delivery_mode": null,
+      "terms": null,
+      "mentions_non_binding": null,
+      "includes_draft_merger_agreement": null,
+      "includes_markup": null,
       "other_detail": null
     },
     {
       "observation_id": "obs_evt_015",
+      "obs_type": "solicitation",
+      "date": {
+        "raw_text": "2014-09-09",
+        "normalized_start": "2014-09-09",
+        "normalized_end": "2014-09-09",
+        "sort_date": "2014-09-09",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [],
+      "counterparty_refs": [],
+      "summary": "Deutsche Bank contacted six potential strategic counterparties during early- to mid-September to gauge initial interest regarding a potential transaction with Penford; Party A and Party B expressed interest on September 9",
+      "evidence_span_ids": [
+        "span_0025",
+        "span_0026"
+      ],
+      "requested_submission": "other",
+      "binding_level": null,
+      "due_date": null,
+      "recipient_refs": [],
+      "attachments": [],
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_016",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "2014-09-09",
+        "normalized_start": "2014-09-09",
+        "normalized_end": "2014-09-09",
+        "sort_date": "2014-09-09",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [],
+      "counterparty_refs": [],
+      "summary": "Party A expressed interest in further discussions regarding a transaction; Deutsche Bank forwarded Party A a nondisclosure and standstill agreement",
+      "evidence_span_ids": [
+        "span_0026"
+      ],
+      "status_kind": "other",
+      "related_observation_id": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_017",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "2014-09-09",
+        "normalized_start": "2014-09-09",
+        "normalized_end": "2014-09-09",
+        "sort_date": "2014-09-09",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [],
+      "counterparty_refs": [],
+      "summary": "Party B expressed interest in further discussions; Deutsche Bank forwarded a nondisclosure and standstill agreement",
+      "evidence_span_ids": [
+        "span_0026"
+      ],
+      "status_kind": "other",
+      "related_observation_id": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_018",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "2014-09-10",
+        "normalized_start": "2014-09-10",
+        "normalized_end": "2014-09-10",
+        "sort_date": "2014-09-10",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [],
+      "counterparty_refs": [],
+      "summary": "Party C expressed interest in pursuing a transaction; Deutsche Bank forwarded a nondisclosure and standstill agreement on September 11",
+      "evidence_span_ids": [
+        "span_0027"
+      ],
+      "status_kind": "other",
+      "related_observation_id": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_019",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "2014-09-11",
+        "normalized_start": "2014-09-11",
+        "normalized_end": "2014-09-11",
+        "sort_date": "2014-09-11",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [],
+      "counterparty_refs": [],
+      "summary": "Party D expressed interest; Deutsche Bank forwarded a nondisclosure and standstill agreement",
+      "evidence_span_ids": [
+        "span_0028"
+      ],
+      "status_kind": "other",
+      "related_observation_id": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_020",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "2014-09-12",
+        "normalized_start": "2014-09-12",
+        "normalized_end": "2014-09-12",
+        "sort_date": "2014-09-12",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [],
+      "counterparty_refs": [],
+      "summary": "Party B informed Deutsche Bank that it had decided not to move forward with discussions or sign a nondisclosure agreement",
+      "evidence_span_ids": [
+        "span_0029"
+      ],
+      "status_kind": "other",
+      "related_observation_id": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_021",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "2014-09-12",
+        "normalized_start": "2014-09-12",
+        "normalized_end": "2014-09-12",
+        "sort_date": "2014-09-12",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [],
+      "counterparty_refs": [],
+      "summary": "Deutsche Bank left voicemails for Party E regarding a potential transaction; in the following two weeks left several other voicemails and received no response",
+      "evidence_span_ids": [
+        "span_0030"
+      ],
+      "status_kind": "other",
+      "related_observation_id": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_022",
       "obs_type": "agreement",
       "date": {
-        "raw_text": "September 23, 2014",
+        "raw_text": "2014-09-15",
+        "normalized_start": "2014-09-15",
+        "normalized_end": "2014-09-15",
+        "sort_date": "2014-09-15",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_board_penford",
+        "bidder_party_c"
+      ],
+      "counterparty_refs": [],
+      "summary": "Penford and Party C executed a nondisclosure and standstill agreement with standard confidentiality restrictions and a standstill provision that automatically expired upon public announcement of a definitive agreement for sale of 50% or more of capital stock",
+      "evidence_span_ids": [
+        "span_0031"
+      ],
+      "agreement_kind": "other",
+      "signed": null,
+      "grants_diligence_access": null,
+      "includes_standstill": null,
+      "consideration_type": null,
+      "supersedes_observation_id": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_022b",
+      "obs_type": "agreement",
+      "date": {
+        "raw_text": "2014-09-15",
+        "normalized_start": "2014-09-15",
+        "normalized_end": "2014-09-15",
+        "sort_date": "2014-09-15",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_board_penford",
+        "bidder_party_c"
+      ],
+      "counterparty_refs": [],
+      "summary": "Penford and Party C executed a standstill agreement (combined with NDA) with provision automatically expiring upon public announcement of a definitive sale agreement",
+      "evidence_span_ids": [
+        "span_0031"
+      ],
+      "agreement_kind": "other",
+      "signed": null,
+      "grants_diligence_access": null,
+      "includes_standstill": null,
+      "consideration_type": null,
+      "supersedes_observation_id": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_023",
+      "obs_type": "agreement",
+      "date": {
+        "raw_text": "2014-09-23",
         "normalized_start": "2014-09-23",
         "normalized_end": "2014-09-23",
         "sort_date": "2014-09-23",
@@ -631,26 +929,108 @@
         "is_inferred": false
       },
       "subject_refs": [
+        "target_board_penford",
         "bidder_party_d"
       ],
       "counterparty_refs": [],
-      "summary": "Penford and Party D executed a nondisclosure and standstill agreement.",
+      "summary": "Penford and Party D executed a nondisclosure and standstill agreement with standard confidentiality restrictions and a standstill provision that automatically expired upon public announcement of a definitive agreement for sale of 50% or more of capital stock",
       "evidence_span_ids": [
-        "span_0015"
+        "span_0033"
       ],
-      "agreement_kind": "nda",
-      "signed": true,
-      "grants_diligence_access": true,
+      "agreement_kind": "other",
+      "signed": null,
+      "grants_diligence_access": null,
       "includes_standstill": null,
       "consideration_type": null,
       "supersedes_observation_id": null,
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_017",
+      "observation_id": "obs_evt_023b",
       "obs_type": "agreement",
       "date": {
-        "raw_text": "September 30, 2014",
+        "raw_text": "2014-09-23",
+        "normalized_start": "2014-09-23",
+        "normalized_end": "2014-09-23",
+        "sort_date": "2014-09-23",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_board_penford",
+        "bidder_party_d"
+      ],
+      "counterparty_refs": [],
+      "summary": "Penford and Party D executed a standstill agreement (combined with NDA) with provision automatically expiring upon public announcement of a definitive sale agreement",
+      "evidence_span_ids": [
+        "span_0033"
+      ],
+      "agreement_kind": "other",
+      "signed": null,
+      "grants_diligence_access": null,
+      "includes_standstill": null,
+      "consideration_type": null,
+      "supersedes_observation_id": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_024",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "2014-09-24",
+        "normalized_start": "2014-09-24",
+        "normalized_end": "2014-09-24",
+        "sort_date": "2014-09-24",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [],
+      "counterparty_refs": [],
+      "summary": "Deutsche Bank contacted Party F regarding a potential transaction with Penford per board authorization; board had also discussed Party G but determined Party G should not be contacted",
+      "evidence_span_ids": [
+        "span_0034",
+        "span_0035",
+        "span_0036"
+      ],
+      "status_kind": "other",
+      "related_observation_id": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_025",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "2014-09-29",
+        "normalized_start": "2014-09-29",
+        "normalized_end": "2014-09-29",
+        "sort_date": "2014-09-29",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [],
+      "counterparty_refs": [],
+      "summary": "Party F communicated to Deutsche Bank that a combination with Penford was not a suitable strategic fit and declined to pursue further discussions",
+      "evidence_span_ids": [
+        "span_0038"
+      ],
+      "status_kind": "other",
+      "related_observation_id": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_026",
+      "obs_type": "agreement",
+      "date": {
+        "raw_text": "2014-09-30",
         "normalized_start": "2014-09-30",
         "normalized_end": "2014-09-30",
         "sort_date": "2014-09-30",
@@ -661,29 +1041,31 @@
         "is_inferred": false
       },
       "subject_refs": [
+        "target_board_penford",
         "bidder_party_a"
       ],
       "counterparty_refs": [],
-      "summary": "Penford and Party A executed a nondisclosure and standstill agreement.",
+      "summary": "Penford and Party A executed a nondisclosure and standstill agreement with standard confidentiality restrictions and a standstill provision that automatically expired upon public announcement of a definitive agreement for sale of 50% or more of capital stock; Deutsche Bank informed Party A that competitive offer price would likely be over $20.00 per share",
       "evidence_span_ids": [
-        "span_0016"
+        "span_0040",
+        "span_0041"
       ],
-      "agreement_kind": "nda",
-      "signed": true,
-      "grants_diligence_access": true,
+      "agreement_kind": "other",
+      "signed": null,
+      "grants_diligence_access": null,
       "includes_standstill": null,
       "consideration_type": null,
       "supersedes_observation_id": null,
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_018",
-      "obs_type": "proposal",
+      "observation_id": "obs_evt_026b",
+      "obs_type": "agreement",
       "date": {
-        "raw_text": "October 2, 2014",
-        "normalized_start": "2014-10-02",
-        "normalized_end": "2014-10-02",
-        "sort_date": "2014-10-02",
+        "raw_text": "2014-09-30",
+        "normalized_start": "2014-09-30",
+        "normalized_end": "2014-09-30",
+        "sort_date": "2014-09-30",
         "precision": "exact_day",
         "anchor_event_id": null,
         "anchor_span_id": null,
@@ -691,33 +1073,27 @@
         "is_inferred": false
       },
       "subject_refs": [
-        "bidder_ingredion"
+        "target_board_penford",
+        "bidder_party_a"
       ],
       "counterparty_refs": [],
-      "summary": "Ingredion orally stated it was prepared to move forward at $18.50 per share on a fully diluted basis.",
+      "summary": "Penford and Party A executed a standstill agreement (combined with NDA) with provision automatically expiring upon public announcement of a definitive sale agreement",
       "evidence_span_ids": [
-        "span_0017"
+        "span_0040"
       ],
-      "requested_by_observation_id": null,
-      "revises_observation_id": "obs_evt_014",
-      "delivery_mode": "oral",
-      "terms": {
-        "per_share": "18.5",
-        "range_low": null,
-        "range_high": null,
-        "enterprise_value": null,
-        "consideration_type": null
-      },
-      "mentions_non_binding": false,
-      "includes_draft_merger_agreement": false,
-      "includes_markup": false,
+      "agreement_kind": "other",
+      "signed": null,
+      "grants_diligence_access": null,
+      "includes_standstill": null,
+      "consideration_type": null,
+      "supersedes_observation_id": null,
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_019",
+      "observation_id": "obs_evt_027",
       "obs_type": "proposal",
       "date": {
-        "raw_text": "October 2, 2014",
+        "raw_text": "2014-10-02",
         "normalized_start": "2014-10-02",
         "normalized_end": "2014-10-02",
         "sort_date": "2014-10-02",
@@ -730,31 +1106,60 @@
       "subject_refs": [
         "bidder_ingredion"
       ],
-      "counterparty_refs": [],
-      "summary": "Ingredion sent a revised indication of interest increasing its price to $19.00 per share.",
+      "counterparty_refs": [
+        "target_board_penford"
+      ],
+      "summary": "Ingredion verbally proposed $18.50 per share on a fully diluted basis during call between Fortnum and Malkoski; Malkoski responded that price was unlikely to be high enough for board to recommend",
       "evidence_span_ids": [
-        "span_0018"
+        "span_0043"
       ],
       "requested_by_observation_id": null,
-      "revises_observation_id": "obs_evt_018",
+      "revises_observation_id": null,
       "delivery_mode": null,
-      "terms": {
-        "per_share": "19.0",
-        "range_low": null,
-        "range_high": null,
-        "enterprise_value": null,
-        "consideration_type": null
-      },
-      "mentions_non_binding": false,
-      "includes_draft_merger_agreement": false,
-      "includes_markup": false,
+      "terms": null,
+      "mentions_non_binding": null,
+      "includes_draft_merger_agreement": null,
+      "includes_markup": null,
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_020",
+      "observation_id": "obs_evt_028",
       "obs_type": "proposal",
       "date": {
-        "raw_text": "October 4, 2014",
+        "raw_text": "2014-10-02",
+        "normalized_start": "2014-10-02",
+        "normalized_end": "2014-10-02",
+        "sort_date": "2014-10-02",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_ingredion"
+      ],
+      "counterparty_refs": [
+        "target_board_penford"
+      ],
+      "summary": "Penford received written letter from Ingredion increasing proposed price to $19.00 per share on a fully diluted basis; represented a 49% premium based on $12.77 closing price on October 1",
+      "evidence_span_ids": [
+        "span_0044"
+      ],
+      "requested_by_observation_id": null,
+      "revises_observation_id": null,
+      "delivery_mode": null,
+      "terms": null,
+      "mentions_non_binding": null,
+      "includes_draft_merger_agreement": null,
+      "includes_markup": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_029",
+      "obs_type": "proposal",
+      "date": {
+        "raw_text": "2014-10-04",
         "normalized_start": "2014-10-04",
         "normalized_end": "2014-10-04",
         "sort_date": "2014-10-04",
@@ -767,31 +1172,27 @@
       "subject_refs": [
         "bidder_party_a"
       ],
-      "counterparty_refs": [],
-      "summary": "Party A indicated that any offer would be below $17.50 to $18.00 per share in cash.",
+      "counterparty_refs": [
+        "target_board_penford"
+      ],
+      "summary": "Party A indicated to Deutsche Bank that any offer would be below $17.50-$18.00 per share in cash; Deutsche Bank encouraged Party A to submit a letter of interest",
       "evidence_span_ids": [
-        "span_0019"
+        "span_0047"
       ],
       "requested_by_observation_id": null,
       "revises_observation_id": null,
-      "delivery_mode": "written",
-      "terms": {
-        "per_share": null,
-        "range_low": "17.5",
-        "range_high": "18.0",
-        "enterprise_value": null,
-        "consideration_type": "cash"
-      },
-      "mentions_non_binding": false,
-      "includes_draft_merger_agreement": false,
-      "includes_markup": false,
+      "delivery_mode": null,
+      "terms": null,
+      "mentions_non_binding": null,
+      "includes_draft_merger_agreement": null,
+      "includes_markup": null,
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_021",
+      "observation_id": "obs_evt_030",
       "obs_type": "status",
       "date": {
-        "raw_text": "October 8, 2014",
+        "raw_text": "2014-10-08",
         "normalized_start": "2014-10-08",
         "normalized_end": "2014-10-08",
         "sort_date": "2014-10-08",
@@ -801,23 +1202,21 @@
         "resolution_note": null,
         "is_inferred": false
       },
-      "subject_refs": [
-        "bidder_party_d"
-      ],
+      "subject_refs": [],
       "counterparty_refs": [],
-      "summary": "Party D dropped out by saying it did not intend to move forward with a transaction involving Penford.",
+      "summary": "Party D indicated it did not intend to move forward with discussions regarding a potential transaction involving the Company",
       "evidence_span_ids": [
-        "span_0020"
+        "span_0049"
       ],
-      "status_kind": "cannot_proceed",
+      "status_kind": "other",
       "related_observation_id": null,
-      "other_detail": "did not intend to move forward with discussions regarding a potential transaction involving the Company"
+      "other_detail": null
     },
     {
-      "observation_id": "obs_evt_022",
+      "observation_id": "obs_evt_031",
       "obs_type": "proposal",
       "date": {
-        "raw_text": "October 13, 2014",
+        "raw_text": "2014-10-13",
         "normalized_start": "2014-10-13",
         "normalized_end": "2014-10-13",
         "sort_date": "2014-10-13",
@@ -830,31 +1229,27 @@
       "subject_refs": [
         "bidder_party_a"
       ],
-      "counterparty_refs": [],
-      "summary": "Party A reduced its value range to $16.00 to $18.00 per share.",
+      "counterparty_refs": [
+        "target_board_penford"
+      ],
+      "summary": "Party A indicated to Deutsche Bank that its value range had been reduced from $17.50-$18.00 per share to $16.00-$18.00 per share due to increased volatility in the markets",
       "evidence_span_ids": [
-        "span_0021"
+        "span_0050"
       ],
       "requested_by_observation_id": null,
-      "revises_observation_id": "obs_evt_020",
+      "revises_observation_id": null,
       "delivery_mode": null,
-      "terms": {
-        "per_share": null,
-        "range_low": "16.0",
-        "range_high": "18.0",
-        "enterprise_value": null,
-        "consideration_type": null
-      },
-      "mentions_non_binding": false,
-      "includes_draft_merger_agreement": false,
-      "includes_markup": false,
+      "terms": null,
+      "mentions_non_binding": null,
+      "includes_draft_merger_agreement": null,
+      "includes_markup": null,
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_023",
+      "observation_id": "obs_evt_032",
       "obs_type": "proposal",
       "date": {
-        "raw_text": "October 14, 2014",
+        "raw_text": "2014-10-14",
         "normalized_start": "2014-10-14",
         "normalized_end": "2014-10-14",
         "sort_date": "2014-10-14",
@@ -867,31 +1262,27 @@
       "subject_refs": [
         "bidder_ingredion"
       ],
-      "counterparty_refs": [],
-      "summary": "Ingredion confirmed its proposed price of $19.00 while moving toward finalizing the merger agreement.",
+      "counterparty_refs": [
+        "target_board_penford"
+      ],
+      "summary": "Ingredion CFO Fortnum called Malkoski to confirm proposed price of $19.00 and discuss finalizing the draft merger agreement",
       "evidence_span_ids": [
-        "span_0022"
+        "span_0051"
       ],
       "requested_by_observation_id": null,
-      "revises_observation_id": "obs_evt_019",
+      "revises_observation_id": null,
       "delivery_mode": null,
-      "terms": {
-        "per_share": "19.0",
-        "range_low": null,
-        "range_high": null,
-        "enterprise_value": null,
-        "consideration_type": null
-      },
-      "mentions_non_binding": false,
-      "includes_draft_merger_agreement": false,
-      "includes_markup": false,
+      "terms": null,
+      "mentions_non_binding": null,
+      "includes_draft_merger_agreement": null,
+      "includes_markup": null,
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_024",
+      "observation_id": "obs_evt_033",
       "obs_type": "proposal",
       "date": {
-        "raw_text": "October 14, 2014",
+        "raw_text": "2014-10-14",
         "normalized_start": "2014-10-14",
         "normalized_end": "2014-10-14",
         "sort_date": "2014-10-14",
@@ -904,58 +1295,27 @@
       "subject_refs": [
         "bidder_party_a"
       ],
-      "counterparty_refs": [],
-      "summary": "Party A submitted a formal indication of interest at $16.00 per share.",
+      "counterparty_refs": [
+        "target_board_penford"
+      ],
+      "summary": "Party A provided a formal written letter with its indication of interest to acquire the Company at $16.00 per share, citing increased market volatility; represented a 45% premium over $11.07 closing on October 13",
       "evidence_span_ids": [
-        "span_0023",
-        "span_0024"
+        "span_0052"
       ],
       "requested_by_observation_id": null,
-      "revises_observation_id": "obs_evt_022",
+      "revises_observation_id": null,
       "delivery_mode": null,
-      "terms": {
-        "per_share": "16.0",
-        "range_low": null,
-        "range_high": null,
-        "enterprise_value": null,
-        "consideration_type": null
-      },
-      "mentions_non_binding": false,
-      "includes_draft_merger_agreement": false,
-      "includes_markup": false,
+      "terms": null,
+      "mentions_non_binding": null,
+      "includes_draft_merger_agreement": null,
+      "includes_markup": null,
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_025",
+      "observation_id": "obs_evt_034",
       "obs_type": "outcome",
       "date": {
-        "raw_text": "October 14, 2014",
-        "normalized_start": "2014-10-14",
-        "normalized_end": "2014-10-14",
-        "sort_date": "2014-10-14",
-        "precision": "exact_day",
-        "anchor_event_id": null,
-        "anchor_span_id": null,
-        "resolution_note": null,
-        "is_inferred": false
-      },
-      "subject_refs": [],
-      "counterparty_refs": [
-        "bidder_ingredion"
-      ],
-      "summary": "Penford and Ingredion executed the merger agreement.",
-      "evidence_span_ids": [
-        "span_0025"
-      ],
-      "outcome_kind": "executed",
-      "related_observation_id": null,
-      "other_detail": null
-    },
-    {
-      "observation_id": "obs_evt_025_agreement",
-      "obs_type": "agreement",
-      "date": {
-        "raw_text": "October 14, 2014",
+        "raw_text": "2014-10-14",
         "normalized_start": "2014-10-14",
         "normalized_end": "2014-10-14",
         "sort_date": "2014-10-14",
@@ -968,13 +1328,44 @@
       "subject_refs": [
         "bidder_ingredion"
       ],
-      "counterparty_refs": [],
-      "summary": "Penford and Ingredion executed the merger agreement.",
-      "evidence_span_ids": [
-        "span_0025"
+      "counterparty_refs": [
+        "target_board_penford"
       ],
-      "agreement_kind": "merger_agreement",
-      "signed": true,
+      "summary": "Penford board unanimously approved the merger agreement and the merger with Ingredion and recommended approval to shareholders; Deutsche Bank rendered fairness opinion that $19.00 per share was fair from a financial point of view; purchase price represented 72% premium over $11.07 closing on October 13",
+      "evidence_span_ids": [
+        "span_0054",
+        "span_0055",
+        "span_0061"
+      ],
+      "outcome_kind": "other",
+      "related_observation_id": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_evt_035",
+      "obs_type": "agreement",
+      "date": {
+        "raw_text": "2014-10-14",
+        "normalized_start": "2014-10-14",
+        "normalized_end": "2014-10-14",
+        "sort_date": "2014-10-14",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_board_penford",
+        "bidder_ingredion"
+      ],
+      "counterparty_refs": [],
+      "summary": "Penford and Ingredion finalized and executed the merger agreement during the evening; Penford, Ingredion and SEACOR executed the voting and support agreement; press releases issued October 15 prior to opening of trading",
+      "evidence_span_ids": [
+        "span_0056"
+      ],
+      "agreement_kind": "other",
+      "signed": null,
       "grants_diligence_access": null,
       "includes_standstill": null,
       "consideration_type": null,
@@ -982,13 +1373,13 @@
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_026",
-      "obs_type": "process",
+      "observation_id": "obs_evt_036",
+      "obs_type": "agreement",
       "date": {
-        "raw_text": "October 15, 2014",
-        "normalized_start": "2014-10-15",
-        "normalized_end": "2014-10-15",
-        "sort_date": "2014-10-15",
+        "raw_text": "2014-10-14",
+        "normalized_start": "2014-10-14",
+        "normalized_end": "2014-10-14",
+        "sort_date": "2014-10-14",
         "precision": "exact_day",
         "anchor_event_id": null,
         "anchor_span_id": null,
@@ -996,57 +1387,40 @@
         "is_inferred": false
       },
       "subject_refs": [
-        "bidder_ingredion"
+        "target_board_penford",
+        "bidder_ingredion",
+        "activist_seacor"
       ],
       "counterparty_refs": [],
-      "summary": "Penford and Ingredion issued press releases announcing the transaction.",
+      "summary": "Penford, Ingredion, and SEACOR executed the voting and support agreement; SEACOR (owner of approximately 9.28% of outstanding common stock) agreed to vote its shares to approve the merger agreement",
       "evidence_span_ids": [
-        "span_0026"
+        "span_0056",
+        "span_0048"
       ],
-      "process_kind": "press_release",
-      "process_scope": "bidder",
+      "agreement_kind": "other",
+      "signed": null,
+      "grants_diligence_access": null,
+      "includes_standstill": null,
+      "consideration_type": null,
+      "supersedes_observation_id": null,
       "other_detail": null
     }
   ],
   "exclusions": [
     {
-      "category": "stale_process_reference",
-      "block_ids": [
-        "B005"
-      ],
-      "explanation": "The 2007 and 2009 unsolicited approaches predate the 2014 sale process and the filing does not identify the parties or describe priced offers."
+      "category": "other",
+      "block_ids": [],
+      "explanation": "Party G — board determined Party G should not be contacted during market check: Party G was identified as one of the two largest companies in Penford's industry but the board decided not to contact Party G due to risks and concerns regarding confidentiality and possible misuse of proprietary or confidential information"
     },
     {
-      "category": "non_event_context",
-      "block_ids": [
-        "B043",
-        "B045",
-        "B060",
-        "B071",
-        "B073",
-        "B077",
-        "B078",
-        "B081",
-        "B083",
-        "B086",
-        "B088"
-      ],
-      "explanation": "These blocks describe diligence exchanges, draft agreement circulation, or negotiation process details rather than standalone event-taxonomy actions."
+      "category": "other",
+      "block_ids": [],
+      "explanation": "Party C — no proposal received; received management presentation on September 25 but no further activity recorded beyond NDA execution: Filing records NDA, management presentation, and references Party C in market check summary but does not record any proposal or withdrawal from Party C"
     },
     {
-      "category": "non_event_context",
-      "block_ids": [
-        "B050"
-      ],
-      "explanation": "Party E only received outreach and never responded, so the filing does not describe a bidder-interest, nda, proposal, or drop event for Party E."
-    },
-    {
-      "category": "non_event_context",
-      "block_ids": [
-        "B058",
-        "B070"
-      ],
-      "explanation": "Party G was discussed as a possible counterparty but the board decided not to contact it, so no standalone event is extracted."
+      "category": "other",
+      "block_ids": [],
+      "explanation": "Draft merger agreement exchange and negotiation details (September 6 through October 14) — multiple drafts exchanged between Perkins Coie and Sidley Austin: Procedural merger agreement drafting and negotiation steps that do not constitute distinct proposals, agreements, or status changes under the observation schema"
     }
   ],
   "coverage": []

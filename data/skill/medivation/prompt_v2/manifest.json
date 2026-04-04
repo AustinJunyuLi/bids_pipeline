@@ -1,9 +1,9 @@
 {
   "schema_version": "2.0.0",
   "artifact_type": "prompt_packet_manifest",
-  "created_at": "2026-04-02T10:28:52.965807Z",
+  "created_at": "2026-04-04T14:38:10.555190Z",
   "pipeline_version": "0.1.0",
-  "run_id": "compose-b95ee3b2",
+  "run_id": "compose-5afc70ad",
   "deal_slug": "medivation",
   "source_accession_number": "0001193125-16-696911",
   "packets": [
@@ -148,7 +148,11 @@
         "0001193125-16-696911:E0225",
         "0001193125-16-696911:E0226",
         "0001193125-16-696911:E0227",
-        "0001193125-16-696911:E0228"
+        "0001193125-16-696911:E0228",
+        "0001193125-16-696911:E0229",
+        "0001193125-16-696911:E0230",
+        "0001193125-16-696911:E0231",
+        "0001193125-16-696911:E0232"
       ],
       "actor_roster_source_path": null
     },
@@ -161,10 +165,6 @@
       "body_path": "/home/austinli/Projects/bids_pipeline/data/skill/medivation/prompt_v2/packets/observations-v2-w1/body.md",
       "rendered_path": "/home/austinli/Projects/bids_pipeline/data/skill/medivation/prompt_v2/packets/observations-v2-w1/rendered.md",
       "evidence_ids": [
-        "0001193125-16-696911:E0218",
-        "0001193125-16-696911:E0219",
-        "0001193125-16-696911:E0220",
-        "0001193125-16-696911:E0221",
         "0001193125-16-696911:E0222",
         "0001193125-16-696911:E0223",
         "0001193125-16-696911:E0224",
@@ -232,7 +232,11 @@
         "0001193125-16-696911:E0286",
         "0001193125-16-696911:E0287",
         "0001193125-16-696911:E0288",
-        "0001193125-16-696911:E0289"
+        "0001193125-16-696911:E0289",
+        "0001193125-16-696911:E0290",
+        "0001193125-16-696911:E0291",
+        "0001193125-16-696911:E0292",
+        "0001193125-16-696911:E0293"
       ],
       "actor_roster_source_path": null
     }
@@ -248,7 +252,7 @@
     "routing=auto",
     "effective_budget=6000",
     "source_blocks=165",
-    "source_evidence_items=511",
+    "source_evidence_items=516",
     "chunk_windows=2",
     "complexity=complex"
   ]

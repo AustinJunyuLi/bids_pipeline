@@ -16,6 +16,7 @@ from pathlib import Path
 from skill_pipeline.pipeline_models.prompt import PromptChunkWindow
 from skill_pipeline.pipeline_models.source import ChronologyBlock, EvidenceItem
 from skill_pipeline.prompts.checklist import build_evidence_checklist
+from skill_pipeline.prompts.schema_ref import generate_schema_reference
 
 
 def _render_deal_context(
@@ -99,7 +100,7 @@ def render_observation_v2_packet(
     """Render a v2 observation extraction prompt packet."""
     chunk_mode = "single_pass" if window.chunk_count == 1 else "chunked"
 
-    prefix_parts: list[str] = [_load_asset(prefix_asset_path)]
+    prefix_parts: list[str] = [_load_asset(prefix_asset_path), generate_schema_reference()]
     if examples_asset_path:
         prefix_parts.append(_load_asset(examples_asset_path))
     prefix_text = "\n\n".join(prefix_parts)

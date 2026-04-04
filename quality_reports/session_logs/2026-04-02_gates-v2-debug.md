@@ -67,3 +67,44 @@ User chose the most fundamental fix: rebuild all three layers (prompt, canonical
 - All 9 deals pass coverage-v2 with no false-positive blockers
 - 3 legitimate count_assertion warnings detected (imprivata, petsmart-inc, saks)
 - 219 tests pass, no regressions
+
+---
+
+## 2026-04-04: Clean 9-Deal Production Rerun + Hardening Plan
+
+### Full E2E Rerun (DONE)
+- Verified local `two-pass` branch matches `origin/two-pass` at `8522edd`
+- Cleaned all v2 output surfaces for 9 deals (prompt_v2/ extract_v2/ check_v2/ coverage_v2/ gates_v2/ derive/ export_v2/ + data/deals/*/source/)
+- EDGAR identity: Austin Li junyu.li.24@ucl.ac.uk
+- Stages 1-3 (raw-fetch, preprocess, compose-prompts): 9/9 pass
+- Stage 4 (extract-deal-v2): 9 parallel agents, all completed
+  - Single-window: imprivata, penford, petsmart-inc, providence-worcester, saks, zep
+  - Multi-window: mac-gray (3w), medivation (2w), stec (4w)
+- Schema normalization required mid-run (12 mismatch categories — see below)
+- Stages 5-9 (canonicalize, check, coverage, gates): 9/9 pass after fixes
+  - 5 coverage gaps repaired (imprivata, mac-gray, medivation, petsmart-inc, stec)
+- Stages 10-12 (derive, db-load, db-export): 9/9 pass
+- Final: 398 observations, 119 parties, 215 analyst rows across 9 deals
+
+### Schema Mismatches Discovered (12 categories)
+1. `observation_type` → should be `obs_type`
+2. `date: "2016-03-09"` string → should be `ResolvedDate` dict
+3. `precision: "day"` → enum is `exact_day`
+4. `name` → should be `display_name` (PartyRecord)
+5. `description` → should be `label` (CohortRecord)
+6. `known_members` → should be `known_member_party_ids` (CohortRecord)
+7. `coverage: {dict}` → should be `coverage: []` (list)
+8. `exclusions[].item/reason` → should be `category/explanation`
+9. `terms.price_per_share` → should be `per_share`
+10. `terms.per_share: "$16"` → should be numeric
+11. Missing `subject_refs` on proposals (18 in medivation, 2 in saks)
+12. Empty `created_by_observation_id` on cohorts (7 in providence-worcester)
+
+Root cause: prompt gives semantic guidance but no structural JSON schema; no pre-validation normalizer exists.
+
+### Hardening Plan (IN PROGRESS)
+- Plan written: `/home/austinli/.claude/plans/functional-dancing-minsky.md`
+- Two layers:
+  - **Layer B (normalizer)**: `skill_pipeline/normalize/extraction.py` — deterministic pre-validation normalizer for the 10 fixable mismatches, called before `model_validate()` in `extract_artifacts_v2.py`
+  - **Layer A (prompt schema)**: `skill_pipeline/prompts/schema_ref.py` — compact JSON schema reference generated from Pydantic models, injected into rendered prompts
+- Codex dispatched (GPT 5.4 xhigh) to implement both phases

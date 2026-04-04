@@ -30,17 +30,14 @@
     },
     {
       "cue_family": "advisor",
-      "status": "ambiguous",
+      "status": "not_found",
       "severity": "warning",
       "repairability": "repairable",
-      "description": "High-confidence advisor cue matched multiple canonical v2 candidates.",
-      "reason_code": "multiple_matching_candidates",
+      "description": "High-confidence advisor cue was not covered by canonical v2 artifacts.",
+      "reason_code": "uncovered_advisor_cue",
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
-      "supporting_span_ids": [
-        "span_0004",
-        "span_0035"
-      ],
+      "supporting_span_ids": [],
       "block_ids": [
         "B019"
       ],
@@ -59,28 +56,20 @@
         "ib_retention"
       ],
       "note": null,
-      "supporting_observation_ids": [
-        "obs_evt_004"
-      ],
-      "supporting_party_ids": [
-        "advisor_deutsche_bank",
-        "advisor_perkins_coie"
-      ],
+      "supporting_observation_ids": [],
+      "supporting_party_ids": [],
       "supporting_cohort_ids": []
     },
     {
       "cue_family": "advisor",
-      "status": "ambiguous",
+      "status": "not_found",
       "severity": "warning",
       "repairability": "repairable",
-      "description": "High-confidence advisor cue matched multiple canonical v2 candidates.",
-      "reason_code": "multiple_matching_candidates",
+      "description": "High-confidence advisor cue was not covered by canonical v2 artifacts.",
+      "reason_code": "uncovered_advisor_cue",
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
-      "supporting_span_ids": [
-        "span_0004",
-        "span_0035"
-      ],
+      "supporting_span_ids": [],
       "block_ids": [
         "B019"
       ],
@@ -99,13 +88,8 @@
         "ib_retention"
       ],
       "note": null,
-      "supporting_observation_ids": [
-        "obs_evt_004"
-      ],
-      "supporting_party_ids": [
-        "advisor_deutsche_bank",
-        "advisor_perkins_coie"
-      ],
+      "supporting_observation_ids": [],
+      "supporting_party_ids": [],
       "supporting_cohort_ids": []
     },
     {
@@ -230,16 +214,14 @@
     },
     {
       "cue_family": "advisor",
-      "status": "observed",
-      "severity": "info",
-      "repairability": null,
-      "description": "Medium-confidence advisor cue is covered by canonical v2 artifacts.",
-      "reason_code": "matched_party",
+      "status": "not_found",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "Medium-confidence advisor cue was not covered by canonical v2 artifacts.",
+      "reason_code": "uncovered_advisor_cue",
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
-      "supporting_span_ids": [
-        "span_0036"
-      ],
+      "supporting_span_ids": [],
       "block_ids": [
         "B037"
       ],
@@ -255,23 +237,19 @@
       ],
       "note": null,
       "supporting_observation_ids": [],
-      "supporting_party_ids": [
-        "advisor_jp_morgan"
-      ],
+      "supporting_party_ids": [],
       "supporting_cohort_ids": []
     },
     {
       "cue_family": "advisor",
-      "status": "observed",
-      "severity": "info",
-      "repairability": null,
-      "description": "Medium-confidence advisor cue is covered by canonical v2 artifacts.",
-      "reason_code": "matched_party",
+      "status": "not_found",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "Medium-confidence advisor cue was not covered by canonical v2 artifacts.",
+      "reason_code": "uncovered_advisor_cue",
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
-      "supporting_span_ids": [
-        "span_0036"
-      ],
+      "supporting_span_ids": [],
       "block_ids": [
         "B037"
       ],
@@ -288,9 +266,7 @@
       ],
       "note": null,
       "supporting_observation_ids": [],
-      "supporting_party_ids": [
-        "advisor_jp_morgan"
-      ],
+      "supporting_party_ids": [],
       "supporting_cohort_ids": []
     },
     {
@@ -358,16 +334,14 @@
     },
     {
       "cue_family": "advisor",
-      "status": "observed",
-      "severity": "info",
-      "repairability": null,
-      "description": "High-confidence advisor cue is covered by canonical v2 artifacts.",
-      "reason_code": "matched_party",
+      "status": "not_found",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "High-confidence advisor cue was not covered by canonical v2 artifacts.",
+      "reason_code": "uncovered_advisor_cue",
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
-      "supporting_span_ids": [
-        "span_0038"
-      ],
+      "supporting_span_ids": [],
       "block_ids": [
         "B074"
       ],
@@ -385,9 +359,7 @@
       ],
       "note": null,
       "supporting_observation_ids": [],
-      "supporting_party_ids": [
-        "advisor_milbank"
-      ],
+      "supporting_party_ids": [],
       "supporting_cohort_ids": []
     },
     {
@@ -633,31 +605,6 @@
       "suggested_event_types": [
         "ib_retention"
       ],
-      "note": null,
-      "supporting_observation_ids": [],
-      "supporting_party_ids": [],
-      "supporting_cohort_ids": []
-    },
-    {
-      "cue_family": "actor_roster",
-      "status": "not_found",
-      "severity": "warning",
-      "repairability": "repairable",
-      "description": "Party alias 'Party G' appears 2 times in chronology blocks but no extracted party matches.",
-      "reason_code": "missing_roster_party",
-      "supporting_event_ids": [],
-      "supporting_actor_ids": [],
-      "supporting_span_ids": [],
-      "block_ids": [
-        "B058",
-        "B070"
-      ],
-      "evidence_ids": [],
-      "matched_terms": [
-        "Party G"
-      ],
-      "confidence": "medium",
-      "suggested_event_types": [],
       "note": null,
       "supporting_observation_ids": [],
       "supporting_party_ids": [],

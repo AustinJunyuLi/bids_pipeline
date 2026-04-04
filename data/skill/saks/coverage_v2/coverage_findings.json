@@ -2,16 +2,14 @@
   "findings": [
     {
       "cue_family": "advisor",
-      "status": "observed",
-      "severity": "info",
-      "repairability": null,
-      "description": "Medium-confidence advisor cue is covered by canonical v2 artifacts.",
-      "reason_code": "matched_party",
+      "status": "not_found",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "Medium-confidence advisor cue was not covered by canonical v2 artifacts.",
+      "reason_code": "uncovered_advisor_cue",
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
-      "supporting_span_ids": [
-        "span_0001"
-      ],
+      "supporting_span_ids": [],
       "block_ids": [
         "B002"
       ],
@@ -29,9 +27,7 @@
       ],
       "note": null,
       "supporting_observation_ids": [],
-      "supporting_party_ids": [
-        "advisor_goldman_sachs"
-      ],
+      "supporting_party_ids": [],
       "supporting_cohort_ids": []
     },
     {
@@ -50,7 +46,7 @@
         "B012"
       ],
       "evidence_ids": [
-        "0001193125-13-390275:E0284"
+        "0001193125-13-390275:E0286"
       ],
       "matched_terms": [
         "entered into"
@@ -61,8 +57,8 @@
       ],
       "note": null,
       "supporting_observation_ids": [
-        "obs_evt_006",
-        "obs_evt_007"
+        "obs_evt_010",
+        "obs_evt_011"
       ],
       "supporting_party_ids": [],
       "supporting_cohort_ids": []
@@ -83,7 +79,7 @@
         "B012"
       ],
       "evidence_ids": [
-        "0001193125-13-390275:E0285"
+        "0001193125-13-390275:E0288"
       ],
       "matched_terms": [
         "confidentiality agreement"
@@ -94,8 +90,8 @@
       ],
       "note": null,
       "supporting_observation_ids": [
-        "obs_evt_006",
-        "obs_evt_007"
+        "obs_evt_010",
+        "obs_evt_011"
       ],
       "supporting_party_ids": [],
       "supporting_cohort_ids": []
@@ -116,7 +112,7 @@
         "B015"
       ],
       "evidence_ids": [
-        "0001193125-13-390275:E0290"
+        "0001193125-13-390275:E0294"
       ],
       "matched_terms": [
         "entered into"
@@ -127,7 +123,7 @@
       ],
       "note": null,
       "supporting_observation_ids": [
-        "obs_evt_009"
+        "obs_evt_014"
       ],
       "supporting_party_ids": [],
       "supporting_cohort_ids": []
@@ -148,7 +144,7 @@
         "B015"
       ],
       "evidence_ids": [
-        "0001193125-13-390275:E0291"
+        "0001193125-13-390275:E0295"
       ],
       "matched_terms": [
         "confidentiality agreement"
@@ -159,7 +155,7 @@
       ],
       "note": null,
       "supporting_observation_ids": [
-        "obs_evt_009"
+        "obs_evt_014"
       ],
       "supporting_party_ids": [],
       "supporting_cohort_ids": []
@@ -174,13 +170,13 @@
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
       "supporting_span_ids": [
-        "span_0021"
+        "span_0024"
       ],
       "block_ids": [
         "B033"
       ],
       "evidence_ids": [
-        "0001193125-13-390275:E0324"
+        "0001193125-13-390275:E0333"
       ],
       "matched_terms": [
         "entered into",
@@ -193,7 +189,7 @@
       ],
       "note": null,
       "supporting_observation_ids": [
-        "obs_evt_016"
+        "obs_evt_026"
       ],
       "supporting_party_ids": [],
       "supporting_cohort_ids": []
@@ -208,13 +204,13 @@
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
       "supporting_span_ids": [
-        "span_0021"
+        "span_0024"
       ],
       "block_ids": [
         "B033"
       ],
       "evidence_ids": [
-        "0001193125-13-390275:E0325"
+        "0001193125-13-390275:E0335"
       ],
       "matched_terms": [
         "confidentiality agreement",
@@ -226,7 +222,7 @@
       ],
       "note": null,
       "supporting_observation_ids": [
-        "obs_evt_016"
+        "obs_evt_026"
       ],
       "supporting_party_ids": [],
       "supporting_cohort_ids": []
@@ -245,7 +241,7 @@
         "B048"
       ],
       "evidence_ids": [
-        "0001193125-13-390275:E0356"
+        "0001193125-13-390275:E0369"
       ],
       "matched_terms": [
         "meeting",
@@ -274,7 +270,7 @@
         "B048"
       ],
       "evidence_ids": [
-        "0001193125-13-390275:E0358"
+        "0001193125-13-390275:E0371"
       ],
       "matched_terms": [
         "advisor",
@@ -291,21 +287,19 @@
     },
     {
       "cue_family": "advisor",
-      "status": "ambiguous",
+      "status": "not_found",
       "severity": "warning",
       "repairability": "repairable",
-      "description": "High-confidence advisor cue matched multiple canonical v2 candidates.",
-      "reason_code": "multiple_matching_candidates",
+      "description": "High-confidence advisor cue was not covered by canonical v2 artifacts.",
+      "reason_code": "uncovered_advisor_cue",
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
-      "supporting_span_ids": [
-        "span_0041"
-      ],
+      "supporting_span_ids": [],
       "block_ids": [
         "B058"
       ],
       "evidence_ids": [
-        "0001193125-13-390275:E0379"
+        "0001193125-13-390275:E0393"
       ],
       "matched_terms": [
         "discussed",
@@ -318,31 +312,25 @@
         "ib_retention"
       ],
       "note": null,
-      "supporting_observation_ids": [
-        "obs_evt_028"
-      ],
-      "supporting_party_ids": [
-        "advisor_morgan_stanley"
-      ],
+      "supporting_observation_ids": [],
+      "supporting_party_ids": [],
       "supporting_cohort_ids": []
     },
     {
       "cue_family": "advisor",
-      "status": "ambiguous",
+      "status": "not_found",
       "severity": "warning",
       "repairability": "repairable",
-      "description": "Medium-confidence advisor cue matched multiple canonical v2 candidates.",
-      "reason_code": "multiple_matching_candidates",
+      "description": "Medium-confidence advisor cue was not covered by canonical v2 artifacts.",
+      "reason_code": "uncovered_advisor_cue",
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
-      "supporting_span_ids": [
-        "span_0041"
-      ],
+      "supporting_span_ids": [],
       "block_ids": [
         "B058"
       ],
       "evidence_ids": [
-        "0001193125-13-390275:E0380"
+        "0001193125-13-390275:E0394"
       ],
       "matched_terms": [
         "advisor",
@@ -354,12 +342,8 @@
         "ib_retention"
       ],
       "note": null,
-      "supporting_observation_ids": [
-        "obs_evt_028"
-      ],
-      "supporting_party_ids": [
-        "advisor_morgan_stanley"
-      ],
+      "supporting_observation_ids": [],
+      "supporting_party_ids": [],
       "supporting_cohort_ids": []
     },
     {
@@ -376,7 +360,7 @@
         "B059"
       ],
       "evidence_ids": [
-        "0001193125-13-390275:E0381"
+        "0001193125-13-390275:E0395"
       ],
       "matched_terms": [
         "delivered",
@@ -408,7 +392,7 @@
         "B059"
       ],
       "evidence_ids": [
-        "0001193125-13-390275:E0383"
+        "0001193125-13-390275:E0397"
       ],
       "matched_terms": [
         "advisor",
@@ -435,13 +419,13 @@
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
       "supporting_span_ids": [
-        "span_0047"
+        "span_0049"
       ],
       "block_ids": [
         "B062"
       ],
       "evidence_ids": [
-        "0001193125-13-390275:E0387"
+        "0001193125-13-390275:E0401"
       ],
       "matched_terms": [
         "contacted",
@@ -456,7 +440,7 @@
       ],
       "note": null,
       "supporting_observation_ids": [
-        "obs_evt_032"
+        "obs_evt_047"
       ],
       "supporting_party_ids": [],
       "supporting_cohort_ids": []
@@ -471,13 +455,13 @@
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
       "supporting_span_ids": [
-        "span_0047"
+        "span_0049"
       ],
       "block_ids": [
         "B062"
       ],
       "evidence_ids": [
-        "0001193125-13-390275:E0389"
+        "0001193125-13-390275:E0403"
       ],
       "matched_terms": [
         "confidentiality agreement",
@@ -489,7 +473,7 @@
       ],
       "note": null,
       "supporting_observation_ids": [
-        "obs_evt_032"
+        "obs_evt_047"
       ],
       "supporting_party_ids": [],
       "supporting_cohort_ids": []
@@ -508,7 +492,7 @@
         "B064"
       ],
       "evidence_ids": [
-        "0001193125-13-390275:E0392"
+        "0001193125-13-390275:E0406"
       ],
       "matched_terms": [
         "confidentiality agreement"
@@ -517,32 +501,6 @@
       "suggested_event_types": [
         "nda"
       ],
-      "note": null,
-      "supporting_observation_ids": [],
-      "supporting_party_ids": [],
-      "supporting_cohort_ids": []
-    },
-    {
-      "cue_family": "count_assertion",
-      "status": "not_found",
-      "severity": "warning",
-      "repairability": "repairable",
-      "description": "Filing asserts 'six parties' but no cohort with exact_count=6 was extracted.",
-      "reason_code": "missing_count_cohort",
-      "supporting_event_ids": [],
-      "supporting_actor_ids": [],
-      "supporting_span_ids": [],
-      "block_ids": [
-        "B062"
-      ],
-      "evidence_ids": [
-        "0001193125-13-390275:E0387"
-      ],
-      "matched_terms": [
-        "six parties"
-      ],
-      "confidence": "high",
-      "suggested_event_types": [],
       "note": null,
       "supporting_observation_ids": [],
       "supporting_party_ids": [],

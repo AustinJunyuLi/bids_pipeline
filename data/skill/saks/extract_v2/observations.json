@@ -1,13 +1,12 @@
 {
   "parties": [
     {
-      "party_id": "target_board_saks",
-      "display_name": "Saks Board of Directors",
-      "canonical_name": "SAKS INC BOARD OF DIRECTORS",
+      "party_id": "target_saks",
+      "display_name": "Saks Inc",
+      "canonical_name": null,
       "aliases": [
-        "the board",
-        "Finance committee of the board",
-        "Executive committee of the board"
+        "Saks",
+        "the Company"
       ],
       "role": "target_board",
       "bidder_kind": null,
@@ -15,197 +14,205 @@
       "advised_party_id": null,
       "listing_status": null,
       "geography": null,
-      "evidence_span_ids": [
-        "span_0004"
-      ]
+      "evidence_span_ids": []
     },
     {
       "party_id": "bidder_hudsons_bay",
-      "display_name": "Hudson's Bay",
-      "canonical_name": "HUDSONS BAY",
+      "display_name": "Hudsons Bay",
+      "canonical_name": null,
       "aliases": [
         "Hudsons Bay"
       ],
       "role": "bidder",
-      "bidder_kind": "strategic",
+      "bidder_kind": null,
       "advisor_kind": null,
       "advised_party_id": null,
       "listing_status": null,
       "geography": null,
-      "evidence_span_ids": [
-        "span_0005"
-      ]
+      "evidence_span_ids": []
     },
     {
       "party_id": "bidder_sponsor_a",
       "display_name": "Sponsor A",
-      "canonical_name": "SPONSOR A",
-      "aliases": [],
+      "canonical_name": null,
+      "aliases": [
+        "Sponsor A"
+      ],
       "role": "bidder",
-      "bidder_kind": "financial",
+      "bidder_kind": null,
       "advisor_kind": null,
       "advised_party_id": null,
       "listing_status": null,
       "geography": null,
-      "evidence_span_ids": [
-        "span_0002"
-      ]
+      "evidence_span_ids": []
     },
     {
       "party_id": "bidder_sponsor_e",
       "display_name": "Sponsor E",
-      "canonical_name": "SPONSOR E",
-      "aliases": [],
+      "canonical_name": null,
+      "aliases": [
+        "Sponsor E"
+      ],
       "role": "bidder",
-      "bidder_kind": "financial",
+      "bidder_kind": null,
       "advisor_kind": null,
       "advised_party_id": null,
       "listing_status": null,
       "geography": null,
-      "evidence_span_ids": [
-        "span_0010"
-      ]
+      "evidence_span_ids": []
     },
     {
       "party_id": "bidder_sponsor_g",
       "display_name": "Sponsor G",
-      "canonical_name": "SPONSOR G",
-      "aliases": [],
+      "canonical_name": null,
+      "aliases": [
+        "Sponsor G"
+      ],
       "role": "bidder",
-      "bidder_kind": "financial",
+      "bidder_kind": null,
       "advisor_kind": null,
       "advised_party_id": null,
       "listing_status": null,
       "geography": null,
-      "evidence_span_ids": [
-        "span_0020"
-      ]
+      "evidence_span_ids": []
     },
     {
       "party_id": "bidder_company_f",
       "display_name": "Company F",
-      "canonical_name": "COMPANY F",
-      "aliases": [],
+      "canonical_name": null,
+      "aliases": [
+        "Company F"
+      ],
       "role": "bidder",
-      "bidder_kind": "strategic",
+      "bidder_kind": null,
       "advisor_kind": null,
       "advised_party_id": null,
-      "listing_status": "private",
+      "listing_status": null,
       "geography": null,
-      "evidence_span_ids": [
-        "span_0018"
-      ]
+      "evidence_span_ids": []
     },
     {
       "party_id": "bidder_company_h",
       "display_name": "Company H",
-      "canonical_name": "COMPANY H",
-      "aliases": [],
+      "canonical_name": null,
+      "aliases": [
+        "Company H"
+      ],
       "role": "bidder",
-      "bidder_kind": "unknown",
+      "bidder_kind": null,
       "advisor_kind": null,
       "advised_party_id": null,
-      "listing_status": "private",
-      "geography": "domestic",
-      "evidence_span_ids": [
-        "span_0030"
-      ]
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": []
     },
     {
       "party_id": "bidder_company_i",
       "display_name": "Company I",
-      "canonical_name": "COMPANY I",
-      "aliases": [],
+      "canonical_name": null,
+      "aliases": [
+        "Company I"
+      ],
       "role": "bidder",
-      "bidder_kind": "unknown",
+      "bidder_kind": null,
       "advisor_kind": null,
       "advised_party_id": null,
       "listing_status": null,
       "geography": null,
-      "evidence_span_ids": [
-        "span_0047"
-      ]
-    },
-    {
-      "party_id": "advisor_goldman_sachs",
-      "display_name": "Goldman Sachs",
-      "canonical_name": "GOLDMAN, SACHS & CO.",
-      "aliases": [
-        "Goldman Sachs"
-      ],
-      "role": "advisor",
-      "bidder_kind": null,
-      "advisor_kind": "financial",
-      "advised_party_id": "target_board_saks",
-      "listing_status": null,
-      "geography": null,
-      "evidence_span_ids": [
-        "span_0001"
-      ]
-    },
-    {
-      "party_id": "advisor_wachtell_lipton",
-      "display_name": "Wachtell, Lipton, Rosen & Katz",
-      "canonical_name": "WACHTELL, LIPTON, ROSEN & KATZ",
-      "aliases": [
-        "Wachtell Lipton"
-      ],
-      "role": "advisor",
-      "bidder_kind": null,
-      "advisor_kind": "legal",
-      "advised_party_id": "target_board_saks",
-      "listing_status": null,
-      "geography": null,
-      "evidence_span_ids": [
-        "span_0007"
-      ]
-    },
-    {
-      "party_id": "advisor_morgan_stanley",
-      "display_name": "Morgan Stanley & Co. LLC",
-      "canonical_name": "MORGAN STANLEY & CO. LLC",
-      "aliases": [
-        "Morgan Stanley"
-      ],
-      "role": "advisor",
-      "bidder_kind": null,
-      "advisor_kind": "financial",
-      "advised_party_id": "target_board_saks",
-      "listing_status": null,
-      "geography": null,
-      "evidence_span_ids": [
-        "span_0041"
-      ]
+      "evidence_span_ids": []
     },
     {
       "party_id": "other_sponsor_c",
       "display_name": "Sponsor C",
-      "canonical_name": "SPONSOR C",
-      "aliases": [],
+      "canonical_name": null,
+      "aliases": [
+        "Sponsor C"
+      ],
       "role": "other",
       "bidder_kind": null,
       "advisor_kind": null,
       "advised_party_id": null,
       "listing_status": null,
       "geography": null,
-      "evidence_span_ids": [
-        "span_0050"
-      ]
+      "evidence_span_ids": []
     },
     {
       "party_id": "other_sponsor_d",
       "display_name": "Sponsor D",
-      "canonical_name": "SPONSOR D",
-      "aliases": [],
+      "canonical_name": null,
+      "aliases": [
+        "Sponsor D"
+      ],
       "role": "other",
       "bidder_kind": null,
       "advisor_kind": null,
       "advised_party_id": null,
       "listing_status": null,
       "geography": null,
-      "evidence_span_ids": [
-        "span_0050"
-      ]
+      "evidence_span_ids": []
+    },
+    {
+      "party_id": "other_company_b",
+      "display_name": "Company B",
+      "canonical_name": null,
+      "aliases": [
+        "Company B"
+      ],
+      "role": "other",
+      "bidder_kind": null,
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": []
+    },
+    {
+      "party_id": "advisor_goldman_sachs",
+      "display_name": "Goldman Sachs",
+      "canonical_name": null,
+      "aliases": [
+        "Goldman Sachs",
+        "Goldman, Sachs & Co."
+      ],
+      "role": "advisor",
+      "bidder_kind": null,
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": []
+    },
+    {
+      "party_id": "advisor_wachtell_lipton",
+      "display_name": "Wachtell, Lipton, Rosen & Katz",
+      "canonical_name": null,
+      "aliases": [
+        "Wachtell Lipton",
+        "Wachtell, Lipton, Rosen & Katz"
+      ],
+      "role": "advisor",
+      "bidder_kind": null,
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": []
+    },
+    {
+      "party_id": "advisor_morgan_stanley",
+      "display_name": "Morgan Stanley & Co. LLC",
+      "canonical_name": null,
+      "aliases": [
+        "Morgan Stanley",
+        "Morgan Stanley & Co. LLC"
+      ],
+      "role": "advisor",
+      "bidder_kind": null,
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "evidence_span_ids": []
     }
   ],
   "cohorts": [
@@ -219,11 +226,9 @@
         "bidder_sponsor_e"
       ],
       "unknown_member_count": 0,
-      "membership_basis": "Sponsor A and Sponsor E joint acquisition group",
-      "created_by_observation_id": "obs_evt_008",
-      "evidence_span_ids": [
-        "span_0010"
-      ]
+      "membership_basis": "filing_stated",
+      "created_by_observation_id": "obs_evt_010",
+      "evidence_span_ids": []
     },
     {
       "cohort_id": "cohort_sponsor_e_g",
@@ -235,37 +240,70 @@
         "bidder_sponsor_g"
       ],
       "unknown_member_count": 0,
-      "membership_basis": "Sponsor E and Sponsor G joint acquisition group",
-      "created_by_observation_id": "obs_evt_018",
-      "evidence_span_ids": [
-        "span_0020"
-      ]
+      "membership_basis": "filing_stated",
+      "created_by_observation_id": "obs_evt_025",
+      "evidence_span_ids": []
     },
     {
       "cohort_id": "cohort_go_shop_contacted",
-      "label": "58 third parties contacted during go-shop",
+      "label": "58 potentially interested third parties contacted during go shop process",
       "parent_cohort_id": null,
       "exact_count": 58,
+      "known_member_party_ids": [],
+      "unknown_member_count": 58,
+      "membership_basis": "filing_stated",
+      "created_by_observation_id": "obs_evt_042",
+      "evidence_span_ids": []
+    },
+    {
+      "cohort_id": "cohort_go_shop_interested",
+      "label": "Six parties that expressed interest during go shop",
+      "parent_cohort_id": null,
+      "exact_count": 6,
       "known_member_party_ids": [
         "bidder_company_i"
       ],
-      "unknown_member_count": 57,
-      "membership_basis": "58 potentially interested third parties contacted during go-shop process",
-      "created_by_observation_id": "obs_evt_033",
-      "evidence_span_ids": [
-        "span_0046"
-      ]
+      "unknown_member_count": 5,
+      "membership_basis": "filing_stated",
+      "created_by_observation_id": "obs_evt_042",
+      "evidence_span_ids": []
     }
   ],
   "observations": [
     {
       "observation_id": "obs_evt_001",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "2012-12",
+        "normalized_start": "2012-12-01",
+        "normalized_end": "2012-12-01",
+        "sort_date": "2012-12-01",
+        "precision": "month",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_saks"
+      ],
+      "counterparty_refs": [],
+      "summary": "Board and senior management conducted periodic strategic review with Goldman Sachs participation in December 2012",
+      "evidence_span_ids": [
+        "span_0001"
+      ],
+      "process_kind": "other",
+      "process_scope": null,
+      "other_detail": "strategic_review"
+    },
+    {
+      "observation_id": "obs_evt_002",
       "obs_type": "status",
       "date": {
-        "raw_text": "February 2013",
+        "raw_text": "2013-02",
         "normalized_start": "2013-02-01",
-        "normalized_end": "2013-02-28",
-        "sort_date": "2013-02-15",
+        "normalized_end": "2013-02-01",
+        "sort_date": "2013-02-01",
         "precision": "month",
         "anchor_event_id": null,
         "anchor_span_id": null,
@@ -275,20 +313,75 @@
       "subject_refs": [
         "bidder_sponsor_a"
       ],
-      "counterparty_refs": [],
-      "summary": "Sponsor A made an unsolicited phone call to Saks CEO expressing interest in a potential acquisition of Saks.",
+      "counterparty_refs": [
+        "target_saks"
+      ],
+      "summary": "Sponsor A made unsolicited phone call to Saks CEO expressing interest in potential acquisition of Saks",
       "evidence_span_ids": [
         "span_0002"
       ],
       "status_kind": "expressed_interest",
       "related_observation_id": null,
-      "other_detail": null
+      "other_detail": "unsolicited phone call"
     },
     {
-      "observation_id": "obs_evt_002",
+      "observation_id": "obs_evt_003",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "2013-03",
+        "normalized_start": "2013-03-01",
+        "normalized_end": "2013-03-01",
+        "sort_date": "2013-03-01",
+        "precision": "month",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_saks",
+        "bidder_sponsor_a"
+      ],
+      "counterparty_refs": [],
+      "summary": "Saks CEO met with senior representatives of Sponsor A to discuss possibility of a potential transaction; no specific proposals or terms discussed",
+      "evidence_span_ids": [
+        "span_0003"
+      ],
+      "process_kind": "other",
+      "process_scope": null,
+      "other_detail": "preliminary meeting, no proposals made"
+    },
+    {
+      "observation_id": "obs_evt_004",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "2013-03-07",
+        "normalized_start": "2013-03-07",
+        "normalized_end": "2013-03-07",
+        "sort_date": "2013-03-07",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_saks"
+      ],
+      "counterparty_refs": [],
+      "summary": "Board meeting: discussed contacts with Sponsor A, potential acquisition of Saks, and potential strategic acquisition of Company B; delegated ongoing updates to Finance committee",
+      "evidence_span_ids": [
+        "span_0004"
+      ],
+      "process_kind": "other",
+      "process_scope": null,
+      "other_detail": "board discussed potential strategic transactions including acquisition of Company B"
+    },
+    {
+      "observation_id": "obs_evt_005",
       "obs_type": "status",
       "date": {
-        "raw_text": "April 1, 2013",
+        "raw_text": "2013-04-01",
         "normalized_start": "2013-04-01",
         "normalized_end": "2013-04-01",
         "sort_date": "2013-04-01",
@@ -301,20 +394,48 @@
       "subject_refs": [
         "bidder_hudsons_bay"
       ],
-      "counterparty_refs": [],
-      "summary": "Hudson's Bay CEO Richard Baker met with Saks CEO Sadove and discussed a potential acquisition of Saks by Hudson's Bay. No specific proposals or transaction terms were discussed.",
+      "counterparty_refs": [
+        "target_saks"
+      ],
+      "summary": "Hudsons Bay CEO Richard Baker met with Saks CEO and discussed a potential acquisition of Saks by Hudsons Bay; no specific proposals or terms discussed",
       "evidence_span_ids": [
         "span_0005"
       ],
       "status_kind": "expressed_interest",
       "related_observation_id": null,
-      "other_detail": null
+      "other_detail": "meeting at request of Mr. Baker; no specific proposals made"
     },
     {
-      "observation_id": "obs_evt_003",
+      "observation_id": "obs_evt_006",
       "obs_type": "process",
       "date": {
-        "raw_text": "April 11, 2013",
+        "raw_text": "2013-04-04",
+        "normalized_start": "2013-04-04",
+        "normalized_end": "2013-04-04",
+        "sort_date": "2013-04-04",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_saks"
+      ],
+      "counterparty_refs": [],
+      "summary": "Board meeting: reviewed expressions of interest from Hudsons Bay and Sponsor A; directed management to continue exploring potential transactions",
+      "evidence_span_ids": [
+        "span_0006"
+      ],
+      "process_kind": "other",
+      "process_scope": null,
+      "other_detail": "board directed continued exploration"
+    },
+    {
+      "observation_id": "obs_evt_007",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "2013-04-11",
         "normalized_start": "2013-04-11",
         "normalized_end": "2013-04-11",
         "sort_date": "2013-04-11",
@@ -325,83 +446,73 @@
         "is_inferred": false
       },
       "subject_refs": [
-        "advisor_goldman_sachs",
-        "advisor_wachtell_lipton"
+        "target_saks"
       ],
       "counterparty_refs": [],
-      "summary": "Finance committee and Executive committee held special joint meeting with Goldman Sachs and Wachtell Lipton to discuss Saks potential transactions and directed management to continue evaluating.",
+      "summary": "Finance and Executive committees held special joint meeting with Goldman Sachs and Wachtell Lipton; reviewed discussions with Hudsons Bay and Sponsor A; directed continued evaluation",
       "evidence_span_ids": [
         "span_0007"
       ],
       "process_kind": "other",
-      "process_scope": "target",
-      "other_detail": "Joint Finance and Executive committee meeting to evaluate potential transactions"
+      "process_scope": null,
+      "other_detail": "special joint committee meeting"
     },
     {
-      "observation_id": "obs_evt_004",
-      "obs_type": "proposal",
+      "observation_id": "obs_evt_008",
+      "obs_type": "process",
       "date": {
-        "raw_text": "April 15, 2013",
-        "normalized_start": "2013-04-15",
-        "normalized_end": "2013-04-19",
-        "sort_date": "2013-04-15",
-        "precision": "range",
+        "raw_text": "2013-04-11",
+        "normalized_start": "2013-04-11",
+        "normalized_end": "2013-04-11",
+        "sort_date": "2013-04-11",
+        "precision": "exact_day",
         "anchor_event_id": null,
         "anchor_span_id": null,
-        "resolution_note": "During the week of April 15, 2013",
+        "resolution_note": null,
         "is_inferred": false
       },
       "subject_refs": [
-        "bidder_hudsons_bay"
+        "other_sponsor_c",
+        "other_sponsor_d"
       ],
       "counterparty_refs": [],
-      "summary": "Hudson's Bay indicated to Goldman Sachs that it was considering making an offer to acquire Saks for at least $15 per share in cash.",
+      "summary": "Following joint committee meeting, Goldman Sachs met separately with Sponsor C and Sponsor D about providing equity financing for acquisition of Company B",
       "evidence_span_ids": [
-        "span_0008",
-        "span_0009"
+        "span_0008"
       ],
-      "requested_by_observation_id": null,
-      "revises_observation_id": null,
-      "delivery_mode": "oral",
-      "terms": {
-        "per_share": "15.0",
-        "range_low": null,
-        "range_high": null,
-        "enterprise_value": null,
-        "consideration_type": "cash"
-      },
-      "mentions_non_binding": false,
-      "includes_draft_merger_agreement": false,
-      "includes_markup": false,
-      "other_detail": "Indicated at least $15 per share"
+      "process_kind": "other",
+      "process_scope": null,
+      "other_detail": "equity financing discussions for Company B acquisition"
     },
     {
-      "observation_id": "obs_evt_005",
+      "observation_id": "obs_evt_009",
       "obs_type": "proposal",
       "date": {
-        "raw_text": "April 15, 2013",
+        "raw_text": "2013-04-15",
         "normalized_start": "2013-04-15",
-        "normalized_end": "2013-04-19",
+        "normalized_end": "2013-04-15",
         "sort_date": "2013-04-15",
-        "precision": "range",
+        "precision": "exact_day",
         "anchor_event_id": null,
         "anchor_span_id": null,
-        "resolution_note": "During the week of April 15, 2013",
+        "resolution_note": null,
         "is_inferred": false
       },
       "subject_refs": [
+        "bidder_hudsons_bay",
         "bidder_sponsor_a"
       ],
-      "counterparty_refs": [],
-      "summary": "Sponsor A indicated to Goldman Sachs that it was considering making an offer to acquire Saks for at least $15 per share in cash. Sponsor E participated in the meeting with Sponsor A.",
+      "counterparty_refs": [
+        "target_saks"
+      ],
+      "summary": "During week of April 15, each of Hudsons Bay and Sponsor A indicated considering making an offer to acquire Saks for at least $15 per share in cash; Sponsor E participated in meeting with Sponsor A",
       "evidence_span_ids": [
-        "span_0008",
         "span_0009",
         "span_0010"
       ],
       "requested_by_observation_id": null,
       "revises_observation_id": null,
-      "delivery_mode": "oral",
+      "delivery_mode": null,
       "terms": {
         "per_share": "15.0",
         "range_low": null,
@@ -409,16 +520,16 @@
         "enterprise_value": null,
         "consideration_type": "cash"
       },
-      "mentions_non_binding": false,
-      "includes_draft_merger_agreement": false,
-      "includes_markup": false,
-      "other_detail": "Indicated at least $15 per share"
+      "mentions_non_binding": null,
+      "includes_draft_merger_agreement": null,
+      "includes_markup": null,
+      "other_detail": "preliminary indications of interest communicated verbally via Goldman Sachs meetings"
     },
     {
-      "observation_id": "obs_evt_006",
+      "observation_id": "obs_evt_010",
       "obs_type": "agreement",
       "date": {
-        "raw_text": "April 17, 2013",
+        "raw_text": "2013-04-17",
         "normalized_start": "2013-04-17",
         "normalized_end": "2013-04-17",
         "sort_date": "2013-04-17",
@@ -431,24 +542,26 @@
       "subject_refs": [
         "other_sponsor_c"
       ],
-      "counterparty_refs": [],
-      "summary": "Saks and Sponsor C entered into a confidentiality agreement.",
+      "counterparty_refs": [
+        "target_saks"
+      ],
+      "summary": "Saks and Sponsor C entered into a confidentiality agreement",
       "evidence_span_ids": [
         "span_0011"
       ],
       "agreement_kind": "nda",
-      "signed": true,
+      "signed": null,
       "grants_diligence_access": null,
       "includes_standstill": null,
       "consideration_type": null,
       "supersedes_observation_id": null,
-      "other_detail": "Related to equity financing for acquisition of Company B"
+      "other_detail": null
     },
     {
-      "observation_id": "obs_evt_007",
+      "observation_id": "obs_evt_011",
       "obs_type": "agreement",
       "date": {
-        "raw_text": "April 19, 2013",
+        "raw_text": "2013-04-19",
         "normalized_start": "2013-04-19",
         "normalized_end": "2013-04-19",
         "sort_date": "2013-04-19",
@@ -461,24 +574,52 @@
       "subject_refs": [
         "other_sponsor_d"
       ],
-      "counterparty_refs": [],
-      "summary": "Saks and Sponsor D entered into a confidentiality agreement.",
+      "counterparty_refs": [
+        "target_saks"
+      ],
+      "summary": "Saks and Sponsor D entered into a confidentiality agreement",
       "evidence_span_ids": [
         "span_0011"
       ],
       "agreement_kind": "nda",
-      "signed": true,
+      "signed": null,
       "grants_diligence_access": null,
       "includes_standstill": null,
       "consideration_type": null,
       "supersedes_observation_id": null,
-      "other_detail": "Related to equity financing for acquisition of Company B"
+      "other_detail": null
     },
     {
-      "observation_id": "obs_evt_008",
+      "observation_id": "obs_evt_012",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "2013-04-25",
+        "normalized_start": "2013-04-25",
+        "normalized_end": "2013-04-25",
+        "sort_date": "2013-04-25",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_saks"
+      ],
+      "counterparty_refs": [],
+      "summary": "Board meeting: Goldman Sachs discussed alternatives available to Saks including acquisition by a third party, acquisition of Company B, and remaining independent",
+      "evidence_span_ids": [
+        "span_0051"
+      ],
+      "process_kind": "other",
+      "process_scope": null,
+      "other_detail": "three alternatives discussed: sale, acquire Company B, remain independent"
+    },
+    {
+      "observation_id": "obs_evt_013",
       "obs_type": "agreement",
       "date": {
-        "raw_text": "April 26, 2013",
+        "raw_text": "2013-04-26",
         "normalized_start": "2013-04-26",
         "normalized_end": "2013-04-26",
         "sort_date": "2013-04-26",
@@ -492,24 +633,26 @@
         "bidder_sponsor_a",
         "bidder_sponsor_e"
       ],
-      "counterparty_refs": [],
-      "summary": "Saks entered into a confidentiality agreement with each of Sponsor A and Sponsor E, who were considering a joint acquisition of Saks.",
+      "counterparty_refs": [
+        "target_saks"
+      ],
+      "summary": "Saks entered into a confidentiality agreement with each of Sponsor A and Sponsor E",
       "evidence_span_ids": [
         "span_0012"
       ],
       "agreement_kind": "nda",
-      "signed": true,
-      "grants_diligence_access": true,
+      "signed": null,
+      "grants_diligence_access": null,
       "includes_standstill": null,
       "consideration_type": null,
       "supersedes_observation_id": null,
-      "other_detail": null
+      "other_detail": "considering participating in a potential joint acquisition of Saks"
     },
     {
-      "observation_id": "obs_evt_009",
+      "observation_id": "obs_evt_014",
       "obs_type": "agreement",
       "date": {
-        "raw_text": "April 30, 2013",
+        "raw_text": "2013-04-30",
         "normalized_start": "2013-04-30",
         "normalized_end": "2013-04-30",
         "sort_date": "2013-04-30",
@@ -522,98 +665,214 @@
       "subject_refs": [
         "bidder_hudsons_bay"
       ],
-      "counterparty_refs": [],
-      "summary": "Saks and Hudson's Bay entered into a confidentiality agreement.",
+      "counterparty_refs": [
+        "target_saks"
+      ],
+      "summary": "Saks and Hudsons Bay entered into a confidentiality agreement",
       "evidence_span_ids": [
         "span_0013"
       ],
       "agreement_kind": "nda",
-      "signed": true,
-      "grants_diligence_access": true,
+      "signed": null,
+      "grants_diligence_access": null,
       "includes_standstill": null,
       "consideration_type": null,
       "supersedes_observation_id": null,
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_010",
-      "obs_type": "proposal",
+      "observation_id": "obs_evt_015",
+      "obs_type": "process",
       "date": {
-        "raw_text": "June 3, 2013",
-        "normalized_start": "2013-06-03",
-        "normalized_end": "2013-06-07",
-        "sort_date": "2013-06-03",
-        "precision": "range",
+        "raw_text": "2013-04-30",
+        "normalized_start": "2013-04-30",
+        "normalized_end": "2013-04-30",
+        "sort_date": "2013-04-30",
+        "precision": "exact_day",
         "anchor_event_id": null,
         "anchor_span_id": null,
-        "resolution_note": "During the week of June 3, 2013",
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_sponsor_a",
+        "bidder_sponsor_e",
+        "bidder_hudsons_bay"
+      ],
+      "counterparty_refs": [],
+      "summary": "Following NDA executions, Saks made online dataroom available to Sponsor A, Sponsor E and Hudsons Bay; all three engaged in due diligence over next several weeks",
+      "evidence_span_ids": [
+        "span_0014"
+      ],
+      "process_kind": "other",
+      "process_scope": null,
+      "other_detail": "dataroom access and due diligence commenced"
+    },
+    {
+      "observation_id": "obs_evt_016",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "2013-05-15",
+        "normalized_start": "2013-05-15",
+        "normalized_end": "2013-05-15",
+        "sort_date": "2013-05-15",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_saks"
+      ],
+      "counterparty_refs": [],
+      "summary": "Finance committee meeting: discussed Hudsons Bay request to contact potential equity financing sources; committee agreed to grant request subject to confidentiality agreement terms",
+      "evidence_span_ids": [
+        "span_0015",
+        "span_0016"
+      ],
+      "process_kind": "other",
+      "process_scope": null,
+      "other_detail": "granted Hudsons Bay permission to contact equity financing sources"
+    },
+    {
+      "observation_id": "obs_evt_017",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "2013-05-17",
+        "normalized_start": "2013-05-17",
+        "normalized_end": "2013-05-17",
+        "sort_date": "2013-05-17",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_saks"
+      ],
+      "counterparty_refs": [
+        "other_company_b"
+      ],
+      "summary": "Goldman Sachs orally communicated Saks preliminary non-binding proposal to acquire Company B in cash transaction with flexibility for stock consideration; confirmed in letter on May 20; Company B principal shareholders said proposal was insufficient",
+      "evidence_span_ids": [
+        "span_0052"
+      ],
+      "process_kind": "other",
+      "process_scope": null,
+      "other_detail": "Target reverse-acquisition proposal: Goldman Sachs orally communicated Saks preliminary non-binding proposal to acqui"
+    },
+    {
+      "observation_id": "obs_evt_018",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "2013-05",
+        "normalized_start": "2013-05-01",
+        "normalized_end": "2013-05-01",
+        "sort_date": "2013-05-01",
+        "precision": "month",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_saks"
+      ],
+      "counterparty_refs": [],
+      "summary": "Media reports appeared stating Saks had engaged Goldman Sachs to explore a potential sale of Saks",
+      "evidence_span_ids": [
+        "span_0017"
+      ],
+      "process_kind": "other",
+      "process_scope": null,
+      "other_detail": "late May 2013 media reports"
+    },
+    {
+      "observation_id": "obs_evt_019",
+      "obs_type": "proposal",
+      "date": {
+        "raw_text": "2013-06-03",
+        "normalized_start": "2013-06-03",
+        "normalized_end": "2013-06-03",
+        "sort_date": "2013-06-03",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
         "is_inferred": false
       },
       "subject_refs": [
         "bidder_hudsons_bay"
       ],
-      "counterparty_refs": [],
-      "summary": "Hudson's Bay communicated to Goldman Sachs that it was preliminarily prepared to submit a proposal to acquire Saks at an indicative price range of $15 to $15.25 per share.",
+      "counterparty_refs": [
+        "target_saks"
+      ],
+      "summary": "Hudsons Bay indicated preliminarily prepared to submit proposal at $15 to $15.25 per share; Sponsor A and Sponsor E indicated $15 to $16 per share",
       "evidence_span_ids": [
-        "span_0016"
+        "span_0018"
       ],
       "requested_by_observation_id": null,
-      "revises_observation_id": "obs_evt_004",
-      "delivery_mode": "oral",
+      "revises_observation_id": null,
+      "delivery_mode": null,
       "terms": {
         "per_share": null,
-        "range_low": "15.0",
-        "range_high": "15.25",
+        "range_low": null,
+        "range_high": null,
         "enterprise_value": null,
-        "consideration_type": null
+        "consideration_type": "stock"
       },
-      "mentions_non_binding": false,
-      "includes_draft_merger_agreement": false,
-      "includes_markup": false,
-      "other_detail": null
+      "mentions_non_binding": null,
+      "includes_draft_merger_agreement": null,
+      "includes_markup": null,
+      "other_detail": "indicative price range communicated via Goldman Sachs"
     },
     {
-      "observation_id": "obs_evt_011",
+      "observation_id": "obs_evt_020",
       "obs_type": "proposal",
       "date": {
-        "raw_text": "June 3, 2013",
+        "raw_text": "2013-06-03",
         "normalized_start": "2013-06-03",
-        "normalized_end": "2013-06-07",
+        "normalized_end": "2013-06-03",
         "sort_date": "2013-06-03",
-        "precision": "range",
+        "precision": "exact_day",
         "anchor_event_id": null,
         "anchor_span_id": null,
-        "resolution_note": "During the week of June 3, 2013",
+        "resolution_note": null,
         "is_inferred": false
       },
       "subject_refs": [
-        "cohort_sponsor_a_e"
+        "bidder_sponsor_a",
+        "bidder_sponsor_e"
       ],
-      "counterparty_refs": [],
-      "summary": "Sponsor A and Sponsor E communicated to Goldman Sachs that they were preliminarily prepared to submit a proposal to acquire Saks at an indicative price range of $15 to $16 per share.",
+      "counterparty_refs": [
+        "target_saks"
+      ],
+      "summary": "Sponsor A and Sponsor E indicated preliminarily prepared to submit proposal at $15 to $16 per share of common stock",
       "evidence_span_ids": [
-        "span_0016"
+        "span_0018"
       ],
       "requested_by_observation_id": null,
-      "revises_observation_id": "obs_evt_005",
-      "delivery_mode": "oral",
+      "revises_observation_id": null,
+      "delivery_mode": null,
       "terms": {
         "per_share": null,
-        "range_low": "15.0",
-        "range_high": "16.0",
+        "range_low": null,
+        "range_high": null,
         "enterprise_value": null,
-        "consideration_type": null
+        "consideration_type": "stock"
       },
-      "mentions_non_binding": false,
-      "includes_draft_merger_agreement": false,
-      "includes_markup": false,
-      "other_detail": null
+      "mentions_non_binding": null,
+      "includes_draft_merger_agreement": null,
+      "includes_markup": null,
+      "other_detail": "indicative price range communicated via Goldman Sachs"
     },
     {
-      "observation_id": "obs_evt_012",
+      "observation_id": "obs_evt_021",
       "obs_type": "process",
       "date": {
-        "raw_text": "June 5, 2013",
+        "raw_text": "2013-06-05",
         "normalized_start": "2013-06-05",
         "normalized_end": "2013-06-05",
         "sort_date": "2013-06-05",
@@ -623,47 +882,79 @@
         "resolution_note": null,
         "is_inferred": false
       },
-      "subject_refs": [],
+      "subject_refs": [
+        "target_saks"
+      ],
       "counterparty_refs": [],
-      "summary": "The board authorized the implementation of a process to determine whether a transaction with one of the potential acquirors could be reached on terms that would offer attractive value to Saks shareholders.",
+      "summary": "Board authorized implementation of a process to determine whether a transaction with a potential acquiror could be reached on terms offering attractive value to shareholders, and authorized submission of a revised proposal to acquire Company B",
       "evidence_span_ids": [
-        "span_0017"
+        "span_0019"
       ],
       "process_kind": "sale_launch",
-      "process_scope": "target",
-      "other_detail": null
+      "process_scope": null,
+      "other_detail": "formal authorization of sale process for Saks and revised Company B proposal"
     },
     {
-      "observation_id": "obs_evt_013",
-      "obs_type": "status",
+      "observation_id": "obs_evt_022",
+      "obs_type": "process",
       "date": {
-        "raw_text": "June 10, 2013",
-        "normalized_start": "2013-06-10",
-        "normalized_end": "2013-06-14",
-        "sort_date": "2013-06-10",
-        "precision": "range",
+        "raw_text": "2013-06-06",
+        "normalized_start": "2013-06-06",
+        "normalized_end": "2013-06-06",
+        "sort_date": "2013-06-06",
+        "precision": "exact_day",
         "anchor_event_id": null,
         "anchor_span_id": null,
-        "resolution_note": "During the week of June 10, 2013",
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_saks"
+      ],
+      "counterparty_refs": [
+        "other_company_b"
+      ],
+      "summary": "Saks submitted a revised and non-binding proposal with a higher price to acquire Company B in a cash transaction with flexibility for stock consideration",
+      "evidence_span_ids": [
+        "span_0020"
+      ],
+      "process_kind": "other",
+      "process_scope": null,
+      "other_detail": "Target reverse-acquisition proposal: Saks submitted a revised and non-binding proposal with a higher price to acquire"
+    },
+    {
+      "observation_id": "obs_evt_023",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "2013-06-10",
+        "normalized_start": "2013-06-10",
+        "normalized_end": "2013-06-10",
+        "sort_date": "2013-06-10",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
         "is_inferred": false
       },
       "subject_refs": [
         "bidder_company_f"
       ],
-      "counterparty_refs": [],
-      "summary": "Company F, a privately held retail company, indicated interest in participating with Sponsor A and Sponsor E in a potential acquisition of Saks and engaged in due diligence. However, Company F did not participate in the offer ultimately submitted by Sponsor A and Sponsor G.",
+      "counterparty_refs": [
+        "target_saks"
+      ],
+      "summary": "Company F indicated interest in participating with Sponsor A and Sponsor E in a potential acquisition of Saks; engaged in due diligence but did not participate in final offer",
       "evidence_span_ids": [
-        "span_0018"
+        "span_0021"
       ],
       "status_kind": "expressed_interest",
       "related_observation_id": null,
-      "other_detail": null
+      "other_detail": "did not participate in the offer ultimately submitted by Sponsor A and Sponsor G"
     },
     {
-      "observation_id": "obs_evt_014",
+      "observation_id": "obs_evt_024",
       "obs_type": "solicitation",
       "date": {
-        "raw_text": "July 2, 2013",
+        "raw_text": "2013-07-02",
         "normalized_start": "2013-07-02",
         "normalized_end": "2013-07-02",
         "sort_date": "2013-07-02",
@@ -675,14 +966,14 @@
       },
       "subject_refs": [],
       "counterparty_refs": [],
-      "summary": "Goldman Sachs distributed a draft merger agreement and process details to Hudson's Bay, Sponsor A, and Sponsor E requesting submission of offers for an all-cash acquisition of Saks no later than July 11, 2013.",
+      "summary": "Goldman Sachs distributed draft merger agreement and process details to Hudsons Bay, Sponsor A and Sponsor E with request for submission of offers for all-cash acquisition of Saks no later than July 11, 2013",
       "evidence_span_ids": [
-        "span_0019"
+        "span_0022"
       ],
-      "requested_submission": "binding_offer",
+      "requested_submission": "other",
       "binding_level": null,
       "due_date": {
-        "raw_text": "July 11, 2013",
+        "raw_text": "2013-07-11",
         "normalized_start": "2013-07-11",
         "normalized_end": "2013-07-11",
         "sort_date": "2013-07-11",
@@ -697,21 +988,18 @@
         "bidder_sponsor_a",
         "bidder_sponsor_e"
       ],
-      "attachments": [
-        "draft merger agreement",
-        "process details"
-      ],
-      "other_detail": null
+      "attachments": [],
+      "other_detail": "included draft merger agreement and request for comments"
     },
     {
-      "observation_id": "obs_evt_015",
+      "observation_id": "obs_evt_025",
       "obs_type": "status",
       "date": {
-        "raw_text": "early July 2013",
+        "raw_text": "2013-07",
         "normalized_start": "2013-07-01",
-        "normalized_end": "2013-07-10",
-        "sort_date": "2013-07-05",
-        "precision": "month_early",
+        "normalized_end": "2013-07-01",
+        "sort_date": "2013-07-01",
+        "precision": "month",
         "anchor_event_id": null,
         "anchor_span_id": null,
         "resolution_note": null,
@@ -721,19 +1009,19 @@
         "bidder_sponsor_a"
       ],
       "counterparty_refs": [],
-      "summary": "Sponsor E informed Saks that Sponsor A was no longer intending to be a primary participant in a potential transaction.",
+      "summary": "Sponsor E informed Saks that Sponsor A was no longer intending to be primary participant; Sponsor E entered discussions with Sponsor G for potential joint acquisition of Saks",
       "evidence_span_ids": [
-        "span_0020"
+        "span_0023"
       ],
-      "status_kind": "withdrew",
+      "status_kind": "other",
       "related_observation_id": null,
-      "other_detail": "Sponsor A withdrew as primary participant; Sponsor E entered discussions with Sponsor G instead"
+      "other_detail": "early July 2013; Sponsor A stepping back from primary role, Sponsor E partnering with Sponsor G"
     },
     {
-      "observation_id": "obs_evt_016",
+      "observation_id": "obs_evt_026",
       "obs_type": "agreement",
       "date": {
-        "raw_text": "July 8, 2013",
+        "raw_text": "2013-07-08",
         "normalized_start": "2013-07-08",
         "normalized_end": "2013-07-08",
         "sort_date": "2013-07-08",
@@ -746,24 +1034,26 @@
       "subject_refs": [
         "bidder_sponsor_g"
       ],
-      "counterparty_refs": [],
-      "summary": "Saks entered into a confidentiality agreement with Sponsor G.",
+      "counterparty_refs": [
+        "target_saks"
+      ],
+      "summary": "Saks entered into a confidentiality agreement with Sponsor G",
       "evidence_span_ids": [
-        "span_0021"
+        "span_0024"
       ],
       "agreement_kind": "nda",
-      "signed": true,
-      "grants_diligence_access": true,
+      "signed": null,
+      "grants_diligence_access": null,
       "includes_standstill": null,
       "consideration_type": null,
       "supersedes_observation_id": null,
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_017",
+      "observation_id": "obs_evt_027",
       "obs_type": "proposal",
       "date": {
-        "raw_text": "July 11, 2013",
+        "raw_text": "2013-07-11",
         "normalized_start": "2013-07-11",
         "normalized_end": "2013-07-11",
         "sort_date": "2013-07-11",
@@ -776,32 +1066,33 @@
       "subject_refs": [
         "bidder_hudsons_bay"
       ],
-      "counterparty_refs": [],
-      "summary": "Hudson's Bay submitted a proposal at $15.25 per share, including a revised draft merger agreement and committed debt and equity financing documentation.",
-      "evidence_span_ids": [
-        "span_0022",
-        "span_0023"
+      "counterparty_refs": [
+        "target_saks"
       ],
-      "requested_by_observation_id": "obs_evt_014",
-      "revises_observation_id": "obs_evt_010",
-      "delivery_mode": "written",
+      "summary": "Hudsons Bay submitted proposal at $15.25 per share of common stock, including a revised draft merger agreement and committed debt and equity financing documentation",
+      "evidence_span_ids": [
+        "span_0026"
+      ],
+      "requested_by_observation_id": "obs_evt_024",
+      "revises_observation_id": null,
+      "delivery_mode": null,
       "terms": {
         "per_share": "15.25",
         "range_low": null,
         "range_high": null,
         "enterprise_value": null,
-        "consideration_type": "cash"
+        "consideration_type": "stock"
       },
-      "mentions_non_binding": false,
+      "mentions_non_binding": null,
       "includes_draft_merger_agreement": true,
       "includes_markup": true,
-      "other_detail": "Included committed financing documentation"
+      "other_detail": "included committed debt and equity financing documentation"
     },
     {
-      "observation_id": "obs_evt_018",
+      "observation_id": "obs_evt_028",
       "obs_type": "proposal",
       "date": {
-        "raw_text": "July 11, 2013",
+        "raw_text": "2013-07-11",
         "normalized_start": "2013-07-11",
         "normalized_end": "2013-07-11",
         "sort_date": "2013-07-11",
@@ -812,63 +1103,65 @@
         "is_inferred": false
       },
       "subject_refs": [
-        "cohort_sponsor_e_g"
+        "bidder_sponsor_e",
+        "bidder_sponsor_g"
       ],
-      "counterparty_refs": [],
-      "summary": "Sponsor E and Sponsor G submitted a joint proposal with an indicative price range of $14.50 to $15.50 per share, noting they would require several weeks to continue due diligence. No revised draft merger agreement or financing documents were included.",
+      "counterparty_refs": [
+        "target_saks"
+      ],
+      "summary": "Sponsor E and Sponsor G submitted joint proposal with indicative price range of $14.50-$15.50 per share; noted need for several more weeks of due diligence; did not include revised draft merger agreement or financing documents",
       "evidence_span_ids": [
-        "span_0022",
-        "span_0024"
+        "span_0027"
       ],
-      "requested_by_observation_id": "obs_evt_014",
+      "requested_by_observation_id": "obs_evt_024",
       "revises_observation_id": null,
-      "delivery_mode": "written",
+      "delivery_mode": null,
       "terms": {
         "per_share": null,
-        "range_low": "14.50",
-        "range_high": "15.50",
+        "range_low": null,
+        "range_high": null,
         "enterprise_value": null,
-        "consideration_type": "cash"
+        "consideration_type": "stock"
       },
-      "mentions_non_binding": false,
+      "mentions_non_binding": null,
       "includes_draft_merger_agreement": false,
       "includes_markup": false,
-      "other_detail": "Required several additional weeks for due diligence; no financing documentation"
+      "other_detail": "indicative price range; no financing documentation; needed several more weeks for diligence"
     },
     {
-      "observation_id": "obs_evt_019",
+      "observation_id": "obs_evt_029",
       "obs_type": "status",
       "date": {
-        "raw_text": "July 11, 2013",
+        "raw_text": "2013-07-11",
         "normalized_start": "2013-07-11",
         "normalized_end": "2013-07-11",
         "sort_date": "2013-07-11",
         "precision": "exact_day",
         "anchor_event_id": null,
         "anchor_span_id": null,
-        "resolution_note": "Saks was subsequently informed after July 11 proposals",
+        "resolution_note": null,
         "is_inferred": false
       },
       "subject_refs": [
         "bidder_sponsor_g"
       ],
       "counterparty_refs": [],
-      "summary": "Saks was informed that Sponsor G was no longer participating in the process, and Sponsor E would again be joined by Sponsor A as primary participant.",
+      "summary": "Saks informed that Sponsor G was no longer participating in the process; Sponsor E would again be joined by Sponsor A as primary participant",
       "evidence_span_ids": [
-        "span_0025"
+        "span_0028"
       ],
-      "status_kind": "withdrew",
-      "related_observation_id": "obs_evt_018",
-      "other_detail": null
+      "status_kind": "not_interested",
+      "related_observation_id": null,
+      "other_detail": "Sponsor A returned as primary participant replacing Sponsor G"
     },
     {
-      "observation_id": "obs_evt_020",
+      "observation_id": "obs_evt_030",
       "obs_type": "status",
       "date": {
-        "raw_text": "July 21, 2013",
-        "normalized_start": "2013-07-21",
-        "normalized_end": "2013-07-21",
-        "sort_date": "2013-07-21",
+        "raw_text": "2013-07-05",
+        "normalized_start": "2013-07-05",
+        "normalized_end": "2013-07-05",
+        "sort_date": "2013-07-05",
         "precision": "exact_day",
         "anchor_event_id": null,
         "anchor_span_id": null,
@@ -876,26 +1169,58 @@
         "is_inferred": false
       },
       "subject_refs": [
-        "bidder_company_h"
+        "other_company_b"
       ],
-      "counterparty_refs": [],
-      "summary": "Company H, a privately held US company unknown to Saks and its advisors, sent a letter purporting to propose to acquire Saks for an aggregate price of $2.6 billion in cash with no details or further information. Goldman Sachs was unable to make contact with Company H.",
+      "counterparty_refs": [
+        "target_saks"
+      ],
+      "summary": "Company B principal shareholders indicated Saks proposed price was still insufficient and stated minimum required price; suggested management meeting",
       "evidence_span_ids": [
-        "span_0030",
-        "span_0031"
+        "span_0053",
+        "span_0054"
       ],
-      "status_kind": "expressed_interest",
+      "status_kind": "other",
       "related_observation_id": null,
-      "other_detail": "Unsolicited; Goldman Sachs unable to make subsequent contact"
+      "other_detail": "Saks determined not to meet with Company B management due to substantial differences on price"
     },
     {
-      "observation_id": "obs_evt_021",
-      "obs_type": "proposal",
+      "observation_id": "obs_evt_031",
+      "obs_type": "solicitation",
       "date": {
-        "raw_text": "July 21, 2013",
-        "normalized_start": "2013-07-21",
-        "normalized_end": "2013-07-21",
-        "sort_date": "2013-07-21",
+        "raw_text": "2013-07-15",
+        "normalized_start": "2013-07-15",
+        "normalized_end": "2013-07-15",
+        "sort_date": "2013-07-15",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [],
+      "counterparty_refs": [],
+      "summary": "Goldman Sachs indicated to Sponsor A and Sponsor E that a purchase price in the lower half of the previously submitted range would not be acceptable in light of Hudsons Bay $15.25 bid",
+      "evidence_span_ids": [
+        "span_0029"
+      ],
+      "requested_submission": "other",
+      "binding_level": null,
+      "due_date": null,
+      "recipient_refs": [
+        "bidder_sponsor_a",
+        "bidder_sponsor_e"
+      ],
+      "attachments": [],
+      "other_detail": "board direction; minimum price guidance relative to Hudsons Bay bid"
+    },
+    {
+      "observation_id": "obs_evt_032",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "2013-07-17",
+        "normalized_start": "2013-07-17",
+        "normalized_end": "2013-07-17",
+        "sort_date": "2013-07-17",
         "precision": "exact_day",
         "anchor_event_id": null,
         "anchor_span_id": null,
@@ -903,60 +1228,182 @@
         "is_inferred": false
       },
       "subject_refs": [
-        "bidder_company_h"
+        "target_saks"
       ],
       "counterparty_refs": [],
-      "summary": "Company H sent a letter purporting to propose to acquire Saks for an aggregate price of $2.6 billion in cash, with no details or further information.",
+      "summary": "Board meeting: reviewed Hudsons Bay proposal and Sponsor E/Sponsor A joint proposal; authorized Goldman Sachs to inform both sides their price proposals were insufficient; authorized Wachtell Lipton to provide revised merger agreement draft to Hudsons Bay",
       "evidence_span_ids": [
         "span_0030"
       ],
+      "process_kind": "other",
+      "process_scope": null,
+      "other_detail": "board found both initial price proposals insufficient"
+    },
+    {
+      "observation_id": "obs_evt_033",
+      "obs_type": "agreement",
+      "date": {
+        "raw_text": "2013-07-18",
+        "normalized_start": "2013-07-18",
+        "normalized_end": "2013-07-18",
+        "sort_date": "2013-07-18",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_saks"
+      ],
+      "counterparty_refs": [
+        "bidder_hudsons_bay"
+      ],
+      "summary": "Wachtell Lipton provided a revised draft of the merger agreement to representatives of Hudsons Bay",
+      "evidence_span_ids": [
+        "span_0031"
+      ],
+      "agreement_kind": "merger_agreement",
+      "signed": null,
+      "grants_diligence_access": null,
+      "includes_standstill": null,
+      "consideration_type": null,
+      "supersedes_observation_id": null,
+      "other_detail": "revised draft; negotiations ongoing"
+    },
+    {
+      "observation_id": "obs_evt_034",
+      "obs_type": "agreement",
+      "date": {
+        "raw_text": "2013-07-18",
+        "normalized_start": "2013-07-18",
+        "normalized_end": "2013-07-18",
+        "sort_date": "2013-07-18",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_saks"
+      ],
+      "counterparty_refs": [
+        "other_company_b"
+      ],
+      "summary": "Saks entered into a confidentiality agreement with Company B for Saks to engage in due diligence",
+      "evidence_span_ids": [
+        "span_0032"
+      ],
+      "agreement_kind": "nda",
+      "signed": null,
+      "grants_diligence_access": null,
+      "includes_standstill": null,
+      "consideration_type": null,
+      "supersedes_observation_id": null,
+      "other_detail": "Saks to perform due diligence on Company B"
+    },
+    {
+      "observation_id": "obs_evt_035",
+      "obs_type": "proposal",
+      "date": {
+        "raw_text": "2013-07-21",
+        "normalized_start": "2013-07-21",
+        "normalized_end": "2013-07-21",
+        "sort_date": "2013-07-21",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "bidder_company_h"
+      ],
+      "counterparty_refs": [
+        "target_saks"
+      ],
+      "summary": "Company H sent letter purporting to propose to acquire Saks for an aggregate price of $2.6 billion in cash with no details or further information",
+      "evidence_span_ids": [
+        "span_0033",
+        "span_0034"
+      ],
       "requested_by_observation_id": null,
       "revises_observation_id": null,
-      "delivery_mode": "written",
+      "delivery_mode": null,
       "terms": {
         "per_share": null,
         "range_low": null,
         "range_high": null,
-        "enterprise_value": "2600000000",
+        "enterprise_value": null,
         "consideration_type": "cash"
       },
-      "mentions_non_binding": false,
-      "includes_draft_merger_agreement": false,
-      "includes_markup": false,
-      "other_detail": "No details or further information provided; Goldman Sachs unable to contact Company H"
+      "mentions_non_binding": null,
+      "includes_draft_merger_agreement": null,
+      "includes_markup": null,
+      "other_detail": "unsolicited; Company H unknown to Saks and advisors; Goldman Sachs unable to make contact with Company H; no subsequent communications"
     },
     {
-      "observation_id": "obs_evt_022",
+      "observation_id": "obs_evt_036",
       "obs_type": "status",
       "date": {
-        "raw_text": "July 22, 2013",
+        "raw_text": "2013-07-22",
         "normalized_start": "2013-07-22",
-        "normalized_end": "2013-07-26",
+        "normalized_end": "2013-07-22",
         "sort_date": "2013-07-22",
-        "precision": "range",
+        "precision": "exact_day",
         "anchor_event_id": null,
         "anchor_span_id": null,
-        "resolution_note": "During the week of July 22, 2013",
+        "resolution_note": null,
         "is_inferred": false
       },
       "subject_refs": [
         "bidder_sponsor_a",
         "bidder_sponsor_e"
       ],
-      "counterparty_refs": [],
-      "summary": "Sponsor A and Sponsor E indicated willingness to continue pursuing a transaction but believed it unlikely they would achieve a value above the top end of their $14.50 to $15.50 range.",
-      "evidence_span_ids": [
-        "span_0032"
+      "counterparty_refs": [
+        "target_saks"
       ],
-      "status_kind": "cannot_improve",
-      "related_observation_id": "obs_evt_018",
-      "other_detail": null
+      "summary": "Sponsor A and Sponsor E indicated willingness to continue pursuing transaction above $15 per share but believed it unlikely they would achieve value above the top end of their $14.50-$15.50 range",
+      "evidence_span_ids": [
+        "span_0035"
+      ],
+      "status_kind": "other",
+      "related_observation_id": null,
+      "other_detail": "cannot-improve signal; unlikely to exceed $15.50 per share"
     },
     {
-      "observation_id": "obs_evt_023",
+      "observation_id": "obs_evt_037",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "2013-07-23",
+        "normalized_start": "2013-07-23",
+        "normalized_end": "2013-07-23",
+        "sort_date": "2013-07-23",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_saks"
+      ],
+      "counterparty_refs": [],
+      "summary": "Board meeting: concluded unable to agree on terms with Company B; authorized communication to Hudsons Bay that price must be at least $16 per share and significant merger agreement issues must be resolved",
+      "evidence_span_ids": [
+        "span_0036",
+        "span_0037"
+      ],
+      "process_kind": "other",
+      "process_scope": null,
+      "other_detail": "board set $16 per share floor for Hudsons Bay negotiations"
+    },
+    {
+      "observation_id": "obs_evt_038",
       "obs_type": "solicitation",
       "date": {
-        "raw_text": "July 23, 2013",
+        "raw_text": "2013-07-23",
         "normalized_start": "2013-07-23",
         "normalized_end": "2013-07-23",
         "sort_date": "2013-07-23",
@@ -968,10 +1415,9 @@
       },
       "subject_refs": [],
       "counterparty_refs": [],
-      "summary": "The board authorized Goldman Sachs to communicate to Hudson's Bay that the board would not agree to an acquisition at a price below $16 per share and that significant open issues in the draft merger agreement needed to be resolved.",
+      "summary": "Goldman Sachs informed Hudsons Bay financial advisor that Hudsons Bay would need to increase per share price to at least $16 and communicated Saks position on significant merger agreement and financing issues",
       "evidence_span_ids": [
-        "span_0034",
-        "span_0035"
+        "span_0038"
       ],
       "requested_submission": "other",
       "binding_level": null,
@@ -980,13 +1426,13 @@
         "bidder_hudsons_bay"
       ],
       "attachments": [],
-      "other_detail": "Board communicated $16 per share floor and merger agreement resolution requirements"
+      "other_detail": "minimum price floor of $16 per share communicated"
     },
     {
-      "observation_id": "obs_evt_024",
+      "observation_id": "obs_evt_039",
       "obs_type": "status",
       "date": {
-        "raw_text": "July 23, 2013",
+        "raw_text": "2013-07-23",
         "normalized_start": "2013-07-23",
         "normalized_end": "2013-07-23",
         "sort_date": "2013-07-23",
@@ -1000,20 +1446,22 @@
         "bidder_sponsor_a",
         "bidder_sponsor_e"
       ],
-      "counterparty_refs": [],
-      "summary": "In the evening of July 23, there was no indication from Sponsor A or Sponsor E that they were prepared to increase their indicated price beyond their initially indicated range of $14.50 to $15.50 per share, nor did it appear likely they would conclude their diligence more quickly than previously indicated.",
-      "evidence_span_ids": [
-        "span_0036"
+      "counterparty_refs": [
+        "target_saks"
       ],
-      "status_kind": "cannot_improve",
-      "related_observation_id": "obs_evt_018",
-      "other_detail": null
+      "summary": "Sponsor A and Sponsor E met with Saks management; no indication they were prepared to increase price beyond $14.50-$15.50 range or conclude diligence more quickly",
+      "evidence_span_ids": [
+        "span_0039"
+      ],
+      "status_kind": "other",
+      "related_observation_id": null,
+      "other_detail": "evening meeting; cannot-improve signal on both price and timeline"
     },
     {
-      "observation_id": "obs_evt_025",
+      "observation_id": "obs_evt_040",
       "obs_type": "proposal",
       "date": {
-        "raw_text": "July 24, 2013",
+        "raw_text": "2013-07-24",
         "normalized_start": "2013-07-24",
         "normalized_end": "2013-07-24",
         "sort_date": "2013-07-24",
@@ -1026,31 +1474,33 @@
       "subject_refs": [
         "bidder_hudsons_bay"
       ],
-      "counterparty_refs": [],
-      "summary": "Hudson's Bay advised Goldman Sachs that, subject to negotiating a definitive binding agreement, it was prepared to offer $16 per share and was agreeable to Saks' position on substantially all significant issues in the draft merger agreement and financing documents.",
-      "evidence_span_ids": [
-        "span_0037"
+      "counterparty_refs": [
+        "target_saks"
       ],
-      "requested_by_observation_id": "obs_evt_023",
-      "revises_observation_id": "obs_evt_017",
-      "delivery_mode": "oral",
+      "summary": "Hudsons Bay advised Goldman Sachs it was prepared to offer $16 per share of common stock, subject to negotiating a definitive binding agreement, and was agreeable to Saks position on substantially all significant merger agreement and financing issues",
+      "evidence_span_ids": [
+        "span_0040"
+      ],
+      "requested_by_observation_id": "obs_evt_038",
+      "revises_observation_id": null,
+      "delivery_mode": null,
       "terms": {
         "per_share": "16.0",
         "range_low": null,
         "range_high": null,
         "enterprise_value": null,
-        "consideration_type": "cash"
+        "consideration_type": "stock"
       },
-      "mentions_non_binding": false,
-      "includes_draft_merger_agreement": false,
-      "includes_markup": false,
-      "other_detail": "Subject to negotiating definitive binding agreement"
+      "mentions_non_binding": null,
+      "includes_draft_merger_agreement": null,
+      "includes_markup": null,
+      "other_detail": "subject to negotiating definitive binding agreement"
     },
     {
-      "observation_id": "obs_evt_026",
-      "obs_type": "proposal",
+      "observation_id": "obs_evt_041",
+      "obs_type": "process",
       "date": {
-        "raw_text": "July 25, 2013",
+        "raw_text": "2013-07-25",
         "normalized_start": "2013-07-25",
         "normalized_end": "2013-07-25",
         "sort_date": "2013-07-25",
@@ -1061,58 +1511,22 @@
         "is_inferred": false
       },
       "subject_refs": [
-        "bidder_hudsons_bay"
+        "target_saks"
       ],
       "counterparty_refs": [],
-      "summary": "Hudson's Bay CEO Baker confirmed to Saks CEO Sadove willingness to proceed with the acquisition at $16 per share and resolve open issues in the merger agreement and financing documents.",
+      "summary": "Board meeting: Goldman Sachs informed board that Company B negotiations had ceased; board authorized senior management and advisors to proceed with Hudsons Bay negotiations",
       "evidence_span_ids": [
-        "span_0038"
-      ],
-      "requested_by_observation_id": "obs_evt_023",
-      "revises_observation_id": "obs_evt_025",
-      "delivery_mode": "phone",
-      "terms": {
-        "per_share": "16.0",
-        "range_low": null,
-        "range_high": null,
-        "enterprise_value": null,
-        "consideration_type": "cash"
-      },
-      "mentions_non_binding": false,
-      "includes_draft_merger_agreement": false,
-      "includes_markup": false,
-      "other_detail": null
-    },
-    {
-      "observation_id": "obs_evt_027",
-      "obs_type": "process",
-      "date": {
-        "raw_text": "July 25, 2013",
-        "normalized_start": "2013-07-25",
-        "normalized_end": "2013-07-25",
-        "sort_date": "2013-07-25",
-        "precision": "exact_day",
-        "anchor_event_id": null,
-        "anchor_span_id": null,
-        "resolution_note": null,
-        "is_inferred": false
-      },
-      "subject_refs": [],
-      "counterparty_refs": [],
-      "summary": "The board authorized senior management and Saks advisors to proceed with negotiations with Hudson's Bay to determine if an agreement could be reached.",
-      "evidence_span_ids": [
-        "span_0039",
-        "span_0040"
+        "span_0042"
       ],
       "process_kind": "other",
-      "process_scope": "target",
-      "other_detail": "Board authorized exclusive negotiation with Hudson's Bay"
+      "process_scope": null,
+      "other_detail": "board authorized exclusive Hudsons Bay negotiations"
     },
     {
-      "observation_id": "obs_evt_028",
+      "observation_id": "obs_evt_042",
       "obs_type": "process",
       "date": {
-        "raw_text": "July 26, 2013",
+        "raw_text": "2013-07-26",
         "normalized_start": "2013-07-26",
         "normalized_end": "2013-07-26",
         "sort_date": "2013-07-26",
@@ -1123,22 +1537,48 @@
         "is_inferred": false
       },
       "subject_refs": [
-        "advisor_morgan_stanley"
+        "target_saks"
       ],
       "counterparty_refs": [],
-      "summary": "The board held a special telephonic meeting attended by Goldman Sachs, Morgan Stanley, and Wachtell Lipton to review the terms of the Hudson's Bay proposal.",
+      "summary": "Board meeting attended by Goldman Sachs, Morgan Stanley and Wachtell Lipton; reviewed terms of Hudsons Bay proposal and discussed status of negotiations",
       "evidence_span_ids": [
-        "span_0041"
+        "span_0044"
       ],
-      "process_kind": "advisor_retention",
-      "process_scope": "target",
-      "other_detail": "Morgan Stanley, a long-time advisor to Saks, formally joined the advisory process"
+      "process_kind": "other",
+      "process_scope": null,
+      "other_detail": "Morgan Stanley first mentioned as long-time advisor to Saks"
     },
     {
-      "observation_id": "obs_evt_029",
+      "observation_id": "obs_evt_043",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "2013-07-28",
+        "normalized_start": "2013-07-28",
+        "normalized_end": "2013-07-28",
+        "sort_date": "2013-07-28",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_saks"
+      ],
+      "counterparty_refs": [],
+      "summary": "Board meeting: reviewed Hudsons Bay proposal terms versus remaining standalone; Goldman Sachs delivered fairness opinion that $16 per share was fair to holders of common stock",
+      "evidence_span_ids": [
+        "span_0045"
+      ],
+      "process_kind": "other",
+      "process_scope": null,
+      "other_detail": "Goldman Sachs fairness opinion delivered"
+    },
+    {
+      "observation_id": "obs_evt_044",
       "obs_type": "outcome",
       "date": {
-        "raw_text": "July 28, 2013",
+        "raw_text": "2013-07-28",
         "normalized_start": "2013-07-28",
         "normalized_end": "2013-07-28",
         "sort_date": "2013-07-28",
@@ -1152,23 +1592,21 @@
         "bidder_hudsons_bay"
       ],
       "counterparty_refs": [
-        "target_board_saks"
+        "target_saks"
       ],
-      "summary": "Following the board's approval, Saks, Hudson's Bay, and Merger Sub finalized and executed the merger agreement and other transaction documents at $16 per share in cash.",
+      "summary": "Following board approval, Saks, Hudsons Bay and Merger Sub finalized and executed the merger agreement and other transaction documents",
       "evidence_span_ids": [
-        "span_0042",
-        "span_0043",
-        "span_0044"
+        "span_0046"
       ],
       "outcome_kind": "executed",
-      "related_observation_id": "obs_evt_026",
+      "related_observation_id": null,
       "other_detail": null
     },
     {
-      "observation_id": "obs_evt_030",
+      "observation_id": "obs_evt_045",
       "obs_type": "process",
       "date": {
-        "raw_text": "July 29, 2013",
+        "raw_text": "2013-07-29",
         "normalized_start": "2013-07-29",
         "normalized_end": "2013-07-29",
         "sort_date": "2013-07-29",
@@ -1179,41 +1617,42 @@
         "is_inferred": false
       },
       "subject_refs": [
+        "target_saks",
         "bidder_hudsons_bay"
       ],
       "counterparty_refs": [],
-      "summary": "Saks and Hudson's Bay issued a joint press release announcing entry into the transaction.",
+      "summary": "Saks and Hudsons Bay issued joint press release announcing entry into the transaction",
       "evidence_span_ids": [
-        "span_0045"
+        "span_0047"
       ],
-      "process_kind": "press_release",
-      "process_scope": "target",
-      "other_detail": null
+      "process_kind": "other",
+      "process_scope": null,
+      "other_detail": "public announcement"
     },
     {
-      "observation_id": "obs_evt_031",
+      "observation_id": "obs_evt_046",
       "obs_type": "solicitation",
       "date": {
-        "raw_text": "July 29, 2013",
-        "normalized_start": "2013-07-29",
-        "normalized_end": "2013-07-29",
-        "sort_date": "2013-07-29",
+        "raw_text": "2013-07-28",
+        "normalized_start": "2013-07-28",
+        "normalized_end": "2013-07-28",
+        "sort_date": "2013-07-28",
         "precision": "exact_day",
         "anchor_event_id": null,
         "anchor_span_id": null,
-        "resolution_note": "Go-shop started following execution of merger agreement on July 28",
+        "resolution_note": null,
         "is_inferred": false
       },
       "subject_refs": [],
       "counterparty_refs": [],
-      "summary": "Goldman Sachs, on behalf of Saks, contacted 58 potentially interested third parties during the go-shop period, including private equity firms, retail industry companies, and other potential acquirors.",
+      "summary": "Go shop period commenced under merger agreement; Goldman Sachs contacted 58 potentially interested third parties on behalf of Saks",
       "evidence_span_ids": [
-        "span_0046"
+        "span_0048"
       ],
       "requested_submission": "other",
       "binding_level": null,
       "due_date": {
-        "raw_text": "September 6, 2013",
+        "raw_text": "2013-09-06",
         "normalized_start": "2013-09-06",
         "normalized_end": "2013-09-06",
         "sort_date": "2013-09-06",
@@ -1227,43 +1666,35 @@
         "cohort_go_shop_contacted"
       ],
       "attachments": [],
-      "other_detail": "Go-shop solicitation"
+      "other_detail": "go shop process; contacted private equity firms, retail companies, and other potential acquirors"
     },
     {
-      "observation_id": "obs_evt_032",
+      "observation_id": "obs_evt_047",
       "obs_type": "agreement",
-      "date": {
-        "raw_text": "September 6, 2013",
-        "normalized_start": "2013-09-06",
-        "normalized_end": "2013-09-06",
-        "sort_date": "2013-09-06",
-        "precision": "exact_day",
-        "anchor_event_id": null,
-        "anchor_span_id": null,
-        "resolution_note": "Company I signed NDA approximately two weeks after merger agreement was executed",
-        "is_inferred": false
-      },
+      "date": null,
       "subject_refs": [
         "bidder_company_i"
       ],
-      "counterparty_refs": [],
-      "summary": "Company I executed a confidentiality agreement with Saks and conducted a due diligence investigation during the go-shop period.",
+      "counterparty_refs": [
+        "target_saks"
+      ],
+      "summary": "Company I executed a confidentiality agreement with Saks and conducted due diligence investigation during go shop; only one of six interested parties to do so",
       "evidence_span_ids": [
-        "span_0047"
+        "span_0049"
       ],
       "agreement_kind": "nda",
-      "signed": true,
-      "grants_diligence_access": true,
+      "signed": null,
+      "grants_diligence_access": null,
       "includes_standstill": null,
       "consideration_type": null,
       "supersedes_observation_id": null,
-      "other_detail": "Go-shop period NDA"
+      "other_detail": "during go shop period; exact date not stated"
     },
     {
-      "observation_id": "obs_evt_033",
+      "observation_id": "obs_evt_048",
       "obs_type": "process",
       "date": {
-        "raw_text": "September 6, 2013",
+        "raw_text": "2013-09-06",
         "normalized_start": "2013-09-06",
         "normalized_end": "2013-09-06",
         "sort_date": "2013-09-06",
@@ -1273,66 +1704,84 @@
         "resolution_note": null,
         "is_inferred": false
       },
-      "subject_refs": [],
+      "subject_refs": [
+        "target_saks"
+      ],
       "counterparty_refs": [],
-      "summary": "The go-shop period ended on September 6, 2013. No party was designated as an excluded party. Of 58 parties contacted, six expressed interest and only Company I executed a confidentiality agreement. No acquisition proposals were submitted.",
+      "summary": "Go shop period ended; no party designated as excluded party; no acquisition proposal submitted by any go shop contact including Company I",
       "evidence_span_ids": [
-        "span_0046",
-        "span_0047",
-        "span_0048"
+        "span_0048",
+        "span_0049"
       ],
       "process_kind": "other",
-      "process_scope": "target",
-      "other_detail": "Go-shop period concluded with no superior proposals"
+      "process_scope": null,
+      "other_detail": "go shop concluded with no alternative proposals"
+    },
+    {
+      "observation_id": "obs_evt_049",
+      "obs_type": "status",
+      "date": null,
+      "subject_refs": [
+        "target_saks"
+      ],
+      "counterparty_refs": [],
+      "summary": "As of proxy statement date, Saks has not received any communication regarding a potential alternative transaction that the board determined constitutes a superior proposal under the merger agreement",
+      "evidence_span_ids": [
+        "span_0050"
+      ],
+      "status_kind": "other",
+      "related_observation_id": null,
+      "other_detail": "no superior proposal received as of proxy date"
+    },
+    {
+      "observation_id": "obs_evt_050",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "2013-07-23",
+        "normalized_start": "2013-07-23",
+        "normalized_end": "2013-07-23",
+        "sort_date": "2013-07-23",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "target_saks"
+      ],
+      "counterparty_refs": [
+        "other_company_b"
+      ],
+      "summary": "Saks informed Company B principal shareholders it was not willing to make an offer at or above minimum price; discussions of Company B acquisition ceased",
+      "evidence_span_ids": [
+        "span_0056"
+      ],
+      "status_kind": "not_interested",
+      "related_observation_id": null,
+      "other_detail": "Saks terminated Company B acquisition discussions"
     }
   ],
   "exclusions": [
     {
-      "category": "non_event_context",
-      "block_ids": [
-        "B001",
-        "B002",
-        "B007",
-        "B019",
-        "B031",
-        "B043",
-        "B053"
-      ],
-      "explanation": "Section headers, page breaks, Goldman Sachs background advisory relationship, and Company B acquisition discussions are non-event context for the Saks acquisition process."
+      "category": "other",
+      "block_ids": [],
+      "explanation": "Company B acquisition discussions by Saks: Company B is a potential acquisition target of Saks, not a bidder for Saks. Interactions with Company B are recorded as context observations but Company B is not modeled as a bidder."
     },
     {
       "category": "other",
-      "block_ids": [
-        "B020",
-        "B021",
-        "B022",
-        "B026",
-        "B030",
-        "B032",
-        "B036",
-        "B044",
-        "B049"
-      ],
-      "explanation": "Company B acquisition discussions by Saks are excluded as they relate to Saks acquiring Company B, not to the sale of Saks."
+      "block_ids": [],
+      "explanation": "Post-closing employment terms: Filing explicitly states negotiations with Hudsons Bay, Sponsor A and Sponsor E did not include any discussions regarding post-closing employment terms for executives or senior management."
     },
     {
-      "category": "non_event_context",
-      "block_ids": [
-        "B009",
-        "B017"
-      ],
-      "explanation": "Sponsor C and Sponsor D discussions were about providing equity financing for Saks acquisition of Company B, not about acquiring Saks."
+      "category": "other",
+      "block_ids": [],
+      "explanation": "Sponsor C and Sponsor D equity financing terms for Company B: Sponsor C and Sponsor D were potential equity financing providers for Saks acquisition of Company B, not bidders for Saks. Their NDAs are recorded but they are not modeled as Saks bidders."
     },
     {
-      "category": "non_event_context",
-      "block_ids": [
-        "B034",
-        "B037",
-        "B056",
-        "B057",
-        "B064"
-      ],
-      "explanation": "Board and committee meeting updates, interim negotiation steps, and Company I correspondence are non-event context that do not constitute discrete extractable events."
+      "category": "other",
+      "block_ids": [],
+      "explanation": "Company I post-go-shop correspondence details: Company I raised issues about go shop duration and information access; Saks replied pointing out delays by Company I. No acquisition proposal was submitted. Correspondence details excluded as procedural dispute, not a bid event."
     }
   ],
   "coverage": []

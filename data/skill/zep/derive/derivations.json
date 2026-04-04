@@ -1,78 +1,12 @@
 {
-  "phases": [
-    {
-      "phase_id": "phase_006",
-      "phase_kind": "informal",
-      "start_observation_id": "obs_evt_006",
-      "end_observation_id": "obs_evt_013",
-      "participant_refs": [
-        "cohort_25_nda"
-      ],
-      "basis": {
-        "rule_id": "ROUND-01",
-        "source_observation_ids": [
-          "obs_evt_006"
-        ],
-        "source_span_ids": [
-          "span_0015",
-          "span_0018",
-          "span_0019",
-          "span_0062",
-          "span_0064"
-        ],
-        "confidence": "high",
-        "explanation": "Solicitation requested non-binding IOIs."
-      }
-    },
-    {
-      "phase_id": "phase_014",
-      "phase_kind": "formal",
-      "start_observation_id": "obs_evt_015",
-      "end_observation_id": "obs_evt_016",
-      "participant_refs": [
-        "cohort_6_remaining_bidders"
-      ],
-      "basis": {
-        "rule_id": "ROUND-02",
-        "source_observation_ids": [
-          "obs_evt_015"
-        ],
-        "source_span_ids": [
-          "span_0026",
-          "span_0065"
-        ],
-        "confidence": "high",
-        "explanation": "Solicitation requested LOIs/binding offers or carried formal attachments."
-      }
-    },
-    {
-      "phase_id": "phase_024",
-      "phase_kind": "formal",
-      "start_observation_id": "obs_evt_024",
-      "end_observation_id": "obs_evt_027",
-      "participant_refs": [
-        "bidder_new_mountain"
-      ],
-      "basis": {
-        "rule_id": "ROUND-02",
-        "source_observation_ids": [
-          "obs_evt_024"
-        ],
-        "source_span_ids": [
-          "span_0039"
-        ],
-        "confidence": "high",
-        "explanation": "Solicitation requested LOIs/binding offers or carried formal attachments."
-      }
-    }
-  ],
+  "phases": [],
   "transitions": [
     {
-      "transition_id": "exit-01_bidder_new_mountain_obs_evt_007",
-      "subject_ref": "bidder_new_mountain",
+      "transition_id": "exit-01_bidder_new_mountain_capital_obs_evt_010",
+      "subject_ref": "bidder_new_mountain_capital",
       "subject_count": 1,
       "event_date": {
-        "raw_text": "March 27, 2014",
+        "raw_text": "2014-03-27",
         "normalized_start": "2014-03-27",
         "normalized_end": "2014-03-27",
         "sort_date": "2014-03-27",
@@ -88,21 +22,21 @@
       "basis": {
         "rule_id": "EXIT-01",
         "source_observation_ids": [
-          "obs_evt_007"
+          "obs_evt_010"
         ],
         "source_span_ids": [
-          "span_0020"
+          "span_0013"
         ],
         "confidence": "high",
         "explanation": "Literal status observation recorded bidder withdrawal or non-participation."
       }
     },
     {
-      "transition_id": "exit-01_bidder_party_x_obs_evt_011",
+      "transition_id": "exit-01_bidder_party_x_obs_evt_015",
       "subject_ref": "bidder_party_x",
       "subject_count": 1,
       "event_date": {
-        "raw_text": "May 14, 2014",
+        "raw_text": "2014-05-14",
         "normalized_start": "2014-05-14",
         "normalized_end": "2014-05-14",
         "sort_date": "2014-05-14",
@@ -118,28 +52,28 @@
       "basis": {
         "rule_id": "EXIT-01",
         "source_observation_ids": [
-          "obs_evt_011"
+          "obs_evt_015"
         ],
         "source_span_ids": [
-          "span_0024"
+          "span_0018"
         ],
         "confidence": "high",
         "explanation": "Literal status observation recorded bidder withdrawal or non-participation."
       }
     },
     {
-      "transition_id": "exit-01_cohort_6_remaining_bidders_obs_evt_014",
+      "transition_id": "exit-01_cohort_6_remaining_bidders_obs_evt_018",
       "subject_ref": "cohort_6_remaining_bidders",
       "subject_count": 6,
       "event_date": {
-        "raw_text": "after May 22, 2014",
+        "raw_text": "2014-05-23",
         "normalized_start": "2014-05-23",
-        "normalized_end": "2014-06-19",
-        "sort_date": "2014-06-01",
-        "precision": "relative",
+        "normalized_end": "2014-05-23",
+        "sort_date": "2014-05-23",
+        "precision": "exact_day",
         "anchor_event_id": null,
         "anchor_span_id": null,
-        "resolution_note": "Anchored to the weeks after the May 22 draft merger agreement distribution and before the June 19 board meeting.",
+        "resolution_note": null,
         "is_inferred": false
       },
       "from_state": "active",
@@ -148,56 +82,25 @@
       "basis": {
         "rule_id": "EXIT-01",
         "source_observation_ids": [
-          "obs_evt_014"
+          "obs_evt_018"
         ],
         "source_span_ids": [
-          "span_0027",
-          "span_0067",
-          "span_0068"
+          "span_0021",
+          "span_0022"
         ],
         "confidence": "high",
         "explanation": "Literal status observation recorded bidder withdrawal or non-participation."
       }
     },
     {
-      "transition_id": "exit-02_bidder_new_mountain_obs_evt_026",
-      "subject_ref": "bidder_new_mountain",
-      "subject_count": 1,
-      "event_date": {
-        "raw_text": "April 2015",
-        "normalized_start": "2015-04-01",
-        "normalized_end": "2015-04-06",
-        "sort_date": "2015-04-03",
-        "precision": "month_early",
-        "anchor_event_id": null,
-        "anchor_span_id": null,
-        "resolution_note": "Anchored to early April before the April 6 board meeting, during continuing negotiations.",
-        "is_inferred": false
-      },
-      "from_state": "submitted",
-      "to_state": "inactive",
-      "reason_kind": "cannot_improve",
-      "basis": {
-        "rule_id": "EXIT-02",
-        "source_observation_ids": [
-          "obs_evt_026"
-        ],
-        "source_span_ids": [
-          "span_0041"
-        ],
-        "confidence": "high",
-        "explanation": "Status observation explicitly said the bidder could not improve."
-      }
-    },
-    {
-      "transition_id": "exit-04_bidder_party_y_obs_evt_024",
+      "transition_id": "exit-04_bidder_party_y_obs_evt_017",
       "subject_ref": "bidder_party_y",
       "subject_count": 1,
       "event_date": {
-        "raw_text": "March 18, 2015",
-        "normalized_start": "2015-03-18",
-        "normalized_end": "2015-03-18",
-        "sort_date": "2015-03-18",
+        "raw_text": "2014-05-22",
+        "normalized_start": "2014-05-22",
+        "normalized_end": "2014-05-22",
+        "sort_date": "2014-05-22",
         "precision": "exact_day",
         "anchor_event_id": null,
         "anchor_span_id": null,
@@ -210,24 +113,84 @@
       "basis": {
         "rule_id": "EXIT-04",
         "source_observation_ids": [
-          "obs_evt_024"
+          "obs_evt_017"
         ],
         "source_span_ids": [
-          "span_0039"
+          "span_0020"
         ],
         "confidence": "high",
         "explanation": "Execution outcome closed out remaining active bidders in favor of the winner."
       }
     },
     {
-      "transition_id": "exit-04_cohort_5_first_round_obs_evt_024",
-      "subject_ref": "cohort_5_first_round",
+      "transition_id": "exit-04_cohort_25_signed_ca_obs_evt_017",
+      "subject_ref": "cohort_25_signed_ca",
+      "subject_count": 25,
+      "event_date": {
+        "raw_text": "2014-05-22",
+        "normalized_start": "2014-05-22",
+        "normalized_end": "2014-05-22",
+        "sort_date": "2014-05-22",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "from_state": "active",
+      "to_state": "inactive",
+      "reason_kind": "lost_to_winner",
+      "basis": {
+        "rule_id": "EXIT-04",
+        "source_observation_ids": [
+          "obs_evt_017"
+        ],
+        "source_span_ids": [
+          "span_0020"
+        ],
+        "confidence": "high",
+        "explanation": "Execution outcome closed out remaining active bidders in favor of the winner."
+      }
+    },
+    {
+      "transition_id": "exit-04_cohort_50_potential_buyers_obs_evt_017",
+      "subject_ref": "cohort_50_potential_buyers",
+      "subject_count": 50,
+      "event_date": {
+        "raw_text": "2014-05-22",
+        "normalized_start": "2014-05-22",
+        "normalized_end": "2014-05-22",
+        "sort_date": "2014-05-22",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "from_state": "active",
+      "to_state": "inactive",
+      "reason_kind": "lost_to_winner",
+      "basis": {
+        "rule_id": "EXIT-04",
+        "source_observation_ids": [
+          "obs_evt_017"
+        ],
+        "source_span_ids": [
+          "span_0020"
+        ],
+        "confidence": "high",
+        "explanation": "Execution outcome closed out remaining active bidders in favor of the winner."
+      }
+    },
+    {
+      "transition_id": "exit-04_cohort_5_first_round_bidders_obs_evt_017",
+      "subject_ref": "cohort_5_first_round_bidders",
       "subject_count": 5,
       "event_date": {
-        "raw_text": "March 18, 2015",
-        "normalized_start": "2015-03-18",
-        "normalized_end": "2015-03-18",
-        "sort_date": "2015-03-18",
+        "raw_text": "2014-05-22",
+        "normalized_start": "2014-05-22",
+        "normalized_end": "2014-05-22",
+        "sort_date": "2014-05-22",
         "precision": "exact_day",
         "anchor_event_id": null,
         "anchor_span_id": null,
@@ -240,75 +203,61 @@
       "basis": {
         "rule_id": "EXIT-04",
         "source_observation_ids": [
-          "obs_evt_024"
+          "obs_evt_017"
         ],
         "source_span_ids": [
-          "span_0039"
+          "span_0020"
+        ],
+        "confidence": "high",
+        "explanation": "Execution outcome closed out remaining active bidders in favor of the winner."
+      }
+    },
+    {
+      "transition_id": "exit-04_target_zep_obs_evt_017",
+      "subject_ref": "target_zep",
+      "subject_count": 1,
+      "event_date": {
+        "raw_text": "2014-05-22",
+        "normalized_start": "2014-05-22",
+        "normalized_end": "2014-05-22",
+        "sort_date": "2014-05-22",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "from_state": "active",
+      "to_state": "inactive",
+      "reason_kind": "lost_to_winner",
+      "basis": {
+        "rule_id": "EXIT-04",
+        "source_observation_ids": [
+          "obs_evt_017"
+        ],
+        "source_span_ids": [
+          "span_0020"
         ],
         "confidence": "high",
         "explanation": "Execution outcome closed out remaining active bidders in favor of the winner."
       }
     }
   ],
-  "cash_regimes": [
-    {
-      "cash_regime_id": "cash_001",
-      "scope_kind": "phase",
-      "scope_ref": "phase_006",
-      "regime": "all_cash",
-      "basis": {
-        "rule_id": "CASH-01",
-        "source_observation_ids": [
-          "obs_evt_009",
-          "obs_evt_010",
-          "obs_evt_012"
-        ],
-        "source_span_ids": [
-          "span_0021",
-          "span_0023",
-          "span_0025",
-          "span_0063"
-        ],
-        "confidence": "high",
-        "explanation": "Explicit proposal consideration types set the phase cash regime."
-      }
-    },
-    {
-      "cash_regime_id": "cash_002",
-      "scope_kind": "phase",
-      "scope_ref": "phase_014",
-      "regime": "all_cash",
-      "basis": {
-        "rule_id": "CASH-01",
-        "source_observation_ids": [
-          "obs_evt_019",
-          "obs_evt_020",
-          "obs_evt_022"
-        ],
-        "source_span_ids": [
-          "span_0033",
-          "span_0034",
-          "span_0036"
-        ],
-        "confidence": "high",
-        "explanation": "Explicit proposal consideration types set the phase cash regime."
-      }
-    }
-  ],
+  "cash_regimes": [],
   "judgments": [
     {
       "judgment_id": "judgment_001",
       "judgment_kind": "ambiguous_phase",
-      "subject_ref": "obs_evt_013",
+      "subject_ref": "obs_evt_007",
       "human_review_required": true,
       "note": "Solicitation could not be classified as informal or formal from structured fields alone.",
       "basis": {
         "rule_id": "ROUND-UNRESOLVED",
         "source_observation_ids": [
-          "obs_evt_013"
+          "obs_evt_007"
         ],
         "source_span_ids": [
-          "span_0054"
+          "span_0010"
         ],
         "confidence": "medium",
         "explanation": "Solicitation lacked deterministic round-classification fields."
@@ -317,21 +266,105 @@
     {
       "judgment_id": "judgment_002",
       "judgment_kind": "ambiguous_phase",
-      "subject_ref": "obs_evt_029",
+      "subject_ref": "obs_evt_009",
       "human_review_required": true,
       "note": "Solicitation could not be classified as informal or formal from structured fields alone.",
       "basis": {
         "rule_id": "ROUND-UNRESOLVED",
         "source_observation_ids": [
-          "obs_evt_029"
+          "obs_evt_009"
         ],
         "source_span_ids": [
-          "span_0050",
-          "span_0051",
-          "span_0069"
+          "span_0012",
+          "span_0013"
         ],
         "confidence": "medium",
         "explanation": "Solicitation lacked deterministic round-classification fields."
+      }
+    },
+    {
+      "judgment_id": "judgment_003",
+      "judgment_kind": "ambiguous_phase",
+      "subject_ref": "obs_evt_017",
+      "human_review_required": true,
+      "note": "Solicitation could not be classified as informal or formal from structured fields alone.",
+      "basis": {
+        "rule_id": "ROUND-UNRESOLVED",
+        "source_observation_ids": [
+          "obs_evt_017"
+        ],
+        "source_span_ids": [
+          "span_0020"
+        ],
+        "confidence": "medium",
+        "explanation": "Solicitation lacked deterministic round-classification fields."
+      }
+    },
+    {
+      "judgment_id": "judgment_004",
+      "judgment_kind": "ambiguous_phase",
+      "subject_ref": "obs_evt_035",
+      "human_review_required": true,
+      "note": "Solicitation could not be classified as informal or formal from structured fields alone.",
+      "basis": {
+        "rule_id": "ROUND-UNRESOLVED",
+        "source_observation_ids": [
+          "obs_evt_035"
+        ],
+        "source_span_ids": [
+          "span_0048"
+        ],
+        "confidence": "medium",
+        "explanation": "Solicitation lacked deterministic round-classification fields."
+      }
+    },
+    {
+      "judgment_id": "judgment_005",
+      "judgment_kind": "advisory_link",
+      "subject_ref": "advisor_bofa",
+      "human_review_required": true,
+      "note": "Advisor party lacks advised_party_id linkage.",
+      "basis": {
+        "rule_id": "ADVISORY-LINK-AMBIGUOUS",
+        "source_observation_ids": [],
+        "source_span_ids": [
+          "span_0007",
+          "span_0008"
+        ],
+        "confidence": "medium",
+        "explanation": "Advisor linkage is missing from the literal party record."
+      }
+    },
+    {
+      "judgment_id": "judgment_006",
+      "judgment_kind": "advisory_link",
+      "subject_ref": "advisor_king_spalding",
+      "human_review_required": true,
+      "note": "Advisor party lacks advised_party_id linkage.",
+      "basis": {
+        "rule_id": "ADVISORY-LINK-AMBIGUOUS",
+        "source_observation_ids": [],
+        "source_span_ids": [
+          "span_0003"
+        ],
+        "confidence": "medium",
+        "explanation": "Advisor linkage is missing from the literal party record."
+      }
+    },
+    {
+      "judgment_id": "judgment_007",
+      "judgment_kind": "advisory_link",
+      "subject_ref": "advisor_jefferies",
+      "human_review_required": true,
+      "note": "Advisor party lacks advised_party_id linkage.",
+      "basis": {
+        "rule_id": "ADVISORY-LINK-AMBIGUOUS",
+        "source_observation_ids": [],
+        "source_span_ids": [
+          "span_0027"
+        ],
+        "confidence": "medium",
+        "explanation": "Advisor linkage is missing from the literal party record."
       }
     }
   ],
@@ -340,40 +373,9 @@
       "row_id": "row_0001",
       "origin": "literal",
       "analyst_event_type": "target_sale",
-      "subject_ref": "target_board_zep",
+      "subject_ref": "target_zep",
       "row_count": 1,
-      "bidder_name": "Zep Inc. board of directors",
-      "bidder_type": null,
-      "bid_type": null,
-      "value": null,
-      "range_low": null,
-      "range_high": null,
-      "enterprise_value": null,
-      "date_precision": "exact_day",
-      "date_recorded": "2013-07-01",
-      "date_public": "2013-07-01",
-      "date_sort_proxy": null,
-      "all_cash": null,
-      "review_flags": [],
-      "basis": {
-        "rule_id": "LITERAL-PROCESS",
-        "source_observation_ids": [
-          "obs_evt_002"
-        ],
-        "source_span_ids": [
-          "span_0002"
-        ],
-        "confidence": "high",
-        "explanation": "Literal process observation compiled directly into analyst row."
-      }
-    },
-    {
-      "row_id": "row_0002",
-      "origin": "literal",
-      "analyst_event_type": "ib_retention",
-      "subject_ref": "target_board_zep",
-      "row_count": 1,
-      "bidder_name": "Zep Inc. board of directors",
+      "bidder_name": "ZEP INC",
       "bidder_type": null,
       "bid_type": null,
       "value": null,
@@ -389,12 +391,45 @@
       "basis": {
         "rule_id": "LITERAL-PROCESS",
         "source_observation_ids": [
-          "obs_evt_003"
+          "obs_evt_005"
         ],
         "source_span_ids": [
-          "span_0009",
-          "span_0010",
-          "span_0011"
+          "span_0006",
+          "span_0007",
+          "span_0008"
+        ],
+        "confidence": "high",
+        "explanation": "Literal process observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0002",
+      "origin": "literal",
+      "analyst_event_type": "target_sale",
+      "subject_ref": "advisor_bofa",
+      "row_count": 1,
+      "bidder_name": "BofA Merrill Lynch",
+      "bidder_type": null,
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2014-01-28",
+      "date_public": "2014-01-28",
+      "date_sort_proxy": null,
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROCESS",
+        "source_observation_ids": [
+          "obs_evt_005"
+        ],
+        "source_span_ids": [
+          "span_0006",
+          "span_0007",
+          "span_0008"
         ],
         "confidence": "high",
         "explanation": "Literal process observation compiled directly into analyst row."
@@ -404,9 +439,9 @@
       "row_id": "row_0003",
       "origin": "literal",
       "analyst_event_type": "target_sale",
-      "subject_ref": "target_board_zep",
+      "subject_ref": "target_zep",
       "row_count": 1,
-      "bidder_name": "Zep Inc. board of directors",
+      "bidder_name": "ZEP INC",
       "bidder_type": null,
       "bid_type": null,
       "value": null,
@@ -422,11 +457,10 @@
       "basis": {
         "rule_id": "LITERAL-PROCESS",
         "source_observation_ids": [
-          "obs_evt_004"
+          "obs_evt_006"
         ],
         "source_span_ids": [
-          "span_0013",
-          "span_0014"
+          "span_0009"
         ],
         "confidence": "high",
         "explanation": "Literal process observation compiled directly into analyst row."
@@ -436,9 +470,9 @@
       "row_id": "row_0004",
       "origin": "literal",
       "analyst_event_type": "nda",
-      "subject_ref": "target_board_zep",
+      "subject_ref": "target_zep",
       "row_count": 1,
-      "bidder_name": "Zep Inc. board of directors",
+      "bidder_name": "ZEP INC",
       "bidder_type": null,
       "bid_type": null,
       "value": null,
@@ -454,11 +488,10 @@
       "basis": {
         "rule_id": "LITERAL-AGREEMENT",
         "source_observation_ids": [
-          "obs_evt_005"
+          "obs_evt_008"
         ],
         "source_span_ids": [
-          "span_0017",
-          "span_0053"
+          "span_0011"
         ],
         "confidence": "high",
         "explanation": "Literal agreement observation compiled into NDA-family analyst row."
@@ -468,29 +501,28 @@
       "row_id": "row_0005",
       "origin": "synthetic_anonymous",
       "analyst_event_type": "proposal",
-      "subject_ref": "cohort_5_first_round",
+      "subject_ref": "cohort_5_first_round_bidders",
       "row_count": 5,
-      "bidder_name": "5 parties who submitted first-round indications of interest on April 14, 2014",
+      "bidder_name": "five parties, comprising four financial buyers and one strategic buyer",
       "bidder_type": null,
       "bid_type": "Informal",
       "value": null,
-      "range_low": "20.00",
-      "range_high": "22.00",
+      "range_low": null,
+      "range_high": null,
       "enterprise_value": null,
       "date_precision": "exact_day",
       "date_recorded": "2014-04-14",
       "date_public": "2014-04-14",
       "date_sort_proxy": null,
-      "all_cash": true,
+      "all_cash": null,
       "review_flags": [],
       "basis": {
         "rule_id": "LITERAL-PROPOSAL",
         "source_observation_ids": [
-          "obs_evt_009"
+          "obs_evt_011"
         ],
         "source_span_ids": [
-          "span_0021",
-          "span_0063"
+          "span_0014"
         ],
         "confidence": "high",
         "explanation": "Literal proposal observation compiled directly into analyst row."
@@ -499,134 +531,74 @@
     {
       "row_id": "row_0006",
       "origin": "literal",
-      "analyst_event_type": "bidder_interest",
-      "subject_ref": "bidder_party_x",
-      "row_count": 1,
-      "bidder_name": "Party X",
-      "bidder_type": "F",
-      "bid_type": null,
-      "value": null,
-      "range_low": null,
-      "range_high": null,
-      "enterprise_value": null,
-      "date_precision": "relative",
-      "date_recorded": null,
-      "date_public": null,
-      "date_sort_proxy": "2014-04-21",
-      "all_cash": null,
-      "review_flags": [],
-      "basis": {
-        "rule_id": "LITERAL-STATUS",
-        "source_observation_ids": [
-          "obs_evt_008"
-        ],
-        "source_span_ids": [
-          "span_0022"
-        ],
-        "confidence": "high",
-        "explanation": "Literal expressed-interest status compiled directly into analyst row."
-      }
-    },
-    {
-      "row_id": "row_0007",
-      "origin": "literal",
-      "analyst_event_type": "bidder_interest",
-      "subject_ref": "bidder_party_y",
-      "row_count": 1,
-      "bidder_name": "Party Y",
-      "bidder_type": "S",
-      "bid_type": null,
-      "value": null,
-      "range_low": null,
-      "range_high": null,
-      "enterprise_value": null,
-      "date_precision": "relative",
-      "date_recorded": null,
-      "date_public": null,
-      "date_sort_proxy": "2014-04-21",
-      "all_cash": null,
-      "review_flags": [],
-      "basis": {
-        "rule_id": "LITERAL-STATUS",
-        "source_observation_ids": [
-          "obs_evt_008"
-        ],
-        "source_span_ids": [
-          "span_0022"
-        ],
-        "confidence": "high",
-        "explanation": "Literal expressed-interest status compiled directly into analyst row."
-      }
-    },
-    {
-      "row_id": "row_0008",
-      "origin": "literal",
       "analyst_event_type": "proposal",
       "subject_ref": "bidder_party_x",
       "row_count": 1,
       "bidder_name": "Party X",
-      "bidder_type": "F",
+      "bidder_type": null,
       "bid_type": "Informal",
       "value": null,
-      "range_low": "21.50",
-      "range_high": "23.00",
+      "range_low": null,
+      "range_high": null,
       "enterprise_value": null,
       "date_precision": "exact_day",
       "date_recorded": "2014-05-09",
       "date_public": "2014-05-09",
       "date_sort_proxy": null,
-      "all_cash": true,
+      "all_cash": null,
       "review_flags": [],
       "basis": {
         "rule_id": "LITERAL-PROPOSAL",
         "source_observation_ids": [
-          "obs_evt_010"
+          "obs_evt_014"
         ],
         "source_span_ids": [
-          "span_0023"
+          "span_0015",
+          "span_0017"
         ],
         "confidence": "high",
         "explanation": "Literal proposal observation compiled directly into analyst row."
       }
     },
     {
-      "row_id": "row_0009",
+      "row_id": "row_0007",
       "origin": "literal",
       "analyst_event_type": "proposal",
       "subject_ref": "bidder_party_y",
       "row_count": 1,
       "bidder_name": "Party Y",
-      "bidder_type": "S",
+      "bidder_type": null,
       "bid_type": "Informal",
       "value": null,
-      "range_low": "19.50",
-      "range_high": "20.50",
+      "range_low": null,
+      "range_high": null,
       "enterprise_value": null,
       "date_precision": "exact_day",
       "date_recorded": "2014-05-20",
       "date_public": "2014-05-20",
       "date_sort_proxy": null,
-      "all_cash": true,
+      "all_cash": null,
       "review_flags": [],
       "basis": {
         "rule_id": "LITERAL-PROPOSAL",
         "source_observation_ids": [
-          "obs_evt_012"
+          "obs_evt_016"
         ],
         "source_span_ids": [
-          "span_0025"
+          "span_0015",
+          "span_0019"
         ],
         "confidence": "high",
         "explanation": "Literal proposal observation compiled directly into analyst row."
       }
     },
     {
-      "row_id": "row_0010",
+      "row_id": "row_0008",
       "origin": "literal",
-      "analyst_event_type": "terminated",
-      "subject_ref": "target_board_zep",
+      "analyst_event_type": "nda_amendment",
+      "subject_ref": "target_zep",
       "row_count": 1,
-      "bidder_name": "Zep Inc. board of directors",
+      "bidder_name": "ZEP INC",
       "bidder_type": null,
       "bid_type": null,
       "value": null,
@@ -640,56 +612,25 @@
       "all_cash": null,
       "review_flags": [],
       "basis": {
-        "rule_id": "LITERAL-OUTCOME",
+        "rule_id": "LITERAL-AGREEMENT",
         "source_observation_ids": [
-          "obs_evt_016"
+          "obs_evt_020"
         ],
         "source_span_ids": [
-          "span_0029"
+          "span_0025"
         ],
         "confidence": "high",
-        "explanation": "Literal outcome observation compiled directly into analyst row."
+        "explanation": "Literal agreement observation compiled into NDA-family analyst row."
       }
     },
     {
-      "row_id": "row_0011",
-      "origin": "literal",
-      "analyst_event_type": "bidder_interest",
-      "subject_ref": "bidder_new_mountain",
-      "row_count": 1,
-      "bidder_name": "New Mountain Capital",
-      "bidder_type": "F",
-      "bid_type": null,
-      "value": null,
-      "range_low": null,
-      "range_high": null,
-      "enterprise_value": null,
-      "date_precision": "month_early",
-      "date_recorded": null,
-      "date_public": null,
-      "date_sort_proxy": "2015-02-05",
-      "all_cash": null,
-      "review_flags": [],
-      "basis": {
-        "rule_id": "LITERAL-STATUS",
-        "source_observation_ids": [
-          "obs_evt_018"
-        ],
-        "source_span_ids": [
-          "span_0032"
-        ],
-        "confidence": "high",
-        "explanation": "Literal expressed-interest status compiled directly into analyst row."
-      }
-    },
-    {
-      "row_id": "row_0012",
+      "row_id": "row_0009",
       "origin": "literal",
       "analyst_event_type": "proposal",
-      "subject_ref": "bidder_new_mountain",
+      "subject_ref": "bidder_new_mountain_capital",
       "row_count": 1,
       "bidder_name": "New Mountain Capital",
-      "bidder_type": "F",
+      "bidder_type": null,
       "bid_type": "Informal",
       "value": "19.25",
       "range_low": null,
@@ -699,28 +640,28 @@
       "date_recorded": "2015-02-19",
       "date_public": "2015-02-19",
       "date_sort_proxy": null,
-      "all_cash": true,
+      "all_cash": null,
       "review_flags": [],
       "basis": {
         "rule_id": "LITERAL-PROPOSAL",
         "source_observation_ids": [
-          "obs_evt_019"
+          "obs_evt_021"
         ],
         "source_span_ids": [
-          "span_0033"
+          "span_0027"
         ],
         "confidence": "high",
         "explanation": "Literal proposal observation compiled directly into analyst row."
       }
     },
     {
-      "row_id": "row_0013",
+      "row_id": "row_0010",
       "origin": "literal",
       "analyst_event_type": "proposal",
-      "subject_ref": "bidder_new_mountain",
+      "subject_ref": "bidder_new_mountain_capital",
       "row_count": 1,
       "bidder_name": "New Mountain Capital",
-      "bidder_type": "F",
+      "bidder_type": null,
       "bid_type": "Informal",
       "value": "20.05",
       "range_low": null,
@@ -730,27 +671,27 @@
       "date_recorded": "2015-02-26",
       "date_public": "2015-02-26",
       "date_sort_proxy": null,
-      "all_cash": true,
+      "all_cash": null,
       "review_flags": [],
       "basis": {
         "rule_id": "LITERAL-PROPOSAL",
         "source_observation_ids": [
-          "obs_evt_020"
+          "obs_evt_022"
         ],
         "source_span_ids": [
-          "span_0034"
+          "span_0029"
         ],
         "confidence": "high",
         "explanation": "Literal proposal observation compiled directly into analyst row."
       }
     },
     {
-      "row_id": "row_0014",
+      "row_id": "row_0011",
       "origin": "literal",
       "analyst_event_type": "exclusivity",
-      "subject_ref": "target_board_zep",
+      "subject_ref": "target_zep",
       "row_count": 1,
-      "bidder_name": "Zep Inc. board of directors",
+      "bidder_name": "ZEP INC",
       "bidder_type": null,
       "bid_type": null,
       "value": null,
@@ -766,23 +707,23 @@
       "basis": {
         "rule_id": "LITERAL-AGREEMENT",
         "source_observation_ids": [
-          "obs_evt_021"
+          "obs_evt_023"
         ],
         "source_span_ids": [
-          "span_0035"
+          "span_0031"
         ],
         "confidence": "high",
         "explanation": "Literal agreement observation compiled into NDA-family analyst row."
       }
     },
     {
-      "row_id": "row_0015",
+      "row_id": "row_0012",
       "origin": "literal",
       "analyst_event_type": "proposal",
-      "subject_ref": "bidder_new_mountain",
+      "subject_ref": "bidder_new_mountain_capital",
       "row_count": 1,
       "bidder_name": "New Mountain Capital",
-      "bidder_type": "F",
+      "bidder_type": null,
       "bid_type": "Formal",
       "value": "20.05",
       "range_low": null,
@@ -792,27 +733,27 @@
       "date_recorded": "2015-03-13",
       "date_public": "2015-03-13",
       "date_sort_proxy": null,
-      "all_cash": true,
+      "all_cash": null,
       "review_flags": [],
       "basis": {
         "rule_id": "LITERAL-PROPOSAL",
         "source_observation_ids": [
-          "obs_evt_022"
+          "obs_evt_025"
         ],
         "source_span_ids": [
-          "span_0036"
+          "span_0033"
         ],
         "confidence": "high",
         "explanation": "Literal proposal observation compiled directly into analyst row."
       }
     },
     {
-      "row_id": "row_0016",
+      "row_id": "row_0013",
       "origin": "literal",
       "analyst_event_type": "exclusivity",
-      "subject_ref": "target_board_zep",
+      "subject_ref": "target_zep",
       "row_count": 1,
-      "bidder_name": "Zep Inc. board of directors",
+      "bidder_name": "ZEP INC",
       "bidder_type": null,
       "bid_type": null,
       "value": null,
@@ -824,29 +765,27 @@
       "date_public": "2015-03-18",
       "date_sort_proxy": null,
       "all_cash": null,
-      "review_flags": [
-        "supersedes:obs_evt_021"
-      ],
+      "review_flags": [],
       "basis": {
-        "rule_id": "AGREEMENT-01",
+        "rule_id": "LITERAL-AGREEMENT",
         "source_observation_ids": [
-          "obs_evt_023"
+          "obs_evt_026"
         ],
         "source_span_ids": [
-          "span_0038"
+          "span_0035"
         ],
         "confidence": "high",
         "explanation": "Literal agreement observation compiled into NDA-family analyst row."
       }
     },
     {
-      "row_id": "row_0017",
+      "row_id": "row_0014",
       "origin": "literal",
       "analyst_event_type": "proposal",
-      "subject_ref": "bidder_new_mountain",
+      "subject_ref": "bidder_new_mountain_capital",
       "row_count": 1,
       "bidder_name": "New Mountain Capital",
-      "bidder_type": "F",
+      "bidder_type": null,
       "bid_type": "Formal",
       "value": null,
       "range_low": null,
@@ -861,23 +800,23 @@
       "basis": {
         "rule_id": "LITERAL-PROPOSAL",
         "source_observation_ids": [
-          "obs_evt_025"
+          "obs_evt_028"
         ],
         "source_span_ids": [
-          "span_0040"
+          "span_0037"
         ],
         "confidence": "high",
         "explanation": "Literal proposal observation compiled directly into analyst row."
       }
     },
     {
-      "row_id": "row_0018",
+      "row_id": "row_0015",
       "origin": "literal",
       "analyst_event_type": "executed",
-      "subject_ref": "bidder_new_mountain",
+      "subject_ref": "bidder_new_mountain_capital",
       "row_count": 1,
       "bidder_name": "New Mountain Capital",
-      "bidder_type": "F",
+      "bidder_type": null,
       "bid_type": null,
       "value": null,
       "range_low": null,
@@ -892,156 +831,23 @@
       "basis": {
         "rule_id": "LITERAL-OUTCOME",
         "source_observation_ids": [
-          "obs_evt_028"
+          "obs_evt_033"
         ],
         "source_span_ids": [
-          "span_0049"
+          "span_0046"
         ],
         "confidence": "high",
         "explanation": "Literal outcome observation compiled directly into analyst row."
       }
     },
     {
-      "row_id": "row_0019",
-      "origin": "synthetic_anonymous",
-      "analyst_event_type": "final_round_inf_ann",
-      "subject_ref": "cohort_25_nda",
-      "row_count": 25,
-      "bidder_name": "25 potential buyers who executed confidentiality agreements",
-      "bidder_type": null,
-      "bid_type": "Informal",
-      "value": null,
-      "range_low": null,
-      "range_high": null,
-      "enterprise_value": null,
-      "date_precision": "exact_day",
-      "date_recorded": "2014-03-27",
-      "date_public": "2014-03-27",
-      "date_sort_proxy": null,
-      "all_cash": true,
-      "review_flags": [],
-      "basis": {
-        "rule_id": "ROUND-01",
-        "source_observation_ids": [
-          "obs_evt_006"
-        ],
-        "source_span_ids": [
-          "span_0015",
-          "span_0018",
-          "span_0019",
-          "span_0062",
-          "span_0064"
-        ],
-        "confidence": "high",
-        "explanation": "Solicitation requested non-binding IOIs."
-      }
-    },
-    {
-      "row_id": "row_0020",
-      "origin": "synthetic_anonymous",
-      "analyst_event_type": "final_round_inf",
-      "subject_ref": "cohort_25_nda",
-      "row_count": 25,
-      "bidder_name": "25 potential buyers who executed confidentiality agreements",
-      "bidder_type": null,
-      "bid_type": "Informal",
-      "value": null,
-      "range_low": null,
-      "range_high": null,
-      "enterprise_value": null,
-      "date_precision": "exact_day",
-      "date_recorded": "2014-04-14",
-      "date_public": "2014-04-14",
-      "date_sort_proxy": null,
-      "all_cash": true,
-      "review_flags": [],
-      "basis": {
-        "rule_id": "ROUND-01",
-        "source_observation_ids": [
-          "obs_evt_006"
-        ],
-        "source_span_ids": [
-          "span_0015",
-          "span_0018",
-          "span_0019",
-          "span_0062",
-          "span_0064"
-        ],
-        "confidence": "high",
-        "explanation": "Solicitation requested non-binding IOIs."
-      }
-    },
-    {
-      "row_id": "row_0021",
-      "origin": "synthetic_anonymous",
-      "analyst_event_type": "final_round_ann",
-      "subject_ref": "cohort_6_remaining_bidders",
-      "row_count": 6,
-      "bidder_name": "6 remaining bidders after Party X withdrawal (received draft merger agreement May 22)",
-      "bidder_type": null,
-      "bid_type": "Formal",
-      "value": null,
-      "range_low": null,
-      "range_high": null,
-      "enterprise_value": null,
-      "date_precision": "exact_day",
-      "date_recorded": "2014-05-22",
-      "date_public": "2014-05-22",
-      "date_sort_proxy": null,
-      "all_cash": true,
-      "review_flags": [],
-      "basis": {
-        "rule_id": "ROUND-02",
-        "source_observation_ids": [
-          "obs_evt_015"
-        ],
-        "source_span_ids": [
-          "span_0026",
-          "span_0065"
-        ],
-        "confidence": "high",
-        "explanation": "Solicitation requested LOIs/binding offers or carried formal attachments."
-      }
-    },
-    {
-      "row_id": "row_0022",
-      "origin": "derived",
-      "analyst_event_type": "final_round_ann",
-      "subject_ref": "bidder_new_mountain",
-      "row_count": 1,
-      "bidder_name": "New Mountain Capital",
-      "bidder_type": "F",
-      "bid_type": "Formal",
-      "value": null,
-      "range_low": null,
-      "range_high": null,
-      "enterprise_value": null,
-      "date_precision": "exact_day",
-      "date_recorded": "2015-03-18",
-      "date_public": "2015-03-18",
-      "date_sort_proxy": null,
-      "all_cash": null,
-      "review_flags": [],
-      "basis": {
-        "rule_id": "ROUND-02",
-        "source_observation_ids": [
-          "obs_evt_024"
-        ],
-        "source_span_ids": [
-          "span_0039"
-        ],
-        "confidence": "high",
-        "explanation": "Solicitation requested LOIs/binding offers or carried formal attachments."
-      }
-    },
-    {
-      "row_id": "row_0023",
+      "row_id": "row_0016",
       "origin": "literal",
       "analyst_event_type": "drop",
-      "subject_ref": "bidder_new_mountain",
+      "subject_ref": "bidder_new_mountain_capital",
       "row_count": 1,
       "bidder_name": "New Mountain Capital",
-      "bidder_type": "F",
+      "bidder_type": null,
       "bid_type": null,
       "value": null,
       "range_low": null,
@@ -1056,23 +862,23 @@
       "basis": {
         "rule_id": "EXIT-01",
         "source_observation_ids": [
-          "obs_evt_007"
+          "obs_evt_010"
         ],
         "source_span_ids": [
-          "span_0020"
+          "span_0013"
         ],
         "confidence": "high",
         "explanation": "Literal status observation recorded bidder withdrawal or non-participation."
       }
     },
     {
-      "row_id": "row_0024",
+      "row_id": "row_0017",
       "origin": "literal",
       "analyst_event_type": "drop",
       "subject_ref": "bidder_party_x",
       "row_count": 1,
       "bidder_name": "Party X",
-      "bidder_type": "F",
+      "bidder_type": null,
       "bid_type": null,
       "value": null,
       "range_low": null,
@@ -1087,97 +893,63 @@
       "basis": {
         "rule_id": "EXIT-01",
         "source_observation_ids": [
-          "obs_evt_011"
+          "obs_evt_015"
         ],
         "source_span_ids": [
-          "span_0024"
+          "span_0018"
         ],
         "confidence": "high",
         "explanation": "Literal status observation recorded bidder withdrawal or non-participation."
       }
     },
     {
-      "row_id": "row_0025",
+      "row_id": "row_0018",
       "origin": "synthetic_anonymous",
       "analyst_event_type": "drop",
       "subject_ref": "cohort_6_remaining_bidders",
       "row_count": 6,
-      "bidder_name": "6 remaining bidders after Party X withdrawal (received draft merger agreement May 22)",
+      "bidder_name": "six remaining bidders (Party X having withdrawn from the process on May 14, 2014)",
       "bidder_type": null,
       "bid_type": null,
       "value": null,
       "range_low": null,
       "range_high": null,
       "enterprise_value": null,
-      "date_precision": "relative",
-      "date_recorded": null,
-      "date_public": null,
-      "date_sort_proxy": "2014-06-01",
+      "date_precision": "exact_day",
+      "date_recorded": "2014-05-23",
+      "date_public": "2014-05-23",
+      "date_sort_proxy": null,
       "all_cash": null,
       "review_flags": [],
       "basis": {
         "rule_id": "EXIT-01",
         "source_observation_ids": [
-          "obs_evt_014"
+          "obs_evt_018"
         ],
         "source_span_ids": [
-          "span_0027",
-          "span_0067",
-          "span_0068"
+          "span_0021",
+          "span_0022"
         ],
         "confidence": "high",
         "explanation": "Literal status observation recorded bidder withdrawal or non-participation."
       }
     },
     {
-      "row_id": "row_0026",
-      "origin": "derived",
-      "analyst_event_type": "drop",
-      "subject_ref": "bidder_new_mountain",
-      "row_count": 1,
-      "bidder_name": "New Mountain Capital",
-      "bidder_type": "F",
-      "bid_type": null,
-      "value": null,
-      "range_low": null,
-      "range_high": null,
-      "enterprise_value": null,
-      "date_precision": "month_early",
-      "date_recorded": null,
-      "date_public": null,
-      "date_sort_proxy": "2015-04-03",
-      "all_cash": null,
-      "review_flags": [
-        "reason:cannot_improve"
-      ],
-      "basis": {
-        "rule_id": "EXIT-02",
-        "source_observation_ids": [
-          "obs_evt_026"
-        ],
-        "source_span_ids": [
-          "span_0041"
-        ],
-        "confidence": "high",
-        "explanation": "Status observation explicitly said the bidder could not improve."
-      }
-    },
-    {
-      "row_id": "row_0027",
+      "row_id": "row_0019",
       "origin": "derived",
       "analyst_event_type": "drop",
       "subject_ref": "bidder_party_y",
       "row_count": 1,
       "bidder_name": "Party Y",
-      "bidder_type": "S",
+      "bidder_type": null,
       "bid_type": null,
       "value": null,
       "range_low": null,
       "range_high": null,
       "enterprise_value": null,
       "date_precision": "exact_day",
-      "date_recorded": "2015-03-18",
-      "date_public": "2015-03-18",
+      "date_recorded": "2014-05-22",
+      "date_public": "2014-05-22",
       "date_sort_proxy": null,
       "all_cash": null,
       "review_flags": [
@@ -1186,22 +958,22 @@
       "basis": {
         "rule_id": "EXIT-04",
         "source_observation_ids": [
-          "obs_evt_024"
+          "obs_evt_017"
         ],
         "source_span_ids": [
-          "span_0039"
+          "span_0020"
         ],
         "confidence": "high",
         "explanation": "Execution outcome closed out remaining active bidders in favor of the winner."
       }
     },
     {
-      "row_id": "row_0028",
+      "row_id": "row_0020",
       "origin": "synthetic_anonymous",
       "analyst_event_type": "drop",
-      "subject_ref": "cohort_5_first_round",
-      "row_count": 5,
-      "bidder_name": "5 parties who submitted first-round indications of interest on April 14, 2014",
+      "subject_ref": "cohort_25_signed_ca",
+      "row_count": 25,
+      "bidder_name": "twenty-five potential buyers executed confidentiality agreements with us",
       "bidder_type": null,
       "bid_type": null,
       "value": null,
@@ -1209,8 +981,8 @@
       "range_high": null,
       "enterprise_value": null,
       "date_precision": "exact_day",
-      "date_recorded": "2015-03-18",
-      "date_public": "2015-03-18",
+      "date_recorded": "2014-05-22",
+      "date_public": "2014-05-22",
       "date_sort_proxy": null,
       "all_cash": null,
       "review_flags": [
@@ -1219,10 +991,109 @@
       "basis": {
         "rule_id": "EXIT-04",
         "source_observation_ids": [
-          "obs_evt_024"
+          "obs_evt_017"
         ],
         "source_span_ids": [
-          "span_0039"
+          "span_0020"
+        ],
+        "confidence": "high",
+        "explanation": "Execution outcome closed out remaining active bidders in favor of the winner."
+      }
+    },
+    {
+      "row_id": "row_0021",
+      "origin": "synthetic_anonymous",
+      "analyst_event_type": "drop",
+      "subject_ref": "cohort_50_potential_buyers",
+      "row_count": 50,
+      "bidder_name": "fifty potential buyers (comprising twenty-eight strategic buyers and twenty-two financial buyers)",
+      "bidder_type": null,
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2014-05-22",
+      "date_public": "2014-05-22",
+      "date_sort_proxy": null,
+      "all_cash": null,
+      "review_flags": [
+        "reason:lost_to_winner"
+      ],
+      "basis": {
+        "rule_id": "EXIT-04",
+        "source_observation_ids": [
+          "obs_evt_017"
+        ],
+        "source_span_ids": [
+          "span_0020"
+        ],
+        "confidence": "high",
+        "explanation": "Execution outcome closed out remaining active bidders in favor of the winner."
+      }
+    },
+    {
+      "row_id": "row_0022",
+      "origin": "synthetic_anonymous",
+      "analyst_event_type": "drop",
+      "subject_ref": "cohort_5_first_round_bidders",
+      "row_count": 5,
+      "bidder_name": "five parties, comprising four financial buyers and one strategic buyer",
+      "bidder_type": null,
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2014-05-22",
+      "date_public": "2014-05-22",
+      "date_sort_proxy": null,
+      "all_cash": null,
+      "review_flags": [
+        "reason:lost_to_winner"
+      ],
+      "basis": {
+        "rule_id": "EXIT-04",
+        "source_observation_ids": [
+          "obs_evt_017"
+        ],
+        "source_span_ids": [
+          "span_0020"
+        ],
+        "confidence": "high",
+        "explanation": "Execution outcome closed out remaining active bidders in favor of the winner."
+      }
+    },
+    {
+      "row_id": "row_0023",
+      "origin": "derived",
+      "analyst_event_type": "drop",
+      "subject_ref": "target_zep",
+      "row_count": 1,
+      "bidder_name": "ZEP INC",
+      "bidder_type": null,
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2014-05-22",
+      "date_public": "2014-05-22",
+      "date_sort_proxy": null,
+      "all_cash": null,
+      "review_flags": [
+        "reason:lost_to_winner"
+      ],
+      "basis": {
+        "rule_id": "EXIT-04",
+        "source_observation_ids": [
+          "obs_evt_017"
+        ],
+        "source_span_ids": [
+          "span_0020"
         ],
         "confidence": "high",
         "explanation": "Execution outcome closed out remaining active bidders in favor of the winner."

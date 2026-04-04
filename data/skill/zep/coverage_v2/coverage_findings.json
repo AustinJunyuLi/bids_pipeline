@@ -70,7 +70,7 @@
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
       "supporting_span_ids": [
-        "span_0058"
+        "span_0003"
       ],
       "block_ids": [
         "B014",
@@ -104,7 +104,7 @@
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
       "supporting_span_ids": [
-        "span_0058"
+        "span_0003"
       ],
       "block_ids": [
         "B014",
@@ -192,18 +192,16 @@
     },
     {
       "cue_family": "advisor",
-      "status": "ambiguous",
-      "severity": "warning",
-      "repairability": "repairable",
-      "description": "High-confidence advisor cue matched multiple canonical v2 candidates.",
-      "reason_code": "multiple_matching_candidates",
+      "status": "observed",
+      "severity": "info",
+      "repairability": null,
+      "description": "High-confidence advisor cue is covered by canonical v2 artifacts.",
+      "reason_code": "matched_party",
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
       "supporting_span_ids": [
-        "span_0009",
-        "span_0010",
-        "span_0011",
-        "span_0059"
+        "span_0007",
+        "span_0008"
       ],
       "block_ids": [
         "B024",
@@ -221,9 +219,7 @@
         "ib_retention"
       ],
       "note": null,
-      "supporting_observation_ids": [
-        "obs_evt_003"
-      ],
+      "supporting_observation_ids": [],
       "supporting_party_ids": [
         "advisor_bofa"
       ],
@@ -231,18 +227,16 @@
     },
     {
       "cue_family": "advisor",
-      "status": "ambiguous",
-      "severity": "warning",
-      "repairability": "repairable",
-      "description": "Medium-confidence advisor cue matched multiple canonical v2 candidates.",
-      "reason_code": "multiple_matching_candidates",
+      "status": "observed",
+      "severity": "info",
+      "repairability": null,
+      "description": "Medium-confidence advisor cue is covered by canonical v2 artifacts.",
+      "reason_code": "matched_party",
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
       "supporting_span_ids": [
-        "span_0009",
-        "span_0010",
-        "span_0011",
-        "span_0059"
+        "span_0007",
+        "span_0008"
       ],
       "block_ids": [
         "B027",
@@ -260,9 +254,7 @@
         "ib_retention"
       ],
       "note": null,
-      "supporting_observation_ids": [
-        "obs_evt_003"
-      ],
+      "supporting_observation_ids": [],
       "supporting_party_ids": [
         "advisor_bofa"
       ],

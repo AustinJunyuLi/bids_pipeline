@@ -1,86 +1,20 @@
 {
   "findings": [
     {
-      "gate_id": "substantive_outcome_missing_date",
-      "rule_id": "substantive_outcome_requires_date_or_anchor",
+      "gate_id": "agreement_kind_surface_warning",
+      "rule_id": "agreement_kind_surface_warning",
       "severity": "warning",
-      "description": "Outcome 'obs_evt_024' lacks a date or exact related merger-agreement anchor.",
+      "description": "Agreement 'obs_evt_006' appears to be 'standstill' but is classified as 'nda'.",
       "party_ids": [],
       "cohort_ids": [],
       "observation_ids": [
-        "obs_evt_024"
-      ]
-    },
-    {
-      "gate_id": "proxy_date_export_warning",
-      "rule_id": "rough_date_export_warning",
-      "severity": "warning",
-      "description": "Observation 'obs_evt_010' uses non-exact date precision 'month_early'; downstream analyst surfaces should treat it as a proxy date.",
-      "party_ids": [],
-      "cohort_ids": [],
-      "observation_ids": [
-        "obs_evt_010"
-      ]
-    },
-    {
-      "gate_id": "proxy_date_export_warning",
-      "rule_id": "rough_date_export_warning",
-      "severity": "warning",
-      "description": "Observation 'obs_evt_014' uses non-exact date precision 'month_late'; downstream analyst surfaces should treat it as a proxy date.",
-      "party_ids": [],
-      "cohort_ids": [],
-      "observation_ids": [
-        "obs_evt_014"
-      ]
-    },
-    {
-      "gate_id": "proxy_date_export_warning",
-      "rule_id": "rough_date_export_warning",
-      "severity": "warning",
-      "description": "Observation 'obs_evt_015' uses non-exact date precision 'month_late'; downstream analyst surfaces should treat it as a proxy date.",
-      "party_ids": [],
-      "cohort_ids": [],
-      "observation_ids": [
-        "obs_evt_015"
-      ]
-    },
-    {
-      "gate_id": "proxy_date_export_warning",
-      "rule_id": "rough_date_export_warning",
-      "severity": "warning",
-      "description": "Observation 'obs_evt_016' uses non-exact date precision 'month_late'; downstream analyst surfaces should treat it as a proxy date.",
-      "party_ids": [],
-      "cohort_ids": [],
-      "observation_ids": [
-        "obs_evt_016"
-      ]
-    },
-    {
-      "gate_id": "proxy_date_export_warning",
-      "rule_id": "rough_date_export_warning",
-      "severity": "warning",
-      "description": "Observation 'obs_evt_017' uses non-exact date precision 'month_late'; downstream analyst surfaces should treat it as a proxy date.",
-      "party_ids": [],
-      "cohort_ids": [],
-      "observation_ids": [
-        "obs_evt_017"
-      ]
-    },
-    {
-      "gate_id": "proxy_date_export_warning",
-      "rule_id": "rough_date_export_warning",
-      "severity": "warning",
-      "description": "Observation 'obs_evt_018' uses non-exact date precision 'month_late'; downstream analyst surfaces should treat it as a proxy date.",
-      "party_ids": [],
-      "cohort_ids": [],
-      "observation_ids": [
-        "obs_evt_018"
+        "obs_evt_006"
       ]
     }
   ],
   "summary": {
     "blocker_count": 0,
-    "warning_count": 7,
+    "warning_count": 1,
     "status": "pass"
   }
 }

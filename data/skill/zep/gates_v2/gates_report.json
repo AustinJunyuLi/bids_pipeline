@@ -1,20 +1,8 @@
 {
-  "findings": [
-    {
-      "gate_id": "substantive_outcome_missing_bidder_actor",
-      "rule_id": "substantive_outcome_requires_bidder_actor",
-      "severity": "warning",
-      "description": "Outcome 'obs_evt_016' is 'terminated' but does not include a bidder or bidder-cohort reference.",
-      "party_ids": [],
-      "cohort_ids": [],
-      "observation_ids": [
-        "obs_evt_016"
-      ]
-    }
-  ],
+  "findings": [],
   "summary": {
     "blocker_count": 0,
-    "warning_count": 1,
+    "warning_count": 0,
     "status": "pass"
   }
 }

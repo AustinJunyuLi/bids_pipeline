@@ -120,39 +120,39 @@ B160 [L2160-L2160]: On
 
 <evidence_checklist>
 ### Dated actions to extract
-- [ ] **0001047469-13-010973:E0556** L2150-L2158 (date: October 9, 2013; actor: Special Committee; value: $50; terms: authorized, discussed, meeting)
-- [ ] **0001047469-13-010973:E0561** L2160-L2165 (date: October 10, 2013; actor: Transaction Committee; terms: engaged, meeting, proposed)
-- [ ] **0001047469-13-010973:E0564** L2167-L2169 (date: October 11, 2013; actor: Transaction Committee; value: $11; terms: sent)
+- [ ] **0001047469-13-010973:E0556** L2150-L2158 (date: October 9, 2013; actors: Special Committee, Transaction Committee; value: $50; terms: authorized, discussed, meeting)
+- [ ] **0001047469-13-010973:E0561** L2160-L2165 (date: October 10, 2013; actors: Transaction Committee, Special Committee; terms: engaged, meeting, proposed)
+- [ ] **0001047469-13-010973:E0564** L2167-L2169 (date: October 11, 2013; actors: Transaction Committee, Special Committee; value: $11; terms: sent)
 - [ ] **0001047469-13-010973:E0568** L2177-L2178 (date: October 12, 2013; terms: executed)
-- [ ] **0001047469-13-010973:E0573** L2187-L2198 (date: October 14, 2013; actor: Special Committee; terms: delivered, meeting, proposed)
+- [ ] **0001047469-13-010973:E0573** L2187-L2198 (date: October 14, 2013; actors: Special Committee, Transaction Committee, Board, Merrill Lynch; terms: delivered, meeting, proposed)
 - [ ] **0001047469-13-010973:E0578** L2207-L2209 (date: October 14, 2013; terms: delivered, executed)
 - [ ] **0001047469-13-010973:E0581** L2211-L2212 (date: October 15, 2013; terms: announced)
 
 ### Financial terms to capture
-- [ ] **0001047469-13-010973:E0557** L2150-L2158 (date: October 9, 2013; actor: Special Committee; value: $50; terms: $50)
-- [ ] **0001047469-13-010973:E0565** L2167-L2169 (date: October 11, 2013; actor: Transaction Committee; value: $11; terms: $11)
+- [ ] **0001047469-13-010973:E0557** L2150-L2158 (date: October 9, 2013; actors: Special Committee, Transaction Committee; value: $50; terms: $50)
+- [ ] **0001047469-13-010973:E0565** L2167-L2169 (date: October 11, 2013; actors: Transaction Committee, Special Committee; value: $11; terms: $11)
 
 ### Actors to identify
-- [ ] **0001047469-13-010973:E0558** L2150-L2158 (date: October 9, 2013; actor: Special Committee; value: $50; terms: special committee, transaction committee)
-- [ ] **0001047469-13-010973:E0562** L2160-L2165 (date: October 10, 2013; actor: Transaction Committee; terms: special committee, transaction committee)
-- [ ] **0001047469-13-010973:E0566** L2167-L2169 (date: October 11, 2013; actor: Transaction Committee; value: $11; terms: special committee, transaction committee)
+- [ ] **0001047469-13-010973:E0558** L2150-L2158 (date: October 9, 2013; actors: Special Committee, Transaction Committee; value: $50; terms: special committee, transaction committee)
+- [ ] **0001047469-13-010973:E0562** L2160-L2165 (date: October 10, 2013; actors: Transaction Committee, Special Committee; terms: special committee, transaction committee)
+- [ ] **0001047469-13-010973:E0566** L2167-L2169 (date: October 11, 2013; actors: Transaction Committee, Special Committee; value: $11; terms: special committee, transaction committee)
 - [ ] **0001047469-13-010973:E0572** L2184-L2185 (date: October 8, 2013; terms: counsel)
-- [ ] **0001047469-13-010973:E0574** L2187-L2198 (date: October 14, 2013; actor: Special Committee; terms: special committee, stockholder, transaction committee)
-- [ ] **0001047469-13-010973:E0576** L2200-L2205 (actor: Special Committee; terms: special committee, stockholder)
+- [ ] **0001047469-13-010973:E0574** L2187-L2198 (date: October 14, 2013; actors: Special Committee, Transaction Committee, Board, Merrill Lynch; terms: special committee, stockholder, transaction committee)
+- [ ] **0001047469-13-010973:E0576** L2200-L2205 (actors: Special Committee, Board; terms: special committee, stockholder)
 - [ ] **0001047469-13-010973:E0579** L2207-L2209 (date: October 14, 2013; terms: parent)
 
 ### Process signals to check
-- [ ] **0001047469-13-010973:E0559** L2150-L2158 (date: October 9, 2013; actor: Special Committee; value: $50; terms: exclusivity)
+- [ ] **0001047469-13-010973:E0559** L2150-L2158 (date: October 9, 2013; actors: Special Committee, Transaction Committee; value: $50; terms: exclusivity)
 - [ ] **0001047469-13-010973:E0569** L2177-L2178 (date: October 12, 2013; terms: exclusivity)
 
 ### Outcome facts to verify
-- [ ] **0001047469-13-010973:E0560** L2150-L2158 (date: October 9, 2013; actor: Special Committee; value: $50; terms: termination fee)
-- [ ] **0001047469-13-010973:E0563** L2160-L2165 (date: October 10, 2013; actor: Transaction Committee; terms: termination fee)
+- [ ] **0001047469-13-010973:E0560** L2150-L2158 (date: October 9, 2013; actors: Special Committee, Transaction Committee; value: $50; terms: termination fee)
+- [ ] **0001047469-13-010973:E0563** L2160-L2165 (date: October 10, 2013; actors: Transaction Committee, Special Committee; terms: termination fee)
 - [ ] **0001047469-13-010973:E0567** L2174-L2175 (terms: merger agreement, termination fee)
 - [ ] **0001047469-13-010973:E0570** L2177-L2178 (date: October 12, 2013; terms: executed)
 - [ ] **0001047469-13-010973:E0571** L2180-L2182 (date: October 12, 2013; terms: merger agreement)
-- [ ] **0001047469-13-010973:E0575** L2187-L2198 (date: October 14, 2013; actor: Special Committee; terms: merger agreement, termination fee)
-- [ ] **0001047469-13-010973:E0577** L2200-L2205 (actor: Special Committee; terms: closing, merger agreement)
+- [ ] **0001047469-13-010973:E0575** L2187-L2198 (date: October 14, 2013; actors: Special Committee, Transaction Committee, Board, Merrill Lynch; terms: merger agreement, termination fee)
+- [ ] **0001047469-13-010973:E0577** L2200-L2205 (actors: Special Committee, Board; terms: closing, merger agreement)
 - [ ] **0001047469-13-010973:E0580** L2207-L2209 (date: October 14, 2013; terms: executed, merger agreement)
 - [ ] **0001047469-13-010973:E0582** L2211-L2212 (date: October 15, 2013; terms: merger agreement)
 </evidence_checklist>
