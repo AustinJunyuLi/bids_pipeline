@@ -1,83 +1,132 @@
-# Requirements: v2.2 Reconciliation Lift + Surface Repair
+# Requirements: v2.3 Structured Field Recovery
 
-**Defined:** 2026-04-01
-**Core Value:** Raise benchmark-facing accuracy by repairing the highest-value
-deterministic v2 gaps while preserving filing-grounded extraction and the
-post-export benchmark boundary.
+**Defined:** 2026-04-04
+**Core Value:** Convert surface facts trapped in observation summaries into
+structured fields through deterministic repair, prompt hardening, and semantic
+completeness gates — raising field-level accuracy without weakening the
+filing-grounded extraction contract.
 
 ## Milestone Basis
 
 Grounded in:
 
-- `diagnosis/gptpro/2026-04-01/round_1/v2_analytical_gap_inventory_3aa65f7.md`
-- `diagnosis/gptpro/2026-04-01/round_1/reponse.md`
+- `diagnosis/gptpro/2026-04-04/round_1/response.md`
 
-## v2.2 Requirements
+## v2.3 Requirements
 
-### Proposal Fidelity
+### Repair Infrastructure
 
-- [x] **LINK-01**: proposal phase association ignores future-linked `requested_by_observation_id` values and falls back to the latest same-day-or-earlier solicitation
-- [x] **LINK-02**: proposal analyst rows use proposal-local formality cues plus repaired phase context to classify `bid_type`
-- [x] **LINK-03**: v2 gates block proposal links that point to non-solicitations or forward in time
+- [ ] **REPR-01**: Repair module (`skill_pipeline/repair/structured_fields_v2.py`) with fill-only semantics — populate missing/null fields, never overwrite populated values except harmless normalization (e.g., inverted range swap)
+- [ ] **REPR-02**: Canonicalize integration wires repair into `canonicalize.py` in both quote-first and canonical modes, immediately before final Pydantic validation
+- [ ] **REPR-03**: Dual-source parsing extracts cues from both observation `summary` and linked `evidence_span_ids` quote text, with confidence rules when sources agree, disagree, or only one yields a cue
+- [ ] **REPR-04**: Subject-aware clause restriction limits extraction to clauses mentioning the proposal's `subject_ref` display name, canonical name, aliases, or cohort label — falls back to full text when no alias match exists
 
-### Transition And Outcome Fidelity
+### Price Recovery
 
-- [x] **TRANS-01**: `EXIT-03` and `EXIT-04` use the strongest filing-supported elimination date instead of defaulting every loss to the narrowing or execution date
-- [x] **TRANS-02**: executed, restarted, and terminated rows prefer bidder or bidder-cohort actors and carry an anchored date when the filing supports one
-- [x] **TRANS-03**: solicitation participant scope is recoverable enough for round rows and transitions through literal extraction, deterministic backfill, or explicit review output
+- [ ] **PRICE-01**: Single headline price extraction for `terms.per_share` using context-sensitive scoring — prefers "valued at", "best and final offer of", "offer of" phrases; penalizes component-level phrases ("stock price", "CVR", "strike price") and temporal qualifiers ("initially", "earlier")
+- [ ] **PRICE-02**: Explicit range extraction for `terms.range_low` and `terms.range_high` — accepts only when clause contains share-level offer context, normalizes to Decimal, swaps if low > high, rejects component splits
+- [ ] **PRICE-03**: Headline-vs-component disambiguation — mixed offers like "$21.50 including $19.00 cash and $2.50 CVR" populate `per_share=21.50` and `consideration_type=mixed` with null range fields; ranges mean only explicit intervals
 
-### Analyst Surface Fidelity
+### Consideration Type
 
-- [x] **SURFACE-01**: agreement-family rows preserve distinct analyst event types for NDA amendments, exclusivity, standstills, and clean-team agreements
-- [x] **SURFACE-02**: process-boundary rows cover bidder-originated sale approaches and advisor termination in an analyst-comparable way
-- [x] **SURFACE-03**: analyst exports do not present proxy `sort_date` values as exact `date_recorded`; precision is surfaced explicitly
-- [x] **SURFACE-04**: enterprise-value-only proposals export a usable value surface
+- [ ] **CTYPE-01**: Deterministic `terms.consideration_type` recovery using explicit cues only — "all-cash"/"in cash" for cash, "stock-for-stock"/"exchange ratio" for stock, "cash and stock/CVR/equity" for mixed
+- [ ] **CTYPE-02**: False-positive guards reject financing language ("equity commitment"), stock-price references ("trading price"), and out-of-scope mentions; decision window restricted to the selected price clause neighborhood
 
-### Contract And Validation Hardening
+### Delivery Mode
 
-- [x] **CONTRACT-01**: the v2 observation prompt plus extract/verify skill docs require solicitation recipients, chronology-safe proposal links, bidder-scoped outcomes, and distinct agreement families
-- [x] **CONTRACT-02**: v2 gates emit blocker or warning findings for missing named solicitation recipients, under-specified substantive outcomes, proxy-date leakage, and lossy agreement-family collapse
+- [ ] **DLVR-01**: Deterministic `delivery_mode` extraction with priority order: email > phone > oral > written > other — "emailed a written proposal" resolves to `email`, "orally indicated in a telephone call" resolves to `phone`
+- [ ] **DLVR-02**: Clause-aligned detection restricts mode parsing to the same local context as the selected proposal action; conflicting modes without clear alignment leave the field null with a warning
 
-### Legacy Retirement
+### Bidder Classification
 
-- [x] **RETIRE-01**: the live CLI, canonical `.claude/skills/` tree, mirrored skill trees, and repo docs expose only the live v2 workflow in the working tree
-- [x] **RETIRE-02**: live v2 modules no longer import legacy v1 runtime modules, and any shared logic needed by v2 is extracted into neutral non-legacy modules
-- [x] **RETIRE-03**: `data/legacy/v1/` and other v1-only working-tree artifacts are removed after the recovery path is pinned through Git history, milestone archives, and an explicit Git tag
-- [x] **RETIRE-04**: regression tests and contract docs are rewritten so the repo operates cleanly without the legacy v1 runtime, skills, archive, or migration path
+- [ ] **BKIND-01**: Filing-local `bidder_kind` classifier using evidence hierarchy: (1) direct descriptors near bidder name, (2) parenthetical list membership, (3) display-name heuristics, (4) small sponsor lexicon fallback
+- [ ] **BKIND-02**: Conservative confidence rule — set `bidder_kind` only when one class has strong evidence and clearly dominates; otherwise keep `unknown`
+
+### Secondary Booleans
+
+- [ ] **BOOL-01**: `mentions_non_binding` set true on explicit "non-binding" cue
+- [ ] **BOOL-02**: `includes_draft_merger_agreement` set true on "draft merger agreement", "form of merger agreement", or similar direct references
+- [ ] **BOOL-03**: `includes_markup` set true on "markup", "marked-up", "marked draft", or "comments on the draft merger agreement" — not triggered by mere attachment of a draft
+
+### Prompt And Schema Hardening
+
+- [ ] **PRMT-01**: Structured field completeness block added to `observations_v2_prefix.md` making field population an obligation, not a hint
+- [ ] **PRMT-02**: Bidder kind completeness block added to observations prompt requiring `bidder_kind` when filing gives a literal cue
+- [ ] **PRMT-03**: Worked examples added to `observations_v2_examples.md` covering: range-to-range_low/high, mixed-offer headline total, delivery mode mapping, and parenthetical bidder kind classification
+- [ ] **PRMT-04**: Schema guidance section added to `schema_ref.py` via `generate_schema_reference()` for `MoneyTerms.per_share`, `range_low`, `range_high`, `Proposal.delivery_mode`, and `PartyRecord.bidder_kind`
+
+### Semantic Completeness Gates
+
+- [ ] **GATE-01**: `gates_v2.py` adds blocker findings for proposals with surface price/range cues but missing `per_share` or `range_low/high` after repair
+- [ ] **GATE-02**: `gates_v2.py` adds warning findings for missing `consideration_type`, `delivery_mode`, `bidder_kind`, and secondary booleans when surface cues exist — promotable to blockers after signal validation
+
+### Test Coverage
+
+- [ ] **TEST-01**: Parser unit tests covering single prices, ranges, mixed offers, later-vs-earlier prices, stock-price false positives, each delivery mode, non-binding, draft merger agreement, and markup
+- [ ] **TEST-02**: Bidder kind classifier tests for direct descriptors, parenthetical list classification, display-name heuristics, and ambiguous cases that must remain `unknown`
+- [ ] **TEST-03**: Canonicalize integration tests for canonical-mode repair, quote-first-mode repair, idempotence, and fill-only behavior
+- [ ] **TEST-04**: Gate tests for missing cue-backed fields and prompt render tests asserting the new enforcement language is present
+
+### Validation
+
+- [ ] **VALID-01**: All 9 existing deals pass canonicalize → derive → export → gates through the repair layer without regression
+- [ ] **VALID-02**: 3-deal re-extraction (mac-gray, petsmart-inc, imprivata) after prompt changes demonstrates measurable raw extraction improvement for structured fields
+
+## Future Requirements
+
+### Second LLM Pass
+
+- **LLM-01**: Optional second LLM pass for bidder_kind and consideration_type when filing-local heuristics yield insufficient confidence — deferred unless coverage remains poor after v2.3
 
 ## Out of Scope
 
-- benchmark-driven generation logic or pre-export benchmark consultation
-- manual benchmark row editing to force reconciliation
-- non-filing-grounded inference that changes event meaning beyond the supporting text
-- UI or product-layer work unrelated to the extraction pipeline
+| Feature | Reason |
+|---------|--------|
+| Benchmark-driven generation logic | Violates the filing-grounded extraction contract |
+| Making structured fields globally required in Pydantic models | Fields are conditionally required based on filing content; validators lack filing context |
+| Overwriting populated values | Fill-only for v2.3 to prevent regression on correct extractions |
+| Full 9-deal re-extraction | Cost too high; 3-deal sample sufficient to validate prompt improvement |
+| Second LLM pass | Unnecessary for v2.3 unless bidder_kind coverage remains poor |
 
 ## Traceability
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| LINK-01 | Phase 20 | Satisfied |
-| LINK-02 | Phase 20 | Satisfied |
-| LINK-03 | Phase 20 | Satisfied |
-| TRANS-01 | Phase 21 | Satisfied |
-| TRANS-02 | Phase 21 | Satisfied |
-| TRANS-03 | Phase 21 | Satisfied |
-| SURFACE-01 | Phase 22 | Satisfied |
-| SURFACE-02 | Phase 22 | Satisfied |
-| SURFACE-03 | Phase 22 | Satisfied |
-| SURFACE-04 | Phase 22 | Satisfied |
-| CONTRACT-01 | Phase 23 | Satisfied |
-| CONTRACT-02 | Phase 23 | Satisfied |
-| RETIRE-01 | Phase 24 | Satisfied |
-| RETIRE-02 | Phase 24 | Satisfied |
-| RETIRE-03 | Phase 24 | Satisfied |
-| RETIRE-04 | Phase 24 | Satisfied |
+| REPR-01 | — | Pending |
+| REPR-02 | — | Pending |
+| REPR-03 | — | Pending |
+| REPR-04 | — | Pending |
+| PRICE-01 | — | Pending |
+| PRICE-02 | — | Pending |
+| PRICE-03 | — | Pending |
+| CTYPE-01 | — | Pending |
+| CTYPE-02 | — | Pending |
+| DLVR-01 | — | Pending |
+| DLVR-02 | — | Pending |
+| BKIND-01 | — | Pending |
+| BKIND-02 | — | Pending |
+| BOOL-01 | — | Pending |
+| BOOL-02 | — | Pending |
+| BOOL-03 | — | Pending |
+| PRMT-01 | — | Pending |
+| PRMT-02 | — | Pending |
+| PRMT-03 | — | Pending |
+| PRMT-04 | — | Pending |
+| GATE-01 | — | Pending |
+| GATE-02 | — | Pending |
+| TEST-01 | — | Pending |
+| TEST-02 | — | Pending |
+| TEST-03 | — | Pending |
+| TEST-04 | — | Pending |
+| VALID-01 | — | Pending |
+| VALID-02 | — | Pending |
 
 **Coverage:**
 
-- v2.2 requirements: 16 total
-- Satisfied in phase verification reports: 16
-- Unsatisfied or orphaned requirements: 0
+- v2.3 requirements: 28 total
+- Mapped to phases: 0
+- Unmapped: 28 (awaiting roadmap)
 
 ---
-*v2.1 requirement details moved to [milestones/v2.1-REQUIREMENTS.md](milestones/v2.1-REQUIREMENTS.md). v2.2 was extended on 2026-04-01 with Phase 24 for v1 retirement follow-on work.*
+*Requirements defined: 2026-04-04*
+*Last updated: 2026-04-04 after initial definition*
