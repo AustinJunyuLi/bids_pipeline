@@ -41,14 +41,6 @@ Current design constraints:
 
 ## Notes
 
-> **Historical background -- not the authoritative description of the live
-> runtime.** The documents below are from earlier design iterations that
-> referenced a `pipeline/` package, provider-specific backends, or the v1 event
-> contract as the live default. The live implementation authority is
-> `skill_pipeline/` plus `.claude/skills/`. Consult `CLAUDE.md` for the current
-> artifact contract.
-
-- [`docs/plans/2026-03-16-pipeline-design-v3.md`](plans/2026-03-16-pipeline-design-v3.md)
-- [`docs/plans/2026-03-16-prompt-engineering-spec.md`](plans/2026-03-16-prompt-engineering-spec.md)
-
-Active external review rounds are retained under `diagnosis/deepthink/`.
+Historical design iterations (pre-v2) are preserved in git history only.
+The live implementation authority is `skill_pipeline/` plus `.claude/skills/`.
+Consult `CLAUDE.md` for the current artifact contract.

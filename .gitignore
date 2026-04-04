@@ -29,3 +29,6 @@ __pycache__/
 
 # Local git worktrees
 .worktrees/
+
+# Runtime logs
+runtime_logs/*.log

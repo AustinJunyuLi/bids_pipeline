@@ -13,11 +13,6 @@ REQUIREMENTS = PROJECT_ROOT / "requirements.txt"
 GITIGNORE = PROJECT_ROOT / ".gitignore"
 ENV_LOCAL_EXAMPLE = PROJECT_ROOT / ".env.local.example"
 
-HISTORICAL_PLAN_DOCS = [
-    PROJECT_ROOT / "docs/plans/2026-03-16-pipeline-design-v3.md",
-    PROJECT_ROOT / "docs/plans/2026-03-16-prompt-engineering-spec.md",
-]
-
 CLAUDE_MD = PROJECT_ROOT / "CLAUDE.md"
 DESIGN_MD = PROJECT_ROOT / "docs" / "design.md"
 
@@ -56,26 +51,6 @@ def test_pyproject_declares_duckdb() -> None:
 
 def test_requirements_declares_duckdb() -> None:
     assert "duckdb" in _read(REQUIREMENTS).lower()
-
-
-def test_historical_plan_docs_carry_historical_disclaimer() -> None:
-    violations: list[str] = []
-    for path in HISTORICAL_PLAN_DOCS:
-        lowered = _read(path).lower()
-        if "historical" not in lowered:
-            violations.append(f"{path.name}: missing 'historical' disclaimer")
-    assert not violations, "Historical plan docs missing disclaimers:\n" + "\n".join(violations)
-
-
-def test_historical_plan_docs_reference_skill_pipeline() -> None:
-    violations: list[str] = []
-    for path in HISTORICAL_PLAN_DOCS:
-        text = _read(path)
-        if "skill_pipeline" not in text and ".claude/skills/" not in text:
-            violations.append(f"{path.name}: must reference skill_pipeline or .claude/skills/")
-    assert not violations, "Historical plan docs do not reference the live implementation:\n" + "\n".join(
-        violations
-    )
 
 
 def test_claude_md_includes_compose_prompts_stage() -> None:

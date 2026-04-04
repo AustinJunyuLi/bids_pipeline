@@ -26,11 +26,10 @@ Authoritative implementation truth lives here:
 - `.claude/skills/`
 - artifact path contracts encoded in `skill_pipeline/paths.py`
 
-Non-authorities unless explicitly brought back into sync:
+Non-authorities (post-export reference only):
 
-- historical design docs under `docs/plans/`
-- benchmark and diagnostic materials under `example/` and `diagnosis/`
-- old planning notes that describe earlier runtime shapes
+- benchmark materials under `example/`
+- diagnostic reviews under `diagnosis/`
 
 `.claude/skills/` is canonical. `.codex/skills/` and `.cursor/skills/` are
 mirrors and should be synced from `.claude/skills/`.
@@ -47,8 +46,6 @@ that branch.
 - Read `.claude/LOCAL.md` immediately after this file if it exists.
 - Use `.claude/skills/deal-agent/SKILL.md` for the full clean-rerun procedure.
 - Use `docs/design.md` for the compact design index.
-
-`.agents/skills/` is retired in this repo and should not be recreated.
 
 ## Live Workflow
 
@@ -131,7 +128,7 @@ python scripts/sync_skill_mirrors.py --check
 
 ## Editing Safety
 
-- Treat `raw/`, `data/deals/<slug>/source/`, and `data/skill/<slug>/` as generated artifacts.
+- Treat `data/deals/<slug>/source/` and `data/skill/<slug>/` as generated artifacts.
 - Never rewrite raw filing text under `raw/<slug>/filings/`.
 - Re-running `/deal-agent <slug>` rebuilds live per-deal v2 outputs under `data/skill/<slug>/`.
 - Update `.claude/skills/` first when skill docs change, then sync mirrors.
