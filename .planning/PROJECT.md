@@ -37,7 +37,14 @@ clean separation between literal facts and analyst-derived rows.
 
 ### Active
 
-None currently defined. The next milestone has not been planned yet.
+- Deterministic semantic repair module for structured field recovery from observation summaries
+- Price extraction (`per_share`, `range_low`, `range_high`) with headline-vs-component disambiguation
+- Consideration type, delivery mode, and secondary boolean recovery from filing cues
+- Filing-local bidder kind classification with conservative confidence rules
+- Prompt hardening for structured field completeness obligations
+- Schema guidance extensions in `schema_ref.py`
+- Semantic completeness gates in `gates_v2.py`
+- Focused test suite covering parsers, classifiers, integration, gates, and prompt rendering
 
 ### Out of Scope
 
@@ -66,6 +73,29 @@ The 9 active deals are:
 - saks
 - stec
 - zep
+
+## Current Milestone: v2.3 Structured Field Recovery
+
+**Goal:** Implement a deterministic semantic repair layer that converts surface
+facts trapped in observation summaries into structured fields, plus prompt
+hardening and semantic completeness gates to prevent future regressions.
+
+**Target features:**
+
+- deterministic repair module (`skill_pipeline/repair/structured_fields_v2.py`)
+  wired into `canonicalize.py` before final validation — fill-only, no overwrites
+- price extraction: `per_share`, `range_low/high` with headline-vs-component
+  disambiguation and subject-aware clause restriction
+- consideration type recovery via explicit cash/stock/mixed cues with false-positive guards
+- delivery mode extraction from proposal context (email/phone/oral/written)
+- bidder kind classification via filing-local descriptors, parenthetical list
+  membership, and conservative fallback heuristics
+- secondary boolean recovery: `mentions_non_binding`, `includes_draft_merger_agreement`,
+  `includes_markup`
+- prompt hardening: structured field completeness block in observations prompt
+- schema guidance: semantic guidance section in `schema_ref.py`
+- semantic completeness gates in `gates_v2.py`
+- focused test suite covering parsers, classifiers, integration, and gates
 
 ## Latest Completed Milestone
 
@@ -131,6 +161,26 @@ The live repo surface remains intentionally slim:
 | Rebuild live DuckDB from v2 only | Another agent should not face mixed v1/v2 database state during reconciliation or reruns | ✓ Adopted |
 | Remove `migrate-extract-v1-to-v2` and other legacy runtime shims once v2 is self-contained | Migration helpers were no longer part of the live contract after cutover | ✓ Retired on 2026-04-01 |
 | Treat the 2026-04-01 GPT Pro diagnosis as post-export planning input only | lets the team prioritize deterministic fixes without turning benchmark notes into hidden generation requirements | ✓ Adopted |
+| Treat the 2026-04-04 GPT Pro diagnosis as the v2.3 design anchor | structured field recovery design sourced from filing-level code review, not benchmark data | ✓ Adopted |
+| Semantic repair belongs in canonicalize, not normalize/extraction | repair needs access to both observations and spans; normalize is raw-shape only | ✓ Adopted |
+| Fill-only repair for milestone 1 — never overwrite populated values | prevents regression on fields that were already correctly extracted | ✓ Adopted |
+
+## Evolution
+
+This document evolves at phase transitions and milestone boundaries.
+
+**After each phase transition** (via `/gsd:transition`):
+1. Requirements invalidated? → Move to Out of Scope with reason
+2. Requirements validated? → Move to Validated with phase reference
+3. New requirements emerged? → Add to Active
+4. Decisions to log? → Add to Key Decisions
+5. "What This Is" still accurate? → Update if drifted
+
+**After each milestone** (via `/gsd:complete-milestone`):
+1. Full review of all sections
+2. Core Value check — still the right priority?
+3. Audit Out of Scope — reasons still valid?
+4. Update Context with current state
 
 ---
-*Last updated: 2026-04-01 after completing and auditing v2.2, including Phase 24 v1 retirement*
+*Last updated: 2026-04-04 after starting milestone v2.3 Structured Field Recovery*

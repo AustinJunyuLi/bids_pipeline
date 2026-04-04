@@ -1,15 +1,15 @@
 ---
 gsd_state_version: 1.0
-milestone: v2.2
-milestone_name: Reconciliation Lift + Surface Repair
-status: Milestone complete
-stopped_at: phase 24 executed and verified; v2.2 now closes with the v1 retirement follow-on complete
-last_updated: "2026-04-01T21:08:48Z"
+milestone: v2.3
+milestone_name: Structured Field Recovery
+status: Defining requirements
+stopped_at: milestone started, defining requirements
+last_updated: "2026-04-04"
 progress:
-  total_phases: 5
-  completed_phases: 5
-  total_plans: 5
-  completed_plans: 5
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
 ---
 
 # Project State
@@ -24,9 +24,10 @@ default.
 
 ## Current Position
 
-Milestone: `v2.2 Reconciliation Lift + Surface Repair` (phases 20-24 complete)
-Phase: none active
-Plan: none active
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-04-04 — Milestone v2.3 started
 
 ## Decisions In Force
 
@@ -35,7 +36,9 @@ Plan: none active
 - v1 survives only through Git history, milestone archives, and recovery tag `v1-working-tree-2026-04-01`
 - `data/legacy/v1/` and legacy skill/runtime surfaces are retired from the live working tree
 - `data/pipeline.duckdb` is the rebuilt live v2 database; the pre-cutover file is preserved separately
-- GPT Pro's 2026-04-01 diagnosis is planning input only and must not be consulted before the export boundary in live reruns
+- GPT Pro's 2026-04-01 and 2026-04-04 diagnoses are planning input only and must not be consulted before the export boundary in live reruns
+- Semantic repair is fill-only for v2.3 — never overwrite populated values
+- Repair layer belongs in canonicalize, not normalize/extraction
 
 ## Pending Todos
 
@@ -43,8 +46,8 @@ None recorded.
 
 ## Blockers / Concerns
 
-No active blockers remain inside v2.2. Any follow-on work belongs in a future
-milestone rather than in the completed v1-retirement slice.
+None. Design anchor is the GPT Pro round_1 review at
+`diagnosis/gptpro/2026-04-04/round_1/response.md`.
 
 ## Accumulated Context
 
