@@ -7,72 +7,84 @@
 - **v2.0 Observation Graph Architecture** -- Phases 10-16 (shipped 2026-03-31) -- [archive](milestones/v2.0-ROADMAP.md)
 - **v2.1 V2 Default Cutover + Legacy Archive** -- Phases 17-19 (complete 2026-03-31) -- [archive](milestones/v2.1-ROADMAP.md)
 - **v2.2 Reconciliation Lift + Surface Repair** -- Phases 20-24 (complete 2026-04-01) -- [audit](milestones/v2.2-MILESTONE-AUDIT.md)
+- **v2.3 Structured Field Recovery** -- Phases 25-29 (in progress)
 
 ## Current Milestone
 
-### v2.2 Reconciliation Lift + Surface Repair
+### v2.3 Structured Field Recovery
 
-- [x] **Phase 20: Proposal Linkage + Bid-Type Repair** - make proposal derivation chronology-safe, use proposal-local formality cues, and harden gates around invalid solicitation links (completed 2026-04-01)
-- [x] **Phase 21: Transition + Outcome Normalization** - redesign synthetic drop dating and bidder/outcome resolution so lifecycle rows reflect the strongest filing-supported elimination points (completed 2026-04-01)
-- [x] **Phase 22: Taxonomy + Export Surface Repairs** - expose agreement/process distinctions, date precision, and enterprise-value proposals on the analyst-facing export surface (completed 2026-04-01)
-- [x] **Phase 23: Extraction Contract + Validation Hardening** - update prompt/skill contracts and v2 gates so recipient scope, chronology-safe links, and substantive outcome requirements are enforced before export (completed 2026-04-01)
-- [x] **Phase 24: V1 Retirement + Git-History Preservation** - remove the legacy v1 runtime and skill surface from the working tree while preserving recoverability through Git history and archived milestone artifacts (completed 2026-04-01)
+- [ ] **Phase 25: Repair Module + Field Parsers** - build the deterministic repair module with all field extractors, classifiers, and their unit tests
+- [ ] **Phase 26: Canonicalize Integration** - wire the repair module into canonicalize.py in both quote-first and canonical modes with integration tests
+- [ ] **Phase 27: Semantic Completeness Gates** - add blocker and warning findings to gates_v2.py for missing cue-backed structured fields
+- [ ] **Phase 28: Prompt + Schema Hardening** - add structured field completeness obligations to prompts, worked examples, and schema guidance
+- [ ] **Phase 29: Re-Extraction Validation** - validate repair + prompt changes across all 9 existing deals and 3 re-extracted deals
 
 ## Phase Details
 
-### Phase 20: Proposal Linkage + Bid-Type Repair
-**Goal**: Repair proposal-to-phase association and bid-type derivation so proposal rows reflect filing-supported chronology and formality signals.
-**Depends on**: Phase 19 complete
-**Success Criteria**:
-  1. future-linked or type-incompatible `requested_by_observation_id` values are ignored or blocked, and proposals resolve to the latest same-day-or-earlier solicitation
-  2. proposal rows classify `Formal` or `Informal` from proposal-local clues plus repaired phase context, with deterministic precedence on mixed signals
-  3. phase-level cash-regime grouping uses the repaired proposal-phase association rather than trusting raw forward links
-  4. regression tests cover future-link fallback, definitive/final proposal language, and mixed-signal non-binding cases
+### Phase 25: Repair Module + Field Parsers
+**Goal**: A standalone repair module exists that can deterministically extract structured fields from observation summaries and linked evidence spans, with unit tests proving each parser and classifier works correctly in isolation
+**Depends on**: Phase 24 complete
+**Requirements**: REPR-01, REPR-03, REPR-04, PRICE-01, PRICE-02, PRICE-03, CTYPE-01, CTYPE-02, DLVR-01, DLVR-02, BKIND-01, BKIND-02, BOOL-01, BOOL-02, BOOL-03, TEST-01, TEST-02
+**Success Criteria** (what must be TRUE):
+  1. Running the repair module on an observation with a price in its summary but null `per_share` populates `per_share` with the correct headline value and leaves already-populated fields untouched
+  2. The price parser correctly disambiguates headline totals from component amounts in mixed offers (e.g., "$21.50 including $19.00 cash and $2.50 CVR" yields `per_share=21.50`, `consideration_type=mixed`, null ranges)
+  3. Consideration type, delivery mode, and secondary booleans are recovered from filing cues when the corresponding structured field is null, with false-positive guards rejecting financing language and out-of-scope mentions
+  4. Bidder kind classification returns a value only when one class has strong dominant evidence from the filing; ambiguous cases remain `unknown`
+  5. Unit tests pass for all parser and classifier paths including edge cases (later-vs-earlier prices, stock-price false positives, each delivery mode, ambiguous bidder kind, and all three secondary boolean patterns)
+**Plans**: TBD
 
-### Phase 21: Transition + Outcome Normalization
-**Goal**: Rework dropout and outcome derivation so elimination dates and winning actors reflect the strongest filing-grounded support.
-**Depends on**: Phase 20
-**Success Criteria**:
-  1. `EXIT-03` and `EXIT-04` use explicit exits, narrowing dates, prior-round deadlines, and winner-close fallback in a deterministic precedence ladder
-  2. executed and restarted rows prefer bidder or bidder-cohort actors and recover anchored dates when the filing provides nearby exact support
-  3. solicitation scope gaps feed deterministic backfill or explicit review output instead of silently producing unscoped round or drop rows
-  4. regression tests cover petsmart-like narrowing, providence-style residual losers, and restarted outcome subject recovery
+### Phase 26: Canonicalize Integration
+**Goal**: The repair module runs automatically during canonicalization in both processing modes, with integration tests proving fill-only behavior and idempotence
+**Depends on**: Phase 25
+**Requirements**: REPR-02, TEST-03
+**Success Criteria** (what must be TRUE):
+  1. Running `skill-pipeline canonicalize-v2 --deal <slug>` invokes the repair layer immediately before final Pydantic validation in both quote-first and canonical modes
+  2. Re-running canonicalize on already-repaired observations produces identical output (idempotent)
+  3. Populated fields are never overwritten by repair -- only null or missing fields are filled
+  4. Integration tests cover canonical-mode repair, quote-first-mode repair, idempotence, and the fill-only invariant
+**Plans**: TBD
 
-### Phase 22: Taxonomy + Export Surface Repairs
-**Goal**: Expand the analyst surface so agreement/process rows, proxy dates, and enterprise-value proposals are represented without misleading precision.
-**Depends on**: Phase 21
-**Success Criteria**:
-  1. exclusivity, standstill, NDA amendment, and clean-team observations export with distinct analyst event types
-  2. bidder-originated sale and advisor-termination boundaries map to analyst-comparable process rows where filing support exists
-  3. analyst exports distinguish exact-day dates from proxy sort dates and preserve enterprise-value-only proposals without forcing false per-share precision
-  4. regression tests cover the new event types, export columns, and downstream CSV surfaces
+### Phase 27: Semantic Completeness Gates
+**Goal**: The validation gates detect and report structured fields that should have been populated based on surface cues but were not, blocking or warning before export
+**Depends on**: Phase 26
+**Requirements**: GATE-01, GATE-02, TEST-04
+**Success Criteria** (what must be TRUE):
+  1. `skill-pipeline gates-v2 --deal <slug>` produces blocker findings for proposals where surface text contains price or range cues but `per_share` or `range_low/high` remain null after repair
+  2. `skill-pipeline gates-v2 --deal <slug>` produces warning findings for missing `consideration_type`, `delivery_mode`, `bidder_kind`, and secondary booleans when surface cues exist in the observation text
+  3. Gate tests verify that findings are generated for observations with cue-backed gaps and not generated when fields are correctly populated
+  4. Prompt render tests assert that new enforcement language is present in the rendered observation prompt
+**Plans**: TBD
 
-### Phase 23: Extraction Contract + Validation Hardening
-**Goal**: Update extraction instructions, skill docs, and v2 gates so the repaired derivation logic gets better inputs and failures surface before export.
-**Depends on**: Phase 22
-**Success Criteria**:
-  1. observation prompt instructions and canonical `.claude/skills` docs explicitly require recipient refs, chronology-safe proposal links, bidder-scoped outcomes, and agreement-family distinctions
-  2. `gates-v2` flags missing named solicitation recipients, forward proposal links, under-specified substantive outcomes, and lossy export warnings
-  3. representative prompt and validation tests, plus at least one multi-deal smoke pass, confirm the tightened contract without weakening the benchmark boundary
+### Phase 28: Prompt + Schema Hardening
+**Goal**: The extraction prompts and schema reference explicitly require structured field population, with worked examples showing correct extraction patterns so future LLM extractions produce fewer missing fields
+**Depends on**: Phase 25
+**Requirements**: PRMT-01, PRMT-02, PRMT-03, PRMT-04
+**Success Criteria** (what must be TRUE):
+  1. The rendered observations prompt contains an explicit structured field completeness block that frames field population as an obligation, not a suggestion
+  2. The observations prompt contains a bidder kind completeness block requiring `bidder_kind` when the filing gives a literal cue
+  3. Worked examples in the prompt cover range-to-range_low/high mapping, mixed-offer headline totals, delivery mode mapping, and parenthetical bidder kind classification
+  4. `schema_ref.py` generates semantic guidance for `MoneyTerms.per_share`, `range_low`, `range_high`, `Proposal.delivery_mode`, and `PartyRecord.bidder_kind` that is included in the prompt context
+**Plans**: TBD
 
-### Phase 24: V1 Retirement + Git-History Preservation
-**Goal**: Retire the legacy v1 runtime, skill surface, and archived working-tree artifacts from the live repository while keeping the prior implementation recoverable through Git history, milestone archives, and tags.
-**Depends on**: Phase 23
-**Success Criteria**:
-  1. the live CLI, repo docs, and canonical skill tree stop exposing v1-only commands and legacy skills in the working tree
-  2. any live v2 code that still imports or depends on legacy v1 modules is migrated, extracted, or deleted so the repo runs cleanly without the v1 runtime present
-  3. `data/legacy/v1/` and other v1-only working-tree artifacts are removed only after the recovery path is explicit through Git history, archived milestone docs, and any required release tags
-  4. regression tests and contract docs are updated so the repository can continue operating without the v1 surface present
+### Phase 29: Re-Extraction Validation
+**Goal**: The full pipeline with repair layer, gates, and prompt changes runs cleanly across all existing deals and shows measurable improvement on re-extracted deals
+**Depends on**: Phase 26, Phase 27, Phase 28
+**Requirements**: VALID-01, VALID-02
+**Success Criteria** (what must be TRUE):
+  1. All 9 existing deals pass `canonicalize-v2 -> derive -> db-export-v2 -> gates-v2` through the repair layer without regression (no new blocker findings, no previously passing fields now null)
+  2. 3-deal re-extraction (mac-gray, petsmart-inc, imprivata) after prompt changes produces measurably more populated structured fields compared to pre-v2.3 extraction output
+  3. No benchmark material is consulted before the export boundary during validation
+**Plans**: TBD
 
 ## Progress
 
 | Phase | Milestone | Status | Completed |
 |-------|-----------|--------|-----------|
-| 20. Proposal Linkage + Bid-Type Repair | v2.2 | Complete    | 2026-04-01 |
-| 21. Transition + Outcome Normalization | v2.2 | Complete    | 2026-04-01 |
-| 22. Taxonomy + Export Surface Repairs | v2.2 | Complete    | 2026-04-01 |
-| 23. Extraction Contract + Validation Hardening | v2.2 | Complete    | 2026-04-01 |
-| 24. V1 Retirement + Git-History Preservation | v2.2 | Complete | 2026-04-01 |
+| 25. Repair Module + Field Parsers | v2.3 | Not started | - |
+| 26. Canonicalize Integration | v2.3 | Not started | - |
+| 27. Semantic Completeness Gates | v2.3 | Not started | - |
+| 28. Prompt + Schema Hardening | v2.3 | Not started | - |
+| 29. Re-Extraction Validation | v2.3 | Not started | - |
 
 ---
-*Roadmap refreshed: 2026-04-01 from the GPT Pro diagnosis round_1, then completed with Phase 24 for v1 retirement follow-on work.*
+*Roadmap created: 2026-04-04 for milestone v2.3 Structured Field Recovery*

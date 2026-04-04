@@ -2,11 +2,11 @@
 gsd_state_version: 1.0
 milestone: v2.3
 milestone_name: Structured Field Recovery
-status: Defining requirements
-stopped_at: milestone started, defining requirements
+status: Ready to plan
+stopped_at: roadmap created, ready to plan Phase 25
 last_updated: "2026-04-04"
 progress:
-  total_phases: 0
+  total_phases: 5
   completed_phases: 0
   total_plans: 0
   completed_plans: 0
@@ -21,24 +21,24 @@ See: `.planning/PROJECT.md` and `.planning/ROADMAP.md`
 **Core value:** Produce the most correct filing-grounded structured deal record
 possible from raw text, with the observation-graph v2 contract as the live
 default.
+**Current focus:** Phase 25 -- Repair Module + Field Parsers
 
 ## Current Position
 
-Phase: Not started (defining requirements)
-Plan: —
-Status: Defining requirements
-Last activity: 2026-04-04 — Milestone v2.3 started
+Phase: 25 (1 of 5 in v2.3) -- Repair Module + Field Parsers
+Plan: --
+Status: Ready to plan
+Last activity: 2026-04-04 -- Roadmap created for v2.3
+
+Progress: [..........] 0%
 
 ## Decisions In Force
 
 - v2 is the live default workflow and benchmark boundary
-- `/deal-agent` and `/reconcile-alex` refer to the live v2 path
-- v1 survives only through Git history, milestone archives, and recovery tag `v1-working-tree-2026-04-01`
-- `data/legacy/v1/` and legacy skill/runtime surfaces are retired from the live working tree
-- `data/pipeline.duckdb` is the rebuilt live v2 database; the pre-cutover file is preserved separately
-- GPT Pro's 2026-04-01 and 2026-04-04 diagnoses are planning input only and must not be consulted before the export boundary in live reruns
-- Semantic repair is fill-only for v2.3 — never overwrite populated values
+- Semantic repair is fill-only for v2.3 -- never overwrite populated values
 - Repair layer belongs in canonicalize, not normalize/extraction
+- GPT Pro's 2026-04-04 diagnosis is the design anchor for v2.3
+- Dual-source parsing: cues from both summary text and linked evidence spans
 
 ## Pending Todos
 
@@ -53,13 +53,12 @@ None. Design anchor is the GPT Pro round_1 review at
 
 ### Roadmap Evolution
 
-- 2026-04-01: archived the completed `v2.1` live roadmap/requirements and opened `v2.2` from the GPT Pro round_1 gap inventory.
-- 2026-04-01: executed phases 20-23, verified all 12 mapped requirements, and recorded a passing v2.2 milestone audit.
-- 2026-04-01: Phase 24 added: V1 Retirement + Git-History Preservation.
-- 2026-04-01: executed and verified Phase 24, retired the live v1 working-tree surface, and pinned recovery to tag `v1-working-tree-2026-04-01` at commit `82a4966`.
+- 2026-04-01: v2.2 completed -- phases 20-24 verified, v1 retired
+- 2026-04-04: v2.3 milestone started, requirements defined (28 total)
+- 2026-04-04: v2.3 roadmap created -- 5 phases (25-29)
 
 ## Session Continuity
 
-Last session: 2026-04-01
-Stopped at: v2.2 complete after phase 24 verification
-Next action: define the next milestone when new work is ready
+Last session: 2026-04-04
+Stopped at: roadmap created for v2.3
+Next action: `/gsd:plan-phase 25`
