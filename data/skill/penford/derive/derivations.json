@@ -1,21 +1,201 @@
 {
   "phases": [],
-  "transitions": [],
+  "transitions": [
+    {
+      "transition_id": "exit-01_party_activist_seacor_obs_status_seacor_not_interested_20140812",
+      "subject_ref": "party_activist_seacor",
+      "subject_count": 1,
+      "event_date": {
+        "raw_text": "August 12, 2014",
+        "normalized_start": "2014-08-12",
+        "normalized_end": "2014-08-12",
+        "sort_date": "2014-08-12",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "from_state": "unknown",
+      "to_state": "inactive",
+      "reason_kind": "literal",
+      "basis": {
+        "rule_id": "EXIT-01",
+        "source_observation_ids": [
+          "obs_status_seacor_not_interested_20140812"
+        ],
+        "source_span_ids": [
+          "span_0007"
+        ],
+        "confidence": "high",
+        "explanation": "Literal status observation recorded bidder withdrawal or non-participation."
+      }
+    },
+    {
+      "transition_id": "exit-01_party_bidder_party_b_obs_status_party_b_not_interested_20140912",
+      "subject_ref": "party_bidder_party_b",
+      "subject_count": 1,
+      "event_date": {
+        "raw_text": "September 12, 2014",
+        "normalized_start": "2014-09-12",
+        "normalized_end": "2014-09-12",
+        "sort_date": "2014-09-12",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "from_state": "unknown",
+      "to_state": "inactive",
+      "reason_kind": "literal",
+      "basis": {
+        "rule_id": "EXIT-01",
+        "source_observation_ids": [
+          "obs_status_party_b_not_interested_20140912"
+        ],
+        "source_span_ids": [
+          "span_0015"
+        ],
+        "confidence": "high",
+        "explanation": "Literal status observation recorded bidder withdrawal or non-participation."
+      }
+    },
+    {
+      "transition_id": "exit-01_party_bidder_party_g_obs_status_party_g_excluded_20140924",
+      "subject_ref": "party_bidder_party_g",
+      "subject_count": 1,
+      "event_date": {
+        "raw_text": "September 24, 2014",
+        "normalized_start": "2014-09-24",
+        "normalized_end": "2014-09-24",
+        "sort_date": "2014-09-24",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "from_state": "unknown",
+      "to_state": "inactive",
+      "reason_kind": "literal",
+      "basis": {
+        "rule_id": "EXIT-01",
+        "source_observation_ids": [
+          "obs_status_party_g_excluded_20140924"
+        ],
+        "source_span_ids": [
+          "span_0020"
+        ],
+        "confidence": "high",
+        "explanation": "Literal status observation recorded bidder withdrawal or non-participation."
+      }
+    },
+    {
+      "transition_id": "exit-01_party_bidder_party_f_obs_status_party_f_not_interested_20140929",
+      "subject_ref": "party_bidder_party_f",
+      "subject_count": 1,
+      "event_date": {
+        "raw_text": "September 29, 2014",
+        "normalized_start": "2014-09-29",
+        "normalized_end": "2014-09-29",
+        "sort_date": "2014-09-29",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "from_state": "unknown",
+      "to_state": "inactive",
+      "reason_kind": "literal",
+      "basis": {
+        "rule_id": "EXIT-01",
+        "source_observation_ids": [
+          "obs_status_party_f_not_interested_20140929"
+        ],
+        "source_span_ids": [
+          "span_0022"
+        ],
+        "confidence": "high",
+        "explanation": "Literal status observation recorded bidder withdrawal or non-participation."
+      }
+    },
+    {
+      "transition_id": "exit-01_party_bidder_party_d_obs_status_party_d_not_interested_20141008",
+      "subject_ref": "party_bidder_party_d",
+      "subject_count": 1,
+      "event_date": {
+        "raw_text": "October 8, 2014",
+        "normalized_start": "2014-10-08",
+        "normalized_end": "2014-10-08",
+        "sort_date": "2014-10-08",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "from_state": "unknown",
+      "to_state": "inactive",
+      "reason_kind": "literal",
+      "basis": {
+        "rule_id": "EXIT-01",
+        "source_observation_ids": [
+          "obs_status_party_d_not_interested_20141008"
+        ],
+        "source_span_ids": [
+          "span_0027"
+        ],
+        "confidence": "high",
+        "explanation": "Literal status observation recorded bidder withdrawal or non-participation."
+      }
+    },
+    {
+      "transition_id": "exit-04_party_bidder_party_a_obs_solicitation_party_a_letter_20141004",
+      "subject_ref": "party_bidder_party_a",
+      "subject_count": 1,
+      "event_date": {
+        "raw_text": "October 4, 2014",
+        "normalized_start": "2014-10-04",
+        "normalized_end": "2014-10-04",
+        "sort_date": "2014-10-04",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "from_state": "active",
+      "to_state": "inactive",
+      "reason_kind": "lost_to_winner",
+      "basis": {
+        "rule_id": "EXIT-04",
+        "source_observation_ids": [
+          "obs_solicitation_party_a_letter_20141004"
+        ],
+        "source_span_ids": [
+          "span_0026"
+        ],
+        "confidence": "high",
+        "explanation": "Execution outcome closed out remaining active bidders in favor of the winner."
+      }
+    }
+  ],
   "cash_regimes": [],
   "judgments": [
     {
       "judgment_id": "judgment_001",
       "judgment_kind": "ambiguous_phase",
-      "subject_ref": "obs_evt_015",
+      "subject_ref": "obs_solicitation_party_a_letter_20141004",
       "human_review_required": true,
       "note": "Solicitation could not be classified as informal or formal from structured fields alone.",
       "basis": {
         "rule_id": "ROUND-UNRESOLVED",
         "source_observation_ids": [
-          "obs_evt_015"
+          "obs_solicitation_party_a_letter_20141004"
         ],
         "source_span_ids": [
-          "span_0025",
           "span_0026"
         ],
         "confidence": "medium",
@@ -24,90 +204,20 @@
     },
     {
       "judgment_id": "judgment_002",
-      "judgment_kind": "initiation",
-      "subject_ref": null,
+      "judgment_kind": "ambiguous_exit",
+      "subject_ref": "party_bidder_party_a",
       "human_review_required": true,
-      "note": "No explicit process-launch observation exists before bidding activity.",
+      "note": "cannot_improve status lacks a prior proposal to ground the exit state.",
       "basis": {
-        "rule_id": "INITIATION-AMBIGUOUS",
+        "rule_id": "EXIT-02-UNRESOLVED",
         "source_observation_ids": [
-          "obs_evt_002"
+          "obs_status_party_a_cannot_improve_20141004"
         ],
         "source_span_ids": [
-          "span_0003"
+          "span_0026"
         ],
         "confidence": "medium",
-        "explanation": "Bidding activity appears without an explicit process-initiation observation."
-      }
-    },
-    {
-      "judgment_id": "judgment_003",
-      "judgment_kind": "advisory_link",
-      "subject_ref": "advisor_deutsche_bank",
-      "human_review_required": true,
-      "note": "Advisor party lacks advised_party_id linkage.",
-      "basis": {
-        "rule_id": "ADVISORY-LINK-AMBIGUOUS",
-        "source_observation_ids": [],
-        "source_span_ids": [],
-        "confidence": "medium",
-        "explanation": "Advisor linkage is missing from the literal party record."
-      }
-    },
-    {
-      "judgment_id": "judgment_004",
-      "judgment_kind": "advisory_link",
-      "subject_ref": "advisor_perkins_coie",
-      "human_review_required": true,
-      "note": "Advisor party lacks advised_party_id linkage.",
-      "basis": {
-        "rule_id": "ADVISORY-LINK-AMBIGUOUS",
-        "source_observation_ids": [],
-        "source_span_ids": [],
-        "confidence": "medium",
-        "explanation": "Advisor linkage is missing from the literal party record."
-      }
-    },
-    {
-      "judgment_id": "judgment_005",
-      "judgment_kind": "advisory_link",
-      "subject_ref": "advisor_jp_morgan",
-      "human_review_required": true,
-      "note": "Advisor party lacks advised_party_id linkage.",
-      "basis": {
-        "rule_id": "ADVISORY-LINK-AMBIGUOUS",
-        "source_observation_ids": [],
-        "source_span_ids": [],
-        "confidence": "medium",
-        "explanation": "Advisor linkage is missing from the literal party record."
-      }
-    },
-    {
-      "judgment_id": "judgment_006",
-      "judgment_kind": "advisory_link",
-      "subject_ref": "advisor_sidley_austin",
-      "human_review_required": true,
-      "note": "Advisor party lacks advised_party_id linkage.",
-      "basis": {
-        "rule_id": "ADVISORY-LINK-AMBIGUOUS",
-        "source_observation_ids": [],
-        "source_span_ids": [],
-        "confidence": "medium",
-        "explanation": "Advisor linkage is missing from the literal party record."
-      }
-    },
-    {
-      "judgment_id": "judgment_007",
-      "judgment_kind": "advisory_link",
-      "subject_ref": "advisor_milbank",
-      "human_review_required": true,
-      "note": "Advisor party lacks advised_party_id linkage.",
-      "basis": {
-        "rule_id": "ADVISORY-LINK-AMBIGUOUS",
-        "source_observation_ids": [],
-        "source_span_ids": [],
-        "confidence": "medium",
-        "explanation": "Advisor linkage is missing from the literal party record."
+        "explanation": "Cannot-improve status appeared without prior proposal evidence."
       }
     }
   ],
@@ -115,12 +225,43 @@
     {
       "row_id": "row_0001",
       "origin": "literal",
-      "analyst_event_type": "proposal",
-      "subject_ref": "bidder_ingredion",
+      "analyst_event_type": "bid_press_release",
+      "subject_ref": "party_activist_seacor",
       "row_count": 1,
-      "bidder_name": "Ingredion Incorporated",
+      "bidder_name": "SEACOR",
       "bidder_type": null,
-      "bid_type": "Uncertain",
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2014-07-11",
+      "date_public": "2014-07-11",
+      "date_sort_proxy": null,
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROCESS",
+        "source_observation_ids": [
+          "obs_process_seacor_filing_20140711"
+        ],
+        "source_span_ids": [
+          "span_0001"
+        ],
+        "confidence": "high",
+        "explanation": "Literal process observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0002",
+      "origin": "literal",
+      "analyst_event_type": "bidder_interest",
+      "subject_ref": "party_bidder_ingredion",
+      "row_count": 1,
+      "bidder_name": "Ingredion",
+      "bidder_type": "S",
+      "bid_type": null,
       "value": null,
       "range_low": null,
       "range_high": null,
@@ -132,9 +273,102 @@
       "all_cash": null,
       "review_flags": [],
       "basis": {
+        "rule_id": "LITERAL-STATUS",
+        "source_observation_ids": [
+          "obs_status_ingredion_interest_20140717"
+        ],
+        "source_span_ids": [
+          "span_0002"
+        ],
+        "confidence": "high",
+        "explanation": "Literal expressed-interest status compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0003",
+      "origin": "literal",
+      "analyst_event_type": "nda",
+      "subject_ref": "party_bidder_ingredion",
+      "row_count": 1,
+      "bidder_name": "Ingredion",
+      "bidder_type": "S",
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2014-07-20",
+      "date_public": "2014-07-20",
+      "date_sort_proxy": null,
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-AGREEMENT",
+        "source_observation_ids": [
+          "obs_agreement_ingredion_secrecy_20140720"
+        ],
+        "source_span_ids": [
+          "span_0003"
+        ],
+        "confidence": "high",
+        "explanation": "Literal agreement observation compiled into NDA-family analyst row."
+      }
+    },
+    {
+      "row_id": "row_0004",
+      "origin": "literal",
+      "analyst_event_type": "ib_retention",
+      "subject_ref": "party_exec_committee_penford",
+      "row_count": 1,
+      "bidder_name": "Executive Committee",
+      "bidder_type": null,
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2014-07-24",
+      "date_public": "2014-07-24",
+      "date_sort_proxy": null,
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROCESS",
+        "source_observation_ids": [
+          "obs_process_advisor_retention_deutsche_20140724"
+        ],
+        "source_span_ids": [
+          "span_0004"
+        ],
+        "confidence": "high",
+        "explanation": "Literal process observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0005",
+      "origin": "literal",
+      "analyst_event_type": "proposal",
+      "subject_ref": "party_bidder_ingredion",
+      "row_count": 1,
+      "bidder_name": "Ingredion",
+      "bidder_type": "S",
+      "bid_type": "Uncertain",
+      "value": "17.0",
+      "range_low": null,
+      "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2014-08-06",
+      "date_public": "2014-08-06",
+      "date_sort_proxy": null,
+      "all_cash": false,
+      "review_flags": [],
+      "basis": {
         "rule_id": "LITERAL-PROPOSAL",
         "source_observation_ids": [
-          "obs_evt_004"
+          "obs_proposal_ingredion_20140806"
         ],
         "source_span_ids": [
           "span_0005"
@@ -144,46 +378,15 @@
       }
     },
     {
-      "row_id": "row_0002",
+      "row_id": "row_0006",
       "origin": "literal",
       "analyst_event_type": "proposal",
-      "subject_ref": "bidder_ingredion",
+      "subject_ref": "party_bidder_ingredion",
       "row_count": 1,
-      "bidder_name": "Ingredion Incorporated",
-      "bidder_type": null,
-      "bid_type": "Uncertain",
-      "value": null,
-      "range_low": null,
-      "range_high": null,
-      "enterprise_value": null,
-      "date_precision": "exact_day",
-      "date_recorded": "2014-08-06",
-      "date_public": "2014-08-06",
-      "date_sort_proxy": null,
-      "all_cash": null,
-      "review_flags": [],
-      "basis": {
-        "rule_id": "LITERAL-PROPOSAL",
-        "source_observation_ids": [
-          "obs_evt_007"
-        ],
-        "source_span_ids": [
-          "span_0010"
-        ],
-        "confidence": "high",
-        "explanation": "Literal proposal observation compiled directly into analyst row."
-      }
-    },
-    {
-      "row_id": "row_0003",
-      "origin": "literal",
-      "analyst_event_type": "proposal",
-      "subject_ref": "bidder_ingredion",
-      "row_count": 1,
-      "bidder_name": "Ingredion Incorporated",
-      "bidder_type": null,
-      "bid_type": "Uncertain",
-      "value": null,
+      "bidder_name": "Ingredion",
+      "bidder_type": "S",
+      "bid_type": "Informal",
+      "value": "18.0",
       "range_low": null,
       "range_high": null,
       "enterprise_value": null,
@@ -191,29 +394,30 @@
       "date_recorded": "2014-08-10",
       "date_public": "2014-08-10",
       "date_sort_proxy": null,
-      "all_cash": null,
+      "all_cash": true,
       "review_flags": [],
       "basis": {
         "rule_id": "LITERAL-PROPOSAL",
         "source_observation_ids": [
-          "obs_evt_008"
+          "obs_proposal_ingredion_20140810"
         ],
         "source_span_ids": [
-          "span_0011"
+          "span_0006",
+          "span_0008"
         ],
         "confidence": "high",
         "explanation": "Literal proposal observation compiled directly into analyst row."
       }
     },
     {
-      "row_id": "row_0004",
+      "row_id": "row_0007",
       "origin": "literal",
-      "analyst_event_type": "proposal",
-      "subject_ref": "bidder_party_a",
+      "analyst_event_type": "bidder_interest",
+      "subject_ref": "party_bidder_party_a",
       "row_count": 1,
       "bidder_name": "Party A",
-      "bidder_type": null,
-      "bid_type": "Uncertain",
+      "bidder_type": "S",
+      "bid_type": null,
       "value": null,
       "range_low": null,
       "range_high": null,
@@ -225,119 +429,648 @@
       "all_cash": null,
       "review_flags": [],
       "basis": {
-        "rule_id": "LITERAL-PROPOSAL",
+        "rule_id": "LITERAL-STATUS",
         "source_observation_ids": [
-          "obs_evt_009"
+          "obs_status_party_a_interest_20140811"
         ],
         "source_span_ids": [
-          "span_0014"
+          "span_0007"
         ],
         "confidence": "high",
-        "explanation": "Literal proposal observation compiled directly into analyst row."
-      }
-    },
-    {
-      "row_id": "row_0005",
-      "origin": "literal",
-      "analyst_event_type": "proposal",
-      "subject_ref": "bidder_ingredion",
-      "row_count": 1,
-      "bidder_name": "Ingredion Incorporated",
-      "bidder_type": null,
-      "bid_type": "Uncertain",
-      "value": null,
-      "range_low": null,
-      "range_high": null,
-      "enterprise_value": null,
-      "date_precision": "exact_day",
-      "date_recorded": "2014-09-17",
-      "date_public": "2014-09-17",
-      "date_sort_proxy": null,
-      "all_cash": null,
-      "review_flags": [],
-      "basis": {
-        "rule_id": "LITERAL-PROPOSAL",
-        "source_observation_ids": [
-          "obs_evt_014"
-        ],
-        "source_span_ids": [
-          "span_0032"
-        ],
-        "confidence": "high",
-        "explanation": "Literal proposal observation compiled directly into analyst row."
-      }
-    },
-    {
-      "row_id": "row_0006",
-      "origin": "literal",
-      "analyst_event_type": "proposal",
-      "subject_ref": "bidder_ingredion",
-      "row_count": 1,
-      "bidder_name": "Ingredion Incorporated",
-      "bidder_type": null,
-      "bid_type": "Uncertain",
-      "value": null,
-      "range_low": null,
-      "range_high": null,
-      "enterprise_value": null,
-      "date_precision": "exact_day",
-      "date_recorded": "2014-10-02",
-      "date_public": "2014-10-02",
-      "date_sort_proxy": null,
-      "all_cash": null,
-      "review_flags": [],
-      "basis": {
-        "rule_id": "LITERAL-PROPOSAL",
-        "source_observation_ids": [
-          "obs_evt_027"
-        ],
-        "source_span_ids": [
-          "span_0043"
-        ],
-        "confidence": "high",
-        "explanation": "Literal proposal observation compiled directly into analyst row."
-      }
-    },
-    {
-      "row_id": "row_0007",
-      "origin": "literal",
-      "analyst_event_type": "proposal",
-      "subject_ref": "bidder_ingredion",
-      "row_count": 1,
-      "bidder_name": "Ingredion Incorporated",
-      "bidder_type": null,
-      "bid_type": "Uncertain",
-      "value": null,
-      "range_low": null,
-      "range_high": null,
-      "enterprise_value": null,
-      "date_precision": "exact_day",
-      "date_recorded": "2014-10-02",
-      "date_public": "2014-10-02",
-      "date_sort_proxy": null,
-      "all_cash": null,
-      "review_flags": [],
-      "basis": {
-        "rule_id": "LITERAL-PROPOSAL",
-        "source_observation_ids": [
-          "obs_evt_028"
-        ],
-        "source_span_ids": [
-          "span_0044"
-        ],
-        "confidence": "high",
-        "explanation": "Literal proposal observation compiled directly into analyst row."
+        "explanation": "Literal expressed-interest status compiled directly into analyst row."
       }
     },
     {
       "row_id": "row_0008",
       "origin": "literal",
+      "analyst_event_type": "exclusivity",
+      "subject_ref": "party_bidder_ingredion",
+      "row_count": 1,
+      "bidder_name": "Ingredion",
+      "bidder_type": "S",
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2014-08-21",
+      "date_public": "2014-08-21",
+      "date_sort_proxy": null,
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-AGREEMENT",
+        "source_observation_ids": [
+          "obs_agreement_exclusivity_declined_20140821"
+        ],
+        "source_span_ids": [
+          "span_0009"
+        ],
+        "confidence": "high",
+        "explanation": "Literal agreement observation compiled into NDA-family analyst row."
+      }
+    },
+    {
+      "row_id": "row_0009",
+      "origin": "literal",
+      "analyst_event_type": "standstill",
+      "subject_ref": "party_bidder_ingredion",
+      "row_count": 1,
+      "bidder_name": "Ingredion",
+      "bidder_type": "S",
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2014-08-21",
+      "date_public": "2014-08-21",
+      "date_sort_proxy": null,
+      "all_cash": null,
+      "review_flags": [
+        "supersedes:obs_agreement_ingredion_secrecy_20140720"
+      ],
+      "basis": {
+        "rule_id": "AGREEMENT-01",
+        "source_observation_ids": [
+          "obs_agreement_ingredion_standstill_20140821"
+        ],
+        "source_span_ids": [
+          "span_0009"
+        ],
+        "confidence": "high",
+        "explanation": "Literal agreement observation compiled into NDA-family analyst row."
+      }
+    },
+    {
+      "row_id": "row_0010",
+      "origin": "literal",
+      "analyst_event_type": "target_sale",
+      "subject_ref": "party_board_penford",
+      "row_count": 1,
+      "bidder_name": "Penford board of directors",
+      "bidder_type": null,
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2014-08-28",
+      "date_public": "2014-08-28",
+      "date_sort_proxy": null,
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROCESS",
+        "source_observation_ids": [
+          "obs_process_market_check_launch_20140828"
+        ],
+        "source_span_ids": [
+          "span_0011"
+        ],
+        "confidence": "high",
+        "explanation": "Literal process observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0011",
+      "origin": "literal",
+      "analyst_event_type": "bidder_interest",
+      "subject_ref": "party_bidder_party_b",
+      "row_count": 1,
+      "bidder_name": "Party B",
+      "bidder_type": "S",
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2014-09-09",
+      "date_public": "2014-09-09",
+      "date_sort_proxy": null,
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-STATUS",
+        "source_observation_ids": [
+          "obs_status_party_b_interest_20140909"
+        ],
+        "source_span_ids": [
+          "span_0012"
+        ],
+        "confidence": "high",
+        "explanation": "Literal expressed-interest status compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0012",
+      "origin": "literal",
+      "analyst_event_type": "bidder_interest",
+      "subject_ref": "party_bidder_party_c",
+      "row_count": 1,
+      "bidder_name": "Party C",
+      "bidder_type": "S",
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2014-09-10",
+      "date_public": "2014-09-10",
+      "date_sort_proxy": null,
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-STATUS",
+        "source_observation_ids": [
+          "obs_status_party_c_interest_20140910"
+        ],
+        "source_span_ids": [
+          "span_0013"
+        ],
+        "confidence": "high",
+        "explanation": "Literal expressed-interest status compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0013",
+      "origin": "literal",
+      "analyst_event_type": "bidder_interest",
+      "subject_ref": "party_bidder_party_d",
+      "row_count": 1,
+      "bidder_name": "Party D",
+      "bidder_type": "S",
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2014-09-11",
+      "date_public": "2014-09-11",
+      "date_sort_proxy": null,
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-STATUS",
+        "source_observation_ids": [
+          "obs_status_party_d_interest_20140911"
+        ],
+        "source_span_ids": [
+          "span_0014"
+        ],
+        "confidence": "high",
+        "explanation": "Literal expressed-interest status compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0014",
+      "origin": "literal",
+      "analyst_event_type": "standstill",
+      "subject_ref": "party_bidder_party_c",
+      "row_count": 1,
+      "bidder_name": "Party C",
+      "bidder_type": "S",
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2014-09-15",
+      "date_public": "2014-09-15",
+      "date_sort_proxy": null,
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-AGREEMENT",
+        "source_observation_ids": [
+          "obs_agreement_party_c_standstill_20140915"
+        ],
+        "source_span_ids": [
+          "span_0017"
+        ],
+        "confidence": "high",
+        "explanation": "Literal agreement observation compiled into NDA-family analyst row."
+      }
+    },
+    {
+      "row_id": "row_0015",
+      "origin": "literal",
       "analyst_event_type": "proposal",
-      "subject_ref": "bidder_party_a",
+      "subject_ref": "party_bidder_ingredion",
+      "row_count": 1,
+      "bidder_name": "Ingredion",
+      "bidder_type": "S",
+      "bid_type": "Uncertain",
+      "value": null,
+      "range_low": "18.25",
+      "range_high": "18.5",
+      "enterprise_value": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2014-09-17",
+      "date_public": "2014-09-17",
+      "date_sort_proxy": null,
+      "all_cash": false,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROPOSAL",
+        "source_observation_ids": [
+          "obs_proposal_ingredion_20140917"
+        ],
+        "source_span_ids": [
+          "span_0018"
+        ],
+        "confidence": "high",
+        "explanation": "Literal proposal observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0016",
+      "origin": "literal",
+      "analyst_event_type": "standstill",
+      "subject_ref": "party_bidder_party_d",
+      "row_count": 1,
+      "bidder_name": "Party D",
+      "bidder_type": "S",
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2014-09-23",
+      "date_public": "2014-09-23",
+      "date_sort_proxy": null,
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-AGREEMENT",
+        "source_observation_ids": [
+          "obs_agreement_party_d_standstill_20140923"
+        ],
+        "source_span_ids": [
+          "span_0019"
+        ],
+        "confidence": "high",
+        "explanation": "Literal agreement observation compiled into NDA-family analyst row."
+      }
+    },
+    {
+      "row_id": "row_0017",
+      "origin": "literal",
+      "analyst_event_type": "standstill",
+      "subject_ref": "party_bidder_party_a",
       "row_count": 1,
       "bidder_name": "Party A",
-      "bidder_type": null,
+      "bidder_type": "S",
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2014-09-30",
+      "date_public": "2014-09-30",
+      "date_sort_proxy": null,
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-AGREEMENT",
+        "source_observation_ids": [
+          "obs_agreement_party_a_standstill_20140930"
+        ],
+        "source_span_ids": [
+          "span_0023"
+        ],
+        "confidence": "high",
+        "explanation": "Literal agreement observation compiled into NDA-family analyst row."
+      }
+    },
+    {
+      "row_id": "row_0018",
+      "origin": "literal",
+      "analyst_event_type": "proposal",
+      "subject_ref": "party_bidder_ingredion",
+      "row_count": 1,
+      "bidder_name": "Ingredion",
+      "bidder_type": "S",
       "bid_type": "Uncertain",
+      "value": "19.0",
+      "range_low": null,
+      "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2014-10-02",
+      "date_public": "2014-10-02",
+      "date_sort_proxy": null,
+      "all_cash": false,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROPOSAL",
+        "source_observation_ids": [
+          "obs_proposal_ingredion_20141002"
+        ],
+        "source_span_ids": [
+          "span_0024"
+        ],
+        "confidence": "high",
+        "explanation": "Literal proposal observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0019",
+      "origin": "literal",
+      "analyst_event_type": "executed",
+      "subject_ref": "party_bidder_ingredion",
+      "row_count": 1,
+      "bidder_name": "Ingredion",
+      "bidder_type": "S",
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2014-10-14",
+      "date_public": "2014-10-14",
+      "date_sort_proxy": null,
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-OUTCOME",
+        "source_observation_ids": [
+          "obs_outcome_executed_20141014"
+        ],
+        "source_span_ids": [
+          "span_0030"
+        ],
+        "confidence": "high",
+        "explanation": "Literal outcome observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0020",
+      "origin": "literal",
+      "analyst_event_type": "proposal",
+      "subject_ref": "party_bidder_party_a",
+      "row_count": 1,
+      "bidder_name": "Party A",
+      "bidder_type": "S",
+      "bid_type": "Uncertain",
+      "value": "16.0",
+      "range_low": null,
+      "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2014-10-14",
+      "date_public": "2014-10-14",
+      "date_sort_proxy": null,
+      "all_cash": false,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROPOSAL",
+        "source_observation_ids": [
+          "obs_proposal_party_a_20141014"
+        ],
+        "source_span_ids": [
+          "span_0028"
+        ],
+        "confidence": "high",
+        "explanation": "Literal proposal observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0021",
+      "origin": "literal",
+      "analyst_event_type": "sale_press_release",
+      "subject_ref": "party_target_penford",
+      "row_count": 1,
+      "bidder_name": "Penford",
+      "bidder_type": null,
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2014-10-15",
+      "date_public": "2014-10-15",
+      "date_sort_proxy": null,
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROCESS",
+        "source_observation_ids": [
+          "obs_process_press_release_20141015"
+        ],
+        "source_span_ids": [
+          "span_0030"
+        ],
+        "confidence": "high",
+        "explanation": "Literal process observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0022",
+      "origin": "literal",
+      "analyst_event_type": "sale_press_release",
+      "subject_ref": "party_bidder_ingredion",
+      "row_count": 1,
+      "bidder_name": "Ingredion",
+      "bidder_type": "S",
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2014-10-15",
+      "date_public": "2014-10-15",
+      "date_sort_proxy": null,
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROCESS",
+        "source_observation_ids": [
+          "obs_process_press_release_20141015"
+        ],
+        "source_span_ids": [
+          "span_0030"
+        ],
+        "confidence": "high",
+        "explanation": "Literal process observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0023",
+      "origin": "literal",
+      "analyst_event_type": "drop",
+      "subject_ref": "party_activist_seacor",
+      "row_count": 1,
+      "bidder_name": "SEACOR",
+      "bidder_type": null,
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2014-08-12",
+      "date_public": "2014-08-12",
+      "date_sort_proxy": null,
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "EXIT-01",
+        "source_observation_ids": [
+          "obs_status_seacor_not_interested_20140812"
+        ],
+        "source_span_ids": [
+          "span_0007"
+        ],
+        "confidence": "high",
+        "explanation": "Literal status observation recorded bidder withdrawal or non-participation."
+      }
+    },
+    {
+      "row_id": "row_0024",
+      "origin": "literal",
+      "analyst_event_type": "drop",
+      "subject_ref": "party_bidder_party_b",
+      "row_count": 1,
+      "bidder_name": "Party B",
+      "bidder_type": "S",
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2014-09-12",
+      "date_public": "2014-09-12",
+      "date_sort_proxy": null,
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "EXIT-01",
+        "source_observation_ids": [
+          "obs_status_party_b_not_interested_20140912"
+        ],
+        "source_span_ids": [
+          "span_0015"
+        ],
+        "confidence": "high",
+        "explanation": "Literal status observation recorded bidder withdrawal or non-participation."
+      }
+    },
+    {
+      "row_id": "row_0025",
+      "origin": "literal",
+      "analyst_event_type": "drop",
+      "subject_ref": "party_bidder_party_g",
+      "row_count": 1,
+      "bidder_name": "Party G",
+      "bidder_type": "S",
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2014-09-24",
+      "date_public": "2014-09-24",
+      "date_sort_proxy": null,
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "EXIT-01",
+        "source_observation_ids": [
+          "obs_status_party_g_excluded_20140924"
+        ],
+        "source_span_ids": [
+          "span_0020"
+        ],
+        "confidence": "high",
+        "explanation": "Literal status observation recorded bidder withdrawal or non-participation."
+      }
+    },
+    {
+      "row_id": "row_0026",
+      "origin": "literal",
+      "analyst_event_type": "drop",
+      "subject_ref": "party_bidder_party_f",
+      "row_count": 1,
+      "bidder_name": "Party F",
+      "bidder_type": "S",
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2014-09-29",
+      "date_public": "2014-09-29",
+      "date_sort_proxy": null,
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "EXIT-01",
+        "source_observation_ids": [
+          "obs_status_party_f_not_interested_20140929"
+        ],
+        "source_span_ids": [
+          "span_0022"
+        ],
+        "confidence": "high",
+        "explanation": "Literal status observation recorded bidder withdrawal or non-participation."
+      }
+    },
+    {
+      "row_id": "row_0027",
+      "origin": "literal",
+      "analyst_event_type": "drop",
+      "subject_ref": "party_bidder_party_d",
+      "row_count": 1,
+      "bidder_name": "Party D",
+      "bidder_type": "S",
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2014-10-08",
+      "date_public": "2014-10-08",
+      "date_sort_proxy": null,
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "EXIT-01",
+        "source_observation_ids": [
+          "obs_status_party_d_not_interested_20141008"
+        ],
+        "source_span_ids": [
+          "span_0027"
+        ],
+        "confidence": "high",
+        "explanation": "Literal status observation recorded bidder withdrawal or non-participation."
+      }
+    },
+    {
+      "row_id": "row_0028",
+      "origin": "derived",
+      "analyst_event_type": "drop",
+      "subject_ref": "party_bidder_party_a",
+      "row_count": 1,
+      "bidder_name": "Party A",
+      "bidder_type": "S",
+      "bid_type": null,
       "value": null,
       "range_low": null,
       "range_high": null,
@@ -347,110 +1080,19 @@
       "date_public": "2014-10-04",
       "date_sort_proxy": null,
       "all_cash": null,
-      "review_flags": [],
+      "review_flags": [
+        "reason:lost_to_winner"
+      ],
       "basis": {
-        "rule_id": "LITERAL-PROPOSAL",
+        "rule_id": "EXIT-04",
         "source_observation_ids": [
-          "obs_evt_029"
+          "obs_solicitation_party_a_letter_20141004"
         ],
         "source_span_ids": [
-          "span_0047"
+          "span_0026"
         ],
         "confidence": "high",
-        "explanation": "Literal proposal observation compiled directly into analyst row."
-      }
-    },
-    {
-      "row_id": "row_0009",
-      "origin": "literal",
-      "analyst_event_type": "proposal",
-      "subject_ref": "bidder_party_a",
-      "row_count": 1,
-      "bidder_name": "Party A",
-      "bidder_type": null,
-      "bid_type": "Uncertain",
-      "value": null,
-      "range_low": null,
-      "range_high": null,
-      "enterprise_value": null,
-      "date_precision": "exact_day",
-      "date_recorded": "2014-10-13",
-      "date_public": "2014-10-13",
-      "date_sort_proxy": null,
-      "all_cash": null,
-      "review_flags": [],
-      "basis": {
-        "rule_id": "LITERAL-PROPOSAL",
-        "source_observation_ids": [
-          "obs_evt_031"
-        ],
-        "source_span_ids": [
-          "span_0050"
-        ],
-        "confidence": "high",
-        "explanation": "Literal proposal observation compiled directly into analyst row."
-      }
-    },
-    {
-      "row_id": "row_0010",
-      "origin": "literal",
-      "analyst_event_type": "proposal",
-      "subject_ref": "bidder_ingredion",
-      "row_count": 1,
-      "bidder_name": "Ingredion Incorporated",
-      "bidder_type": null,
-      "bid_type": "Uncertain",
-      "value": null,
-      "range_low": null,
-      "range_high": null,
-      "enterprise_value": null,
-      "date_precision": "exact_day",
-      "date_recorded": "2014-10-14",
-      "date_public": "2014-10-14",
-      "date_sort_proxy": null,
-      "all_cash": null,
-      "review_flags": [],
-      "basis": {
-        "rule_id": "LITERAL-PROPOSAL",
-        "source_observation_ids": [
-          "obs_evt_032"
-        ],
-        "source_span_ids": [
-          "span_0051"
-        ],
-        "confidence": "high",
-        "explanation": "Literal proposal observation compiled directly into analyst row."
-      }
-    },
-    {
-      "row_id": "row_0011",
-      "origin": "literal",
-      "analyst_event_type": "proposal",
-      "subject_ref": "bidder_party_a",
-      "row_count": 1,
-      "bidder_name": "Party A",
-      "bidder_type": null,
-      "bid_type": "Informal",
-      "value": null,
-      "range_low": null,
-      "range_high": null,
-      "enterprise_value": null,
-      "date_precision": "exact_day",
-      "date_recorded": "2014-10-14",
-      "date_public": "2014-10-14",
-      "date_sort_proxy": null,
-      "all_cash": null,
-      "review_flags": [],
-      "basis": {
-        "rule_id": "LITERAL-PROPOSAL",
-        "source_observation_ids": [
-          "obs_evt_033"
-        ],
-        "source_span_ids": [
-          "span_0052"
-        ],
-        "confidence": "high",
-        "explanation": "Literal proposal observation compiled directly into analyst row."
+        "explanation": "Execution outcome closed out remaining active bidders in favor of the winner."
       }
     }
   ]

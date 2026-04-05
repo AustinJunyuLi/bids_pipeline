@@ -1,8 +1,75 @@
 {
-  "findings": [],
+  "findings": [
+    {
+      "gate_id": "substantive_outcome_missing_bidder_actor",
+      "rule_id": "substantive_outcome_requires_bidder_actor",
+      "severity": "warning",
+      "description": "Outcome 'obs_outcome_company_b_discussions_terminated_2013-07-23' is 'terminated' but does not include a bidder or bidder-cohort reference.",
+      "party_ids": [],
+      "cohort_ids": [],
+      "observation_ids": [
+        "obs_outcome_company_b_discussions_terminated_2013-07-23"
+      ]
+    },
+    {
+      "gate_id": "proxy_date_export_warning",
+      "rule_id": "rough_date_export_warning",
+      "severity": "warning",
+      "description": "Observation 'obs_proposal_hudsons_bay_indicative_floor_2013-04-15' uses non-exact date precision 'range'; downstream analyst surfaces should treat it as a proxy date.",
+      "party_ids": [],
+      "cohort_ids": [],
+      "observation_ids": [
+        "obs_proposal_hudsons_bay_indicative_floor_2013-04-15"
+      ]
+    },
+    {
+      "gate_id": "proxy_date_export_warning",
+      "rule_id": "rough_date_export_warning",
+      "severity": "warning",
+      "description": "Observation 'obs_proposal_sponsor_a_indicative_floor_2013-04-15' uses non-exact date precision 'range'; downstream analyst surfaces should treat it as a proxy date.",
+      "party_ids": [],
+      "cohort_ids": [],
+      "observation_ids": [
+        "obs_proposal_sponsor_a_indicative_floor_2013-04-15"
+      ]
+    },
+    {
+      "gate_id": "proxy_date_export_warning",
+      "rule_id": "rough_date_export_warning",
+      "severity": "warning",
+      "description": "Observation 'obs_proposal_hudsons_bay_indicative_range_2013-06-03' uses non-exact date precision 'range'; downstream analyst surfaces should treat it as a proxy date.",
+      "party_ids": [],
+      "cohort_ids": [],
+      "observation_ids": [
+        "obs_proposal_hudsons_bay_indicative_range_2013-06-03"
+      ]
+    },
+    {
+      "gate_id": "proxy_date_export_warning",
+      "rule_id": "rough_date_export_warning",
+      "severity": "warning",
+      "description": "Observation 'obs_proposal_sponsor_ae_indicative_range_2013-06-03' uses non-exact date precision 'range'; downstream analyst surfaces should treat it as a proxy date.",
+      "party_ids": [],
+      "cohort_ids": [],
+      "observation_ids": [
+        "obs_proposal_sponsor_ae_indicative_range_2013-06-03"
+      ]
+    },
+    {
+      "gate_id": "proxy_date_export_warning",
+      "rule_id": "rough_date_export_warning",
+      "severity": "warning",
+      "description": "Observation 'obs_agreement_nda_company_i_2013-08-relative' uses non-exact date precision 'relative'; downstream analyst surfaces should treat it as a proxy date.",
+      "party_ids": [],
+      "cohort_ids": [],
+      "observation_ids": [
+        "obs_agreement_nda_company_i_2013-08-relative"
+      ]
+    }
+  ],
   "summary": {
     "blocker_count": 0,
-    "warning_count": 0,
+    "warning_count": 6,
     "status": "pass"
   }
 }

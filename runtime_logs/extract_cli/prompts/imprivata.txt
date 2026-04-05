@@ -1,0 +1,27 @@
+Read only the filing-grounded extraction inputs for deal `imprivata` in `/home/austinli/Projects/bids_pipeline`:
+- `/home/austinli/Projects/bids_pipeline/.claude/skills/extract-deal-v2/SKILL.md`
+- `/home/austinli/Projects/bids_pipeline/data/skill/imprivata/prompt_v2/manifest.json`
+- every `rendered.md` referenced by that manifest
+- if needed for schema certainty only: `/home/austinli/Projects/bids_pipeline/skill_pipeline/extract_artifacts_v2.py` and `/home/austinli/Projects/bids_pipeline/tests/test_skill_extract_artifacts_v2.py`
+
+Do not read benchmark or diagnostic material (`example/`, `diagnosis/`, `reconcile/`). Do not dry-run. Actually perform the extraction.
+
+Task:
+- Produce the complete quote-first raw observation artifact for the full deal.
+- Write it to `/home/austinli/Projects/bids_pipeline/data/skill/imprivata/extract_v2/observations_raw.json`.
+- Validate the written file locally against `RawObservationArtifactV2`. If validation fails, fix the file and revalidate before finishing.
+
+Requirements:
+- Filing text is the only source of truth.
+- Top-level keys in this exact order: `quotes`, `parties`, `cohorts`, `observations`, `exclusions`, `coverage`.
+- Every structured record must cite `quote_ids`.
+- Reuse quote IDs when the same quote supports multiple records.
+- Preserve literal ambiguity with `null` or `other_detail`; do not infer benchmark-style judgments.
+- `requested_by_observation_id` must be null unless it points to a same-day-or-earlier solicitation.
+- Executed/restarted outcomes must carry bidder or bidder-cohort refs when named.
+- `recipient_refs` must be populated when invitees or reusable cohorts are named.
+- `unknown_member_count` must equal `exact_count - len(known_member_party_ids)`.
+- All IDs and refs must resolve within the single artifact.
+- Touch no files outside `/home/austinli/Projects/bids_pipeline/data/skill/imprivata/extract_v2/observations_raw.json`.
+
+Final reply: one short line confirming the file path written.

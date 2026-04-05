@@ -1,0 +1,2036 @@
+You are repairing a filing-grounded M&A raw extraction artifact. Return ONLY one valid JSON object, no prose, no markdown.
+Deal: imprivata
+Top-level keys in exact order: quotes, parties, cohorts, observations, exclusions, coverage.
+Hard constraints:
+- Filing text is the only source of truth.
+- Every structured record must cite quote_ids.
+- Reuse quote IDs where appropriate.
+- Preserve ambiguity with null or other_detail.
+- requested_by_observation_id cannot point forward.
+- recipient_refs required when named invitees/cohorts appear.
+- unknown_member_count must equal exact_count - len(known_member_party_ids).
+- All refs must resolve within the artifact.
+Task: repair the current artifact so it covers the uncovered cues below while staying literal and schema-valid.
+Current artifact JSON:
+{
+  "quotes": [
+    {
+      "quote_id": "Q001",
+      "block_id": "B015",
+      "text": "the Company"
+    },
+    {
+      "quote_id": "Q002",
+      "block_id": "B015",
+      "text": "the Board"
+    },
+    {
+      "quote_id": "Q003",
+      "block_id": "B050",
+      "text": "Special Committee"
+    },
+    {
+      "quote_id": "Q004",
+      "block_id": "B006",
+      "text": "Thoma Bravo"
+    },
+    {
+      "quote_id": "Q005",
+      "block_id": "B030",
+      "text": "Sponsor A"
+    },
+    {
+      "quote_id": "Q006",
+      "block_id": "B030",
+      "text": "Sponsor B"
+    },
+    {
+      "quote_id": "Q007",
+      "block_id": "B030",
+      "text": "Strategic 1"
+    },
+    {
+      "quote_id": "Q008",
+      "block_id": "B030",
+      "text": "Strategic 2"
+    },
+    {
+      "quote_id": "Q009",
+      "block_id": "B030",
+      "text": "Strategic 3"
+    },
+    {
+      "quote_id": "Q010",
+      "block_id": "B055",
+      "text": "Strategic 4"
+    },
+    {
+      "quote_id": "Q011",
+      "block_id": "B022",
+      "text": "Barclays"
+    },
+    {
+      "quote_id": "Q012",
+      "block_id": "B016",
+      "text": "Goodwin Procter LLP"
+    },
+    {
+      "quote_id": "Q013",
+      "block_id": "B074",
+      "text": "Kirkland & Ellis LLP"
+    },
+    {
+      "quote_id": "Q014",
+      "block_id": "B006",
+      "text": "In early 2015, and again in June 2015"
+    },
+    {
+      "quote_id": "Q015",
+      "block_id": "B006",
+      "text": "potential interest in exploring a possible business transaction with the Company"
+    },
+    {
+      "quote_id": "Q016",
+      "block_id": "B006",
+      "text": "No specific proposals were made during these meetings"
+    },
+    {
+      "quote_id": "Q017",
+      "block_id": "B011",
+      "text": "In January 2016"
+    },
+    {
+      "quote_id": "Q018",
+      "block_id": "B011",
+      "text": "interest in a potential transaction with the Company"
+    },
+    {
+      "quote_id": "Q019",
+      "block_id": "B011",
+      "text": "No specific proposal was made"
+    },
+    {
+      "quote_id": "Q020",
+      "block_id": "B015",
+      "text": "sent an unsolicited, non-binding indication of interest letter addressed to the Board"
+    },
+    {
+      "quote_id": "Q021",
+      "block_id": "B015",
+      "text": "acquiring the Company for cash at a purchase price of $15.00 per share"
+    },
+    {
+      "quote_id": "Q022",
+      "block_id": "B016",
+      "text": "the Board held a meeting to consider"
+    },
+    {
+      "quote_id": "Q023",
+      "block_id": "B016",
+      "text": "authorized an informal advisory committee of directors"
+    },
+    {
+      "quote_id": "Q024",
+      "block_id": "B022",
+      "text": "The Board engaged Barclays"
+    },
+    {
+      "quote_id": "Q025",
+      "block_id": "B022",
+      "text": "financial advisor"
+    },
+    {
+      "quote_id": "Q026",
+      "block_id": "B029",
+      "text": "take steps to further explore a potential business combination transaction involving the Company"
+    },
+    {
+      "quote_id": "Q027",
+      "block_id": "B029",
+      "text": "Barclays should contact each of the parties on the indicative list on a confidential basis"
+    },
+    {
+      "quote_id": "Q028",
+      "block_id": "B030",
+      "text": "three strategic parties and four financial sponsors executed confidentiality agreements with the Company"
+    },
+    {
+      "quote_id": "Q029",
+      "block_id": "B030",
+      "text": "including Thoma Bravo on May 10, 2016"
+    },
+    {
+      "quote_id": "Q030",
+      "block_id": "B030",
+      "text": "All standstill obligations under the confidentiality agreements automatically terminated"
+    },
+    {
+      "quote_id": "Q031",
+      "block_id": "B036",
+      "text": "to the six parties that had executed a confidentiality agreement and attended meetings with Company management by that date"
+    },
+    {
+      "quote_id": "Q032",
+      "block_id": "B036",
+      "text": "a deadline for submitting indications of interest by June 9, 2016"
+    },
+    {
+      "quote_id": "Q033",
+      "block_id": "B036",
+      "text": "Bidders were requested to specify a per share offer price"
+    },
+    {
+      "quote_id": "Q034",
+      "block_id": "B038",
+      "text": "it was no longer interested in participating in the strategic process and would not be submitting an indication of interest"
+    },
+    {
+      "quote_id": "Q035",
+      "block_id": "B039",
+      "text": "written preliminary non-binding indications of interest"
+    },
+    {
+      "quote_id": "Q036",
+      "block_id": "B039",
+      "text": "Sponsor A indicated a price of $16.50 per share"
+    },
+    {
+      "quote_id": "Q037",
+      "block_id": "B039",
+      "text": "Sponsor B indicated a range of $17.00 - $18.00 per share"
+    },
+    {
+      "quote_id": "Q038",
+      "block_id": "B039",
+      "text": "Thoma Bravo indicated a price of $17.25 per share, and also provided a form of equity commitment letter and draft merger agreement"
+    },
+    {
+      "quote_id": "Q039",
+      "block_id": "B042",
+      "text": "it was no longer interested in exploring a potential transaction with the Company"
+    },
+    {
+      "quote_id": "Q040",
+      "block_id": "B046",
+      "text": "the Board authorized Barclays to advance all three parties to the second phase of the strategic process"
+    },
+    {
+      "quote_id": "Q041",
+      "block_id": "B049",
+      "text": "if it were to submit a second round bid, it would not be meaningfully higher than the price indicated in its June 9, 2016 preliminary indication of interest"
+    },
+    {
+      "quote_id": "Q042",
+      "block_id": "B050",
+      "text": "the Board established a special committee of the Board"
+    },
+    {
+      "quote_id": "Q043",
+      "block_id": "B052",
+      "text": "The Special Committee consisted of all of the non-management directors on the Board"
+    },
+    {
+      "quote_id": "Q044",
+      "block_id": "B054",
+      "text": "The Special Committee confirmed that it was not interested in pursuing a transaction at the price indicated by Sponsor A in its initial bid"
+    },
+    {
+      "quote_id": "Q045",
+      "block_id": "B057",
+      "text": "it was not interested in participating in the strategic process"
+    },
+    {
+      "quote_id": "Q046",
+      "block_id": "B061",
+      "text": "sent final bid process letters to Sponsor B and Thoma Bravo"
+    },
+    {
+      "quote_id": "Q047",
+      "block_id": "B061",
+      "text": "requesting marked drafts"
+    },
+    {
+      "quote_id": "Q048",
+      "block_id": "B061",
+      "text": "setting a final bid deadline of July 8, 2016"
+    },
+    {
+      "quote_id": "Q049",
+      "block_id": "B066",
+      "text": "if it were to submit a final bid, it would be significantly below the price indicated in its June 9, 2016 preliminary indication of interest"
+    },
+    {
+      "quote_id": "Q050",
+      "block_id": "B067",
+      "text": "pursue a proposal at price significantly below the price that Sponsor B originally indicated"
+    },
+    {
+      "quote_id": "Q051",
+      "block_id": "B074",
+      "text": "sent a revised draft of the merger agreement to Goodwin"
+    },
+    {
+      "quote_id": "Q052",
+      "block_id": "B078",
+      "text": "only Thoma Bravo submitted a bid for the Company"
+    },
+    {
+      "quote_id": "Q053",
+      "block_id": "B078",
+      "text": "bid was at a price of $19.00 per share in cash"
+    },
+    {
+      "quote_id": "Q054",
+      "block_id": "B078",
+      "text": "was prepared to execute its revised draft of the merger agreement"
+    },
+    {
+      "quote_id": "Q055",
+      "block_id": "B085",
+      "text": "submit its best and final offer"
+    },
+    {
+      "quote_id": "Q056",
+      "block_id": "B086",
+      "text": "received a revised written, non-binding proposal from Thoma Bravo setting forth its best and final offer of $19.25 per share"
+    },
+    {
+      "quote_id": "Q057",
+      "block_id": "B086",
+      "text": "$19.25 per share was its best and final offer"
+    },
+    {
+      "quote_id": "Q058",
+      "block_id": "B093",
+      "text": "Kirkland sent Goodwin a draft of an exclusivity agreement"
+    },
+    {
+      "quote_id": "Q059",
+      "block_id": "B093",
+      "text": "the Company would not enter into an exclusivity agreement"
+    },
+    {
+      "quote_id": "Q060",
+      "block_id": "B099",
+      "text": "recommend to the Board that the Company enter into the merger agreement for the transaction with Thoma Bravo"
+    },
+    {
+      "quote_id": "Q061",
+      "block_id": "B100",
+      "text": "the Board unanimously adopted and declared the advisability of the merger agreement"
+    },
+    {
+      "quote_id": "Q062",
+      "block_id": "B101",
+      "text": "the parties finalized and executed the merger agreement"
+    },
+    {
+      "quote_id": "Q063",
+      "block_id": "B101",
+      "text": "the Company and Thoma Bravo issued a joint press release announcing the execution of the merger agreement"
+    },
+    {
+      "quote_id": "Q064",
+      "block_id": "B048",
+      "text": "it was no longer interested in exploring a potential transaction with the Company"
+    },
+    {
+      "quote_id": "Q065",
+      "block_id": "B057",
+      "text": "an acquisition of the Company would not be a strategic fit for it and that it was not interested in participating in the strategic process"
+    }
+  ],
+  "parties": [
+    {
+      "party_id": "party_company",
+      "display_name": "Imprivata",
+      "canonical_name": "IMPRIVATA INC",
+      "aliases": [
+        "the Company"
+      ],
+      "role": "other",
+      "bidder_kind": null,
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": "public",
+      "geography": null,
+      "quote_ids": [
+        "Q001"
+      ]
+    },
+    {
+      "party_id": "party_board",
+      "display_name": "Board",
+      "canonical_name": "BOARD",
+      "aliases": [],
+      "role": "target_board",
+      "bidder_kind": null,
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "quote_ids": [
+        "Q002"
+      ]
+    },
+    {
+      "party_id": "party_special_committee",
+      "display_name": "Special Committee",
+      "canonical_name": "SPECIAL COMMITTEE",
+      "aliases": [],
+      "role": "target_board",
+      "bidder_kind": null,
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "quote_ids": [
+        "Q003",
+        "Q043"
+      ]
+    },
+    {
+      "party_id": "party_thoma_bravo",
+      "display_name": "Thoma Bravo",
+      "canonical_name": "THOMA BRAVO",
+      "aliases": [],
+      "role": "bidder",
+      "bidder_kind": "financial",
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": "private",
+      "geography": null,
+      "quote_ids": [
+        "Q004"
+      ]
+    },
+    {
+      "party_id": "party_sponsor_a",
+      "display_name": "Sponsor A",
+      "canonical_name": "SPONSOR A",
+      "aliases": [],
+      "role": "bidder",
+      "bidder_kind": "financial",
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": "private",
+      "geography": null,
+      "quote_ids": [
+        "Q005"
+      ]
+    },
+    {
+      "party_id": "party_sponsor_b",
+      "display_name": "Sponsor B",
+      "canonical_name": "SPONSOR B",
+      "aliases": [],
+      "role": "bidder",
+      "bidder_kind": "financial",
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": "private",
+      "geography": null,
+      "quote_ids": [
+        "Q006"
+      ]
+    },
+    {
+      "party_id": "party_strategic_1",
+      "display_name": "Strategic 1",
+      "canonical_name": "STRATEGIC 1",
+      "aliases": [],
+      "role": "bidder",
+      "bidder_kind": "strategic",
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "quote_ids": [
+        "Q007"
+      ]
+    },
+    {
+      "party_id": "party_strategic_2",
+      "display_name": "Strategic 2",
+      "canonical_name": "STRATEGIC 2",
+      "aliases": [],
+      "role": "bidder",
+      "bidder_kind": "strategic",
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "quote_ids": [
+        "Q008"
+      ]
+    },
+    {
+      "party_id": "party_strategic_3",
+      "display_name": "Strategic 3",
+      "canonical_name": "STRATEGIC 3",
+      "aliases": [],
+      "role": "bidder",
+      "bidder_kind": "strategic",
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "quote_ids": [
+        "Q009"
+      ]
+    },
+    {
+      "party_id": "party_strategic_4",
+      "display_name": "Strategic 4",
+      "canonical_name": "STRATEGIC 4",
+      "aliases": [],
+      "role": "bidder",
+      "bidder_kind": "strategic",
+      "advisor_kind": null,
+      "advised_party_id": null,
+      "listing_status": null,
+      "geography": null,
+      "quote_ids": [
+        "Q010"
+      ]
+    },
+    {
+      "party_id": "party_barclays",
+      "display_name": "Barclays",
+      "canonical_name": "BARCLAYS",
+      "aliases": [],
+      "role": "advisor",
+      "bidder_kind": null,
+      "advisor_kind": "financial",
+      "advised_party_id": "party_company",
+      "listing_status": null,
+      "geography": null,
+      "quote_ids": [
+        "Q011"
+      ]
+    },
+    {
+      "party_id": "party_goodwin",
+      "display_name": "Goodwin Procter LLP",
+      "canonical_name": "GOODWIN PROCTER LLP",
+      "aliases": [
+        "Goodwin"
+      ],
+      "role": "advisor",
+      "bidder_kind": null,
+      "advisor_kind": "legal",
+      "advised_party_id": "party_company",
+      "listing_status": null,
+      "geography": null,
+      "quote_ids": [
+        "Q012"
+      ]
+    },
+    {
+      "party_id": "party_kirkland",
+      "display_name": "Kirkland & Ellis LLP",
+      "canonical_name": "KIRKLAND & ELLIS LLP",
+      "aliases": [
+        "Kirkland"
+      ],
+      "role": "advisor",
+      "bidder_kind": null,
+      "advisor_kind": "legal",
+      "advised_party_id": "party_thoma_bravo",
+      "listing_status": null,
+      "geography": null,
+      "quote_ids": [
+        "Q013"
+      ]
+    }
+  ],
+  "cohorts": [
+    {
+      "cohort_id": "cohort_nda_signers",
+      "label": "Confidentiality-agreement signers",
+      "parent_cohort_id": null,
+      "exact_count": 7,
+      "known_member_party_ids": [
+        "party_strategic_1",
+        "party_strategic_2",
+        "party_strategic_3",
+        "party_sponsor_a",
+        "party_sponsor_b",
+        "party_thoma_bravo"
+      ],
+      "unknown_member_count": 1,
+      "membership_basis": "Parties that executed confidentiality agreements with the Company during the strategic process.",
+      "created_by_observation_id": "obs_agreement_ndas_20160506_20160609",
+      "quote_ids": [
+        "Q028",
+        "Q029",
+        "Q005",
+        "Q006",
+        "Q007",
+        "Q008",
+        "Q009",
+        "Q004"
+      ]
+    },
+    {
+      "cohort_id": "cohort_initial_ioi_recipients",
+      "label": "Initial IOI recipients",
+      "parent_cohort_id": null,
+      "exact_count": 6,
+      "known_member_party_ids": [
+        "party_strategic_1",
+        "party_strategic_2",
+        "party_strategic_3",
+        "party_sponsor_a",
+        "party_sponsor_b",
+        "party_thoma_bravo"
+      ],
+      "unknown_member_count": 0,
+      "membership_basis": "Parties that had executed confidentiality agreements and attended meetings with Company management by June 3, 2016.",
+      "created_by_observation_id": "obs_solicitation_ioi_20160603",
+      "quote_ids": [
+        "Q031",
+        "Q005",
+        "Q006",
+        "Q007",
+        "Q008",
+        "Q009",
+        "Q004"
+      ]
+    },
+    {
+      "cohort_id": "cohort_second_phase_bidders",
+      "label": "Second-phase bidders",
+      "parent_cohort_id": null,
+      "exact_count": 3,
+      "known_member_party_ids": [
+        "party_sponsor_a",
+        "party_sponsor_b",
+        "party_thoma_bravo"
+      ],
+      "unknown_member_count": 0,
+      "membership_basis": "Parties advanced to the second phase of the strategic process after the June 9, 2016 indications of interest.",
+      "created_by_observation_id": "obs_status_selected_to_advance_20160612",
+      "quote_ids": [
+        "Q040",
+        "Q005",
+        "Q006",
+        "Q004"
+      ]
+    }
+  ],
+  "observations": [
+    {
+      "observation_id": "obs_status_tb_interest_2015",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "In early 2015, and again in June 2015",
+        "normalized_start": "2015-01-01",
+        "normalized_end": "2015-06-30",
+        "sort_date": "2015-01-01",
+        "precision": "range",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": "Captures two informal approaches described in one sentence.",
+        "is_inferred": true
+      },
+      "subject_refs": [
+        "party_thoma_bravo"
+      ],
+      "counterparty_refs": [
+        "party_company"
+      ],
+      "summary": "In early 2015 and again in June 2015, Thoma Bravo informally approached the Company and expressed interest in a possible business transaction without making a specific proposal.",
+      "quote_ids": [
+        "Q014",
+        "Q015",
+        "Q016"
+      ],
+      "status_kind": "expressed_interest",
+      "related_observation_id": null,
+      "other_detail": "No specific proposals were made during these meetings."
+    },
+    {
+      "observation_id": "obs_status_tb_interest_201601",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "In January 2016",
+        "normalized_start": "2016-01-01",
+        "normalized_end": "2016-01-31",
+        "sort_date": "2016-01-01",
+        "precision": "month",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "party_thoma_bravo"
+      ],
+      "counterparty_refs": [
+        "party_company"
+      ],
+      "summary": "In January 2016, Thoma Bravo reiterated its interest in a potential transaction and made no specific proposal.",
+      "quote_ids": [
+        "Q017",
+        "Q018",
+        "Q019"
+      ],
+      "status_kind": "expressed_interest",
+      "related_observation_id": null,
+      "other_detail": "No specific proposal was made."
+    },
+    {
+      "observation_id": "obs_proposal_tb_20160309",
+      "obs_type": "proposal",
+      "date": {
+        "raw_text": "March 9, 2016",
+        "normalized_start": "2016-03-09",
+        "normalized_end": "2016-03-09",
+        "sort_date": "2016-03-09",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "party_thoma_bravo"
+      ],
+      "counterparty_refs": [
+        "party_board"
+      ],
+      "summary": "Thoma Bravo sent the Board an unsolicited, non-binding indication of interest to acquire the Company for $15.00 per share in cash.",
+      "quote_ids": [
+        "Q020",
+        "Q021"
+      ],
+      "requested_by_observation_id": null,
+      "revises_observation_id": null,
+      "delivery_mode": "written",
+      "terms": {
+        "per_share": 15.0,
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "mentions_non_binding": true,
+      "includes_draft_merger_agreement": null,
+      "includes_markup": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_process_board_evaluation_20160310",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "March 10, 2016",
+        "normalized_start": "2016-03-10",
+        "normalized_end": "2016-03-10",
+        "sort_date": "2016-03-10",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "party_board"
+      ],
+      "counterparty_refs": [
+        "party_thoma_bravo"
+      ],
+      "summary": "The Board began evaluating Thoma Bravo's indication of interest and authorized an advisory committee to recommend a financial advisor.",
+      "quote_ids": [
+        "Q022",
+        "Q023"
+      ],
+      "process_kind": "other",
+      "process_scope": "target",
+      "other_detail": "Board evaluation of Thoma Bravo's indication of interest and authorization of an advisory committee to recommend a financial advisor."
+    },
+    {
+      "observation_id": "obs_process_barclays_retained_20160415",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "April 15, 2016",
+        "normalized_start": "2016-04-15",
+        "normalized_end": "2016-04-15",
+        "sort_date": "2016-04-15",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "party_board"
+      ],
+      "counterparty_refs": [
+        "party_barclays"
+      ],
+      "summary": "The Board engaged Barclays as the Company's financial advisor.",
+      "quote_ids": [
+        "Q024",
+        "Q025"
+      ],
+      "process_kind": "advisor_retention",
+      "process_scope": "target",
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_process_sale_launch_20160505",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "May 5, 2016",
+        "normalized_start": "2016-05-05",
+        "normalized_end": "2016-05-05",
+        "sort_date": "2016-05-05",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "party_board"
+      ],
+      "counterparty_refs": [
+        "party_barclays"
+      ],
+      "summary": "The Board decided to further explore a potential business combination transaction and approved confidential outreach to the indicative list of parties.",
+      "quote_ids": [
+        "Q026",
+        "Q027"
+      ],
+      "process_kind": "sale_launch",
+      "process_scope": "target",
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_agreement_ndas_20160506_20160609",
+      "obs_type": "agreement",
+      "date": {
+        "raw_text": "During the period from May 6 through June 9, 2016",
+        "normalized_start": "2016-05-06",
+        "normalized_end": "2016-06-09",
+        "sort_date": "2016-05-06",
+        "precision": "range",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "cohort_nda_signers"
+      ],
+      "counterparty_refs": [
+        "party_company"
+      ],
+      "summary": "Three strategic parties and four financial sponsors executed confidentiality agreements with the Company during the strategic process.",
+      "quote_ids": [
+        "Q028",
+        "Q029",
+        "Q030"
+      ],
+      "agreement_kind": "nda",
+      "signed": true,
+      "grants_diligence_access": true,
+      "includes_standstill": true,
+      "consideration_type": null,
+      "supersedes_observation_id": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_solicitation_ioi_20160603",
+      "obs_type": "solicitation",
+      "date": {
+        "raw_text": "June 3, 2016",
+        "normalized_start": "2016-06-03",
+        "normalized_end": "2016-06-03",
+        "sort_date": "2016-06-03",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "party_company",
+        "party_barclays"
+      ],
+      "counterparty_refs": [],
+      "summary": "Barclays sent bid instruction letters on behalf of the Company to six parties requesting indications of interest by June 9, 2016.",
+      "quote_ids": [
+        "Q031",
+        "Q032",
+        "Q033"
+      ],
+      "requested_submission": "ioi",
+      "binding_level": "non_binding",
+      "due_date": {
+        "raw_text": "June 9, 2016",
+        "normalized_start": "2016-06-09",
+        "normalized_end": "2016-06-09",
+        "sort_date": "2016-06-09",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "recipient_refs": [
+        "cohort_initial_ioi_recipients"
+      ],
+      "attachments": [
+        "subset of the financial information contained in the Company's long-range plan"
+      ],
+      "other_detail": "Requested per-share offer price, financing sources, future plans, diligence needs, and transaction structure."
+    },
+    {
+      "observation_id": "obs_status_strategic_1_not_interested_20160608",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "June 8, 2016",
+        "normalized_start": "2016-06-08",
+        "normalized_end": "2016-06-08",
+        "sort_date": "2016-06-08",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "party_strategic_1"
+      ],
+      "counterparty_refs": [
+        "party_barclays"
+      ],
+      "summary": "Strategic 1 said it was no longer interested in the strategic process and would not submit an indication of interest.",
+      "quote_ids": [
+        "Q034"
+      ],
+      "status_kind": "not_interested",
+      "related_observation_id": "obs_solicitation_ioi_20160603",
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_proposal_sponsor_a_20160609",
+      "obs_type": "proposal",
+      "date": {
+        "raw_text": "June 9, 2016",
+        "normalized_start": "2016-06-09",
+        "normalized_end": "2016-06-09",
+        "sort_date": "2016-06-09",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "party_sponsor_a"
+      ],
+      "counterparty_refs": [
+        "party_company"
+      ],
+      "summary": "Sponsor A submitted a written preliminary non-binding indication of interest at $16.50 per share.",
+      "quote_ids": [
+        "Q035",
+        "Q036"
+      ],
+      "requested_by_observation_id": "obs_solicitation_ioi_20160603",
+      "revises_observation_id": null,
+      "delivery_mode": "written",
+      "terms": {
+        "per_share": 16.5,
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": null
+      },
+      "mentions_non_binding": true,
+      "includes_draft_merger_agreement": false,
+      "includes_markup": false,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_proposal_sponsor_b_20160609",
+      "obs_type": "proposal",
+      "date": {
+        "raw_text": "June 9, 2016",
+        "normalized_start": "2016-06-09",
+        "normalized_end": "2016-06-09",
+        "sort_date": "2016-06-09",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "party_sponsor_b"
+      ],
+      "counterparty_refs": [
+        "party_company"
+      ],
+      "summary": "Sponsor B submitted a written preliminary non-binding indication of interest at $17.00 to $18.00 per share.",
+      "quote_ids": [
+        "Q035",
+        "Q037"
+      ],
+      "requested_by_observation_id": "obs_solicitation_ioi_20160603",
+      "revises_observation_id": null,
+      "delivery_mode": "written",
+      "terms": {
+        "per_share": null,
+        "range_low": 17.0,
+        "range_high": 18.0,
+        "enterprise_value": null,
+        "consideration_type": null
+      },
+      "mentions_non_binding": true,
+      "includes_draft_merger_agreement": false,
+      "includes_markup": false,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_proposal_tb_20160609",
+      "obs_type": "proposal",
+      "date": {
+        "raw_text": "June 9, 2016",
+        "normalized_start": "2016-06-09",
+        "normalized_end": "2016-06-09",
+        "sort_date": "2016-06-09",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "party_thoma_bravo"
+      ],
+      "counterparty_refs": [
+        "party_company"
+      ],
+      "summary": "Thoma Bravo submitted a written preliminary non-binding indication of interest at $17.25 per share and provided a draft merger agreement.",
+      "quote_ids": [
+        "Q035",
+        "Q038"
+      ],
+      "requested_by_observation_id": "obs_solicitation_ioi_20160603",
+      "revises_observation_id": null,
+      "delivery_mode": "written",
+      "terms": {
+        "per_share": 17.25,
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": null
+      },
+      "mentions_non_binding": true,
+      "includes_draft_merger_agreement": true,
+      "includes_markup": false,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_status_strategic_2_not_interested_20160612",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "June 12, 2016",
+        "normalized_start": "2016-06-12",
+        "normalized_end": "2016-06-12",
+        "sort_date": "2016-06-12",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "party_strategic_2"
+      ],
+      "counterparty_refs": [
+        "party_barclays"
+      ],
+      "summary": "Strategic 2 said it was no longer interested in exploring a potential transaction.",
+      "quote_ids": [
+        "Q039"
+      ],
+      "status_kind": "not_interested",
+      "related_observation_id": "obs_solicitation_ioi_20160603",
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_status_selected_to_advance_20160612",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "June 12, 2016",
+        "normalized_start": "2016-06-12",
+        "normalized_end": "2016-06-12",
+        "sort_date": "2016-06-12",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "cohort_second_phase_bidders"
+      ],
+      "counterparty_refs": [
+        "party_board"
+      ],
+      "summary": "The Board advanced Sponsor A, Sponsor B, and Thoma Bravo to the second phase of the strategic process.",
+      "quote_ids": [
+        "Q040"
+      ],
+      "status_kind": "selected_to_advance",
+      "related_observation_id": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_status_strategic_3_not_interested_20160614",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "June 14, 2016",
+        "normalized_start": "2016-06-14",
+        "normalized_end": "2016-06-14",
+        "sort_date": "2016-06-14",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "party_strategic_3"
+      ],
+      "counterparty_refs": [
+        "party_barclays"
+      ],
+      "summary": "Strategic 3 said it was no longer interested in exploring a potential transaction.",
+      "quote_ids": [
+        "Q064"
+      ],
+      "status_kind": "not_interested",
+      "related_observation_id": "obs_solicitation_ioi_20160603",
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_status_sponsor_a_cannot_improve_20160615",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "June 15, 2016",
+        "normalized_start": "2016-06-15",
+        "normalized_end": "2016-06-15",
+        "sort_date": "2016-06-15",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "party_sponsor_a"
+      ],
+      "counterparty_refs": [
+        "party_barclays"
+      ],
+      "summary": "Sponsor A said any second-round bid would not be meaningfully higher than its June 9 indication of interest.",
+      "quote_ids": [
+        "Q041"
+      ],
+      "status_kind": "cannot_improve",
+      "related_observation_id": "obs_proposal_sponsor_a_20160609",
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_process_special_committee_20160617",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "June 17, 2016",
+        "normalized_start": "2016-06-17",
+        "normalized_end": "2016-06-17",
+        "sort_date": "2016-06-17",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "party_board"
+      ],
+      "counterparty_refs": [
+        "party_special_committee"
+      ],
+      "summary": "The Board formed the Special Committee to oversee the strategic process.",
+      "quote_ids": [
+        "Q042",
+        "Q043"
+      ],
+      "process_kind": "other",
+      "process_scope": "target",
+      "other_detail": "Formation of the Special Committee of independent and disinterested directors to oversee the strategic process."
+    },
+    {
+      "observation_id": "obs_status_sponsor_a_excluded_20160617",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "June 17, 2016",
+        "normalized_start": "2016-06-17",
+        "normalized_end": "2016-06-17",
+        "sort_date": "2016-06-17",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "party_sponsor_a"
+      ],
+      "counterparty_refs": [
+        "party_special_committee"
+      ],
+      "summary": "The Special Committee said it was not interested in pursuing Sponsor A at its initial-bid price.",
+      "quote_ids": [
+        "Q044"
+      ],
+      "status_kind": "excluded",
+      "related_observation_id": "obs_status_sponsor_a_cannot_improve_20160615",
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_status_strategic_4_not_interested_20160623",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "June 23, 2016",
+        "normalized_start": "2016-06-23",
+        "normalized_end": "2016-06-23",
+        "sort_date": "2016-06-23",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "party_strategic_4"
+      ],
+      "counterparty_refs": [
+        "party_barclays"
+      ],
+      "summary": "Strategic 4 said an acquisition of the Company was not a strategic fit and that it was not interested in participating in the strategic process.",
+      "quote_ids": [
+        "Q065"
+      ],
+      "status_kind": "not_interested",
+      "related_observation_id": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_solicitation_final_bid_20160624",
+      "obs_type": "solicitation",
+      "date": {
+        "raw_text": "June 24, 2016",
+        "normalized_start": "2016-06-24",
+        "normalized_end": "2016-06-24",
+        "sort_date": "2016-06-24",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "party_barclays"
+      ],
+      "counterparty_refs": [
+        "party_special_committee"
+      ],
+      "summary": "Barclays sent final bid process letters to Sponsor B and Thoma Bravo requesting marked drafts and setting a July 8 final bid deadline.",
+      "quote_ids": [
+        "Q046",
+        "Q047",
+        "Q048"
+      ],
+      "requested_submission": "other",
+      "binding_level": null,
+      "due_date": {
+        "raw_text": "July 8, 2016",
+        "normalized_start": "2016-07-08",
+        "normalized_end": "2016-07-08",
+        "sort_date": "2016-07-08",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "recipient_refs": [
+        "party_sponsor_b",
+        "party_thoma_bravo"
+      ],
+      "attachments": [],
+      "other_detail": "Final bid process letters requested marked drafts and final bids."
+    },
+    {
+      "observation_id": "obs_status_sponsor_b_cannot_improve_20160629",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "June 29, 2016",
+        "normalized_start": "2016-06-29",
+        "normalized_end": "2016-06-29",
+        "sort_date": "2016-06-29",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "party_sponsor_b"
+      ],
+      "counterparty_refs": [
+        "party_barclays"
+      ],
+      "summary": "Sponsor B said any final bid would be significantly below its June 9 indication of interest.",
+      "quote_ids": [
+        "Q049"
+      ],
+      "status_kind": "cannot_improve",
+      "related_observation_id": "obs_proposal_sponsor_b_20160609",
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_status_sponsor_b_excluded_20160630",
+      "obs_type": "status",
+      "date": {
+        "raw_text": "June 30, 2016",
+        "normalized_start": "2016-06-30",
+        "normalized_end": "2016-06-30",
+        "sort_date": "2016-06-30",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "party_sponsor_b"
+      ],
+      "counterparty_refs": [
+        "party_special_committee"
+      ],
+      "summary": "The Special Committee decided not to pursue Sponsor B at a price significantly below its original indication.",
+      "quote_ids": [
+        "Q050"
+      ],
+      "status_kind": "excluded",
+      "related_observation_id": "obs_status_sponsor_b_cannot_improve_20160629",
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_proposal_tb_markup_20160707",
+      "obs_type": "proposal",
+      "date": {
+        "raw_text": "July 7, 2016",
+        "normalized_start": "2016-07-07",
+        "normalized_end": "2016-07-07",
+        "sort_date": "2016-07-07",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "party_thoma_bravo"
+      ],
+      "counterparty_refs": [
+        "party_company"
+      ],
+      "summary": "Thoma Bravo, through Kirkland, sent a revised draft of the merger agreement to Goodwin.",
+      "quote_ids": [
+        "Q051",
+        "Q013",
+        "Q012"
+      ],
+      "requested_by_observation_id": "obs_solicitation_final_bid_20160624",
+      "revises_observation_id": null,
+      "delivery_mode": "written",
+      "terms": null,
+      "mentions_non_binding": null,
+      "includes_draft_merger_agreement": true,
+      "includes_markup": true,
+      "other_detail": "Kirkland sent Goodwin a revised draft of the merger agreement."
+    },
+    {
+      "observation_id": "obs_proposal_tb_20160708",
+      "obs_type": "proposal",
+      "date": {
+        "raw_text": "July 8, 2016",
+        "normalized_start": "2016-07-08",
+        "normalized_end": "2016-07-08",
+        "sort_date": "2016-07-08",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "party_thoma_bravo"
+      ],
+      "counterparty_refs": [
+        "party_company"
+      ],
+      "summary": "Thoma Bravo submitted the only final bid at $19.00 per share in cash and said it was prepared to execute its revised draft merger agreement.",
+      "quote_ids": [
+        "Q052",
+        "Q053",
+        "Q054"
+      ],
+      "requested_by_observation_id": "obs_solicitation_final_bid_20160624",
+      "revises_observation_id": null,
+      "delivery_mode": null,
+      "terms": {
+        "per_share": 19.0,
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": "cash"
+      },
+      "mentions_non_binding": null,
+      "includes_draft_merger_agreement": true,
+      "includes_markup": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_solicitation_tb_best_final_20160709",
+      "obs_type": "solicitation",
+      "date": {
+        "raw_text": "July 9, 2016",
+        "normalized_start": "2016-07-09",
+        "normalized_end": "2016-07-09",
+        "sort_date": "2016-07-09",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "party_special_committee",
+        "party_barclays"
+      ],
+      "counterparty_refs": [],
+      "summary": "Barclays informed Thoma Bravo that it should submit its best and final offer.",
+      "quote_ids": [
+        "Q055"
+      ],
+      "requested_submission": "best_and_final",
+      "binding_level": null,
+      "due_date": null,
+      "recipient_refs": [
+        "party_thoma_bravo"
+      ],
+      "attachments": [],
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_proposal_tb_20160709",
+      "obs_type": "proposal",
+      "date": {
+        "raw_text": "July 9, 2016",
+        "normalized_start": "2016-07-09",
+        "normalized_end": "2016-07-09",
+        "sort_date": "2016-07-09",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "party_thoma_bravo"
+      ],
+      "counterparty_refs": [
+        "party_company"
+      ],
+      "summary": "Thoma Bravo submitted a revised written non-binding best-and-final proposal at $19.25 per share.",
+      "quote_ids": [
+        "Q056",
+        "Q057"
+      ],
+      "requested_by_observation_id": "obs_solicitation_tb_best_final_20160709",
+      "revises_observation_id": "obs_proposal_tb_20160708",
+      "delivery_mode": "written",
+      "terms": {
+        "per_share": 19.25,
+        "range_low": null,
+        "range_high": null,
+        "enterprise_value": null,
+        "consideration_type": null
+      },
+      "mentions_non_binding": true,
+      "includes_draft_merger_agreement": null,
+      "includes_markup": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_agreement_exclusivity_20160711",
+      "obs_type": "agreement",
+      "date": {
+        "raw_text": "July 11, 2016",
+        "normalized_start": "2016-07-11",
+        "normalized_end": "2016-07-11",
+        "sort_date": "2016-07-11",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "party_thoma_bravo"
+      ],
+      "counterparty_refs": [
+        "party_company"
+      ],
+      "summary": "Kirkland sent Goodwin a draft exclusivity agreement, but the Company declined to enter into it.",
+      "quote_ids": [
+        "Q058",
+        "Q059"
+      ],
+      "agreement_kind": "exclusivity",
+      "signed": false,
+      "grants_diligence_access": null,
+      "includes_standstill": null,
+      "consideration_type": null,
+      "supersedes_observation_id": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_process_special_committee_recommendation_20160712",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "July 12, 2016",
+        "normalized_start": "2016-07-12",
+        "normalized_end": "2016-07-12",
+        "sort_date": "2016-07-12",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "party_special_committee"
+      ],
+      "counterparty_refs": [
+        "party_board"
+      ],
+      "summary": "The Special Committee unanimously recommended that the Board enter into the merger agreement with Thoma Bravo.",
+      "quote_ids": [
+        "Q060"
+      ],
+      "process_kind": "other",
+      "process_scope": "target",
+      "other_detail": "Special Committee recommendation that the Board enter into the merger agreement with Thoma Bravo."
+    },
+    {
+      "observation_id": "obs_process_board_approval_20160712",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "July 12, 2016",
+        "normalized_start": "2016-07-12",
+        "normalized_end": "2016-07-12",
+        "sort_date": "2016-07-12",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "party_board"
+      ],
+      "counterparty_refs": [
+        "party_thoma_bravo"
+      ],
+      "summary": "The Board approved the merger agreement with Thoma Bravo and recommended stockholder approval.",
+      "quote_ids": [
+        "Q061"
+      ],
+      "process_kind": "other",
+      "process_scope": "target",
+      "other_detail": "Board approval of the merger agreement and recommendation to stockholders."
+    },
+    {
+      "observation_id": "obs_agreement_merger_agreement_20160713",
+      "obs_type": "agreement",
+      "date": {
+        "raw_text": "July 13, 2016",
+        "normalized_start": "2016-07-13",
+        "normalized_end": "2016-07-13",
+        "sort_date": "2016-07-13",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "party_thoma_bravo"
+      ],
+      "counterparty_refs": [
+        "party_company"
+      ],
+      "summary": "The parties finalized and executed the merger agreement.",
+      "quote_ids": [
+        "Q062"
+      ],
+      "agreement_kind": "merger_agreement",
+      "signed": true,
+      "grants_diligence_access": null,
+      "includes_standstill": null,
+      "consideration_type": null,
+      "supersedes_observation_id": null,
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_outcome_executed_20160713",
+      "obs_type": "outcome",
+      "date": {
+        "raw_text": "July 13, 2016",
+        "normalized_start": "2016-07-13",
+        "normalized_end": "2016-07-13",
+        "sort_date": "2016-07-13",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "party_thoma_bravo"
+      ],
+      "counterparty_refs": [
+        "party_company"
+      ],
+      "summary": "The parties executed the merger agreement.",
+      "quote_ids": [
+        "Q062"
+      ],
+      "outcome_kind": "executed",
+      "related_observation_id": "obs_agreement_merger_agreement_20160713",
+      "other_detail": null
+    },
+    {
+      "observation_id": "obs_process_press_release_20160713",
+      "obs_type": "process",
+      "date": {
+        "raw_text": "July 13, 2016",
+        "normalized_start": "2016-07-13",
+        "normalized_end": "2016-07-13",
+        "sort_date": "2016-07-13",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "subject_refs": [
+        "party_company",
+        "party_thoma_bravo"
+      ],
+      "counterparty_refs": [],
+      "summary": "The Company and Thoma Bravo issued a joint press release announcing execution of the merger agreement.",
+      "quote_ids": [
+        "Q063"
+      ],
+      "process_kind": "press_release",
+      "process_scope": "target",
+      "other_detail": null
+    }
+  ],
+  "exclusions": [],
+  "coverage": []
+}
+
+Coverage findings to fix:
+[
+  {
+    "cue_family": "advisor",
+    "status": "not_found",
+    "severity": "warning",
+    "repairability": "repairable",
+    "description": "High-confidence advisor cue was not covered by canonical v2 artifacts.",
+    "reason_code": "uncovered_advisor_cue",
+    "supporting_event_ids": [],
+    "supporting_actor_ids": [],
+    "supporting_span_ids": [],
+    "block_ids": [
+      "B018"
+    ],
+    "evidence_ids": [
+      "0001193125-16-677939:E0355"
+    ],
+    "matched_terms": [
+      "authorized",
+      "meeting",
+      "met",
+      "offer"
+    ],
+    "confidence": "high",
+    "suggested_event_types": [
+      "ib_retention"
+    ],
+    "note": null,
+    "supporting_observation_ids": [],
+    "supporting_party_ids": [],
+    "supporting_cohort_ids": []
+  },
+  {
+    "cue_family": "advisor",
+    "status": "not_found",
+    "severity": "warning",
+    "repairability": "repairable",
+    "description": "Medium-confidence advisor cue was not covered by canonical v2 artifacts.",
+    "reason_code": "uncovered_advisor_cue",
+    "supporting_event_ids": [],
+    "supporting_actor_ids": [],
+    "supporting_span_ids": [],
+    "block_ids": [
+      "B018"
+    ],
+    "evidence_ids": [
+      "0001193125-16-677939:E0356"
+    ],
+    "matched_terms": [
+      "advisor",
+      "financial advisor",
+      "investment bank"
+    ],
+    "confidence": "medium",
+    "suggested_event_types": [
+      "ib_retention"
+    ],
+    "note": null,
+    "supporting_observation_ids": [],
+    "supporting_party_ids": [],
+    "supporting_cohort_ids": []
+  },
+  {
+    "cue_family": "advisor",
+    "status": "ambiguous",
+    "severity": "warning",
+    "repairability": "repairable",
+    "description": "High-confidence advisor cue matched multiple canonical v2 candidates.",
+    "reason_code": "multiple_matching_candidates",
+    "supporting_event_ids": [],
+    "supporting_actor_ids": [],
+    "supporting_span_ids": [
+      "span_0006"
+    ],
+    "block_ids": [
+      "B022"
+    ],
+    "evidence_ids": [
+      "0001193125-16-677939:E0361"
+    ],
+    "matched_terms": [
+      "discussed",
+      "engaged",
+      "meeting",
+      "proposed",
+      "received",
+      "sent",
+      "signed"
+    ],
+    "confidence": "high",
+    "suggested_event_types": [
+      "ib_retention"
+    ],
+    "note": null,
+    "supporting_observation_ids": [
+      "obs_process_advisor_retention_barclays_20160415"
+    ],
+    "supporting_party_ids": [
+      "party_barclays"
+    ],
+    "supporting_cohort_ids": []
+  },
+  {
+    "cue_family": "advisor",
+    "status": "ambiguous",
+    "severity": "warning",
+    "repairability": "repairable",
+    "description": "High-confidence advisor cue matched multiple canonical v2 candidates.",
+    "reason_code": "multiple_matching_candidates",
+    "supporting_event_ids": [],
+    "supporting_actor_ids": [],
+    "supporting_span_ids": [
+      "span_0006"
+    ],
+    "block_ids": [
+      "B022"
+    ],
+    "evidence_ids": [
+      "0001193125-16-677939:E0363"
+    ],
+    "matched_terms": [
+      "advisor",
+      "advisors",
+      "financial advisor",
+      "investment bank"
+    ],
+    "confidence": "high",
+    "suggested_event_types": [
+      "ib_retention"
+    ],
+    "note": null,
+    "supporting_observation_ids": [
+      "obs_process_advisor_retention_barclays_20160415"
+    ],
+    "supporting_party_ids": [
+      "party_barclays"
+    ],
+    "supporting_cohort_ids": []
+  },
+  {
+    "cue_family": "advisor",
+    "status": "not_found",
+    "severity": "warning",
+    "repairability": "repairable",
+    "description": "High-confidence advisor cue was not covered by canonical v2 artifacts.",
+    "reason_code": "uncovered_advisor_cue",
+    "supporting_event_ids": [],
+    "supporting_actor_ids": [],
+    "supporting_span_ids": [],
+    "block_ids": [
+      "B025",
+      "B026"
+    ],
+    "evidence_ids": [
+      "0001193125-16-677939:E0369"
+    ],
+    "matched_terms": [
+      "authorized",
+      "meeting",
+      "signed"
+    ],
+    "confidence": "high",
+    "suggested_event_types": [
+      "ib_retention"
+    ],
+    "note": null,
+    "supporting_observation_ids": [],
+    "supporting_party_ids": [],
+    "supporting_cohort_ids": []
+  },
+  {
+    "cue_family": "nda",
+    "status": "not_found",
+    "severity": "error",
+    "repairability": "repairable",
+    "description": "High-confidence nda cue was not covered by canonical v2 artifacts.",
+    "reason_code": "uncovered_nda_cue",
+    "supporting_event_ids": [],
+    "supporting_actor_ids": [],
+    "supporting_span_ids": [],
+    "block_ids": [
+      "B045"
+    ],
+    "evidence_ids": [
+      "0001193125-16-677939:E0404"
+    ],
+    "matched_terms": [
+      "contacted",
+      "declined",
+      "discussed",
+      "executed",
+      "met",
+      "sent"
+    ],
+    "confidence": "high",
+    "suggested_event_types": [
+      "nda"
+    ],
+    "note": null,
+    "supporting_observation_ids": [],
+    "supporting_party_ids": [],
+    "supporting_cohort_ids": []
+  },
+  {
+    "cue_family": "nda",
+    "status": "not_found",
+    "severity": "warning",
+    "repairability": "repairable",
+    "description": "Medium-confidence nda cue was not covered by canonical v2 artifacts.",
+    "reason_code": "uncovered_nda_cue",
+    "supporting_event_ids": [],
+    "supporting_actor_ids": [],
+    "supporting_span_ids": [],
+    "block_ids": [
+      "B045"
+    ],
+    "evidence_ids": [
+      "0001193125-16-677939:E0406"
+    ],
+    "matched_terms": [
+      "confidentiality agreement"
+    ],
+    "confidence": "medium",
+    "suggested_event_types": [
+      "nda"
+    ],
+    "note": null,
+    "supporting_observation_ids": [],
+    "supporting_party_ids": [],
+    "supporting_cohort_ids": []
+  },
+  {
+    "cue_family": "count_assertion",
+    "status": "not_found",
+    "severity": "warning",
+    "repairability": "repairable",
+    "description": "Filing asserts 'four financial\nsponsors' but no cohort with exact_count=4 was extracted.",
+    "reason_code": "missing_count_cohort",
+    "supporting_event_ids": [],
+    "supporting_actor_ids": [],
+    "supporting_span_ids": [],
+    "block_ids": [
+      "B030"
+    ],
+    "evidence_ids": [
+      "0001193125-16-677939:E0376"
+    ],
+    "matched_terms": [
+      "four financial\nsponsors"
+    ],
+    "confidence": "high",
+    "suggested_event_types": [],
+    "note": null,
+    "supporting_observation_ids": [],
+    "supporting_party_ids": [],
+    "supporting_cohort_ids": []
+  }
+]
+
+Relevant chronology blocks:
+[
+  {
+    "block_id": "B018",
+    "start_line": 1206,
+    "end_line": 1210,
+    "raw_text": "On March 14 and March 24, 2016, the advisory committee met to discuss and consider the engagement of a financial advisor, as\nauthorized at the March 10, 2016 Board meeting. The advisory committee authorized Company management to inquire whether Barclays would be available to act as a financial advisor to the Company in connection with a potential strategic\ntransaction. The advisory committee considered Barclays as a potential investment banking firm candidate to assist and advise the Board because of Barclays\u0092 qualifications, expertise and reputation, its knowledge of and involvement in recent\ntransactions in the Company\u0092s industry, its knowledge of the Company\u0092s business and affairs and its understanding of the Company\u0092s business based on its long-standing relationship with the Company, including serving as an underwriter\nin the Company\u0092s secondary offering in 2015."
+  },
+  {
+    "block_id": "B022",
+    "start_line": 1226,
+    "end_line": 1234,
+    "raw_text": "On April 15, 2016, the Board held a meeting to discuss, among other things, the engagement of a financial advisor and Thoma Bravo\u0092s\nindication of interest. Members of Company management, Mr. Linnemann and representatives of Goodwin were in attendance. The advisory committee discussed with the Board its work since the March 10, 2016 Board meeting regarding evaluating\npotential financial advisors and recommended the engagement of Barclays as the Company\u0092s financial advisor to assist the Board in its evaluation of Thoma Bravo\u0092s indication of interest and any other strategic alternatives that might be\navailable to the Company. As part of this discussion, the advisory committee outlined the material terms of the proposed engagement of Barclays. Goodwin discussed with the Board the due diligence process that was conducted as to any relationships\nthat Barclays had with Thoma Bravo. Goodwin noted that Barclays carried out its customary procedures and that Barclays had disclosed that since 2013 Barclays had received investment banking fees of approximately $12 million to $13 million from\nThoma Bravo and certain of its portfolio companies and affiliates and that Barclays\u0092 M& A deal team members assigned to work for the Company agreed not to work for Thoma Bravo or its affiliates during the term of Barclays\u0092 engagement\nwith the Company (other than one Barclays\u0092 industry focused managing director who was working on a concurrent and unrelated assignment for Thoma Bravo). Following review of this information, the Board determined, based in part on the advice of\nGoodwin, that based on the information provided by Barclays, these relationships would not impair the advice Barclays would provide to the Board, or its independence. The Board engaged Barclays as the Company\u0092s financial advisor to assist the\nBoard in its evaluation of Thoma Bravo\u0092s indication of interest, subject to execution of a mutually satisfactory engagement letter."
+  },
+  {
+    "block_id": "B025",
+    "start_line": 1247,
+    "end_line": 1247,
+    "raw_text": "On"
+  },
+  {
+    "block_id": "B026",
+    "start_line": 1248,
+    "end_line": 1248,
+    "raw_text": "April 19, 2016, the Company countersigned an engagement letter with Barclays, dated April 15, 2016, as authorized during the April 15, 2016 Board meeting."
+  },
+  {
+    "block_id": "B030",
+    "start_line": 1273,
+    "end_line": 1278,
+    "raw_text": "During the period from May 6 through June 9, 2016, at the direction of the Board,\nBarclays contacted and had discussions with the 15 potentially interested parties discussed by the Board at its April 28 and May 5, 2016 meetings, including Thoma Bravo. Of the parties contacted, three strategic parties and four financial\nsponsors executed confidentiality agreements with the Company, including Thoma Bravo on May 10, 2016. All standstill obligations under the confidentiality agreements automatically terminated upon the Company\u0092s entry into the merger\nagreement with Thoma Bravo. Except for one financial sponsor that declined interest shortly after executing its confidentiality agreement, each party that entered into a confidentiality agreement attended a high-level management presentation\nconducted by members of Company management and attended by Barclays. These parties included a telecommunications enterprise company (\u0093Strategic 1\u0094), two large software companies (\u0093Strategic 2\u0094 and \u0093Strategic\n3\u0094) and three financial sponsors (\u0093Sponsor A,\u0094 \u0093Sponsor B\u0094 and Thoma Bravo)."
+  },
+  {
+    "block_id": "B043",
+    "start_line": 1323,
+    "end_line": 1324,
+    "raw_text": "On June 12, 2016, the Board held a meeting to receive an update on the strategic process. Members of Company management,\nMr. Linnemann and representatives of Barclays and Goodwin were in attendance. The Board, with the assistance of Barclays, discussed the three preliminary indications of interest received on June 9,"
+  },
+  {
+    "block_id": "B045",
+    "start_line": 1329,
+    "end_line": 1333,
+    "raw_text": "2016. Barclays also reviewed with the Board preliminary financial information with respect to each of the three indications of interest and preliminary valuation analyses with respect to the\nCompany based on the Company\u0092s long-term plan approved by the Board on April 7, 2016. Barclays reported to the Board that at such time ten of the 11 strategic parties contacted by Barclays had declined to participate in the strategic\nprocess, and that while Strategic 3 had executed a confidentiality agreement and met with management, it did not submit a bid by the June 9, 2016 deadline. Representatives of Goodwin reviewed with the Board its fiduciary duties in the context\nof evaluating the preliminary indications of interest in the context of a possible sale of the Company. Representatives of Goodwin also discussed the Board\u0092s discretion in determining whether and how to pursue a transaction and potential\nadditional considerations in a transaction with a financial sponsor, including potentially forming a special committee of the Board consisting solely of independent and disinterested directors."
+  },
+  {
+    "block_id": "B046",
+    "start_line": 1335,
+    "end_line": 1342,
+    "raw_text": "Although the Board believed that the preliminary indications of interest received on June 9, 2016 were in a range that would provide\nsubstantial value to the Company\u0092s stockholders, the Board discussed how best to further enhance stockholder value through the next phase of the strategic process and other potential strategic alternatives involving the Company. Following these\ndiscussions, because Sponsor A, Sponsor B and Thoma Bravo had submitted proposals within close range of each other, the Board authorized Barclays to advance all three parties to the second phase of the strategic process and to encourage them to\nindicate a willingness to increase their respective offer prices. In an effort to attempt to have strategic parties involved in the process, the Board also directed Barclays to contact Strategic 3 and encourage it to continue to participate in the\nprocess and to submit a proposal. The Board also discussed that although there were no known actual conflicts at the time, because of the potential for management conflicts of interest to arise in the context of a potential sale to a financial\nsponsor, the Board would form a special committee of independent and disinterested directors that would direct the strategic process on behalf of the Board. The Board authorized Goodwin, with the assistance of the Company\u0092s general counsel, to\ninterview each of the independent directors regarding any potential conflicts of interest on the part of each director regarding Sponsor A, Sponsor B and Thoma Bravo and in serving on a special committee of the Board to oversee the strategic\nprocess."
+  }
+]
+
+Relevant evidence items:
+[
+  {
+    "evidence_id": "0001193125-16-677939:E0355",
+    "evidence_type": "dated_action",
+    "start_line": 1206,
+    "end_line": 1210,
+    "raw_text": "On March 14 and March 24, 2016, the advisory committee met to discuss and consider the engagement of a financial advisor, as\nauthorized at the March 10, 2016 Board meeting. The advisory committee authorized Company management to inquire whether Barclays would be available to act as a financial advisor to the Company in connection with a potential strategic\ntransaction. The advisory committee considered Barclays as a potential investment banking firm candidate to assist and advise the Board because of Barclays\u0092 qualifications, expertise and reputation, its knowledge of and involvement in recent\ntransactions in the Company\u0092s industry, its knowledge of the Company\u0092s business and affairs and its understanding of the Company\u0092s business based on its long-standing relationship with the Company, including serving as an underwriter\nin the Company\u0092s secondary offering in 2015."
+  },
+  {
+    "evidence_id": "0001193125-16-677939:E0356",
+    "evidence_type": "actor_identification",
+    "start_line": 1206,
+    "end_line": 1210,
+    "raw_text": "On March 14 and March 24, 2016, the advisory committee met to discuss and consider the engagement of a financial advisor, as\nauthorized at the March 10, 2016 Board meeting. The advisory committee authorized Company management to inquire whether Barclays would be available to act as a financial advisor to the Company in connection with a potential strategic\ntransaction. The advisory committee considered Barclays as a potential investment banking firm candidate to assist and advise the Board because of Barclays\u0092 qualifications, expertise and reputation, its knowledge of and involvement in recent\ntransactions in the Company\u0092s industry, its knowledge of the Company\u0092s business and affairs and its understanding of the Company\u0092s business based on its long-standing relationship with the Company, including serving as an underwriter\nin the Company\u0092s secondary offering in 2015."
+  },
+  {
+    "evidence_id": "0001193125-16-677939:E0361",
+    "evidence_type": "dated_action",
+    "start_line": 1226,
+    "end_line": 1234,
+    "raw_text": "On April 15, 2016, the Board held a meeting to discuss, among other things, the engagement of a financial advisor and Thoma Bravo\u0092s\nindication of interest. Members of Company management, Mr. Linnemann and representatives of Goodwin were in attendance. The advisory committee discussed with the Board its work since the March 10, 2016 Board meeting regarding evaluating\npotential financial advisors and recommended the engagement of Barclays as the Company\u0092s financial advisor to assist the Board in its evaluation of Thoma Bravo\u0092s indication of interest and any other strategic alternatives that might be\navailable to the Company. As part of this discussion, the advisory committee outlined the material terms of the proposed engagement of Barclays. Goodwin discussed with the Board the due diligence process that was conducted as to any relationships\nthat Barclays had with Thoma Bravo. Goodwin noted that Barclays carried out its customary procedures and that Barclays had disclosed that since 2013 Barclays had received investment banking fees of approximately $12 million to $13 million from\nThoma Bravo and certain of its portfolio companies and affiliates and that Barclays\u0092 M& A deal team members assigned to work for the Company agreed not to work for Thoma Bravo or its affiliates during the term of Barclays\u0092 engagement\nwith the Company (other than one Barclays\u0092 industry focused managing director who was working on a concurrent and unrelated assignment for Thoma Bravo). Following review of this information, the Board determined, based in part on the advice of\nGoodwin, that based on the information provided by Barclays, these relationships would not impair the advice Barclays would provide to the Board, or its independence. The Board engaged Barclays as the Company\u0092s financial advisor to assist the\nBoard in its evaluation of Thoma Bravo\u0092s indication of interest, subject to execution of a mutually satisfactory engagement letter."
+  },
+  {
+    "evidence_id": "0001193125-16-677939:E0363",
+    "evidence_type": "actor_identification",
+    "start_line": 1226,
+    "end_line": 1234,
+    "raw_text": "On April 15, 2016, the Board held a meeting to discuss, among other things, the engagement of a financial advisor and Thoma Bravo\u0092s\nindication of interest. Members of Company management, Mr. Linnemann and representatives of Goodwin were in attendance. The advisory committee discussed with the Board its work since the March 10, 2016 Board meeting regarding evaluating\npotential financial advisors and recommended the engagement of Barclays as the Company\u0092s financial advisor to assist the Board in its evaluation of Thoma Bravo\u0092s indication of interest and any other strategic alternatives that might be\navailable to the Company. As part of this discussion, the advisory committee outlined the material terms of the proposed engagement of Barclays. Goodwin discussed with the Board the due diligence process that was conducted as to any relationships\nthat Barclays had with Thoma Bravo. Goodwin noted that Barclays carried out its customary procedures and that Barclays had disclosed that since 2013 Barclays had received investment banking fees of approximately $12 million to $13 million from\nThoma Bravo and certain of its portfolio companies and affiliates and that Barclays\u0092 M& A deal team members assigned to work for the Company agreed not to work for Thoma Bravo or its affiliates during the term of Barclays\u0092 engagement\nwith the Company (other than one Barclays\u0092 industry focused managing director who was working on a concurrent and unrelated assignment for Thoma Bravo). Following review of this information, the Board determined, based in part on the advice of\nGoodwin, that based on the information provided by Barclays, these relationships would not impair the advice Barclays would provide to the Board, or its independence. The Board engaged Barclays as the Company\u0092s financial advisor to assist the\nBoard in its evaluation of Thoma Bravo\u0092s indication of interest, subject to execution of a mutually satisfactory engagement letter."
+  },
+  {
+    "evidence_id": "0001193125-16-677939:E0369",
+    "evidence_type": "dated_action",
+    "start_line": 1247,
+    "end_line": 1248,
+    "raw_text": "On\nApril 19, 2016, the Company countersigned an engagement letter with Barclays, dated April 15, 2016, as authorized during the April 15, 2016 Board meeting."
+  },
+  {
+    "evidence_id": "0001193125-16-677939:E0376",
+    "evidence_type": "dated_action",
+    "start_line": 1273,
+    "end_line": 1278,
+    "raw_text": "During the period from May 6 through June 9, 2016, at the direction of the Board,\nBarclays contacted and had discussions with the 15 potentially interested parties discussed by the Board at its April 28 and May 5, 2016 meetings, including Thoma Bravo. Of the parties contacted, three strategic parties and four financial\nsponsors executed confidentiality agreements with the Company, including Thoma Bravo on May 10, 2016. All standstill obligations under the confidentiality agreements automatically terminated upon the Company\u0092s entry into the merger\nagreement with Thoma Bravo. Except for one financial sponsor that declined interest shortly after executing its confidentiality agreement, each party that entered into a confidentiality agreement attended a high-level management presentation\nconducted by members of Company management and attended by Barclays. These parties included a telecommunications enterprise company (\u0093Strategic 1\u0094), two large software companies (\u0093Strategic 2\u0094 and \u0093Strategic\n3\u0094) and three financial sponsors (\u0093Sponsor A,\u0094 \u0093Sponsor B\u0094 and Thoma Bravo)."
+  },
+  {
+    "evidence_id": "0001193125-16-677939:E0404",
+    "evidence_type": "dated_action",
+    "start_line": 1329,
+    "end_line": 1333,
+    "raw_text": "2016. Barclays also reviewed with the Board preliminary financial information with respect to each of the three indications of interest and preliminary valuation analyses with respect to the\nCompany based on the Company\u0092s long-term plan approved by the Board on April 7, 2016. Barclays reported to the Board that at such time ten of the 11 strategic parties contacted by Barclays had declined to participate in the strategic\nprocess, and that while Strategic 3 had executed a confidentiality agreement and met with management, it did not submit a bid by the June 9, 2016 deadline. Representatives of Goodwin reviewed with the Board its fiduciary duties in the context\nof evaluating the preliminary indications of interest in the context of a possible sale of the Company. Representatives of Goodwin also discussed the Board\u0092s discretion in determining whether and how to pursue a transaction and potential\nadditional considerations in a transaction with a financial sponsor, including potentially forming a special committee of the Board consisting solely of independent and disinterested directors."
+  },
+  {
+    "evidence_id": "0001193125-16-677939:E0406",
+    "evidence_type": "process_signal",
+    "start_line": 1329,
+    "end_line": 1333,
+    "raw_text": "2016. Barclays also reviewed with the Board preliminary financial information with respect to each of the three indications of interest and preliminary valuation analyses with respect to the\nCompany based on the Company\u0092s long-term plan approved by the Board on April 7, 2016. Barclays reported to the Board that at such time ten of the 11 strategic parties contacted by Barclays had declined to participate in the strategic\nprocess, and that while Strategic 3 had executed a confidentiality agreement and met with management, it did not submit a bid by the June 9, 2016 deadline. Representatives of Goodwin reviewed with the Board its fiduciary duties in the context\nof evaluating the preliminary indications of interest in the context of a possible sale of the Company. Representatives of Goodwin also discussed the Board\u0092s discretion in determining whether and how to pursue a transaction and potential\nadditional considerations in a transaction with a financial sponsor, including potentially forming a special committee of the Board consisting solely of independent and disinterested directors."
+  }
+]

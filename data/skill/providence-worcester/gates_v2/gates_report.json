@@ -1,20 +1,119 @@
 {
   "findings": [
     {
-      "gate_id": "agreement_kind_surface_warning",
-      "rule_id": "agreement_kind_surface_warning",
+      "gate_id": "proxy_date_export_warning",
+      "rule_id": "rough_date_export_warning",
       "severity": "warning",
-      "description": "Agreement 'obs_evt_006' appears to be 'standstill' but is classified as 'nda'.",
+      "description": "Observation 'obs_agreement_nda_batch_20160328' uses non-exact date precision 'range'; downstream analyst surfaces should treat it as a proxy date.",
       "party_ids": [],
       "cohort_ids": [],
       "observation_ids": [
-        "obs_evt_006"
+        "obs_agreement_nda_batch_20160328"
+      ]
+    },
+    {
+      "gate_id": "proxy_date_export_warning",
+      "rule_id": "rough_date_export_warning",
+      "severity": "warning",
+      "description": "Observation 'obs_proposal_ioi_round_20160519' uses non-exact date precision 'range'; downstream analyst surfaces should treat it as a proxy date.",
+      "party_ids": [],
+      "cohort_ids": [],
+      "observation_ids": [
+        "obs_proposal_ioi_round_20160519"
+      ]
+    },
+    {
+      "gate_id": "proxy_date_export_warning",
+      "rule_id": "rough_date_export_warning",
+      "severity": "warning",
+      "description": "Observation 'obs_agreement_nda_party_c_201607early' uses non-exact date precision 'month_early'; downstream analyst surfaces should treat it as a proxy date.",
+      "party_ids": [],
+      "cohort_ids": [],
+      "observation_ids": [
+        "obs_agreement_nda_party_c_201607early"
+      ]
+    },
+    {
+      "gate_id": "proxy_date_export_warning",
+      "rule_id": "rough_date_export_warning",
+      "severity": "warning",
+      "description": "Observation 'obs_proposal_loi_party_b_201607late' uses non-exact date precision 'month_late'; downstream analyst surfaces should treat it as a proxy date.",
+      "party_ids": [],
+      "cohort_ids": [],
+      "observation_ids": [
+        "obs_proposal_loi_party_b_201607late"
+      ]
+    },
+    {
+      "gate_id": "proxy_date_export_warning",
+      "rule_id": "rough_date_export_warning",
+      "severity": "warning",
+      "description": "Observation 'obs_proposal_loi_party_e_201607late' uses non-exact date precision 'month_late'; downstream analyst surfaces should treat it as a proxy date.",
+      "party_ids": [],
+      "cohort_ids": [],
+      "observation_ids": [
+        "obs_proposal_loi_party_e_201607late"
+      ]
+    },
+    {
+      "gate_id": "proxy_date_export_warning",
+      "rule_id": "rough_date_export_warning",
+      "severity": "warning",
+      "description": "Observation 'obs_proposal_loi_party_d_201607late' uses non-exact date precision 'month_late'; downstream analyst surfaces should treat it as a proxy date.",
+      "party_ids": [],
+      "cohort_ids": [],
+      "observation_ids": [
+        "obs_proposal_loi_party_d_201607late"
+      ]
+    },
+    {
+      "gate_id": "proxy_date_export_warning",
+      "rule_id": "rough_date_export_warning",
+      "severity": "warning",
+      "description": "Observation 'obs_proposal_loi_party_c_201607late' uses non-exact date precision 'month_late'; downstream analyst surfaces should treat it as a proxy date.",
+      "party_ids": [],
+      "cohort_ids": [],
+      "observation_ids": [
+        "obs_proposal_loi_party_c_201607late"
+      ]
+    },
+    {
+      "gate_id": "proxy_date_export_warning",
+      "rule_id": "rough_date_export_warning",
+      "severity": "warning",
+      "description": "Observation 'obs_proposal_loi_party_f_201607late' uses non-exact date precision 'month_late'; downstream analyst surfaces should treat it as a proxy date.",
+      "party_ids": [],
+      "cohort_ids": [],
+      "observation_ids": [
+        "obs_proposal_loi_party_f_201607late"
+      ]
+    },
+    {
+      "gate_id": "proxy_date_export_warning",
+      "rule_id": "rough_date_export_warning",
+      "severity": "warning",
+      "description": "Observation 'obs_outcome_executed_20160812_relative' uses non-exact date precision 'relative'; downstream analyst surfaces should treat it as a proxy date.",
+      "party_ids": [],
+      "cohort_ids": [],
+      "observation_ids": [
+        "obs_outcome_executed_20160812_relative"
+      ]
+    },
+    {
+      "gate_id": "agreement_kind_surface_warning",
+      "rule_id": "agreement_kind_surface_warning",
+      "severity": "warning",
+      "description": "Agreement 'obs_agreement_nda_batch_20160328' appears to be 'standstill' but is classified as 'nda'.",
+      "party_ids": [],
+      "cohort_ids": [],
+      "observation_ids": [
+        "obs_agreement_nda_batch_20160328"
       ]
     }
   ],
   "summary": {
     "blocker_count": 0,
-    "warning_count": 1,
+    "warning_count": 10,
     "status": "pass"
   }
 }

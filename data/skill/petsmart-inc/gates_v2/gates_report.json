@@ -4,28 +4,39 @@
       "gate_id": "proxy_date_export_warning",
       "rule_id": "rough_date_export_warning",
       "severity": "warning",
-      "description": "Observation 'obs_evt_014' uses non-exact date precision 'month'; downstream analyst surfaces should treat it as a proxy date.",
+      "description": "Observation 'obs_agreement_nda_financial_buyers_2014-10' uses non-exact date precision 'month_early'; downstream analyst surfaces should treat it as a proxy date.",
       "party_ids": [],
       "cohort_ids": [],
       "observation_ids": [
-        "obs_evt_014"
+        "obs_agreement_nda_financial_buyers_2014-10"
       ]
     },
     {
-      "gate_id": "agreement_kind_surface_warning",
-      "rule_id": "agreement_kind_surface_warning",
+      "gate_id": "proxy_date_export_warning",
+      "rule_id": "rough_date_export_warning",
       "severity": "warning",
-      "description": "Agreement 'obs_evt_014' appears to be 'standstill' but is classified as 'nda'.",
+      "description": "Observation 'obs_agreement_standstill_financial_buyers_2014-10' uses non-exact date precision 'month_early'; downstream analyst surfaces should treat it as a proxy date.",
       "party_ids": [],
       "cohort_ids": [],
       "observation_ids": [
-        "obs_evt_014"
+        "obs_agreement_standstill_financial_buyers_2014-10"
+      ]
+    },
+    {
+      "gate_id": "proxy_date_export_warning",
+      "rule_id": "rough_date_export_warning",
+      "severity": "warning",
+      "description": "Observation 'obs_proposal_bidder_2_revised_ioi_2014-10-30_2014-11-02' uses non-exact date precision 'range'; downstream analyst surfaces should treat it as a proxy date.",
+      "party_ids": [],
+      "cohort_ids": [],
+      "observation_ids": [
+        "obs_proposal_bidder_2_revised_ioi_2014-10-30_2014-11-02"
       ]
     }
   ],
   "summary": {
     "blocker_count": 0,
-    "warning_count": 2,
+    "warning_count": 3,
     "status": "pass"
   }
 }

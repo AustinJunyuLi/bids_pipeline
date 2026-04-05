@@ -1,8 +1,42 @@
 {
-  "findings": [],
+  "findings": [
+    {
+      "gate_id": "proxy_date_export_warning",
+      "rule_id": "rough_date_export_warning",
+      "severity": "warning",
+      "description": "Observation 'obs_agreement_financial_sponsor_cohort_nda_20160506_20160609' uses non-exact date precision 'range'; downstream analyst surfaces should treat it as a proxy date.",
+      "party_ids": [],
+      "cohort_ids": [],
+      "observation_ids": [
+        "obs_agreement_financial_sponsor_cohort_nda_20160506_20160609"
+      ]
+    },
+    {
+      "gate_id": "proxy_date_export_warning",
+      "rule_id": "rough_date_export_warning",
+      "severity": "warning",
+      "description": "Observation 'obs_agreement_ndas_20160506_20160609' uses non-exact date precision 'range'; downstream analyst surfaces should treat it as a proxy date.",
+      "party_ids": [],
+      "cohort_ids": [],
+      "observation_ids": [
+        "obs_agreement_ndas_20160506_20160609"
+      ]
+    },
+    {
+      "gate_id": "proxy_date_export_warning",
+      "rule_id": "rough_date_export_warning",
+      "severity": "warning",
+      "description": "Observation 'obs_agreement_strategic_3_nda_by_20160609' uses non-exact date precision 'relative'; downstream analyst surfaces should treat it as a proxy date.",
+      "party_ids": [],
+      "cohort_ids": [],
+      "observation_ids": [
+        "obs_agreement_strategic_3_nda_by_20160609"
+      ]
+    }
+  ],
   "summary": {
     "blocker_count": 0,
-    "warning_count": 0,
+    "warning_count": 3,
     "status": "pass"
   }
 }

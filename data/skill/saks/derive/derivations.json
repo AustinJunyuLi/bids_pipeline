@@ -1,12 +1,56 @@
 {
-  "phases": [],
+  "phases": [
+    {
+      "phase_id": "phase_022",
+      "phase_kind": "formal",
+      "start_observation_id": "obs_solicitation_offers_due_2013-07-02",
+      "end_observation_id": "obs_outcome_company_b_discussions_terminated_2013-07-23",
+      "participant_refs": [
+        "party_bidder_hudsons_bay",
+        "party_bidder_sponsor_a",
+        "party_bidder_sponsor_e"
+      ],
+      "basis": {
+        "rule_id": "ROUND-02",
+        "source_observation_ids": [
+          "obs_solicitation_offers_due_2013-07-02"
+        ],
+        "source_span_ids": [
+          "span_0019"
+        ],
+        "confidence": "high",
+        "explanation": "Solicitation requested LOIs/binding offers or carried formal attachments."
+      }
+    },
+    {
+      "phase_id": "phase_030",
+      "phase_kind": "formal",
+      "start_observation_id": "obs_solicitation_hudsons_bay_improvement_2013-07-23",
+      "end_observation_id": "obs_outcome_transaction_executed_2013-07-28",
+      "participant_refs": [
+        "party_bidder_hudsons_bay"
+      ],
+      "basis": {
+        "rule_id": "ROUND-02",
+        "source_observation_ids": [
+          "obs_solicitation_hudsons_bay_improvement_2013-07-23"
+        ],
+        "source_span_ids": [
+          "span_0030",
+          "span_0031"
+        ],
+        "confidence": "high",
+        "explanation": "Solicitation requested LOIs/binding offers or carried formal attachments."
+      }
+    }
+  ],
   "transitions": [
     {
-      "transition_id": "exit-01_bidder_sponsor_g_obs_evt_029",
-      "subject_ref": "bidder_sponsor_g",
+      "transition_id": "exit-01_party_bidder_sponsor_g_obs_status_sponsor_g_withdrew_2013-07-11",
+      "subject_ref": "party_bidder_sponsor_g",
       "subject_count": 1,
       "event_date": {
-        "raw_text": "2013-07-11",
+        "raw_text": "On July 11, 2013",
         "normalized_start": "2013-07-11",
         "normalized_end": "2013-07-11",
         "sort_date": "2013-07-11",
@@ -22,21 +66,21 @@
       "basis": {
         "rule_id": "EXIT-01",
         "source_observation_ids": [
-          "obs_evt_029"
+          "obs_status_sponsor_g_withdrew_2013-07-11"
         ],
         "source_span_ids": [
-          "span_0028"
+          "span_0023"
         ],
         "confidence": "high",
         "explanation": "Literal status observation recorded bidder withdrawal or non-participation."
       }
     },
     {
-      "transition_id": "exit-01_target_saks_obs_evt_050",
-      "subject_ref": "target_saks",
+      "transition_id": "exit-02_party_bidder_sponsor_a_obs_status_sponsor_ae_cannot_improve_2013-07-23",
+      "subject_ref": "party_bidder_sponsor_a",
       "subject_count": 1,
       "event_date": {
-        "raw_text": "2013-07-23",
+        "raw_text": "In the evening of July 23, 2013",
         "normalized_start": "2013-07-23",
         "normalized_end": "2013-07-23",
         "sort_date": "2013-07-23",
@@ -46,27 +90,57 @@
         "resolution_note": null,
         "is_inferred": false
       },
-      "from_state": "active",
+      "from_state": "submitted",
       "to_state": "inactive",
-      "reason_kind": "literal",
+      "reason_kind": "cannot_improve",
       "basis": {
-        "rule_id": "EXIT-01",
+        "rule_id": "EXIT-02",
         "source_observation_ids": [
-          "obs_evt_050"
+          "obs_status_sponsor_ae_cannot_improve_2013-07-23"
         ],
         "source_span_ids": [
-          "span_0056"
+          "span_0033"
         ],
         "confidence": "high",
-        "explanation": "Literal status observation recorded bidder withdrawal or non-participation."
+        "explanation": "Status observation explicitly said the bidder could not improve."
       }
     },
     {
-      "transition_id": "exit-04_bidder_company_h_obs_evt_038",
-      "subject_ref": "bidder_company_h",
+      "transition_id": "exit-02_party_bidder_sponsor_e_obs_status_sponsor_ae_cannot_improve_2013-07-23",
+      "subject_ref": "party_bidder_sponsor_e",
       "subject_count": 1,
       "event_date": {
-        "raw_text": "2013-07-23",
+        "raw_text": "In the evening of July 23, 2013",
+        "normalized_start": "2013-07-23",
+        "normalized_end": "2013-07-23",
+        "sort_date": "2013-07-23",
+        "precision": "exact_day",
+        "anchor_event_id": null,
+        "anchor_span_id": null,
+        "resolution_note": null,
+        "is_inferred": false
+      },
+      "from_state": "submitted",
+      "to_state": "inactive",
+      "reason_kind": "cannot_improve",
+      "basis": {
+        "rule_id": "EXIT-02",
+        "source_observation_ids": [
+          "obs_status_sponsor_ae_cannot_improve_2013-07-23"
+        ],
+        "source_span_ids": [
+          "span_0033"
+        ],
+        "confidence": "high",
+        "explanation": "Status observation explicitly said the bidder could not improve."
+      }
+    },
+    {
+      "transition_id": "exit-04_party_bidder_company_h_obs_solicitation_hudsons_bay_improvement_2013-07-23",
+      "subject_ref": "party_bidder_company_h",
+      "subject_count": 1,
+      "event_date": {
+        "raw_text": "On July 23, 2013",
         "normalized_start": "2013-07-23",
         "normalized_end": "2013-07-23",
         "sort_date": "2013-07-23",
@@ -82,21 +156,22 @@
       "basis": {
         "rule_id": "EXIT-04",
         "source_observation_ids": [
-          "obs_evt_038"
+          "obs_solicitation_hudsons_bay_improvement_2013-07-23"
         ],
         "source_span_ids": [
-          "span_0038"
+          "span_0030",
+          "span_0031"
         ],
         "confidence": "high",
         "explanation": "Execution outcome closed out remaining active bidders in favor of the winner."
       }
     },
     {
-      "transition_id": "exit-04_bidder_sponsor_a_obs_evt_038",
-      "subject_ref": "bidder_sponsor_a",
+      "transition_id": "exit-04_party_bidder_saks_obs_solicitation_hudsons_bay_improvement_2013-07-23",
+      "subject_ref": "party_bidder_saks",
       "subject_count": 1,
       "event_date": {
-        "raw_text": "2013-07-23",
+        "raw_text": "On July 23, 2013",
         "normalized_start": "2013-07-23",
         "normalized_end": "2013-07-23",
         "sort_date": "2013-07-23",
@@ -112,232 +187,66 @@
       "basis": {
         "rule_id": "EXIT-04",
         "source_observation_ids": [
-          "obs_evt_038"
+          "obs_solicitation_hudsons_bay_improvement_2013-07-23"
         ],
         "source_span_ids": [
-          "span_0038"
-        ],
-        "confidence": "high",
-        "explanation": "Execution outcome closed out remaining active bidders in favor of the winner."
-      }
-    },
-    {
-      "transition_id": "exit-04_bidder_sponsor_e_obs_evt_038",
-      "subject_ref": "bidder_sponsor_e",
-      "subject_count": 1,
-      "event_date": {
-        "raw_text": "2013-07-23",
-        "normalized_start": "2013-07-23",
-        "normalized_end": "2013-07-23",
-        "sort_date": "2013-07-23",
-        "precision": "exact_day",
-        "anchor_event_id": null,
-        "anchor_span_id": null,
-        "resolution_note": null,
-        "is_inferred": false
-      },
-      "from_state": "submitted",
-      "to_state": "inactive",
-      "reason_kind": "lost_to_winner",
-      "basis": {
-        "rule_id": "EXIT-04",
-        "source_observation_ids": [
-          "obs_evt_038"
-        ],
-        "source_span_ids": [
-          "span_0038"
-        ],
-        "confidence": "high",
-        "explanation": "Execution outcome closed out remaining active bidders in favor of the winner."
-      }
-    },
-    {
-      "transition_id": "exit-04_other_sponsor_c_obs_evt_038",
-      "subject_ref": "other_sponsor_c",
-      "subject_count": 1,
-      "event_date": {
-        "raw_text": "2013-07-23",
-        "normalized_start": "2013-07-23",
-        "normalized_end": "2013-07-23",
-        "sort_date": "2013-07-23",
-        "precision": "exact_day",
-        "anchor_event_id": null,
-        "anchor_span_id": null,
-        "resolution_note": null,
-        "is_inferred": false
-      },
-      "from_state": "active",
-      "to_state": "inactive",
-      "reason_kind": "lost_to_winner",
-      "basis": {
-        "rule_id": "EXIT-04",
-        "source_observation_ids": [
-          "obs_evt_038"
-        ],
-        "source_span_ids": [
-          "span_0038"
-        ],
-        "confidence": "high",
-        "explanation": "Execution outcome closed out remaining active bidders in favor of the winner."
-      }
-    },
-    {
-      "transition_id": "exit-04_other_sponsor_d_obs_evt_038",
-      "subject_ref": "other_sponsor_d",
-      "subject_count": 1,
-      "event_date": {
-        "raw_text": "2013-07-23",
-        "normalized_start": "2013-07-23",
-        "normalized_end": "2013-07-23",
-        "sort_date": "2013-07-23",
-        "precision": "exact_day",
-        "anchor_event_id": null,
-        "anchor_span_id": null,
-        "resolution_note": null,
-        "is_inferred": false
-      },
-      "from_state": "active",
-      "to_state": "inactive",
-      "reason_kind": "lost_to_winner",
-      "basis": {
-        "rule_id": "EXIT-04",
-        "source_observation_ids": [
-          "obs_evt_038"
-        ],
-        "source_span_ids": [
-          "span_0038"
+          "span_0030",
+          "span_0031"
         ],
         "confidence": "high",
         "explanation": "Execution outcome closed out remaining active bidders in favor of the winner."
       }
     }
   ],
-  "cash_regimes": [],
-  "judgments": [
+  "cash_regimes": [
     {
-      "judgment_id": "judgment_001",
-      "judgment_kind": "ambiguous_phase",
-      "subject_ref": "obs_evt_024",
-      "human_review_required": true,
-      "note": "Solicitation could not be classified as informal or formal from structured fields alone.",
+      "cash_regime_id": "cash_001",
+      "scope_kind": "phase",
+      "scope_ref": "phase_022",
+      "regime": "all_cash",
       "basis": {
-        "rule_id": "ROUND-UNRESOLVED",
+        "rule_id": "CASH-01",
         "source_observation_ids": [
-          "obs_evt_024"
+          "obs_proposal_hudsons_bay_2013-07-11",
+          "obs_proposal_sponsor_eg_2013-07-11",
+          "obs_proposal_company_h_unsolicited_2013-07-21"
         ],
         "source_span_ids": [
-          "span_0022"
-        ],
-        "confidence": "medium",
-        "explanation": "Solicitation lacked deterministic round-classification fields."
-      }
-    },
-    {
-      "judgment_id": "judgment_002",
-      "judgment_kind": "ambiguous_phase",
-      "subject_ref": "obs_evt_031",
-      "human_review_required": true,
-      "note": "Solicitation could not be classified as informal or formal from structured fields alone.",
-      "basis": {
-        "rule_id": "ROUND-UNRESOLVED",
-        "source_observation_ids": [
-          "obs_evt_031"
-        ],
-        "source_span_ids": [
+          "span_0023",
           "span_0029"
         ],
-        "confidence": "medium",
-        "explanation": "Solicitation lacked deterministic round-classification fields."
+        "confidence": "high",
+        "explanation": "Explicit proposal consideration types set the phase cash regime."
       }
     },
     {
-      "judgment_id": "judgment_003",
-      "judgment_kind": "ambiguous_phase",
-      "subject_ref": "obs_evt_038",
-      "human_review_required": true,
-      "note": "Solicitation could not be classified as informal or formal from structured fields alone.",
+      "cash_regime_id": "cash_002",
+      "scope_kind": "phase",
+      "scope_ref": "phase_030",
+      "regime": "all_cash",
       "basis": {
-        "rule_id": "ROUND-UNRESOLVED",
+        "rule_id": "CASH-02",
         "source_observation_ids": [
-          "obs_evt_038"
+          "obs_agreement_merger_agreement_2013-07-28"
         ],
         "source_span_ids": [
-          "span_0038"
+          "span_0041"
         ],
-        "confidence": "medium",
-        "explanation": "Solicitation lacked deterministic round-classification fields."
-      }
-    },
-    {
-      "judgment_id": "judgment_004",
-      "judgment_kind": "ambiguous_phase",
-      "subject_ref": "obs_evt_046",
-      "human_review_required": true,
-      "note": "Solicitation could not be classified as informal or formal from structured fields alone.",
-      "basis": {
-        "rule_id": "ROUND-UNRESOLVED",
-        "source_observation_ids": [
-          "obs_evt_046"
-        ],
-        "source_span_ids": [
-          "span_0048"
-        ],
-        "confidence": "medium",
-        "explanation": "Solicitation lacked deterministic round-classification fields."
-      }
-    },
-    {
-      "judgment_id": "judgment_005",
-      "judgment_kind": "advisory_link",
-      "subject_ref": "advisor_goldman_sachs",
-      "human_review_required": true,
-      "note": "Advisor party lacks advised_party_id linkage.",
-      "basis": {
-        "rule_id": "ADVISORY-LINK-AMBIGUOUS",
-        "source_observation_ids": [],
-        "source_span_ids": [],
-        "confidence": "medium",
-        "explanation": "Advisor linkage is missing from the literal party record."
-      }
-    },
-    {
-      "judgment_id": "judgment_006",
-      "judgment_kind": "advisory_link",
-      "subject_ref": "advisor_wachtell_lipton",
-      "human_review_required": true,
-      "note": "Advisor party lacks advised_party_id linkage.",
-      "basis": {
-        "rule_id": "ADVISORY-LINK-AMBIGUOUS",
-        "source_observation_ids": [],
-        "source_span_ids": [],
-        "confidence": "medium",
-        "explanation": "Advisor linkage is missing from the literal party record."
-      }
-    },
-    {
-      "judgment_id": "judgment_007",
-      "judgment_kind": "advisory_link",
-      "subject_ref": "advisor_morgan_stanley",
-      "human_review_required": true,
-      "note": "Advisor party lacks advised_party_id linkage.",
-      "basis": {
-        "rule_id": "ADVISORY-LINK-AMBIGUOUS",
-        "source_observation_ids": [],
-        "source_span_ids": [],
-        "confidence": "medium",
-        "explanation": "Advisor linkage is missing from the literal party record."
+        "confidence": "high",
+        "explanation": "Cash merger agreement established an all-cash regime."
       }
     }
   ],
+  "judgments": [],
   "analyst_rows": [
     {
       "row_id": "row_0001",
       "origin": "literal",
       "analyst_event_type": "bidder_interest",
-      "subject_ref": "bidder_sponsor_a",
+      "subject_ref": "party_bidder_sponsor_a",
       "row_count": 1,
       "bidder_name": "Sponsor A",
-      "bidder_type": null,
+      "bidder_type": "F",
       "bid_type": null,
       "value": null,
       "range_low": null,
@@ -352,7 +261,7 @@
       "basis": {
         "rule_id": "LITERAL-STATUS",
         "source_observation_ids": [
-          "obs_evt_002"
+          "obs_status_sponsor_a_interest_2013-02"
         ],
         "source_span_ids": [
           "span_0002"
@@ -365,9 +274,9 @@
       "row_id": "row_0002",
       "origin": "literal",
       "analyst_event_type": "bidder_interest",
-      "subject_ref": "bidder_hudsons_bay",
+      "subject_ref": "party_bidder_hudsons_bay",
       "row_count": 1,
-      "bidder_name": "Hudsons Bay",
+      "bidder_name": "Hudson's Bay",
       "bidder_type": null,
       "bid_type": null,
       "value": null,
@@ -383,10 +292,10 @@
       "basis": {
         "rule_id": "LITERAL-STATUS",
         "source_observation_ids": [
-          "obs_evt_005"
+          "obs_status_hudsons_bay_interest_2013-04-01"
         ],
         "source_span_ids": [
-          "span_0005"
+          "span_0004"
         ],
         "confidence": "high",
         "explanation": "Literal expressed-interest status compiled directly into analyst row."
@@ -396,29 +305,29 @@
       "row_id": "row_0003",
       "origin": "literal",
       "analyst_event_type": "proposal",
-      "subject_ref": "bidder_hudsons_bay",
+      "subject_ref": "party_bidder_hudsons_bay",
       "row_count": 1,
-      "bidder_name": "Hudsons Bay",
+      "bidder_name": "Hudson's Bay",
       "bidder_type": null,
       "bid_type": "Uncertain",
-      "value": "15.0",
-      "range_low": null,
+      "value": null,
+      "range_low": "15.0",
       "range_high": null,
       "enterprise_value": null,
-      "date_precision": "exact_day",
-      "date_recorded": "2013-04-15",
-      "date_public": "2013-04-15",
-      "date_sort_proxy": null,
+      "date_precision": "range",
+      "date_recorded": null,
+      "date_public": null,
+      "date_sort_proxy": "2013-04-15",
       "all_cash": true,
       "review_flags": [],
       "basis": {
         "rule_id": "LITERAL-PROPOSAL",
         "source_observation_ids": [
-          "obs_evt_009"
+          "obs_proposal_hudsons_bay_indicative_floor_2013-04-15"
         ],
         "source_span_ids": [
-          "span_0009",
-          "span_0010"
+          "span_0007",
+          "span_0008"
         ],
         "confidence": "high",
         "explanation": "Literal proposal observation compiled directly into analyst row."
@@ -428,29 +337,29 @@
       "row_id": "row_0004",
       "origin": "literal",
       "analyst_event_type": "proposal",
-      "subject_ref": "bidder_sponsor_a",
+      "subject_ref": "party_bidder_sponsor_a",
       "row_count": 1,
       "bidder_name": "Sponsor A",
-      "bidder_type": null,
+      "bidder_type": "F",
       "bid_type": "Uncertain",
-      "value": "15.0",
-      "range_low": null,
+      "value": null,
+      "range_low": "15.0",
       "range_high": null,
       "enterprise_value": null,
-      "date_precision": "exact_day",
-      "date_recorded": "2013-04-15",
-      "date_public": "2013-04-15",
-      "date_sort_proxy": null,
+      "date_precision": "range",
+      "date_recorded": null,
+      "date_public": null,
+      "date_sort_proxy": "2013-04-15",
       "all_cash": true,
       "review_flags": [],
       "basis": {
         "rule_id": "LITERAL-PROPOSAL",
         "source_observation_ids": [
-          "obs_evt_009"
+          "obs_proposal_sponsor_a_indicative_floor_2013-04-15"
         ],
         "source_span_ids": [
-          "span_0009",
-          "span_0010"
+          "span_0007",
+          "span_0008"
         ],
         "confidence": "high",
         "explanation": "Literal proposal observation compiled directly into analyst row."
@@ -460,9 +369,9 @@
       "row_id": "row_0005",
       "origin": "literal",
       "analyst_event_type": "nda",
-      "subject_ref": "other_sponsor_c",
+      "subject_ref": "party_target_saks",
       "row_count": 1,
-      "bidder_name": "Sponsor C",
+      "bidder_name": "Saks",
       "bidder_type": null,
       "bid_type": null,
       "value": null,
@@ -478,10 +387,10 @@
       "basis": {
         "rule_id": "LITERAL-AGREEMENT",
         "source_observation_ids": [
-          "obs_evt_010"
+          "obs_agreement_nda_sponsor_c_2013-04-17"
         ],
         "source_span_ids": [
-          "span_0011"
+          "span_0009"
         ],
         "confidence": "high",
         "explanation": "Literal agreement observation compiled into NDA-family analyst row."
@@ -491,9 +400,9 @@
       "row_id": "row_0006",
       "origin": "literal",
       "analyst_event_type": "nda",
-      "subject_ref": "other_sponsor_d",
+      "subject_ref": "party_target_saks",
       "row_count": 1,
-      "bidder_name": "Sponsor D",
+      "bidder_name": "Saks",
       "bidder_type": null,
       "bid_type": null,
       "value": null,
@@ -509,10 +418,10 @@
       "basis": {
         "rule_id": "LITERAL-AGREEMENT",
         "source_observation_ids": [
-          "obs_evt_011"
+          "obs_agreement_nda_sponsor_d_2013-04-19"
         ],
         "source_span_ids": [
-          "span_0011"
+          "span_0009"
         ],
         "confidence": "high",
         "explanation": "Literal agreement observation compiled into NDA-family analyst row."
@@ -522,9 +431,9 @@
       "row_id": "row_0007",
       "origin": "literal",
       "analyst_event_type": "nda",
-      "subject_ref": "bidder_sponsor_a",
+      "subject_ref": "party_target_saks",
       "row_count": 1,
-      "bidder_name": "Sponsor A",
+      "bidder_name": "Saks",
       "bidder_type": null,
       "bid_type": null,
       "value": null,
@@ -540,9 +449,10 @@
       "basis": {
         "rule_id": "LITERAL-AGREEMENT",
         "source_observation_ids": [
-          "obs_evt_013"
+          "obs_agreement_nda_sponsor_a_2013-04-26"
         ],
         "source_span_ids": [
+          "span_0010",
           "span_0012"
         ],
         "confidence": "high",
@@ -553,9 +463,9 @@
       "row_id": "row_0008",
       "origin": "literal",
       "analyst_event_type": "nda",
-      "subject_ref": "bidder_sponsor_e",
+      "subject_ref": "party_target_saks",
       "row_count": 1,
-      "bidder_name": "Sponsor E",
+      "bidder_name": "Saks",
       "bidder_type": null,
       "bid_type": null,
       "value": null,
@@ -571,9 +481,10 @@
       "basis": {
         "rule_id": "LITERAL-AGREEMENT",
         "source_observation_ids": [
-          "obs_evt_013"
+          "obs_agreement_nda_sponsor_e_2013-04-26"
         ],
         "source_span_ids": [
+          "span_0010",
           "span_0012"
         ],
         "confidence": "high",
@@ -584,9 +495,9 @@
       "row_id": "row_0009",
       "origin": "literal",
       "analyst_event_type": "nda",
-      "subject_ref": "bidder_hudsons_bay",
+      "subject_ref": "party_target_saks",
       "row_count": 1,
-      "bidder_name": "Hudsons Bay",
+      "bidder_name": "Saks",
       "bidder_type": null,
       "bid_type": null,
       "value": null,
@@ -602,7 +513,41 @@
       "basis": {
         "rule_id": "LITERAL-AGREEMENT",
         "source_observation_ids": [
-          "obs_evt_014"
+          "obs_agreement_nda_hudsons_bay_2013-04-30"
+        ],
+        "source_span_ids": [
+          "span_0011",
+          "span_0012"
+        ],
+        "confidence": "high",
+        "explanation": "Literal agreement observation compiled into NDA-family analyst row."
+      }
+    },
+    {
+      "row_id": "row_0010",
+      "origin": "literal",
+      "analyst_event_type": "nda_amendment",
+      "subject_ref": "party_target_finance_committee_saks",
+      "row_count": 1,
+      "bidder_name": "Finance committee",
+      "bidder_type": null,
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2013-05-15",
+      "date_public": "2013-05-15",
+      "date_sort_proxy": null,
+      "all_cash": null,
+      "review_flags": [
+        "supersedes:obs_agreement_nda_hudsons_bay_2013-04-30"
+      ],
+      "basis": {
+        "rule_id": "AGREEMENT-01",
+        "source_observation_ids": [
+          "obs_agreement_amendment_hudsons_bay_financing_contacts_2013-05-15"
         ],
         "source_span_ids": [
           "span_0013"
@@ -612,93 +557,64 @@
       }
     },
     {
-      "row_id": "row_0010",
-      "origin": "literal",
-      "analyst_event_type": "proposal",
-      "subject_ref": "bidder_hudsons_bay",
-      "row_count": 1,
-      "bidder_name": "Hudsons Bay",
-      "bidder_type": null,
-      "bid_type": "Uncertain",
-      "value": null,
-      "range_low": null,
-      "range_high": null,
-      "enterprise_value": null,
-      "date_precision": "exact_day",
-      "date_recorded": "2013-06-03",
-      "date_public": "2013-06-03",
-      "date_sort_proxy": null,
-      "all_cash": false,
-      "review_flags": [],
-      "basis": {
-        "rule_id": "LITERAL-PROPOSAL",
-        "source_observation_ids": [
-          "obs_evt_019"
-        ],
-        "source_span_ids": [
-          "span_0018"
-        ],
-        "confidence": "high",
-        "explanation": "Literal proposal observation compiled directly into analyst row."
-      }
-    },
-    {
       "row_id": "row_0011",
       "origin": "literal",
-      "analyst_event_type": "proposal",
-      "subject_ref": "bidder_sponsor_a",
+      "analyst_event_type": "nda_amendment",
+      "subject_ref": "party_target_saks",
       "row_count": 1,
-      "bidder_name": "Sponsor A",
+      "bidder_name": "Saks",
       "bidder_type": null,
-      "bid_type": "Uncertain",
+      "bid_type": null,
       "value": null,
       "range_low": null,
       "range_high": null,
       "enterprise_value": null,
       "date_precision": "exact_day",
-      "date_recorded": "2013-06-03",
-      "date_public": "2013-06-03",
+      "date_recorded": "2013-05-15",
+      "date_public": "2013-05-15",
       "date_sort_proxy": null,
-      "all_cash": false,
-      "review_flags": [],
+      "all_cash": null,
+      "review_flags": [
+        "supersedes:obs_agreement_nda_hudsons_bay_2013-04-30"
+      ],
       "basis": {
-        "rule_id": "LITERAL-PROPOSAL",
+        "rule_id": "AGREEMENT-01",
         "source_observation_ids": [
-          "obs_evt_020"
+          "obs_agreement_amendment_hudsons_bay_financing_contacts_2013-05-15"
         ],
         "source_span_ids": [
-          "span_0018"
+          "span_0013"
         ],
         "confidence": "high",
-        "explanation": "Literal proposal observation compiled directly into analyst row."
+        "explanation": "Literal agreement observation compiled into NDA-family analyst row."
       }
     },
     {
       "row_id": "row_0012",
       "origin": "literal",
       "analyst_event_type": "proposal",
-      "subject_ref": "bidder_sponsor_e",
+      "subject_ref": "party_bidder_saks",
       "row_count": 1,
-      "bidder_name": "Sponsor E",
-      "bidder_type": null,
-      "bid_type": "Uncertain",
+      "bidder_name": "Saks",
+      "bidder_type": "public S",
+      "bid_type": "Informal",
       "value": null,
       "range_low": null,
       "range_high": null,
       "enterprise_value": null,
       "date_precision": "exact_day",
-      "date_recorded": "2013-06-03",
-      "date_public": "2013-06-03",
+      "date_recorded": "2013-05-17",
+      "date_public": "2013-05-17",
       "date_sort_proxy": null,
       "all_cash": false,
       "review_flags": [],
       "basis": {
         "rule_id": "LITERAL-PROPOSAL",
         "source_observation_ids": [
-          "obs_evt_020"
+          "obs_proposal_saks_company_b_preliminary_2013-05-17"
         ],
         "source_span_ids": [
-          "span_0018"
+          "span_0014"
         ],
         "confidence": "high",
         "explanation": "Literal proposal observation compiled directly into analyst row."
@@ -707,10 +623,103 @@
     {
       "row_id": "row_0013",
       "origin": "literal",
-      "analyst_event_type": "target_sale",
-      "subject_ref": "target_saks",
+      "analyst_event_type": "proposal",
+      "subject_ref": "party_bidder_hudsons_bay",
       "row_count": 1,
-      "bidder_name": "Saks Inc",
+      "bidder_name": "Hudson's Bay",
+      "bidder_type": null,
+      "bid_type": "Informal",
+      "value": null,
+      "range_low": "15.0",
+      "range_high": "15.25",
+      "enterprise_value": null,
+      "date_precision": "range",
+      "date_recorded": null,
+      "date_public": null,
+      "date_sort_proxy": "2013-06-03",
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROPOSAL",
+        "source_observation_ids": [
+          "obs_proposal_hudsons_bay_indicative_range_2013-06-03"
+        ],
+        "source_span_ids": [
+          "span_0015"
+        ],
+        "confidence": "high",
+        "explanation": "Literal proposal observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0014",
+      "origin": "literal",
+      "analyst_event_type": "proposal",
+      "subject_ref": "party_bidder_sponsor_a",
+      "row_count": 1,
+      "bidder_name": "Sponsor A",
+      "bidder_type": "F",
+      "bid_type": "Informal",
+      "value": null,
+      "range_low": "15.0",
+      "range_high": "16.0",
+      "enterprise_value": null,
+      "date_precision": "range",
+      "date_recorded": null,
+      "date_public": null,
+      "date_sort_proxy": "2013-06-03",
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROPOSAL",
+        "source_observation_ids": [
+          "obs_proposal_sponsor_ae_indicative_range_2013-06-03"
+        ],
+        "source_span_ids": [
+          "span_0015"
+        ],
+        "confidence": "high",
+        "explanation": "Literal proposal observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0015",
+      "origin": "literal",
+      "analyst_event_type": "proposal",
+      "subject_ref": "party_bidder_sponsor_e",
+      "row_count": 1,
+      "bidder_name": "Sponsor E",
+      "bidder_type": "F",
+      "bid_type": "Informal",
+      "value": null,
+      "range_low": "15.0",
+      "range_high": "16.0",
+      "enterprise_value": null,
+      "date_precision": "range",
+      "date_recorded": null,
+      "date_public": null,
+      "date_sort_proxy": "2013-06-03",
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROPOSAL",
+        "source_observation_ids": [
+          "obs_proposal_sponsor_ae_indicative_range_2013-06-03"
+        ],
+        "source_span_ids": [
+          "span_0015"
+        ],
+        "confidence": "high",
+        "explanation": "Literal proposal observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0016",
+      "origin": "literal",
+      "analyst_event_type": "target_sale",
+      "subject_ref": "party_target_board_saks",
+      "row_count": 1,
+      "bidder_name": "board",
       "bidder_type": null,
       "bid_type": null,
       "value": null,
@@ -726,53 +735,84 @@
       "basis": {
         "rule_id": "LITERAL-PROCESS",
         "source_observation_ids": [
-          "obs_evt_021"
+          "obs_process_sale_launch_2013-06-05"
         ],
         "source_span_ids": [
-          "span_0019"
+          "span_0016"
         ],
         "confidence": "high",
         "explanation": "Literal process observation compiled directly into analyst row."
       }
     },
     {
-      "row_id": "row_0014",
+      "row_id": "row_0017",
       "origin": "literal",
-      "analyst_event_type": "bidder_interest",
-      "subject_ref": "bidder_company_f",
+      "analyst_event_type": "proposal",
+      "subject_ref": "party_bidder_saks",
       "row_count": 1,
-      "bidder_name": "Company F",
-      "bidder_type": null,
-      "bid_type": null,
+      "bidder_name": "Saks",
+      "bidder_type": "public S",
+      "bid_type": "Informal",
       "value": null,
       "range_low": null,
       "range_high": null,
       "enterprise_value": null,
       "date_precision": "exact_day",
-      "date_recorded": "2013-06-10",
-      "date_public": "2013-06-10",
+      "date_recorded": "2013-06-06",
+      "date_public": "2013-06-06",
       "date_sort_proxy": null,
+      "all_cash": false,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROPOSAL",
+        "source_observation_ids": [
+          "obs_proposal_saks_company_b_revised_2013-06-06"
+        ],
+        "source_span_ids": [
+          "span_0017"
+        ],
+        "confidence": "high",
+        "explanation": "Literal proposal observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0018",
+      "origin": "literal",
+      "analyst_event_type": "bidder_interest",
+      "subject_ref": "party_bidder_company_f",
+      "row_count": 1,
+      "bidder_name": "Company F",
+      "bidder_type": "S",
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "range",
+      "date_recorded": null,
+      "date_public": null,
+      "date_sort_proxy": "2013-06-10",
       "all_cash": null,
       "review_flags": [],
       "basis": {
         "rule_id": "LITERAL-STATUS",
         "source_observation_ids": [
-          "obs_evt_023"
+          "obs_status_company_f_interest_2013-06-10"
         ],
         "source_span_ids": [
-          "span_0021"
+          "span_0018"
         ],
         "confidence": "high",
         "explanation": "Literal expressed-interest status compiled directly into analyst row."
       }
     },
     {
-      "row_id": "row_0015",
+      "row_id": "row_0019",
       "origin": "literal",
       "analyst_event_type": "nda",
-      "subject_ref": "bidder_sponsor_g",
+      "subject_ref": "party_target_saks",
       "row_count": 1,
-      "bidder_name": "Sponsor G",
+      "bidder_name": "Saks",
       "bidder_type": null,
       "bid_type": null,
       "value": null,
@@ -788,22 +828,22 @@
       "basis": {
         "rule_id": "LITERAL-AGREEMENT",
         "source_observation_ids": [
-          "obs_evt_026"
+          "obs_agreement_nda_sponsor_g_2013-07-08"
         ],
         "source_span_ids": [
-          "span_0024"
+          "span_0022"
         ],
         "confidence": "high",
         "explanation": "Literal agreement observation compiled into NDA-family analyst row."
       }
     },
     {
-      "row_id": "row_0016",
+      "row_id": "row_0020",
       "origin": "literal",
       "analyst_event_type": "proposal",
-      "subject_ref": "bidder_hudsons_bay",
+      "subject_ref": "party_bidder_hudsons_bay",
       "row_count": 1,
-      "bidder_name": "Hudsons Bay",
+      "bidder_name": "Hudson's Bay",
       "bidder_type": null,
       "bid_type": "Formal",
       "value": "15.25",
@@ -814,89 +854,89 @@
       "date_recorded": "2013-07-11",
       "date_public": "2013-07-11",
       "date_sort_proxy": null,
-      "all_cash": false,
+      "all_cash": true,
       "review_flags": [],
       "basis": {
         "rule_id": "LITERAL-PROPOSAL",
         "source_observation_ids": [
-          "obs_evt_027"
+          "obs_proposal_hudsons_bay_2013-07-11"
         ],
         "source_span_ids": [
-          "span_0026"
+          "span_0023"
         ],
         "confidence": "high",
         "explanation": "Literal proposal observation compiled directly into analyst row."
       }
     },
     {
-      "row_id": "row_0017",
+      "row_id": "row_0021",
       "origin": "literal",
       "analyst_event_type": "proposal",
-      "subject_ref": "bidder_sponsor_e",
+      "subject_ref": "party_bidder_sponsor_e",
       "row_count": 1,
       "bidder_name": "Sponsor E",
-      "bidder_type": null,
-      "bid_type": "Uncertain",
+      "bidder_type": "F",
+      "bid_type": "Informal",
       "value": null,
-      "range_low": null,
-      "range_high": null,
+      "range_low": "14.5",
+      "range_high": "15.5",
       "enterprise_value": null,
       "date_precision": "exact_day",
       "date_recorded": "2013-07-11",
       "date_public": "2013-07-11",
       "date_sort_proxy": null,
-      "all_cash": false,
+      "all_cash": true,
       "review_flags": [],
       "basis": {
         "rule_id": "LITERAL-PROPOSAL",
         "source_observation_ids": [
-          "obs_evt_028"
+          "obs_proposal_sponsor_eg_2013-07-11"
         ],
         "source_span_ids": [
-          "span_0027"
+          "span_0023"
         ],
         "confidence": "high",
         "explanation": "Literal proposal observation compiled directly into analyst row."
       }
     },
     {
-      "row_id": "row_0018",
+      "row_id": "row_0022",
       "origin": "literal",
       "analyst_event_type": "proposal",
-      "subject_ref": "bidder_sponsor_g",
+      "subject_ref": "party_bidder_sponsor_g",
       "row_count": 1,
       "bidder_name": "Sponsor G",
-      "bidder_type": null,
-      "bid_type": "Uncertain",
+      "bidder_type": "F",
+      "bid_type": "Informal",
       "value": null,
-      "range_low": null,
-      "range_high": null,
+      "range_low": "14.5",
+      "range_high": "15.5",
       "enterprise_value": null,
       "date_precision": "exact_day",
       "date_recorded": "2013-07-11",
       "date_public": "2013-07-11",
       "date_sort_proxy": null,
-      "all_cash": false,
+      "all_cash": true,
       "review_flags": [],
       "basis": {
         "rule_id": "LITERAL-PROPOSAL",
         "source_observation_ids": [
-          "obs_evt_028"
+          "obs_proposal_sponsor_eg_2013-07-11"
         ],
         "source_span_ids": [
-          "span_0027"
+          "span_0023"
         ],
         "confidence": "high",
         "explanation": "Literal proposal observation compiled directly into analyst row."
       }
     },
     {
-      "row_id": "row_0019",
+      "row_id": "row_0023",
       "origin": "literal",
       "analyst_event_type": "nda",
-      "subject_ref": "target_saks",
+      "subject_ref": "party_target_saks",
       "row_count": 1,
-      "bidder_name": "Saks Inc",
+      "bidder_name": "Saks",
       "bidder_type": null,
       "bid_type": null,
       "value": null,
@@ -912,28 +952,29 @@
       "basis": {
         "rule_id": "LITERAL-AGREEMENT",
         "source_observation_ids": [
-          "obs_evt_034"
+          "obs_agreement_nda_company_b_2013-07-18"
         ],
         "source_span_ids": [
-          "span_0032"
+          "span_0027",
+          "span_0028"
         ],
         "confidence": "high",
         "explanation": "Literal agreement observation compiled into NDA-family analyst row."
       }
     },
     {
-      "row_id": "row_0020",
+      "row_id": "row_0024",
       "origin": "literal",
       "analyst_event_type": "proposal",
-      "subject_ref": "bidder_company_h",
+      "subject_ref": "party_bidder_company_h",
       "row_count": 1,
       "bidder_name": "Company H",
       "bidder_type": null,
-      "bid_type": "Uncertain",
+      "bid_type": "Formal",
       "value": null,
       "range_low": null,
       "range_high": null,
-      "enterprise_value": null,
+      "enterprise_value": "2600000000",
       "date_precision": "exact_day",
       "date_recorded": "2013-07-21",
       "date_public": "2013-07-21",
@@ -943,25 +984,56 @@
       "basis": {
         "rule_id": "LITERAL-PROPOSAL",
         "source_observation_ids": [
-          "obs_evt_035"
+          "obs_proposal_company_h_unsolicited_2013-07-21"
         ],
         "source_span_ids": [
-          "span_0033",
-          "span_0034"
+          "span_0029"
         ],
         "confidence": "high",
         "explanation": "Literal proposal observation compiled directly into analyst row."
       }
     },
     {
-      "row_id": "row_0021",
+      "row_id": "row_0025",
+      "origin": "literal",
+      "analyst_event_type": "terminated",
+      "subject_ref": "party_other_company_b",
+      "row_count": 1,
+      "bidder_name": "Company B",
+      "bidder_type": null,
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2013-07-23",
+      "date_public": "2013-07-23",
+      "date_sort_proxy": null,
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-OUTCOME",
+        "source_observation_ids": [
+          "obs_outcome_company_b_discussions_terminated_2013-07-23"
+        ],
+        "source_span_ids": [
+          "span_0030",
+          "span_0032"
+        ],
+        "confidence": "high",
+        "explanation": "Literal outcome observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0026",
       "origin": "literal",
       "analyst_event_type": "proposal",
-      "subject_ref": "bidder_hudsons_bay",
+      "subject_ref": "party_bidder_hudsons_bay",
       "row_count": 1,
-      "bidder_name": "Hudsons Bay",
+      "bidder_name": "Hudson's Bay",
       "bidder_type": null,
-      "bid_type": "Uncertain",
+      "bid_type": "Formal",
       "value": "16.0",
       "range_low": null,
       "range_high": null,
@@ -970,27 +1042,27 @@
       "date_recorded": "2013-07-24",
       "date_public": "2013-07-24",
       "date_sort_proxy": null,
-      "all_cash": false,
+      "all_cash": true,
       "review_flags": [],
       "basis": {
         "rule_id": "LITERAL-PROPOSAL",
         "source_observation_ids": [
-          "obs_evt_040"
+          "obs_proposal_hudsons_bay_2013-07-24"
         ],
         "source_span_ids": [
-          "span_0040"
+          "span_0034"
         ],
         "confidence": "high",
         "explanation": "Literal proposal observation compiled directly into analyst row."
       }
     },
     {
-      "row_id": "row_0022",
+      "row_id": "row_0027",
       "origin": "literal",
       "analyst_event_type": "executed",
-      "subject_ref": "bidder_hudsons_bay",
+      "subject_ref": "party_bidder_hudsons_bay",
       "row_count": 1,
-      "bidder_name": "Hudsons Bay",
+      "bidder_name": "Hudson's Bay",
       "bidder_type": null,
       "bid_type": null,
       "value": null,
@@ -1006,20 +1078,83 @@
       "basis": {
         "rule_id": "LITERAL-OUTCOME",
         "source_observation_ids": [
-          "obs_evt_044"
+          "obs_outcome_transaction_executed_2013-07-28"
         ],
         "source_span_ids": [
-          "span_0046"
+          "span_0041"
         ],
         "confidence": "high",
         "explanation": "Literal outcome observation compiled directly into analyst row."
       }
     },
     {
-      "row_id": "row_0023",
+      "row_id": "row_0028",
+      "origin": "literal",
+      "analyst_event_type": "sale_press_release",
+      "subject_ref": "party_target_saks",
+      "row_count": 1,
+      "bidder_name": "Saks",
+      "bidder_type": null,
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2013-07-29",
+      "date_public": "2013-07-29",
+      "date_sort_proxy": null,
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-PROCESS",
+        "source_observation_ids": [
+          "obs_process_press_release_2013-07-29"
+        ],
+        "source_span_ids": [
+          "span_0042"
+        ],
+        "confidence": "high",
+        "explanation": "Literal process observation compiled directly into analyst row."
+      }
+    },
+    {
+      "row_id": "row_0029",
       "origin": "literal",
       "analyst_event_type": "nda",
-      "subject_ref": "bidder_company_i",
+      "subject_ref": "party_target_saks",
+      "row_count": 1,
+      "bidder_name": "Saks",
+      "bidder_type": null,
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "relative",
+      "date_recorded": null,
+      "date_public": null,
+      "date_sort_proxy": "2013-08-11",
+      "all_cash": null,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "LITERAL-AGREEMENT",
+        "source_observation_ids": [
+          "obs_agreement_nda_company_i_2013-08-relative"
+        ],
+        "source_span_ids": [
+          "span_0043",
+          "span_0044"
+        ],
+        "confidence": "high",
+        "explanation": "Literal agreement observation compiled into NDA-family analyst row."
+      }
+    },
+    {
+      "row_id": "row_0030",
+      "origin": "literal",
+      "analyst_event_type": "bidder_interest",
+      "subject_ref": "party_bidder_company_i",
       "row_count": 1,
       "bidder_name": "Company I",
       "bidder_type": null,
@@ -1028,32 +1163,250 @@
       "range_low": null,
       "range_high": null,
       "enterprise_value": null,
-      "date_precision": null,
-      "date_recorded": null,
-      "date_public": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2013-09-06",
+      "date_public": "2013-09-06",
       "date_sort_proxy": null,
       "all_cash": null,
       "review_flags": [],
       "basis": {
-        "rule_id": "LITERAL-AGREEMENT",
+        "rule_id": "LITERAL-STATUS",
         "source_observation_ids": [
-          "obs_evt_047"
+          "obs_status_company_i_interest_2013-09-06"
         ],
         "source_span_ids": [
-          "span_0049"
+          "span_0043"
         ],
         "confidence": "high",
-        "explanation": "Literal agreement observation compiled into NDA-family analyst row."
+        "explanation": "Literal expressed-interest status compiled directly into analyst row."
       }
     },
     {
-      "row_id": "row_0024",
+      "row_id": "row_0031",
+      "origin": "derived",
+      "analyst_event_type": "final_round_ann",
+      "subject_ref": "party_bidder_hudsons_bay",
+      "row_count": 1,
+      "bidder_name": "Hudson's Bay",
+      "bidder_type": null,
+      "bid_type": "Formal",
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2013-07-02",
+      "date_public": "2013-07-02",
+      "date_sort_proxy": null,
+      "all_cash": true,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "ROUND-02",
+        "source_observation_ids": [
+          "obs_solicitation_offers_due_2013-07-02"
+        ],
+        "source_span_ids": [
+          "span_0019"
+        ],
+        "confidence": "high",
+        "explanation": "Solicitation requested LOIs/binding offers or carried formal attachments."
+      }
+    },
+    {
+      "row_id": "row_0032",
+      "origin": "derived",
+      "analyst_event_type": "final_round",
+      "subject_ref": "party_bidder_hudsons_bay",
+      "row_count": 1,
+      "bidder_name": "Hudson's Bay",
+      "bidder_type": null,
+      "bid_type": "Formal",
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2013-07-11",
+      "date_public": "2013-07-11",
+      "date_sort_proxy": null,
+      "all_cash": true,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "ROUND-02",
+        "source_observation_ids": [
+          "obs_solicitation_offers_due_2013-07-02"
+        ],
+        "source_span_ids": [
+          "span_0019"
+        ],
+        "confidence": "high",
+        "explanation": "Solicitation requested LOIs/binding offers or carried formal attachments."
+      }
+    },
+    {
+      "row_id": "row_0033",
+      "origin": "derived",
+      "analyst_event_type": "final_round_ann",
+      "subject_ref": "party_bidder_sponsor_a",
+      "row_count": 1,
+      "bidder_name": "Sponsor A",
+      "bidder_type": "F",
+      "bid_type": "Formal",
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2013-07-02",
+      "date_public": "2013-07-02",
+      "date_sort_proxy": null,
+      "all_cash": true,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "ROUND-02",
+        "source_observation_ids": [
+          "obs_solicitation_offers_due_2013-07-02"
+        ],
+        "source_span_ids": [
+          "span_0019"
+        ],
+        "confidence": "high",
+        "explanation": "Solicitation requested LOIs/binding offers or carried formal attachments."
+      }
+    },
+    {
+      "row_id": "row_0034",
+      "origin": "derived",
+      "analyst_event_type": "final_round",
+      "subject_ref": "party_bidder_sponsor_a",
+      "row_count": 1,
+      "bidder_name": "Sponsor A",
+      "bidder_type": "F",
+      "bid_type": "Formal",
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2013-07-11",
+      "date_public": "2013-07-11",
+      "date_sort_proxy": null,
+      "all_cash": true,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "ROUND-02",
+        "source_observation_ids": [
+          "obs_solicitation_offers_due_2013-07-02"
+        ],
+        "source_span_ids": [
+          "span_0019"
+        ],
+        "confidence": "high",
+        "explanation": "Solicitation requested LOIs/binding offers or carried formal attachments."
+      }
+    },
+    {
+      "row_id": "row_0035",
+      "origin": "derived",
+      "analyst_event_type": "final_round_ann",
+      "subject_ref": "party_bidder_sponsor_e",
+      "row_count": 1,
+      "bidder_name": "Sponsor E",
+      "bidder_type": "F",
+      "bid_type": "Formal",
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2013-07-02",
+      "date_public": "2013-07-02",
+      "date_sort_proxy": null,
+      "all_cash": true,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "ROUND-02",
+        "source_observation_ids": [
+          "obs_solicitation_offers_due_2013-07-02"
+        ],
+        "source_span_ids": [
+          "span_0019"
+        ],
+        "confidence": "high",
+        "explanation": "Solicitation requested LOIs/binding offers or carried formal attachments."
+      }
+    },
+    {
+      "row_id": "row_0036",
+      "origin": "derived",
+      "analyst_event_type": "final_round",
+      "subject_ref": "party_bidder_sponsor_e",
+      "row_count": 1,
+      "bidder_name": "Sponsor E",
+      "bidder_type": "F",
+      "bid_type": "Formal",
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2013-07-11",
+      "date_public": "2013-07-11",
+      "date_sort_proxy": null,
+      "all_cash": true,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "ROUND-02",
+        "source_observation_ids": [
+          "obs_solicitation_offers_due_2013-07-02"
+        ],
+        "source_span_ids": [
+          "span_0019"
+        ],
+        "confidence": "high",
+        "explanation": "Solicitation requested LOIs/binding offers or carried formal attachments."
+      }
+    },
+    {
+      "row_id": "row_0037",
+      "origin": "derived",
+      "analyst_event_type": "final_round_ann",
+      "subject_ref": "party_bidder_hudsons_bay",
+      "row_count": 1,
+      "bidder_name": "Hudson's Bay",
+      "bidder_type": null,
+      "bid_type": "Formal",
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2013-07-23",
+      "date_public": "2013-07-23",
+      "date_sort_proxy": null,
+      "all_cash": true,
+      "review_flags": [],
+      "basis": {
+        "rule_id": "ROUND-02",
+        "source_observation_ids": [
+          "obs_solicitation_hudsons_bay_improvement_2013-07-23"
+        ],
+        "source_span_ids": [
+          "span_0030",
+          "span_0031"
+        ],
+        "confidence": "high",
+        "explanation": "Solicitation requested LOIs/binding offers or carried formal attachments."
+      }
+    },
+    {
+      "row_id": "row_0038",
       "origin": "literal",
       "analyst_event_type": "drop",
-      "subject_ref": "bidder_sponsor_g",
+      "subject_ref": "party_bidder_sponsor_g",
       "row_count": 1,
       "bidder_name": "Sponsor G",
-      "bidder_type": null,
+      "bidder_type": "F",
       "bid_type": null,
       "value": null,
       "range_low": null,
@@ -1068,23 +1421,23 @@
       "basis": {
         "rule_id": "EXIT-01",
         "source_observation_ids": [
-          "obs_evt_029"
+          "obs_status_sponsor_g_withdrew_2013-07-11"
         ],
         "source_span_ids": [
-          "span_0028"
+          "span_0023"
         ],
         "confidence": "high",
         "explanation": "Literal status observation recorded bidder withdrawal or non-participation."
       }
     },
     {
-      "row_id": "row_0025",
-      "origin": "literal",
+      "row_id": "row_0039",
+      "origin": "derived",
       "analyst_event_type": "drop",
-      "subject_ref": "target_saks",
+      "subject_ref": "party_bidder_sponsor_a",
       "row_count": 1,
-      "bidder_name": "Saks Inc",
-      "bidder_type": null,
+      "bidder_name": "Sponsor A",
+      "bidder_type": "F",
       "bid_type": null,
       "value": null,
       "range_low": null,
@@ -1095,24 +1448,59 @@
       "date_public": "2013-07-23",
       "date_sort_proxy": null,
       "all_cash": null,
-      "review_flags": [],
+      "review_flags": [
+        "reason:cannot_improve"
+      ],
       "basis": {
-        "rule_id": "EXIT-01",
+        "rule_id": "EXIT-02",
         "source_observation_ids": [
-          "obs_evt_050"
+          "obs_status_sponsor_ae_cannot_improve_2013-07-23"
         ],
         "source_span_ids": [
-          "span_0056"
+          "span_0033"
         ],
         "confidence": "high",
-        "explanation": "Literal status observation recorded bidder withdrawal or non-participation."
+        "explanation": "Status observation explicitly said the bidder could not improve."
       }
     },
     {
-      "row_id": "row_0026",
+      "row_id": "row_0040",
       "origin": "derived",
       "analyst_event_type": "drop",
-      "subject_ref": "bidder_company_h",
+      "subject_ref": "party_bidder_sponsor_e",
+      "row_count": 1,
+      "bidder_name": "Sponsor E",
+      "bidder_type": "F",
+      "bid_type": null,
+      "value": null,
+      "range_low": null,
+      "range_high": null,
+      "enterprise_value": null,
+      "date_precision": "exact_day",
+      "date_recorded": "2013-07-23",
+      "date_public": "2013-07-23",
+      "date_sort_proxy": null,
+      "all_cash": null,
+      "review_flags": [
+        "reason:cannot_improve"
+      ],
+      "basis": {
+        "rule_id": "EXIT-02",
+        "source_observation_ids": [
+          "obs_status_sponsor_ae_cannot_improve_2013-07-23"
+        ],
+        "source_span_ids": [
+          "span_0033"
+        ],
+        "confidence": "high",
+        "explanation": "Status observation explicitly said the bidder could not improve."
+      }
+    },
+    {
+      "row_id": "row_0041",
+      "origin": "derived",
+      "analyst_event_type": "drop",
+      "subject_ref": "party_bidder_company_h",
       "row_count": 1,
       "bidder_name": "Company H",
       "bidder_type": null,
@@ -1132,23 +1520,24 @@
       "basis": {
         "rule_id": "EXIT-04",
         "source_observation_ids": [
-          "obs_evt_038"
+          "obs_solicitation_hudsons_bay_improvement_2013-07-23"
         ],
         "source_span_ids": [
-          "span_0038"
+          "span_0030",
+          "span_0031"
         ],
         "confidence": "high",
         "explanation": "Execution outcome closed out remaining active bidders in favor of the winner."
       }
     },
     {
-      "row_id": "row_0027",
+      "row_id": "row_0042",
       "origin": "derived",
       "analyst_event_type": "drop",
-      "subject_ref": "bidder_sponsor_a",
+      "subject_ref": "party_bidder_saks",
       "row_count": 1,
-      "bidder_name": "Sponsor A",
-      "bidder_type": null,
+      "bidder_name": "Saks",
+      "bidder_type": "public S",
       "bid_type": null,
       "value": null,
       "range_low": null,
@@ -1165,109 +1554,11 @@
       "basis": {
         "rule_id": "EXIT-04",
         "source_observation_ids": [
-          "obs_evt_038"
+          "obs_solicitation_hudsons_bay_improvement_2013-07-23"
         ],
         "source_span_ids": [
-          "span_0038"
-        ],
-        "confidence": "high",
-        "explanation": "Execution outcome closed out remaining active bidders in favor of the winner."
-      }
-    },
-    {
-      "row_id": "row_0028",
-      "origin": "derived",
-      "analyst_event_type": "drop",
-      "subject_ref": "bidder_sponsor_e",
-      "row_count": 1,
-      "bidder_name": "Sponsor E",
-      "bidder_type": null,
-      "bid_type": null,
-      "value": null,
-      "range_low": null,
-      "range_high": null,
-      "enterprise_value": null,
-      "date_precision": "exact_day",
-      "date_recorded": "2013-07-23",
-      "date_public": "2013-07-23",
-      "date_sort_proxy": null,
-      "all_cash": null,
-      "review_flags": [
-        "reason:lost_to_winner"
-      ],
-      "basis": {
-        "rule_id": "EXIT-04",
-        "source_observation_ids": [
-          "obs_evt_038"
-        ],
-        "source_span_ids": [
-          "span_0038"
-        ],
-        "confidence": "high",
-        "explanation": "Execution outcome closed out remaining active bidders in favor of the winner."
-      }
-    },
-    {
-      "row_id": "row_0029",
-      "origin": "derived",
-      "analyst_event_type": "drop",
-      "subject_ref": "other_sponsor_c",
-      "row_count": 1,
-      "bidder_name": "Sponsor C",
-      "bidder_type": null,
-      "bid_type": null,
-      "value": null,
-      "range_low": null,
-      "range_high": null,
-      "enterprise_value": null,
-      "date_precision": "exact_day",
-      "date_recorded": "2013-07-23",
-      "date_public": "2013-07-23",
-      "date_sort_proxy": null,
-      "all_cash": null,
-      "review_flags": [
-        "reason:lost_to_winner"
-      ],
-      "basis": {
-        "rule_id": "EXIT-04",
-        "source_observation_ids": [
-          "obs_evt_038"
-        ],
-        "source_span_ids": [
-          "span_0038"
-        ],
-        "confidence": "high",
-        "explanation": "Execution outcome closed out remaining active bidders in favor of the winner."
-      }
-    },
-    {
-      "row_id": "row_0030",
-      "origin": "derived",
-      "analyst_event_type": "drop",
-      "subject_ref": "other_sponsor_d",
-      "row_count": 1,
-      "bidder_name": "Sponsor D",
-      "bidder_type": null,
-      "bid_type": null,
-      "value": null,
-      "range_low": null,
-      "range_high": null,
-      "enterprise_value": null,
-      "date_precision": "exact_day",
-      "date_recorded": "2013-07-23",
-      "date_public": "2013-07-23",
-      "date_sort_proxy": null,
-      "all_cash": null,
-      "review_flags": [
-        "reason:lost_to_winner"
-      ],
-      "basis": {
-        "rule_id": "EXIT-04",
-        "source_observation_ids": [
-          "obs_evt_038"
-        ],
-        "source_span_ids": [
-          "span_0038"
+          "span_0030",
+          "span_0031"
         ],
         "confidence": "high",
         "explanation": "Execution outcome closed out remaining active bidders in favor of the winner."

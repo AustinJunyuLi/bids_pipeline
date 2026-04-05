@@ -71,7 +71,7 @@
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
       "supporting_span_ids": [
-        "span_0007"
+        "span_0002"
       ],
       "block_ids": [
         "B004"
@@ -89,7 +89,7 @@
       "note": null,
       "supporting_observation_ids": [],
       "supporting_party_ids": [
-        "advisor_wachtell_lipton"
+        "party_advisor_wachtell_lipton"
       ],
       "supporting_cohort_ids": []
     },
@@ -103,7 +103,7 @@
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
       "supporting_span_ids": [
-        "span_0007"
+        "span_0002"
       ],
       "block_ids": [
         "B004"
@@ -124,21 +124,21 @@
       "note": null,
       "supporting_observation_ids": [],
       "supporting_party_ids": [
-        "advisor_wachtell_lipton"
+        "party_advisor_wachtell_lipton"
       ],
       "supporting_cohort_ids": []
     },
     {
       "cue_family": "advisor",
-      "status": "observed",
-      "severity": "info",
-      "repairability": null,
-      "description": "High-confidence advisor cue is covered by canonical v2 artifacts.",
-      "reason_code": "matched_party",
+      "status": "ambiguous",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "High-confidence advisor cue matched multiple canonical v2 candidates.",
+      "reason_code": "multiple_matching_candidates",
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
       "supporting_span_ids": [
-        "span_0010"
+        "span_0003"
       ],
       "block_ids": [
         "B006"
@@ -155,23 +155,25 @@
         "ib_retention"
       ],
       "note": null,
-      "supporting_observation_ids": [],
+      "supporting_observation_ids": [
+        "obs_process_advisor_retention_jpmorgan_2014-07"
+      ],
       "supporting_party_ids": [
-        "advisor_jp_morgan"
+        "party_advisor_jpmorgan"
       ],
       "supporting_cohort_ids": []
     },
     {
       "cue_family": "advisor",
-      "status": "observed",
-      "severity": "info",
-      "repairability": null,
-      "description": "Medium-confidence advisor cue is covered by canonical v2 artifacts.",
-      "reason_code": "matched_party",
+      "status": "ambiguous",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "Medium-confidence advisor cue matched multiple canonical v2 candidates.",
+      "reason_code": "multiple_matching_candidates",
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
       "supporting_span_ids": [
-        "span_0010"
+        "span_0003"
       ],
       "block_ids": [
         "B006"
@@ -189,9 +191,11 @@
         "ib_retention"
       ],
       "note": null,
-      "supporting_observation_ids": [],
+      "supporting_observation_ids": [
+        "obs_process_advisor_retention_jpmorgan_2014-07"
+      ],
       "supporting_party_ids": [
-        "advisor_jp_morgan"
+        "party_advisor_jpmorgan"
       ],
       "supporting_cohort_ids": []
     },
@@ -205,11 +209,7 @@
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
       "supporting_span_ids": [
-        "span_0016",
-        "span_0017",
-        "span_0018",
-        "span_0064",
-        "span_0065"
+        "span_0006"
       ],
       "block_ids": [
         "B009"
@@ -237,7 +237,7 @@
       ],
       "note": null,
       "supporting_observation_ids": [
-        "obs_evt_010"
+        "obs_process_sale_launch_2014-08-13"
       ],
       "supporting_party_ids": [],
       "supporting_cohort_ids": []
@@ -283,7 +283,7 @@
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
       "supporting_span_ids": [
-        "span_0019"
+        "span_0007"
       ],
       "block_ids": [
         "B011"
@@ -306,7 +306,7 @@
       ],
       "note": null,
       "supporting_observation_ids": [
-        "obs_cov_001"
+        "obs_process_press_release_strategic_alternatives_2014-08-19"
       ],
       "supporting_party_ids": [],
       "supporting_cohort_ids": []
@@ -534,7 +534,7 @@
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
       "supporting_span_ids": [
-        "span_0053"
+        "span_0020"
       ],
       "block_ids": [
         "B033"
@@ -551,34 +551,8 @@
       ],
       "note": null,
       "supporting_observation_ids": [
-        "obs_evt_031"
+        "obs_agreement_nda_longview_buyer_group_2014-12-12"
       ],
-      "supporting_party_ids": [],
-      "supporting_cohort_ids": []
-    },
-    {
-      "cue_family": "count_assertion",
-      "status": "not_found",
-      "severity": "warning",
-      "repairability": "repairable",
-      "description": "Filing asserts 'two bidders' but no cohort with exact_count=2 was extracted.",
-      "reason_code": "missing_count_cohort",
-      "supporting_event_ids": [],
-      "supporting_actor_ids": [],
-      "supporting_span_ids": [],
-      "block_ids": [
-        "B021"
-      ],
-      "evidence_ids": [
-        "0001571049-15-000695:E0368"
-      ],
-      "matched_terms": [
-        "two bidders"
-      ],
-      "confidence": "high",
-      "suggested_event_types": [],
-      "note": null,
-      "supporting_observation_ids": [],
       "supporting_party_ids": [],
       "supporting_cohort_ids": []
     }

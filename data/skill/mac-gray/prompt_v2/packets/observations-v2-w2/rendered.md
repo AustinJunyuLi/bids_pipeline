@@ -20,7 +20,163 @@ CRITICAL — OUTCOME ACTOR:
 Outcomes with `outcome_kind` of `executed` or `restarted` MUST include the bidder `party_id` or `cohort_id` in `subject_refs` or `counterparty_refs`.
 If the summary names the buyer or bidder, their `party_id` MUST appear in the structured refs — do not leave it only in the summary text.
 
+Consult the <json_schema_reference> section for exact field names, types, and enum values.
+
 Return valid JSON only.
+
+<json_schema_reference>
+{
+  "top_level_keys": [
+    "quotes",
+    "parties",
+    "cohorts",
+    "observations",
+    "exclusions",
+    "coverage"
+  ],
+  "observation_record": {
+    "discriminator": "obs_type",
+    "obs_type_values": [
+      "process",
+      "agreement",
+      "solicitation",
+      "proposal",
+      "status",
+      "outcome"
+    ],
+    "common_fields": {
+      "observation_id": "string",
+      "obs_type": "string",
+      "date": "ResolvedDate | null",
+      "subject_refs": "array[string]",
+      "counterparty_refs": "array[string]",
+      "summary": "string",
+      "quote_ids": "array[string]"
+    },
+    "variant_fields": {
+      "process": {
+        "process_kind": "enum[\"sale_launch\", \"public_announcement\", \"advisor_retention\", \"press_release\", \"other\"]",
+        "process_scope": "enum[\"target\", \"bidder\", \"activist\", \"other\"]",
+        "other_detail": "string | null"
+      },
+      "agreement": {
+        "agreement_kind": "enum[\"nda\", \"amendment\", \"standstill\", \"exclusivity\", \"merger_agreement\", \"clean_team\", \"other\"]",
+        "signed": "boolean | null",
+        "grants_diligence_access": "boolean | null",
+        "includes_standstill": "boolean | null",
+        "consideration_type": "enum[\"cash\", \"stock\", \"mixed\", \"other\"]",
+        "supersedes_observation_id": "string | null",
+        "other_detail": "string | null"
+      },
+      "solicitation": {
+        "requested_submission": "enum[\"ioi\", \"loi\", \"binding_offer\", \"best_and_final\", \"other\"]",
+        "binding_level": "enum[\"non_binding\", \"binding\", \"mixed\", \"other\"]",
+        "due_date": "ResolvedDate | null",
+        "recipient_refs": "array[string]",
+        "attachments": "array[string]",
+        "other_detail": "string | null"
+      },
+      "proposal": {
+        "requested_by_observation_id": "string | null",
+        "revises_observation_id": "string | null",
+        "delivery_mode": "enum[\"oral\", \"written\", \"email\", \"phone\", \"other\"]",
+        "terms": "MoneyTerms | null",
+        "mentions_non_binding": "boolean | null",
+        "includes_draft_merger_agreement": "boolean | null",
+        "includes_markup": "boolean | null",
+        "other_detail": "string | null"
+      },
+      "status": {
+        "status_kind": "enum[\"expressed_interest\", \"withdrew\", \"not_interested\", \"cannot_improve\", \"cannot_proceed\", \"limited_assets_only\", \"excluded\", \"selected_to_advance\", \"other\"]",
+        "related_observation_id": "string | null",
+        "other_detail": "string | null"
+      },
+      "outcome": {
+        "outcome_kind": "enum[\"executed\", \"terminated\", \"restarted\", \"other\"]",
+        "related_observation_id": "string | null",
+        "other_detail": "string | null"
+      }
+    }
+  },
+  "ResolvedDate": {
+    "fields": {
+      "raw_text": "string | null",
+      "normalized_start": "YYYY-MM-DD | null",
+      "normalized_end": "YYYY-MM-DD | null",
+      "sort_date": "YYYY-MM-DD | null",
+      "precision": "DatePrecision",
+      "anchor_event_id": "string | null",
+      "anchor_span_id": "string | null",
+      "resolution_note": "string | null",
+      "is_inferred": "boolean"
+    },
+    "precision_enum": [
+      "exact_day",
+      "month",
+      "month_early",
+      "month_mid",
+      "month_late",
+      "quarter",
+      "year",
+      "range",
+      "relative",
+      "unknown"
+    ]
+  },
+  "MoneyTerms": {
+    "fields": {
+      "per_share": "number | null",
+      "range_low": "number | null",
+      "range_high": "number | null",
+      "enterprise_value": "number | null",
+      "consideration_type": "enum[\"cash\", \"stock\", \"mixed\", \"other\"]"
+    }
+  },
+  "PartyRecord": {
+    "fields": {
+      "party_id": "string",
+      "display_name": "string",
+      "canonical_name": "string | null",
+      "aliases": "array[string]",
+      "role": "enum[\"bidder\", \"advisor\", \"activist\", \"target_board\", \"other\"]",
+      "bidder_kind": "enum[\"strategic\", \"financial\", \"unknown\"]",
+      "advisor_kind": "enum[\"financial\", \"legal\", \"other\"]",
+      "advised_party_id": "string | null",
+      "listing_status": "enum[\"public\", \"private\"]",
+      "geography": "enum[\"domestic\", \"non_us\"]",
+      "quote_ids": "array[string]"
+    }
+  },
+  "CohortRecord": {
+    "fields": {
+      "cohort_id": "string",
+      "label": "string",
+      "parent_cohort_id": "string | null",
+      "exact_count": "integer",
+      "known_member_party_ids": "array[string]",
+      "unknown_member_count": "integer",
+      "membership_basis": "string",
+      "created_by_observation_id": "string",
+      "quote_ids": "array[string]"
+    }
+  },
+  "SkillExclusionRecord": {
+    "fields": {
+      "category": "enum[\"partial_company_bid\", \"unsigned_nda\", \"stale_process_reference\", \"duplicate_mention\", \"non_event_context\", \"other\"]",
+      "block_ids": "array[string]",
+      "explanation": "string"
+    },
+    "category_enum": [
+      "partial_company_bid",
+      "unsigned_nda",
+      "stale_process_reference",
+      "duplicate_mention",
+      "non_event_context",
+      "other"
+    ]
+  }
+}
+</json_schema_reference>
 
 Schema reminders:
 

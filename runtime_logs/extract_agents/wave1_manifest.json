@@ -1,0 +1,30 @@
+{
+  "wave": [
+    "imprivata",
+    "mac-gray",
+    "medivation"
+  ],
+  "jobs": [
+    {
+      "slug": "imprivata",
+      "pid": 308671,
+      "prompt_path": "/home/austinli/Projects/bids_pipeline/runtime_logs/extract_agents/prompts/imprivata.txt",
+      "output_path": "/home/austinli/Projects/bids_pipeline/runtime_logs/extract_agents/outputs/imprivata.json",
+      "log_path": "/home/austinli/Projects/bids_pipeline/runtime_logs/extract_agents/logs/imprivata.log"
+    },
+    {
+      "slug": "mac-gray",
+      "pid": 308672,
+      "prompt_path": "/home/austinli/Projects/bids_pipeline/runtime_logs/extract_agents/prompts/mac-gray.txt",
+      "output_path": "/home/austinli/Projects/bids_pipeline/runtime_logs/extract_agents/outputs/mac-gray.json",
+      "log_path": "/home/austinli/Projects/bids_pipeline/runtime_logs/extract_agents/logs/mac-gray.log"
+    },
+    {
+      "slug": "medivation",
+      "pid": 308673,
+      "prompt_path": "/home/austinli/Projects/bids_pipeline/runtime_logs/extract_agents/prompts/medivation.txt",
+      "output_path": "/home/austinli/Projects/bids_pipeline/runtime_logs/extract_agents/outputs/medivation.json",
+      "log_path": "/home/austinli/Projects/bids_pipeline/runtime_logs/extract_agents/logs/medivation.log"
+    }
+  ]
+}

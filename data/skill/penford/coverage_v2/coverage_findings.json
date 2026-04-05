@@ -30,14 +30,16 @@
     },
     {
       "cue_family": "advisor",
-      "status": "not_found",
+      "status": "ambiguous",
       "severity": "warning",
       "repairability": "repairable",
-      "description": "High-confidence advisor cue was not covered by canonical v2 artifacts.",
-      "reason_code": "uncovered_advisor_cue",
+      "description": "High-confidence advisor cue matched multiple canonical v2 candidates.",
+      "reason_code": "multiple_matching_candidates",
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
-      "supporting_span_ids": [],
+      "supporting_span_ids": [
+        "span_0004"
+      ],
       "block_ids": [
         "B019"
       ],
@@ -56,20 +58,27 @@
         "ib_retention"
       ],
       "note": null,
-      "supporting_observation_ids": [],
-      "supporting_party_ids": [],
+      "supporting_observation_ids": [
+        "obs_process_advisor_retention_deutsche_20140724"
+      ],
+      "supporting_party_ids": [
+        "party_advisor_deutsche_bank",
+        "party_advisor_perkins_coie"
+      ],
       "supporting_cohort_ids": []
     },
     {
       "cue_family": "advisor",
-      "status": "not_found",
+      "status": "ambiguous",
       "severity": "warning",
       "repairability": "repairable",
-      "description": "High-confidence advisor cue was not covered by canonical v2 artifacts.",
-      "reason_code": "uncovered_advisor_cue",
+      "description": "High-confidence advisor cue matched multiple canonical v2 candidates.",
+      "reason_code": "multiple_matching_candidates",
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
-      "supporting_span_ids": [],
+      "supporting_span_ids": [
+        "span_0004"
+      ],
       "block_ids": [
         "B019"
       ],
@@ -88,8 +97,13 @@
         "ib_retention"
       ],
       "note": null,
-      "supporting_observation_ids": [],
-      "supporting_party_ids": [],
+      "supporting_observation_ids": [
+        "obs_process_advisor_retention_deutsche_20140724"
+      ],
+      "supporting_party_ids": [
+        "party_advisor_deutsche_bank",
+        "party_advisor_perkins_coie"
+      ],
       "supporting_cohort_ids": []
     },
     {
@@ -214,14 +228,16 @@
     },
     {
       "cue_family": "advisor",
-      "status": "not_found",
-      "severity": "warning",
-      "repairability": "repairable",
-      "description": "Medium-confidence advisor cue was not covered by canonical v2 artifacts.",
-      "reason_code": "uncovered_advisor_cue",
+      "status": "observed",
+      "severity": "info",
+      "repairability": null,
+      "description": "Medium-confidence advisor cue is covered by canonical v2 artifacts.",
+      "reason_code": "matched_party",
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
-      "supporting_span_ids": [],
+      "supporting_span_ids": [
+        "span_0010"
+      ],
       "block_ids": [
         "B037"
       ],
@@ -237,19 +253,23 @@
       ],
       "note": null,
       "supporting_observation_ids": [],
-      "supporting_party_ids": [],
+      "supporting_party_ids": [
+        "party_advisor_jpm"
+      ],
       "supporting_cohort_ids": []
     },
     {
       "cue_family": "advisor",
-      "status": "not_found",
-      "severity": "warning",
-      "repairability": "repairable",
-      "description": "Medium-confidence advisor cue was not covered by canonical v2 artifacts.",
-      "reason_code": "uncovered_advisor_cue",
+      "status": "observed",
+      "severity": "info",
+      "repairability": null,
+      "description": "Medium-confidence advisor cue is covered by canonical v2 artifacts.",
+      "reason_code": "matched_party",
       "supporting_event_ids": [],
       "supporting_actor_ids": [],
-      "supporting_span_ids": [],
+      "supporting_span_ids": [
+        "span_0010"
+      ],
       "block_ids": [
         "B037"
       ],
@@ -266,7 +286,9 @@
       ],
       "note": null,
       "supporting_observation_ids": [],
-      "supporting_party_ids": [],
+      "supporting_party_ids": [
+        "party_advisor_jpm"
+      ],
       "supporting_cohort_ids": []
     },
     {
@@ -605,6 +627,32 @@
       "suggested_event_types": [
         "ib_retention"
       ],
+      "note": null,
+      "supporting_observation_ids": [],
+      "supporting_party_ids": [],
+      "supporting_cohort_ids": []
+    },
+    {
+      "cue_family": "count_assertion",
+      "status": "not_found",
+      "severity": "warning",
+      "repairability": "repairable",
+      "description": "Filing asserts 'two parties' but no cohort with exact_count=2 was extracted.",
+      "reason_code": "missing_count_cohort",
+      "supporting_event_ids": [],
+      "supporting_actor_ids": [],
+      "supporting_span_ids": [],
+      "block_ids": [
+        "B005"
+      ],
+      "evidence_ids": [
+        "0001193125-14-455030:E0304"
+      ],
+      "matched_terms": [
+        "two parties"
+      ],
+      "confidence": "medium",
+      "suggested_event_types": [],
       "note": null,
       "supporting_observation_ids": [],
       "supporting_party_ids": [],
